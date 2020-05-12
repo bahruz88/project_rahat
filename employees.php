@@ -343,10 +343,10 @@
 				<tr>
                     <th style="width:15px;">id</th>
                     <th><?php echo $dil["fio"];?></th>
-					<th><?php echo $dil["language"];?></th>
-					<th><?php echo $dil["reading"];?></th>
-					<th><?php echo $dil["speaking"];?></th>
-					<th><?php echo $dil["writing"];?></th>
+					<th><?php echo $dil["family_member_name"];?></th>
+					<th><?php echo $dil["family_member_type"];?></th>
+					<th><?php echo $dil["family_member_phone"];?></th>
+					<th><?php echo $dil["family_member_adress"];?></th>
 					<th><?php echo $dil["operation"];?></th>
 				</tr>
             </thead>  
