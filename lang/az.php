@@ -112,6 +112,10 @@ $dil = array(
 	"skill_edit_title"   =>"Bacarıq məlumatlarının redaktəsi",
 	"lang_view_title"   =>"Dil biliklərinə baxış",
 	"lang_edit_title"   =>"Dil biliklərinin redaktəsi",
+	"family_member_name"   =>"Ailə  üzvünün  adı",
+	"family_member_type"   =>"Ailə  üzvünün  tipi",
+	"family_member_phone"   =>"Telefon  nömrəsi",
+	"family_member_adress"   =>"Adresi",
 	"operation"   =>"Əməliyyat"
 );
 ?>
