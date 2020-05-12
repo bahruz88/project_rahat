@@ -125,7 +125,7 @@ $('#nav-tabs').on('shown.bs.tab', 'a', function (e) {
 	
 /* EMPLOYEE  TABLE LOAD  */
 var table = $("#employee_table").DataTable({
-	
+	"scrollX": true,
   "paging": true,
       "lengthChange": false,
       "searching": true,
@@ -406,7 +406,7 @@ var  tabtext =$('#qual').text();
 	$('#qual').text( tabtext+' / '+$('#eduinfotab').text());	
 $('#eduinfo_table').DataTable().clear().destroy();
  eduinfo_table = $("#eduinfo_table").DataTable({
-	
+	"scrollX": true,
 	"paging": true,
       "lengthChange": false,
       "searching": true,
@@ -713,7 +713,7 @@ var cert_table ;
 	$('#qual').text( tabtext+' / '+$('#certtab').text());		
 $('#cert_table').DataTable().clear().destroy();
  cert_table = $("#cert_table").DataTable({
-	
+	"scrollX": true,
 	"paging": true,
       "lengthChange": false,
       "searching": true,
@@ -1007,7 +1007,7 @@ var skills_table ;
 	$('#qual').text( tabtext+' / '+$('#skillstab').text());
 $('#skills_table').DataTable().clear().destroy();
  skills_table = $("#skills_table").DataTable({
-	
+	"scrollX": true,
 	"paging": true,
       "lengthChange": false,
       "searching": true,
@@ -1267,7 +1267,7 @@ var lang_knowledge_table ;
 	$('#qual').text( tabtext+' / '+$('#langtab').text());
 	$('#lang_knowledge_table').DataTable().clear().destroy();
 	lang_knowledge_table = $("#lang_knowledge_table").DataTable({
-	
+	"scrollX": true,
 	"paging": true,
       "lengthChange": false,
       "searching": true,
@@ -1526,7 +1526,7 @@ var aileinfo_table ;
 	console.log('Tab clikc');	
 	$('#aileinfo_table').DataTable().clear().destroy();
 	aileinfo_table = $("#aileinfo_table").DataTable({
-	
+	"scrollX": true,
 	  "paging": true,
       "lengthChange": false,
       "searching": true,
