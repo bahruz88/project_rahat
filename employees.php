@@ -218,7 +218,7 @@
   include  ('certification/certificationModal.php');
   include  ('skills/skillsModal.php');
   include  ('emp_lang/langModal.php');
-  include('military_info/militaryInfoModal.php');
+  include  ('military_info/militaryInfoModal.php');
   include  ('family_info/familyInfoModal.php');
   ?>
   
