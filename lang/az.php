@@ -118,6 +118,20 @@ $dil = array(
 	"family_member_phone"   =>"Telefon  nömrəsi",
 	"family_member_adress"   =>"Adresi",
 	"contact_number"   =>"Əlaqə nömrəsi",
+    "military_information"   =>"Hərbi uçot haqqında məlumatlar",
+    "military_registration_group"   =>"Qeydiyyat qrupu",
+    "military_registration_category"   =>"Qeydiyyat kateqoriyası",
+    "military_staff"   =>"Heyət",
+    "military_rank"   =>"Hərbi rütbə",
+    "military_specialty_accounting"   =>"Hərbi uçot ixtisası",
+    "military_fitness_service"   =>"Hərbi xidmətə yararlılıq",
+    "military_registration_service"   =>"Hərbi qeydiyyat üzrə xidmətin yeri",
+    "military_registration_date"   =>"Hərbi qeydiyyata alındığı tarix",
+    "military_general"   =>"Ümumi (komanda №-si)",
+    "military_special"   =>"Xüsusi",
+    "military_no_official"   =>"Hərbi vəzifəli olmaması barədə qeyd",
+    "military_additional_information"   =>"Əlavə məlumatlar",
+    "military_date_completion"   =>"Doldurulma tarixi",
 	"operation"   =>"Əməliyyat"
 );
 ?>

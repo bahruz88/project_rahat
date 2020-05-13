@@ -367,10 +367,22 @@
         <tr>
             <th style="width:15px;">id</th>
             <th><?php echo $dil["fio"];?></th>
-            <th><?php echo $dil["family_member_name"];?></th>
-            <th><?php echo $dil["family_member_type"];?></th>
-            <th><?php echo $dil["family_member_phone"];?></th>
-            <th><?php echo $dil["family_member_adress"];?></th>
+            <th><?php echo $dil["military_information"];?></th>
+            <th><?php echo $dil["military_registration_group"];?></th>
+            <th><?php echo $dil["military_registration_category"];?></th>
+            <th><?php echo $dil["military_staff"];?></th>
+            <th><?php echo $dil["military_rank"];?></th>
+            <th><?php echo $dil["military_specialty_accounting"];?></th>
+            <th><?php echo $dil["military_fitness_service"];?></th>
+            <th><?php echo $dil["military_registration_service"];?></th>
+            <th><?php echo $dil["military_registration_date"];?></th>
+            <th><?php echo $dil["military_general"];?></th>
+            <th><?php echo $dil["military_special"];?></th>
+            <th><?php echo $dil["military_no_official"];?></th>
+            <th><?php echo $dil["military_additional_information"];?></th>
+            <th><?php echo $dil["military_no_official"];?></th>
+            <th><?php echo $dil["military_additional_information"];?></th>
+            <th><?php echo $dil["military_date_completion"];?></th>
             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>
