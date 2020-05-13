@@ -218,6 +218,7 @@
   include  ('certification/certificationModal.php');
   include  ('skills/skillsModal.php');
   include  ('emp_lang/langModal.php');
+  include('military_info/militaryInfoModal.php');
   include  ('family_info/familyInfoModal.php');
   ?>
   
@@ -359,8 +360,23 @@
   
  </div>
  
-<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>
-  
+<!--<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>-->
+<div class="tab-pane" id="herbi">
+    <table id="militaryInfo_table" class="table table-striped  table-bordered table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">id</th>
+            <th><?php echo $dil["fio"];?></th>
+            <th><?php echo $dil["family_member_name"];?></th>
+            <th><?php echo $dil["family_member_type"];?></th>
+            <th><?php echo $dil["family_member_phone"];?></th>
+            <th><?php echo $dil["family_member_adress"];?></th>
+            <th><?php echo $dil["operation"];?></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
   <div class="tab-pane" id="bootstab">Bootstrap Content here
   <ul>
   <li>Bootstrap forms</li>
