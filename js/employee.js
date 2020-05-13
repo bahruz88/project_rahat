@@ -1287,7 +1287,7 @@ var lang_knowledge_table ;
     }
         },
 	    "ajax": {
-                url: "emp_lang/get_lang.php",
+                url: "emp_lang/get_militaryInfo.php",
                 type: "POST"
             },"columnDefs": [ {
 			"width": "8%",
@@ -1344,7 +1344,7 @@ var lang_knowledge_table ;
 		
                     e.preventDefault();
                     $.ajax( {
-                        url: "emp_lang/langDelete.php",
+                        url: "emp_lang/militaryInfoDelete.php",
                         method: "post",
                         data: $("#langDelete").serialize(),
                         dataType: "text",
@@ -1378,7 +1378,7 @@ var lang_knowledge_table ;
 				/*	if($("#langInsertForm").valid())
 			{ */
                     $.ajax( {
-                        url: "emp_lang/langInsert.php",
+                        url: "emp_lang/militaryInfoInsert.php",
                         method: "post",
                         data: $("#langInsertForm").serialize(),
                         dataType: "text",
@@ -1632,14 +1632,138 @@ var faminfo_table ;
                 });
 
 	  /*Family info table delete click*/
-	$('#faminfo_table').on( 'click', '#faminfo_delete', function () 
+	$('#faminfo_table').on( 'click', '#faminfo_delete', function ()
 	{
         var data = faminfo_table.row( $(this).parents('tr') ).data();
 		document.getElementById("faminfoid").value = data[0];
 		$('#modalFamInfoDelete').modal('show');
     } );
-	
-	
+
+
+/*
+**********************************************************************************************************************
+************************************** Herbi INFO BILIKLERI ************************************************************
+**********************************************************************************************************************
+*/
+
+var militaryInfo_table ;
+    $('#militaryInfotab').click(function() {
+	console.log('Tab clikc');
+	$('#militaryInfo_table').DataTable().clear().destroy();
+		militaryInfo_table = $("#militaryInfo_table").DataTable({
+	"scrollX": true,
+	  "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+	    "language": {
+            "lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
+            "zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
+            "info": "Showing page _PAGE_ of _PAGES_",
+            "infoEmpty": " Heç bir məlumat  tapılmadı",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+			"paginate": {
+			"previous": "<?php echo $dil['previous'] ; ?> " ,
+			"next": "<?php echo $dil['next'] ; ?>"
+    }
+        },
+	    "ajax": {
+                url: "military_info/get_militaryInfo.php",
+                type: "POST"
+            },"columnDefs": [ {
+			"width": "8%",
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<img  id='militaryInfo_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
+			"<img  id='militaryInfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
+			"<img  id='militaryInfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+        } ],
+	   dom: 'lBfrtip',
+
+    buttons: [
+					{
+
+                   text: 'Add New <i class="fa fa-plus"></i>',
+                action: function ( e, dt, node, config ) {
+                    $("#militaryInfoInsertModal").modal();
+                }
+                    },
+	{
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+					 {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }  ,'copy','print',
+                    'colvis',
+
+                ],
+
+			 "lengthMenu": [
+                [20, 30, 60, -1],
+                [10, 20, 50, "All"]
+            ]
+
+        });
+
+
+    });
+
+	/*Herbi MELUMATALRİ SİLİNİR */
+	$("#militaryInfoDelete").submit(function(e) {
+
+                    e.preventDefault();
+                    $.ajax( {
+                        url: "military_info/militaryInfoDelete.php",
+                        method: "post",
+                        data: $("#militaryInfoDelete").serialize(),
+                        dataType: "text",
+                        success: function(strMessage)
+						{
+							console.log(strMessage);
+							 if (strMessage.substr(1, 4)==='error')
+							 {
+								console.log(strMessage);
+							 }
+							 else if (strMessage==='success')
+							 {
+								$('#modalMilitaryInfoDelete').modal('hide');
+								$('#modalDeleteSuccess').modal('show');
+								 militaryInfo_table.ajax.reload();
+							 }
+							 else  {
+								 console.log(strMessage);
+								$("#badge_danger").text(strMessage);
+							 }
+						}
+                    });
+					militaryInfo_table.ajax.reload();
+
+
+                });
+
+	  /*military Info  table delete click*/
+	$('#militaryInfo_table').on( 'click', '#militaryInfo_delete', function ()
+	{
+        var data = faminfo_table.row( $(this).parents('tr') ).data();
+		document.getElementById("militaryinfoid").value = data[0];
+		$('#modalMilitaryInfoDelete').modal('show');
+    } );
+
+
 $('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
 $('#birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
