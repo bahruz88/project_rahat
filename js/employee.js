@@ -1339,7 +1339,7 @@ var lang_knowledge_table ;
 
     });	
 
-	 /*BACARIQ MELUMATALRİ SİLİNİR */				
+	 /*DIL MELUMATALRİ SİLİNİR */				
 	$("#langDelete").submit(function(e) {
 		
                     e.preventDefault();
@@ -1498,6 +1498,7 @@ $("#langUpdate").submit(function(e)
 		document.getElementById("langid").value = data[0];
 		$('#modalLangDelete').modal('show');
     } );
+	
 	/*lang table view click  */
 	$('#lang_knowledge_table').on( 'click', '#lang_view', function () 
 	{ 
@@ -1521,11 +1522,11 @@ $("#langUpdate").submit(function(e)
 **********************************************************************************************************************
 */	 
 
-var aileinfo_table ;
+var faminfo_table ;
     $('#aileinfotab').click(function() {	
 	console.log('Tab clikc');	
-	$('#aileinfo_table').DataTable().clear().destroy();
-	aileinfo_table = $("#aileinfo_table").DataTable({
+	$('#faminfo_table').DataTable().clear().destroy();
+	faminfo_table = $("#faminfo_table").DataTable({
 	"scrollX": true,
 	  "paging": true,
       "lengthChange": false,
@@ -1551,9 +1552,9 @@ var aileinfo_table ;
 			"width": "8%",
             "targets": -1,
             "data": null,
-            "defaultContent": " <img  id='lang_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+  
-			"<img  id='lang_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
-			"<img id='lang_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+            "defaultContent": "<img  id='faminfo_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+  
+			"<img  id='faminfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
+			"<img  id='faminfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
         } ],
 	   dom: 'lBfrtip',
         
@@ -1562,7 +1563,7 @@ var aileinfo_table ;
 						
                    text: 'Add New <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
-                    $("#langInsertModal").modal();
+                    $("#famInfoInsertModal").modal();
                 }
                     },
 	{
@@ -1596,9 +1597,50 @@ var aileinfo_table ;
 	  
 
     });	
+	
+	/*AILE MELUMATALRİ SİLİNİR */				
+	$("#famInfoDelete").submit(function(e) {
+		
+                    e.preventDefault();
+                    $.ajax( {
+                        url: "family_info/familyInfoDelete.php",
+                        method: "post",
+                        data: $("#famInfoDelete").serialize(),
+                        dataType: "text",
+                        success: function(strMessage) 
+						{
+							console.log(strMessage);
+							 if (strMessage.substr(1, 4)==='error')
+							 {
+								console.log(strMessage);
+							 }
+							 else if (strMessage==='success')
+							 {
+								$('#modalFamInfoDelete').modal('hide');
+								$('#modalDeleteSuccess').modal('show');
+								 faminfo_table.ajax.reload();
+							 }
+							 else  {
+								 console.log(strMessage);
+								$("#badge_danger").text(strMessage);
+							 }
+						}
+                    });
+					 faminfo_table.ajax.reload();	
 
+
+                });
+
+	  /*Family info table delete click*/
+	$('#faminfo_table').on( 'click', '#faminfo_delete', function () 
+	{
+        var data = faminfo_table.row( $(this).parents('tr') ).data();
+		document.getElementById("faminfoid").value = data[0];
+		$('#modalFamInfoDelete').modal('show');
+    } );
 	
 	
+$('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
 $('#birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_uni_end_date').datetimepicker({ format: 'DD/MM/YYYY'  });
