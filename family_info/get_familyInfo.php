@@ -5,7 +5,7 @@ $sql_finfo = " SELECT efi.id, te.firstname,te.lastname,te.surname , efi.m_firstn
 FROM $tbl_employee_family_info efi  
 INNER join $tbl_employees  te on efi.emp_id=te.id
 INNER join $tbl_sex ts  on ts.id=efi.gender 
-INNER join $tbl_family_member_types fmt  on efi.member_type=fmt.id and  fmt.lang='az' where  efi.status=1";
+INNER join $tbl_family_member_types fmt  on efi.member_type=fmt.type_id and  fmt.lang='az' where  efi.status=1";
 
 					
 					$result_finfo  = $db->query($sql_finfo );
