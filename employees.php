@@ -1,6 +1,7 @@
 <?php    
  include('session.php');  
  $site_lang=$_SESSION['dil'] ;
+ $sql_fam_member_type= "select * from $tbl_family_member_types  where lang='$site_lang' ";
  $sql_lang_level= "select * from $tbl_lang_level  where lang_short_name='$site_lang' ";
  $result_qua_dic_view = $db->query($sql_qua_dic);
  $result_qua_dic_s_view = $db->query($sql_qua_dic);	 
@@ -16,6 +17,8 @@
  $result_lang_level_s_edit = $db->query($sql_lang_level);
  $result_lang_level_u_view = $db->query($sql_lang_level);
  $result_lang_level_u_edit = $db->query($sql_lang_level);
+ $result_fam_member_type_view = $db->query($sql_fam_member_type);
+ 
 ?>
 <!DOCTYPE html>
 <html>
@@ -215,6 +218,7 @@
   include  ('certification/certificationModal.php');
   include  ('skills/skillsModal.php');
   include  ('emp_lang/langModal.php');
+  include  ('family_info/familyInfoModal.php');
   ?>
   
   
@@ -231,7 +235,8 @@
 
     </div>
   </li>
-  <li Class="nav-item"><a href="#aileinfo" id="aileinfotab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >Ailə məlumatları </a></li>
+  <li Class="nav-item"><a href="#aileinfo" id="aileinfotab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >
+  <?php echo $dil["family_information"];?> </a></li>
 
   <li Class="nav-item"><a href="#herbi" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
     <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>
@@ -338,7 +343,7 @@
   
   </div>
   <div class="tab-pane" id="aileinfo">
-	<table id="aileinfo_table" class="table table-striped  table-bordered table-hover">
+	<table id="faminfo_table" class="table table-striped  table-bordered table-hover">
             <thead>
 				<tr>
                     <th style="width:15px;">id</th>
