@@ -1598,6 +1598,49 @@ var faminfo_table ;
 
     });	
 	
+		$("#familyInsertForm").submit(function(e)
+		{
+                    e.preventDefault();
+				/*	if($("#langInsertForm").valid())
+			{ */
+                    $.ajax( {
+                        url: "family_info/familyInfoInsert.php",
+                        method: "post",
+                        data: $("#familyInsertForm").serialize(),
+                        dataType: "text",
+                        success: function(strMessage)
+						{
+							console.log(strMessage);
+								$("#badge_success").text('');
+								$("#badge_danger").text('');
+								 if (strMessage.substr(1, 4)==='error')
+								 {
+									  
+									 $("#errorp").text(strMessage);
+									 $("#modalInsertError").modal('show');
+									 $("#famInfoInsertModal").modal('hide');
+								 }
+								 else if (strMessage==='success')
+								 {
+									 $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+									 $("#modalInsertSuccess").modal('show');
+									 $("#famInfoInsertModal").modal('hide');
+							
+								 }
+								 else  {
+									  $("#errorp").text(strMessage);
+									 $("#modalInsertError").modal('show');
+									 $("#famInfoInsertModal").modal('hide');
+									 
+								 }
+						}
+                    });
+				    faminfo_table.ajax.reload();
+					$( "#familyInsertForm" ).get(0).reset();
+			/*}*/
+        });
+		
+		
 	/*AILE MELUMATALRİ SİLİNİR */				
 	$("#famInfoDelete").submit(function(e) {
 		
