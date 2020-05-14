@@ -372,7 +372,6 @@
         <tr>
             <th style="width:15px;">id</th>
             <th><?php echo $dil["fio"];?></th>
-            <th><?php echo $dil["military_information"];?></th>
             <th><?php echo $dil["military_registration_group"];?></th>
             <th><?php echo $dil["military_registration_category"];?></th>
             <th><?php echo $dil["military_staff"];?></th>
@@ -383,8 +382,6 @@
             <th><?php echo $dil["military_registration_date"];?></th>
             <th><?php echo $dil["military_general"];?></th>
             <th><?php echo $dil["military_special"];?></th>
-            <th><?php echo $dil["military_no_official"];?></th>
-            <th><?php echo $dil["military_additional_information"];?></th>
             <th><?php echo $dil["military_no_official"];?></th>
             <th><?php echo $dil["military_additional_information"];?></th>
             <th><?php echo $dil["military_date_completion"];?></th>
