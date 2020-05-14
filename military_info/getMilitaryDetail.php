@@ -1,6 +1,6 @@
 <?php
- include('../session.php');  
- $langid = $_POST['langid'];
+ include('../session.php');
+$militaryid = $_POST['militaryid'];
  $sql_lang = "
   SELECT tlk.*,tllr.level_id rid, tllr.level_name reading,tlls.level_id sid ,tlls.level_name speaking,tllw.level_id wid,tllw.level_name writting 
   ,tllu.level_id  uid,tllu.level_name understanding  

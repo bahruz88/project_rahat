@@ -2,6 +2,9 @@
  include('session.php');  
  $site_lang=$_SESSION['dil'] ;
  $sql_fam_member_type= "select * from $tbl_family_member_types  where lang='$site_lang' ";
+ $sql_military_rank= "select * from $tbl_military_rank  where lang='$site_lang' ";
+ $sql_military_staff= "select * from $tbl_military_staff  where lang='$site_lang' ";
+
  $sql_lang_level= "select * from $tbl_lang_level  where lang_short_name='$site_lang' ";
  $result_qua_dic_view = $db->query($sql_qua_dic);
  $result_qua_dic_s_view = $db->query($sql_qua_dic);	 
@@ -18,7 +21,9 @@
  $result_lang_level_u_view = $db->query($sql_lang_level);
  $result_lang_level_u_edit = $db->query($sql_lang_level);
  $result_fam_member_type_view = $db->query($sql_fam_member_type);
- 
+ $result_military_rank_view = $db->query($sql_military_rank);
+ $result_military_staff_view = $db->query($sql_military_staff);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -239,7 +244,7 @@
   <li Class="nav-item"><a href="#aileinfo" id="aileinfotab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >
   <?php echo $dil["family_information"];?> </a></li>
 
-  <li Class="nav-item"><a href="#militaryInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
+  <li Class="nav-item"><a href="#herbi" id="militaryInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
     <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>
     <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Struktur </a></li>
     <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Iş yeri barədə </a></li>
@@ -362,7 +367,7 @@
  
 <!--<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>-->
 <div class="tab-pane" id="militaryInfotab">
-    <table id="militaryInfo_table" class="table table-striped  table-bordered table-hover">
+    <table id="military_info_table" class="table table-striped  table-bordered table-hover">
         <thead>
         <tr>
             <th style="width:15px;">id</th>

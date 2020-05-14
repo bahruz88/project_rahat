@@ -1287,7 +1287,7 @@ var lang_knowledge_table ;
     }
         },
 	    "ajax": {
-                url: "emp_lang/get_militaryInfo.php",
+                url: "emp_lang/get_lang.php",
                 type: "POST"
             },"columnDefs": [ {
 			"width": "8%",
@@ -1344,7 +1344,7 @@ var lang_knowledge_table ;
 		
                     e.preventDefault();
                     $.ajax( {
-                        url: "emp_lang/militaryInfoDelete.php",
+                        url: "emp_lang/langDelete.php",
                         method: "post",
                         data: $("#langDelete").serialize(),
                         dataType: "text",
@@ -1418,7 +1418,7 @@ var lang_knowledge_table ;
 /*GetLangDetails  */
  function GetLangDetails(langid,optype) 
 	 {
-			$.post("emp_lang/getLangDetail.php", 
+			$.post("emp_lang/getLangDetail.php",
 				{
 					langid: langid
 				},
@@ -1762,6 +1762,149 @@ var militaryInfo_table ;
 		document.getElementById("militaryinfoid").value = data[0];
 		$('#modalMilitaryInfoDelete').modal('show');
     } );
+
+	$("#militaryInsertForm").submit(function(e)
+	{
+		e.preventDefault();
+		/*	if($("#langInsertForm").valid())
+    { */
+		$.ajax( {
+			url: "military_info/militaryInfoInsert.php",
+			method: "post",
+			data: $("#militaryInfoInsertForm").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				console.log(strMessage);
+				$("#badge_success").text('');
+				$("#badge_danger").text('');
+				if (strMessage.substr(1, 4)==='error')
+				{
+
+					$("#errorp").text(strMessage);
+					$("#modalInsertError").modal('show');
+					$("#langInsertModal").modal('hide');
+				}
+				else if (strMessage==='success')
+				{
+					$("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+					$("#modalInsertSuccess").modal('show');
+					$("#langInsertModal").modal('hide');
+
+				}
+				else  {
+					$("#errorp").text(strMessage);
+					$("#modalInsertError").modal('show');
+					$("#langInsertModal").modal('hide');
+
+				}
+			}
+		});
+		militaryInfo_table.ajax.reload();
+		$( "#langInsertForm" ).get(0).reset();
+		/*}*/
+	});
+
+
+	/*GetLangDetails  */
+	function GetMilitaryDetails(militaryid,optype)
+	{
+		$.post("militay_info/getMilitaryDetail.php",
+			{
+				militaryid: militaryid
+			},
+			function (military_data, status)
+			{
+				// PARSE json data
+				var militarydata = JSON.parse(military_data);
+
+				if  (optype=='update') {
+					console.log('update tikla');
+
+					$("#update_militaryempid").val(militarydata.empid).change();
+					$("#update_reading").val(militarydata.rid).change();
+					$("#update_writing").val(militarydata.wid).change();
+					$("#update_speaking").val(militarydata.sid).change();
+					$("#update_understanding").val(militarydata.uid).change();
+					$("#update_language").val(militarydata.langid).change();
+					$('#modalEditLang').modal('show');
+				}
+				else {
+					$("#view_langemp_id").val(militarydata.full_name);
+					$("#view_lang_name_id").val(militarydata.lang_name);
+					$("#view_reading_id").val(militarydata.reading);
+					$("#view_writing_id").val(militarydata.writting);
+					$("#view_speaking_id").val(militarydata.speaking);
+					$("#view_understanding_id").val(militarydata.understanding);
+					$('#modalViewLang').modal('show');
+				}
+			}
+		);
+
+	}
+
+	/*Military Update */
+	$("#militaryInfoUpdate").submit(function(e)
+	{
+		e.preventDefault();
+		/*if($("#educationUpdate").valid())
+		{ */
+
+		$.ajax( {
+			url: "military_info/militaryInfoUpdate.php",
+			method: "post",
+			data: $("#militaryInfoUpdate").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				console.log(strMessage);
+				$("#badge_danger_update").text("");
+				if (strMessage.substr(1, 4)==='error')
+				{
+					console.log(strMessage);
+				}
+				else if (strMessage==='success')
+				{
+					$('#modalEditMilitaryInfo').modal('hide');
+					$('#modalUpdateSuccess').modal('show');
+					military_info_table.ajax.reload();
+				}
+
+				else  {
+					$("#badge_danger_update").text(strMessage);
+				}
+			}
+		});
+		military_info_table.ajax.reload();
+		/*}
+		else {
+				 alert('not valid') ;
+			 }*/
+	});
+
+	/*military table delete click*/
+	$('#military_info_table').on( 'click', '#military_info_delete', function ()
+	{
+		var data = military_info_table.row( $(this).parents('tr') ).data();
+		document.getElementById("militaryinfoid").value = data[0];
+		$('#modalMilitaryInfoDelete').modal('show');
+	} );
+
+	/*military table view click  */
+	$('#military_info_table').on( 'click', '#militaryInfo_view', function ()
+	{
+		var data = military_info_table.row( $(this).parents('tr') ).data();
+		GetMilitaryDetails(data[0],'view');
+		console.log(data[0]);
+	} );
+	/*military table view click  */
+	$('#military_info_table').on( 'click', '#militaryInfo_edit', function ()
+	{
+		var data = military_info_table.row( $(this).parents('tr') ).data();
+		GetLangDetails(data[0],'update');
+		document.getElementById("update_militaryid").value = data[0];
+		console.log(data[0]);
+	} );
 
 
 $('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
