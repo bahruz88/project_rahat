@@ -21,7 +21,10 @@
    $tbl_employee_family_info='tbl_employee_family_info'; 
    $tbl_sex='tbl_sex';
    $tbl_family_member_types='tbl_family_member_types';
-   
+   $tbl_military_information='tbl_military_information';
+   $tbl_military_rank='tbl_military_rank';
+   $tbl_military_staff='tbl_military_staff';
+
    $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
    $sql_roles = "select * from $tbl_roles where status=1 order  by position";				
    $sql_qua_dic = "select * from $tbl_qualification_dic ";
