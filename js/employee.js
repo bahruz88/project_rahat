@@ -1287,7 +1287,7 @@ var lang_knowledge_table ;
     }
         },
 	    "ajax": {
-                url: "emp_lang/get_militaryInfo.php",
+                url: "emp_lang/get_lang.php",
                 type: "POST"
             },"columnDefs": [ {
 			"width": "8%",
