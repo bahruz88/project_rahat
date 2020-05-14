@@ -1378,7 +1378,7 @@ var lang_knowledge_table ;
 				/*	if($("#langInsertForm").valid())
 			{ */
                     $.ajax( {
-                        url: "emp_lang/militaryInfoInsert.php",
+                        url: "emp_lang/langInsert.php",
                         method: "post",
                         data: $("#langInsertForm").serialize(),
                         dataType: "text",

@@ -39,7 +39,7 @@ if ($result_minfo ->num_rows > 0) {
         $sub_array[] = $row_minfo['military_no_official'];
         $sub_array[] = $row_minfo['military_additional_information'];
         $sub_array[] = $row_minfo['military_date_completion'];
-        $sub_array[] = $row_minfo['insert_date']; 
+        $sub_array[] = $row_minfo['insert_date'];
         $data[]     = $sub_array;
     }
 }

@@ -1,5 +1,5 @@
  <!-- LANG CONTENT MODAL  -->
-<div class="modal fade" id="modalLangDelete" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="modalMilitaryInfoDelete" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm">
           <div class="modal-content bg-danger">
             <div class="modal-header">
@@ -12,9 +12,9 @@
               <p><?php echo $dil["delete_warning_content"];?></p>
             </div>
             <div class="modal-footer justify-content-between">
-			  <form id="langDelete" method="post" class="form-horizontal" action="">
+			  <form id="militaryInfoDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
-			  <input type="hidden" id="langid" name="langid" value="" /> 
+			  <input type="hidden" id="militaryinfoid" name="militaryinfoid" value="" />
 			  </form>
 			  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
 			   
@@ -95,7 +95,7 @@
   
   
   <!--LANG İNSERT MODAL -->
-  <div class="modal fade" id="langInsertModal" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal fade" id="militaryInfoInsertModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
     <form id="langInsertForm" method="post" class="form-horizontal" action="">
 	
@@ -105,104 +105,105 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["lang_knowledge"];?></h4>
+						<h4 class="card-title"><?php echo $dil["military_information"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body" >
 					
  						 		<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-								 	<?php 
-									 $result_employees_view = $db->query($sql_employees);
-										if ($result_employees_view->num_rows > 0) {
-										while($row_employees= $result_employees_view->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
-											
-										<?php } }?>
-								</select>	
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="language"><?php echo $dil["language"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="language"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["language"];?>" >
-								 	<?php 
-										if ($result_emp_lang_view->num_rows > 0) {
-										while($row_emp_lang = $result_emp_lang_view->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_emp_lang['id']; ?>" ><?php echo $row_emp_lang['lang_name'];  ?></option>
-											
-										<?php } }
-										?>
-								</select>	
-								</div>
-							</div>
-						 	<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="reading"><?php echo $dil["reading"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="reading"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reading"];?>" >
-								 	<?php 
-										if ($result_lang_level_view->num_rows > 0) {
-										while($row_lang_level= $result_lang_level_view->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_lang_level['level_id']; ?>" ><?php echo $row_lang_level['level_name'];  ?></option>
-											
-										<?php } }?>
-								</select>	
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="writing"><?php echo $dil["writing"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="writing"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["writing"];?>" >
-								 	<?php 
-										if ($result_lang_level_w_view->num_rows > 0) {
-										while($row_lang_level= $result_lang_level_w_view->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_lang_level['level_id']; ?>" ><?php echo $row_lang_level['level_name'];  ?></option>
-											
-										<?php } }?>
-								</select>	
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="speaking"><?php echo $dil["speaking"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="speaking"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["speaking"];?>" >
-								 	<?php 
-										if ($result_lang_level_w_view->num_rows > 0) {
-										while($row_lang_level= $result_lang_level_s_view->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_lang_level['level_id']; ?>" ><?php echo $row_lang_level['level_name'];  ?></option>
-											
-										<?php } }?>
-								</select>	
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="understanding"><?php echo $dil["understanding"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="understanding"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["understanding"];?>" >
-								 	<?php 
-										if ($result_lang_level_u_view->num_rows > 0) {
-										while($row_lang_level= $result_lang_level_u_view->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_lang_level['level_id']; ?>" ><?php echo $row_lang_level['level_name'];  ?></option>
-											
-										<?php } }?>
-								</select>	
-								</div>
-							</div>
+                                    <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                                    <div class="col-sm-6">
+                                        <select data-live-search="true"  name="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                        <?php
+                                         $result_employees_view = $db->query($sql_employees);
+                                            if ($result_employees_view->num_rows > 0) {
+                                            while($row_employees= $result_employees_view->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                    </div>
+							    </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="language"><?php echo $dil["language"];?></label>
+                                    <div class="col-sm-6">
+                                        <select data-live-search="true"  name="language"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["language"];?>" >
+                                        <?php
+                                            if ($result_emp_lang_view->num_rows > 0) {
+                                            while($row_emp_lang = $result_emp_lang_view->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_emp_lang['id']; ?>" ><?php echo $row_emp_lang['lang_name'];  ?></option>
+
+                                            <?php } }
+                                            ?>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="reading"><?php echo $dil["reading"];?></label>
+                                    <div class="col-sm-6">
+                                        <select data-live-search="true"  name="reading"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reading"];?>" >
+                                        <?php
+                                            if ($result_lang_level_view->num_rows > 0) {
+                                            while($row_lang_level= $result_lang_level_view->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_lang_level['level_id']; ?>" ><?php echo $row_lang_level['level_name'];  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="writing"><?php echo $dil["writing"];?></label>
+                                    <div class="col-sm-6">
+                                        <select data-live-search="true"  name="writing"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["writing"];?>" >
+                                        <?php
+                                            if ($result_lang_level_w_view->num_rows > 0) {
+                                            while($row_lang_level= $result_lang_level_w_view->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_lang_level['level_id']; ?>" ><?php echo $row_lang_level['level_name'];  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="speaking"><?php echo $dil["speaking"];?></label>
+                                    <div class="col-sm-6">
+                                        <select data-live-search="true"  name="speaking"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["speaking"];?>" >
+                                        <?php
+                                            if ($result_lang_level_w_view->num_rows > 0) {
+                                            while($row_lang_level= $result_lang_level_s_view->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_lang_level['level_id']; ?>" ><?php echo $row_lang_level['level_name'];  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="understanding"><?php echo $dil["understanding"];?></label>
+                                    <div class="col-sm-6">
+                                        <select data-live-search="true"  name="understanding"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["understanding"];?>" >
+                                        <?php
+                                            if ($result_lang_level_u_view->num_rows > 0) {
+                                            while($row_lang_level= $result_lang_level_u_view->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_lang_level['level_id']; ?>" ><?php echo $row_lang_level['level_name'];  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                    </div>
+                                </div>
 				
 					</div>
 				</div>
