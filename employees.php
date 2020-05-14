@@ -244,7 +244,7 @@
   <li Class="nav-item"><a href="#aileinfo" id="aileinfotab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >
   <?php echo $dil["family_information"];?> </a></li>
 
-  <li Class="nav-item"><a href="#herbi" id="militaryInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
+  <li Class="nav-item"><a href="#militaryInfo" id="militaryInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
     <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>
     <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Struktur </a></li>
     <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Iş yeri barədə </a></li>
@@ -366,7 +366,7 @@
  </div>
  
 <!--<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>-->
-<div class="tab-pane" id="militaryInfotab">
+<div class="tab-pane" id="militaryInfo">
     <table id="military_info_table" class="table table-striped  table-bordered table-hover">
         <thead>
         <tr>
