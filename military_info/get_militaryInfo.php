@@ -1,14 +1,16 @@
 <?php
 include('../session.php');
 
-$sql_minfo = " SELECT tmi.*, te.firstname,te.lastname,te.surname  
-FROM $tbl_military_information tmi  
+$sql_minfo = " SELECT tmi.*,tms.*,tmr.*, te.firstname,te.lastname,te.surname,te.emp_status,tms.staff_desc 
+FROM $tbl_military_information tmi
 INNER join $tbl_military_rank  tmr on tmi.military_rank=tmr.rank_id and  tmr.lang='az'
-INNER join $tbl_military_staff  tms on tmi.military_rank=tmr.staff_id and  tmi.lang='az'
-inner join  $tbl_employees te on tmi.emp_id=te.id  where  te.status=1";
+INNER join $tbl_military_staff  tms on tmi.military_staff=tms.staff_id and  tms.lang='az'
+INNER join  $tbl_employees te on tmi.emp_id=te.id  where  te.emp_status=1";
+
+//$sql_minfo = " SELECT * FROM $tbl_military_information";
 
 
-$result_minfo  = $db->query($sql_minfo );
+$result_minfo  = $db->query($sql_minfo);
 $data = array();
 if ($result_minfo ->num_rows > 0) {
     // output data of each row

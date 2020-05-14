@@ -1646,11 +1646,11 @@ var faminfo_table ;
 **********************************************************************************************************************
 */
 
-var militaryInfo_table ;
+var military_info_table ;
     $('#militaryInfotab').click(function() {
 	console.log('Tab clikc');
-	$('#militaryInfo_table').DataTable().clear().destroy();
-		militaryInfo_table = $("#militaryInfo_table").DataTable({
+	$('#military_info_table').DataTable().clear().destroy();
+		military_info_table = $("#military_info_table").DataTable({
 	"scrollX": true,
 	  "paging": true,
       "lengthChange": false,
@@ -1800,7 +1800,7 @@ var militaryInfo_table ;
 				}
 			}
 		});
-		militaryInfo_table.ajax.reload();
+		military_info_table.ajax.reload();
 		$( "#langInsertForm" ).get(0).reset();
 		/*}*/
 	});
