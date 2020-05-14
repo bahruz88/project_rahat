@@ -1742,7 +1742,7 @@ var military_info_table ;
 							 {
 								$('#modalMilitaryInfoDelete').modal('hide');
 								$('#modalDeleteSuccess').modal('show');
-								 militaryInfo_table.ajax.reload();
+								 military_info_table.ajax.reload();
 							 }
 							 else  {
 								 console.log(strMessage);
@@ -1750,7 +1750,7 @@ var military_info_table ;
 							 }
 						}
                     });
-					militaryInfo_table.ajax.reload();
+					military_info_table.ajax.reload();
 
 
                 });
@@ -1758,8 +1758,8 @@ var military_info_table ;
 	  /*military Info  table delete click*/
 	$('#militaryInfo_table').on( 'click', '#militaryInfo_delete', function ()
 	{
-        var data = faminfo_table.row( $(this).parents('tr') ).data();
-		document.getElementById("militaryinfoid").value = data[0];
+        var data = military_info_table.row( $(this).parents('tr') ).data();
+		document.getElementById("militaryid").value = data[0];
 		$('#modalMilitaryInfoDelete').modal('show');
     } );
 
@@ -1806,10 +1806,10 @@ var military_info_table ;
 	});
 
 
-	/*GetLangDetails  */
+	/*GetMilitaryDetails  */
 	function GetMilitaryDetails(militaryid,optype)
 	{
-		$.post("militay_info/getMilitaryDetail.php",
+		$.post("military_info/getMilitaryDetail.php",
 			{
 				militaryid: militaryid
 			},
@@ -1819,15 +1819,16 @@ var military_info_table ;
 				var militarydata = JSON.parse(military_data);
 
 				if  (optype=='update') {
-					console.log('update tikla');
+					console.log('update tikla1');
 
+					$("#update_militaryid").val(militarydata.militaryid).change();
 					$("#update_militaryempid").val(militarydata.empid).change();
-					$("#update_reading").val(militarydata.rid).change();
-					$("#update_writing").val(militarydata.wid).change();
-					$("#update_speaking").val(militarydata.sid).change();
-					$("#update_understanding").val(militarydata.uid).change();
-					$("#update_language").val(militarydata.langid).change();
-					$('#modalEditLang').modal('show');
+					$("#update_military_reg_group").val(militarydata.military_reg_group).change();
+					$("#update_military_reg_category").val(militarydata.military_reg_category).change();
+					$("#update_staff_desc").val(militarydata.tmsId).change();
+					$("#update_rank_desc").val(militarydata.tmrId).change();
+					$("#update_military_specialty_acc").val(militarydata.military_specialty_acc);
+					$('#modalEditMilitaryInfo').modal('show');
 				}
 				else {
 					$("#view_langemp_id").val(militarydata.full_name);
@@ -1900,8 +1901,9 @@ var military_info_table ;
 	/*military table view click  */
 	$('#military_info_table').on( 'click', '#militaryInfo_edit', function ()
 	{
+		console.log('militaryInfo_edit')
 		var data = military_info_table.row( $(this).parents('tr') ).data();
-		GetLangDetails(data[0],'update');
+		GetMilitaryDetails(data[0],'update');
 		document.getElementById("update_militaryid").value = data[0];
 		console.log(data[0]);
 	} );
