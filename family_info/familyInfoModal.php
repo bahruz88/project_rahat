@@ -97,7 +97,7 @@
   <!--LANG İNSERT MODAL -->
   <div class="modal fade" id="famInfoInsertModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
-    <form id="langInsertForm" method="post" class="form-horizontal" action="">
+    <form id="familyInsertForm" method="post" class="form-horizontal" action="">
 	
       <!-- Modal content-->
       <div class="modal-content" >
@@ -164,9 +164,9 @@
 								</div>
 							</div>
 							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="sex"><?php echo $dil["sex"];?></label>
+								<label class="col-sm-4 col-form-label" for="gender"><?php echo $dil["sex"];?></label>
 								<div class="col-sm-6">
-								<select   name="sex"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sex"];?>" >
+								<select   name="gender"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sex"];?>" >
 									<option value="1">Kişi</option>
 									<option value="2">Qadın</option>
 								</select>	 
