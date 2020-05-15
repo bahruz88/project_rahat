@@ -1776,7 +1776,7 @@ var military_info_table ;
                         dataType: "text",
                         success: function(strMessage)
 						{
-							console.log(strMessage);
+							console.log('strMessage='+strMessage);
 							 if (strMessage.substr(1, 4)==='error')
 							 {
 								console.log(strMessage);
@@ -1799,10 +1799,11 @@ var military_info_table ;
                 });
 
 	  /*military Info  table delete click*/
-	$('#militaryInfo_table').on( 'click', '#militaryInfo_delete', function ()
+	$('#military_info_table').on( 'click', '#militaryInfo_delete', function ()
 	{
         var data = military_info_table.row( $(this).parents('tr') ).data();
-		document.getElementById("militaryid").value = data[0];
+		console.log('data[0]='+data[0])
+		document.getElementById("militaryinfoid").value = data[0];
 		$('#modalMilitaryInfoDelete').modal('show');
     } );
 
@@ -1943,10 +1944,12 @@ var military_info_table ;
 	});
 
 	/*military table delete click*/
-	$('#military_info_table').on( 'click', '#military_info_delete', function ()
+	$('#military_info_table').on( 'click', '#militaryInfo_delete', function ()
 	{
 		var data = military_info_table.row( $(this).parents('tr') ).data();
+
 		document.getElementById("militaryinfoid").value = data[0];
+
 		$('#modalMilitaryInfoDelete').modal('show');
 	} );
 
