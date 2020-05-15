@@ -1828,6 +1828,14 @@ var military_info_table ;
 					$("#update_staff_desc").val(militarydata.tmsId).change();
 					$("#update_rank_desc").val(militarydata.tmrId).change();
 					$("#update_military_specialty_acc").val(militarydata.military_specialty_acc);
+					$("#update_military_fitness_service").val(militarydata.military_fitness_service);
+					$("#update_military_registration_service").val(militarydata.military_registration_service);
+					$("#update_military_registration_date").val(militarydata.military_registration_date);
+					$("#update_military_general").val(militarydata.military_general);
+					$("#update_military_special").val(militarydata.military_special);
+					$("#update_military_no_official").val(militarydata.military_no_official);
+					$("#update_military_additional_information").val(militarydata.military_additional_information);
+					$("#update_military_date_completion").val(militarydata.military_date_completion);
 					$('#modalEditMilitaryInfo').modal('show');
 				}
 				else {
