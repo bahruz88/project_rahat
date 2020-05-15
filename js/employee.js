@@ -1827,25 +1827,25 @@ var military_info_table ;
 
 					$("#errorp").text(strMessage);
 					$("#modalInsertError").modal('show');
-					$("#langInsertModal").modal('hide');
+					$("#militaryInsertModal").modal('hide');
 				}
 				else if (strMessage==='success')
 				{
 					$("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
 					$("#modalInsertSuccess").modal('show');
-					$("#langInsertModal").modal('hide');
+					$("#militaryInsertModal").modal('hide');
 
 				}
 				else  {
 					$("#errorp").text(strMessage);
 					$("#modalInsertError").modal('show');
-					$("#langInsertModal").modal('hide');
+					$("#militaryInsertModal").modal('hide');
 
 				}
 			}
 		});
 		military_info_table.ajax.reload();
-		$( "#langInsertForm" ).get(0).reset();
+		$( "#militaryInsertForm" ).get(0).reset();
 		/*}*/
 	});
 
@@ -1853,6 +1853,7 @@ var military_info_table ;
 	/*GetMilitaryDetails  */
 	function GetMilitaryDetails(militaryid,optype)
 	{
+		console.log('$militaryid='+militaryid)
 		$.post("military_info/getMilitaryDetail.php",
 			{
 				militaryid: militaryid
@@ -1863,7 +1864,7 @@ var military_info_table ;
 				var militarydata = JSON.parse(military_data);
 
 				if  (optype=='update') {
-					console.log('update tikla1');
+					console.log('update tikla1',militarydata);
 
 					$("#update_militaryid").val(militarydata.militaryid).change();
 					$("#update_militaryempid").val(militarydata.empid).change();
@@ -1918,7 +1919,7 @@ var military_info_table ;
 			dataType: "text",
 			success: function(strMessage)
 			{
-				console.log(strMessage);
+				console.log('strMessage='+strMessage);
 				$("#badge_danger_update").text("");
 				if (strMessage.substr(1, 4)==='error')
 				{

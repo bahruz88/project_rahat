@@ -1,7 +1,7 @@
 <?php
 include('../session.php');
 
-$sql_minfo = " SELECT tmi.*,tms.*,tmr.*, te.firstname,te.lastname,te.surname,te.emp_status,tms.staff_desc 
+$sql_minfo = " SELECT tmi.*,tms.staff_id,tms.staff_desc,tmr.rank_id,tmr.rank_desc, te.firstname,te.lastname,te.surname,te.emp_status,tms.staff_desc 
 FROM $tbl_military_information tmi
 INNER join $tbl_military_rank  tmr on tmi.military_rank=tmr.rank_id and  tmr.lang='az'
 INNER join $tbl_military_staff  tms on tmi.military_staff=tms.staff_id and  tms.lang='az'
