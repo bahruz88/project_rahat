@@ -25,8 +25,8 @@
         <!-- /.modal-dialog -->
       </div>	 
 
-     <!--LANG VIEW MODAL -->
-  <div class="modal fade" id="modalViewLang" role="dialog">
+     <!--Military VIEW MODAL -->
+  <div class="modal fade" id="modalViewMilitary" role="dialog">
     <div class="modal-dialog modal-lg">
        <!-- Modal content-->
       <div class="modal-content">
@@ -34,50 +34,121 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-text"><?php echo $dil["lang_view_title"];?></h4>
+						<h4 class="card-text"><?php echo $dil["military_view_title"];?></h4>
 
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
  					<div class="card-body" >
 						 
 						 	<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="langempid"><?php echo $dil["employee"];?></label>
+								<label class="col-sm-4 col-form-label" for="militaryempid"><?php echo $dil["employee"];?></label>
 				 				<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_langemp_id" name="view_langemp_name" placeholder="<?php echo $dil["employee"];?>" readonly />
+									<input type="text" class="form-control" id="view_militaryemp_id" name="view_militaryemp_name" placeholder="<?php echo $dil["employee"];?>" readonly />
+				 				</div>
+							</div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="view_military_reg_group"><?php echo $dil["military_registration_group"];?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="view_military_reg_group_id" name="view_military_reg_group" placeholder="<?php echo $dil["military_registration_group"];?>" readonly />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="view_military_reg_category"><?php echo $dil["military_registration_category"];?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="view_military_reg_category" name="view_military_reg_category" placeholder="<?php echo $dil["military_registration_category"];?>" readonly />
+                                </div>
+                            </div>
+							
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="view_staff_desc"><?php echo $dil["military_staff"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="view_staff_desc_id" name="view_staff_desc" placeholder="<?php echo $dil["military_staff"];?>" readonly />
 				 				</div>
 							</div>
 							
 							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="view_lang_name"><?php echo $dil["language"];?></label>
+								<label class="col-sm-4 col-form-label" for="view_rank_desc"><?php echo $dil["military_rank"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_lang_name_id" name="view_lang_name" placeholder="<?php echo $dil["language"];?>" readonly />
-				 				</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="view_reading"><?php echo $dil["reading"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_reading_id" name="view_reading_name" placeholder="<?php echo $dil["reading"];?>" readonly />
+									<input type="text" class="form-control" id="view_rank_desc_id" name="view_rank_desc" placeholder="<?php echo $dil["military_rank"];?>" readonly />
 				 				</div>
 							</div> 
+
+
 							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="view_writing"><?php echo $dil["writing"];?></label>
+								<label class="col-sm-4 col-form-label" for="view_military_specialty_acc"><?php echo $dil["military_specialty_accounting"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_writing_id" name="view_writing_name" placeholder="<?php echo $dil["writing"];?>" readonly />
-				 				</div>
-							</div> 
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="view_speaking"><?php echo $dil["speaking"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_speaking_id" name="view_speaking_name" placeholder="<?php echo $dil["speaking"];?>" readonly />
+									<input type="text" class="form-control" id="view_military_specialty_acc" name="view_military_specialty_acc" placeholder="<?php echo $dil["military_specialty_accounting"];?>" readonly />
 				 				</div>
 							</div>
+
+
 							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="view_understanding"><?php echo $dil["understanding"];?></label>
+								<label class="col-sm-4 col-form-label" for="view_military_fitness_service"><?php echo $dil["military_fitness_service"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_understanding_id" name="view_understanding_name" placeholder="<?php echo $dil["understanding"];?>" readonly />
+									<input type="text" class="form-control" id="view_military_fitness_service" name="view_military_fitness_service" placeholder="<?php echo $dil["military_fitness_service"];?>" readonly />
 				 				</div>
-							</div> 							
+							</div>
+
+
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="view_military_registration_service"><?php echo $dil["military_registration_service"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="view_military_registration_service" name="view_military_registration_service" placeholder="<?php echo $dil["military_registration_service"];?>" readonly />
+				 				</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="view_military_registration_date"><?php echo $dil["military_registration_date"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="view_military_registration_date" name="view_military_registration_date" placeholder="<?php echo $dil["military_registration_date"];?>" readonly />
+				 				</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="view_military_general"><?php echo $dil["military_general"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="view_military_general" name="view_military_general" placeholder="<?php echo $dil["military_general"];?>" readonly />
+				 				</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="view_military_special"><?php echo $dil["military_special"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="view_military_special" name="view_military_special" placeholder="<?php echo $dil["military_special"];?>" readonly />
+				 				</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="view_military_no_official"><?php echo $dil["military_no_official"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="view_military_no_official" name="view_military_no_official" placeholder="<?php echo $dil["military_no_official"];?>" readonly />
+				 				</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="view_military_additional_information"><?php echo $dil["military_additional_information"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="view_military_additional_information" name="view_military_additional_information" placeholder="<?php echo $dil["military_additional_information"];?>" readonly />
+				 				</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="view_military_date_completion"><?php echo $dil["military_date_completion"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="view_military_date_completion" name="view_military_date_completion" placeholder="<?php echo $dil["military_date_completion"];?>" readonly />
+				 				</div>
+							</div>
+
+
+
 					</div>
 				</div>
    
@@ -286,7 +357,7 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["lang_edit_title"];?></h4>
+						<h4 class="card-title"><?php echo $dil["military_edit_title"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>

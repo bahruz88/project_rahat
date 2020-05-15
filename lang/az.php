@@ -132,6 +132,8 @@ $dil = array(
     "military_no_official"   =>"Hərbi vəzifəli olmaması barədə qeyd",
     "military_additional_information"   =>"Əlavə məlumatlar",
     "military_date_completion"   =>"Doldurulma tarixi",
+    "military_edit_title"   =>"Hərbi məlumatların redaktəsi",
+    "military_view_title"   =>"Hərbi məlumatlarına baxış",
 	"operation"   =>"Əməliyyat"
 );
 ?>

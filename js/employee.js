@@ -1882,13 +1882,21 @@ var military_info_table ;
 					$('#modalEditMilitaryInfo').modal('show');
 				}
 				else {
-					$("#view_langemp_id").val(militarydata.full_name);
-					$("#view_lang_name_id").val(militarydata.lang_name);
-					$("#view_reading_id").val(militarydata.reading);
-					$("#view_writing_id").val(militarydata.writting);
-					$("#view_speaking_id").val(militarydata.speaking);
-					$("#view_understanding_id").val(militarydata.understanding);
-					$('#modalViewLang').modal('show');
+					$("#view_militaryemp_id").val(militarydata.militaryemp);
+					 $("#view_military_reg_group").val(militarydata.military_reg_group);
+					 $("#view_military_reg_category").val(militarydata.military_reg_category);
+					$("#view_staff_desc_id").val(militarydata.staff_desc);
+					$("#view_rank_desc_id").val(militarydata.rank_desc);
+					$("#view_military_specialty_acc").val(militarydata.military_specialty_acc);
+					$("#view_military_fitness_service").val(militarydata.military_fitness_service);
+					$("#view_military_registration_service").val(militarydata.military_registration_service);
+					$("#view_military_registration_date").val(militarydata.military_registration_date);
+					$("#view_military_general").val(militarydata.military_general);
+					$("#view_military_special").val(militarydata.military_special);
+					$("#view_military_no_official").val(militarydata.military_no_official);
+					$("#view_military_additional_information").val(militarydata.military_additional_information);
+					$("#view_military_date_completion").val(militarydata.military_date_completion);
+					$('#modalViewMilitary').modal('show');
 				}
 			}
 		);
