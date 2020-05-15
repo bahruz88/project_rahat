@@ -25,7 +25,7 @@ $military_date_completion       = $_POST['military_date_completion'];
 	 military_fitness_service,military_registration_service,military_registration_date,military_general,military_general, 
 	 military_special,military_no_official,military_additional_information,military_date_completion) 
 	 VALUES (NULL, '$employee','$military_reg_group','$military_reg_category','$military_staff','$military_rank','$military_specialty_acc',
-	 $military_fitness_service,$military_registration_service,$military_registration_date,$military_general,$military_special,$military_no_official,$military_additional_information,$military_date_completion)";
+	 '$military_fitness_service','$military_registration_service','$military_registration_date','$military_general','$military_special','$military_no_official','$military_additional_information','$military_date_completion')";
   
 
   if(!mysqli_query($db, $sql)) {

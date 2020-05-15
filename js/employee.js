@@ -1819,7 +1819,7 @@ var military_info_table ;
 			dataType: "text",
 			success: function(strMessage)
 			{
-				console.log(strMessage);
+				console.log('strMessage'+strMessage);
 				$("#badge_success").text('');
 				$("#badge_danger").text('');
 				if (strMessage.substr(1, 4)==='error')
@@ -1827,25 +1827,25 @@ var military_info_table ;
 
 					$("#errorp").text(strMessage);
 					$("#modalInsertError").modal('show');
-					$("#militaryInsertModal").modal('hide');
+					$("#militaryInfoInsertModal").modal('hide');
 				}
 				else if (strMessage==='success')
 				{
 					$("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
 					$("#modalInsertSuccess").modal('show');
-					$("#militaryInsertModal").modal('hide');
+					$("#militaryInfoInsertModal").modal('hide');
 
 				}
 				else  {
 					$("#errorp").text(strMessage);
 					$("#modalInsertError").modal('show');
-					$("#militaryInsertModal").modal('hide');
+					$("#militaryInfoInsertModal").modal('hide');
 
 				}
 			}
 		});
 		military_info_table.ajax.reload();
-		$( "#militaryInsertForm" ).get(0).reset();
+		$( "#militaryInfoInsertForm" ).get(0).reset();
 		/*}*/
 	});
 
@@ -1884,11 +1884,23 @@ var military_info_table ;
 					$('#modalEditMilitaryInfo').modal('show');
 				}
 				else {
-					$("#view_militaryemp_id").val(militarydata.militaryemp);
-					 $("#view_military_reg_group").val(militarydata.military_reg_group);
-					 $("#view_military_reg_category").val(militarydata.military_reg_category);
-					$("#view_staff_desc_id").val(militarydata.staff_desc);
-					$("#view_rank_desc_id").val(militarydata.rank_desc);
+				    var military_reg_category=''
+				    var military_reg_group=''
+				    if(militarydata.military_reg_category==1){
+                        military_reg_category='Kateqoriya 1'
+                    }else{
+                        military_reg_category='Kateqoriya 2'
+                    }
+				    if(militarydata.military_reg_group==1){
+                        military_reg_group='Çağırışçı'
+                    }else{
+                        military_reg_group='Hərbi vəzifəli'
+                    }
+					$("#view_militaryemp").val(militarydata.full_name);
+					 $("#view_military_reg_group").val(military_reg_group);
+					 $("#view_military_reg_category").val(military_reg_category);
+					$("#view_staff_desc_id").val(militarydata.tmsStaffDesc);
+					$("#view_rank_desc_id").val(militarydata.tmrRankDesc);
 					$("#view_military_specialty_acc").val(militarydata.military_specialty_acc);
 					$("#view_military_fitness_service").val(militarydata.military_fitness_service);
 					$("#view_military_registration_service").val(militarydata.military_registration_service);

@@ -41,16 +41,16 @@
  					<div class="card-body" >
 						 
 						 	<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="militaryempid"><?php echo $dil["employee"];?></label>
+								<label class="col-sm-4 col-form-label" for="view_militaryemp"><?php echo $dil["employee"];?></label>
 				 				<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_militaryemp_id" name="view_militaryemp_name" placeholder="<?php echo $dil["employee"];?>" readonly />
+									<input type="text" class="form-control" id="view_militaryemp" name="view_militaryemp_name" placeholder="<?php echo $dil["employee"];?>" readonly />
 				 				</div>
 							</div>
 
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="view_military_reg_group"><?php echo $dil["military_registration_group"];?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="view_military_reg_group_id" name="view_military_reg_group" placeholder="<?php echo $dil["military_registration_group"];?>" readonly />
+                                    <input type="text" class="form-control" id="view_military_reg_group" name="view_military_reg_group" placeholder="<?php echo $dil["military_registration_group"];?>" readonly />
                                 </div>
                             </div>
 
@@ -200,9 +200,9 @@
 							    </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="military_reg_group"><?php echo $dil["military_reg_group"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="military_reg_group"><?php echo $dil["military_registration_group"];?></label>
                                     <div class="col-sm-6">
-                                        <select   name="military_reg_group"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_reg_group"];?>" >
+                                        <select   name="military_reg_group"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_registration_group"];?>" >
                                             <option value="1">Çağırışçı</option>
                                             <option value="2">Hərbi vəzifəli</option>
                                         </select>
@@ -210,9 +210,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="military_reg_category"><?php echo $dil["military_reg_category"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="military_reg_category"><?php echo $dil["military_registration_category"];?></label>
                                     <div class="col-sm-6">
-                                        <select   name="military_reg_category"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_reg_category"];?>" >
+                                        <select   name="military_reg_category"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_registration_category"];?>" >
                                             <option value="1">Kateqoriya 1</option>
                                             <option value="2">Kateqoriya 2</option>
                                         </select>
@@ -220,9 +220,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="language"><?php echo $dil["language"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="military_staff"><?php echo $dil["military_staff"];?></label>
                                     <div class="col-sm-6">
-                                        <select data-live-search="true"  name="language"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["language"];?>" >
+                                        <select data-live-search="true"  name="military_staff"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_staff"];?>" >
                                             <?php
                                             if ($result_military_staff_view->num_rows > 0) {
                                                 while($row_military_staff = $result_military_staff_view->fetch_assoc()) {
@@ -237,9 +237,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="language"><?php echo $dil["language"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="military_rank"><?php echo $dil["military_rank"];?></label>
                                     <div class="col-sm-6">
-                                        <select data-live-search="true"  name="language"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["language"];?>" >
+                                        <select data-live-search="true"  name="military_rank"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_rank"];?>" >
                                         <?php
                                             if ($result_military_rank_view->num_rows > 0) {
                                             while($row_military_rank = $result_military_rank_view->fetch_assoc()) {
@@ -254,9 +254,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="military_specialty_acc"><?php echo $dil["military_specialty_acc"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="military_specialty_acc"><?php echo $dil["military_specialty_accounting"];?></label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="military_specialty_acc" name="military_specialty_acc" placeholder="<?php echo $dil["military_specialty_acc"];?>" />
+                                        <input type="text" class="form-control" id="military_specialty_acc" name="military_specialty_acc" placeholder="<?php echo $dil["military_specialty_accounting"];?>" />
                                     </div>
                                 </div>
 
@@ -323,12 +323,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="military_date_completion"><?php echo $dil["military_date_completion"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="military_date_completion" name="military_date_completion" placeholder="<?php echo $dil["military_date_completion"];?>" />
-                                    </div>
-                                </div>
 
 					</div>
 				</div>
