@@ -368,9 +368,9 @@
 								<div class="col-sm-6">
 									<select data-live-search="true"  name="update_militaryempid"  id="update_militaryempid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" Disabled="true">
 								 	<?php 
-									 $result_employees_view = $db->query($sql_employees);
-										if ($result_employees_view->num_rows > 0) {
-										while($row_employees= $result_employees_view->fetch_assoc()) {
+									 $result_employees_edit = $db->query($sql_employees);
+										if ($result_employees_edit->num_rows > 0) {
+										while($row_employees= $result_employees_edit->fetch_assoc()) {
 											
 										?>
 										<option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
@@ -400,10 +400,10 @@
 						 	<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_staff_desc"><?php echo $dil["military_staff"];?></label>
 								<div class="col-sm-6">
-									<select data-live-search="true"  name="update_staff_desc" id="update_staff_desc" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_staff"];?>" >
-								 	<?php 
-										if ($result_military_staff_view->num_rows > 0) {
-										while($row_military_staff= $result_military_staff_view->fetch_assoc()) {
+                                	<select data-live-search="true"  name="update_staff_desc" id="update_staff_desc" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_staff"];?>" >
+								 	<?php
+										if ($result_military_staff_edit->num_rows > 0) {
+										while($row_military_staff= $result_military_staff_edit->fetch_assoc()) {
 											
 										?>
 										<option  value="<?php echo $row_military_staff['staff_id']; ?>" ><?php echo $row_military_staff['staff_desc'];  ?></option>
@@ -417,8 +417,8 @@
 								<div class="col-sm-6">
 									<select data-live-search="true"  name="update_rank_desc" id="update_rank_desc" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_rank"];?>" >
 								 	<?php 
-										if ($result_military_rank_view->num_rows > 0) {
-										while($row_military_rank= $result_military_rank_view->fetch_assoc()) {
+										if ($result_military_rank_edit->num_rows > 0) {
+										while($row_military_rank= $result_military_rank_edit->fetch_assoc()) {
 											
 										?>
 										<option  value="<?php echo $row_military_rank['rank_id']; ?>" ><?php echo $row_military_rank['rank_desc'];  ?></option>

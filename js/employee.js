@@ -1867,7 +1867,7 @@ var military_info_table ;
 					console.log('update tikla1',militarydata);
 
 					$("#update_militaryid").val(militarydata.militaryid).change();
-					$("#update_militaryempid").val(militarydata.empid).change();
+					$("#update_militaryempid").val(militarydata.teId).change();
 					$("#update_military_reg_group").val(militarydata.military_reg_group).change();
 					$("#update_military_reg_category").val(militarydata.military_reg_category).change();
 					$("#update_staff_desc").val(militarydata.tmsId).change();
