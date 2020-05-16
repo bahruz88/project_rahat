@@ -421,7 +421,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<link href="style.css" rel="stylesheet" type="text/css" />
+ 
  
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
