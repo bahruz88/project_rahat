@@ -274,17 +274,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="military_registration_date"><?php echo $dil["military_registration_date"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="military_registration_date" name="military_registration_date" placeholder="<?php echo $dil["military_registration_date"];?>" />
-                                    </div>
-                                </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="military_registration_date"><?php echo $dil["military_registration_date"];?></label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="military_registration_date" name="military_registration_date" placeholder="<?php echo $dil["military_registration_date"];?>" />
+                                        <input type="text" class="form-control" id="military_registration_date" name="military_registration_date" placeholder="0000-00-00" />
                                     </div>
                                 </div>
 
@@ -319,7 +313,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="military_date_completion"><?php echo $dil["military_date_completion"];?></label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="military_date_completion" name="military_date_completion" placeholder="<?php echo $dil["military_date_completion"];?>" />
+                                        <input type="text" class="form-control" id="military_date_completion" name="military_date_completion" placeholder="0000-00-00" />
                                     </div>
                                 </div>
 

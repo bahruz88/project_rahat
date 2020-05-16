@@ -12,7 +12,7 @@ INNER join  $tbl_employees te on tmi.emp_id=te.id  where  te.emp_status=1";
 
 
 $result_minfo  = $db->query($sql_minfo);
-//print_r($result_minfo);
+
 $data = array();
 if ($result_minfo ->num_rows > 0) {
     // output data of each row
@@ -30,7 +30,7 @@ if ($result_minfo ->num_rows > 0) {
 
         $sub_array   = array();
         $sub_array[] = $row_minfo['id'];
-        $sub_array[] = $row_minfo['lastname'].' ' .$row_minfo['firstname'].' ' .$row_minfo['surname'];
+        $sub_array[] = $row_minfo['lastname'].' '.$row_minfo['firstname'].' '.$row_minfo['surname'];
         $sub_array[] = $row_minfo['military_reg_group'];
         $sub_array[] = $row_minfo['military_reg_category'];
         $sub_array[] = $row_minfo['staff_desc'];
@@ -45,9 +45,7 @@ if ($result_minfo ->num_rows > 0) {
         $sub_array[] = $row_minfo['military_additional_information'];
         $sub_array[] = $row_minfo['military_date_completion'];
         $sub_array[] = $row_minfo['insert_date'];
-
         $data[]     = $sub_array;
-//        print_r($data);
     }
 }
 
@@ -63,5 +61,5 @@ $output = array(
     'data' => $data
 );
 
-echo json_encode($output);
+echo  json_encode($output);
 ?>
