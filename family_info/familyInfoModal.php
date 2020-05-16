@@ -26,7 +26,7 @@
       </div>	 
 
      <!--LANG VIEW MODAL -->
-  <div class="modal fade" id="modalViewLang" role="dialog">
+  <div class="modal fade" id="modalViewFamilyInfo" role="dialog">
     <div class="modal-dialog modal-lg">
        <!-- Modal content-->
       <div class="modal-content">
