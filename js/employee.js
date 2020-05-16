@@ -1673,6 +1673,45 @@ var faminfo_table ;
 
 
                 });
+				
+		
+/*GetFamilyInfoDetails  */
+ function GetFamilyInfoDetails(faminfoid,optype) 
+	 {
+			$.post("family_info/getFamilyDetail.php",
+				{
+					faminfoid: faminfoid
+				},
+				function (faminfo_data, status) 
+				{
+					// PARSE json data
+					var faminfodata = JSON.parse(faminfo_data);
+
+					if  (optype=='update') {
+						console.log('update tikla');
+                     /*
+					$("#update_langempid").val(langdata.empid).change();
+				 	$("#update_reading").val(langdata.rid).change();
+					$("#update_writing").val(langdata.wid).change();
+					$("#update_speaking").val(langdata.sid).change();
+					$("#update_understanding").val(langdata.uid).change();
+					$("#update_language").val(langdata.langid).change();
+					$('#modalEditLang').modal('show');*/
+					}
+					else {
+					/*$("#view_langemp_id").val(langdata.full_name);
+					$("#view_lang_name_id").val(langdata.lang_name);
+					$("#view_reading_id").val(langdata.reading);
+					$("#view_writing_id").val(langdata.writting);
+					$("#view_speaking_id").val(langdata.speaking);
+					$("#view_understanding_id").val(langdata.understanding);*/
+					$('#modalViewFamilyInfo').modal('show');						
+					}
+				}
+			);
+
+}
+				
 
 	  /*Family info table delete click*/
 	$('#faminfo_table').on( 'click', '#faminfo_delete', function ()
@@ -1680,6 +1719,14 @@ var faminfo_table ;
         var data = faminfo_table.row( $(this).parents('tr') ).data();
 		document.getElementById("faminfoid").value = data[0];
 		$('#modalFamInfoDelete').modal('show');
+    } );
+	
+	/*lang table view click  */
+	$('#faminfo_table').on( 'click', '#faminfo_view', function () 
+	{ 
+        var data = faminfo_table.row( $(this).parents('tr') ).data();
+		GetFamilyInfoDetails(data[0],'view');
+        console.log(data[0]);
     } );
 
 
