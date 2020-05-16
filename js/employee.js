@@ -1691,7 +1691,7 @@ var faminfo_table ;
 
 var military_info_table ;
     $('#militaryInfotab').click(function() {
-	console.log('Tab clikc');
+	console.log('Tab clikc militaryInfotab');
 	$('#military_info_table').DataTable().clear().destroy();
 		military_info_table = $("#military_info_table").DataTable({
 	"scrollX": true,
@@ -1730,6 +1730,7 @@ var military_info_table ;
 
                    text: 'Add New <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
+                       console.log('militaryInfoInsertModal')
                     $("#militaryInfoInsertModal").modal();
                 }
                     },
@@ -1807,8 +1808,9 @@ var military_info_table ;
 		$('#modalMilitaryInfoDelete').modal('show');
     } );
 
-	$("#militaryInsertForm").submit(function(e)
+	$("#militaryInfoInsertForm").submit(function(e)
 	{
+	    console.log('salam insert')
 		e.preventDefault();
 		/*	if($("#langInsertForm").valid())
     { */
@@ -1819,7 +1821,8 @@ var military_info_table ;
 			dataType: "text",
 			success: function(strMessage)
 			{
-				console.log('strMessage'+strMessage);
+				console.log('strMessage='+$("#militaryInfoInsertForm").serialize());
+				console.log('strMessage='+strMessage);
 				$("#badge_success").text('');
 				$("#badge_danger").text('');
 				if (strMessage.substr(1, 4)==='error')

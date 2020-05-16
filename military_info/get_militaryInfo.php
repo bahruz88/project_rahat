@@ -8,9 +8,11 @@ INNER join $tbl_military_staff  tms on tmi.military_staff=tms.staff_id and  tms.
 INNER join  $tbl_employees te on tmi.emp_id=te.id  where  te.emp_status=1";
 
 //$sql_minfo = " SELECT * FROM $tbl_military_information";
+//echo $sql_minfo.'</br>';
 
 
 $result_minfo  = $db->query($sql_minfo);
+//print_r($result_minfo);
 $data = array();
 if ($result_minfo ->num_rows > 0) {
     // output data of each row
@@ -24,6 +26,7 @@ if ($result_minfo ->num_rows > 0) {
             $row_minfo ['emp_status']='deactive';
 
         }
+
 
         $sub_array   = array();
         $sub_array[] = $row_minfo['id'];
@@ -42,7 +45,9 @@ if ($result_minfo ->num_rows > 0) {
         $sub_array[] = $row_minfo['military_additional_information'];
         $sub_array[] = $row_minfo['military_date_completion'];
         $sub_array[] = $row_minfo['insert_date'];
+
         $data[]     = $sub_array;
+//        print_r($data);
     }
 }
 

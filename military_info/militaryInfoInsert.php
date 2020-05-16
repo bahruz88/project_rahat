@@ -8,8 +8,8 @@ include('../session.php') ;
 $employee                       =$_POST['employee'];
 $military_reg_group             = $_POST['military_reg_group'];
 $military_reg_category          = $_POST['military_reg_category'];
-$military_staff                 = $_POST['staff_desc'];
-$military_rank                  = $_POST['rank_desc'];
+$military_staff                 = $_POST['military_staff'];
+$military_rank                  = $_POST['military_rank'];
 $military_specialty_acc         = $_POST['military_specialty_acc'];
 $military_fitness_service       = $_POST['military_fitness_service'];
 $military_registration_service  = $_POST['military_registration_service'];
@@ -22,7 +22,7 @@ $military_date_completion       = $_POST['military_date_completion'];
 
     $sql = "INSERT INTO $tbl_military_information( 
 	 id, emp_id, military_reg_group, military_reg_category, military_staff, military_rank, military_specialty_acc,
-	 military_fitness_service,military_registration_service,military_registration_date,military_general,military_general, 
+	 military_fitness_service,military_registration_service,military_registration_date,military_general, 
 	 military_special,military_no_official,military_additional_information,military_date_completion) 
 	 VALUES (NULL, '$employee','$military_reg_group','$military_reg_category','$military_staff','$military_rank','$military_specialty_acc',
 	 '$military_fitness_service','$military_registration_service','$military_registration_date','$military_general','$military_special','$military_no_official','$military_additional_information','$military_date_completion')";
