@@ -1693,7 +1693,6 @@ var military_info_table ;
     $('#militaryInfotab').click(function() {
 	console.log('Tab clikc militaryInfotab');
 	$('#military_info_table').DataTable().clear().destroy();
-	$('#militaryInfoInsertForm').DataTable().clear().destroy();
 		military_info_table = $("#military_info_table").DataTable({
 	"scrollX": true,
 	  "paging": true,
