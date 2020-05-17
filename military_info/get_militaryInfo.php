@@ -2,10 +2,10 @@
 include('../session.php');
 
 $sql_minfo = " SELECT tmi.*,tms.staff_id,tms.staff_desc,tmr.rank_id,tmr.rank_desc, te.firstname,te.lastname,te.surname,te.emp_status,tms.staff_desc 
-FROM $tbl_military_information tmi
+FROM $tbl_military_information tmi  
 INNER join $tbl_military_rank  tmr on tmi.military_rank=tmr.rank_id and  tmr.lang='az'
 INNER join $tbl_military_staff  tms on tmi.military_staff=tms.staff_id and  tms.lang='az'
-INNER join  $tbl_employees te on tmi.emp_id=te.id  where  te.emp_status=1";
+INNER join  $tbl_employees te on tmi.emp_id=te.id  where tmi.status=1 and te.emp_status=1";
 
 //$sql_minfo = " SELECT * FROM $tbl_military_information";
 //echo $sql_minfo.'</br>';

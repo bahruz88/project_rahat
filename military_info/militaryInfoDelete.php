@@ -4,8 +4,8 @@ include('../session.php') ;
   //Create variables
     $militaryinfoid = $_POST['militaryinfoid'];
  
-//    $delete_query = mysqli_query($db,"update  $tbl_military_information where id='$militaryinfoid'");// set  status=0
-    $delete_query = mysqli_query($db,"delete FROM  $tbl_military_information where id='$militaryinfoid'");// set  status=0
+   $delete_query = mysqli_query($db,"update  $tbl_military_information  set  status=0 where id='$militaryinfoid'");//
+//    $delete_query = mysqli_query($db,"delete FROM  $tbl_military_information where id='$militaryinfoid'");// set  status=0
 
     $aff_row_count=mysqli_affected_rows($db) ;
     //Response
