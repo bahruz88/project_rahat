@@ -356,10 +356,10 @@
 								<label class="col-sm-4 col-form-label" for="update_militaryempid"><?php echo $dil["employee"];?></label>
 								<div class="col-sm-6">
 									<select data-live-search="true"  name="update_militaryemp"  id="update_militaryempid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" Disabled="true">
-								 	<?php 
-									 $result_employees_edit = $db->query($sql_employees);
-										if ($result_employees_edit->num_rows > 0) {
-										while($row_employees= $result_employees_edit->fetch_assoc()) {
+								 	<?php
+                                    $result_employees_s_view = $db->query($sql_employees);
+										if ($result_employees_s_view->num_rows > 0) {
+										while($row_employees= $result_employees_s_view->fetch_assoc()) {
 											
 										?>
 										<option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
@@ -500,5 +500,4 @@
       
     </div>
   </div>
- 
- 
+

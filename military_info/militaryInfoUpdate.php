@@ -1,7 +1,6 @@
 <?php 
 include('../session.php') ;
-$militaryid = $_POST['update_militaryid_name'];
-$militaryempid                  =$_POST['update_militaryemp'];
+$militaryid                     = $_POST['update_militaryid_name'];
 $military_reg_group             = $_POST['update_military_reg_group'];
 $military_reg_category          = $_POST['update_military_reg_category'];
 $military_staff                 = $_POST['update_staff_desc'];
@@ -25,21 +24,20 @@ $military_date_completion= date('Y-m-d', strtotime($military_date_completion));
 
 	$update_date= date("Y-m-d h:i:sa") ;
 	
-	$sql = "UPDATE  $tbl_military_information SET 
-		emp_id  = '$militaryempid',
+	$sql = "UPDATE  $tbl_military_information SET  
 		military_reg_group  = '$military_reg_group',
 		military_reg_category = '$military_reg_category',
 		military_staff = '$military_staff',
 		military_rank = '$military_rank',
-		military_specialty_acc = '$military_specialty_acc' 
-		military_fitness_service = '$military_fitness_service' 
-		military_registration_service = '$military_registration_service' 
-		military_registration_date = '$military_registration_date' 
-		military_general = '$military_general' 
-		military_special = '$military_special' 
-		military_no_official = '$military_no_official' 
-		military_additional_information = '$military_additional_information' 
-		military_date_completion = '$military_date_completion' 
+		military_specialty_acc = '$military_specialty_acc', 
+		military_fitness_service = '$military_fitness_service', 
+		military_registration_service = '$military_registration_service', 
+		military_registration_date = '$military_registration_date', 
+		military_general = '$military_general', 
+		military_special = '$military_special', 
+		military_no_official = '$military_no_official', 
+		military_additional_information = '$military_additional_information', 
+		military_date_completion = '$military_date_completion', 
 		update_date='$update_date' 
 		WHERE id 	= '$militaryid' ";
   

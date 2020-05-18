@@ -51,8 +51,8 @@ if ($result_minfo ->num_rows > 0) {
 
 
 $row_count=$result_minfo->num_rows ;
+
 $draw=10;
-/*$_POST['draw']*/
 
 $output = array(
     'draw' => intval($draw),
@@ -60,6 +60,6 @@ $output = array(
     'recordsFiltered' => $row_count,
     'data' => $data
 );
-
 echo  json_encode($output);
 ?>
+
