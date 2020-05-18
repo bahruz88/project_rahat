@@ -185,7 +185,7 @@
  						 		<div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
                                     <div class="col-sm-6">
-                                        <select data-live-search="true"  name="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                        <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
                                         <?php
                                          $result_employees_view = $db->query($sql_employees);
                                             if ($result_employees_view->num_rows > 0) {
@@ -202,7 +202,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="military_reg_group"><?php echo $dil["military_registration_group"];?></label>
                                     <div class="col-sm-6">
-                                        <select   name="military_reg_group"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_registration_group"];?>" >
+                                        <select   name="military_reg_group"  id="military_reg_group" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_registration_group"];?>" >
                                             <option value="1">Çağırışçı</option>
                                             <option value="2">Hərbi vəzifəli</option>
                                         </select>
