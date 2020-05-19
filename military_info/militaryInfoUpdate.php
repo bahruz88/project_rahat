@@ -9,16 +9,17 @@ $military_specialty_acc         = $_POST['update_military_specialty_acc_name'];
 $military_fitness_service       = $_POST['update_military_fitness_service_name'];
 $military_registration_service  = $_POST['update_military_registration_service_name'];
 
-$military_registration_date = strtr($_POST['update_military_registration_date_name'], '/', '-');
+$military_registration_date = $_POST['update_military_registration_date_name'] ;
+$military_registration_date = strtr( $military_registration_date , '/', '-');
 $military_registration_date= date('Y-m-d', strtotime($military_registration_date));
 
 $military_general               = $_POST['update_military_general_name'];
 $military_special               = $_POST['update_military_special_name'];
 $military_no_official           = $_POST['update_military_no_official_name'];
 $military_additional_information= $_POST['update_military_additional_information_name'];
-//$military_date_completion       = $_POST['update_military_date_completion'];
 
-$military_date_completion = strtr($_POST['update_military_date_completion_name'], '/', '-');
+$military_date_completion       = $_POST['update_military_date_completion_name'];
+$military_date_completion = strtr( $military_date_completion , '/', '-');
 $military_date_completion= date('Y-m-d', strtotime($military_date_completion));
 
 
