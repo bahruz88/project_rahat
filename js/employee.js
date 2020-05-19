@@ -1962,8 +1962,8 @@ var military_info_table ;
                         military_reg_group='Hərbi vəzifəli'
                     }
 					$("#view_militaryemp").val(militarydata.full_name);
-					 $("#view_military_reg_group").val(military_reg_group);
-					 $("#view_military_reg_category").val(military_reg_category);
+					$("#view_military_reg_group").val(military_reg_group);
+					$("#view_military_reg_category").val(military_reg_category);
 					$("#view_staff_desc_id").val(militarydata.tmsStaffDesc);
 					$("#view_rank_desc_id").val(militarydata.tmrRankDesc);
 					$("#view_military_specialty_acc").val(militarydata.military_specialty_acc);
