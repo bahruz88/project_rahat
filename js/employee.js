@@ -1915,22 +1915,7 @@ var military_info_table ;
 				var militarydata = JSON.parse(military_data);
 
 				if  (optype=='update') {
-					console.log('update militaryid'+militarydata.id);
-					console.log('update teId'+militarydata.teId);
-					console.log('update military_reg_group'+militarydata.military_reg_group);
-					console.log('update military_reg_category'+militarydata.military_reg_category);
-					console.log('update tmsId'+militarydata.tmsId);
-					console.log('update tmrId'+militarydata.tmrId);
-					console.log('update military_specialty_acc'+militarydata.military_specialty_acc);
-					console.log('update military_fitness_service'+militarydata.military_fitness_service);
-					console.log('update military_registration_service'+militarydata.military_registration_service);
-					console.log('update military_registration_date'+militarydata.military_registration_date);
-					console.log('update military_general'+militarydata.military_general);
-					console.log('update military_special'+militarydata.military_special);
-					console.log('update military_no_official'+militarydata.military_no_official);
-					console.log('update military_additional_information'+militarydata.military_additional_information);
-					console.log('update military_date_completion'+militarydata.military_date_completion);
-
+		
 					$("#update_militaryid").val(militarydata.id).change();
 					$("#update_militaryempid").val(militarydata.teId).change();
 					$("#update_military_reg_group").val(militarydata.military_reg_group).change();
@@ -1996,7 +1981,7 @@ var military_info_table ;
 			dataType: "text",
 			success: function(strMessage)
 			{
-				console.log('serialize='+$("#militaryInfoUpdate").serialize());
+				//console.log('serialize='+$("#militaryInfoUpdate").serialize());
 				console.log('strMessage='+strMessage);
 				$("#badge_danger_update").text("");
 				if (strMessage.substr(1, 4)==='error')
@@ -2042,10 +2027,10 @@ var military_info_table ;
 	/*military table view click  */
 	$('#military_info_table').on( 'click', '#militaryInfo_edit', function ()
 	{
-		console.log('militaryInfo_edit')
+ 
 		var data = military_info_table.row( $(this).parents('tr') ).data();
 		GetMilitaryDetails(data[0],'update');
-		document.getElementById("update_militaryid").value = data[0];
+		document.getElementById("updatemilitaryid").value = data[0];
 		console.log(data[0]);
 	} );
 
