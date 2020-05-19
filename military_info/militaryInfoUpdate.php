@@ -43,7 +43,7 @@ $military_date_completion= date('Y-m-d', strtotime($military_date_completion));
 		WHERE id 	= '$militaryid' ";
   
 	if(mysqli_query($db, $sql) ) {
-      echo "success" ;  
+      echo "success"  ;  
     }
     else  {
       echo "error" .mysqli_error($db);
