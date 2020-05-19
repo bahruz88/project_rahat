@@ -1778,7 +1778,7 @@ var military_info_table ;
                    text: 'Add New <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
                        console.log('militaryInfoInsertModal')
-					$("#militaryInfoInsertModal").find('#employee').find('option[value=""]').prop('selected', true);
+
                     $("#militaryInfoInsertModal").modal();
                 }
                     },
@@ -1811,7 +1811,7 @@ var military_info_table ;
 
         });
 
-		console.log('Tab clikc oldu');
+		console.log('Tab clikc oldu',military_info_table);
     });
 
 	/*Herbi MELUMATALRİ SİLİNİR */

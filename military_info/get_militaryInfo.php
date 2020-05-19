@@ -27,12 +27,23 @@ if ($result_minfo ->num_rows > 0) {
 
         }
 
-
+        $military_reg_category='';
+		$military_reg_group='';
+		if($row_minfo['military_reg_category']==1){
+		    $military_reg_category='Kateqoriya 1';
+		}else{
+		    $military_reg_category='Kateqoriya 2';
+		}
+		if($row_minfo['military_reg_group']==1){
+		    $military_reg_group='Çağırışçı';
+		}else{
+		    $military_reg_group='Hərbi vəzifəli';
+		}
         $sub_array   = array();
         $sub_array[] = $row_minfo['id'];
         $sub_array[] = $row_minfo['lastname'].' '.$row_minfo['firstname'].' '.$row_minfo['surname'];
-        $sub_array[] = $row_minfo['military_reg_group'];
-        $sub_array[] = $row_minfo['military_reg_category'];
+        $sub_array[] = $military_reg_category;
+        $sub_array[] = $military_reg_group;
         $sub_array[] = $row_minfo['staff_desc'];
         $sub_array[] = $row_minfo['rank_desc'];
         $sub_array[] = $row_minfo['military_specialty_acc'];
@@ -60,6 +71,7 @@ $output = array(
     'recordsFiltered' => $row_count,
     'data' => $data
 );
+//print_r($output);
 echo  json_encode($output);
 ?>
 
