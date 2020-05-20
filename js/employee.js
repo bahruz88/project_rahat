@@ -2034,7 +2034,312 @@ var military_info_table ;
 		console.log(data[0]);
 	} );
 
+	/*
+    **********************************************************************************************************************
+    ************************************** Ödəniş/Maaş INFO BILIKLERI ************************************************************
+    **********************************************************************************************************************
+    */
 
+	var payment_salary_table ;
+	$('#paymentSalarytab').click(function() {
+		console.log('Tab clikc paymentSalarytab');
+		$('#payment_salary_table').DataTable().clear().destroy();
+		payment_salary_table = $("#payment_salary_table").DataTable({
+			"scrollX": true,
+			"paging": true,
+			"lengthChange": false,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": true,
+			"language": {
+				"lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
+				"zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
+				"info": "Showing page _PAGE_ of _PAGES_",
+				"infoEmpty": " Heç bir məlumat  tapılmadı",
+				"infoFiltered": "(filtered from _MAX_ total records)",
+				"paginate": {
+					"previous": "<?php echo $dil['previous'] ; ?> " ,
+					"next": "<?php echo $dil['next'] ; ?>"
+				}
+			},
+			"ajax": {
+				url: "payment_salary/get_paymentSalary.php",
+				type: "POST"
+			},"columnDefs": [ {
+				"width": "8%",
+				"targets": -1,
+				"data": null,
+				"defaultContent": "<img  id='paymentSalary_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
+					"<img  id='paymentSalary_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
+					"<img  id='paymentSalary_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+			} ],
+			dom: 'lBfrtip',
+
+			buttons: [
+				{
+
+					text: 'Add New <i class="fa fa-plus"></i>',
+					action: function ( e, dt, node, config ) {
+						console.log('paymentSalaryInsertModal')
+
+						$("#paymentSalaryInsertModal").modal();
+					}
+				},
+				{
+					extend: 'excelHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				},
+				{
+					extend: 'csvHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				},
+				{
+					extend: 'pdfHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				}  ,'copy','print',
+				'colvis',
+
+			],
+
+			"lengthMenu": [
+				[20, 30, 60, -1],
+				[10, 20, 50, "All"]
+			]
+
+		});
+
+		console.log('Tab clikc oldu',payment_salary_table);
+	});
+
+	/*Herbi MELUMATALRİ SİLİNİR */
+	$("#paymentSalaryDelete").submit(function(e) {
+
+		e.preventDefault();
+		$.ajax( {
+			url: "payment_salary/paymentSalaryDelete.php",
+			method: "post",
+			data: $("#paymentSalaryDelete").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				console.log('strMessage='+strMessage);
+				if (strMessage.substr(1, 4)==='error')
+				{
+					console.log(strMessage);
+				}
+				else if (strMessage==='success')
+				{
+					$('#modalPaymentSalaryDelete').modal('hide');
+					$('#modalDeleteSuccess').modal('show');
+					payment_salary_table.ajax.reload();
+				}
+				else  {
+					console.log(strMessage);
+					$("#badge_danger").text(strMessage);
+				}
+			}
+		});
+		payment_salary_table.ajax.reload();
+
+
+	});
+
+	/*payment Salary  table delete click*/
+	$('#payment_salary_table').on( 'click', '#paymentSalary_delete', function ()
+	{
+		var data = payment_salary_table.row( $(this).parents('tr') ).data();
+		console.log('data[0]='+data[0])
+		document.getElementById("paymentSalaryid").value = data[0];
+		$('#modalPaymentSalaryDelete').modal('show');
+	} );
+
+	$("#paymentSalaryInsertForm").submit(function(e)
+	{
+		console.log('salam insert')
+		e.preventDefault();
+		/*	if($("#langInsertForm").valid())
+    { */
+		$.ajax( {
+			url: "payment_salary/paymentSalaryInsert.php",
+			method: "post",
+			data: $("#paymentSalaryInsertForm").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				console.log('strMessage='+$("#paymentSalaryInsertForm").serialize());
+				console.log('strMessage='+strMessage);
+				$("#badge_success").text('');
+				$("#badge_danger").text('');
+				if (strMessage.substr(1, 4)==='error')
+				{
+
+					$("#errorp").text(strMessage);
+					$("#modalInsertError").modal('show');
+					$("#paymentSalaryInsertModal").modal('hide');
+				}
+				else if (strMessage==='success')
+				{
+					$("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+					$("#modalInsertSuccess").modal('show');
+					$("#paymentSalaryInsertModal").modal('hide');
+
+				}
+				else  {
+					$("#errorp").text(strMessage);
+					$("#modalInsertError").modal('show');
+					$("#paymentSalaryInsertModal").modal('hide');
+
+				}
+			}
+		});
+		payment_salary_table.ajax.reload();
+		$( "#paymentSalaryInsertForm" ).get(0).reset();
+		/*}*/
+	});
+
+
+	/*getPaymentSalaryDetails  */
+	function getPaymentSalaryDetails(paymentsalaryid,optype)
+	{
+		console.log('$paymentsalaryid='+paymentsalaryid)
+		$.post("payment_salary/getPaymentSalaryDetail.php",
+			{
+				paymentsalaryid: paymentsalaryid
+			},
+			function (paymentsalary_data, status)
+			{
+				// PARSE json data
+				var paymentsalarydata = JSON.parse(paymentsalary_data);
+				console.log('paymentsalarydata=',paymentsalarydata)
+
+				if  (optype=='update') {
+					$("#update_paymentsalaryid").val(paymentsalarydata.id).change();
+					$("#update_militaryempid").val(paymentsalarydata.teId).change();
+					$("#update_military_reg_group").val(paymentsalarydata.military_reg_group).change();
+					$("#update_military_reg_category").val(paymentsalarydata.military_reg_category).change();
+					$("#update_staff_desc_id").val(paymentsalarydata.tmsId).change();
+					$("#update_rank_desc_id").val(paymentsalarydata.tmrId).change();
+					$("#update_military_specialty_acc").val(paymentsalarydata.military_specialty_acc);
+					$("#update_military_fitness_service").val(paymentsalarydata.military_fitness_service);
+					$("#update_military_registration_service").val(paymentsalarydata.military_registration_service);
+					$("#update_military_registration_date").val(paymentsalarydata.military_registr_date);
+					$("#update_military_general").val(paymentsalarydata.military_general);
+					$("#update_military_special").val(paymentsalarydata.military_special);
+					$("#update_military_no_official").val(paymentsalarydata.military_no_official);
+					$("#update_military_additional_information").val(paymentsalarydata.military_additional_information);
+					$("#update_military_date_completion").val(paymentsalarydata.military_date_comp);
+					$('#modalEditPaymentSalary').modal('show');
+				}
+				else {
+					var military_reg_category=''
+					var military_reg_group=''
+					if(paymentsalarydata.military_reg_category==1){
+						military_reg_category='Kateqoriya 1'
+					}else{
+						military_reg_category='Kateqoriya 2'
+					}
+					if(paymentsalarydata.military_reg_group==1){
+						military_reg_group='Çağırışçı'
+					}else{
+						military_reg_group='Hərbi vəzifəli'
+					}
+					$("#view_militaryemp").val(paymentsalarydata.full_name);
+					$("#view_military_reg_group").val(military_reg_group);
+					$("#view_military_reg_category").val(military_reg_category);
+					$("#view_staff_desc_id").val(paymentsalarydata.tmsStaffDesc);
+					$("#view_rank_desc_id").val(paymentsalarydata.tmrRankDesc);
+					$("#view_military_specialty_acc").val(paymentsalarydata.military_specialty_acc);
+					$("#view_military_fitness_service").val(paymentsalarydata.military_fitness_service);
+					$("#view_military_registration_service").val(paymentsalarydata.military_registration_service);
+					$("#view_military_registration_date").val(paymentsalarydata.military_registr_date);
+					$("#view_military_general").val(paymentsalarydata.military_general);
+					$("#view_military_special").val(paymentsalarydata.military_special);
+					$("#view_military_no_official").val(paymentsalarydata.military_no_official);
+					$("#view_military_additional_information").val(paymentsalarydata.military_additional_information);
+					$("#view_military_date_completion").val(paymentsalarydata.military_date_comp);
+					$('#modalViewPaymentSalary').modal('show');
+				}
+			}
+		);
+
+	}
+
+	/*payment Salary Update */
+	$("#paymentSalaryUpdate").submit(function(e)
+	{
+		e.preventDefault();
+		/*if($("#educationUpdate").valid())
+        { */
+
+		$.ajax( {
+			url: "payment_salary/paymentSalaryUpdate.php",
+			method: "post",
+			data: $("#paymentSalaryUpdate").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				//console.log('serialize='+$("#paymentSalaryUpdate").serialize());
+				console.log('strMessage='+strMessage);
+				$("#badge_danger_update").text("");
+				if (strMessage.substr(1, 4)==='error')
+				{
+					console.log(strMessage);
+				}
+				else if (strMessage==='success')
+				{
+					$('#modalEditPaymentSalary').modal('hide');
+					$('#modalUpdateSuccess').modal('show');
+					payment_salary_table.ajax.reload();
+				}
+
+				else  {
+					$("#badge_danger_update").text(strMessage);
+				}
+			}
+		});
+		payment_salary_table.ajax.reload();
+		/*}
+        else {
+                 alert('not valid') ;
+             }*/
+	});
+
+	/*payment Salary table delete click*/
+	$('#payment_salary_table').on( 'click', '#paymentSalary_delete', function ()
+	{
+		var data = payment_salary_table.row( $(this).parents('tr') ).data();
+
+		document.getElementById("paymentSalaryid").value = data[0];
+
+		$('#modalPaymentSalaryDelete').modal('show');
+	} );
+
+	/*payment Salary table view click  */
+	$('#payment_salary_table').on( 'click', '#paymentSalary_view', function ()
+	{
+		var data = payment_salary_table.row( $(this).parents('tr') ).data();
+		getPaymentSalaryDetails(data[0],'view');
+		console.log(data[0]);
+	} );
+	/*payment Salary table view click  */
+	$('#payment_salary_table').on( 'click', '#paymentSalary_edit', function ()
+	{
+
+		var data = payment_salary_table.row( $(this).parents('tr') ).data();
+		getPaymentSalaryDetails(data[0],'update');
+		document.getElementById("updatepaymentsalaryid").value = data[0];
+		console.log(data[0]);
+	} );
+
+
+	
 $('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
 $('#birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
