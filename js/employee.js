@@ -1913,23 +1913,9 @@ var military_info_table ;
 			{
 				// PARSE json data
 				var militarydata = JSON.parse(military_data);
+				console.log('militarydata=',militarydata)
 
 				if  (optype=='update') {
-					console.log('update militaryid'+militarydata.id);
-					console.log('update teId'+militarydata.teId);
-					console.log('update military_reg_group'+militarydata.military_reg_group);
-					console.log('update military_reg_category'+militarydata.military_reg_category);
-					console.log('update tmsId'+militarydata.tmsId);
-					console.log('update tmrId'+militarydata.tmrId);
-					console.log('update military_specialty_acc'+militarydata.military_specialty_acc);
-					console.log('update military_fitness_service'+militarydata.military_fitness_service);
-					console.log('update military_registration_service'+militarydata.military_registration_service);
-					console.log('update military_registration_date'+militarydata.military_registration_date);
-					console.log('update military_general'+militarydata.military_general);
-					console.log('update military_special'+militarydata.military_special);
-					console.log('update military_no_official'+militarydata.military_no_official);
-					console.log('update military_additional_information'+militarydata.military_additional_information);
-					console.log('update military_date_completion'+militarydata.military_date_completion);
 
 					$("#update_militaryid").val(militarydata.id).change();
 					$("#update_militaryempid").val(militarydata.teId).change();
@@ -1940,12 +1926,12 @@ var military_info_table ;
 					$("#update_military_specialty_acc").val(militarydata.military_specialty_acc);
 					$("#update_military_fitness_service").val(militarydata.military_fitness_service);
 					$("#update_military_registration_service").val(militarydata.military_registration_service);
-					$("#update_military_registration_date").val(militarydata.military_registration_date);
+					$("#update_military_registration_date").val(militarydata.military_registr_date);
 					$("#update_military_general").val(militarydata.military_general);
 					$("#update_military_special").val(militarydata.military_special);
 					$("#update_military_no_official").val(militarydata.military_no_official);
 					$("#update_military_additional_information").val(militarydata.military_additional_information);
-					$("#update_military_date_completion").val(militarydata.military_date_completion);
+					$("#update_military_date_completion").val(militarydata.military_date_comp);
 					$('#modalEditMilitaryInfo').modal('show');
 				}
 				else {
@@ -1969,12 +1955,12 @@ var military_info_table ;
 					$("#view_military_specialty_acc").val(militarydata.military_specialty_acc);
 					$("#view_military_fitness_service").val(militarydata.military_fitness_service);
 					$("#view_military_registration_service").val(militarydata.military_registration_service);
-					$("#view_military_registration_date").val(militarydata.military_registration_date);
+					$("#view_military_registration_date").val(militarydata.military_registr_date);
 					$("#view_military_general").val(militarydata.military_general);
 					$("#view_military_special").val(militarydata.military_special);
 					$("#view_military_no_official").val(militarydata.military_no_official);
 					$("#view_military_additional_information").val(militarydata.military_additional_information);
-					$("#view_military_date_completion").val(militarydata.military_date_completion);
+					$("#view_military_date_completion").val(militarydata.military_date_comp);
 					$('#modalViewMilitary').modal('show');
 				}
 			}
