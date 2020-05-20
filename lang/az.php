@@ -134,6 +134,16 @@ $dil = array(
     "military_date_completion"   =>"Doldurulma tarixi",
     "military_edit_title"   =>"Hərbi məlumatların redaktəsi",
     "military_view_title"   =>"Hərbi məlumatlarına baxış",
+    "payment_salary_information"   =>"Ödəmə/maaş məlumatları",
+    "payment_wage"   =>"Vəzifə maaşı",
+    "payment_addition_salary"   =>"Vəzifə maaşına əlavə (zərərli, ağır, yeraltı və s. İşə görə)",
+    "payment_addition_salary2"   =>"Vəzifə maaşına əlavə",
+    "payment_total_monthly_salary"   =>"Aylıq  toplam maaşı",
+    "payment_prize_amount"   =>"Mükafat məbləği",
+    "payment_reward_period"   =>"Mükafat dövrü",
+    "payment_place_expenditure"   =>"Məsrəf yeri",
+    "payment_salary_payment_day"   =>"Əmək haqqı ödəmə günü (ayın günü)",
+    "payment_parties_agree_payment_wages"   =>"Tərəflərin əmək haqqının ödənilməsi barədə razılığa gəldikləri digər şərtlər",
 	"operation"   =>"Əməliyyat"
 );
 ?>
