@@ -34,7 +34,7 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-text"><?php echo $dil["military_view_title"];?></h4>
+						<h4 class="card-text"><?php echo $dil["payment_view_title"];?></h4>
 
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
@@ -176,7 +176,7 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["military_information"];?></h4>
+						<h4 class="card-title"><?php echo $dil["payment_salary_information"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
@@ -336,7 +336,7 @@
   </div>
   
   <!--MILITARY EDİT MODAL -->
-   <div class="modal fade" id="modalEditpaymentSalary" role="dialog" data-keyboard="false" data-backdrop="static">
+   <div class="modal fade" id="modalEditPaymentSalary" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
     <form id="paymentSalaryUpdate" method="post" class="form-horizontal" action="">
 	
@@ -346,7 +346,7 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["military_edit_title"];?></h4>
+						<h4 class="card-title"><?php echo $dil["payment_edit_title"];?></h4>
                          <span  id="badge_success" class="badge badge-success"></span>
                         <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>

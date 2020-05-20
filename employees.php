@@ -226,6 +226,7 @@
   include  ('skills/skillsModal.php');
   include  ('emp_lang/langModal.php');
   include  ('military_info/militaryInfoModal.php');
+  include  ('payment_salary/paymentSalaryModal.php');
   include  ('family_info/familyInfoModal.php');
   ?>
   

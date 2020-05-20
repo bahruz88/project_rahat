@@ -24,6 +24,7 @@
    $tbl_military_information='tbl_military_information';
    $tbl_military_rank='tbl_military_rank';
    $tbl_military_staff='tbl_military_staff';
+   $tbl_payment_salary='tbl_payment_salary';
 
    $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
    $sql_roles = "select * from $tbl_roles where status=1 order  by position";				
