@@ -493,7 +493,7 @@
         <div class="modal-footer">			 
 		<button  id ="add_new_item2" typemodalEdit="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_militaryid" name="update_militaryid_name" value="" />
+		<input type="hidden" id="updatemilitaryid" name="update_militaryid_name" value="" />
         </div>	
 		</form>
       </div>

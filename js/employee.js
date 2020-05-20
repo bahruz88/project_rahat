@@ -1916,7 +1916,6 @@ var military_info_table ;
 				console.log('militarydata=',militarydata)
 
 				if  (optype=='update') {
-
 					$("#update_militaryid").val(militarydata.id).change();
 					$("#update_militaryempid").val(militarydata.teId).change();
 					$("#update_military_reg_group").val(militarydata.military_reg_group).change();
@@ -1948,8 +1947,8 @@ var military_info_table ;
                         military_reg_group='Hərbi vəzifəli'
                     }
 					$("#view_militaryemp").val(militarydata.full_name);
-					 $("#view_military_reg_group").val(military_reg_group);
-					 $("#view_military_reg_category").val(military_reg_category);
+					$("#view_military_reg_group").val(military_reg_group);
+					$("#view_military_reg_category").val(military_reg_category);
 					$("#view_staff_desc_id").val(militarydata.tmsStaffDesc);
 					$("#view_rank_desc_id").val(militarydata.tmrRankDesc);
 					$("#view_military_specialty_acc").val(militarydata.military_specialty_acc);
@@ -1982,7 +1981,7 @@ var military_info_table ;
 			dataType: "text",
 			success: function(strMessage)
 			{
-				console.log('serialize='+$("#militaryInfoUpdate").serialize());
+				//console.log('serialize='+$("#militaryInfoUpdate").serialize());
 				console.log('strMessage='+strMessage);
 				$("#badge_danger_update").text("");
 				if (strMessage.substr(1, 4)==='error')
@@ -2028,10 +2027,10 @@ var military_info_table ;
 	/*military table view click  */
 	$('#military_info_table').on( 'click', '#militaryInfo_edit', function ()
 	{
-		console.log('militaryInfo_edit')
+ 
 		var data = military_info_table.row( $(this).parents('tr') ).data();
 		GetMilitaryDetails(data[0],'update');
-		document.getElementById("update_militaryid").value = data[0];
+		document.getElementById("updatemilitaryid").value = data[0];
 		console.log(data[0]);
 	} );
 
