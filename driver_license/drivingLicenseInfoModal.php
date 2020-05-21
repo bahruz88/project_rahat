@@ -1,5 +1,5 @@
  <!-- LANG CONTENT MODAL  -->
-<div class="modal fade" id="modalMilitaryInfoDelete" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="modalDrivingLicenseInfoDelete" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm">
           <div class="modal-content bg-danger">
             <div class="modal-header">
@@ -12,7 +12,7 @@
               <p><?php echo $dil["delete_warning_content"];?></p>
             </div>
             <div class="modal-footer justify-content-between">
-			  <form id="militaryInfoDelete" method="post" class="form-horizontal" action="">
+			  <form id="drivingLicenseInfoDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
 			  <input type="hidden" id="militaryinfoid" name="militaryinfoid" value="" />
 			  </form>
@@ -166,9 +166,9 @@
   
   
   <!--MILITARY İNSERT MODAL -->
-  <div class="modal fade" id="militaryInfoInsertModal" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal fade" id="drivingLicenseInfoInsertModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
-    <form id="militaryInfoInsertForm" method="post" class="form-horizontal" action="">
+    <form id="drivingLicenseInfoInsertForm" method="post" class="form-horizontal" action="">
 	
       <!-- Modal content-->
       <div class="modal-content" >
@@ -336,9 +336,9 @@
   </div>
   
   <!--MILITARY EDİT MODAL -->
-   <div class="modal fade" id="modalEditMilitaryInfo" role="dialog" data-keyboard="false" data-backdrop="static">
+   <div class="modal fade" id="modalEditDrivingLicenseInfo" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
-    <form id="militaryInfoUpdate" method="post" class="form-horizontal" action="">
+    <form id="drivingLicenseInfoUpdate" method="post" class="form-horizontal" action="">
 	
       <!-- Modal content-->
       <div class="modal-content" >

@@ -255,7 +255,7 @@
     <li class="nav-item dropdown" >
     <a class="nav-link dropdown-toggle" style="border-radius:0px;color:#494e53;" data-toggle="dropdown" href="#"     ><?php echo $dil["other_informations"];?></a>
     <div class="dropdown-menu dropdown-menu-lg  ">
-      <a class="dropdown-item" href="#driverLicense"  id="driverLicensetab" data-toggle="tab">Sürücülük vəsiqəsi</a>
+      <a class="dropdown-item" href="#driverLicense"  id="drivingLicensetab" data-toggle="tab">Sürücülük vəsiqəsi</a>
       <a class="dropdown-item" href="#migration_info" data-toggle="tab">Miqrasiya Məlumatları</a>
 	  <a class="dropdown-item" href="#medical_info" data-toggle="tab">Tibbi məlumatlar</a>
 	  <a class="dropdown-item" href="#previous_positions" data-toggle="tab">Əvvəlki iş yerləri</a>
