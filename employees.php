@@ -256,9 +256,9 @@
     <a class="nav-link dropdown-toggle" style="border-radius:0px;color:#494e53;" data-toggle="dropdown" href="#"     ><?php echo $dil["other_informations"];?></a>
     <div class="dropdown-menu dropdown-menu-lg  ">
       <a class="dropdown-item" href="#driverLicense"  id="drivingLicensetab" data-toggle="tab">Sürücülük vəsiqəsi</a>
-      <a class="dropdown-item" href="#migration_info" data-toggle="tab">Miqrasiya Məlumatları</a>
-	  <a class="dropdown-item" href="#medical_info" data-toggle="tab">Tibbi məlumatlar</a>
-	  <a class="dropdown-item" href="#previous_positions" data-toggle="tab">Əvvəlki iş yerləri</a>
+      <a class="dropdown-item" href="#migrationInfo"   id="migrationInfotab" data-toggle="tab">Miqrasiya Məlumatları</a>
+	  <a class="dropdown-item" href="#medicalInfo"   id="medicalInfotab" data-toggle="tab">Tibbi məlumatlar</a>
+	  <a class="dropdown-item" href="#previousPositions"    id="previousPositionstab" data-toggle="tab">Əvvəlki iş yerləri</a>
     </div>
   </li>
 </ul>
@@ -424,6 +424,53 @@
             <th><?php echo $dil["driving_licensing_authority"];?></th>
             <th><?php echo $dil["driving_date_issue_card"];?></th>
             <th><?php echo $dil["driving_period_validity"];?></th>
+            <th><?php echo $dil["operation"];?></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div class="tab-pane" id="migrationInfo">
+    <table id="driver_license_table" class="table table-striped  table-bordered table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">id</th>
+            <th><?php echo $dil["fio"];?></th>
+            <th><?php echo $dil["driving_serial_number_card"];?></th>
+            <th><?php echo $dil["driving_category"];?></th>
+            <th><?php echo $dil["driving_licensing_authority"];?></th>
+            <th><?php echo $dil["driving_date_issue_card"];?></th>
+            <th><?php echo $dil["driving_period_validity"];?></th>
+            <th><?php echo $dil["operation"];?></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div class="tab-pane" id="medicalInfo">
+    <table id="medical_info_table" class="table table-striped  table-bordered table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">id</th>
+            <th><?php echo $dil["fio"];?></th>
+            <th><?php echo $dil["migration_medical_certificate"];?></th>
+            <th><?php echo $dil["migration_update_density"];?></th>
+            <th><?php echo $dil["migration_update_date"];?></th>
+            <th><?php echo $dil["migration_physical_deficiency"];?></th>
+            <th><?php echo $dil["migration_about_physical_deficiency"];?></th>
+            <th><?php echo $dil["operation"];?></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div class="tab-pane" id="previousPositions">
+    <table id="previous_positions_table" class="table table-striped  table-bordered table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">id</th>
+            <th><?php echo $dil["fio"];?></th>
+            <th><?php echo $dil["migration_name_employer"];?></th>
+            <th><?php echo $dil["migration_date_range"];?></th>
+            <th><?php echo $dil["migration_reason_dismissal"];?></th>
+            <th><?php echo $dil["migration_activity_sector"];?></th>
             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>
