@@ -26,7 +26,7 @@
       </div>	 
 
      <!--Military VIEW MODAL -->
-  <div class="modal fade" id="modalViewMilitary" role="dialog">
+  <div class="modal fade" id="modalViewDrivingLicense" role="dialog">
     <div class="modal-dialog modal-lg">
        <!-- Modal content-->
       <div class="modal-content">
@@ -34,7 +34,7 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-text"><?php echo $dil["military_view_title"];?></h4>
+						<h4 class="card-text"><?php echo $dil["driving_license_view_title"];?></h4>
 
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
@@ -176,7 +176,7 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["military_information"];?></h4>
+						<h4 class="card-title"><?php echo $dil["driving_license_information"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
@@ -346,7 +346,7 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["military_edit_title"];?></h4>
+						<h4 class="card-title"><?php echo $dil["driving_license_edit_title"];?></h4>
                          <span  id="badge_success" class="badge badge-success"></span>
                         <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
@@ -493,7 +493,7 @@
         <div class="modal-footer">			 
 		<button  id ="add_new_item2" typemodalEdit="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="updatemilitaryid" name="update_militaryid_name" value="" />
+		<input type="hidden" id="updatedrivinglicenseid" name="update_drivinglicenseid_name" value="" />
         </div>	
 		</form>
       </div>

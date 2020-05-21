@@ -147,11 +147,42 @@ $dil = array(
     "payment_salary_payment_day"   =>"Əmək haqqı ödəmə günü (ayın günü)",
     "payment_parties_agree_payment_wages"   =>"Tərəflərin əmək haqqının ödənilməsi barədə razılığa gəldikləri digər şərtlər",
     "driving_license"   =>"Sürücülük vəsiqəsi",
+    "driving_license_information"   =>"Sürücülük vəsiqəsi məlumatları",
+    "driving_license_view_title"   =>"Sürücülük vəsiqəsi məlumatlarına baxış",
+    "driving_license_edit_title"   =>"Sürücülük vəsiqəsi məlumatlarının redaktəsi",
     "driving_serial_number_card"   =>"Vəsiqənin seriya və nömrəsi",
     "driving_category"   =>"Kateqoriya",
     "driving_licensing_authority"   =>"Vəsiqəni verən orqan",
     "driving_date_issue_card"   =>"Vəsiqənin verildiyi tarix",
     "driving_period_validity"   =>"Etibarlılıq müddəti",
+    "migration_information"   =>"Miqrasiya Məlumatları",
+    "migration_basics_living_foreigners"   =>"Əcnəbilərin və vətəndaşlığı olmayan şəxslərin Azərbaycan Respublikasında yaşamaq əsasları",
+    "migration_temporary_residence_permit"   =>"Müvəqqəti yaşamaq üçün icazə vəsiqəsi",
+    "migration_serial_number_card"   =>"Vəsiqənin seriya və nömrəsi",
+
+    "migration_basis_permission"   =>"İcazə verilməsinə əsas",
+    "migration_date_issue_permit"   =>"İcazənin verilmə tarixi",
+    "migration_name_issuing_authority"   =>"İcazə verən orqanın adı",
+    "migration_permanent_residence_permit"   =>"Daimi yaşamaq üçün icazə vəsiqəsi",
+
+    "migration_date_issue_permit"   =>"İcazənin verilmə tarixi",
+    "migration_period_validity"   =>"Etibarlılıq müddəti",
+    "migration_name_issuing_authority"   =>"İcazə verən orqanın adı",
+    "migration_work_permit_labor_activity"   =>"Azərbaycan Respublikası ərazisində haqqı ödənilən əmək fəaliyyəti ilə məşğul olmaları üçün iş icazəsi",
+    "migration_serial_number_work_permit"   =>"İş icazəsinin seriya və nömrəsi",
+    "migration_medical_information"   =>"Tibbi məlumatlar",
+    "migration_medical_certificate"   =>"Tibbi arayış",
+    "migration_update_density"   =>"Yenilənmə sıxlığı",
+    "migration_update_date"   =>"Sonuncu yenilənmə tarixi",
+    "migration_physical_deficiency"   =>"Fiziki çatışmazlığı varmı",
+    "migration_about_physical_deficiency"   =>"Fiziki çatışmazlığı haqqında",
+    "migration_previous_employer_information"   =>"Əvvəlki işəgötürən məlumatları",
+    "migration_name_employer"   =>"İşəgötürənin adı",
+    "migration_date_range"   =>"Tarix aralığı",
+    "migration_reason_dismissal"   =>"İşdən çıxma səbəbi",
+    "migration_activity_sector"   =>"Fəaliyyət sektoru",
+
+
 
 
 	"operation"   =>"Əməliyyat"

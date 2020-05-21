@@ -2569,7 +2569,7 @@ var military_info_table ;
 					$("#view_military_no_official").val(drivinglicensedata.military_no_official);
 					$("#view_military_additional_information").val(drivinglicensedata.military_additional_information);
 					$("#view_military_date_completion").val(drivinglicensedata.military_date_comp);
-					$('#modalViewMilitary').modal('show');
+					$('#modalViewDrivingLicense').modal('show');
 				}
 			}
 		);
