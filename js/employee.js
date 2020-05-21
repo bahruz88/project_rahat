@@ -2339,7 +2339,7 @@ var military_info_table ;
 	} );
 
 
-	
+
 $('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
 $('#birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });

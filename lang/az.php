@@ -146,6 +146,14 @@ $dil = array(
     "payment_place_expenditure"   =>"Məsrəf yeri",
     "payment_salary_payment_day"   =>"Əmək haqqı ödəmə günü (ayın günü)",
     "payment_parties_agree_payment_wages"   =>"Tərəflərin əmək haqqının ödənilməsi barədə razılığa gəldikləri digər şərtlər",
+    "driving_license"   =>"Sürücülük vəsiqəsi",
+    "driving_serial_number_card"   =>"Vəsiqənin seriya və nömrəsi",
+    "driving_category"   =>"Kateqoriya",
+    "driving_licensing_authority"   =>"Vəsiqəni verən orqan",
+    "driving_date_issue_card"   =>"Vəsiqənin verildiyi tarix",
+    "driving_period_validity"   =>"Etibarlılıq müddəti",
+
+
 	"operation"   =>"Əməliyyat"
 );
 ?>
