@@ -2946,6 +2946,314 @@ var military_info_table ;
         document.getElementById("updatemedicalid").value = data[0];
         console.log(data[0]);
     } );
+
+    /*
+    **********************************************************************************************************************
+    ************************************** Əvvəlki işəgötürən  INFO BILIKLERI ************************************************************
+    **********************************************************************************************************************
+    */
+
+    var previous_positions_table ;
+    $('#previousPositionstab').click(function() {
+        console.log('Tab clikc previousPositionstab');
+        $('#previous_positions_table').DataTable().clear().destroy();
+        previous_positions_table = $("#previous_positions_table").DataTable({
+            "scrollX": true,
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "language": {
+                "lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
+                "zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
+                "info": "Showing page _PAGE_ of _PAGES_",
+                "infoEmpty": " Heç bir məlumat  tapılmadı",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "paginate": {
+                    "previous": "<?php echo $dil['previous'] ; ?> " ,
+                    "next": "<?php echo $dil['next'] ; ?>"
+                }
+            },
+            "ajax": {
+                url: "previous_positions/get_previousPositions.php",
+                type: "POST"
+            },"columnDefs": [ {
+                "width": "8%",
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<img  id='previousPositions_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
+                    "<img  id='previousPositions_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
+                    "<img  id='previousPositions_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+            } ],
+            dom: 'lBfrtip',
+
+            buttons: [
+                {
+
+                    text: 'Add New <i class="fa fa-plus"></i>',
+                    action: function ( e, dt, node, config ) {
+                        console.log('previousPositionsInsertModal')
+
+                        $("#previousPositionsInsertModal").modal();
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'csvHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }  ,'copy','print',
+                'colvis',
+
+            ],
+
+            "lengthMenu": [
+                [20, 30, 60, -1],
+                [10, 20, 50, "All"]
+            ]
+
+        });
+
+        console.log('Tab clikc oldu',previous_positions_table);
+    });
+
+    /*Herbi MELUMATALRİ SİLİNİR */
+    $("#previousPositionsDelete").submit(function(e) {
+
+        e.preventDefault();
+        $.ajax( {
+            url: "previous_positions/previousPositionsDelete.php",
+            method: "post",
+            data: $("#previousPositionsDelete").serialize(),
+            dataType: "text",
+            success: function(strMessage)
+            {
+                console.log('strMessage='+strMessage);
+                if (strMessage.substr(1, 4)==='error')
+                {
+                    console.log(strMessage);
+                }
+                else if (strMessage==='success')
+                {
+                    $('#modalPreviousPositionsDelete').modal('hide');
+                    $('#modalDeleteSuccess').modal('show');
+                    previous_positions_table.ajax.reload();
+                }
+                else  {
+                    console.log(strMessage);
+                    $("#badge_danger").text(strMessage);
+                }
+            }
+        });
+        previous_positions_table.ajax.reload();
+
+
+    });
+
+    /*previous Positions Info  table delete click*/
+    $('#previous_positions_table').on( 'click', '#previousPositions_delete', function ()
+    {
+        var data = previous_positions_table.row( $(this).parents('tr') ).data();
+        console.log('data[0]='+data[0])
+        document.getElementById("previouspositionsid").value = data[0];
+        $('#modalPreviousPositionsDelete').modal('show');
+    } );
+
+    $("#previousPositionsInsertForm").submit(function(e)
+    {
+        console.log('salam insert')
+        e.preventDefault();
+        /*	if($("#langInsertForm").valid())
+    { */
+        $.ajax( {
+            url: "previous_positions/previousPositionsInsert.php",
+            method: "post",
+            data: $("#previousPositionsInsertForm").serialize(),
+            dataType: "text",
+            success: function(strMessage)
+            {
+                console.log('strMessage='+$("#previousPositionsInsertForm").serialize());
+                console.log('strMessage='+strMessage);
+                $("#badge_success").text('');
+                $("#badge_danger").text('');
+                if (strMessage.substr(1, 4)==='error')
+                {
+
+                    $("#errorp").text(strMessage);
+                    $("#modalInsertError").modal('show');
+                    $("#previousPositionsInsertModal").modal('hide');
+                }
+                else if (strMessage==='success')
+                {
+                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#modalInsertSuccess").modal('show');
+                    $("#previousPositionsInsertModal").modal('hide');
+
+                }
+                else  {
+                    $("#errorp").text(strMessage);
+                    $("#modalInsertError").modal('show');
+                    $("#previousPositionsInsertModal").modal('hide');
+
+                }
+            }
+        });
+        previous_positions_table.ajax.reload();
+        $( "#previousPositionsInsertForm" ).get(0).reset();
+        /*}*/
+    });
+
+
+    /*GetPreviousPositionsDetails  */
+    function GetPreviousPositionsDetails(previouspositionsid,optype)
+    {
+        console.log('$previouspositionsid='+previouspositionsid)
+        $.post("previous_positions/getPreviousPositionsDetail.php",
+            {
+                previouspositionsid: previouspositionsid
+            },
+            function (previous_positions, status)
+            {
+                // PARSE json data
+                var previouspositions = JSON.parse(previous_positions);
+                console.log('previouspositions=',previouspositions)
+
+                if  (optype=='update') {
+                    $("#update_previouspositionsid").val(previouspositions.id).change();
+                    $("#update_militaryempid").val(previouspositions.teId).change();
+                    $("#update_military_reg_group").val(previouspositions.military_reg_group).change();
+                    $("#update_military_reg_category").val(previouspositions.military_reg_category).change();
+                    $("#update_staff_desc_id").val(previouspositions.tmsId).change();
+                    $("#update_rank_desc_id").val(previouspositions.tmrId).change();
+                    $("#update_military_specialty_acc").val(previouspositions.military_specialty_acc);
+                    $("#update_military_fitness_service").val(previouspositions.military_fitness_service);
+                    $("#update_military_registration_service").val(previouspositions.military_registration_service);
+                    $("#update_military_registration_date").val(previouspositions.military_registr_date);
+                    $("#update_military_general").val(previouspositions.military_general);
+                    $("#update_military_special").val(previouspositions.military_special);
+                    $("#update_military_no_official").val(previouspositions.military_no_official);
+                    $("#update_military_additional_information").val(previouspositions.military_additional_information);
+                    $("#update_military_date_completion").val(previouspositions.military_date_comp);
+                    $('#modalEditPreviousPositions').modal('show');
+                }
+                else {
+                    var military_reg_category=''
+                    var military_reg_group=''
+                    if(previouspositions.military_reg_category==1){
+                        military_reg_category='Kateqoriya 1'
+                    }else{
+                        military_reg_category='Kateqoriya 2'
+                    }
+                    if(previouspositions.military_reg_group==1){
+                        military_reg_group='Çağırışçı'
+                    }else{
+                        military_reg_group='Hərbi vəzifəli'
+                    }
+                    $("#view_militaryemp").val(previouspositions.full_name);
+                    $("#view_military_reg_group").val(military_reg_group);
+                    $("#view_military_reg_category").val(military_reg_category);
+                    $("#view_staff_desc_id").val(previouspositions.tmsStaffDesc);
+                    $("#view_rank_desc_id").val(previouspositions.tmrRankDesc);
+                    $("#view_military_specialty_acc").val(previouspositions.military_specialty_acc);
+                    $("#view_military_fitness_service").val(previouspositions.military_fitness_service);
+                    $("#view_military_registration_service").val(previouspositions.military_registration_service);
+                    $("#view_military_registration_date").val(previouspositions.military_registr_date);
+                    $("#view_military_general").val(previouspositions.military_general);
+                    $("#view_military_special").val(previouspositions.military_special);
+                    $("#view_military_no_official").val(previouspositions.military_no_official);
+                    $("#view_military_additional_information").val(previouspositions.military_additional_information);
+                    $("#view_military_date_completion").val(previouspositions.military_date_comp);
+                    $('#modalViewPreviousPositions').modal('show');
+                }
+            }
+        );
+
+    }
+
+    /*previous Positions Update */
+    $("#previousPositionsUpdate").submit(function(e)
+    {
+        e.preventDefault();
+        /*if($("#educationUpdate").valid())
+        { */
+
+        $.ajax( {
+            url: "previous_positions/previousPositionsUpdate.php",
+            method: "post",
+            data: $("#previousPositionsUpdate").serialize(),
+            dataType: "text",
+            success: function(strMessage)
+            {
+                //console.log('serialize='+$("#previousPositionsUpdate").serialize());
+                console.log('strMessage='+strMessage);
+                $("#badge_danger_update").text("");
+                if (strMessage.substr(1, 4)==='error')
+                {
+                    console.log(strMessage);
+                }
+                else if (strMessage==='success')
+                {
+                    $('#modalEditPreviousPositions').modal('hide');
+                    $('#modalUpdateSuccess').modal('show');
+                    previous_positions_table.ajax.reload();
+                }
+
+                else  {
+                    $("#badge_danger_update").text(strMessage);
+                }
+            }
+        });
+        previous_positions_table.ajax.reload();
+        /*}
+        else {
+                 alert('not valid') ;
+             }*/
+    });
+
+    /*previousPositions table delete click*/
+    $('#previous_positions_table').on( 'click', '#previousPositions_delete', function ()
+    {
+        var data = previous_positions_table.row( $(this).parents('tr') ).data();
+
+        document.getElementById("previouspositionsid").value = data[0];
+
+        $('#modalPreviousPositionsDelete').modal('show');
+    } );
+
+    /*previous Positions table view click  */
+    $('#previous_positions_table').on( 'click', '#previousPositions_view', function ()
+    {
+        var data = previous_positions_table.row( $(this).parents('tr') ).data();
+        GetPreviousPositionsDetails(data[0],'view');
+        console.log(data[0]);
+    } );
+    /*previous Positions table view click  */
+    $('#previous_positions_table').on( 'click', '#previousPositions_edit', function ()
+    {
+
+        var data = previous_positions_table.row( $(this).parents('tr') ).data();
+        GetPreviousPositionsDetails(data[0],'update');
+        document.getElementById("updatepreviouspositionsid").value = data[0];
+        console.log(data[0]);
+    } );
+
+
+
+    
 $('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
 $('#birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });

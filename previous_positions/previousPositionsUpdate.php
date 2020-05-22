@@ -1,6 +1,6 @@
 <?php 
 include('../session.php') ;
-$militaryid                     = $_POST['update_militaryid_name'];
+$previouspositionsid                     = $_POST['update_previouspositionsid_name'];
 $military_reg_group             = $_POST['update_military_reg_group'];
 $military_reg_category          = $_POST['update_military_reg_category'];
 $military_staff                 = $_POST['update_staff_desc'];
@@ -40,7 +40,7 @@ $military_date_completion= date('Y-m-d', strtotime($military_date_completion));
 		military_additional_information = '$military_additional_information', 
 		military_date_completion = '$military_date_completion', 
 		update_date='$update_date' 
-		WHERE id 	= '$militaryid' ";
+		WHERE id 	= '$previouspositionsid' ";
   
 	if(mysqli_query($db, $sql) ) {
       echo "success";
