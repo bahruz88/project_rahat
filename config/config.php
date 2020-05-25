@@ -25,6 +25,8 @@
    $tbl_military_rank='tbl_military_rank';
    $tbl_military_staff='tbl_military_staff';
    $tbl_payment_salary='tbl_payment_salary';
+   $tbl_employye_driver_license='tbl_employye_driver_license';
+   $tbl_driver_lic_cat='tbl_driver_lic_cat';
 
    $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
    $sql_roles = "select * from $tbl_roles where status=1 order  by position";				

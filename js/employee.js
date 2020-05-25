@@ -2345,11 +2345,11 @@ var military_info_table ;
     **********************************************************************************************************************
     */
 
-	var driving_license_table ;
+	var driver_license_table ;
 	$('#drivingLicensetab').click(function() {
 		console.log('Tab clikc drivingLicensetab');
-		$('#driving_license_table').DataTable().clear().destroy();
-		driving_license_table = $("#driving_license_table").DataTable({
+		$('#driver_license_table').DataTable().clear().destroy();
+		driver_license_table = $("#driver_license_table").DataTable({
 			"scrollX": true,
 			"paging": true,
 			"lengthChange": false,
@@ -2369,7 +2369,7 @@ var military_info_table ;
 				}
 			},
 			"ajax": {
-				url: "driving_license/get_drivingLicenseInfo.php",
+				url: "driver_license/get_drivingLicenseInfo.php",
 				type: "POST"
 			},"columnDefs": [ {
 				"width": "8%",
@@ -2420,7 +2420,7 @@ var military_info_table ;
 
 		});
 
-		console.log('Tab clikc oldu',driving_license_table);
+		console.log('Tab clikc oldu',driver_license_table);
 	});
 
 	/*Suruculuk MELUMATALRİ SİLİNİR */
@@ -2428,7 +2428,7 @@ var military_info_table ;
 
 		e.preventDefault();
 		$.ajax( {
-			url: "driving_license/drivingLicenseInfoDelete.php",
+			url: "driver_license/drivingLicenseInfoDelete.php",
 			method: "post",
 			data: $("#drivingLicenseInfoDelete").serialize(),
 			dataType: "text",
@@ -2443,7 +2443,7 @@ var military_info_table ;
 				{
 					$('#modalDrivingLicenseInfoDelete').modal('hide');
 					$('#modalDeleteSuccess').modal('show');
-					driving_license_table.ajax.reload();
+					driver_license_table.ajax.reload();
 				}
 				else  {
 					console.log(strMessage);
@@ -2451,15 +2451,15 @@ var military_info_table ;
 				}
 			}
 		});
-		driving_license_table.ajax.reload();
+		driver_license_table.ajax.reload();
 
 
 	});
 
 	/*Driving License Info  table delete click*/
-	$('#driving_license_table').on( 'click', '#drivingLicenseInfo_delete', function ()
+	$('#driver_license_table').on( 'click', '#drivingLicenseInfo_delete', function ()
 	{
-		var data = driving_license_table.row( $(this).parents('tr') ).data();
+		var data = driver_license_table.row( $(this).parents('tr') ).data();
 		console.log('data[0]='+data[0])
 		document.getElementById("drivinglicenseinfoid").value = data[0];
 		$('#modalDrivingLicenseInfoDelete').modal('show');
@@ -2472,7 +2472,7 @@ var military_info_table ;
 		/*	if($("#langInsertForm").valid())
     { */
 		$.ajax( {
-			url: "driving_license/drivingLicenseInfoInsert.php",
+			url: "driver_license/drivingLicenseInfoInsert.php",
 			method: "post",
 			data: $("#drivingLicenseInfoInsertForm").serialize(),
 			dataType: "text",
@@ -2504,7 +2504,7 @@ var military_info_table ;
 				}
 			}
 		});
-		driving_license_table.ajax.reload();
+		driver_license_table.ajax.reload();
 		$( "#drivingLicenseInfoInsertForm" ).get(0).reset();
 		/*}*/
 	});
@@ -2514,7 +2514,7 @@ var military_info_table ;
 	function GetDrivingDetails(drivinglicenseid,optype)
 	{
 		console.log('$drivinglicenseid='+drivinglicenseid)
-		$.post("driving_license/getDrivingLicenseInfoDetail.php",
+		$.post("driver_license/getDrivingLicenseInfoDetail.php",
 			{
 				drivinglicenseid: drivinglicenseid
 			},
@@ -2525,50 +2525,26 @@ var military_info_table ;
 				console.log('drivinglicensedata=',drivinglicensedata)
 
 				if  (optype=='update') {
-					$("#update_drivinglicenseid").val(drivinglicensedata.id).change();
-					$("#update_militaryempid").val(drivinglicensedata.teId).change();
-					$("#update_military_reg_group").val(drivinglicensedata.military_reg_group).change();
-					$("#update_military_reg_category").val(drivinglicensedata.military_reg_category).change();
-					$("#update_staff_desc_id").val(drivinglicensedata.tmsId).change();
-					$("#update_rank_desc_id").val(drivinglicensedata.tmrId).change();
-					$("#update_military_specialty_acc").val(drivinglicensedata.military_specialty_acc);
-					$("#update_military_fitness_service").val(drivinglicensedata.military_fitness_service);
-					$("#update_military_registration_service").val(drivinglicensedata.military_registration_service);
-					$("#update_military_registration_date").val(drivinglicensedata.military_registr_date);
-					$("#update_military_general").val(drivinglicensedata.military_general);
-					$("#update_military_special").val(drivinglicensedata.military_special);
-					$("#update_military_no_official").val(drivinglicensedata.military_no_official);
-					$("#update_military_additional_information").val(drivinglicensedata.military_additional_information);
-					$("#update_military_date_completion").val(drivinglicensedata.military_date_comp);
+					$("#updatedrivinglicenseid").val(drivinglicensedata.id).change();
+					$("#update_drivingempid").val(drivinglicensedata.emp_id).change();
+					$("#update_drivinglic_seria_number").val(drivinglicensedata.lic_seria_number);
+					$("#update_drivintcatId").val(drivinglicensedata.tcatId).change();
+					$("#update_drivinglic_issuer").val(drivinglicensedata.lic_issuer);
+					$("#update_drivinglic_issue_date").val(drivinglicensedata.lic_issue_date);
+					$("#update_drivingexpire_date").val(drivinglicensedata.expire_date);
+
+
 					$('#modalEditDrivingLicenseInfo').modal('show');
 				}
 				else {
-					var military_reg_category=''
-					var military_reg_group=''
-					if(drivinglicensedata.military_reg_category==1){
-						military_reg_category='Kateqoriya 1'
-					}else{
-						military_reg_category='Kateqoriya 2'
-					}
-					if(drivinglicensedata.military_reg_group==1){
-						military_reg_group='Çağırışçı'
-					}else{
-						military_reg_group='Hərbi vəzifəli'
-					}
-					$("#view_militaryemp").val(drivinglicensedata.full_name);
-					$("#view_military_reg_group").val(military_reg_group);
-					$("#view_military_reg_category").val(military_reg_category);
-					$("#view_staff_desc_id").val(drivinglicensedata.tmsStaffDesc);
-					$("#view_rank_desc_id").val(drivinglicensedata.tmrRankDesc);
-					$("#view_military_specialty_acc").val(drivinglicensedata.military_specialty_acc);
-					$("#view_military_fitness_service").val(drivinglicensedata.military_fitness_service);
-					$("#view_military_registration_service").val(drivinglicensedata.military_registration_service);
-					$("#view_military_registration_date").val(drivinglicensedata.military_registr_date);
-					$("#view_military_general").val(drivinglicensedata.military_general);
-					$("#view_military_special").val(drivinglicensedata.military_special);
-					$("#view_military_no_official").val(drivinglicensedata.military_no_official);
-					$("#view_military_additional_information").val(drivinglicensedata.military_additional_information);
-					$("#view_military_date_completion").val(drivinglicensedata.military_date_comp);
+                    // $("#viewdrivinglicenseid").val(drivinglicensedata.id).change();
+                    $("#view_drivingemp").val(drivinglicensedata.full_name);
+                    $("#view_drivinglic_seria_number").val(drivinglicensedata.lic_seria_number);
+                    $("#view_drivintcat").val(drivinglicensedata.cat_desc);
+                    $("#view_drivinglic_issuer").val(drivinglicensedata.lic_issuer);
+                    $("#view_drivinglic_issue_date").val(drivinglicensedata.lic_issue_date);
+                    $("#view_drivingexpire_date").val(drivinglicensedata.expire_date);
+
 					$('#modalViewDrivingLicense').modal('show');
 				}
 			}
@@ -2584,7 +2560,7 @@ var military_info_table ;
         { */
 
 		$.ajax( {
-			url: "driving_license/drivingLicenseInfoUpdate.php",
+			url: "driver_license/drivingLicenseInfoUpdate.php",
 			method: "post",
 			data: $("#drivingLicenseInfoUpdate").serialize(),
 			dataType: "text",
@@ -2601,7 +2577,7 @@ var military_info_table ;
 				{
 					$('#modalEditDrivingLicenseInfo').modal('hide');
 					$('#modalUpdateSuccess').modal('show');
-					driving_license_table.ajax.reload();
+					driver_license_table.ajax.reload();
 				}
 
 				else  {
@@ -2609,35 +2585,27 @@ var military_info_table ;
 				}
 			}
 		});
-		driving_license_table.ajax.reload();
+		driver_license_table.ajax.reload();
 		/*}
         else {
                  alert('not valid') ;
              }*/
 	});
 
-	/*Driving License table delete click*/
-	$('#driving_license_table').on( 'click', '#drivingLicenseInfo_delete', function ()
-	{
-		var data = driving_license_table.row( $(this).parents('tr') ).data();
 
-		document.getElementById("drivinglicenseinfoid").value = data[0];
-
-		$('#modalDrivingLicenseInfoDelete').modal('show');
-	} );
 
 	/*Driving License table view click  */
-	$('#driving_license_table').on( 'click', '#drivingLicenseInfo_view', function ()
+	$('#driver_license_table').on( 'click', '#drivingLicenseInfo_view', function ()
 	{
-		var data = driving_license_table.row( $(this).parents('tr') ).data();
+		var data = driver_license_table.row( $(this).parents('tr') ).data();
 		GetDrivingDetails(data[0],'view');
 		console.log(data[0]);
 	} );
-	/*Driving License table view click  */
-	$('#driving_license_table').on( 'click', '#drivingLicenseInfo_edit', function ()
+	/*Driving License table edit click  */
+	$('#driver_license_table').on( 'click', '#drivingLicenseInfo_edit', function ()
 	{
 
-		var data = driving_license_table.row( $(this).parents('tr') ).data();
+		var data = driver_license_table.row( $(this).parents('tr') ).data();
 		GetDrivingDetails(data[0],'update');
 		document.getElementById("updatedrivinglicenseid").value = data[0];
 		console.log(data[0]);
@@ -3275,4 +3243,9 @@ $('#military_date_completion').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#view_military_registration_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_military_registration_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#military_registration_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+
+$('#view_drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+$('#update_drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+$('#view_drivingexpire_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+$('#update_drivingexpire_date').datetimepicker({ format: 'DD/MM/YYYY'  });
   });
