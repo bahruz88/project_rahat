@@ -2348,8 +2348,8 @@ var military_info_table ;
 	var driver_license_table ;
 	$('#drivingLicensetab').click(function() {
 		console.log('Tab clikc drivingLicensetab');
-		$('#driver_license_table').DataTable().clear().destroy();
-		driver_license_table = $("#driver_license_table").DataTable({
+		$('#driving_info_table').DataTable().clear().destroy();
+		driver_license_table = $("#driving_info_table").DataTable({
 			"scrollX": true,
 			"paging": true,
 			"lengthChange": false,
@@ -2457,7 +2457,7 @@ var military_info_table ;
 	});
 
 	/*Driving License Info  table delete click*/
-	$('#driver_license_table').on( 'click', '#drivingLicenseInfo_delete', function ()
+	$('#driving_info_table').on( 'click', '#drivingLicenseInfo_delete', function ()
 	{
 		var data = driver_license_table.row( $(this).parents('tr') ).data();
 		console.log('data[0]='+data[0])
@@ -2523,6 +2523,7 @@ var military_info_table ;
 				// PARSE json data
 				var drivinglicensedata = JSON.parse(drivingLicense_data);
 				console.log('drivinglicensedata=',drivinglicensedata)
+				console.log('drivinglicensedata id=',drivinglicensedata.id)
 
 				if  (optype=='update') {
 					$("#updatedrivinglicenseid").val(drivinglicensedata.id).change();
@@ -2595,14 +2596,14 @@ var military_info_table ;
 
 
 	/*Driving License table view click  */
-	$('#driver_license_table').on( 'click', '#drivingLicenseInfo_view', function ()
+	$('#driving_info_table').on( 'click', '#drivingLicenseInfo_view', function ()
 	{
 		var data = driver_license_table.row( $(this).parents('tr') ).data();
 		GetDrivingDetails(data[0],'view');
 		console.log(data[0]);
 	} );
 	/*Driving License table edit click  */
-	$('#driver_license_table').on( 'click', '#drivingLicenseInfo_edit', function ()
+	$('#driving_info_table').on( 'click', '#drivingLicenseInfo_edit', function ()
 	{
 
 		var data = driver_license_table.row( $(this).parents('tr') ).data();

@@ -261,7 +261,7 @@
     <li class="nav-item dropdown" >
     <a class="nav-link dropdown-toggle" style="border-radius:0px;color:#494e53;" data-toggle="dropdown" href="#"     ><?php echo $dil["other_informations"];?></a>
     <div class="dropdown-menu dropdown-menu-lg  ">
-      <a class="dropdown-item" href="#driverLicense"  id="drivingLicensetab" data-toggle="tab">Sürücülük vəsiqəsi</a>
+      <a class="dropdown-item" href="#drivingLicense"  id="drivingLicensetab" data-toggle="tab">Sürücülük vəsiqəsi</a>
       <a class="dropdown-item" href="#migrationInfo"   id="migrationInfotab" data-toggle="tab">Miqrasiya Məlumatları</a>
 	  <a class="dropdown-item" href="#medicalInfo"   id="medicalInfotab" data-toggle="tab">Tibbi məlumatlar</a>
 	  <a class="dropdown-item" href="#previousPositions"    id="previousPositionstab" data-toggle="tab">Əvvəlki iş yerləri</a>
@@ -419,22 +419,23 @@
         </thead>
     </table>
 </div>
-<div class="tab-pane" id="driverLicense">
-    <table id="driver_license_table " class="table table-striped  table-bordered table-hover">
-        <thead>
-        <tr>
-            <th style="width:15px;">id</th>
-            <th><?php echo $dil["fio"];?></th>
-            <th><?php echo $dil["driving_serial_number_card"];?></th>
-            <th><?php echo $dil["driving_category"];?></th>
-            <th><?php echo $dil["driving_licensing_authority"];?></th>
-            <th><?php echo $dil["driving_date_issue_card"];?></th>
-            <th><?php echo $dil["driving_period_validity"];?></th>
-            <th><?php echo $dil["operation"];?></th>
-        </tr>
-        </thead>
-    </table>
-</div>
+
+    <div class="tab-pane" id="drivingLicense">
+        <table id="driving_info_table" class="table table-striped  table-bordered table-hover">
+            <thead>
+            <tr>
+                <th style="width:15px;">id</th>
+                <th><?php echo $dil["fio"];?></th>
+                <th><?php echo $dil["driving_serial_number_card"];?></th>
+                <th><?php echo $dil["driving_category"];?></th>
+                <th><?php echo $dil["driving_licensing_authority"];?></th>
+                <th><?php echo $dil["driving_date_issue_card"];?></th>
+                <th><?php echo $dil["driving_period_validity"];?></th>
+                <th><?php echo $dil["operation"];?></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
 <div class="tab-pane" id="migrationInfo">
     <table id="driving_license_table " class="table table-striped  table-bordered table-hover">
         <thead>

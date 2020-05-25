@@ -36,7 +36,6 @@ if ($result_minfo ->num_rows > 0) {
         $sub_array[] = $row_minfo['expire_date'];
         $sub_array[] = $row_minfo['insert_date'];
         $data[]     = $sub_array;
-//        print_r($data);
     }
 }
 
@@ -51,7 +50,6 @@ $output = array(
     'recordsFiltered' => $row_count,
     'data' => $data
 );
-//print_r($output);
 echo  json_encode($output);
 ?>
 

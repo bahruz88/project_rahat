@@ -1,9 +1,9 @@
 <?php
 
 include('../session.php') ;
-$drivinglicenseid         = $_POST['updatedrivinglicenseid'];
+$drivinglicenseid         = $_POST['update_drivinglicenseid_name'];
 $drivinglic_seria_number  = $_POST['update_drivinglic_seria_number'];
-$drivintcatId             = $_POST['update_drivintcatId'];
+$drivintcatId             = $_POST['update_drivintcat'];
 $drivinglic_issuer        = $_POST['update_drivinglic_issuer'];
 $drivinglic_issue_date    = $_POST['update_drivinglic_issue_date'];
 $drivingexpire_date       = $_POST['update_drivingexpire_date'];
