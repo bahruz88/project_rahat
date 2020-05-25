@@ -134,35 +134,25 @@
 							    </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_reg_group"><?php echo $dil["driving_registration_group"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="drivinglic_seria_number"><?php echo $dil["driving_serial_number_card"];?></label>
                                     <div class="col-sm-6">
-                                        <select   name="driving_reg_group"  id="driving_reg_group" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["driving_registration_group"];?>" >
-                                            <option value="1">Çağırışçı</option>
-                                            <option value="2">Hərbi vəzifəli</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="drivinglic_seria_number" name="drivinglic_seria_number" placeholder="<?php echo $dil["driving_serial_number_card"];?>" />
+
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_reg_category"><?php echo $dil["driving_registration_category"];?></label>
-                                    <div class="col-sm-6">
-                                        <select   name="driving_reg_category"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["driving_registration_category"];?>" >
-                                            <option value="1">Kateqoriya 1</option>
-                                            <option value="2">Kateqoriya 2</option>
-                                        </select>
-                                    </div>
-                                </div>
+
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_staff"><?php echo $dil["driving_staff"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="drivintcatId"><?php echo $dil["driving_category"];?></label>
                                     <div class="col-sm-6">
-                                        <select data-live-search="true"  name="driving_staff"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["driving_staff"];?>" >
+                                        <select data-live-search="true"  name="drivintcatId"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["driving_category"];?>" >
                                             <?php
-                                            if ($result_driving_staff_view->num_rows > 0) {
-                                                while($row_driving_staff = $result_driving_staff_view->fetch_assoc()) {
+                                            if ($result_driving_category_view->num_rows > 0) {
+                                                while($row_driving_category = $result_driving_category_view->fetch_assoc()) {
 
                                                     ?>
-                                                    <option  value="<?php echo $row_driving_staff['staff_id']; ?>" ><?php echo $row_driving_staff['staff_desc'];  ?></option>
+                                                    <option  value="<?php echo $row_driving_category['cat_id']; ?>" ><?php echo $row_driving_category['cat_desc'];  ?></option>
 
                                                 <?php } }
                                             ?>
@@ -170,89 +160,28 @@
                                     </div>
                                 </div>
 
+
+
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_rank"><?php echo $dil["driving_rank"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="drivinglic_issuer"><?php echo $dil["driving_licensing_authority"];?></label>
                                     <div class="col-sm-6">
-                                        <select data-live-search="true"  name="driving_rank"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["driving_rank"];?>" >
-                                        <?php
-                                            if ($result_driving_rank_view->num_rows > 0) {
-                                            while($row_driving_rank = $result_driving_rank_view->fetch_assoc()) {
-
-                                            ?>
-                                            <option  value="<?php echo $row_driving_rank['rank_id']; ?>" ><?php echo $row_driving_rank['rank_desc'];  ?></option>
-
-                                            <?php } }
-                                            ?>
-                                    </select>
+                                        <input type="text" class="form-control" id="drivinglic_issuer" name="drivinglic_issuer" placeholder="<?php echo $dil["driving_licensing_authority"];?>" />
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_specialty_acc"><?php echo $dil["driving_specialty_accounting"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="drivinglic_issue_date"><?php echo $dil["driving_date_issue_card"];?></label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_specialty_acc" name="driving_specialty_acc" placeholder="<?php echo $dil["driving_specialty_accounting"];?>" />
+                                        <input type="text" class="form-control" id="drivinglic_issue_date" name="drivinglic_issue_date" placeholder="0000-00-00" />
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_fitness_service"><?php echo $dil["driving_fitness_service"];?></label>
+                                    <label class="col-sm-4 col-form-label" for="drivingexpire_date"><?php echo $dil["driving_period_validity"];?></label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_fitness_service" name="driving_fitness_service" placeholder="<?php echo $dil["driving_fitness_service"];?>" />
+                                        <input type="text" class="form-control" id="drivingexpire_date" name="drivingexpire_date" placeholder="0000-00-00" />
                                     </div>
                                 </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_registration_service"><?php echo $dil["driving_registration_service"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_registration_service" name="driving_registration_service" placeholder="<?php echo $dil["driving_registration_service"];?>" />
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_registration_date"><?php echo $dil["driving_registration_date"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_registration_date" name="driving_registration_date" placeholder="0000-00-00" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_general"><?php echo $dil["driving_general"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_general" name="driving_general" placeholder="<?php echo $dil["driving_general"];?>" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_special"><?php echo $dil["driving_special"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_special" name="driving_special" placeholder="<?php echo $dil["driving_special"];?>" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_no_official"><?php echo $dil["driving_no_official"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_no_official" name="driving_no_official" placeholder="<?php echo $dil["driving_no_official"];?>" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_additional_information"><?php echo $dil["driving_additional_information"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_additional_information" name="driving_additional_information" placeholder="<?php echo $dil["driving_additional_information"];?>" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="driving_date_completion"><?php echo $dil["driving_date_completion"];?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="driving_date_completion" name="driving_date_completion" placeholder="0000-00-00" />
-                                    </div>
-                                </div>
-
-
-
 					</div>
 				</div>
    

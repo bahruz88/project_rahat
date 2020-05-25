@@ -4,8 +4,7 @@ include('../session.php') ;
   //Create variables
     $drivinglicenseinfoid = $_POST['drivinglicenseinfoid'];
  
-   $delete_query = mysqli_query($db,"update  $tbl_military_information  set  status=0 where id='$drivinglicenseinfoid'");//
-//    $delete_query = mysqli_query($db,"delete FROM  $tbl_military_information where id='$drivinglicenseinfoid'");// set  status=0
+   $delete_query = mysqli_query($db,"update  $tbl_employye_driver_license  set  status=0 where id='$drivinglicenseinfoid'");//
 
     $aff_row_count=mysqli_affected_rows($db) ;
     //Response

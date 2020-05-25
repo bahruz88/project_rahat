@@ -3249,4 +3249,6 @@ $('#view_drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#view_drivingexpire_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_drivingexpire_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+$('#drivingexpire_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+$('#drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
   });
