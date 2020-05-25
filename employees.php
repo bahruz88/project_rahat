@@ -4,6 +4,7 @@
  $sql_fam_member_type= "select * from $tbl_family_member_types  where lang='$site_lang' ";
  $sql_military_rank= "select * from $tbl_military_rank  where lang='$site_lang' ";
  $sql_military_staff= "select * from $tbl_military_staff  where lang='$site_lang' ";
+ $sql_driving_category= "select * from $tbl_driver_lic_cat  where lang='$site_lang' ";
 
  $sql_lang_level= "select * from $tbl_lang_level  where lang_short_name='$site_lang' ";
  $result_qua_dic_view = $db->query($sql_qua_dic);
@@ -25,6 +26,9 @@
  $result_military_rank_edit = $db->query($sql_military_rank);
  $result_military_staff_view = $db->query($sql_military_staff);
  $result_military_staff_edit = $db->query($sql_military_staff);
+
+ $result_driving_category_view = $db->query($sql_driving_category);
+ $result_driving_category_edit = $db->query($sql_driving_category);
 
 ?>
 <!DOCTYPE html>
@@ -228,6 +232,8 @@
   include  ('military_info/militaryInfoModal.php');
   include  ('payment_salary/paymentSalaryModal.php');
   include  ('family_info/familyInfoModal.php');
+  include  ('driver_license/drivingLicenseInfoModal.php');
+
   ?>
   
   
@@ -414,7 +420,7 @@
     </table>
 </div>
 <div class="tab-pane" id="driverLicense">
-    <table id="driver_license_table" class="table table-striped  table-bordered table-hover">
+    <table id="driver_license_table " class="table table-striped  table-bordered table-hover">
         <thead>
         <tr>
             <th style="width:15px;">id</th>
@@ -430,7 +436,7 @@
     </table>
 </div>
 <div class="tab-pane" id="migrationInfo">
-    <table id="driver_license_table" class="table table-striped  table-bordered table-hover">
+    <table id="driving_license_table " class="table table-striped  table-bordered table-hover">
         <thead>
         <tr>
             <th style="width:15px;">id</th>
