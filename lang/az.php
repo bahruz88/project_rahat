@@ -182,8 +182,9 @@ $dil = array(
     "migration_reason_dismissal"   =>"İşdən çıxma səbəbi",
     "migration_activity_sector"   =>"Fəaliyyət sektoru",
 
-
-
+	"time_management"   =>"İş vaxtının uçotu",
+	"schedule_list"   =>"Qrafiklər",
+	"overtime"   =>"Əlavə  iş vaxtı",
 
 	"operation"   =>"Əməliyyat"
 );
