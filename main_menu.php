@@ -83,6 +83,41 @@
               </li>
             </ul>
           </li>
+		  
+			 <li class="nav-item has-treeview <?php if (isset($_GET["module"])) { if ($_GET["module"]=='time_management') { ?> menu-open <?php }} ?>">
+			 <a href="#" class="nav-link">
+            <i class="nav-icon far fa-calendar-alt"></i>
+          <p>
+              <?php echo $dil["time_management"];?>
+			  <i class="fas fa-angle-left right"></i>
+		    </p>
+          </a>
+         
+         
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="schedule.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=schedule_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="schedule_list") { ?>active<?php }}?>" class="nav-link">
+                  
+                  <p><?php echo $dil["schedule_list"];?></p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="overtime.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=overtime_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="overtime_list") { ?>active<?php }}?>" class="nav-link">
+                  
+                  <p><?php echo $dil["overtime"];?></p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/charts/inline.html" class="nav-link">
+                  
+                  <p>Bacarıqlar</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+		  
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-money-check-alt"></i>
