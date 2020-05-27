@@ -2731,7 +2731,7 @@ var military_info_table ;
     });
 
     /*medical Info  table delete click*/
-    $('#medical_info_table').on( 'click', '#medicalInfo_delete', function ()
+    $('#medical_info_table').on( 'click', '#migration_medical_information', function ()
     {
         var data = medical_info_table.row( $(this).parents('tr') ).data();
         console.log('data[0]='+data[0])
@@ -2802,7 +2802,7 @@ var military_info_table ;
                     $("#update_medicalid").val(medicaldata.id).change();
                     $("#update_medicalempid").val(medicaldata.teId).change();
                     $("#update_medical_app").val(medicaldata.exist_id).change();
-                    $("#update_renew_interval").val(medicaldata.renew_interval);
+                    $("#update_renew_interval").val(medicaldata.renew_interval).change();
                     $("#update_last_renew_date").val(medicaldata.last_renew_date);
                     $("#update_physical_deficiency").val(medicaldata.physical_deficiency);
                     $("#update_deficiency_desc").val(medicaldata.deficiency_desc);
@@ -2811,7 +2811,7 @@ var military_info_table ;
                 else {
                     $("#view_medicalemp").val(medicaldata.full_name);
                     $("#view_medical_app").val(medicaldata.medical_app);
-                    $("#view_renew_interval").val(medicaldata.renew_interval);
+                    $("#view_renew_interval").val(medicaldata.renew_interval+' Ay');
                     $("#view_last_renew_date").val(medicaldata.last_renew_date);
                     $("#view_physical_deficiency").val(medicaldata.physical_deficiency);
                     $("#view_deficiency_desc").val(medicaldata.deficiency_desc);
@@ -3230,5 +3230,5 @@ $('#drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 
     $('#view_last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
     $('#update_last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
-    $('#last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    $('#medical_last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 });

@@ -6,35 +6,22 @@ include('../session.php') ;
   //Create variables
 
 $employee                       =$_POST['employee'];
-$military_reg_group             = $_POST['military_reg_group'];
-$military_reg_category          = $_POST['military_reg_category'];
-$military_staff                 = $_POST['military_staff'];
-$military_rank                  = $_POST['military_rank'];
-$military_specialty_acc         = $_POST['military_specialty_acc'];
-$military_fitness_service       = $_POST['military_fitness_service'];
-$military_registration_service  = $_POST['military_registration_service'];
-//$military_registration_date     = $_POST['military_registration_date'];
+$medical_app                    = $_POST['medical_app'];
+$medical_renew_interval        = $_POST['medical_renew_interval'];
+$medical_last_renew_date       = $_POST['medical_last_renew_date'];
+$medical_physical_deficiency   = $_POST['medical_physical_deficiency'];
+$medical_deficiency_desc       = $_POST['medical_deficiency_desc'];
 
-$military_registration_date = strtr($_POST['military_registration_date'], '/', '-');
-$military_registration_date= date('Y-m-d', strtotime($military_registration_date));
+$medical_last_renew_date = strtr($_POST['medical_last_renew_date'], '/', '-');
+$medical_last_renew_date= date('Y-m-d', strtotime($medical_last_renew_date));
 
-$military_general               = $_POST['military_general'];
-$military_special               = $_POST['military_special'];
-$military_no_official           = $_POST['military_no_official'];
-$military_additional_information= $_POST['military_additional_information'];
-//$military_date_completion       = $_POST['military_date_completion'];
-
-$military_date_completion = strtr($_POST['military_date_completion'], '/', '-');
-$military_date_completion= date('Y-m-d', strtotime($military_date_completion));
 $insert_date= date("Y-m-d h:i:sa") ;
 
-    $sql = "INSERT INTO $tbl_military_information( 
-	 id, emp_id, military_reg_group, military_reg_category, military_staff, military_rank, military_specialty_acc,
-	 military_fitness_service,military_registration_service,military_registration_date,military_general, 
-	 military_special,military_no_official,military_additional_information,military_date_completion,insert_date) 
-	 VALUES (NULL, '$employee','$military_reg_group','$military_reg_category','$military_staff','$military_rank','$military_specialty_acc',
-	 '$military_fitness_service','$military_registration_service','$military_registration_date','$military_general','$military_special','$military_no_official','$military_additional_information','$military_date_completion','$insert_date')";
-  
+    $sql = "INSERT INTO $tbl_employee_medical_information(
+	 id, emp_id, medical_app, renew_interval, last_renew_date, physical_deficiency, deficiency_desc,insert_date)
+	 VALUES (NULL, '$employee','$medical_app','$medical_renew_interval','$medical_last_renew_date','$medical_physical_deficiency','$medical_deficiency_desc','$insert_date')";
+//   $sql = "INSERT INTO $tbl_military_information (`id`, `emp_id`, `medical_app`, `renew_interval`, `last_renew_date`, `physical_deficiency`, `deficiency_desc`, `insert_user`, `update_user`, `insert_date`, `update_date`, `status`)
+//VALUES (NULL, '$employee', '$medical_app', '$medical_renew_interval', '$medical_last_renew_date', '$medical_physical_deficiency', '$medical_deficiency_desc', '', '', '$insert_date', '', '1')";
 
   if(!mysqli_query($db, $sql)) {
         echo "error" .mysqli_error($db);
