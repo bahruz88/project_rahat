@@ -8,8 +8,7 @@ $sql_minfo = "SELECT tedl.id,tedl.emp_id,tedl.lic_seria_number,tedl.category, te
  INNER join tbl_driver_lic_cat tdlc on tdlc.cat_id=tedl.category and tdlc.lang='az'
   INNER join tbl_employees te on te.id=tedl.emp_id where tedl.status=1 and te.emp_status=1";
 
-
-$result_minfo  = $db->query($sql_minfo);
+$result_minfo  = $db-> query($sql_minfo);
 $data = array();
 if ($result_minfo ->num_rows > 0) {
     // output data of each row
@@ -50,6 +49,11 @@ $output = array(
     'recordsFiltered' => $row_count,
     'data' => $data
 );
+if (!$result_minfo) {
+    trigger_error('Invalid query: ' . $db->error);
+} else 
+{
 echo  json_encode($output);
+}
 ?>
 
