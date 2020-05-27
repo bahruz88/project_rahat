@@ -2347,6 +2347,7 @@ var military_info_table ;
 
 	var driver_license_table ;
 	$('#drivingLicensetab').click(function() {
+        $('#qual').text( tabtext+' / '+$('#drivingLicensetab').text());
 		console.log('Tab clikc drivingLicensetab');
 		$('#driving_info_table').DataTable().clear().destroy();
 		driver_license_table = $("#driving_info_table").DataTable({
