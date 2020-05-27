@@ -13,9 +13,11 @@ $sql_lang = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
  DATE_FORMAT(tmi.last_renew_date,'%d/%m/%Y') last_renew_date,tmi.physical_deficiency,tmi.deficiency_desc,
  tmi.insert_date,tmi.insert_user,tmi.update_user,tmi.update_date,tmi.status,
  te.emp_status,te.lastname,te.firstname,te.surname,te.id  teId,
-  tEN.exist_id, tEN.exist_desc,tEN.lang
+  tEN.exist_id, tEN.exist_desc,tEN.lang,
+  tYN.chois_id, tYN.chois_desc,tYN.lang
 FROM tbl_employee_medical_information tmi
 INNER join tbl_exist_not_exist tEN on tmi.medical_app=tEN.exist_id and tEN.lang='az'
+INNER join tbl_yesno tYN on tmi.physical_deficiency=tYN.chois_id and tYN.lang='az'
 INNER join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1 and tmi.id='$medicalid'";
 
 

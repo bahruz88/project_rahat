@@ -2806,16 +2806,16 @@ var military_info_table ;
                     $("#update_medical_app").val(medicaldata.exist_id).change();
                     $("#update_renew_interval").val(medicaldata.renew_interval).change();
                     $("#update_last_renew_date").val(medicaldata.last_renew_date);
-                    $("#update_physical_deficiency").val(medicaldata.physical_deficiency);
+                    $("#update_physical_deficiency").val(medicaldata.chois_id).change();
                     $("#update_deficiency_desc").val(medicaldata.deficiency_desc);
                     $('#modalEditMedicalInfo').modal('show');
                 }
                 else {
                     $("#view_medicalemp").val(medicaldata.full_name);
-                    $("#view_medical_app").val(medicaldata.medical_app);
+                    $("#view_medical_app").val(medicaldata.exist_desc);
                     $("#view_renew_interval").val(medicaldata.renew_interval+' Ay');
                     $("#view_last_renew_date").val(medicaldata.last_renew_date);
-                    $("#view_physical_deficiency").val(medicaldata.physical_deficiency);
+                    $("#view_physical_deficiency").val(medicaldata.chois_desc);
                     $("#view_deficiency_desc").val(medicaldata.deficiency_desc);
                    $('#modalViewMedical').modal('show');
                 }

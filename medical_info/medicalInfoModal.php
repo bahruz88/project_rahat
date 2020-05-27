@@ -136,7 +136,7 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="medical_app"><?php echo $dil["medical_app"];?></label>
                             <div class="col-sm-6">
-                                <select data-live-search="true"  name="medical_app"  id="medical_app" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>">
+                                <select data-live-search="true"  name="medical_app"  id="medical_app" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["medical_app"];?>">
                                     <?php
                                     $result_exist_not_exist_view = $db->query($sql_exist_not_exist);
                                     if ($result_exist_not_exist_view->num_rows > 0) {
@@ -176,7 +176,18 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="medical_physical_deficiency"><?php echo $dil["medical_physical_deficiency"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="medical_physical_deficiency" name="medical_physical_deficiency" placeholder="<?php echo $dil["medical_physical_deficiency"];?>" />
+                                <select data-live-search="true"  name="medical_physical_deficiency"  id="medical_physical_deficiency" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["medical_physical_deficiency"];?>">
+                                    <?php
+                                    $result_yesno_view = $db->query($sql_yesno);
+                                    if ($result_yesno_view->num_rows > 0) {
+                                        while($row_yesno= $result_yesno_view->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_yesno['chois_id']; ?>" ><?php echo $row_yesno['chois_desc'];  ?></option>
+
+                                        <?php } }?>
+                                </select>
+<!--                                <input type="text" class="form-control" id="medical_physical_deficiency" name="medical_physical_deficiency" placeholder="--><?php //echo $dil["medical_physical_deficiency"];?><!--" />-->
                             </div>
                         </div>
 
@@ -280,7 +291,18 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="update_physical_deficiency"><?php echo $dil["medical_physical_deficiency"];?></label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="update_physical_deficiency" name="update_physical_deficiency" placeholder="<?php echo $dil["medical_physical_deficiency"];?>" />
+                                        <select data-live-search="true"  name="update_physical_deficiency"  id="update_physical_deficiency" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["medical_physical_deficiency"];?>">
+                                            <?php
+                                            $result_yesno_edit = $db->query($sql_yesno);
+                                            if ($result_yesno_edit->num_rows > 0) {
+                                                while($row_yesno= $result_yesno_edit->fetch_assoc()) {
+
+                                                    ?>
+                                                    <option  value="<?php echo $row_yesno['chois_id']; ?>" ><?php echo $row_yesno['chois_desc'];  ?></option>
+
+                                                <?php } }?>
+                                        </select>
+<!--                                        <input type="text" class="form-control" id="update_physical_deficiency" name="update_physical_deficiency" placeholder="--><?php //echo $dil["medical_physical_deficiency"];?><!--" />-->
                                     </div>
                                 </div>
     
