@@ -1,46 +1,27 @@
 <?php 
 include('../session.php') ;
-$militaryid                     = $_POST['update_militaryid_name'];
-$military_reg_group             = $_POST['update_military_reg_group'];
-$military_reg_category          = $_POST['update_military_reg_category'];
-$military_staff                 = $_POST['update_staff_desc'];
-$military_rank                  = $_POST['update_rank_desc'];
-$military_specialty_acc         = $_POST['update_military_specialty_acc_name'];
-$military_fitness_service       = $_POST['update_military_fitness_service_name'];
-$military_registration_service  = $_POST['update_military_registration_service_name'];
+$medicalid                     = $_POST['update_medicalid_name'];
+$medical_medical_app           = $_POST['update_medical_app'];
+$medical_renew_interval        = $_POST['update_renew_interval'];
+$medical_last_renew_date       = $_POST['update_last_renew_date'];
+$medical_physical_deficiency   = $_POST['update_physical_deficiency'];
+$medical_deficiency_desc       = $_POST['update_deficiency_desc'];
 
-$military_registration_date = $_POST['update_military_registration_date_name'] ;
-$military_registration_date = strtr( $military_registration_date , '/', '-');
-$military_registration_date= date('Y-m-d', strtotime($military_registration_date));
 
-$military_general               = $_POST['update_military_general_name'];
-$military_special               = $_POST['update_military_special_name'];
-$military_no_official           = $_POST['update_military_no_official_name'];
-$military_additional_information= $_POST['update_military_additional_information_name'];
-
-$military_date_completion       = $_POST['update_military_date_completion_name'];
-$military_date_completion = strtr( $military_date_completion , '/', '-');
-$military_date_completion= date('Y-m-d', strtotime($military_date_completion));
+$medical_last_renew_date = strtr( $medical_last_renew_date , '/', '-');
+$medical_last_renew_date= date('Y-m-d', strtotime($medical_last_renew_date));
 
 
 	$update_date= date("Y-m-d h:i:sa") ;
 	
-	$sql = "UPDATE  $tbl_military_information SET  
-		military_reg_group  = '$military_reg_group',
-		military_reg_category = '$military_reg_category',
-		military_staff = '$military_staff',
-		military_rank = '$military_rank',
-		military_specialty_acc = '$military_specialty_acc', 
-		military_fitness_service = '$military_fitness_service', 
-		military_registration_service = '$military_registration_service', 
-		military_registration_date = '$military_registration_date', 
-		military_general = '$military_general', 
-		military_special = '$military_special', 
-		military_no_official = '$military_no_official', 
-		military_additional_information = '$military_additional_information', 
-		military_date_completion = '$military_date_completion', 
+	$sql = "UPDATE  $tbl_employee_medical_information SET  
+		medical_app  = '$medical_medical_app',
+		renew_interval = '$medical_renew_interval',
+		last_renew_date = '$medical_last_renew_date',
+		physical_deficiency = '$medical_physical_deficiency',
+		deficiency_desc = '$medical_deficiency_desc', 		
 		update_date='$update_date' 
-		WHERE id 	= '$militaryid' ";
+		WHERE id 	= '$medicalid' ";
   
 	if(mysqli_query($db, $sql) ) {
       echo "success";

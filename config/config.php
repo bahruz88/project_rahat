@@ -27,6 +27,7 @@
    $tbl_payment_salary='tbl_payment_salary';
    $tbl_employye_driver_license='tbl_employye_driver_license';
    $tbl_driver_lic_cat='tbl_driver_lic_cat';
+   $tbl_employee_medical_information='tbl_employee_medical_information';
    $tbl_yesno='tbl_yesno';
    $tbl_exist_not_exist='tbl_exist_not_exist';
 
