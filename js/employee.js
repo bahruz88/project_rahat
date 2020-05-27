@@ -2622,6 +2622,8 @@ var military_info_table ;
     var medical_info_table ;
     $('#medicalInfotab').click(function() {
         console.log('Tab clikc medicalInfotab');
+        $('#qual2').text( tabtext+' / '+$('#medicalInfotab').text());
+
         $('#medical_info_table').DataTable().clear().destroy();
         medical_info_table = $("#medical_info_table").DataTable({
             "scrollX": true,
