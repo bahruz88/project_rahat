@@ -233,6 +233,7 @@
   include  ('payment_salary/paymentSalaryModal.php');
   include  ('family_info/familyInfoModal.php');
   include  ('driver_license/drivingLicenseInfoModal.php');
+  include  ('medical_info/medicalInfoModal.php');
 
   ?>
   
@@ -259,7 +260,7 @@
     <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Iş yeri barədə </a></li>
 	
     <li class="nav-item dropdown" >
-    <a class="nav-link dropdown-toggle" style="border-radius:0px;color:#494e53;" data-toggle="dropdown" href="#"     ><?php echo $dil["other_informations"];?></a>
+    <a class="nav-link dropdown-toggle" style="border-radius:0px;color:#494e53;" data-toggle="dropdown" href="#"   id="qual2"  ><?php echo $dil["other_informations"];?></a>
     <div class="dropdown-menu dropdown-menu-lg  ">
       <a class="dropdown-item" href="#drivingLicense"  id="drivingLicensetab" data-toggle="tab">Sürücülük vəsiqəsi</a>
       <a class="dropdown-item" href="#migrationInfo"   id="migrationInfotab" data-toggle="tab">Miqrasiya Məlumatları</a>
@@ -458,11 +459,11 @@
         <tr>
             <th style="width:15px;">id</th>
             <th><?php echo $dil["fio"];?></th>
-            <th><?php echo $dil["migration_medical_certificate"];?></th>
-            <th><?php echo $dil["migration_update_density"];?></th>
-            <th><?php echo $dil["migration_update_date"];?></th>
-            <th><?php echo $dil["migration_physical_deficiency"];?></th>
-            <th><?php echo $dil["migration_about_physical_deficiency"];?></th>
+            <th><?php echo $dil["medical_app"];?></th>
+            <th><?php echo $dil["medical_renew_interval"];?></th>
+            <th><?php echo $dil["medical_last_renew_date"];?></th>
+            <th><?php echo $dil["medical_physical_deficiency"];?></th>
+            <th><?php echo $dil["medical_deficiency_desc"];?></th>
             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>

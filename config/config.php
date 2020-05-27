@@ -27,12 +27,16 @@
    $tbl_payment_salary='tbl_payment_salary';
    $tbl_employye_driver_license='tbl_employye_driver_license';
    $tbl_driver_lic_cat='tbl_driver_lic_cat';
+   $tbl_yesno='tbl_yesno';
+   $tbl_exist_not_exist='tbl_exist_not_exist';
 
    $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
    $sql_roles = "select * from $tbl_roles where status=1 order  by position";				
    $sql_qua_dic = "select * from $tbl_qualification_dic ";
    $sql_university= "select * from $tbl_universities where status=1 ";
    $sql_emp_lang= "select * from $tbl_emp_lang ";
+   $sql_yesno= "select * from $tbl_yesno ";
+   $sql_exist_not_exist= "select * from $tbl_exist_not_exist ";
 
    $sql_employees= "select * from $tbl_employees where  emp_status=1 ";
 

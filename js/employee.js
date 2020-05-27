@@ -2344,10 +2344,10 @@ var military_info_table ;
     ************************************** Suruculuk Vesiqesi INFO BILIKLERI ************************************************************
     **********************************************************************************************************************
     */
-
+    var  tabtext =$('#qual2').text();
 	var driver_license_table ;
 	$('#drivingLicensetab').click(function() {
-        $('#qual').text( tabtext+' / '+$('#drivingLicensetab').text());
+        $('#qual2').text( tabtext+' / '+$('#drivingLicensetab').text());
 		console.log('Tab clikc drivingLicensetab');
 		$('#driving_info_table').DataTable().clear().destroy();
 		driver_license_table = $("#driving_info_table").DataTable({
@@ -2794,56 +2794,28 @@ var military_info_table ;
             },
             function (medical_data, status)
             {
+                console.log('medicaldata1=',medical_data)
                 // PARSE json data
                 var medicaldata = JSON.parse(medical_data);
                 console.log('medicaldata=',medicaldata)
-
                 if  (optype=='update') {
                     $("#update_medicalid").val(medicaldata.id).change();
-                    $("#update_militaryempid").val(medicaldata.teId).change();
-                    $("#update_military_reg_group").val(medicaldata.military_reg_group).change();
-                    $("#update_military_reg_category").val(medicaldata.military_reg_category).change();
-                    $("#update_staff_desc_id").val(medicaldata.tmsId).change();
-                    $("#update_rank_desc_id").val(medicaldata.tmrId).change();
-                    $("#update_military_specialty_acc").val(medicaldata.military_specialty_acc);
-                    $("#update_military_fitness_service").val(medicaldata.military_fitness_service);
-                    $("#update_military_registration_service").val(medicaldata.military_registration_service);
-                    $("#update_military_registration_date").val(medicaldata.military_registr_date);
-                    $("#update_military_general").val(medicaldata.military_general);
-                    $("#update_military_special").val(medicaldata.military_special);
-                    $("#update_military_no_official").val(medicaldata.military_no_official);
-                    $("#update_military_additional_information").val(medicaldata.military_additional_information);
-                    $("#update_military_date_completion").val(medicaldata.military_date_comp);
+                    $("#update_medicalempid").val(medicaldata.teId).change();
+                    $("#update_medical_app").val(medicaldata.exist_id).change();
+                    $("#update_renew_interval").val(medicaldata.renew_interval);
+                    $("#update_last_renew_date").val(medicaldata.last_renew_date);
+                    $("#update_physical_deficiency").val(medicaldata.physical_deficiency);
+                    $("#update_deficiency_desc").val(medicaldata.deficiency_desc);
                     $('#modalEditMedicalInfo').modal('show');
                 }
                 else {
-                    var military_reg_category=''
-                    var military_reg_group=''
-                    if(medicaldata.military_reg_category==1){
-                        military_reg_category='Kateqoriya 1'
-                    }else{
-                        military_reg_category='Kateqoriya 2'
-                    }
-                    if(medicaldata.military_reg_group==1){
-                        military_reg_group='Çağırışçı'
-                    }else{
-                        military_reg_group='Hərbi vəzifəli'
-                    }
-                    $("#view_militaryemp").val(medicaldata.full_name);
-                    $("#view_military_reg_group").val(military_reg_group);
-                    $("#view_military_reg_category").val(military_reg_category);
-                    $("#view_staff_desc_id").val(medicaldata.tmsStaffDesc);
-                    $("#view_rank_desc_id").val(medicaldata.tmrRankDesc);
-                    $("#view_military_specialty_acc").val(medicaldata.military_specialty_acc);
-                    $("#view_military_fitness_service").val(medicaldata.military_fitness_service);
-                    $("#view_military_registration_service").val(medicaldata.military_registration_service);
-                    $("#view_military_registration_date").val(medicaldata.military_registr_date);
-                    $("#view_military_general").val(medicaldata.military_general);
-                    $("#view_military_special").val(medicaldata.military_special);
-                    $("#view_military_no_official").val(medicaldata.military_no_official);
-                    $("#view_military_additional_information").val(medicaldata.military_additional_information);
-                    $("#view_military_date_completion").val(medicaldata.military_date_comp);
-                    $('#modalViewMedical').modal('show');
+                    $("#view_medicalemp").val(medicaldata.full_name);
+                    $("#view_medical_app").val(medicaldata.medical_app);
+                    $("#view_renew_interval").val(medicaldata.renew_interval);
+                    $("#view_last_renew_date").val(medicaldata.last_renew_date);
+                    $("#view_physical_deficiency").val(medicaldata.physical_deficiency);
+                    $("#view_deficiency_desc").val(medicaldata.deficiency_desc);
+                   $('#modalViewMedical').modal('show');
                 }
             }
         );
@@ -2910,11 +2882,14 @@ var military_info_table ;
     /*medical table view click  */
     $('#medical_info_table').on( 'click', '#medicalInfo_edit', function ()
     {
+        console.log('salam')
 
         var data = medical_info_table.row( $(this).parents('tr') ).data();
+        console.log('data='+data[0])
         GetMedicalDetails(data[0],'update');
-        document.getElementById("updatemedicalid").value = data[0];
+        document.getElementById("updatemedid").value = data[0];
         console.log(data[0]);
+
     } );
 
     /*
@@ -3252,4 +3227,8 @@ $('#view_drivingexpire_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_drivingexpire_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#drivingexpire_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
-  });
+
+    $('#view_last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    $('#update_last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    $('#last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+});

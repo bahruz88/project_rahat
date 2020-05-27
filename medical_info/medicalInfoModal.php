@@ -346,16 +346,16 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["military_edit_title"];?></h4>
+						<h4 class="card-title"><?php echo $dil["migration_medical_information"];?></h4>
                          <span  id="badge_success" class="badge badge-success"></span>
                         <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
  						<div class="card-body" >
 					
  						 		<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="update_militaryempid"><?php echo $dil["employee"];?></label>
+								<label class="col-sm-4 col-form-label" for="update_medicalempid"><?php echo $dil["employee"];?></label>
 								<div class="col-sm-6">
-									<select data-live-search="true"  name="update_militaryemp"  id="update_militaryempid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" Disabled="true">
+									<select data-live-search="true"  name="update_medicalemp"  id="update_medicalempid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" Disabled="true">
 								 	<?php
                                     $result_employees_s_view = $db->query($sql_employees);
 										if ($result_employees_s_view->num_rows > 0) {
@@ -369,119 +369,48 @@
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="update_military_reg_group"><?php echo $dil["military_registration_group"];?></label>
+								<label class="col-sm-4 col-form-label" for="update_medical_app"><?php echo $dil["medical_app"];?></label>
 								<div class="col-sm-6">
-									<select data-live-search="true"  name="update_military_reg_group" id="update_military_reg_group" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_registration_group"];?>" >
-                                        <option value="1">Çağırışçı</option>
-                                        <option value="2">Hərbi vəzifəli</option>
-								</select>	
-								</div>
+                                    <select data-live-search="true"  name="update_medical_app"  id="update_medical_app" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>">
+                                        <?php
+                                        $result_exist_not_exist_view = $db->query($sql_exist_not_exist);
+                                        if ($result_exist_not_exist_view->num_rows > 0) {
+                                            while($row_exist_not_exist= $result_exist_not_exist_view->fetch_assoc()) {
+
+                                                ?>
+                                                <option  value="<?php echo $row_exist_not_exist['exist_id']; ?>" ><?php echo $row_exist_not_exist['exist_desc'];  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                </div>
 							</div>
                             <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="update_military_reg_category"><?php echo $dil["military_registration_category"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="update_military_reg_category" id="update_military_reg_category" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_registration_category"];?>" >
-                                        <option value="1">Kateqoriya 1</option>
-                                        <option value="2">Kateqoriya 2</option>
-								</select>
-								</div>
-							</div>
-						 	<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="update_staff_desc_id"><?php echo $dil["military_staff"];?></label>
-								<div class="col-sm-6">
-                                	<select data-live-search="true"  name="update_staff_desc" id="update_staff_desc_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_staff"];?>" >
-								 	<?php
-										if ($result_military_staff_edit->num_rows > 0) {
-										while($row_military_staff= $result_military_staff_edit->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_military_staff['staff_id']; ?>" ><?php echo $row_military_staff['staff_desc'];  ?></option>
-											
-										<?php } }?>
-								</select>	
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="update_rank_desc_id"><?php echo $dil["military_rank"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="update_rank_desc" id="update_rank_desc_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_rank"];?>" >
-								 	<?php 
-										if ($result_military_rank_edit->num_rows > 0) {
-										while($row_military_rank= $result_military_rank_edit->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_military_rank['rank_id']; ?>" ><?php echo $row_military_rank['rank_desc'];  ?></option>
-											
-										<?php } }?>
-								</select>	
-								</div>
-							</div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_specialty_acc"><?php echo $dil["military_specialty_accounting"];?></label>
+                                <label class="col-sm-4 col-form-label" for="update_renew_interval"><?php echo $dil["medical_renew_interval"];?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_specialty_acc" name="update_military_specialty_acc_name" placeholder="<?php echo $dil["military_specialty_accounting"];?>" />
+                                    <input type="text" class="form-control" id="update_renew_interval" name="update_renew_interval" placeholder="<?php echo $dil["medical_renew_interval"];?>" />
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_fitness_service"><?php echo $dil["military_fitness_service"];?></label>
+                                <label class="col-sm-4 col-form-label" for="update_last_renew_date"><?php echo $dil["medical_last_renew_date"];?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_fitness_service" name="update_military_fitness_service_name" placeholder="<?php echo $dil["military_fitness_service"];?>" />
+                                    <input type="text" class="form-control" id="update_last_renew_date" name="update_last_renew_date" placeholder="<?php echo $dil["medical_last_renew_date"];?>" />
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_registration_service"><?php echo $dil["military_registration_service"];?></label>
+                                <label class="col-sm-4 col-form-label" for="update_physical_deficiency"><?php echo $dil["medical_physical_deficiency"];?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_registration_service" name="update_military_registration_service_name" placeholder="<?php echo $dil["military_registration_service"];?>" />
+                                    <input type="text" class="form-control" id="update_physical_deficiency" name="update_physical_deficiency" placeholder="<?php echo $dil["medical_physical_deficiency"];?>" />
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_registration_date"><?php echo $dil["military_registration_date"];?></label>
+                                <label class="col-sm-4 col-form-label" for="update_deficiency_desc"><?php echo $dil["medical_deficiency_desc"];?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_registration_date" name="update_military_registration_date_name" placeholder="<?php echo $dil["military_registration_date"];?>" />
+                                    <input type="text" class="form-control" id="update_deficiency_desc" name="update_deficiency_desc" placeholder="<?php echo $dil["medical_deficiency_desc"];?>" />
                                 </div>
                             </div>
-
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_general"><?php echo $dil["military_general"];?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_general" name="update_military_general_name" placeholder="<?php echo $dil["military_general"];?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_special"><?php echo $dil["military_special"];?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_special" name="update_military_special_name" placeholder="<?php echo $dil["military_special"];?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_no_official"><?php echo $dil["military_no_official"];?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_no_official" name="update_military_no_official_name" placeholder="<?php echo $dil["military_no_official"];?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_additional_information"><?php echo $dil["military_additional_information"];?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_additional_information" name="update_military_additional_information_name" placeholder="<?php echo $dil["military_additional_information"];?>" />
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="update_military_date_completion"><?php echo $dil["military_date_completion"];?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_military_date_completion" name="update_military_date_completion_name" placeholder="<?php echo $dil["military_date_completion"];?>" />
-                                </div>
-                            </div>
-
-
 
 				
 					</div>
@@ -493,7 +422,7 @@
         <div class="modal-footer">			 
 		<button  id ="add_new_item2" typemodalEdit="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="updatemilitaryid" name="update_militaryid_name" value="" />
+		<input type="hidden" id="updatemedid" name="update_medicalid_name" value="" />
         </div>	
 		</form>
       </div>
