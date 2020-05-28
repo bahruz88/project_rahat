@@ -50,6 +50,11 @@ $output = array(
     'data' => $data
 );
 //print_r($output);
+if (!$result_minfo) {
+    trigger_error('Invalid query: ' . $db->error);
+} else 
+{
 echo  json_encode($output);
+}
 ?>
 
