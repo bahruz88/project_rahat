@@ -3016,7 +3016,7 @@ var military_info_table ;
     {
         var data = previous_positions_table.row( $(this).parents('tr') ).data();
         console.log('data[0]='+data[0])
-        document.getElementById("previouspositionsid").value = data[0];
+        document.getElementById("positionsinfoid").value = data[0];
         $('#modalPreviousPositionsDelete').modal('show');
     } );
 
@@ -3077,54 +3077,25 @@ var military_info_table ;
             {
                 // PARSE json data
                 var previouspositions = JSON.parse(previous_positions);
-                console.log('previouspositions=',previouspositions)
-
+                console.log('previouspositions=',previouspositions);
                 if  (optype=='update') {
-                    $("#update_previouspositionsid").val(previouspositions.id).change();
-                    $("#update_militaryempid").val(previouspositions.teId).change();
-                    $("#update_military_reg_group").val(previouspositions.military_reg_group).change();
-                    $("#update_military_reg_category").val(previouspositions.military_reg_category).change();
-                    $("#update_staff_desc_id").val(previouspositions.tmsId).change();
-                    $("#update_rank_desc_id").val(previouspositions.tmrId).change();
-                    $("#update_military_specialty_acc").val(previouspositions.military_specialty_acc);
-                    $("#update_military_fitness_service").val(previouspositions.military_fitness_service);
-                    $("#update_military_registration_service").val(previouspositions.military_registration_service);
-                    $("#update_military_registration_date").val(previouspositions.military_registr_date);
-                    $("#update_military_general").val(previouspositions.military_general);
-                    $("#update_military_special").val(previouspositions.military_special);
-                    $("#update_military_no_official").val(previouspositions.military_no_official);
-                    $("#update_military_additional_information").val(previouspositions.military_additional_information);
-                    $("#update_military_date_completion").val(previouspositions.military_date_comp);
+                    $("#update_positionsid").val(previouspositions.id).change();
+                    $("#update_positionsempid").val(previouspositions.teId).change();
+                    $("#update_prev_employer").val(previouspositions.prev_employer)
+                    $("#update_start_date").val(previouspositions.start_date);
+                    $("#update_end_date").val(previouspositions.end_date);
+                    $("#update_leave_reason").val(previouspositions.leave_reason)
+                    $("#update_sector").val(previouspositions.sector)
                     $('#modalEditPreviousPositions').modal('show');
                 }
                 else {
-                    var military_reg_category=''
-                    var military_reg_group=''
-                    if(previouspositions.military_reg_category==1){
-                        military_reg_category='Kateqoriya 1'
-                    }else{
-                        military_reg_category='Kateqoriya 2'
-                    }
-                    if(previouspositions.military_reg_group==1){
-                        military_reg_group='Çağırışçı'
-                    }else{
-                        military_reg_group='Hərbi vəzifəli'
-                    }
-                    $("#view_militaryemp").val(previouspositions.full_name);
-                    $("#view_military_reg_group").val(military_reg_group);
-                    $("#view_military_reg_category").val(military_reg_category);
-                    $("#view_staff_desc_id").val(previouspositions.tmsStaffDesc);
-                    $("#view_rank_desc_id").val(previouspositions.tmrRankDesc);
-                    $("#view_military_specialty_acc").val(previouspositions.military_specialty_acc);
-                    $("#view_military_fitness_service").val(previouspositions.military_fitness_service);
-                    $("#view_military_registration_service").val(previouspositions.military_registration_service);
-                    $("#view_military_registration_date").val(previouspositions.military_registr_date);
-                    $("#view_military_general").val(previouspositions.military_general);
-                    $("#view_military_special").val(previouspositions.military_special);
-                    $("#view_military_no_official").val(previouspositions.military_no_official);
-                    $("#view_military_additional_information").val(previouspositions.military_additional_information);
-                    $("#view_military_date_completion").val(previouspositions.military_date_comp);
-                    $('#modalViewPreviousPositions').modal('show');
+                    $("#view_positionsemp").val(previouspositions.full_name);
+                    $("#view_prev_employer").val(previouspositions.prev_employer);
+                    $("#view_start_date").val(previouspositions.start_date);
+                    $("#view_end_date").val(previouspositions.end_date);
+                    $("#view_leave_reason").val(previouspositions.leave_reason);
+                    $("#view_sector").val(previouspositions.sector);
+                   $('#modalViewPreviousPositions').modal('show');
                 }
             }
         );
@@ -3171,15 +3142,7 @@ var military_info_table ;
              }*/
     });
 
-    /*previousPositions table delete click*/
-    $('#previous_positions_table').on( 'click', '#previousPositions_delete', function ()
-    {
-        var data = previous_positions_table.row( $(this).parents('tr') ).data();
 
-        document.getElementById("previouspositionsid").value = data[0];
-
-        $('#modalPreviousPositionsDelete').modal('show');
-    } );
 
     /*previous Positions table view click  */
     $('#previous_positions_table').on( 'click', '#previousPositions_view', function ()
@@ -3193,8 +3156,9 @@ var military_info_table ;
     {
 
         var data = previous_positions_table.row( $(this).parents('tr') ).data();
+        console.log('data=',data);
         GetPreviousPositionsDetails(data[0],'update');
-        document.getElementById("updatepreviouspositionsid").value = data[0];
+        document.getElementById("updatepositionsid").value = data[0];
         console.log(data[0]);
     } );
 
@@ -3233,4 +3197,11 @@ $('#drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
     $('#view_last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
     $('#update_last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
     $('#medical_last_renew_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+
+    $('#view_start_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    $('#view_end_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    $('#update_start_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    $('#update_end_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    $('#start_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    $('#end_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 });
