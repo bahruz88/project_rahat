@@ -1,11 +1,12 @@
 <?php
 include('../session.php');
 
-$sql_minfo = "SELECT tedl.id,tedl.emp_id,tedl.lic_seria_number,tedl.category, tedl.lic_issuer, DATE_FORMAT(tedl.lic_issue_date,'%d/%m/%Y') lic_issue_date ,DATE_FORMAT(tedl.expire_date,'%d/%m/%Y') expire_date, tedl.insert_user,tedl.update_user,
- tms.staff_desc,tmr.rank_id,tmr.rank_desc, te.firstname,te.lastname,te.surname,te.emp_status,
-tms.staff_desc FROM tbl_employye_driver_license tedl
- INNER join tbl_driver_lic_cat tdlc on tdlc.cat_id=tedl.category and tdlc.lang='az'
-  INNER join tbl_employees te on te.id=tedl.emp_id where tedl.status=1 and te.emp_status=1";
+$sql_minfo = "SELECT tepp.id,tepp.emp_id,tepp.prev_employer, DATE_FORMAT(tepp.start_date,'%d/%m/%Y') start_date,
+DATE_FORMAT(tepp.end_date,'%d/%m/%Y') end_date,
+tepp.leave_reason,tepp.sector,tepp.status,tepp.insert_date,
+te.firstname,te.lastname,te.surname,te.emp_status
+FROM tbl_employee_prev_positions tepp
+INNER join tbl_employees te on te.id=tepp.emp_id where tepp.status=1 and te.emp_status=1";
 
 
 $result_minfo  = $db->query($sql_minfo);
@@ -28,11 +29,11 @@ if ($result_minfo ->num_rows > 0) {
         $sub_array[] = $row_minfo['id'];
         $sub_array[] = $row_minfo['lastname'].' '.$row_minfo['firstname'].' '.$row_minfo['surname'];
 
-        $sub_array[] = $row_minfo['lic_seria_number'];
-        $sub_array[] = $row_minfo['cat_desc'];
-        $sub_array[] = $row_minfo['lic_issuer'];
-        $sub_array[] = $row_minfo['lic_issue_date'];
-        $sub_array[] = $row_minfo['expire_date'];
+        $sub_array[] = $row_minfo['prev_employer'];
+        $sub_array[] = $row_minfo['start_date'];
+        $sub_array[] = $row_minfo['end_date'];
+        $sub_array[] = $row_minfo['leave_reason'];
+        $sub_array[] = $row_minfo['sector'];
         $sub_array[] = $row_minfo['insert_date'];
         $data[]     = $sub_array;
     }

@@ -475,10 +475,10 @@
         <tr>
             <th style="width:15px;">id</th>
             <th><?php echo $dil["fio"];?></th>
-            <th><?php echo $dil["migration_name_employer"];?></th>
-            <th><?php echo $dil["migration_date_range"];?></th>
-            <th><?php echo $dil["migration_reason_dismissal"];?></th>
-            <th><?php echo $dil["migration_activity_sector"];?></th>
+            <th><?php echo $dil["prev_employer"];?></th>
+            <th><?php echo $dil["date_range"];?></th>
+            <th><?php echo $dil["leave_reason"];?></th>
+            <th><?php echo $dil["sector"];?></th>
             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>

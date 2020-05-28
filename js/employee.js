@@ -3066,12 +3066,12 @@ var military_info_table ;
 
 
     /*GetPreviousPositionsDetails  */
-    function GetPreviousPositionsDetails(previouspositionsid,optype)
+    function GetPreviousPositionsDetails(positionid,optype)
     {
-        console.log('$previouspositionsid='+previouspositionsid)
+        console.log('$previouspositionsid='+positionid)
         $.post("previous_positions/getPreviousPositionsDetail.php",
             {
-                previouspositionsid: previouspositionsid
+                positionid: positionid
             },
             function (previous_positions, status)
             {
