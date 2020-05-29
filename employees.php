@@ -22,6 +22,7 @@
  $result_lang_level_u_view = $db->query($sql_lang_level);
  $result_lang_level_u_edit = $db->query($sql_lang_level);
  $result_fam_member_type_view = $db->query($sql_fam_member_type);
+ $result_fam_member_type_edit = $db->query($sql_fam_member_type);
  $result_military_rank_view = $db->query($sql_military_rank);
  $result_military_rank_edit = $db->query($sql_military_rank);
  $result_military_staff_view = $db->query($sql_military_staff);
