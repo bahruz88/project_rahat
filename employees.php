@@ -439,16 +439,23 @@
         </table>
     </div>
 <div class="tab-pane" id="migrationInfo">
-    <table id="driving_license_table " class="table table-striped  table-bordered table-hover">
+    <table id="migration_info_table " class="table table-striped  table-bordered table-hover">
         <thead>
         <tr>
             <th style="width:15px;">id</th>
             <th><?php echo $dil["fio"];?></th>
-            <th><?php echo $dil["driving_serial_number_card"];?></th>
-            <th><?php echo $dil["driving_category"];?></th>
-            <th><?php echo $dil["driving_licensing_authority"];?></th>
-            <th><?php echo $dil["driving_date_issue_card"];?></th>
-            <th><?php echo $dil["driving_period_validity"];?></th>
+            <th><?php echo $dil["trp_seria_number"];?></th>
+            <th><?php echo $dil["trp_permit_reason"];?></th>
+            <th><?php echo $dil["trp_permit_date"];?></th>
+            <th><?php echo $dil["trp_valid_date"];?></th>
+            <th><?php echo $dil["trp_issuer"];?></th>
+            <th><?php echo $dil["prp_seria_number"];?></th>
+            <th><?php echo $dil["prp_permit_date"];?></th>
+            <th><?php echo $dil["prp_valid_date"];?></th>
+            <th><?php echo $dil["prp_issuer"];?></th>
+            <th><?php echo $dil["wp_seria_number"];?></th>
+            <th><?php echo $dil["wp_permit_date"];?></th>
+            <th><?php echo $dil["wp_valid_date"];?></th>
             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>

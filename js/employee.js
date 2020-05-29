@@ -2732,14 +2732,14 @@ var military_info_table ;
 
     });
 
-    /*medical Info  table delete click*/
-    $('#medical_info_table').on( 'click', '#migration_medical_information', function ()
-    {
-        var data = medical_info_table.row( $(this).parents('tr') ).data();
-        console.log('data[0]='+data[0])
-        document.getElementById("medicalinfoid").value = data[0];
-        $('#modalMedicalInfoDelete').modal('show');
-    } );
+    // /*medical Info  table delete click*/
+    // $('#medical_info_table').on( 'click', '#migration_medical_information', function ()
+    // {
+    //     var data = medical_info_table.row( $(this).parents('tr') ).data();
+    //     console.log('data[0]='+data[0])
+    //     document.getElementById("medicalinfoid").value = data[0];
+    //     $('#modalMedicalInfoDelete').modal('show');
+    // } );
 
     $("#medicalInfoInsertForm").submit(function(e)
     {
@@ -3162,7 +3162,279 @@ var military_info_table ;
         console.log(data[0]);
     } );
 
+	/*
+    **********************************************************************************************************************
+    ************************************** Migrasiya INFO BILIKLERI ************************************************************
+    **********************************************************************************************************************
+    */
 
+	var migration_info_table ;
+	$('#migrationInfotab').click(function() {
+		console.log('Tab clikc migrationInfotab');
+		$('#qual2').text( tabtext+' / '+$('#migrationInfotab').text());
+
+		$('#migration_info_table').DataTable().clear().destroy();
+		migration_info_table = $("#migration_info_table").DataTable({
+			"scrollX": true,
+			"paging": true,
+			"lengthChange": false,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": true,
+			"language": {
+				"lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
+				"zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
+				"info": "Showing page _PAGE_ of _PAGES_",
+				"infoEmpty": " Heç bir məlumat  tapılmadı",
+				"infoFiltered": "(filtered from _MAX_ total records)",
+				"paginate": {
+					"previous": "<?php echo $dil['previous'] ; ?> " ,
+					"next": "<?php echo $dil['next'] ; ?>"
+				}
+			},
+			"ajax": {
+				url: "migration_info/get_migrationInfo.php",
+				type: "POST"
+			},"columnDefs": [ {
+				"width": "8%",
+				"targets": -1,
+				"data": null,
+				"defaultContent": "<img  id='migrationInfo_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
+					"<img  id='migrationInfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
+					"<img  id='migrationInfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+			} ],
+			dom: 'lBfrtip',
+
+			buttons: [
+				{
+
+					text: 'Add New <i class="fa fa-plus"></i>',
+					action: function ( e, dt, node, config ) {
+						console.log('migrationInfoInsertModal')
+
+						$("#migrationInfoInsertModal").modal();
+					}
+				},
+				{
+					extend: 'excelHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				},
+				{
+					extend: 'csvHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				},
+				{
+					extend: 'pdfHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				}  ,'copy','print',
+				'colvis',
+
+			],
+
+			"lengthMenu": [
+				[20, 30, 60, -1],
+				[10, 20, 50, "All"]
+			]
+
+		});
+
+		console.log('Tab clikc oldu',migration_info_table);
+	});
+
+	/*migration MELUMATALRİ SİLİNİR */
+	$("#migrationInfoDelete").submit(function(e) {
+
+		e.preventDefault();
+		$.ajax( {
+			url: "migration_info/migrationInfoDelete.php",
+			method: "post",
+			data: $("#migrationInfoDelete").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				console.log('strMessage='+strMessage);
+				if (strMessage.substr(1, 4)==='error')
+				{
+					console.log(strMessage);
+				}
+				else if (strMessage==='success')
+				{
+					$('#modalMigrationInfoDelete').modal('hide');
+					$('#modalDeleteSuccess').modal('show');
+					migration_info_table.ajax.reload();
+				}
+				else  {
+					console.log(strMessage);
+					$("#badge_danger").text(strMessage);
+				}
+			}
+		});
+		migration_info_table.ajax.reload();
+
+
+	});
+
+
+
+	$("#migrationInfoInsertForm").submit(function(e)
+	{
+		console.log('salam insert')
+		e.preventDefault();
+		/*	if($("#langInsertForm").valid())
+    { */
+		$.ajax( {
+			url: "migration_info/migrationInfoInsert.php",
+			method: "post",
+			data: $("#migrationInfoInsertForm").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				console.log('strMessage='+$("#migrationInfoInsertForm").serialize());
+				console.log('strMessage='+strMessage);
+				$("#badge_success").text('');
+				$("#badge_danger").text('');
+				if (strMessage.substr(1, 4)==='error')
+				{
+
+					$("#errorp").text(strMessage);
+					$("#modalInsertError").modal('show');
+					$("#migrationInfoInsertModal").modal('hide');
+				}
+				else if (strMessage==='success')
+				{
+					$("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+					$("#modalInsertSuccess").modal('show');
+					$("#migrationInfoInsertModal").modal('hide');
+
+				}
+				else  {
+					$("#errorp").text(strMessage);
+					$("#modalInsertError").modal('show');
+					$("#migrationInfoInsertModal").modal('hide');
+
+				}
+			}
+		});
+		migration_info_table.ajax.reload();
+		$( "#migrationInfoInsertForm" ).get(0).reset();
+		/*}*/
+	});
+
+
+	/*GetMigrationDetails  */
+	function GetMigrationDetails(migrationid,optype)
+	{
+		console.log('$migrationid='+migrationid)
+		$.post("migration_info/getMigrationInfoDetail.php",
+			{
+				migrationid: migrationid
+			},
+			function (migration_data, status)
+			{
+				console.log('migrationdata1=',migration_data)
+				// PARSE json data
+				var migrationdata = JSON.parse(migration_data);
+				console.log('migrationdata=',migrationdata)
+				if  (optype=='update') {
+					$("#update_migrationid").val(migrationdata.id).change();
+					$("#update_medicalempid").val(migrationdata.teId).change();
+					$("#update_medical_app").val(migrationdata.exist_id).change();
+					$("#update_renew_interval").val(migrationdata.renew_interval).change();
+					$("#update_last_renew_date").val(migrationdata.last_renew_date);
+					$("#update_physical_deficiency").val(migrationdata.chois_id).change();
+					$("#update_deficiency_desc").val(migrationdata.deficiency_desc);
+					$('#modalEditMigrationInfo').modal('show');
+				}
+				else {
+					$("#view_medicalemp").val(migrationdata.full_name);
+					$("#view_medical_app").val(migrationdata.exist_desc);
+					$("#view_renew_interval").val(migrationdata.renew_interval+' Ay');
+					$("#view_last_renew_date").val(migrationdata.last_renew_date);
+					$("#view_physical_deficiency").val(migrationdata.chois_desc);
+					$("#view_deficiency_desc").val(migrationdata.deficiency_desc);
+					$('#modalViewMigration').modal('show');
+				}
+			}
+		);
+
+	}
+
+	/*migration Update */
+	$("#migrationInfoUpdate").submit(function(e)
+	{
+		e.preventDefault();
+		/*if($("#educationUpdate").valid())
+        { */
+
+		$.ajax( {
+			url: "migration_info/migrationInfoUpdate.php",
+			method: "post",
+			data: $("#migrationInfoUpdate").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				//console.log('serialize='+$("#migrationInfoUpdate").serialize());
+				console.log('strMessage='+strMessage);
+				$("#badge_danger_update").text("");
+				if (strMessage.substr(1, 4)==='error')
+				{
+					console.log(strMessage);
+				}
+				else if (strMessage==='success')
+				{
+					$('#modalEditMigrationInfo').modal('hide');
+					$('#modalUpdateSuccess').modal('show');
+					migration_info_table.ajax.reload();
+				}
+
+				else  {
+					$("#badge_danger_update").text(strMessage);
+				}
+			}
+		});
+		migration_info_table.ajax.reload();
+		/*}
+        else {
+                 alert('not valid') ;
+             }*/
+	});
+
+	/*migration table delete click*/
+	$('#migration_info_table').on( 'click', '#migrationInfo_delete', function ()
+	{
+		var data = migration_info_table.row( $(this).parents('tr') ).data();
+
+		document.getElementById("migrationinfoid").value = data[0];
+
+		$('#modalMigrationInfoDelete').modal('show');
+	} );
+
+	/*migration table view click  */
+	$('#migration_info_table').on( 'click', '#migrationInfo_view', function ()
+	{
+		var data = migration_info_table.row( $(this).parents('tr') ).data();
+		GetMigrationDetails(data[0],'view');
+		console.log(data[0]);
+	} );
+	/*migration table view click  */
+	$('#migration_info_table').on( 'click', '#migrationInfo_edit', function ()
+	{
+		console.log('salam')
+
+		var data = migration_info_table.row( $(this).parents('tr') ).data();
+		console.log('data='+data[0])
+		GetMigrationDetails(data[0],'update');
+		document.getElementById("updatemigid").value = data[0];
+		console.log(data[0]);
+
+	} );
 
     
 $('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
