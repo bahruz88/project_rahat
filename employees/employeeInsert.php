@@ -9,9 +9,9 @@ function generateRandomString($length = 2) {
 
   //Create variables
 
-	$firstname=$_POST['firstname'];
-	$lastname=$_POST['lastname'];
-    $surname = $_POST['surname'];
+	$firstname=$_POST['firstname_name'];
+	$lastname=$_POST['lastname_name'];
+    $surname = $_POST['surname_name'];
 	$sex = $_POST['sex'];
 	$marital_status = $_POST['marital_status'];
 	$birth_date = $_POST['birth_date'];
