@@ -1,15 +1,12 @@
 <?php
 include('../session.php');
-
-$sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
- DATE_FORMAT(tmi.last_renew_date,'%d/%m/%Y') last_renew_date,tmi.physical_deficiency,tmi.deficiency_desc,
+$sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.trp_seria_number,tmi.trp_permit_reason,
+ DATE_FORMAT(tmi.trp_permit_date,'%d/%m/%Y') trp_permit_date,DATE_FORMAT(tmi.trp_valid_date,'%d/%m/%Y') trp_valid_date,
+ tmi.trp_issuer,tmi.prp_seria_number,DATE_FORMAT(tmi.prp_permit_date,'%d/%m/%Y') prp_permit_date,DATE_FORMAT(tmi.prp_valid_date,'%d/%m/%Y') prp_valid_date,
+ tmi.prp_issuer,tmi.wp_seria_number,DATE_FORMAT(tmi.wp_permit_date,'%d/%m/%Y') wp_permit_date,DATE_FORMAT(tmi.wp_valid_date,'%d/%m/%Y') wp_valid_date,
  tmi.insert_date,tmi.insert_user,tmi.update_user,tmi.update_date,tmi.status,
- te.emp_status,te.lastname,te.firstname,te.surname,te.id teId,
-  tEN.exist_id, tEN.exist_desc,tEN.lang,
-  tYN.chois_id, tYN.chois_desc,tYN.lang
-FROM tbl_employee_medical_information tmi
-INNER join tbl_exist_not_exist tEN on tmi.medical_app=tEN.exist_id and tEN.lang='az'
-INNER join tbl_yesno tYN on tmi.physical_deficiency=tYN.chois_id and tYN.lang='az'
+ te.emp_status,te.lastname,te.firstname,te.surname,te.id teId
+FROM tbl_migration_info tmi
 INNER join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1";
 
 //  tYN.chois_id, tYN.chois_desc,tYN.lang,
@@ -35,11 +32,19 @@ if ($result_minfo ->num_rows > 0) {
         $sub_array[] = $row_minfo['id'];
         $sub_array[] = $row_minfo['lastname'].' '.$row_minfo['firstname'].' '.$row_minfo['surname'];
 
-        $sub_array[] = $row_minfo['exist_desc'];
-        $sub_array[] = $row_minfo['renew_interval'];
-        $sub_array[] = $row_minfo['last_renew_date'];
-        $sub_array[] = $row_minfo['chois_desc'];
-        $sub_array[] = $row_minfo['deficiency_desc'];
+        $sub_array[] = $row_minfo['trp_seria_number'];
+        $sub_array[] = $row_minfo['trp_permit_reason'];
+        $sub_array[] = $row_minfo['trp_permit_date'];
+        $sub_array[] = $row_minfo['trp_valid_date'];
+        $sub_array[] = $row_minfo['trp_issuer'];
+        $sub_array[] = $row_minfo['prp_seria_number'];
+        $sub_array[] = $row_minfo['prp_permit_date'];
+        $sub_array[] = $row_minfo['prp_valid_date'];
+        $sub_array[] = $row_minfo['prp_issuer'];
+        $sub_array[] = $row_minfo['wp_seria_number'];
+        $sub_array[] = $row_minfo['wp_permit_date'];
+        $sub_array[] = $row_minfo['wp_valid_date'];
+        $sub_array[] = $row_minfo['prp_issuer'];;
         $sub_array[] = $row_minfo['insert_date'];
         $data[]     = $sub_array;
     }

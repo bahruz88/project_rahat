@@ -234,7 +234,7 @@
   include  ('family_info/familyInfoModal.php');
   include  ('driver_license/drivingLicenseInfoModal.php');
   include  ('medical_info/medicalInfoModal.php');
-  include  ('previous_positions/previousPositionsModal.php');
+  include  ('migration_info/migrationInfoModal.php');
 
   ?>
   
@@ -439,7 +439,7 @@
         </table>
     </div>
 <div class="tab-pane" id="migrationInfo">
-    <table id="migration_info_table " class="table table-striped  table-bordered table-hover">
+    <table id="migration_info_table" class="table table-striped  table-bordered table-hover">
         <thead>
         <tr>
             <th style="width:15px;">id</th>

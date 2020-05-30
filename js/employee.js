@@ -3343,22 +3343,36 @@ var military_info_table ;
 				var migrationdata = JSON.parse(migration_data);
 				console.log('migrationdata=',migrationdata)
 				if  (optype=='update') {
-					$("#update_migrationid").val(migrationdata.id).change();
-					$("#update_medicalempid").val(migrationdata.teId).change();
-					$("#update_medical_app").val(migrationdata.exist_id).change();
-					$("#update_renew_interval").val(migrationdata.renew_interval).change();
-					$("#update_last_renew_date").val(migrationdata.last_renew_date);
-					$("#update_physical_deficiency").val(migrationdata.chois_id).change();
-					$("#update_deficiency_desc").val(migrationdata.deficiency_desc);
-					$('#modalEditMigrationInfo').modal('show');
+					$("#updatemigid").val(migrationdata.id).change();
+					$("#update_migrationempid").val(migrationdata.teId).change();
+					$("#update_trp_seria_number").val(migrationdata.trp_seria_number)
+					$("#update_trp_permit_reason").val(migrationdata.trp_permit_reason)
+					$("#update_trp_permit_date").val(migrationdata.trp_permit_date);
+					$("#update_trp_valid_date").val(migrationdata.trp_valid_date)
+					$("#update_trp_issuer").val(migrationdata.trp_issuer);
+					$("#update_prp_seria_number").val(migrationdata.prp_seria_number);
+					$("#update_prp_permit_date").val(migrationdata.prp_permit_date);
+					$("#update_prp_valid_date").val(migrationdata.prp_valid_date);
+					$("#update_prp_issuer").val(migrationdata.prp_issuer);
+					$("#update_wp_seria_number").val(migrationdata.wp_seria_number);
+					$("#update_wp_permit_date").val(migrationdata.wp_permit_date);
+					$("#update_wp_valid_date").val(migrationdata.wp_valid_date);
+ 					$('#modalEditMigrationInfo').modal('show');
 				}
 				else {
-					$("#view_medicalemp").val(migrationdata.full_name);
-					$("#view_medical_app").val(migrationdata.exist_desc);
-					$("#view_renew_interval").val(migrationdata.renew_interval+' Ay');
-					$("#view_last_renew_date").val(migrationdata.last_renew_date);
-					$("#view_physical_deficiency").val(migrationdata.chois_desc);
-					$("#view_deficiency_desc").val(migrationdata.deficiency_desc);
+					$("#view_migrationemp").val(migrationdata.full_name);
+ 					$("#view_trp_seria_number").val(migrationdata.trp_seria_number)
+					$("#view_trp_permit_reason").val(migrationdata.trp_permit_reason)
+					$("#view_trp_permit_date").val(migrationdata.trp_permit_date);
+					$("#view_trp_valid_date").val(migrationdata.trp_valid_date)
+					$("#view_trp_issuer").val(migrationdata.trp_issuer);
+					$("#view_prp_seria_number").val(migrationdata.prp_seria_number);
+					$("#view_prp_permit_date").val(migrationdata.prp_permit_date);
+					$("#view_prp_valid_date").val(migrationdata.prp_valid_date);
+					$("#view_prp_issuer").val(migrationdata.prp_issuer);
+					$("#view_wp_seria_number").val(migrationdata.wp_seria_number);
+					$("#view_wp_permit_date").val(migrationdata.wp_permit_date);
+					$("#view_wp_valid_date").val(migrationdata.wp_valid_date);
 					$('#modalViewMigration').modal('show');
 				}
 			}
@@ -3476,4 +3490,18 @@ $('#drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
     $('#update_end_date').datetimepicker({ format: 'DD/MM/YYYY'  });
     $('#start_date').datetimepicker({ format: 'DD/MM/YYYY'  });
     $('#end_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+
+	$("#update_trp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#update_trp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+ 	$("#update_prp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#update_prp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+ 	$("#update_wp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#update_wp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+
+	$("#view_trp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#view_trp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+ 	$("#view_prp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#view_prp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+ 	$("#view_wp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#view_wp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 });

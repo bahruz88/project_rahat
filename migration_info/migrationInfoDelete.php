@@ -2,9 +2,9 @@
 include('../session.php') ;
 
   //Create variables
-    $medicalinfoid = $_POST['medicalinfoid'];
+    $migrationinfoid = $_POST['migrationinfoid'];
  
-   $delete_query = mysqli_query($db,"update  $tbl_employee_medical_information  set  status=0 where id='$medicalinfoid'");//
+   $delete_query = mysqli_query($db,"update  $tbl_migration_info  set  status=0 where id='$migrationinfoid'");//
 //    $delete_query = mysqli_query($db,"delete FROM  $tbl_military_information where id='$militaryinfoid'");// set  status=0
 
     $aff_row_count=mysqli_affected_rows($db) ;

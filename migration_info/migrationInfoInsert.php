@@ -5,23 +5,43 @@ include('../session.php') ;
  
   //Create variables
 
-$employee                       =$_POST['employee'];
-$medical_app                    = $_POST['medical_app'];
-$medical_renew_interval        = $_POST['medical_renew_interval'];
-$medical_last_renew_date       = $_POST['medical_last_renew_date'];
-$medical_physical_deficiency   = $_POST['medical_physical_deficiency'];
-$medical_deficiency_desc       = $_POST['medical_deficiency_desc'];
+$employee                  =$_POST['employee'];
+ $trp_seria_number         = $_POST['trp_seria_number'];
+$trp_permit_reason        = $_POST['trp_permit_reason'];
+$trp_permit_date          = $_POST['trp_permit_date'];
+$trp_valid_date           = $_POST['trp_valid_date'];
+$trp_issuer               = $_POST['trp_issuer'];
+$prp_seria_number         = $_POST['prp_seria_number'];
+$prp_permit_date          = $_POST['prp_permit_date'];
+$prp_valid_date           = $_POST['prp_valid_date'];
+$prp_issuer               = $_POST['prp_issuer'];
+$wp_seria_number          = $_POST['wp_seria_number'];
+$wp_permit_date           = $_POST['wp_permit_date'];
+$wp_valid_date            = $_POST['wp_valid_date'];
 
-$medical_last_renew_date = strtr($_POST['medical_last_renew_date'], '/', '-');
-$medical_last_renew_date= date('Y-m-d', strtotime($medical_last_renew_date));
+$trp_permit_date = strtr( $trp_permit_date , '/', '-');
+$trp_permit_date= date('Y-m-d', strtotime($trp_permit_date));
+
+$trp_valid_date = strtr( $trp_valid_date , '/', '-');
+$trp_valid_date= date('Y-m-d', strtotime($trp_valid_date));
+
+$prp_permit_date = strtr( $prp_permit_date , '/', '-');
+$prp_permit_date= date('Y-m-d', strtotime($prp_permit_date));
+
+$prp_valid_date = strtr( $prp_valid_date , '/', '-');
+$prp_valid_date= date('Y-m-d', strtotime($prp_valid_date));
+
+$wp_permit_date = strtr( $wp_permit_date , '/', '-');
+$wp_permit_date= date('Y-m-d', strtotime($wp_permit_date));
+
+$wp_valid_date = strtr( $wp_valid_date , '/', '-');
+$wp_valid_date= date('Y-m-d', strtotime($wp_valid_date));
 
 $insert_date= date("Y-m-d h:i:sa") ;
 
-    $sql = "INSERT INTO $tbl_employee_medical_information(
-	 id, emp_id, medical_app, renew_interval, last_renew_date, physical_deficiency, deficiency_desc,insert_date)
+    $sql = "INSERT INTO $tbl_migration_info(
+	 id, emp_id, trp_seria_number, trp_permit_reason, trp_permit_date, physical_deficiency, deficiency_desc,insert_date)
 	 VALUES (NULL, '$employee','$medical_app','$medical_renew_interval','$medical_last_renew_date','$medical_physical_deficiency','$medical_deficiency_desc','$insert_date')";
-//   $sql = "INSERT INTO $tbl_military_information (`id`, `emp_id`, `medical_app`, `renew_interval`, `last_renew_date`, `physical_deficiency`, `deficiency_desc`, `insert_user`, `update_user`, `insert_date`, `update_date`, `status`)
-//VALUES (NULL, '$employee', '$medical_app', '$medical_renew_interval', '$medical_last_renew_date', '$medical_physical_deficiency', '$medical_deficiency_desc', '', '', '$insert_date', '', '1')";
 
   if(!mysqli_query($db, $sql)) {
         echo "error" .mysqli_error($db);
