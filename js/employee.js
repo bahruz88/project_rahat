@@ -1689,22 +1689,29 @@ var faminfo_table ;
 
 					if  (optype=='update') {
 						console.log('update tikla');
-                     /*
-					$("#update_langempid").val(langdata.empid).change();
-				 	$("#update_reading").val(langdata.rid).change();
+                    
+					$("#edit_famemp_id").val(faminfodata.empid).change();
+					$("#edit_family_member_type_id").val(faminfodata.type_id).change();
+
+				 	 /*$("#update_reading").val(langdata.rid).change();
 					$("#update_writing").val(langdata.wid).change();
 					$("#update_speaking").val(langdata.sid).change();
 					$("#update_understanding").val(langdata.uid).change();
-					$("#update_language").val(langdata.langid).change();
-					$('#modalEditLang').modal('show');*/
+					$("#update_language").val(langdata.langid).change();*/
+					$('#famInfoEditModal').modal('show');
 					}
 					else {
-					/*$("#view_langemp_id").val(langdata.full_name);
-					$("#view_lang_name_id").val(langdata.lang_name);
-					$("#view_reading_id").val(langdata.reading);
-					$("#view_writing_id").val(langdata.writting);
-					$("#view_speaking_id").val(langdata.speaking);
-					$("#view_understanding_id").val(langdata.understanding);*/
+						
+					$("#view_famemp_id").val(faminfodata.full_name);
+					$("#view_family_member_type_id").val(faminfodata.type_desc);
+					$("#view_firstname_id").val(faminfodata.m_firstname);
+					$("#view_lastname_id").val(faminfodata.m_lastname);
+					$("#view_surname_id").val(faminfodata.m_surname);
+					$("#view_gender_id").val(faminfodata.gender_descr);
+					$("#view_birth_date_fam_info_id").val(faminfodata.birth_date);
+					$("#view_contact_number_id").val(faminfodata.contact_number);
+					$("#view_living_address_id").val(faminfodata.adress);
+					
 					$('#modalViewFamilyInfo').modal('show');						
 					}
 				}
@@ -1721,13 +1728,21 @@ var faminfo_table ;
 		$('#modalFamInfoDelete').modal('show');
     } );
 	
-	/*lang table view click  */
+	/*Family info view click  */
 	$('#faminfo_table').on( 'click', '#faminfo_view', function () 
 	{ 
         var data = faminfo_table.row( $(this).parents('tr') ).data();
 		GetFamilyInfoDetails(data[0],'view');
         console.log(data[0]);
     } );
+	/*Family info view click  */
+	$('#faminfo_table').on( 'click', '#faminfo_edit', function () 
+	{ 
+        var data = faminfo_table.row( $(this).parents('tr') ).data();
+		GetFamilyInfoDetails(data[0],'update');
+        console.log(data[0]);
+    } );
+
 
 
 /*
@@ -3452,6 +3467,7 @@ var military_info_table ;
 
     
 $('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
+//$('#view_birth_date_fam_info_id').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_uni_end_date').datetimepicker({ format: 'DD/MM/YYYY'  });

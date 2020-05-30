@@ -113,6 +113,7 @@ $dil = array(
 	"lang_view_title"   =>"Dil biliklərinə baxış",
 	"lang_edit_title"   =>"Dil biliklərinin redaktəsi",
 	"family_information"   =>"Ailə məlumatları",
+	"family_information_view"   =>"Ailə məlumatlarına  baxış",
 	"family_member_name"   =>"Ailə  üzvünün  adı",
 	"family_member_type"   =>"Ailə  üzvünün  tipi",
 	"family_member_phone"   =>"Telefon  nömrəsi",
