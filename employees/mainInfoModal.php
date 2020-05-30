@@ -19,19 +19,19 @@
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="firstname" name="firstname" placeholder="<?php echo $dil["firstname"];?>" />
+									<input type="text" class="form-control" id="firstname" name="firstname_name" placeholder="<?php echo $dil["firstname"];?>" />
 								</div>
 							</div>
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="lastname"><?php echo $dil["lastname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="lastname" name="lastname" placeholder="<?php echo $dil["lastname"];?>" />
+									<input type="text" class="form-control" id="lastname" name="lastname_name" placeholder="<?php echo $dil["lastname"];?>" />
 								</div>
 							</div>
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="surname"><?php echo $dil["surname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="surname" name="surname" placeholder="<?php echo $dil["surname"];?>" />
+									<input type="text" class="form-control" id="surname" name="surname_name" placeholder="<?php echo $dil["surname"];?>" />
 								</div>
 							</div>
 							 <div class="form-group row">
