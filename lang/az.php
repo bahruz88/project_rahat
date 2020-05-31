@@ -194,7 +194,8 @@ $dil = array(
 
 	"time_management"   =>"İş vaxtının uçotu",
 	"schedule_list"   =>"Qrafiklər",
-	"overtime"   =>"Əlavə  iş vaxtı",
+	"overtime_settings"   =>"Əlavə  iş vaxtı sazlama ",
+	"overtime_list"   =>"Əlavə  iş vaxtı siyahı",
 
 	"operation"   =>"Əməliyyat"
 );

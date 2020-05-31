@@ -307,6 +307,7 @@ $('#employee_table tbody').on( 'click', '#view', function () {
 				    table.ajax.reload();
 				//	$( "#employeeInsert" ).get(0).reset();
 			}
+         table.ajax.reload();
         });
 				
 /*İSCHİ  MELUMATALRİ SİLİNİR */				
@@ -1673,7 +1674,46 @@ var faminfo_table ;
 
 
                 });
-				
+
+
+/*Familiy Update */
+$("#familiyInfoUpdate").submit(function(e)
+	{
+        e.preventDefault();
+		/*if($("#educationUpdate").valid())
+		{ */
+		
+            $.ajax( {
+                url: "family_info/familyInfoUpdate.php",
+                method: "post",
+                data: $("#familiyInfoUpdate").serialize(),
+                dataType: "text",
+                success: function(strMessage) 
+				{
+					console.log(strMessage);
+					$("#badge_danger_update").text("");
+					 if (strMessage.substr(1, 4)==='error')
+					 {
+						console.log(strMessage);
+					 }
+					 else if (strMessage==='success')
+					 { 
+						$('#famInfoEditModal').modal('hide');
+						$('#modalUpdateSuccess').modal('show');
+						faminfo_table.ajax.reload();
+					 }
+
+					 else  {
+						$("#badge_danger_update").text(strMessage);
+					 }
+				}
+            });
+			faminfo_table.ajax.reload();	
+		/*}
+		else {
+				 alert('not valid') ;
+			 }*/
+     });				
 		
 /*GetFamilyInfoDetails  */
  function GetFamilyInfoDetails(faminfoid,optype) 
@@ -1692,12 +1732,13 @@ var faminfo_table ;
                     
 					$("#edit_famemp_id").val(faminfodata.empid).change();
 					$("#edit_family_member_type_id").val(faminfodata.type_id).change();
-
-				 	 /*$("#update_reading").val(langdata.rid).change();
-					$("#update_writing").val(langdata.wid).change();
-					$("#update_speaking").val(langdata.sid).change();
-					$("#update_understanding").val(langdata.uid).change();
-					$("#update_language").val(langdata.langid).change();*/
+					$("#edit_firstname_id").val(faminfodata.m_firstname);
+					$("#edit_lastname_id").val(faminfodata.m_lastname);
+					$("#edit_surname_id").val(faminfodata.m_surname);
+					$("#edit_gender_id").val(faminfodata.gender).change();
+					$("#edit_birth_date_fam_info_id").val(faminfodata.birth_date);
+					$("#edit_contact_number_id").val(faminfodata.contact_number);
+					$("#edit_living_address_id").val(faminfodata.adress);
 					$('#famInfoEditModal').modal('show');
 					}
 					else {
@@ -1739,6 +1780,7 @@ var faminfo_table ;
 	$('#faminfo_table').on( 'click', '#faminfo_edit', function () 
 	{ 
         var data = faminfo_table.row( $(this).parents('tr') ).data();
+		document.getElementById("update_faminfo_id").value = data[0];
 		GetFamilyInfoDetails(data[0],'update');
         console.log(data[0]);
     } );
@@ -3467,7 +3509,7 @@ var military_info_table ;
 
     
 $('#birth_date_fam_info').datetimepicker({ format: 'DD/MM/YYYY'  });	
-//$('#view_birth_date_fam_info_id').datetimepicker({ format: 'DD/MM/YYYY'  });
+$('#edit_birth_date_fam_info_id').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_birth_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 $('#update_uni_end_date').datetimepicker({ format: 'DD/MM/YYYY'  });

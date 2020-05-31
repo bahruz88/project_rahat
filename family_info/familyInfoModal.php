@@ -227,10 +227,10 @@
     </div>
   </div>
   
-  <!--LANG EDİT MODAL -->
+  <!--FAMILY INFO EDİT MODAL -->
    <div class="modal fade" id="famInfoEditModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
-    <form id="langUpdate" method="post" class="form-horizontal" action="">
+    <form id="familiyInfoUpdate" method="post" class="form-horizontal" action="">
 	
       <!-- Modal content-->
       <div class="modal-content" >
@@ -247,7 +247,7 @@
  						 	<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
 								<div class="col-sm-6">
-									<select data-live-search="true"  name="edit_famemp_name" id="edit_famemp_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" readonly >
+									<select data-live-search="true"  id="edit_famemp_id"  name="edit_famemp"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" Disabled="true"   >
 								 	<?php 
 									 $result_employees_view = $db->query($sql_employees);
 										if ($result_employees_view->num_rows > 0) {
@@ -281,25 +281,25 @@
 							 	<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="firstname" name="firstname" placeholder="<?php echo $dil["firstname"];?>" />
+									<input type="text" class="form-control" id="edit_firstname_id" name="edit_firstname_name" placeholder="<?php echo $dil["firstname"];?>" />
 								</div>
 							</div>
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="lastname"><?php echo $dil["lastname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="lastname" name="lastname" placeholder="<?php echo $dil["lastname"];?>" />
+									<input type="text" class="form-control" id="edit_lastname_id" name="edit_lastname_name" placeholder="<?php echo $dil["lastname"];?>" />
 								</div>
 							</div>
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="surname"><?php echo $dil["surname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="surname" name="surname" placeholder="<?php echo $dil["surname"];?>" />
+									<input type="text" class="form-control" id="edit_surname_id" name="edit_surname_name" placeholder="<?php echo $dil["surname"];?>" />
 								</div>
 							</div>
 							 <div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="gender"><?php echo $dil["sex"];?></label>
 								<div class="col-sm-6">
-								<select   name="gender"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sex"];?>" >
+								<select   name="edit_gender_name"  id="edit_gender_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sex"];?>"  >
 									<option value="1">Kişi</option>
 									<option value="2">Qadın</option>
 								</select>	 
@@ -308,20 +308,20 @@
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="birth_date_fam_info"><?php echo $dil["birth_date"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="birth_date_fam_info" name="birth_date_fam_info" placeholder="<?php echo $dil["birth_date"];?>" />
+									<input type="text" class="form-control" id="edit_birth_date_fam_info_id" name="edit_birth_date_fam_info_name" placeholder="<?php echo $dil["birth_date"];?>" />
 								</div>
 							</div>
 
 							 <div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="contact_number"><?php echo $dil["contact_number"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="contact_number" name="contact_number" placeholder="<?php echo $dil["contact_number"];?>" />
+									<input type="text" class="form-control" id="edit_contact_number_id" name="edit_contact_number" placeholder="<?php echo $dil["contact_number"];?>" />
 								</div>
 							</div>
 							 <div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="living_address"><?php echo $dil["living_address"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="living_address" name="living_address" placeholder="<?php echo $dil["living_address"];?>" />
+									<input type="text" class="form-control" id="edit_living_address_id" name="edit_living_address_name" placeholder="<?php echo $dil["living_address"];?>" />
 								</div>
 							</div>
 					</div>
@@ -331,7 +331,7 @@
         <div class="modal-footer">			 
 		<button  id ="add_new_item2" typemodalEdit="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_langid" name="update_langid_name" value="" /> 						 
+		<input type="hidden" id="update_faminfo_id" name="update_faminfoid_name" value="" /> 						 
         </div>	
 		</form>
       </div>
