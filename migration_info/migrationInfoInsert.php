@@ -40,8 +40,8 @@ $wp_valid_date= date('Y-m-d', strtotime($wp_valid_date));
 $insert_date= date("Y-m-d h:i:sa") ;
 
     $sql = "INSERT INTO $tbl_migration_info(
-	 id, emp_id, trp_seria_number, trp_permit_reason, trp_permit_date, physical_deficiency, deficiency_desc,insert_date)
-	 VALUES (NULL, '$employee','$medical_app','$medical_renew_interval','$medical_last_renew_date','$medical_physical_deficiency','$medical_deficiency_desc','$insert_date')";
+	 id, emp_id, trp_seria_number, trp_permit_reason, trp_permit_date, trp_valid_date, trp_issuer, prp_seria_number, prp_permit_date, prp_valid_date,prp_issuer,wp_seria_number,wp_permit_date,wp_valid_date,insert_date)
+	 VALUES (NULL, '$employee','$trp_seria_number','$trp_permit_reason','$trp_permit_date','$trp_valid_date','$trp_issuer','$prp_seria_number','$prp_permit_date','$prp_valid_date','$prp_issuer','$wp_seria_number','$wp_permit_date','$wp_valid_date','$insert_date')";
 
   if(!mysqli_query($db, $sql)) {
         echo "error" .mysqli_error($db);

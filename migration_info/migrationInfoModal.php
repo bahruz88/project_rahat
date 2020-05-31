@@ -41,11 +41,15 @@
  					<div class="card-body" >
 						 
 						 	<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="view_medicalemp"><?php echo $dil["employee"];?></label>
+								<label class="col-sm-4 col-form-label" for="view_migrationemp"><?php echo $dil["employee"];?></label>
 				 				<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_medicalemp" name="view_medicalemp_name" placeholder="<?php echo $dil["employee"];?>" readonly />
+									<input type="text" class="form-control" id="view_migrationemp" name="view_migrationemp" placeholder="<?php echo $dil["employee"];?>" readonly />
 				 				</div>
 							</div>
+                        <div class="form-group row">
+                            <h5><?php echo $dil["migration_temporary_residence_permit"];?></h5>
+                        </div>
+
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="view_trp_seria_number"><?php echo $dil["trp_seria_number"];?></label>
@@ -83,6 +87,9 @@
                                 <input type="text" class="form-control" id="view_trp_issuer" name="view_trp_issuer" placeholder="<?php echo $dil["trp_issuer"];?>" readonly/>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <h5><?php echo $dil["migration_permanent_residence_permit"];?></h5>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="view_prp_seria_number"><?php echo $dil["prp_seria_number"];?></label>
@@ -112,7 +119,9 @@
                                 <input type="text" class="form-control" id="view_prp_issuer" name="view_prp_issuer" placeholder="<?php echo $dil["prp_issuer"];?>" readonly/>
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <h5><?php echo $dil["migration_work_permit_labor_activity"];?></h5>
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="view_wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
                             <div class="col-sm-6">
@@ -184,9 +193,13 @@
 							    </div>
 
                         <div class="form-group row">
+                            <h5><?php echo $dil["migration_temporary_residence_permit"];?></h5>
+                        </div>
+
+                            <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="trp_seria_number"><?php echo $dil["trp_seria_number"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="trp_seria_number" name="trp_seria_number" placeholder="<?php echo $dil["trp_seria_number"];?>" readonly />
+                                <input type="text" class="form-control" id="trp_seria_number" name="trp_seria_number" placeholder="<?php echo $dil["trp_seria_number"];?>"  />
                             </div>
                         </div>
 
@@ -195,49 +208,53 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="trp_permit_reason"><?php echo $dil["trp_permit_reason"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="trp_permit_reason" name="trp_permit_reason" placeholder="<?php echo $dil["trp_permit_reason"];?>" readonly />
+                                <input type="text" class="form-control" id="trp_permit_reason" name="trp_permit_reason" placeholder="<?php echo $dil["trp_permit_reason"];?>"  />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="trp_permit_date"><?php echo $dil["trp_permit_date"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="trp_permit_date" name="trp_permit_date" placeholder="<?php echo $dil["trp_permit_date"];?>" readonly />
+                                <input type="text" class="form-control" id="trp_permit_date" name="trp_permit_date" placeholder="<?php echo $dil["trp_permit_date"];?>"  />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="trp_valid_date"><?php echo $dil["trp_valid_date"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="trp_valid_date" name="trp_valid_date" placeholder="<?php echo $dil["trp_valid_date"];?>" readonly/>
+                                <input type="text" class="form-control" id="trp_valid_date" name="trp_valid_date" placeholder="<?php echo $dil["trp_valid_date"];?>" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="trp_issuer"><?php echo $dil["trp_issuer"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="trp_issuer" name="trp_issuer" placeholder="<?php echo $dil["trp_issuer"];?>" readonly/>
+                                <input type="text" class="form-control" id="trp_issuer" name="trp_issuer" placeholder="<?php echo $dil["trp_issuer"];?>" />
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <h5><?php echo $dil["migration_permanent_residence_permit"];?></h5>
+                        </div>
+
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="prp_seria_number"><?php echo $dil["prp_seria_number"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="prp_seria_number" name="prp_seria_number" placeholder="<?php echo $dil["prp_seria_number"];?>" readonly/>
+                                <input type="text" class="form-control" id="prp_seria_number" name="prp_seria_number" placeholder="<?php echo $dil["prp_seria_number"];?>" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="prp_permit_date"><?php echo $dil["prp_permit_date"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="prp_permit_date" name="prp_permit_date" placeholder="<?php echo $dil["prp_permit_date"];?>" readonly/>
+                                <input type="text" class="form-control" id="prp_permit_date" name="prp_permit_date" placeholder="<?php echo $dil["prp_permit_date"];?>" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="prp_valid_date"><?php echo $dil["prp_valid_date"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="prp_valid_date" name="prp_valid_date" placeholder="<?php echo $dil["prp_valid_date"];?>" readonly/>
+                                <input type="text" class="form-control" id="prp_valid_date" name="prp_valid_date" placeholder="<?php echo $dil["prp_valid_date"];?>" />
                             </div>
                         </div>
 
@@ -245,28 +262,31 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="prp_issuer"><?php echo $dil["prp_issuer"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="prp_issuer" name="prp_issuer" placeholder="<?php echo $dil["prp_issuer"];?>" readonly/>
+                                <input type="text" class="form-control" id="prp_issuer" name="prp_issuer" placeholder="<?php echo $dil["prp_issuer"];?>" />
                             </div>
+                        </div>
+                        <div class="form-group row">
+                            <h5><?php echo $dil["migration_work_permit_labor_activity"];?></h5>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="wp_seria_number" name="wp_seria_number" placeholder="<?php echo $dil["wp_seria_number"];?>" readonly/>
+                                <input type="text" class="form-control" id="wp_seria_number" name="wp_seria_number" placeholder="<?php echo $dil["wp_seria_number"];?>" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="wp_permit_date"><?php echo $dil["wp_permit_date"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="wp_permit_date" name="wp_permit_date" placeholder="<?php echo $dil["wp_permit_date"];?>" readonly/>
+                                <input type="text" class="form-control" id="wp_permit_date" name="wp_permit_date" placeholder="<?php echo $dil["wp_permit_date"];?>" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="wp_valid_date"><?php echo $dil["wp_valid_date"];?></label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="wp_valid_date" name="wp_valid_date" placeholder="<?php echo $dil["wp_valid_date"];?>" readonly/>
+                                <input type="text" class="form-control" id="wp_valid_date" name="wp_valid_date" placeholder="<?php echo $dil["wp_valid_date"];?>" />
                             </div>
                         </div>
 
@@ -320,6 +340,10 @@
 								</select>	
 								</div>
 							</div>
+                            <div class="form-group row">
+                                <h5><?php echo $dil["migration_temporary_residence_permit"];?></h5>
+                            </div>
+
 
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="update_trp_seria_number"><?php echo $dil["trp_seria_number"];?></label>
@@ -357,6 +381,10 @@
                                         <input type="text" class="form-control" id="update_trp_issuer" name="update_trp_issuer" placeholder="<?php echo $dil["trp_issuer"];?>" />
                                     </div>
                                 </div>
+                            <div class="form-group row">
+                                <h5><?php echo $dil["migration_permanent_residence_permit"];?></h5>
+                            </div>
+
 
                             <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="update_prp_seria_number"><?php echo $dil["prp_seria_number"];?></label>
@@ -386,6 +414,9 @@
                                         <input type="text" class="form-control" id="update_prp_issuer" name="update_prp_issuer" placeholder="<?php echo $dil["prp_issuer"];?>" />
                                     </div>
                                 </div>
+                            <div class="form-group row">
+                                <h5><?php echo $dil["migration_work_permit_labor_activity"];?></h5>
+                            </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="update_wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
