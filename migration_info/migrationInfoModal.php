@@ -47,7 +47,7 @@
 				 				</div>
 							</div>
                         <div class="form-group row">
-                            <h5><?php echo $dil["migration_temporary_residence_permit"];?></h5>
+                            <h5><strong><?php echo $dil["migration_temporary_residence_permit"];?></strong></h5>
                         </div>
 
 
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <h5><?php echo $dil["migration_permanent_residence_permit"];?></h5>
+                            <h5><strong><?php echo $dil["migration_permanent_residence_permit"];?></strong></h5>
                         </div>
 
                         <div class="form-group row">
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <h5><?php echo $dil["migration_work_permit_labor_activity"];?></h5>
+                            <h5><strong><?php echo $dil["migration_work_permit_labor_activity"];?></strong></h5>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="view_wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
@@ -193,7 +193,7 @@
 							    </div>
 
                         <div class="form-group row">
-                            <h5><?php echo $dil["migration_temporary_residence_permit"];?></h5>
+                            <h5><strong><?php echo $dil["migration_temporary_residence_permit"];?></strong></h5>
                         </div>
 
                             <div class="form-group row">
@@ -233,7 +233,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <h5><?php echo $dil["migration_permanent_residence_permit"];?></h5>
+                            <h5><strong><?php echo $dil["migration_permanent_residence_permit"];?></strong></h5>
                         </div>
 
 
@@ -266,7 +266,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <h5><?php echo $dil["migration_work_permit_labor_activity"];?></h5>
+                            <h5><strong><?php echo $dil["migration_work_permit_labor_activity"];?></strong></h5>
                         </div>
 
                         <div class="form-group row">
@@ -341,7 +341,7 @@
 								</div>
 							</div>
                             <div class="form-group row">
-                                <h5><?php echo $dil["migration_temporary_residence_permit"];?></h5>
+                                <h5><strong><?php echo $dil["migration_temporary_residence_permit"];?></strong></h5>
                             </div>
 
 
@@ -382,7 +382,7 @@
                                     </div>
                                 </div>
                             <div class="form-group row">
-                                <h5><?php echo $dil["migration_permanent_residence_permit"];?></h5>
+                                <h5><strong><?php echo $dil["migration_permanent_residence_permit"];?></strong></h5>
                             </div>
 
 
@@ -415,7 +415,7 @@
                                     </div>
                                 </div>
                             <div class="form-group row">
-                                <h5><?php echo $dil["migration_work_permit_labor_activity"];?></h5>
+                                <h5><strong><?php echo $dil["migration_work_permit_labor_activity"];?></strong></h5>
                             </div>
 
                                 <div class="form-group row">
