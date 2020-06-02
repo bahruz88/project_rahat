@@ -46,10 +46,10 @@
 									<input type="text" class="form-control" id="view_migrationemp" name="view_migrationemp" placeholder="<?php echo $dil["employee"];?>" readonly />
 				 				</div>
 							</div>
-                        <div class="form-group row">
-                            <h5><strong><?php echo $dil["migration_temporary_residence_permit"];?></strong></h5>
-                        </div>
-
+      
+							<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+							<i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo   $dil["migration_temporary_residence_permit"]; ?> </i>
+							</div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="view_trp_seria_number"><?php echo $dil["trp_seria_number"];?></label>
@@ -87,9 +87,14 @@
                                 <input type="text" class="form-control" id="view_trp_issuer" name="view_trp_issuer" placeholder="<?php echo $dil["trp_issuer"];?>" readonly/>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <h5><strong><?php echo $dil["migration_permanent_residence_permit"];?></strong></h5>
-                        </div>
+           
+						<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+                 <i class="fas  fa-check-double" right" style="color:#bd2130;"><?php echo $dil["migration_permanent_residence_permit"];?> </i>
+
+          
+                </div>
+                             
+                  
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="view_prp_seria_number"><?php echo $dil["prp_seria_number"];?></label>
@@ -119,9 +124,11 @@
                                 <input type="text" class="form-control" id="view_prp_issuer" name="view_prp_issuer" placeholder="<?php echo $dil["prp_issuer"];?>" readonly/>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <h5><strong><?php echo $dil["migration_work_permit_labor_activity"];?></strong></h5>
-                        </div>
+                   
+						
+							<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+							<i class="fas  fa-check-double" right" style="color:#bd2130;"><?php echo $dil["migration_work_permit_labor_activity"]; ?> </i>
+							</div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="view_wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
                             <div class="col-sm-6">
@@ -192,9 +199,10 @@
                                     </div>
 							    </div>
 
-                        <div class="form-group row">
-                            <h5><strong><?php echo $dil["migration_temporary_residence_permit"];?></strong></h5>
-                        </div>
+							<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+							<i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo   $dil["migration_temporary_residence_permit"]; ?> </i>
+							</div>
+
 
                             <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="trp_seria_number"><?php echo $dil["trp_seria_number"];?></label>
@@ -232,9 +240,11 @@
                                 <input type="text" class="form-control" id="trp_issuer" name="trp_issuer" placeholder="<?php echo $dil["trp_issuer"];?>" />
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <h5><strong><?php echo $dil["migration_permanent_residence_permit"];?></strong></h5>
-                        </div>
+ 						<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+                 <i class="fas  fa-check-double" right" style="color:#bd2130;"><?php echo $dil["migration_permanent_residence_permit"];?> </i>
+
+          
+                </div>
 
 
                         <div class="form-group row">
@@ -265,9 +275,9 @@
                                 <input type="text" class="form-control" id="prp_issuer" name="prp_issuer" placeholder="<?php echo $dil["prp_issuer"];?>" />
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <h5><strong><?php echo $dil["migration_work_permit_labor_activity"];?></strong></h5>
-                        </div>
+							<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+							<i class="fas  fa-check-double" right" style="color:#bd2130;"><?php echo $dil["migration_work_permit_labor_activity"]; ?> </i>
+							</div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
@@ -340,9 +350,9 @@
 								</select>	
 								</div>
 							</div>
-                            <div class="form-group row">
-                                <h5><strong><?php echo $dil["migration_temporary_residence_permit"];?></strong></h5>
-                            </div>
+ 							<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+							<i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo   $dil["migration_temporary_residence_permit"]; ?> </i>
+							</div>
 
 
                                 <div class="form-group row">
@@ -381,9 +391,9 @@
                                         <input type="text" class="form-control" id="update_trp_issuer" name="update_trp_issuer" placeholder="<?php echo $dil["trp_issuer"];?>" />
                                     </div>
                                 </div>
-                            <div class="form-group row">
-                                <h5><strong><?php echo $dil["migration_permanent_residence_permit"];?></strong></h5>
-                            </div>
+ 						<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+						<i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo $dil["migration_permanent_residence_permit"];?> </i>
+						</div>
 
 
                             <div class="form-group row">
@@ -414,9 +424,9 @@
                                         <input type="text" class="form-control" id="update_prp_issuer" name="update_prp_issuer" placeholder="<?php echo $dil["prp_issuer"];?>" />
                                     </div>
                                 </div>
-                            <div class="form-group row">
-                                <h5><strong><?php echo $dil["migration_work_permit_labor_activity"];?></strong></h5>
-                            </div>
+							<div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+							<i class="fas  fa-check-double" right" style="color:#bd2130;"><?php echo $dil["migration_work_permit_labor_activity"]; ?> </i>
+							</div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="update_wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
