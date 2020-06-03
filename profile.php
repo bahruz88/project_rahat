@@ -18,6 +18,11 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        .clearFix{
+            clear: both;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -70,11 +75,23 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="dist/img/user4-128x128.jpg"
-                       alt="User profile picture">
-                </div>
+                       src="<?php echo $u_photo; ?>"
+                       alt="User profile picture" id="default">
+                    <form id="uploadForm" action="upload.php" method="post">
+                        <div id="targetLayer">No Image</div>
+                        <div id="uploadFormLayer">
+                            <input name="uid" type="hidden" class="inputFile"  value="<?php  echo $uid ; ?>"/>
+                            <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkli dəyiş</label>
+                            <input id="files"  name="userImage" style="display: none" type="file">
+                            <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
+                            <input type="submit" value="Əlavə et" class="btnSubmit" />
+                        </div>
+                    </form>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                </div>
+                  <div class="clearFix"></div>
+
+                <h3 class="profile-username text-center"><?php  echo $login_fullname ; ?></h3>
 
                 <p class="text-muted text-center">Software Engineer</p>
 
@@ -446,5 +463,28 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        $("#uploadForm").on('submit',(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "upload.php",
+                type: "POST",
+                data:  new FormData(this),
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(data)
+                {
+                    $("#targetLayer").html(data);
+                    $('#default').css('display','none')
+                },
+                error: function()
+                {
+                }
+            });
+        }));
+    });
+</script>
 </body>
 </html>
