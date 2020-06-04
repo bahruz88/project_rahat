@@ -9,6 +9,7 @@
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    $login_session = $row['username'];
    $u_photo = $row['u_photo'];
+   $empno = $row['empno'];
    $login_fullname= $row['firstname'].' '.$row['lastname'];
    $login_lang = $row['def_lang'];
    if(!isset($_SESSION['login_user'])){

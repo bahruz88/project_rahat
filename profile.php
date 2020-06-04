@@ -78,9 +78,10 @@
                        src="<?php echo $u_photo; ?>"
                        alt="User profile picture" id="default">
                     <form id="uploadForm" action="upload.php" method="post">
-                        <div id="targetLayer">No Image</div>
+                        <div id="targetLayer"></div>
                         <div id="uploadFormLayer">
                             <input name="uid" type="hidden" class="inputFile"  value="<?php  echo $uid ; ?>"/>
+                            <input name="empno" type="hidden" class="inputFile"  value="<?php  echo $empno ; ?>"/>
                             <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkli dəyiş</label>
                             <input id="files"  name="userImage" style="display: none" type="file">
                             <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
