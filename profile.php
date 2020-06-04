@@ -1,5 +1,20 @@
 <?php    
- include('session.php');  
+ include('session.php');
+$sql_employees= "select * from $tbl_employees where  emp_status=1  and  empno=$empno ";
+
+$sql_education = "Select  ee.*,u.uni_name,qd.qualification  from 
+                    $tbl_education  ee left  join 
+                    $tbl_universities u on ee.institution_id=u.id left  join  
+                    $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join  
+                    $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.empno=$empno";
+$result_education_view = $db->query($sql_education);
+
+$sql_skill = " 
+SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname 
+FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id  
+ where tes.skill_status =1 and  te.emp_status=1 and  te.empno=$empno";
+$result_skill = $db->query($sql_skill);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -117,14 +132,21 @@
             <!-- About Me Box -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">About Me</h3>
+                <h3 class="card-title"><?php echo $dil["about_me"];?></h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
+                <strong><i class="fas fa-book mr-1"></i> <?php echo $dil["education"];?></strong>
 
                 <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                    <?php
+                    if ($result_education_view->num_rows > 0) {
+                        while($row_edu = $result_education_view->fetch_assoc()) {
+
+                            ?>
+                            <?php echo $row_edu['uni_name']. ' ' .$row_edu['faculty']. ' ' .$row_edu['profession']. ' (' .$row_edu['qualification'].')';  ?>
+                        <?php } }?>
+<!--                  B.S. in Computer Science from the University of Tennessee at Knoxville-->
                 </p>
 
                 <hr>
@@ -135,14 +157,17 @@
 
                 <hr>
 
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+                <strong><i class="fas fa-pencil-alt mr-1"></i> <?php echo $dil["skills"];?></strong>
 
                 <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
+                    <?php
+                    if ($result_skill->num_rows > 0) {
+                        while($row_skill = $result_skill->fetch_assoc()) {
+
+                            ?>
+                            <span class="tag tag-danger"> <?php echo $row_skill['skill_name']; ?></span>
+
+                        <?php } }?>
                 </p>
 
                 <hr>
