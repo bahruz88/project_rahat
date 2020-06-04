@@ -2401,10 +2401,10 @@ var military_info_table ;
     ************************************** Suruculuk Vesiqesi INFO BILIKLERI ************************************************************
     **********************************************************************************************************************
     */
-    var  tabtext =$('#qual2').text();
+    var  tabtext2 =$('#qual2').text();
 	var driver_license_table ;
 	$('#drivingLicensetab').click(function() {
-        $('#qual2').text( tabtext+' / '+$('#drivingLicensetab').text());
+        $('#qual2').text( tabtext2+' / '+$('#drivingLicensetab').text());
 		console.log('Tab clikc drivingLicensetab');
 		$('#driving_info_table').DataTable().clear().destroy();
 		driver_license_table = $("#driving_info_table").DataTable({
@@ -2679,7 +2679,7 @@ var military_info_table ;
     var medical_info_table ;
     $('#medicalInfotab').click(function() {
         console.log('Tab clikc medicalInfotab');
-        $('#qual2').text( tabtext+' / '+$('#medicalInfotab').text());
+        $('#qual2').text( tabtext2+' / '+$('#medicalInfotab').text());
 
         $('#medical_info_table').DataTable().clear().destroy();
         medical_info_table = $("#medical_info_table").DataTable({
@@ -2958,7 +2958,10 @@ var military_info_table ;
     */
 
     var previous_positions_table ;
+
     $('#previousPositionstab').click(function() {
+        $('#qual2').text( tabtext2+' / '+$('#previousPositionstab').text());
+
         console.log('Tab clikc previousPositionstab');
         $('#previous_positions_table').DataTable().clear().destroy();
         previous_positions_table = $("#previous_positions_table").DataTable({
@@ -3228,7 +3231,7 @@ var military_info_table ;
 	var migration_info_table ;
 	$('#migrationInfotab').click(function() {
 		console.log('Tab clikc migrationInfotab');
-		$('#qual2').text( tabtext+' / '+$('#migrationInfotab').text());
+		$('#qual2').text( tabtext2+' / '+$('#migrationInfotab').text());
 
 		$('#migration_info_table').DataTable().clear().destroy();
 		migration_info_table = $("#migration_info_table").DataTable({
