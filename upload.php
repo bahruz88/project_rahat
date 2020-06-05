@@ -7,7 +7,7 @@ if(is_array($_FILES)) {
         $empno = $_POST['empno'];
         $fileData = pathinfo(basename($_FILES["userImage"]["name"]));
 
-        $fileName ='S' . $empno . '.' . $fileData['extension'];
+        $fileName ='S-' . $empno . '.' . $fileData['extension'];
 
         // $targetPath = "images/users/".$_FILES['userImage']['name'];
           $targetPath = "images/users/".$fileName;
