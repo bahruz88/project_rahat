@@ -282,6 +282,7 @@
             <thead>
 				<tr>
                     <th>id</th>
+                    <th>Şəkil</th>
                     <th>Adı</th>
 					<th>Soyadı</th>
 					<th>Ataadı</th>

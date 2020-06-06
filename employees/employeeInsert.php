@@ -28,6 +28,7 @@ function generateRandomString($length = 2) {
 	$home_tel = $_POST['home_tel']; 
 	$email = $_POST['email'];
 	$emr_contact = $_POST['emr_contact'];
+	$imgName = $_POST['imgName'];
 	//$empno_num='00000000' ;
 	
 	$empno=generateRandomString();
@@ -49,9 +50,9 @@ $birth_date= date('Y-m-d', strtotime($birth_date));
 //-$passport_date=date('Y-m-d',strtotime($passport_date));
     $sql = "INSERT INTO $tbl_employees (id, firstname, lastname, surname, sex, marital_status, birth_date,
  birth_place,citizenship, pincode, passport_seria_number, passport_date, passport_end_date, pass_given_authority, 
- living_address, reg_address, home_tel, mob_tel, email, emr_contact,empno) 
+ living_address, reg_address, home_tel, mob_tel, email, emr_contact,empno,image_name) 
  VALUES ('Null','$firstname','$lastname','$surname','$sex', '$marital_status','$birth_date','$birth_place','$citizenship','$pincode','$pass_seria_num','$passport_date','$passport_end_date',
- '$pass_given_authority','$living_address','$reg_address','$mob_tel','$home_tel','$email','$emr_contact','$empno')";
+ '$pass_given_authority','$living_address','$reg_address','$mob_tel','$home_tel','$email','$emr_contact','$empno','$imgName')";
   
 
   if(!mysqli_query($db, $sql)) {

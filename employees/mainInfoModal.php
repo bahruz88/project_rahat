@@ -17,6 +17,36 @@
 						 
 						
 							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="image"><?php echo $dil["image"];?></label>
+								<div class="col-sm-6">
+<!--									<input type="text" class="form-control" id="image" name="image" placeholder="--><?php //echo $dil["image"];?><!--" />-->
+                                    <form id="uploadForm" action="upload.php" method="post">
+                                        <img class="profile-user-img img-fluid img-circle"
+                                             src="images/users/def.png" alt="User profile picture" id="default">
+                                        <div id="targetLayer"></div>
+                                        <div id="uploadFormLayer">
+                                            <?php
+                                            $result_employees_asc = $db->query($sql_employees_asc);
+                                            if ($result_employees_asc->num_rows > 0) {
+                                                while($row_employees= $result_employees_asc->fetch_assoc()) {
+
+                                                    ?>
+                                                    <input name="uid" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']; ?>"/>
+<!--                                                    <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'];  ?><!--</option>-->
+
+                                                <?php } }?>
+<!--                                            <input name="uid" type="hidden" class="inputFile"  value=""/>-->
+                                            <input name="empno" type="hidden" class="inputFile"  value=""/>
+                                            <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkil əlavə et</label>
+                                            <input id="files"  name="userImage" style="display: none" type="file">
+                                            <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
+                                            <input type="button" value="Əlavə et" class="btnSubmit" id="addImage" style="display:none;" />
+                                        </div>
+                                    </form>
+
+                                </div>
+							</div>
+                        <div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" id="firstname" name="firstname_name" placeholder="<?php echo $dil["firstname"];?>" />
@@ -149,7 +179,7 @@
         <div class="modal-footer">
 						 
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-							 
+
         </div>	
 		</form>
       </div>

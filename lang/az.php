@@ -24,7 +24,8 @@ $dil = array(
 	"username" 		    =>"İstifadəçi adı",
 	"email" 		    =>"E-mail ünvanı",
 	"employee" 		    =>"İşçi",
-	
+	"image" 		    =>"Şəkil",
+
 	/*employee start*/
 	"firstname"		    =>"Adı",
 	"lastname"		    =>"Soyadı",

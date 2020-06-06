@@ -206,6 +206,7 @@ var table = $("#employee_table").DataTable({
     } );
  
 $('#employee_table tbody').on( 'click', '#view', function () {
+	console.log('$row_employees[\'image_name\']')
         var data = table.row( $(this).parents('tr') ).data();
 		GetEmpDetails(data[0],'view');
 		document.getElementById("update_empid").value = data[0];
@@ -3572,4 +3573,43 @@ $("#trp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#prp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
  	$("#wp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#wp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+});
+$(document).ready(function (e) {
+	$(document).on('change', '#files', function () {
+
+		// $("#uploadForm").submit();
+		 $("#addImage").trigger("click");
+		console.log('on change');
+	})
+
+	  $("#addImage").on('click',(function(e) {
+
+		console.log('on submit')
+		  var formData = new FormData($('#uploadForm')[0]);
+
+		  formData.append('userImage', $('input[type=file]')[0].files[0]);
+		  formData.append('uid', $('input[name=uid]').val());
+		  formData.append('empno', $('input[name=empno]').val());
+		  // formData.append('uid', $('input[id=uid]').val());
+		e.preventDefault();
+		$.ajax({
+			url: "../upload.php",
+			type: "POST",
+			// data:  $('form#uploadForm').serialize(),
+			// data:  new FormData(),
+			data : formData,
+			contentType: false,
+			cache: false,
+			processData:false,
+			success: function(data)
+			{
+				$('#default').css('display','none')
+				$("#targetLayer").html(data);
+
+			},
+			error: function()
+			{
+			}
+		});
+	}));
 });
