@@ -3619,7 +3619,7 @@ function addImage(){
 		// formData.append('uid', $('input[id=uid]').val());
 		e.preventDefault();
 		$.ajax({
-			url: "../upload.php",
+			url: "upload.php",
 			type: "POST",
 			// data:  $('form#uploadForm').serialize(),
 			// data:  new FormData(),
