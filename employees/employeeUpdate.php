@@ -2,6 +2,7 @@
 include('../session.php') ;
 
 	$empid = $_POST['update_empidn'];
+	$empimg = $_POST['imgName'];
 	$surname = $_POST['update_surnamen'];
     $email = $_POST['update_emailn'];
 	$firstname=$_POST['update_firstnamen'];
@@ -49,7 +50,8 @@ include('../session.php') ;
 		reg_address='$reg_address',
 		home_tel='$home_tel',
 		mob_tel='$mob_tel',	
-		emr_contact='$emr_contact'
+		emr_contact='$emr_contact',
+		image_name='$empimg'
 		WHERE id = '$empid' ";
  
 

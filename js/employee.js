@@ -161,6 +161,9 @@ var table = $("#employee_table").DataTable({
 					 text: 'Add New <i class="fa fa-plus"></i>',
 					 action: function ( e, dt, node, config ) {
 					 $("#myModal").modal();
+						 $('#imgAdd').html($('#uploadDiv').html())
+						 $('#imgUpdate').html('')
+						 addImage();
                 }
                     },
 					{
@@ -226,9 +229,28 @@ $('#employee_table tbody').on( 'click', '#view', function () {
 					// PARSE json data
 					var employee = JSON.parse(emp_data);
 					// Assing existing values to the modal popup fields
+					console.log('employee=',employee)
 					
 					if  (optype=='update') {
-				
+						console.log('sss='+$('#uploadDiv').html())
+						$('#imgUpdate').html($('#uploadDiv').html())
+						$('#imgAdd').html('')
+						addImage();
+						console.log('employee.image_name='+employee.image_name)
+						if(employee.image_name){
+							$("#default").css('display','none')
+
+							$("#targetLayer").html('<img class="profile-user-img img-fluid img-circle image-preview"  class="upload-preview"\n' +
+								'                 src="'+employee.image_name+'"\n' +
+								'                 alt="User profile picture">\n' +
+								'            <input type="hidden" name="imgName" value="'+employee.image_name+'">');
+						}else{
+							$("#default").css('display','block');
+							$("#targetLayer").html('');
+						}
+
+					$("#empno").val(employee.empno)
+					$("#uid").val(empid)
 					$("#update_firstname").val(employee.firstname);
 					$("#update_lastname").val(employee.lastname);
 					$("#update_surname").val(employee.surname);
@@ -3582,15 +3604,19 @@ $(document).ready(function (e) {
 		console.log('on change');
 	})
 
-	  $("#addImage").on('click',(function(e) {
+
+
+});
+function addImage(){
+	$("#addImage").on('click',(function(e) {
 
 		console.log('on submit')
-		  var formData = new FormData($('#uploadForm')[0]);
+		var formData = new FormData($('#uploadForm')[0]);
 
-		  formData.append('userImage', $('input[type=file]')[0].files[0]);
-		  formData.append('uid', $('input[name=uid]').val());
-		  formData.append('empno', $('input[name=empno]').val());
-		  // formData.append('uid', $('input[id=uid]').val());
+		formData.append('userImage', $('input[type=file]')[0].files[0]);
+		formData.append('uid', $('input[name=uid]').val());
+		formData.append('empno', $('input[name=empno]').val());
+		// formData.append('uid', $('input[id=uid]').val());
 		e.preventDefault();
 		$.ajax({
 			url: "../upload.php",
@@ -3612,4 +3638,4 @@ $(document).ready(function (e) {
 			}
 		});
 	}));
-});
+}

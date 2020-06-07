@@ -19,8 +19,15 @@ $sql_employees = "select  id, firstname, lastname, surname , emp_status,empno,im
 						   $sub_array   = array();
 						   $sub_array[] = $row_employees['id'];
 //						   $sub_array[] = $row_employees['image_name'];
-						   $sub_array[] = '<img class="profile-user-img"
+                        if($row_employees['image_name']){
+                            $sub_array[] = '<img class="profile-user-img"
                              src="'.$row_employees['image_name'].'" alt="User profile picture" id="default">';
+
+                        }else{
+                            $sub_array[] = '<img class="profile-user-img"
+                             src="images/users/def.png" alt="User profile picture" id="default">';
+
+                        }
 						   $sub_array[] = $row_employees['firstname'];
 						   $sub_array[] = $row_employees['lastname'];
 						   $sub_array[] = $row_employees['surname'];
