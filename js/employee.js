@@ -273,15 +273,15 @@ $('#employee_table tbody').on( 'click', '#view', function () {
 					$('#modalEdit').modal('show');
 					}
 					else {
-					/*$("#view_username").val(user.username);
-					$("#view_firstname").val(user.firstname);
-					$("#view_lastname").val(user.lastname);
-					$("#view_email").val(user.reg_mail);
-					$('#view_empno').val(user.empno).change();
-					$('#view_deflang').val(user.def_lang).change();
-					$('#view_userlevel').val([1,2,3]).change();*/
+					// /*$("#view_username").val(user.username);
+					$("#view_name").html(employee.firstname);
+					$("#view_phone").html(employee.mob_tel);
+					$("#view_email").html(employee.email);
+					// $('#view_empno').val(user.empno).change();
+					// $('#view_deflang').val(user.def_lang).change();
+					// $('#view_userlevel').val([1,2,3]).change();*/
 					//$('#update_userlevel').selectpicker('val', [1,2,3]);
-					//	$('#modalView').modal('show');						
+						$('#modalView').modal('show');
 					}
 				}
 			);

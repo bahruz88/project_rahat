@@ -329,6 +329,86 @@
       
     </div>
   </div>
+
+
+<!--EMPLOYEE VIEw MODAL -->
+   <div class="modal fade" id="modalView" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" >
+    <form id="employeeView" method="post" class="form-horizontal" action="">
+
+      <!-- Modal content-->
+      <div class="modal-content" >
+
+        <div class="modal-body">
+			<div class="card card-success">
+					<div class="card-header">
+						<h4 class="card-title"><?php echo $dil["main_information"];?></h4>
+			 <span  id="badge_success" class="badge badge-success"></span>
+            <span  id="badge_danger" class="badge badge-danger"></span>
+					</div>
+					<div class="card-body"  style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="row-fluid">
+                                    <div class="col-xs-12" style="text-align: center;">
+                                        <img id="profile_image_1" src="http://apps.gamonoid.com/icehrm-open-core/web/images/user_male.png" class="img-polaroid img-thumbnail" style="max-width: 140px;max-height: 140px;">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row-fluid">
+                                    <div class="col-md-12">
+                                        <h2 id="view_name">IceHrm Employee</h2></div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="col-md-12">
+                                        <p>
+                                            <i class="fa fa-phone"></i> <span id="view_phone">440-953-4578</span>&nbsp;&nbsp;
+                                            <i class="fa fa-envelope"></i> <span id="view_email">icehrm+admin@web-stalk.com</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="col-xs-12" style="font-size:18px;border-bottom: 1px solid #DDD;margin-bottom: 10px;padding-bottom: 10px;">
+                                        <button id="employeeProfileEditInfo" class="btn btn-small btn-success" onclick="modJs.edit(1);" style="margin-right:10px;"><i class="fa fa-edit"></i> Edit Info</button>
+                                        <button id="employeeUploadProfileImage" onclick="showUploadDialog('profile_image_1','Upload Profile Image','profile_image',1,'profile_image_1','src','url','image');return false;" class="btn btn-small btn-primary" type="button" style="margin-right:10px;"><i class="fa fa-upload"></i> Upload Profile Image</button>
+                                        <button id="employeeDeleteProfileImage" onclick="modJs.deleteProfileImage(1);return false;" class="btn btn-small btn-warning" type="button" style="margin-right:10px;"><i class="fa fa-times"></i> Delete Profile Image</button>
+                                    </div>
+                                </div>
+
+                                <div class="row-fluid" style="border-top: 1px;">
+                                    <div class="col-xs-6 col-md-4" style="font-size:16px;">
+                                        <label class="control-label col-xs-12" style="font-size:13px;font-size:13px;">Employee Number</label>
+                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="employee_id">EMP001</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-4" style="font-size:16px;">
+                                        <label class="control-label col-xs-12" style="font-size:13px;">NIC</label>
+                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="nic_num">294-38-3535</label>
+                                    </div>
+                                    <div class="col-xs-6 col-md-4" style="font-size:16px;">
+                                        <label class="control-label col-xs-12" style="font-size:13px;">SSN/NRIC</label>
+                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="ssn_num"></label>
+                                    </div>
+                                </div>
+                                </div>
+
+
+					</div>
+				</div>
+
+		</div>
+        <div class="modal-footer">
+
+		<button  id ="add_new_item2" typemodalEdit="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
+		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
+		<input type="hidden" id="update_empid" name="update_empidn" value="" />
+        </div>
+		</form>
+      </div>
+
+    </div>
+  </div>
 <div id="uploadDiv" style="display: none">
     <form id="uploadForm" action="upload.php" method="post">
         <img class="profile-user-img img-fluid img-circle"
