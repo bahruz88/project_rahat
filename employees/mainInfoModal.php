@@ -1,3 +1,10 @@
+<style>
+    .control-label {
+        display: inline-block;
+        margin-bottom: 5px;
+        font-weight: 700;
+    }
+</style>
 <!--EMPLOYEE İNSERT MODAL -->
   <div class="modal fade" id="myModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
@@ -343,16 +350,20 @@
 			<div class="card card-success">
 					<div class="card-header">
 						<h4 class="card-title"><?php echo $dil["main_information"];?></h4>
-			 <span  id="badge_success" class="badge badge-success"></span>
-            <span  id="badge_danger" class="badge badge-danger"></span>
+                         <span  id="badge_success" class="badge badge-success"></span>
+                        <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body"  style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="row-fluid">
-                                    <div class="col-xs-12" style="text-align: center;">
-                                        <img id="profile_image_1" src="http://apps.gamonoid.com/icehrm-open-core/web/images/user_male.png" class="img-polaroid img-thumbnail" style="max-width: 140px;max-height: 140px;">
+                                    <div  class="col-xs-12" style="text-align: center;" id="imgView">
+
+
                                     </div>
+<!--                                    <div class="col-xs-12" style="text-align: center;">-->
+<!--                                        <img id="profile_image_1" src="http://apps.gamonoid.com/icehrm-open-core/web/images/user_male.png" class="img-polaroid img-thumbnail" style="max-width: 140px;max-height: 140px;">-->
+<!--                                    </div>-->
 
                                 </div>
                             </div>
@@ -372,23 +383,23 @@
                                 <div class="row-fluid">
                                     <div class="col-xs-12" style="font-size:18px;border-bottom: 1px solid #DDD;margin-bottom: 10px;padding-bottom: 10px;">
                                         <button id="employeeProfileEditInfo" class="btn btn-small btn-success" onclick="modJs.edit(1);" style="margin-right:10px;"><i class="fa fa-edit"></i> Edit Info</button>
-                                        <button id="employeeUploadProfileImage" onclick="showUploadDialog('profile_image_1','Upload Profile Image','profile_image',1,'profile_image_1','src','url','image');return false;" class="btn btn-small btn-primary" type="button" style="margin-right:10px;"><i class="fa fa-upload"></i> Upload Profile Image</button>
+<!--                                        <button id="employeeUploadProfileImage" onclick="showUploadDialog('profile_image_1','Upload Profile Image','profile_image',1,'profile_image_1','src','url','image');return false;" class="btn btn-small btn-primary" type="button" style="margin-right:10px;"><i class="fa fa-upload"></i> Upload Profile Image</button>-->
                                         <button id="employeeDeleteProfileImage" onclick="modJs.deleteProfileImage(1);return false;" class="btn btn-small btn-warning" type="button" style="margin-right:10px;"><i class="fa fa-times"></i> Delete Profile Image</button>
                                     </div>
                                 </div>
 
-                                <div class="row-fluid" style="border-top: 1px;">
-                                    <div class="col-xs-6 col-md-4" style="font-size:16px;">
-                                        <label class="control-label col-xs-12" style="font-size:13px;font-size:13px;">Employee Number</label>
-                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="employee_id">EMP001</label>
+                                <div class="row" style="border-top: 1px;">
+                                    <div class="col-md-4" style="font-size:16px;">
+                                        <label class="control-label col-xs-12" style="font-size:15px;"><?php echo $dil["emp_no"];?></label><br/>
+                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="view_empno">EMP001</label>
                                     </div>
-                                    <div class="col-xs-6 col-md-4" style="font-size:16px;">
-                                        <label class="control-label col-xs-12" style="font-size:13px;">NIC</label>
-                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="nic_num">294-38-3535</label>
+                                    <div class="col-md-4" style="font-size:16px;">
+                                        <label class="control-label col-xs-12" style="font-size:15px;"><?php echo $dil["home_tel"];?></label><br/>
+                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="view_home_tel">294-38-3535</label>
                                     </div>
-                                    <div class="col-xs-6 col-md-4" style="font-size:16px;">
-                                        <label class="control-label col-xs-12" style="font-size:13px;">SSN/NRIC</label>
-                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="ssn_num"></label>
+                                    <div class="col-md-4" style="font-size:16px;">
+                                        <label class="control-label col-xs-12" style="font-size:15px;"><?php echo $dil["emr_contact"];?></label><br/>
+                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="view_emr_contact"></label>
                                     </div>
                                 </div>
                                 </div>

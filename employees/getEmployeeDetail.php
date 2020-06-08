@@ -1,7 +1,7 @@
 <?php
  include('../session.php');  
  $empid = $_POST['empid'];
- $sql_emp = "select e.* , DATE_FORMAT(e.birth_date,'%d/%m/%Y') birth_date_u, DATE_FORMAT(e.passport_date,'%d/%m/%Y') passport_date_u,DATE_FORMAT(e.passport_end_date,'%d/%m/%Y') passport_end_date_u from $tbl_employees e  where  id='$empid'";
+ $sql_emp = "select e.* , DATE_FORMAT(e.birth_date,'%d/%m/%Y') birth_date_u, DATE_FORMAT(e.passport_date,'%d/%m/%Y') passport_date_u,DATE_FORMAT(e.passport_end_date,'%d/%m/%Y') passport_end_date_u, concat(e.lastname,' ', e.firstname ,' ', e.surname) full_name from $tbl_employees e  where  id='$empid'";
 	
  $result_emp = $db->query($sql_emp);
  $data = array();

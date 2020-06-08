@@ -45,7 +45,8 @@ $dil = array(
 	"home_tel" 				=> "Ev telefonu",
 	"mob_tel" 		=>"Mobil telefonu",
 	"emr_contact" 		=>"Təcili vəziyyətdə əlaqə",
-	/*employee end*/	
+	"emp_no" 		=>"İşçi nömrəsi",
+	/*employee end*/
 	
 	"userlevel" 	    =>"İstifadəçi Rolu" ,
 	"userrole" 		    =>"İşçi Rolu" ,
