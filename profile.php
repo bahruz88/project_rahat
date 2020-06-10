@@ -2,93 +2,22 @@
 include('session.php');
 $sql_employees= "select * from $tbl_employees where  emp_status=1  and  empno=$empno ";
 
-$sql_education = "Select  ee.*,u.uni_name,qd.qualification  from 
+$sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
 $tbl_education  ee left  join
 $tbl_universities u on ee.institution_id=u.id left  join
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
 $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.empno=$empno";
 $result_education_view = $db->query($sql_education);
 
-$sql_skill = " 
+$sql_skill = "
 SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname
 FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id
 where tes.skill_status =1 and  te.emp_status=1 and  te.empno=$empno";
 $result_skill = $db->query($sql_skill);
 
-$site_lang=$_SESSION['dil'] ;
-$sql_fam_member_type= "select * from $tbl_family_member_types  where lang='$site_lang' ";
-$sql_military_rank= "select * from $tbl_military_rank  where lang='$site_lang' ";
-$sql_military_staff= "select * from $tbl_military_staff  where lang='$site_lang' ";
-$sql_driving_category= "select * from $tbl_driver_lic_cat  where lang='$site_lang' ";
-
-$sql_lang_level= "select * from $tbl_lang_level  where lang_short_name='$site_lang' ";
-$result_qua_dic_view = $db->query($sql_qua_dic);
-$result_qua_dic_s_view = $db->query($sql_qua_dic);
-$result_university_view = $db->query($sql_university);
-$result_university_s_view = $db->query($sql_university);
-$result_emp_lang_view = $db->query($sql_emp_lang);
-$result_emp_lang_edit = $db->query($sql_emp_lang);
-$result_lang_level_view = $db->query($sql_lang_level);
-$result_lang_level_edit = $db->query($sql_lang_level);
-$result_lang_level_w_view = $db->query($sql_lang_level);
-$result_lang_level_w_edit = $db->query($sql_lang_level);
-$result_lang_level_s_view = $db->query($sql_lang_level);
-$result_lang_level_s_edit = $db->query($sql_lang_level);
-$result_lang_level_u_view = $db->query($sql_lang_level);
-$result_lang_level_u_edit = $db->query($sql_lang_level);
-$result_fam_member_type_view = $db->query($sql_fam_member_type);
-$result_fam_member_type_edit = $db->query($sql_fam_member_type);
-$result_military_rank_view = $db->query($sql_military_rank);
-$result_military_rank_edit = $db->query($sql_military_rank);
-$result_military_staff_view = $db->query($sql_military_staff);
-$result_military_staff_edit = $db->query($sql_military_staff);
-
-$result_driving_category_view = $db->query($sql_driving_category);
-$result_driving_category_edit = $db->query($sql_driving_category);
-
-?>
-<?php
-include  ('employees/mainInfoModal.php');
-include  ('education/educationModal.php');
-include  ('certification/certificationModal.php');
-include  ('skills/skillsModal.php');
-include  ('emp_lang/langModal.php');
-include  ('military_info/militaryInfoModal.php');
-include  ('payment_salary/paymentSalaryModal.php');
-include  ('family_info/familyInfoModal.php');
-include  ('driver_license/drivingLicenseInfoModal.php');
-include  ('medical_info/medicalInfoModal.php');
-include  ('previous_positions/previousPositionsModal.php');
-include  ('migration_info/migrationInfoModal.php');
-
 ?>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
-<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Tempusdominus Bbootstrap 4 -->
-<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-<!-- iCheck -->
-<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- JQVMap -->
-<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="dist/css/adminlte.min.css">
-<!-- DataTables -->
-<!-- <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">-->
-<!-- overlayScrollbars -->
-<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<!-- Daterange picker -->
-<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-<!-- summernote -->
-<link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
-<!-- Google Font: Source Sans Pro -->
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -107,6 +36,11 @@ include  ('migration_info/migrationInfoModal.php');
     <style>
         .clearFix{
             clear: both;
+        }
+        .info{
+            color: #007bff;
+            text-decoration: none;
+            background-color: transparent;
         }
     </style>
 </head>
@@ -284,9 +218,9 @@ include  ('migration_info/migrationInfoModal.php');
                                             <a class="dropdown-item" href="#previousPositions"    id="previousPositionstab" data-toggle="tab">Əvvəlki iş yerləri</a>
                                         </div>
                                     </li>
-                                    <!--                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>-->
-                                    <!--                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>-->
-                                    <!--                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>-->
+                                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -294,41 +228,45 @@ include  ('migration_info/migrationInfoModal.php');
                                     <!-- Tab panes -->
                                     <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
                                         <div class="tab-pane active" id="employees">
-                                            <table id="employee_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th>id</th>
-                                                    <th>Adı</th>
-                                                    <th>Soyadı</th>
-                                                    <th>Ataadı</th>
-                                                    <th>İşçi nömrəsi</th>
-                                                    <th>Statusu</th>
-                                                    <th></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+                                            <div class="form-group  row">
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-4 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
+                                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="<?php echo $dil["firstname"];?>" readonly />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-4 col-form-label" for="lastname"><?php echo $dil["lastname"];?></label>
+                                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="<?php echo $dil["lastname"];?>" readonly />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group  row">
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-4 col-form-label" for="email"><?php echo $dil["email"];?></label>
+                                                    <input type="email" class="form-control" id="email" name="email" placeholder="<?php echo $dil["email"];?>" readonly />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-4 col-form-label" for="company_name"><?php echo $dil["company_name"];?></label>
+                                                    <input type="text" class="form-control" id="company_name" name="company_name" placeholder="<?php echo $dil["company_name"];?>" readonly />
+                                                </div>
+                                            </div>
+
+
+
                                         </div>
+
                                         <div class="tab-pane" id="javatab">The Java is an object-oriented programming language that was developed by James Gosling from the Sun Microsystems in 1995.</div>
                                         <div class="tab-pane" id="main_information"> main_information  </div>
                                         <div class="tab-pane" id="eduinfo">
 
+                                            <?php
+                                            if ($result_education_view->num_rows > 0) {
+                                                while($row_edu = $result_education_view->fetch_assoc()) {
 
-                                            <table id="eduinfo_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["qualification"];?></th>
-                                                    <th><?php echo $dil["institution_name"];?></th>
-                                                    <th><?php echo $dil["faculty"];?></th>
-                                                    <th><?php echo $dil["profession"];?></th>
-                                                    <th><?php echo $dil["diplom_seria_num"];?></th>
-                                                    <th><?php echo $dil["uni_end_date"];?></th>
-                                                    <th><?php echo $dil["diplom_issue_date"];?></th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+                                                    ?>
+                                                    <div class="info"> <h4><?php echo $row_edu['uni_name']. ' ' .$row_edu['faculty']. ' ' .$row_edu['profession']. ' (' .$row_edu['qualification'].')';  ?>
+                                                        </h4></div>
+                                                <?php } }?>
+
                                         </div>
                                         <div class="tab-pane" id="certification">
 
@@ -347,17 +285,15 @@ include  ('migration_info/migrationInfoModal.php');
                                             </table>
                                         </div>
                                         <div class="tab-pane" id="skills">
-                                            <table id="skills_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["skills_name"];?> </th>
-                                                    <th><?php echo $dil["skills_descr"];?> </th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+                                            <?php
+                                            if ($result_skill->num_rows > 0) {
+                                                while($row_skill = $result_skill->fetch_assoc()) {
+
+                                                    ?>
+                                                    <div class="info"> <h4> <?php echo $row_skill['skill_name']; ?> </h4></div>
+
+                                                <?php } }?>
+
 
                                         </div>
                                         <div class="tab-pane" id="lang">
@@ -521,27 +457,105 @@ include  ('migration_info/migrationInfoModal.php');
                                         </div>
                                         <div class="tab-pane" id="htmltab">Hypertext Markup Language</div>
                                     </div>
+                                    <div class="active tab-pane" id="activity">
+                                        <!-- Post -->
+                                        <!--                    <div class="post">-->
+                                        <!--                      <div class="user-block">-->
+                                        <!--                        <img class="img-circle img-bordered-sm" src="dist/img/user1-128x128.jpg" alt="user image">-->
+                                        <!--                        <span class="username">-->
+                                        <!--                          <a href="#">Jonathan Burke Jr.</a>-->
+                                        <!--                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>-->
+                                        <!--                        </span>-->
+                                        <!--                        <span class="description">Shared publicly - 7:30 PM today</span>-->
+                                        <!--                      </div>-->
+                                        <!-- /.user-block -->
+                                        <!--                      <p>-->
+                                        <!--                        Lorem ipsum represents a long-held tradition for designers,-->
+                                        <!--                        typographers and the like. Some people hate it and argue for-->
+                                        <!--                        its demise, but others ignore the hate as they create awesome-->
+                                        <!--                        tools to help create filler text for everyone from bacon lovers-->
+                                        <!--                        to Charlie Sheen fans.-->
+                                        <!--                      </p>-->
+                                        <!---->
+                                        <!--                      <p>-->
+                                        <!--                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>-->
+                                        <!--                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>-->
+                                        <!--                        <span class="float-right">-->
+                                        <!--                          <a href="#" class="link-black text-sm">-->
+                                        <!--                            <i class="far fa-comments mr-1"></i> Comments (5)-->
+                                        <!--                          </a>-->
+                                        <!--                        </span>-->
+                                        <!--                      </p>-->
 
-                                    <!--                  <div class="active tab-pane" id="activity">-->
-                                    <!-- Post -->
-                                    <!--                    <div class="post">-->
-                                    <!--                      <div class="user-block">-->
-                                    <!--                        <img class="img-circle img-bordered-sm" src="dist/img/user1-128x128.jpg" alt="user image">-->
-                                    <!--                        <span class="username">-->
-                                    <!--                          <a href="#">Jonathan Burke Jr.</a>-->
-                                    <!--                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>-->
-                                    <!--                        </span>-->
-                                    <!--                        <span class="description">Shared publicly - 7:30 PM today</span>-->
-                                    <!--                      </div>-->
-                                    <!-- /.user-block -->
-                                    <!--                      <p>-->
-                                    <!--                        Lorem ipsum represents a long-held tradition for designers,-->
-                                    <!--                        typographers and the like. Some people hate it and argue for-->
-                                    <!--                        its demise, but others ignore the hate as they create awesome-->
-                                    <!--                        tools to help create filler text for everyone from bacon lovers-->
-                                    <!--                        to Charlie Sheen fans.-->
-                                    <!--                      </p>-->
-                                    <!---->
+                                        <!--                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">-->
+                                        <!--                    </div>-->
+                                        <!-- /.post -->
+
+                                        <!-- Post -->
+                                        <!--                    <div class="post clearfix">-->
+                                        <!--                      <div class="user-block">-->
+                                        <!--                        <img class="img-circle img-bordered-sm" src="dist/img/user2-160x160.jpg" alt="User Image">-->
+                                        <!--                        <span class="username">-->
+                                        <!--                          <a href="#">Sarah Ross</a>-->
+                                        <!--                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>-->
+                                        <!--                        </span>-->
+                                        <!--                        <span class="description">Sent you a message - 3 days ago</span>-->
+                                        <!--                      </div>-->
+                                        <!-- /.user-block -->
+                                        <!--                      <p>-->
+                                        <!--                        Lorem ipsum represents a long-held tradition for designers,-->
+                                        <!--                        typographers and the like. Some people hate it and argue for-->
+                                        <!--                        its demise, but others ignore the hate as they create awesome-->
+                                        <!--                        tools to help create filler text for everyone from bacon lovers-->
+                                        <!--                        to Charlie Sheen fans.-->
+                                        <!--                      </p>-->
+                                        <!---->
+                                        <!--                      <form class="form-horizontal">-->
+                                        <!--                        <div class="input-group input-group-sm mb-0">-->
+                                        <!--                          <input class="form-control form-control-sm" placeholder="Response">-->
+                                        <!--                          <div class="input-group-append">-->
+                                        <!--                            <button type="submit" class="btn btn-danger">Send</button>-->
+                                        <!--                          </div>-->
+                                        <!--                        </div>-->
+                                        <!--                      </form>-->
+                                        <!--                    </div>-->
+                                        <!-- /.post -->
+
+                                        <!-- Post -->
+                                        <!--                    <div class="post">-->
+                                        <!--                      <div class="user-block">-->
+                                        <!--                        <img class="img-circle img-bordered-sm" src="dist/img/user6-128x128.jpg" alt="User Image">-->
+                                        <!--                        <span class="username">-->
+                                        <!--                          <a href="#">Adam Jones</a>-->
+                                        <!--                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>-->
+                                        <!--                        </span>-->
+                                        <!--                        <span class="description">Posted 5 photos - 5 days ago</span>-->
+                                        <!--                      </div>-->
+                                        <!-- /.user-block -->
+                                        <!--                      <div class="row mb-3">-->
+                                        <!--                        <div class="col-sm-6">-->
+                                        <!--                          <img class="img-fluid" src="dist/img/photo1.png" alt="Photo">-->
+                                        <!--                        </div>-->
+                                        <!-- /.col -->
+                                        <!--                        <div class="col-sm-6">-->
+                                        <!--                          <div class="row">-->
+                                        <!--                            <div class="col-sm-6">-->
+                                        <!--                              <img class="img-fluid mb-3" src="dist/img/photo2.png" alt="Photo">-->
+                                        <!--                              <img class="img-fluid" src="dist/img/photo3.jpg" alt="Photo">-->
+                                        <!--                            </div>-->
+                                        <!-- /.col -->
+                                        <!--                            <div class="col-sm-6">-->
+                                        <!--                              <img class="img-fluid mb-3" src="dist/img/photo4.jpg" alt="Photo">-->
+                                        <!--                              <img class="img-fluid" src="dist/img/photo1.png" alt="Photo">-->
+                                        <!--                            </div>-->
+                                        <!-- /.col -->
+                                        <!--                          </div>-->
+                                        <!-- /.row -->
+                                        <!--                        </div>-->
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
+
                                     <!--                      <p>-->
                                     <!--                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>-->
                                     <!--                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>-->
@@ -551,94 +565,15 @@ include  ('migration_info/migrationInfoModal.php');
                                     <!--                          </a>-->
                                     <!--                        </span>-->
                                     <!--                      </p>-->
-                                    <!---->
+
                                     <!--                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">-->
-                                    <!--                    </div>-->
-                                    <!-- /.post -->
-                                    <!---->
-                                    <!-- Post -->
-                                    <!--                    <div class="post clearfix">-->
-                                    <!--                      <div class="user-block">-->
-                                    <!--                        <img class="img-circle img-bordered-sm" src="dist/img/user2-160x160.jpg" alt="User Image">-->
-                                    <!--                        <span class="username">-->
-                                    <!--                          <a href="#">Sarah Ross</a>-->
-                                    <!--                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>-->
-                                    <!--                        </span>-->
-                                    <!--                        <span class="description">Sent you a message - 3 days ago</span>-->
-                                    <!--                      </div>-->
-                                    <!-- /.user-block -->
-                                    <!--                      <p>-->
-                                    <!--                        Lorem ipsum represents a long-held tradition for designers,-->
-                                    <!--                        typographers and the like. Some people hate it and argue for-->
-                                    <!--                        its demise, but others ignore the hate as they create awesome-->
-                                    <!--                        tools to help create filler text for everyone from bacon lovers-->
-                                    <!--                        to Charlie Sheen fans.-->
-                                    <!--                      </p>-->
-                                    <!---->
-                                    <!--                      <form class="form-horizontal">-->
-                                    <!--                        <div class="input-group input-group-sm mb-0">-->
-                                    <!--                          <input class="form-control form-control-sm" placeholder="Response">-->
-                                    <!--                          <div class="input-group-append">-->
-                                    <!--                            <button type="submit" class="btn btn-danger">Send</button>-->
-                                    <!--                          </div>-->
-                                    <!--                        </div>-->
-                                    <!--                      </form>-->
-                                    <!--                    </div>-->
-                                    <!-- /.post -->
-                                    <!---->
-                                    <!-- Post -->
-                                    <!--                    <div class="post">-->
-                                    <!--                      <div class="user-block">-->
-                                    <!--                        <img class="img-circle img-bordered-sm" src="dist/img/user6-128x128.jpg" alt="User Image">-->
-                                    <!--                        <span class="username">-->
-                                    <!--                          <a href="#">Adam Jones</a>-->
-                                    <!--                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>-->
-                                    <!--                        </span>-->
-                                    <!--                        <span class="description">Posted 5 photos - 5 days ago</span>-->
-                                    <!--                      </div>-->
-                                    <!-- /.user-block -->
-                                    <!--                      <div class="row mb-3">-->
-                                    <!--                        <div class="col-sm-6">-->
-                                    <!--                          <img class="img-fluid" src="dist/img/photo1.png" alt="Photo">-->
-                                    <!--                        </div>-->
-                                    <!-- /.col -->
-                                    <!--                        <div class="col-sm-6">-->
-                                    <!--                          <div class="row">-->
-                                    <!--                            <div class="col-sm-6">-->
-                                    <!--                              <img class="img-fluid mb-3" src="dist/img/photo2.png" alt="Photo">-->
-                                    <!--                              <img class="img-fluid" src="dist/img/photo3.jpg" alt="Photo">-->
-                                    <!--                            </div>-->
-                                    <!-- /.col -->
-                                    <!--                            <div class="col-sm-6">-->
-                                    <!--                              <img class="img-fluid mb-3" src="dist/img/photo4.jpg" alt="Photo">-->
-                                    <!--                              <img class="img-fluid" src="dist/img/photo1.png" alt="Photo">-->
-                                    <!--                            </div>-->
-                                    <!-- /.col -->
-                                    <!--                          </div>-->
-                                    <!-- /.row -->
-                                    <!--                        </div>-->
-                                    <!-- /.col -->
-                                    <!--                      </div>-->
-                                    <!-- /.row -->
-                                    <!---->
-                                    <!--                      <p>-->
-                                    <!--                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>-->
-                                    <!--                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>-->
-                                    <!--                        <span class="float-right">-->
-                                    <!--                          <a href="#" class="link-black text-sm">-->
-                                    <!--                            <i class="far fa-comments mr-1"></i> Comments (5)-->
-                                    <!--                          </a>-->
-                                    <!--                        </span>-->
-                                    <!--                      </p>-->
-                                    <!---->
-                                    <!--                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">-->
-                                    <!--                    </div>-->
-                                    <!-- /.post -->
-                                    <!--                  </div>-->
-                                    <!-- /.tab-pane -->
-                                    <!--                  <div class="tab-pane" id="timeline">-->
-                                    <!-- The timeline -->
-                                    <!--                    <div class="timeline timeline-inverse">-->
+                                </div>
+                                <!-- /.post -->
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="timeline">
+                                <!-- The timeline -->
+                                <div class="timeline timeline-inverse">
                                     <!-- timeline time label -->
                                     <!--                      <div class="time-label">-->
                                     <!--                        <span class="bg-danger">-->
@@ -728,139 +663,98 @@ include  ('migration_info/migrationInfoModal.php');
                                     <!--                      <div>-->
                                     <!--                        <i class="far fa-clock bg-gray"></i>-->
                                     <!--                      </div>-->
-                                    <!--                    </div>-->
-                                    <!--                  </div>-->
-                                    <!-- /.tab-pane -->
-                                    <!---->
-                                    <!---->
-                                    <!--                  <div class="tab-pane" id="settings">-->
-                                    <!--                    <form class="form-horizontal">-->
-                                    <!--                      <div class="form-group row">-->
-                                    <!--                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>-->
-                                    <!--                        <div class="col-sm-10">-->
-                                    <!--                          <input type="email" class="form-control" id="inputName" placeholder="Name">-->
-                                    <!--                        </div>-->
-                                    <!--                      </div>-->
-                                    <!--                      <div class="form-group row">-->
-                                    <!--                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>-->
-                                    <!--                        <div class="col-sm-10">-->
-                                    <!--                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">-->
-                                    <!--                        </div>-->
-                                    <!--                      </div>-->
-                                    <!--                      <div class="form-group row">-->
-                                    <!--                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>-->
-                                    <!--                        <div class="col-sm-10">-->
-                                    <!--                          <input type="text" class="form-control" id="inputName2" placeholder="Name">-->
-                                    <!--                        </div>-->
-                                    <!--                      </div>-->
-                                    <!--                      <div class="form-group row">-->
-                                    <!--                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>-->
-                                    <!--                        <div class="col-sm-10">-->
-                                    <!--                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>-->
-                                    <!--                        </div>-->
-                                    <!--                      </div>-->
-                                    <!--                      <div class="form-group row">-->
-                                    <!--                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>-->
-                                    <!--                        <div class="col-sm-10">-->
-                                    <!--                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">-->
-                                    <!--                        </div>-->
-                                    <!--                      </div>-->
-                                    <!--                      <div class="form-group row">-->
-                                    <!--                        <div class="offset-sm-2 col-sm-10">-->
-                                    <!--                          <div class="checkbox">-->
-                                    <!--                            <label>-->
-                                    <!--                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>-->
-                                    <!--                            </label>-->
-                                    <!--                          </div>-->
-                                    <!--                        </div>-->
-                                    <!--                      </div>-->
-                                    <!--                      <div class="form-group row">-->
-                                    <!--                        <div class="offset-sm-2 col-sm-10">-->
-                                    <!--                          <button type="submit" class="btn btn-danger">Submit</button>-->
-                                    <!--                        </div>-->
-                                    <!--                      </div>-->
-                                    <!--                    </form>-->
-                                    <!--                  </div>-->
-                                    <!-- /.tab-pane -->
                                 </div>
-                                <!-- /.tab-content -->
-                            </div><!-- /.card-body -->
-                        </div>
-                        <!-- /.nav-tabs-custom -->
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.0.1
-        </div>
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-        reserved.
-    </footer>
+                            </div>
+                            <!-- /.tab-pane -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+
+                            <!--                  <div class="tab-pane" id="settings">-->
+                            <!--                    <form class="form-horizontal">-->
+                            <!--                      <div class="form-group row">-->
+                            <!--                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>-->
+                            <!--                        <div class="col-sm-10">-->
+                            <!--                          <input type="email" class="form-control" id="inputName" placeholder="Name">-->
+                            <!--                        </div>-->
+                            <!--                      </div>-->
+                            <!--                      <div class="form-group row">-->
+                            <!--                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>-->
+                            <!--                        <div class="col-sm-10">-->
+                            <!--                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">-->
+                            <!--                        </div>-->
+                            <!--                      </div>-->
+                            <!--                      <div class="form-group row">-->
+                            <!--                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>-->
+                            <!--                        <div class="col-sm-10">-->
+                            <!--                          <input type="text" class="form-control" id="inputName2" placeholder="Name">-->
+                            <!--                        </div>-->
+                            <!--                      </div>-->
+                            <!--                      <div class="form-group row">-->
+                            <!--                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>-->
+                            <!--                        <div class="col-sm-10">-->
+                            <!--                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>-->
+                            <!--                        </div>-->
+                            <!--                      </div>-->
+                            <!--                      <div class="form-group row">-->
+                            <!--                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>-->
+                            <!--                        <div class="col-sm-10">-->
+                            <!--                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">-->
+                            <!--                        </div>-->
+                            <!--                      </div>-->
+                            <!--                      <div class="form-group row">-->
+                            <!--                        <div class="offset-sm-2 col-sm-10">-->
+                            <!--                          <div class="checkbox">-->
+                            <!--                            <label>-->
+                            <!--                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>-->
+                            <!--                            </label>-->
+                            <!--                          </div>-->
+                            <!--                        </div>-->
+                            <!--                      </div>-->
+                            <!--                      <div class="form-group row">-->
+                            <!--                        <div class="offset-sm-2 col-sm-10">-->
+                            <!--                          <button type="submit" class="btn btn-danger">Submit</button>-->
+                            <!--                        </div>-->
+                            <!--                      </div>-->
+                            <!--                    </form>-->
+                            <!--                  </div>-->
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+        <b>Version</b> 3.0.1
+    </div>
+    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+    reserved.
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<!--<script src="plugins/jquery/jquery.min.js"></script>-->
+<script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<!--<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<!--<script src="dist/js/adminlte.min.js"></script>-->
+<script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<!--<script src="dist/js/demo.js"></script>-->
-<!---->
-<!-- jQuery -->
-<!--<script src="plugins/jquery/jquery.min.js"></script>-->
-<!-- jQuery UI 1.11.4 -->
-<!--<script src="plugins/jquery-ui/jquery-ui.min.js"></script>-->
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
-
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
-<!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-<!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
-
-
-<script type="text/javascript" src="js/datatables.min.js"></script>
-<script type="text/javascript" src="dist/js/jquery.validate.js"></script>
-<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
-<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="js/employee.js"></script>
+<script src="dist/js/demo.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function (e) {

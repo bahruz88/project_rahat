@@ -46,6 +46,10 @@ $dil = array(
 	"mob_tel" 		=>"Mobil telefonu",
 	"emr_contact" 		=>"Təcili vəziyyətdə əlaqə",
 	"emp_no" 		=>"İşçi nömrəsi",
+	"firstname" 	=>"Ad",
+	"lastname" 		=>"Soyad",
+	"email" 		=>"Email",
+	"company_name" 		=>"Şirkətin adı",
 	/*employee end*/
 	
 	"userlevel" 	    =>"İstifadəçi Rolu" ,
