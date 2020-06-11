@@ -31,6 +31,7 @@ while($row= $result_users->fetch_assoc()) {
     $mob_tel = $row['mob_tel'];
     $birthdate = $row['birth_date'];
     $company_name = $row['company_name'];
+    $living_address = $row['living_address'];
 }
 }
 
@@ -139,72 +140,21 @@ while($row= $result_users->fetch_assoc()) {
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>Followers</b> <a class="float-right">1,322</a>
+                                        <b><?php echo $dil["mob_tel"];?></b> <a class="float-right"><?php echo $mob_tel; ?></a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Following</b> <a class="float-right">543</a>
+                                        <b><?php echo $dil["home_tel"];?></b> <a class="float-right"><?php echo $home_tel; ?></a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Friends</b> <a class="float-right">13,287</a>
+                                        <b><?php echo $dil["company_name"];?></b> <a class="float-right"><?php echo $company_name; ?></a>
                                     </li>
                                 </ul>
 
-                                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+<!--                                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
                             </div>
                             <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
 
-                        <!-- About Me Box -->
-                        <!--            <div class="card card-primary">-->
-                        <!--              <div class="card-header">-->
-                        <!--                <h3 class="card-title">--><?php //echo $dil["about_me"];?><!--</h3>-->
-                        <!--              </div>-->
-                        <!-- /.card-header -->
-                        <!--              <div class="card-body">-->
-                        <!--                <strong><i class="fas fa-book mr-1"></i> --><?php //echo $dil["education"];?><!--</strong>-->
-                        <!---->
-                        <!--                <p class="text-muted">-->
-                        <!--                    --><?php
-                        //                    if ($result_education_view->num_rows > 0) {
-                        //                        while($row_edu = $result_education_view->fetch_assoc()) {
-                        //
-                        //                            ?>
-                        <!--                            --><?php //echo $row_edu['uni_name']. ' ' .$row_edu['faculty']. ' ' .$row_edu['profession']. ' (' .$row_edu['qualification'].')';  ?>
-                        <!--                        --><?php //} }?>
-                        <!--                  B.S. in Computer Science from the University of Tennessee at Knoxville-->
-                        <!--                </p>-->
-                        <!---->
-                        <!--                <hr>-->
-                        <!---->
-                        <!--                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>-->
-                        <!---->
-                        <!--                <p class="text-muted">Malibu, California</p>-->
-                        <!---->
-                        <!--                <hr>-->
-                        <!---->
-                        <!--                <strong><i class="fas fa-pencil-alt mr-1"></i> --><?php //echo $dil["skills"];?><!--</strong>-->
-                        <!---->
-                        <!--                <p class="text-muted">-->
-                        <!--                    --><?php
-                        //                    if ($result_skill->num_rows > 0) {
-                        //                        while($row_skill = $result_skill->fetch_assoc()) {
-                        //
-                        //                            ?>
-                        <!--                            <span class="tag tag-danger"> --><?php //echo $row_skill['skill_name']; ?><!--</span>-->
-                        <!---->
-                        <!--                        --><?php //} }?>
-                        <!--                </p>-->
-                        <!---->
-                        <!--                <hr>-->
-                        <!---->
-                        <!--                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>-->
-                        <!---->
-                        <!--                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>-->
-                        <!--              </div>-->
-                        <!-- /.card-body -->
-                        <!--            </div>-->
-                        <!-- /.card -->
                     </div>
                     <!-- /.col -->
                     <div class="col-md-9">
@@ -271,8 +221,8 @@ while($row= $result_users->fetch_assoc()) {
                                             </div>
                                             <div class="form-group  row">
                                                 <div class="col-md-6">
-                                                    <label class="col-sm-4 col-form-label" for="mob_tel"><?php echo $dil["mob_tel"];?></label>
-                                                    <input type="text" class="form-control" id="mob_tel" value="<?php echo $mob_tel; ?>" name="mob_tel" placeholder="<?php echo $dil["mob_tel"];?>" readonly />
+                                                    <label class="col-sm-4 col-form-label" for="living_address"><?php echo $dil["living_address"];?></label>
+                                                    <input type="text" class="form-control" id="living_address" value="<?php echo $living_address; ?>" name="living_address" placeholder="<?php echo $dil["living_address"];?>" readonly />
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="col-sm-4 col-form-label" for="home_tel"><?php echo $dil["home_tel"];?></label>

@@ -40,6 +40,7 @@ $dil = array(
 	"passport_date" 	=>"Vəsiqənin verilmə tarixi",
 	"passport_end_date" =>"Etibarlılıq müddəti",
 	"pass_given_authority" 	=>"Vəsiqəni verən orqanın adı",
+	"address" 		=>"Ünvan",
 	"living_address" 		=>"Yaşadığı ünvan",
 	"reg_address" 			=>"Qeydiyyat ünvanı",
 	"home_tel" 				=> "Ev telefonu",
