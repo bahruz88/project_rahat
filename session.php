@@ -10,6 +10,7 @@
    $login_session = $row['username'];
    $u_photo = $row['u_photo'];
    $empno = $row['empno'];
+   $company_id = $row['company_id'];
    $login_fullname= $row['firstname'].' '.$row['lastname'];
    $login_lang = $row['def_lang'];
    if(!isset($_SESSION['login_user'])){

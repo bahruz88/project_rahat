@@ -15,6 +15,27 @@ FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.
 where tes.skill_status =1 and  te.emp_status=1 and  te.empno=$empno";
 $result_skill = $db->query($sql_skill);
 
+$sql_users= "select te.*,tc.company_name
+from $tbl_employees te
+inner  join  $tbl_companies tc  on tc.id=$company_id
+where  te.emp_status=1   and  empno=$empno ";
+
+$result_users = $db->query($sql_users);
+if ($result_users->num_rows > 0) {
+while($row= $result_users->fetch_assoc()) {
+    $firstname = $row['firstname'];
+    $lastname = $row['lastname'];
+    $surname = $row['surname'];
+    $reg_mail = $row['email'];
+    $home_tel = $row['home_tel'];
+    $mob_tel = $row['mob_tel'];
+    $birthdate = $row['birth_date'];
+    $company_name = $row['company_name'];
+}
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -231,22 +252,42 @@ $result_skill = $db->query($sql_skill);
                                             <div class="form-group  row">
                                                 <div class="col-md-6">
                                                     <label class="col-sm-4 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
-                                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="<?php echo $dil["firstname"];?>" readonly />
+                                                    <input type="text" class="form-control" id="firstname" value="<?php echo $firstname; ?>" name="firstname" placeholder="<?php echo $dil["firstname"];?>" readonly />
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="col-sm-4 col-form-label" for="lastname"><?php echo $dil["lastname"];?></label>
-                                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="<?php echo $dil["lastname"];?>" readonly />
+                                                    <input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $lastname; ?>"  placeholder="<?php echo $dil["lastname"];?>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="form-group  row">
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-4 col-form-label" for="surname"><?php echo $dil["surname"];?></label>
+                                                    <input type="text" class="form-control" id="surname" value="<?php echo $surname; ?>" name="surname" placeholder="<?php echo $dil["surname"];?>" readonly />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-4 col-form-label" for="birthdate"><?php echo $dil["birth_date"];?></label>
+                                                    <input type="text" class="form-control" id="birthdate" name="birthdate" value="<?php echo $birthdate; ?>"  placeholder="<?php echo $dil["birth_date"];?>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="form-group  row">
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-4 col-form-label" for="mob_tel"><?php echo $dil["mob_tel"];?></label>
+                                                    <input type="text" class="form-control" id="mob_tel" value="<?php echo $mob_tel; ?>" name="mob_tel" placeholder="<?php echo $dil["mob_tel"];?>" readonly />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-4 col-form-label" for="home_tel"><?php echo $dil["home_tel"];?></label>
+                                                    <input type="text" class="form-control" id="home_tel" name="home_tel" value="<?php echo $home_tel; ?>"  placeholder="<?php echo $dil["home_tel"];?>" readonly />
                                                 </div>
                                             </div>
 
                                             <div class="form-group  row">
                                                 <div class="col-md-6">
                                                     <label class="col-sm-4 col-form-label" for="email"><?php echo $dil["email"];?></label>
-                                                    <input type="email" class="form-control" id="email" name="email" placeholder="<?php echo $dil["email"];?>" readonly />
+                                                    <input type="email" class="form-control" id="email"  value="<?php echo $reg_mail; ?>" name="email" placeholder="<?php echo $dil["email"];?>" readonly />
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="col-sm-4 col-form-label" for="company_name"><?php echo $dil["company_name"];?></label>
-                                                    <input type="text" class="form-control" id="company_name" name="company_name" placeholder="<?php echo $dil["company_name"];?>" readonly />
+                                                    <input type="text" class="form-control" id="company_name"  value="<?php echo $company_name; ?>" name="company_name" placeholder="<?php echo $dil["company_name"];?>" readonly />
                                                 </div>
                                             </div>
 

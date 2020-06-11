@@ -32,6 +32,7 @@
    $tbl_exist_not_exist='tbl_exist_not_exist';
    $tbl_employee_prev_positions='tbl_employee_prev_positions';
    $tbl_migration_info='tbl_migration_info';
+   $tbl_companies='tbl_companies';
 
    $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
    $sql_roles = "select * from $tbl_roles where status=1 order  by position";				
