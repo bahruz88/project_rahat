@@ -8,12 +8,31 @@ $tbl_universities u on ee.institution_id=u.id left  join
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
 $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.empno=$empno";
 $result_education_view = $db->query($sql_education);
+if ($result_education_view->num_rows > 0) {
+    while($row_edu = $result_education_view->fetch_assoc()) {
+
+        $uni_name=$row_edu['uni_name'];
+        $faculty=$row_edu['faculty'];
+        $profession=$row_edu['profession'];
+        $qualification=$row_edu['qualification'];
+        }
+}
 
 $sql_skill = "
 SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname
 FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id
 where tes.skill_status =1 and  te.emp_status=1 and  te.empno=$empno";
 $result_skill = $db->query($sql_skill);
+$skill_name=[];
+$skill_descr=[];
+if ($result_skill->num_rows > 0) {
+    while($row_skill = $result_skill->fetch_assoc()) {
+        array_push($skill_name, $row_skill['skill_name']);
+        array_push($skill_descr, $row_skill['skill_descr']);
+//        $skill_name=$row_skill['skill_name'];
+//        $skill_descr=$row_skill['skill_descr'];
+    }
+}
 
 $sql_users= "select te.*,tc.company_name
 from $tbl_employees te
@@ -136,7 +155,7 @@ while($row= $result_users->fetch_assoc()) {
 
                                 <h3 class="profile-username text-center"><?php  echo $login_fullname ; ?></h3>
 
-                                <p class="text-muted text-center">Software Engineer</p>
+                                <p class="text-muted text-center"><?php echo $profession; ?></p>
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
@@ -249,14 +268,28 @@ while($row= $result_users->fetch_assoc()) {
                                         <div class="tab-pane" id="main_information"> main_information  </div>
                                         <div class="tab-pane" id="eduinfo">
 
-                                            <?php
-                                            if ($result_education_view->num_rows > 0) {
-                                                while($row_edu = $result_education_view->fetch_assoc()) {
 
-                                                    ?>
-                                                    <div class="info"> <h4><?php echo $row_edu['uni_name']. ' ' .$row_edu['faculty']. ' ' .$row_edu['profession']. ' (' .$row_edu['qualification'].')';  ?>
-                                                        </h4></div>
-                                                <?php } }?>
+                                            <div class="form-group  row">
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-6 col-form-label" for="uni_name"><?php echo $dil["institution_name"];?></label>
+                                                    <input type="text" class="form-control" id="uni_name" value="<?php echo $uni_name; ?>" name="uni_name" placeholder="<?php echo $dil["institution_name"];?>" readonly />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-6 col-form-label" for="faculty"><?php echo $dil["faculty"];?></label>
+                                                    <input type="text" class="form-control" id="faculty" name="faculty" value="<?php echo $faculty; ?>"  placeholder="<?php echo $dil["faculty"];?>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="form-group  row">
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-6 col-form-label" for="profession"><?php echo $dil["profession"];?></label>
+                                                    <input type="text" class="form-control" id="profession" value="<?php echo $profession; ?>" name="profession" placeholder="<?php echo $dil["profession"];?>" readonly />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-6 col-form-label" for="qualification"><?php echo $dil["qualification"];?></label>
+                                                    <input type="text" class="form-control" id="qualification" name="qualification" value="<?php echo $qualification; ?>"  placeholder="<?php echo $dil["qualification"];?>" readonly />
+                                                </div>
+                                            </div>
+
 
                                         </div>
                                         <div class="tab-pane" id="certification">
@@ -276,14 +309,20 @@ while($row= $result_users->fetch_assoc()) {
                                             </table>
                                         </div>
                                         <div class="tab-pane" id="skills">
-                                            <?php
-                                            if ($result_skill->num_rows > 0) {
-                                                while($row_skill = $result_skill->fetch_assoc()) {
+                                            <?php for($i=0;$i<count($skill_name);$i++){?>
+                                            <div class="form-group  row">
 
-                                                    ?>
-                                                    <div class="info"> <h4> <?php echo $row_skill['skill_name']; ?> </h4></div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-6 col-form-label" for="skill_name"><?php echo $dil["skills_name"];?></label>
+                                                    <input type="text" class="form-control" id="skill_name" value="<?php echo $skill_name[$i]; ?>" name="skill_name" placeholder="<?php echo $dil["skills_name"];?>" readonly />
+                                                </div>
 
-                                                <?php } }?>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-6 col-form-label" for="skill_descr"><?php echo $dil["skills_descr"];?></label>
+                                                    <input type="text" class="form-control" id="skill_descr" name="skill_descr" value="<?php echo $skill_descr[$i]; ?>"  placeholder="<?php echo $dil["skills_descr"];?>" readonly />
+                                                </div>
+                                            </div>
+                                            <?php } ?>
 
 
                                         </div>
