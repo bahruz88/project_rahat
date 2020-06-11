@@ -29,8 +29,7 @@ if ($result_skill->num_rows > 0) {
     while($row_skill = $result_skill->fetch_assoc()) {
         array_push($skill_name, $row_skill['skill_name']);
         array_push($skill_descr, $row_skill['skill_descr']);
-//        $skill_name=$row_skill['skill_name'];
-//        $skill_descr=$row_skill['skill_descr'];
+
     }
 }
 
@@ -41,18 +40,41 @@ where  te.emp_status=1   and  empno=$empno ";
 
 $result_users = $db->query($sql_users);
 if ($result_users->num_rows > 0) {
-while($row= $result_users->fetch_assoc()) {
-    $firstname = $row['firstname'];
-    $lastname = $row['lastname'];
-    $surname = $row['surname'];
-    $reg_mail = $row['email'];
-    $home_tel = $row['home_tel'];
-    $mob_tel = $row['mob_tel'];
-    $birthdate = $row['birth_date'];
-    $company_name = $row['company_name'];
-    $living_address = $row['living_address'];
+    while($row= $result_users->fetch_assoc()) {
+        $id = $row['id'];
+        $firstname = $row['firstname'];
+        $lastname = $row['lastname'];
+        $surname = $row['surname'];
+        $reg_mail = $row['email'];
+        $home_tel = $row['home_tel'];
+        $mob_tel = $row['mob_tel'];
+        $birthdate = $row['birth_date'];
+        $company_name = $row['company_name'];
+        $living_address = $row['living_address'];
+    }
+}
+
+$sql_certification= "select * 
+from $tbl_certification  
+where  cert_status =1   and  emp_id=$id ";
+ echo $sql_certification;
+
+$result_certification = $db->query($sql_certification);
+$training_center_name = [];
+$training_name = [];
+$training_date =[];
+$cert_given_date = [];
+if ($result_certification->num_rows > 0) {
+    print_r($result_certification);
+while($row_skill= $result_certification->fetch_assoc()) {
+    array_push($training_center_name, $row_skill['training_center_name']);
+    array_push($training_name, $row_skill['training_name']);
+    array_push($training_date, $row_skill['training_date']);
+    array_push($cert_given_date, $row_skill['cert_given_date']);
+
 }
 }
+print_r($training_center_name)
 
 
 
@@ -82,6 +104,11 @@ while($row= $result_users->fetch_assoc()) {
             color: #007bff;
             text-decoration: none;
             background-color: transparent;
+        }
+        .panel{
+            box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
+            margin:10px;
+            padding:10px;
         }
     </style>
 </head>
@@ -294,32 +321,50 @@ while($row= $result_users->fetch_assoc()) {
                                         </div>
                                         <div class="tab-pane" id="certification">
 
-                                            <table id="cert_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["training_center_name"];?></th>
-                                                    <th><?php echo $dil["training_name"];?></th>
-                                                    <th><?php echo $dil["training_date"];?> </th>
-                                                    <th><?php echo $dil["cert_given_date"];?> </th>
-                                                    <th><?php echo $dil["operation"];?> </th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+                                            <?php for($i=0;$i<count($training_center_name);$i++){?>
+                                                <div class="panel">
+                                                <div class="form-group  row">
+
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-8 col-form-label" for="training_center_name"><?php echo $dil["training_center_name"];?></label>
+                                                        <input type="text" class="form-control" id="training_center_name" value="<?php echo $training_center_name[$i]; ?>" name="training_center_name" placeholder="<?php echo $dil["training_center_name"];?>" readonly />
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-8 col-form-label" for="training_name"><?php echo $dil["training_name"];?></label>
+                                                        <input type="text" class="form-control" id="training_name" name="training_name" value="<?php echo $training_name[$i]; ?>"  placeholder="<?php echo $dil["training_name"];?>" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group  row">
+
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-8 col-form-label" for="training_date"><?php echo $dil["training_date"];?></label>
+                                                        <input type="text" class="form-control" id="training_date" value="<?php echo $training_date[$i]; ?>" name="training_date" placeholder="<?php echo $dil["training_date"];?>" readonly />
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-8 col-form-label" for="cert_given_date"><?php echo $dil["cert_given_date"];?></label>
+                                                        <input type="text" class="form-control" id="cert_given_date" name="cert_given_date" value="<?php echo $cert_given_date[$i]; ?>"  placeholder="<?php echo $dil["cert_given_date"];?>" readonly />
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                         <div class="tab-pane" id="skills">
                                             <?php for($i=0;$i<count($skill_name);$i++){?>
-                                            <div class="form-group  row">
+                                            <div class="panel">
 
-                                                <div class="col-md-6">
-                                                    <label class="col-sm-6 col-form-label" for="skill_name"><?php echo $dil["skills_name"];?></label>
-                                                    <input type="text" class="form-control" id="skill_name" value="<?php echo $skill_name[$i]; ?>" name="skill_name" placeholder="<?php echo $dil["skills_name"];?>" readonly />
-                                                </div>
+                                                <div class="form-group  row">
 
-                                                <div class="col-md-6">
-                                                    <label class="col-sm-6 col-form-label" for="skill_descr"><?php echo $dil["skills_descr"];?></label>
-                                                    <input type="text" class="form-control" id="skill_descr" name="skill_descr" value="<?php echo $skill_descr[$i]; ?>"  placeholder="<?php echo $dil["skills_descr"];?>" readonly />
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-6 col-form-label" for="skill_name"><?php echo $dil["skills_name"];?></label>
+                                                        <input type="text" class="form-control" id="skill_name" value="<?php echo $skill_name[$i]; ?>" name="skill_name" placeholder="<?php echo $dil["skills_name"];?>" readonly />
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-6 col-form-label" for="skill_descr"><?php echo $dil["skills_descr"];?></label>
+                                                        <input type="text" class="form-control" id="skill_descr" name="skill_descr" value="<?php echo $skill_descr[$i]; ?>"  placeholder="<?php echo $dil["skills_descr"];?>" readonly />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <?php } ?>
