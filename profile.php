@@ -7,7 +7,7 @@ $tbl_education  ee left  join
 $tbl_universities u on ee.institution_id=u.id left  join
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
 $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
-$result_education_view = $db->query($sql_education); 
+$result_education_view = $db->query($sql_education);
 $uni_name='';
 $faculty='';
 $profession='';
@@ -68,7 +68,8 @@ if ($result_users->num_rows > 0) {
 }
 
 $sql_certification= "select * 
-from $tbl_certification  
+from $tbl_certification 
+
 where  cert_status =1   and  emp_id=$id ";
 
 $result_certification = $db->query($sql_certification);
@@ -82,6 +83,33 @@ while($row_skill= $result_certification->fetch_assoc()) {
     array_push($training_name, $row_skill['training_name']);
     array_push($training_date, $row_skill['training_date']);
     array_push($cert_given_date, $row_skill['cert_given_date']);
+
+}
+}
+
+$sql_lang= "select tlk.*,tl.lang_name ,tll.level_name speaking,tllr.level_name reading,tllw.level_name writing,tllu.level_name understanding 
+from $tbl_language_knowledge  tlk
+inner  join  $tbl_emp_lang tl  on tlk.lang_id=tl.id
+inner  join  $tbl_lang_level tll  on tll.level_id=tlk.lang_speaking
+inner  join  $tbl_lang_level tllr  on tllr.level_id=tlk.lang_reading
+inner  join  $tbl_lang_level tllw  on tllw.level_id=tlk.lang_writing
+inner  join  $tbl_lang_level tllu  on tllu.level_id=tlk.lang_understanding
+where  tlk.lang_status =1   and  tlk.emp_id=$id and tll.lang_short_name='az' and tllr.lang_short_name='az' and tllw.lang_short_name='az' and tllu.lang_short_name='az' ";
+echo $sql_lang;
+
+$result_lang = $db->query($sql_lang);
+$lang_name = [];
+$speaking = [];
+$reading = [];
+$writing = [];
+$understanding = [];
+if ($result_lang->num_rows > 0) {
+while($row_lang= $result_lang->fetch_assoc()) {
+    array_push($lang_name, $row_lang['lang_name']);
+    array_push($speaking, $row_lang['speaking']);
+    array_push($reading, $row_lang['reading']);
+    array_push($writing, $row_lang['writing']);
+    array_push($understanding, $row_lang['understanding']);
 
 }
 }
@@ -382,20 +410,38 @@ while($row_skill= $result_certification->fetch_assoc()) {
 
                                         </div>
                                         <div class="tab-pane" id="lang">
-                                            <table id="lang_knowledge_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["language"];?></th>
-                                                    <th><?php echo $dil["reading"];?></th>
-                                                    <th><?php echo $dil["speaking"];?></th>
-                                                    <th><?php echo $dil["writing"];?></th>
-                                                    <th><?php echo $dil["understanding"];?></th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+                                            <?php for($i=0;$i<count($lang_name);$i++){?>
+                                                <div class="panel">
+                                                    <div class="form-group  row">
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="lang_name"><?php echo $dil["language"];?></label>
+                                                            <input type="text" class="form-control" id="lang_name" value="<?php echo $lang_name[$i]; ?>" name="lang_name" placeholder="<?php echo $dil["language"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="speaking"><?php echo $dil["speaking"];?></label>
+                                                            <input type="text" class="form-control" id="speaking" name="speaking" value="<?php echo $speaking[$i]; ?>"  placeholder="<?php echo $dil["speaking"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="reading"><?php echo $dil["reading"];?></label>
+                                                            <input type="text" class="form-control" id="reading" name="reading" value="<?php echo $reading[$i]; ?>"  placeholder="<?php echo $dil["reading"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="writing"><?php echo $dil["writing"];?></label>
+                                                            <input type="text" class="form-control" id="writing" name="writing" value="<?php echo $writing[$i]; ?>"  placeholder="<?php echo $dil["writing"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="understanding"><?php echo $dil["understanding"];?></label>
+                                                            <input type="text" class="form-control" id="understanding" name="understanding" value="<?php echo $understanding[$i]; ?>"  placeholder="<?php echo $dil["understanding"];?>" readonly />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            <?php } ?>
 
                                         </div>
                                         <div class="tab-pane" id="aileinfo">
