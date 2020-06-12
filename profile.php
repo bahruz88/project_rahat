@@ -1,13 +1,17 @@
 <?php
 include('session.php');
-$sql_employees= "select * from $tbl_employees where  emp_status=1  and  empno=$empno ";
+$sql_employees= "select * from $tbl_employees where  emp_status=1  and  emp_id=$emp_id ";
 
 $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
 $tbl_education  ee left  join
 $tbl_universities u on ee.institution_id=u.id left  join
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
-$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.empno=$empno";
-$result_education_view = $db->query($sql_education);
+$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
+$result_education_view = $db->query($sql_education); 
+$uni_name='';
+$faculty='';
+$profession='';
+$qualification='';
 if ($result_education_view->num_rows > 0) {
     while($row_edu = $result_education_view->fetch_assoc()) {
 
@@ -21,7 +25,7 @@ if ($result_education_view->num_rows > 0) {
 $sql_skill = "
 SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname
 FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id
-where tes.skill_status =1 and  te.emp_status=1 and  te.empno=$empno";
+where tes.skill_status =1 and  te.emp_status=1 and  te.id=$emp_id";
 $result_skill = $db->query($sql_skill);
 $skill_name=[];
 $skill_descr=[];
@@ -36,8 +40,17 @@ if ($result_skill->num_rows > 0) {
 $sql_users= "select te.*,tc.company_name
 from $tbl_employees te
 inner  join  $tbl_companies tc  on tc.id=$company_id
-where  te.emp_status=1   and  empno=$empno ";
-
+where  te.emp_status=1   and  te.id=$emp_id ";
+$id = '';
+$firstname = '';
+$lastname = '';
+$surname = '';
+$reg_mail = '';
+$home_tel = '';
+$mob_tel ='';
+$birthdate = '';
+$company_name = '';
+$living_address = '';
 $result_users = $db->query($sql_users);
 if ($result_users->num_rows > 0) {
     while($row= $result_users->fetch_assoc()) {
@@ -57,7 +70,6 @@ if ($result_users->num_rows > 0) {
 $sql_certification= "select * 
 from $tbl_certification  
 where  cert_status =1   and  emp_id=$id ";
- echo $sql_certification;
 
 $result_certification = $db->query($sql_certification);
 $training_center_name = [];
@@ -65,7 +77,6 @@ $training_name = [];
 $training_date =[];
 $cert_given_date = [];
 if ($result_certification->num_rows > 0) {
-    print_r($result_certification);
 while($row_skill= $result_certification->fetch_assoc()) {
     array_push($training_center_name, $row_skill['training_center_name']);
     array_push($training_name, $row_skill['training_name']);
@@ -74,7 +85,6 @@ while($row_skill= $result_certification->fetch_assoc()) {
 
 }
 }
-print_r($training_center_name)
 
 
 
@@ -169,7 +179,7 @@ print_r($training_center_name)
                                         <div id="targetLayer"></div>
                                         <div id="uploadFormLayer">
                                             <input name="uid" type="hidden" class="inputFile"  value="<?php  echo $uid ; ?>"/>
-                                            <input name="empno" type="hidden" class="inputFile"  value="<?php  echo $empno ; ?>"/>
+                                            <input name="emp_id" type="hidden" class="inputFile"  value="<?php  echo $emp_id ; ?>"/>
                                             <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkli dəyiş</label>
                                             <input id="files"  name="userImage" style="display: none" type="file">
                                             <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->

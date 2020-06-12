@@ -4,7 +4,19 @@ if(is_array($_FILES)) {
     if(is_uploaded_file($_FILES['userImage']['tmp_name'])) {
         $sourcePath = $_FILES['userImage']['tmp_name'];
         $uid = $_POST['uid'];
-        $empno = $_POST['empno'];
+        $emp_id = $_POST['emp_id'];
+        /**/
+        $sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
+        $result_employees = $db->query($sql_employees);
+//        echo $sql_employees;
+        $empno='';
+        if ($result_employees->num_rows > 0) {
+            while($row= $result_employees->fetch_assoc()) {
+                $empno=$row['empno'];
+            }
+        }
+//        echo 'empno='.$empno;
+        /**/
         $fileData = pathinfo(basename($_FILES["userImage"]["name"]));
 
 

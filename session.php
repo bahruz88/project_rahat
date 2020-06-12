@@ -9,7 +9,7 @@
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    $login_session = $row['username'];
    $u_photo = $row['u_photo'];
-   $empno = $row['empno'];
+   $emp_id = $row['emp_id'];
    $company_id = $row['company_id'];
    $login_fullname= $row['firstname'].' '.$row['lastname'];
    $login_lang = $row['def_lang'];
