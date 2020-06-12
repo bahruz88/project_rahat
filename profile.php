@@ -95,7 +95,6 @@ inner  join  $tbl_lang_level tllr  on tllr.level_id=tlk.lang_reading
 inner  join  $tbl_lang_level tllw  on tllw.level_id=tlk.lang_writing
 inner  join  $tbl_lang_level tllu  on tllu.level_id=tlk.lang_understanding
 where  tlk.lang_status =1   and  tlk.emp_id=$id and tll.lang_short_name='az' and tllr.lang_short_name='az' and tllw.lang_short_name='az' and tllu.lang_short_name='az' ";
-echo $sql_lang;
 
 $result_lang = $db->query($sql_lang);
 $lang_name = [];
@@ -113,7 +112,34 @@ while($row_lang= $result_lang->fetch_assoc()) {
 
 }
 }
+$sql_family= "select tef.*,tf.type_desc member,ts.descr gender 
+from $tbl_employee_family_info tef
+inner  join  $tbl_family_member_types tf  on tef.member_type=tf.id
+inner  join  $tbl_sex ts  on tef.gender=ts.id
+where  tef.status =1   and  tef.emp_id=$id ";
 
+$result_family = $db->query($sql_family);
+$m_firstname = [];
+$m_lastname = [];
+$m_surname =[];
+$gender = [];
+$birth_date = [];
+$contact_number = [];
+$adress = [];
+$member = [];
+if ($result_family->num_rows > 0) {
+    while($row_fam= $result_family->fetch_assoc()) {
+        array_push($m_firstname, $row_fam['m_firstname']);
+        array_push($m_lastname, $row_fam['m_lastname']);
+        array_push($m_surname, $row_fam['m_surname']);
+        array_push($gender, $row_fam['gender']);
+        array_push($birth_date, $row_fam['birth_date']);
+        array_push($contact_number, $row_fam['contact_number']);
+        array_push($adress, $row_fam['adress']);
+        array_push($member, $row_fam['member']);
+
+    }
+}
 
 
 ?>
@@ -445,20 +471,55 @@ while($row_lang= $result_lang->fetch_assoc()) {
 
                                         </div>
                                         <div class="tab-pane" id="aileinfo">
-                                            <table id="faminfo_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["family_member_name"];?></th>
-                                                    <th><?php echo $dil["family_member_type"];?></th>
-                                                    <th><?php echo $dil["family_member_phone"];?></th>
-                                                    <th><?php echo $dil["family_member_adress"];?></th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
 
+                                            <?php for($i=0;$i<count($m_firstname);$i++){?>
+                                                <div class="panel">
+                                                    <div class="form-group  row">
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
+                                                            <input type="text" class="form-control" id="firstname" value="<?php echo $m_firstname[$i]; ?>" name="lang_name" placeholder="<?php echo $dil["firstname"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="lastname"><?php echo $dil["lastname"];?></label>
+                                                            <input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $m_lastname[$i]; ?>"  placeholder="<?php echo $dil["lastname"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="surname"><?php echo $dil["surname"];?></label>
+                                                            <input type="text" class="form-control" id="surname" name="surname" value="<?php echo $m_surname[$i]; ?>"  placeholder="<?php echo $dil["surname"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="gender"><?php echo $dil["sex"];?></label>
+                                                            <input type="text" class="form-control" id="gender" name="gender" value="<?php echo $gender[$i]; ?>"  placeholder="<?php echo $dil["sex"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="birth_date"><?php echo $dil["birth_date"];?></label>
+                                                            <input type="text" class="form-control" id="birth_date" name="birth_date" value="<?php echo $birth_date[$i]; ?>"  placeholder="<?php echo $dil["birth_date"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="contact_number"><?php echo $dil["contact_number"];?></label>
+                                                            <input type="text" class="form-control" id="contact_number" name="contact_number" value="<?php echo $contact_number[$i]; ?>"  placeholder="<?php echo $dil["contact_number"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="adress"><?php echo $dil["address"];?></label>
+                                                            <input type="text" class="form-control" id="adress" name="adress" value="<?php echo $adress[$i]; ?>"  placeholder="<?php echo $dil["address"];?>" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="col-sm-8 col-form-label" for="member"><?php echo $dil["family_member_type"];?></label>
+                                                            <input type="text" class="form-control" id="member" name="member" value="<?php echo $member[$i]; ?>"  placeholder="<?php echo $dil["family_member_type"];?>" readonly />
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            <?php } ?>
                                         </div>
 
                                         <!--<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>-->
