@@ -145,7 +145,6 @@ from $tbl_military_information tmi
 inner  join  $tbl_military_rank tmr  on tmr.rank_id=tmi.military_rank
 inner  join  $tbl_military_staff tms  on tms.staff_id=tmi.military_staff
  where  tmi.status =1   and  tmi.emp_id=$id ";
-echo $sql_military;
 
 $result_military = $db->query($sql_military);
 $military_reg_group = [];
@@ -190,6 +189,110 @@ $military_date_completion = [];
     }
 }
 
+
+$sql_drivers= "select td.*,tc.cat_desc ,tc.lang
+from $tbl_employye_driver_license td
+inner  join  $tbl_driver_lic_cat tc  on tc.cat_id=td.category
+where  td.status=1   and  td.emp_id=$id ";
+$lic_seria_number = '';
+$cat_desc = '';
+$lic_issuer = '';
+$lic_issue_date = '';
+$expire_date = '';
+$result_drivers = $db->query($sql_drivers);
+if ($result_drivers->num_rows > 0) {
+    while($row= $result_drivers->fetch_assoc()) {
+        $lic_seria_number = $row['lic_seria_number'];
+        $cat_desc = $row['cat_desc'];
+        $lic_issuer = $row['lic_issuer'];
+        $lic_issue_date = $row['lic_issue_date'];
+        $expire_date = $row['expire_date'];
+    }
+}
+
+$sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.trp_seria_number,tmi.trp_permit_reason,
+ DATE_FORMAT(tmi.trp_permit_date,'%d/%m/%Y') trp_permit_date,DATE_FORMAT(tmi.trp_valid_date,'%d/%m/%Y') trp_valid_date,
+ tmi.trp_issuer,tmi.prp_seria_number,DATE_FORMAT(tmi.prp_permit_date,'%d/%m/%Y') prp_permit_date,DATE_FORMAT(tmi.prp_valid_date,'%d/%m/%Y') prp_valid_date,
+ tmi.prp_issuer,tmi.wp_seria_number,DATE_FORMAT(tmi.wp_permit_date,'%d/%m/%Y') wp_permit_date,DATE_FORMAT(tmi.wp_valid_date,'%d/%m/%Y') wp_valid_date,
+ tmi.insert_date,tmi.insert_user,tmi.update_user,tmi.update_date,tmi.status 
+FROM tbl_migration_info tmi  where tmi.status=1 and tmi.emp_id=$id";
+ $trp_seria_number = '';
+$trp_permit_reason = '';
+$trp_permit_date = '';
+$trp_valid_date = '';
+$trp_issuer = '';
+$prp_seria_number = '';
+$prp_permit_date = '';
+$prp_valid_date = '';
+$prp_issuer = '';
+$wp_seria_number = '';
+$wp_permit_date = '';
+$wp_valid_date = '';
+$result_minfo = $db->query($sql_minfo);
+if ($result_minfo->num_rows > 0) {
+    while($row= $result_minfo->fetch_assoc()) {
+         $trp_seria_number = $row['trp_seria_number'];
+        $trp_permit_reason = $row['trp_permit_reason'];
+        $trp_permit_date = $row['trp_permit_date'];
+        $trp_valid_date = $row['trp_valid_date'];
+        $trp_issuer = $row['trp_issuer'];
+        $prp_seria_number = $row['prp_seria_number'];
+        $prp_permit_date = $row['prp_permit_date'];
+        $prp_valid_date = $row['prp_valid_date'];
+        $prp_issuer = $row['prp_issuer'];
+        $wp_seria_number = $row['wp_seria_number'];
+        $wp_permit_date = $row['wp_permit_date'];
+        $wp_valid_date = $row['wp_valid_date'];
+    }
+}
+
+$sql_miginfo = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
+ DATE_FORMAT(tmi.last_renew_date,'%d/%m/%Y') last_renew_date,tmi.physical_deficiency,tmi.deficiency_desc,
+ tmi.insert_date,tmi.insert_user,tmi.update_user,tmi.update_date,tmi.status,
+  tEN.exist_id, tEN.exist_desc mmedical_app,tEN.lang,
+  tYN.chois_id, tYN.chois_desc mphysical_deficiency,tYN.lang
+FROM tbl_employee_medical_information tmi
+INNER join tbl_exist_not_exist tEN on tmi.medical_app=tEN.exist_id and tEN.lang='az'
+INNER join tbl_yesno tYN on tmi.physical_deficiency=tYN.chois_id and tYN.lang='az'
+ where tmi.status=1   and tmi.emp_id=$id";
+
+$medical_app = '';
+$renew_interval = '';
+$last_renew_date = '';
+$physical_deficiency = '';
+$deficiency_desc = '';
+$result_miginfo = $db->query($sql_miginfo);
+if ($result_miginfo->num_rows > 0) {
+    while($row= $result_miginfo->fetch_assoc()) {
+        $medical_app = $row['mmedical_app'];
+        $renew_interval = $row['renew_interval'];
+        $last_renew_date = $row['last_renew_date'];
+        $physical_deficiency = $row['mphysical_deficiency'];
+        $deficiency_desc = $row['deficiency_desc'];
+    }
+}
+
+$sql_positions = "SELECT tepp.id,tepp.emp_id,tepp.prev_employer, DATE_FORMAT(tepp.start_date,'%d/%m/%Y') start_date,
+DATE_FORMAT(tepp.end_date,'%d/%m/%Y') end_date,
+tepp.leave_reason,tepp.sector,tepp.status,tepp.insert_date
+FROM tbl_employee_prev_positions tepp 
+ where tepp.status=1 and  tepp.emp_id=$id";
+ 
+$prev_employer = '';
+$start_date = '';
+$end_date = '';
+$leave_reason = '';
+$sector = '';
+$result_positions = $db->query($sql_positions);
+if ($result_positions->num_rows > 0) {
+    while($row= $result_positions->fetch_assoc()) {
+        $prev_employer = $row['prev_employer'];
+        $start_date = $row['start_date'];
+        $end_date = $row['end_date'];
+        $leave_reason =$row['leave_reason'];
+        $sector = $row['sector'];
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -573,7 +676,6 @@ $military_date_completion = [];
                                         <!--<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>-->
                                         <div class="tab-pane" id="militaryInfo">
 
-                                            <?php for($i=0;$i<count($military_reg_group);$i++){?>
                                                 <div class="panel">
                                                     <div class="form-group  row">
 
@@ -644,7 +746,6 @@ $military_date_completion = [];
                                                     </div>
 
                                                 </div>
-                                            <?php } ?>
                                         </div>
                                         <div class="tab-pane" id="paymentSalary">
                                             <table id="payment_salary_table" class="table table-striped  table-bordered table-hover">
@@ -668,74 +769,155 @@ $military_date_completion = [];
                                         </div>
 
                                         <div class="tab-pane" id="drivingLicense">
-                                            <table id="driving_info_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["driving_serial_number_card"];?></th>
-                                                    <th><?php echo $dil["driving_category"];?></th>
-                                                    <th><?php echo $dil["driving_licensing_authority"];?></th>
-                                                    <th><?php echo $dil["driving_date_issue_card"];?></th>
-                                                    <th><?php echo $dil["driving_period_validity"];?></th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="lic_seria_number"><?php echo $dil["driving_serial_number_card"];?></label>
+                                                <input type="text" class="form-control" id="lic_seria_number" value="<?php echo $lic_seria_number; ?>" name="lic_seria_number" placeholder="<?php echo $dil["driving_serial_number_card"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="cat_desc"><?php echo $dil["driving_category"];?></label>
+                                                <input type="text" class="form-control" id="cat_desc" name="cat_desc" value="<?php echo $cat_desc; ?>"  placeholder="<?php echo $dil["cat_desc"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="lic_issuer"><?php echo $dil["driving_licensing_authority"];?></label>
+                                                <input type="text" class="form-control" id="lic_issuer" name="lic_issuer" value="<?php echo $lic_issuer; ?>"  placeholder="<?php echo $dil["driving_licensing_authority"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="lic_issue_date"><?php echo $dil["driving_date_issue_card"];?></label>
+                                                <input type="text" class="form-control" id="lic_issue_date" name="lic_issue_date" value="<?php echo $lic_issue_date; ?>"  placeholder="<?php echo $dil["lic_issue_date"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="expire_date"><?php echo $dil["driving_period_validity"];?></label>
+                                                <input type="text" class="form-control" id="expire_date" name="expire_date" value="<?php echo $expire_date; ?>"  placeholder="<?php echo $dil["expire_date"];?>" readonly />
+                                            </div>
                                         </div>
+
                                         <div class="tab-pane" id="migrationInfo">
-                                            <table id="migration_info_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["trp_seria_number"];?></th>
-                                                    <th><?php echo $dil["trp_permit_reason"];?></th>
-                                                    <th><?php echo $dil["trp_permit_date"];?></th>
-                                                    <th><?php echo $dil["trp_valid_date"];?></th>
-                                                    <th><?php echo $dil["trp_issuer"];?></th>
-                                                    <th><?php echo $dil["prp_seria_number"];?></th>
-                                                    <th><?php echo $dil["prp_permit_date"];?></th>
-                                                    <th><?php echo $dil["prp_valid_date"];?></th>
-                                                    <th><?php echo $dil["prp_issuer"];?></th>
-                                                    <th><?php echo $dil["wp_seria_number"];?></th>
-                                                    <th><?php echo $dil["wp_permit_date"];?></th>
-                                                    <th><?php echo $dil["wp_valid_date"];?></th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+                                            <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+                                                <i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo   $dil["migration_temporary_residence_permit"]; ?> </i>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="trp_seria_number"><?php echo $dil["trp_seria_number"];?></label>
+                                                <input type="text" class="form-control" id="trp_seria_number" value="<?php echo $trp_seria_number; ?>" name="trp_seria_number" placeholder="<?php echo $dil["trp_seria_number"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="trp_permit_reason"><?php echo $dil["trp_permit_reason"];?></label>
+                                                <input type="text" class="form-control" id="trp_permit_reason" name="trp_permit_reason" value="<?php echo $trp_permit_reason; ?>"  placeholder="<?php echo $dil["trp_permit_reason"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="trp_permit_date"><?php echo $dil["trp_permit_date"];?></label>
+                                                <input type="text" class="form-control" id="trp_permit_date" name="trp_permit_date" value="<?php echo $trp_permit_date; ?>"  placeholder="<?php echo $dil["trp_permit_date"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="trp_valid_date"><?php echo $dil["trp_valid_date"];?></label>
+                                                <input type="text" class="form-control" id="trp_valid_date" name="trp_valid_date" value="<?php echo $trp_valid_date; ?>"  placeholder="<?php echo $dil["trp_valid_date"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="trp_issuer"><?php echo $dil["trp_issuer"];?></label>
+                                                <input type="text" class="form-control" id="trp_issuer" name="trp_issuer" value="<?php echo $trp_issuer; ?>"  placeholder="<?php echo $dil["trp_issuer"];?>" readonly />
+                                            </div>
+                                            <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+                                                <i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo $dil["migration_permanent_residence_permit"];?> </i>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="prp_seria_number"><?php echo $dil["prp_seria_number"];?></label>
+                                                <input type="text" class="form-control" id="prp_seria_number" name="prp_seria_number" value="<?php echo $prp_seria_number; ?>"  placeholder="<?php echo $dil["prp_seria_number"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="prp_permit_date"><?php echo $dil["prp_permit_date"];?></label>
+                                                <input type="text" class="form-control" id="prp_permit_date" name="prp_permit_date" value="<?php echo $prp_permit_date; ?>"  placeholder="<?php echo $dil["prp_permit_date"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="prp_valid_date"><?php echo $dil["prp_valid_date"];?></label>
+                                                <input type="text" class="form-control" id="prp_valid_date" name="prp_valid_date" value="<?php echo $prp_valid_date; ?>"  placeholder="<?php echo $dil["prp_valid_date"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="prp_issuer"><?php echo $dil["prp_issuer"];?></label>
+                                                <input type="text" class="form-control" id="prp_issuer" name="prp_issuer" value="<?php echo $prp_issuer; ?>"  placeholder="<?php echo $dil["prp_issuer"];?>" readonly />
+                                            </div>
+
+                                            <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+                                                <i class="fas  fa-check-double" right" style="color:#bd2130;"><?php echo $dil["migration_work_permit_labor_activity"]; ?> </i>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
+                                                <input type="text" class="form-control" id="wp_seria_number" name="wp_seria_number" value="<?php echo $wp_seria_number; ?>"  placeholder="<?php echo $dil["wp_seria_number"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="wp_permit_date"><?php echo $dil["wp_permit_date"];?></label>
+                                                <input type="text" class="form-control" id="wp_permit_date" name="wp_permit_date" value="<?php echo $wp_permit_date; ?>"  placeholder="<?php echo $dil["wp_permit_date"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="wp_valid_date"><?php echo $dil["wp_valid_date"];?></label>
+                                                <input type="text" class="form-control" id="wp_valid_date" name="trp_issuer" value="<?php echo $wp_valid_date; ?>"  placeholder="<?php echo $dil["wp_valid_date"];?>" readonly />
+                                            </div>
+
+
                                         </div>
                                         <div class="tab-pane" id="medicalInfo">
-                                            <table id="medical_info_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["medical_app"];?></th>
-                                                    <th><?php echo $dil["medical_renew_interval"];?></th>
-                                                    <th><?php echo $dil["medical_last_renew_date"];?></th>
-                                                    <th><?php echo $dil["medical_physical_deficiency"];?></th>
-                                                    <th><?php echo $dil["medical_deficiency_desc"];?></th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="medical_app"><?php echo $dil["medical_app"];?></label>
+                                                <input type="text" class="form-control" id="medical_app" value="<?php echo $medical_app; ?>" name="medical_app" placeholder="<?php echo $dil["medical_app"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="renew_interval"><?php echo $dil["medical_renew_interval"];?></label>
+                                                <input type="text" class="form-control" id="renew_interval" name="renew_interval" value="<?php echo $renew_interval; ?>"  placeholder="<?php echo $dil["medical_renew_interval"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="last_renew_date"><?php echo $dil["medical_last_renew_date"];?></label>
+                                                <input type="text" class="form-control" id="last_renew_date" name="last_renew_date" value="<?php echo $last_renew_date; ?>"  placeholder="<?php echo $dil["medical_last_renew_date"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="physical_deficiency"><?php echo $dil["medical_physical_deficiency"];?></label>
+                                                <input type="text" class="form-control" id="physical_deficiency" name="physical_deficiency" value="<?php echo $physical_deficiency; ?>"  placeholder="<?php echo $dil["medical_physical_deficiency"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="deficiency_desc"><?php echo $dil["medical_deficiency_desc"];?></label>
+                                                <input type="text" class="form-control" id="deficiency_desc" name="deficiency_desc" value="<?php echo $deficiency_desc; ?>"  placeholder="<?php echo $dil["medical_deficiency_desc"];?>" readonly />
+                                            </div>
+
+
                                         </div>
                                         <div class="tab-pane" id="previousPositions">
-                                            <table id="previous_positions_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["prev_employer"];?></th>
-                                                    <th><?php echo $dil["date_range"];?></th>
-                                                    <th><?php echo $dil["leave_reason"];?></th>
-                                                    <th><?php echo $dil["sector"];?></th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="prev_employer"><?php echo $dil["prev_employer"];?></label>
+                                                <input type="text" class="form-control" id="prev_employer" value="<?php echo $prev_employer; ?>" name="prev_employer" placeholder="<?php echo $dil["prev_employer"];?>" readonly />
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="start_date"><?php echo $dil["date_range"];?></label>
+                                                <input type="text" class="form-control" id="start_date" name="start_date" value="<?php echo $start_date; ?>"  placeholder="<?php echo $dil["date_range"];?>" readonly />
+                                                <input type="text" class="form-control" id="end_date" name="end_date" value="<?php echo $end_date; ?>"  placeholder="<?php echo $dil["date_range"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="leave_reason"><?php echo $dil["leave_reason"];?></label>
+                                                <input type="text" class="form-control" id="leave_reason" name="leave_reason" value="<?php echo $leave_reason; ?>"  placeholder="<?php echo $dil["leave_reason"];?>" readonly />
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class="col-sm-8 col-form-label" for="sector"><?php echo $dil["sector"];?></label>
+                                                <input type="text" class="form-control" id="sector" name="sector" value="<?php echo $sector; ?>"  placeholder="<?php echo $dil["sector"];?>" readonly />
+                                            </div>
                                         </div>
 
                                         <div class="tab-pane" id="bootstab">Bootstrap Content here
