@@ -145,6 +145,7 @@ from $tbl_military_information tmi
 inner  join  $tbl_military_rank tmr  on tmr.rank_id=tmi.military_rank
 inner  join  $tbl_military_staff tms  on tms.staff_id=tmi.military_staff
  where  tmi.status =1   and  tmi.emp_id=$id ";
+echo $sql_military;
 
 $result_military = $db->query($sql_military);
 $military_reg_group = [];
@@ -185,7 +186,8 @@ $military_date_completion = [];
         array_push($military_no_official, $row_military['military_no_official']);
         array_push($military_additional_information, $row_military['military_additional_information']);
         array_push($military_date_completion, $row_military['military_date_completion']);
-
+print_r($military_reg_category);
+print_r($military_reg_group);
     }
 }
 
@@ -277,7 +279,7 @@ DATE_FORMAT(tepp.end_date,'%d/%m/%Y') end_date,
 tepp.leave_reason,tepp.sector,tepp.status,tepp.insert_date
 FROM tbl_employee_prev_positions tepp 
  where tepp.status=1 and  tepp.emp_id=$id";
- 
+
 $prev_employer = '';
 $start_date = '';
 $end_date = '';
@@ -675,7 +677,7 @@ if ($result_positions->num_rows > 0) {
 
                                         <!--<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>-->
                                         <div class="tab-pane" id="militaryInfo">
-
+                                            <?php for($i=0;$i<count($military_reg_group);$i++){?>
                                                 <div class="panel">
                                                     <div class="form-group  row">
 
@@ -745,7 +747,9 @@ if ($result_positions->num_rows > 0) {
 
                                                     </div>
 
+
                                                 </div>
+                                            <?php } ?>
                                         </div>
                                         <div class="tab-pane" id="paymentSalary">
                                             <table id="payment_salary_table" class="table table-striped  table-bordered table-hover">
