@@ -19,10 +19,10 @@ include('../session.php') ;
   
     //Response
     //Checking to see if name or email already exsist
-    if(mysqli_num_rows($query) > 0) +)
+    if(mysqli_num_rows($query) > 0){
         echo "duplicate";
     }
-    elseif(!mysqli_query($db, $sql)) {
+    else if(!mysqli_query($db, $sql)) {
         echo "error" .mysqli_error($db);
     }
     else {

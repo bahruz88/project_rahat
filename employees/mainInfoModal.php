@@ -433,11 +433,12 @@
 
                     ?>
                     <input name="uid" id="uid" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']; ?>"/>
+                    <input name="emp_id" id="emp_id" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']; ?>"/>
+
                     <!--                                                    <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'];  ?><!--</option>-->
 
                 <?php } }?>
             <!--                                            <input name="uid" type="hidden" class="inputFile"  value=""/>-->
-            <input name="empno" id="empno" type="hidden" class="inputFile"  value=""/>
             <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkil əlavə et</label>
             <input id="files"  name="userImage" style="display: none" type="file">
             <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
