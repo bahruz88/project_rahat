@@ -3609,7 +3609,7 @@ $('#drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
  	$("#view_wp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#view_wp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 
-$("#trp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+    $("#trp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#trp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
  	$("#prp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#prp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
