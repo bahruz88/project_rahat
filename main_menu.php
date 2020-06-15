@@ -36,7 +36,7 @@
 			  
 			  
               <li class="nav-item " >
-                <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=companies" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="companies") { ?>active<?php }}?>">
+                <a href="companies.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=companies" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="companies") { ?>active<?php }}?>">
                  
                   <p>  <?php echo $dil["companies"];?></p>
                 </a>
@@ -107,13 +107,35 @@
                   <p><?php echo $dil["overtime_settings"];?></p>
                 </a>
               </li>
-               <li class="nav-item">
+              
+			  <li class="nav-item">
                 <a href="overtime.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=overtime_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="overtime_list") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["overtime_list"];?></p>
                 </a>
               </li>
-              <li class="nav-item">
+			  <li class="nav-item">
+                <a href="overtime.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=permit_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="permit_list") { ?>active<?php }}?>" class="nav-link">
+                  
+                  <p><?php echo $dil["permits"];?></p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="overtime.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=exceptions" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="exceptions") { ?>active<?php }}?>" class="nav-link">
+                  
+                  <p><?php echo $dil["exceptions"];?></p>
+                </a>
+              </li>
+              
+			  <li class="nav-item">
+                <a href="overtime.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=inout_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="inout_list") { ?>active<?php }}?>" class="nav-link">                  
+                  <p><?php echo $dil["inouttime"];?></p>
+                </a>
+              </li>  
+			  
+			  
+			  <li class="nav-item">
                 <a href="pages/charts/inline.html" class="nav-link">
                   
                   <p>Bacarıqlar</p>
