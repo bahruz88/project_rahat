@@ -2016,6 +2016,7 @@ var military_info_table ;
 				console.log('militarydata=',militarydata)
 
 				if  (optype=='update') {
+					console.log('update=')
 					$("#update_militaryid").val(militarydata.id).change();
 					$("#update_militaryempid").val(militarydata.teId).change();
 					$("#update_military_reg_group").val(militarydata.military_reg_group).change();
@@ -2034,17 +2035,18 @@ var military_info_table ;
 					$('#modalEditMilitaryInfo').modal('show');
 				}
 				else {
-				    var military_reg_category=''
-				    var military_reg_group=''
+					console.log('view=')
+				    var military_reg_category='';
+				    var military_reg_group='';
 				    if(militarydata.military_reg_category==1){
-                        military_reg_category='Kateqoriya 1'
+                        military_reg_category='Kateqoriya 1';
                     }else{
-                        military_reg_category='Kateqoriya 2'
+                        military_reg_category='Kateqoriya 2';
                     }
 				    if(militarydata.military_reg_group==1){
-                        military_reg_group='Çağırışçı'
+                        military_reg_group='Çağırışçı';
                     }else{
-                        military_reg_group='Hərbi vəzifəli'
+                        military_reg_group='Hərbi vəzifəli';
                     }
 					$("#view_militaryemp").val(militarydata.full_name);
 					$("#view_military_reg_group").val(military_reg_group);
