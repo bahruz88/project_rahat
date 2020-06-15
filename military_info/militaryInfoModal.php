@@ -17,20 +17,20 @@
 			  <input type="hidden" id="militaryinfoid" name="militaryinfoid" value="" />
 			  </form>
 			  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
-			   
+
             </div>
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-      </div>	 
+      </div>
 
      <!--Military VIEW MODAL -->
   <div class="modal fade" id="modalViewMilitary" role="dialog">
     <div class="modal-dialog modal-lg">
        <!-- Modal content-->
       <div class="modal-content">
-      
+
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
@@ -39,7 +39,7 @@
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
  					<div class="card-body" >
-						 
+
 						 	<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="view_militaryemp"><?php echo $dil["employee"];?></label>
 				 				<div class="col-sm-6">
@@ -60,20 +60,20 @@
                                     <input type="text" class="form-control" id="view_military_reg_category" name="view_military_reg_category" placeholder="<?php echo $dil["military_registration_category"];?>" readonly />
                                 </div>
                             </div>
-							
+
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="view_staff_desc"><?php echo $dil["military_staff"];?></label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" id="view_staff_desc_id" name="view_staff_desc" placeholder="<?php echo $dil["military_staff"];?>" readonly />
 				 				</div>
 							</div>
-							
+
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="view_rank_desc"><?php echo $dil["military_rank"];?></label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" id="view_rank_desc_id" name="view_rank_desc" placeholder="<?php echo $dil["military_rank"];?>" readonly />
 				 				</div>
-							</div> 
+							</div>
 
 
 							<div class="form-group row">
@@ -151,20 +151,20 @@
 
 					</div>
 				</div>
-   
+
 		</div>
         <div class="modal-footer">
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-        </div>	
+        </div>
 
       </div>
-      
+
     </div>
   </div>
-  
-  
-  
-  
+
+
+
+
   <!--MILITARY İNSERT MODAL -->
   <div class="modal fade" id="militaryInfoInsertModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
@@ -334,15 +334,15 @@
 
     </div>
   </div>
-  
+
   <!--MILITARY EDİT MODAL -->
    <div class="modal fade" id="modalEditMilitaryInfo" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
     <form id="militaryInfoUpdate" method="post" class="form-horizontal" action="">
-	
+
       <!-- Modal content-->
       <div class="modal-content" >
-      
+
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
@@ -351,8 +351,8 @@
                         <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
  						<div class="card-body" >
-					
- 						 	<div class="form-group row">
+
+ 						 		<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_militaryempid"><?php echo $dil["employee"];?></label>
 								<div class="col-sm-6">
 									<select data-live-search="true"  name="update_militaryemp"  id="update_militaryempid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" Disabled="true">
@@ -360,12 +360,12 @@
                                     $result_employees_s_view = $db->query($sql_employees);
 										if ($result_employees_s_view->num_rows > 0) {
 										while($row_employees= $result_employees_s_view->fetch_assoc()) {
-											
+
 										?>
 										<option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
-											
+
 										<?php } }?>
-								</select>	
+								</select>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -374,7 +374,7 @@
 									<select data-live-search="true"  name="update_military_reg_group" id="update_military_reg_group" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_registration_group"];?>" >
                                         <option value="1">Çağırışçı</option>
                                         <option value="2">Hərbi vəzifəli</option>
-								</select>	
+								</select>
 								</div>
 							</div>
                             <div class="form-group row">
@@ -393,27 +393,27 @@
 								 	<?php
 										if ($result_military_staff_edit->num_rows > 0) {
 										while($row_military_staff= $result_military_staff_edit->fetch_assoc()) {
-											
+
 										?>
 										<option  value="<?php echo $row_military_staff['staff_id']; ?>" ><?php echo $row_military_staff['staff_desc'];  ?></option>
-											
+
 										<?php } }?>
-								</select>	
+								</select>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_rank_desc_id"><?php echo $dil["military_rank"];?></label>
 								<div class="col-sm-6">
 									<select data-live-search="true"  name="update_rank_desc" id="update_rank_desc_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["military_rank"];?>" >
-								 	<?php 
+								 	<?php
 										if ($result_military_rank_edit->num_rows > 0) {
 										while($row_military_rank= $result_military_rank_edit->fetch_assoc()) {
-											
+
 										?>
 										<option  value="<?php echo $row_military_rank['rank_id']; ?>" ><?php echo $row_military_rank['rank_desc'];  ?></option>
-											
+
 										<?php } }?>
-								</select>	
+								</select>
 								</div>
 							</div>
 
@@ -483,21 +483,21 @@
 
 
 
-				
+
 					</div>
- 				
-					
+
+
 				</div>
-   
+
 		</div>
-        <div class="modal-footer">			 
+        <div class="modal-footer">
 		<button  id ="add_new_item2" typemodalEdit="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
 		<input type="hidden" id="updatemilitaryid" name="update_militaryid_name" value="" />
-        </div>	
+        </div>
 		</form>
       </div>
-      
+
     </div>
   </div>
 

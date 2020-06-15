@@ -274,7 +274,8 @@ $('#employee_table tbody').on( 'click', '#view', function () {
 					$('#modalEdit').modal('show');
 					}
 					else {
-						window.location.href='profile.php'
+						//document.location = 'profile.php?id='+empid;
+						 window.location.href='profile.php?empid='+empid;
 					// 	$('#imgView').html($('#uploadDiv').html())
 					// 	$('#imgAdd').html('')
 					// 	$('#imgUpdate').html('')
