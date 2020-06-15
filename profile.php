@@ -87,7 +87,7 @@ while($row_skill= $result_certification->fetch_assoc()) {
 }
 }
 
-$sql_lang= "select tlk.*,tl.lang_name ,tll.level_name speaking,tllr.level_name reading,tllw.level_name writing,tllu.level_name understanding 
+$sql_langKnow= "select tlk.*,tl.lang_name ,tll.level_name speaking,tllr.level_name reading,tllw.level_name writing,tllu.level_name understanding 
 from $tbl_language_knowledge  tlk
 inner  join  $tbl_emp_lang tl  on tlk.lang_id=tl.id
 inner  join  $tbl_lang_level tll  on tll.level_id=tlk.lang_speaking
@@ -96,7 +96,7 @@ inner  join  $tbl_lang_level tllw  on tllw.level_id=tlk.lang_writing
 inner  join  $tbl_lang_level tllu  on tllu.level_id=tlk.lang_understanding
 where  tlk.lang_status =1   and  tlk.emp_id=$id and tll.lang_short_name='az' and tllr.lang_short_name='az' and tllw.lang_short_name='az' and tllu.lang_short_name='az' ";
 
-$result_lang = $db->query($sql_lang);
+$result_lang = $db->query($sql_langKnow);
 $lang_name = [];
 $speaking = [];
 $reading = [];
@@ -140,13 +140,13 @@ if ($result_family->num_rows > 0) {
 
     }
 }
-$sql_military= "select tmi.*,tmr.rank_desc,tms.staff_desc 
+$sql_militaryInfo= "select tmi.*,tmr.rank_desc,tms.staff_desc 
 from $tbl_military_information tmi
 inner  join  $tbl_military_rank tmr  on tmr.rank_id=tmi.military_rank
 inner  join  $tbl_military_staff tms  on tms.staff_id=tmi.military_staff
  where  tmi.status =1   and  tmi.emp_id=$id ";
 
-$result_military = $db->query($sql_military);
+$result_military = $db->query($sql_militaryInfo);
 $military_reg_group = [];
 $military_reg_category = [];
 $staff_desc =[];

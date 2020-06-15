@@ -1,4 +1,4 @@
- <!-- LANG CONTENT MODAL  -->
+ <!-- Military CONTENT MODAL  -->
 <div class="modal fade" id="modalMilitaryInfoDelete" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm">
           <div class="modal-content bg-danger">
@@ -169,10 +169,10 @@
   <div class="modal fade" id="militaryInfoInsertModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
     <form id="militaryInfoInsertForm" method="post" class="form-horizontal" action="">
-	
+
       <!-- Modal content-->
       <div class="modal-content" >
-      
+
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
@@ -181,7 +181,7 @@
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body" >
-					
+
  						 		<div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
                                     <div class="col-sm-6">
@@ -321,17 +321,17 @@
 
 					</div>
 				</div>
-   
+
 		</div>
         <div class="modal-footer">
-						 
+
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-							 
-        </div>	
+
+        </div>
 		</form>
       </div>
-      
+
     </div>
   </div>
   
@@ -352,7 +352,7 @@
 					</div>
  						<div class="card-body" >
 					
- 						 		<div class="form-group row">
+ 						 	<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_militaryempid"><?php echo $dil["employee"];?></label>
 								<div class="col-sm-6">
 									<select data-live-search="true"  name="update_militaryemp"  id="update_militaryempid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" Disabled="true">

@@ -8,7 +8,7 @@ $drivinglicenseid = $_POST['drivinglicenseid'];
 //INNER join $tbl_military_rank  tmr on tmi.military_rank=tmr.rank_id and  tmr.lang='az'
 //INNER join $tbl_military_staff  tms on tmi.military_staff=tms.staff_id and  tms.lang='az'
 //where tmi.status=1 and te.emp_status=1 and  tmi.id='$drivinglicenseid' ";
-$sql_lang = "SELECT tedl.id,tedl.emp_id,tedl.lic_seria_number,tedl.category, tedl.lic_issuer, DATE_FORMAT(tedl.lic_issue_date,'%d/%m/%Y') lic_issue_date,DATE_FORMAT(tedl.expire_date,'%d/%m/%Y') expire_date, tedl.insert_user,tedl.update_user,DATE_FORMAT(tedl.insert_date,'%d/%m/%Y') insert_date,
+$sql_driving = "SELECT tedl.id,tedl.emp_id,tedl.lic_seria_number,tedl.category, tedl.lic_issuer, DATE_FORMAT(tedl.lic_issue_date,'%d/%m/%Y') lic_issue_date,DATE_FORMAT(tedl.expire_date,'%d/%m/%Y') expire_date, tedl.insert_user,tedl.update_user,DATE_FORMAT(tedl.insert_date,'%d/%m/%Y') insert_date,
   concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.emp_status,
  tdlc.cat_id tcatId,tdlc.cat_desc,tdlc.lang
  FROM tbl_employye_driver_license tedl
@@ -17,7 +17,7 @@ $sql_lang = "SELECT tedl.id,tedl.emp_id,tedl.lic_seria_number,tedl.category, ted
 
 
 
-$result_lang = $db->query($sql_lang);
+$result_lang = $db->query($sql_driving);
 $data = array();
 
 if ($result_lang->num_rows > 0) {

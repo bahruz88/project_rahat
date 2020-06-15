@@ -9,7 +9,7 @@ $medicalid = $_POST['medicalid'];
 //INNER join $tbl_military_staff  tms on tmi.military_staff=tms.staff_id and  tms.lang='az'
 //where tmi.status=1 and te.emp_status=1 and  tmi.id='$medicalid' ";
 
-$sql_lang = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
+$sql_medical = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
  DATE_FORMAT(tmi.last_renew_date,'%d/%m/%Y') last_renew_date,tmi.physical_deficiency,tmi.deficiency_desc,
  tmi.insert_date,tmi.insert_user,tmi.update_user,tmi.update_date,tmi.status,
  te.emp_status, concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id  teId,
@@ -21,7 +21,7 @@ INNER join tbl_yesno tYN on tmi.physical_deficiency=tYN.chois_id and tYN.lang='a
 INNER join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1 and tmi.id='$medicalid'";
 
 
-$result_lang = $db->query($sql_lang);
+$result_lang = $db->query($sql_medical);
 $data = array();
 
 if ($result_lang->num_rows > 0) {

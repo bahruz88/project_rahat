@@ -2,7 +2,7 @@
  include('../session.php');
 $migrationid = $_POST['migrationid'];
 
-$sql_lang = "SELECT tmi.id,tmi.emp_id,tmi.trp_seria_number,tmi.trp_permit_reason,
+$sql_migr = "SELECT tmi.id,tmi.emp_id,tmi.trp_seria_number,tmi.trp_permit_reason,
  DATE_FORMAT(tmi.trp_permit_date,'%d/%m/%Y') trp_permit_date,DATE_FORMAT(tmi.trp_valid_date,'%d/%m/%Y') trp_valid_date,
  tmi.trp_issuer,tmi.prp_seria_number,DATE_FORMAT(tmi.prp_permit_date,'%d/%m/%Y') prp_permit_date,DATE_FORMAT(tmi.prp_valid_date,'%d/%m/%Y') prp_valid_date,
  tmi.prp_issuer,tmi.wp_seria_number,DATE_FORMAT(tmi.wp_permit_date,'%d/%m/%Y') wp_permit_date,DATE_FORMAT(tmi.wp_valid_date,'%d/%m/%Y') wp_valid_date,
@@ -12,7 +12,7 @@ FROM tbl_migration_info tmi
 INNER join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1 and tmi.id='$migrationid'";
 
 
-$result_lang = $db->query($sql_lang);
+$result_lang = $db->query($sql_migr);
 $data = array();
 
 if ($result_lang->num_rows > 0) {
