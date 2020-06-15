@@ -1835,130 +1835,129 @@ $("#familiyInfoUpdate").submit(function(e)
 ************************************** Herbi INFO BILIKLERI ************************************************************
 **********************************************************************************************************************
 */
-
-var military_info_table ;
-    $('#militaryInfotab').click(function() {
-	console.log('Tab clikc militaryInfotab');
-	$('#military_info_table').DataTable().clear().destroy();
+	var military_info_table ;
+	$('#militaryInfotab').click(function() {
+		console.log('Tab clikc militaryInfotab');
+		$('#military_info_table').DataTable().clear().destroy();
 		military_info_table = $("#military_info_table").DataTable({
-	"scrollX": true,
-	  "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-	    "language": {
-            "lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
-            "zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
-            "info": "Showing page _PAGE_ of _PAGES_",
-            "infoEmpty": " Heç bir məlumat  tapılmadı",
-            "infoFiltered": "(filtered from _MAX_ total records)",
-			"paginate": {
-			"previous": "<?php echo $dil['previous'] ; ?> " ,
-			"next": "<?php echo $dil['next'] ; ?>"
-    }
-        },
-	    "ajax": {
-                url: "military_info/get_militaryInfo.php",
-                type: "POST"
-            },"columnDefs": [ {
-			"width": "8%",
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<img  id='militaryInfo_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
-			"<img  id='militaryInfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
-			"<img  id='militaryInfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
-        } ],
-	   dom: 'lBfrtip',
+			"scrollX": true,
+			"paging": true,
+			"lengthChange": false,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": true,
+			"language": {
+				"lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
+				"zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
+				"info": "Showing page _PAGE_ of _PAGES_",
+				"infoEmpty": " Heç bir məlumat  tapılmadı",
+				"infoFiltered": "(filtered from _MAX_ total records)",
+				"paginate": {
+					"previous": "<?php echo $dil['previous'] ; ?> " ,
+					"next": "<?php echo $dil['next'] ; ?>"
+				}
+			},
+			"ajax": {
+				url: "military_info/get_militaryInfo.php",
+				type: "POST"
+			},"columnDefs": [ {
+				"width": "8%",
+				"targets": -1,
+				"data": null,
+				"defaultContent": "<img  id='militaryInfo_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
+					"<img  id='militaryInfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
+					"<img  id='militaryInfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+			} ],
+			dom: 'lBfrtip',
 
-    buttons: [
-					{
+			buttons: [
+				{
 
-                   text: 'Add New <i class="fa fa-plus"></i>',
-                action: function ( e, dt, node, config ) {
-                       console.log('militaryInfoInsertModal')
+					text: 'Add New <i class="fa fa-plus"></i>',
+					action: function ( e, dt, node, config ) {
+						console.log('militaryInfoInsertModal')
 
-                    $("#militaryInfoInsertModal").modal();
-                }
-                    },
-	{
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    },
-                    {
-                        extend: 'csvHtml5',
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    },
-					 {
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    }  ,'copy','print',
-                    'colvis',
+						$("#militaryInfoInsertModal").modal();
+					}
+				},
+				{
+					extend: 'excelHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				},
+				{
+					extend: 'csvHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				},
+				{
+					extend: 'pdfHtml5',
+					exportOptions: {
+						columns: ':visible'
+					}
+				}  ,'copy','print',
+				'colvis',
 
-                ],
+			],
 
-			 "lengthMenu": [
-                [20, 30, 60, -1],
-                [10, 20, 50, "All"]
-            ]
+			"lengthMenu": [
+				[20, 30, 60, -1],
+				[10, 20, 50, "All"]
+			]
 
-        });
+		});
 
 		console.log('Tab clikc oldu',military_info_table);
-    });
+	});
 
 	/*Herbi MELUMATALRİ SİLİNİR */
 	$("#militaryInfoDelete").submit(function(e) {
 
-                    e.preventDefault();
-                    $.ajax( {
-                        url: "military_info/militaryInfoDelete.php",
-                        method: "post",
-                        data: $("#militaryInfoDelete").serialize(),
-                        dataType: "text",
-                        success: function(strMessage)
-						{
-							console.log('strMessage='+strMessage);
-							 if (strMessage.substr(1, 4)==='error')
-							 {
-								console.log(strMessage);
-							 }
-							 else if (strMessage==='success')
-							 {
-								$('#modalMilitaryInfoDelete').modal('hide');
-								$('#modalDeleteSuccess').modal('show');
-								 military_info_table.ajax.reload();
-							 }
-							 else  {
-								 console.log(strMessage);
-								$("#badge_danger").text(strMessage);
-							 }
-						}
-                    });
+		e.preventDefault();
+		$.ajax( {
+			url: "military_info/militaryInfoDelete.php",
+			method: "post",
+			data: $("#militaryInfoDelete").serialize(),
+			dataType: "text",
+			success: function(strMessage)
+			{
+				console.log('strMessage='+strMessage);
+				if (strMessage.substr(1, 4)==='error')
+				{
+					console.log(strMessage);
+				}
+				else if (strMessage==='success')
+				{
+					$('#modalMilitaryInfoDelete').modal('hide');
+					$('#modalDeleteSuccess').modal('show');
 					military_info_table.ajax.reload();
+				}
+				else  {
+					console.log(strMessage);
+					$("#badge_danger").text(strMessage);
+				}
+			}
+		});
+		military_info_table.ajax.reload();
 
 
-                });
+	});
 
-	  /*military Info  table delete click*/
+	/*military Info  table delete click*/
 	$('#military_info_table').on( 'click', '#militaryInfo_delete', function ()
 	{
-        var data = military_info_table.row( $(this).parents('tr') ).data();
+		var data = military_info_table.row( $(this).parents('tr') ).data();
 		console.log('data[0]='+data[0])
 		document.getElementById("militaryinfoid").value = data[0];
 		$('#modalMilitaryInfoDelete').modal('show');
-    } );
+	} );
 
 	$("#militaryInfoInsertForm").submit(function(e)
 	{
-	    console.log('salam insert')
+		console.log('salam insert')
 		e.preventDefault();
 		/*	if($("#langInsertForm").valid())
     { */
@@ -2033,21 +2032,22 @@ var military_info_table ;
 					$("#update_military_additional_information").val(militarydata.military_additional_information);
 					$("#update_military_date_completion").val(militarydata.military_date_comp);
 					$('#modalEditMilitaryInfo').modal('show');
+					console.log('modalEditMilitaryInfo ac')
 				}
 				else {
 					console.log('view=')
-				    var military_reg_category='';
-				    var military_reg_group='';
-				    if(militarydata.military_reg_category==1){
-                        military_reg_category='Kateqoriya 1';
-                    }else{
-                        military_reg_category='Kateqoriya 2';
-                    }
-				    if(militarydata.military_reg_group==1){
-                        military_reg_group='Çağırışçı';
-                    }else{
-                        military_reg_group='Hərbi vəzifəli';
-                    }
+					var military_reg_category='';
+					var military_reg_group='';
+					if(militarydata.military_reg_category==1){
+						military_reg_category='Kateqoriya 1';
+					}else{
+						military_reg_category='Kateqoriya 2';
+					}
+					if(militarydata.military_reg_group==1){
+						military_reg_group='Çağırışçı';
+					}else{
+						military_reg_group='Hərbi vəzifəli';
+					}
 					$("#view_militaryemp").val(militarydata.full_name);
 					$("#view_military_reg_group").val(military_reg_group);
 					$("#view_military_reg_category").val(military_reg_category);
@@ -2063,6 +2063,7 @@ var military_info_table ;
 					$("#view_military_additional_information").val(militarydata.military_additional_information);
 					$("#view_military_date_completion").val(militarydata.military_date_comp);
 					$('#modalViewMilitary').modal('show');
+					console.log('modalEditMilitaryInfo ac')
 				}
 			}
 		);
@@ -2074,7 +2075,7 @@ var military_info_table ;
 	{
 		e.preventDefault();
 		/*if($("#educationUpdate").valid())
-		{ */
+        { */
 
 		$.ajax( {
 			url: "military_info/militaryInfoUpdate.php",
@@ -2104,9 +2105,9 @@ var military_info_table ;
 		});
 		military_info_table.ajax.reload();
 		/*}
-		else {
-				 alert('not valid') ;
-			 }*/
+        else {
+                 alert('not valid') ;
+             }*/
 	});
 
 	/*military table delete click*/
@@ -2129,13 +2130,12 @@ var military_info_table ;
 	/*military table view click  */
 	$('#military_info_table').on( 'click', '#militaryInfo_edit', function ()
 	{
- 
+
 		var data = military_info_table.row( $(this).parents('tr') ).data();
 		GetMilitaryDetails(data[0],'update');
 		document.getElementById("updatemilitaryid").value = data[0];
 		console.log(data[0]);
 	} );
-
 	/*
     **********************************************************************************************************************
     ************************************** Ödəniş/Maaş INFO BILIKLERI ************************************************************
@@ -2322,51 +2322,51 @@ var military_info_table ;
 				console.log('paymentsalarydata=',paymentsalarydata)
 
 				if  (optype=='update') {
-					$("#update_paymentsalaryid").val(paymentsalarydata.id).change();
-					$("#update_militaryempid").val(paymentsalarydata.teId).change();
-					$("#update_military_reg_group").val(paymentsalarydata.military_reg_group).change();
-					$("#update_military_reg_category").val(paymentsalarydata.military_reg_category).change();
-					$("#update_staff_desc_id").val(paymentsalarydata.tmsId).change();
-					$("#update_rank_desc_id").val(paymentsalarydata.tmrId).change();
-					$("#update_military_specialty_acc").val(paymentsalarydata.military_specialty_acc);
-					$("#update_military_fitness_service").val(paymentsalarydata.military_fitness_service);
-					$("#update_military_registration_service").val(paymentsalarydata.military_registration_service);
-					$("#update_military_registration_date").val(paymentsalarydata.military_registr_date);
-					$("#update_military_general").val(paymentsalarydata.military_general);
-					$("#update_military_special").val(paymentsalarydata.military_special);
-					$("#update_military_no_official").val(paymentsalarydata.military_no_official);
-					$("#update_military_additional_information").val(paymentsalarydata.military_additional_information);
-					$("#update_military_date_completion").val(paymentsalarydata.military_date_comp);
-					$('#modalEditPaymentSalary').modal('show');
+					// $("#update_paymentsalaryid").val(paymentsalarydata.id).change();
+					// $("#update_militaryempid").val(paymentsalarydata.teId).change();
+					// $("#update_military_reg_group").val(paymentsalarydata.military_reg_group).change();
+					// $("#update_military_reg_category").val(paymentsalarydata.military_reg_category).change();
+					// $("#update_staff_desc_id").val(paymentsalarydata.tmsId).change();
+					// $("#update_rank_desc_id").val(paymentsalarydata.tmrId).change();
+					// $("#update_military_specialty_acc").val(paymentsalarydata.military_specialty_acc);
+					// $("#update_military_fitness_service").val(paymentsalarydata.military_fitness_service);
+					// $("#update_military_registration_service").val(paymentsalarydata.military_registration_service);
+					// $("#update_military_registration_date").val(paymentsalarydata.military_registr_date);
+					// $("#update_military_general").val(paymentsalarydata.military_general);
+					// $("#update_military_special").val(paymentsalarydata.military_special);
+					// $("#update_military_no_official").val(paymentsalarydata.military_no_official);
+					// $("#update_military_additional_information").val(paymentsalarydata.military_additional_information);
+					// $("#update_military_date_completion").val(paymentsalarydata.military_date_comp);
+					// $('#modalEditPaymentSalary').modal('show');
 				}
 				else {
-					var military_reg_category=''
-					var military_reg_group=''
-					if(paymentsalarydata.military_reg_category==1){
-						military_reg_category='Kateqoriya 1'
-					}else{
-						military_reg_category='Kateqoriya 2'
-					}
-					if(paymentsalarydata.military_reg_group==1){
-						military_reg_group='Çağırışçı'
-					}else{
-						military_reg_group='Hərbi vəzifəli'
-					}
-					$("#view_militaryemp").val(paymentsalarydata.full_name);
-					$("#view_military_reg_group").val(military_reg_group);
-					$("#view_military_reg_category").val(military_reg_category);
-					$("#view_staff_desc_id").val(paymentsalarydata.tmsStaffDesc);
-					$("#view_rank_desc_id").val(paymentsalarydata.tmrRankDesc);
-					$("#view_military_specialty_acc").val(paymentsalarydata.military_specialty_acc);
-					$("#view_military_fitness_service").val(paymentsalarydata.military_fitness_service);
-					$("#view_military_registration_service").val(paymentsalarydata.military_registration_service);
-					$("#view_military_registration_date").val(paymentsalarydata.military_registr_date);
-					$("#view_military_general").val(paymentsalarydata.military_general);
-					$("#view_military_special").val(paymentsalarydata.military_special);
-					$("#view_military_no_official").val(paymentsalarydata.military_no_official);
-					$("#view_military_additional_information").val(paymentsalarydata.military_additional_information);
-					$("#view_military_date_completion").val(paymentsalarydata.military_date_comp);
-					$('#modalViewPaymentSalary').modal('show');
+					// var military_reg_category=''
+					// var military_reg_group=''
+					// if(paymentsalarydata.military_reg_category==1){
+					// 	military_reg_category='Kateqoriya 1'
+					// }else{
+					// 	military_reg_category='Kateqoriya 2'
+					// }
+					// if(paymentsalarydata.military_reg_group==1){
+					// 	military_reg_group='Çağırışçı'
+					// }else{
+					// 	military_reg_group='Hərbi vəzifəli'
+					// }
+					// $("#view_militaryemp").val(paymentsalarydata.full_name);
+					// $("#view_military_reg_group").val(military_reg_group);
+					// $("#view_military_reg_category").val(military_reg_category);
+					// $("#view_staff_desc_id").val(paymentsalarydata.tmsStaffDesc);
+					// $("#view_rank_desc_id").val(paymentsalarydata.tmrRankDesc);
+					// $("#view_military_specialty_acc").val(paymentsalarydata.military_specialty_acc);
+					// $("#view_military_fitness_service").val(paymentsalarydata.military_fitness_service);
+					// $("#view_military_registration_service").val(paymentsalarydata.military_registration_service);
+					// $("#view_military_registration_date").val(paymentsalarydata.military_registr_date);
+					// $("#view_military_general").val(paymentsalarydata.military_general);
+					// $("#view_military_special").val(paymentsalarydata.military_special);
+					// $("#view_military_no_official").val(paymentsalarydata.military_no_official);
+					// $("#view_military_additional_information").val(paymentsalarydata.military_additional_information);
+					// $("#view_military_date_completion").val(paymentsalarydata.military_date_comp);
+					// $('#modalViewPaymentSalary').modal('show');
 				}
 			}
 		);
