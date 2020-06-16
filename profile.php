@@ -4,11 +4,12 @@ include('session.php');
 if(isset($_GET['empid'])){
     $emp_id=$_GET['empid'];
 }
+echo $emp_id;
  $ses_users ="select * from $tbl_users where emp_id =$emp_id ";
+ echo '$ses_users='.$ses_users;
 $result_users = $db->query($ses_users);
 $login_session = '';
 $u_photo = '';
-$emp_id = '';
 $company_id = '';
 $login_fullname= '';
 $login_lang = '';
@@ -17,18 +18,27 @@ if ($result_users->num_rows > 0) {
 
         $login_session = $row_users['username'];
         $u_photo = $row_users['u_photo'];
-        $emp_id = $row_users['emp_id'];
         $company_id = $row_users['company_id'];
         $login_fullname= $row_users['firstname'].' '.$row['lastname'];
         $login_lang = $row_users['def_lang'];
 
     }
 }
-
-
-
-
 $sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
+echo $sql_employees;
+$result_emp = $db->query($sql_employees);
+if ($result_emp->num_rows > 0) {
+    while($row_users = $result_emp->fetch_assoc()) {
+        if($u_photo==''){
+            $u_photo = $row_users['image_name'];
+        }
+
+
+
+    }
+}
+
+
  $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
 $tbl_education  ee left  join
 $tbl_universities u on ee.institution_id=u.id left  join
@@ -68,6 +78,7 @@ $sql_users= "select te.*,tc.company_name
 from $tbl_employees te
 inner  join  $tbl_companies tc  on tc.id=$company_id
 where  te.emp_status=1   and  te.id=$emp_id ";
+echo '$sql_users='.$sql_users;
 $id = '';
 $firstname = '';
 $lastname = '';
