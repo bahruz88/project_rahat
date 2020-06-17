@@ -463,7 +463,7 @@ if ($result_positions->num_rows > 0) {
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
                                     <li Class="nav-item"><a href="#employees"   class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["employees"];?></a></li>
-                                    <li class="nav-item dropdown" >
+                                    <li class="nav-item dropdown" id="edu" >
                                         <a class="nav-link dropdown-toggle"   data-toggle="dropdown" id="qual" href="#"     ><?php echo $dil["qualification"];?></a>
                                         <div class="dropdown-menu dropdown-menu-lg  ">
                                             <a class="dropdown-item" id="eduinfotab" href="#eduinfo" data-toggle="tab">  <?php echo $dil["education_informations"];?></a>
@@ -490,10 +490,7 @@ if ($result_positions->num_rows > 0) {
                                             <a class="dropdown-item" href="#previousPositions"    id="previousPositionstab" data-toggle="tab">Əvvəlki iş yerləri</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-                                </ul>
+                                   </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
@@ -1242,7 +1239,32 @@ if ($result_positions->num_rows > 0) {
                 }
             });
         }));
+
+
+
+
     });
+    var atextEdu=$('#qual').text()
+    var atextOther=$('#qual2').text()
+    $(".dropdown-menu").on("click", "a", function () {
+        console.log('sdsfsdf')
+        var item=$(this).text();
+        var parentId=$(this).closest('li').find('.dropdown-toggle').attr('id')
+        if(parentId=='qual'){
+            $(this).closest('li').find('a.nav-link').html(atextEdu+'/'+item)
+
+        }else{
+            $(this).closest('li').find('a.nav-link').html(atextOther+'/'+item)
+        }
+    })
+    // $('#edu').on('change', function() {
+    //     console.log('sss')
+    // });
+    // $("#eduinfotab").on('click',(function(e) {
+    //     console.log('salam='+$(this).closest('li').find('a').text())
+    //     $(this).closest('li').find('a').append('/salam')
+    //     console.log('salam2='+$(this).closest('li').find('a').text())
+    // });
 </script>
 </body>
 </html>
