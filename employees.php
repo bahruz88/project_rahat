@@ -226,18 +226,17 @@
 
   <?php 
   include  ('employees/mainInfoModal.php');
-  include  ('education/educationModal.php');
-  include  ('certification/certificationModal.php');
-  include  ('skills/skillsModal.php');
-  include  ('emp_lang/langModal.php');
-  include  ('military_info/militaryInfoModal.php');
   include  ('payment_salary/paymentSalaryModal.php');
   include  ('family_info/familyInfoModal.php');
   include  ('driver_license/drivingLicenseInfoModal.php');
   include  ('medical_info/medicalInfoModal.php');
   include  ('previous_positions/previousPositionsModal.php');
   include  ('migration_info/migrationInfoModal.php');
-
+  include  ('emp_lang/langModal.php');
+  include  ('education/educationModal.php');
+  include  ('certification/certificationModal.php');
+  include  ('skills/skillsModal.php');
+  include  ('military_info/militaryInfoModal.php');
   ?>
   
   
