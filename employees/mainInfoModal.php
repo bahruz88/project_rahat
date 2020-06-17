@@ -4,6 +4,10 @@
         margin-bottom: 5px;
         font-weight: 700;
     }
+    .profile-user-img{
+        width:100px;
+        height:100px;
+    }
 </style>
 <!--EMPLOYEE İNSERT MODAL -->
   <div class="modal fade" id="myModal" role="dialog" data-keyboard="false" data-backdrop="static">

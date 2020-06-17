@@ -2014,6 +2014,7 @@ $("#familiyInfoUpdate").submit(function(e)
 				// PARSE json data
 				var militarydata = JSON.parse(military_data);
 				console.log('militarydata=',militarydata)
+				console.log('militarydata.military_specialty_acc='+militarydata.military_specialty_acc)
 
 				if  (optype=='update') {
 					console.log('update=')

@@ -4,9 +4,8 @@ include('session.php');
 if(isset($_GET['empid'])){
     $emp_id=$_GET['empid'];
 }
-echo $emp_id;
 $sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
-echo $sql_employees;
+//echo $sql_employees;
 $u_photo = '';
 $result_emp = $db->query($sql_employees);
 if ($result_emp->num_rows > 0) {
@@ -15,7 +14,7 @@ if ($result_emp->num_rows > 0) {
     }
 }
  $ses_users ="select * from $tbl_users where emp_id =$emp_id ";
- echo '$ses_users='.$ses_users;
+// echo '$ses_users='.$ses_users;
 $result_users = $db->query($ses_users);
 $login_session = '';
 
@@ -77,7 +76,7 @@ $sql_users= "select te.*,tc.company_name
 from $tbl_employees te
 inner  join  $tbl_companies tc  on tc.id=$company_id
 where  te.emp_status=1   and  te.id=$emp_id ";
-echo '$sql_users='.$sql_users;
+//echo '$sql_users='.$sql_users;
 $id = '';
 $firstname = '';
 $lastname = '';
@@ -361,6 +360,10 @@ if ($result_positions->num_rows > 0) {
             box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
             margin:10px;
             padding:10px;
+        }
+        .profile-user-img{
+            width:100px;
+            height:100px;
         }
     </style>
 </head>
