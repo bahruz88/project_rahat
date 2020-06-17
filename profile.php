@@ -5,11 +5,20 @@ if(isset($_GET['empid'])){
     $emp_id=$_GET['empid'];
 }
 echo $emp_id;
+$sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
+echo $sql_employees;
+$u_photo = '';
+$result_emp = $db->query($sql_employees);
+if ($result_emp->num_rows > 0) {
+    while($row_users = $result_emp->fetch_assoc()) {
+            $u_photo = $row_users['image_name'];
+    }
+}
  $ses_users ="select * from $tbl_users where emp_id =$emp_id ";
  echo '$ses_users='.$ses_users;
 $result_users = $db->query($ses_users);
 $login_session = '';
-$u_photo = '';
+
 $company_id = '';
 $login_fullname= '';
 $login_lang = '';
@@ -17,26 +26,16 @@ if ($result_users->num_rows > 0) {
     while($row_users = $result_users->fetch_assoc()) {
 
         $login_session = $row_users['username'];
-        $u_photo = $row_users['u_photo'];
+        if($u_photo==''){
+            $u_photo = $row_users['u_photo'];
+        }
         $company_id = $row_users['company_id'];
         $login_fullname= $row_users['firstname'].' '.$row['lastname'];
         $login_lang = $row_users['def_lang'];
 
     }
 }
-$sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
-echo $sql_employees;
-$result_emp = $db->query($sql_employees);
-if ($result_emp->num_rows > 0) {
-    while($row_users = $result_emp->fetch_assoc()) {
-        if($u_photo==''){
-            $u_photo = $row_users['image_name'];
-        }
 
-
-
-    }
-}
 
 
  $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
@@ -460,9 +459,9 @@ if ($result_positions->num_rows > 0) {
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
-                                    <li Class="nav-item"><a href="#employees"  style="border-radius:0px;color:#494e53;" class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["employees"];?></a></li>
+                                    <li Class="nav-item"><a href="#employees"   class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["employees"];?></a></li>
                                     <li class="nav-item dropdown" >
-                                        <a class="nav-link dropdown-toggle" style="border-radius:0px;color:#494e53;" data-toggle="dropdown" id="qual" href="#"     ><?php echo $dil["qualification"];?></a>
+                                        <a class="nav-link dropdown-toggle"   data-toggle="dropdown" id="qual" href="#"     ><?php echo $dil["qualification"];?></a>
                                         <div class="dropdown-menu dropdown-menu-lg  ">
                                             <a class="dropdown-item" id="eduinfotab" href="#eduinfo" data-toggle="tab">  <?php echo $dil["education_informations"];?></a>
                                             <a class="dropdown-item" id="certtab" href="#certification" data-toggle="tab"> <?php echo $dil["certification_info"];?></a>
@@ -471,16 +470,16 @@ if ($result_positions->num_rows > 0) {
 
                                         </div>
                                     </li>
-                                    <li Class="nav-item"><a href="#aileinfo" id="aileinfotab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >
+                                    <li Class="nav-item"><a href="#aileinfo" id="aileinfotab"    class="nav-link" role="tab" data-toggle="tab" >
                                             <?php echo $dil["family_information"];?> </a></li>
 
-                                    <li Class="nav-item"><a href="#militaryInfo" id="militaryInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
-                                    <li Class="nav-item"><a href="#paymentSalary"  id="paymentSalarytab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>
-                                    <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Struktur </a></li>
-                                    <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Iş yeri barədə </a></li>
+                                    <li Class="nav-item"><a href="#militaryInfo" id="militaryInfotab"   class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
+                                    <li Class="nav-item"><a href="#paymentSalary"  id="paymentSalarytab"   class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>
+                                    <li Class="nav-item"><a href="#mysqltab"    class="nav-link" role="tab" data-toggle="tab" > Struktur </a></li>
+                                    <li Class="nav-item"><a href="#mysqltab"    class="nav-link" role="tab" data-toggle="tab" > Iş yeri barədə </a></li>
 
                                     <li class="nav-item dropdown" >
-                                        <a class="nav-link dropdown-toggle" style="border-radius:0px;color:#494e53;" data-toggle="dropdown" href="#"   id="qual2"  ><?php echo $dil["other_informations"];?></a>
+                                        <a class="nav-link dropdown-toggle"   data-toggle="dropdown" href="#"   id="qual2"  ><?php echo $dil["other_informations"];?></a>
                                         <div class="dropdown-menu dropdown-menu-lg  ">
                                             <a class="dropdown-item" href="#drivingLicense"  id="drivingLicensetab" data-toggle="tab">Sürücülük vəsiqəsi</a>
                                             <a class="dropdown-item" href="#migrationInfo"   id="migrationInfotab" data-toggle="tab">Miqrasiya Məlumatları</a>

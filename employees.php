@@ -221,7 +221,7 @@
           </div>
           <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->military_info_table
+        <!-- /.modal-dialog -->
       </div>	  
 
   <?php 
