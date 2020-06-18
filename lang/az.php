@@ -50,8 +50,29 @@ $dil = array(
 	"firstname" 	=>"Ad",
 	"lastname" 		=>"Soyad",
 	"email" 		=>"Email",
-	"company_name" 		=>"Şirkətin adı",
-	/*employee end*/
+    /*employee end*/
+    /*company start*/
+	"company_name" 	            =>"Şirkətin adı",
+	"voen" 		                =>"VÖEN",
+	"sun" 		                =>"SUN",
+	"bank_name" 	            =>"Bank adı",
+	"code" 	                    =>"Kod",
+	"bank_filial" 		            =>"Filial",
+	"bank_voen" 	            =>"Bank VÖEN",
+	"cor_account" 	            =>"Müxbir hesab",
+	"swift" 	                =>"S.W.İ.F.T",
+	"azn_account" 	            =>"AZN Hesab",
+	"usd_account" 	            =>"USD Hesab",
+	"eur_account" 	            =>"EUR Hesab",
+	"country" 	                =>"Ölkə",
+	"city" 	                    =>"Şəhər",
+	"poct_index" 	            =>"Poçt indeksi",
+	"tel" 	                    =>"Telefon",
+	"enterprise_head_fullname" 	=>"Müəssisənin rəhbərinin S.A.A",
+	"enterprise_head_position" 	=>"Müəssisə rəhbərinin vəzifəsi",
+	"founder" 	                =>"Təsisçi",
+    /*company end*/
+
 	
 	"userlevel" 	    =>"İstifadəçi Rolu" ,
 	"userrole" 		    =>"İşçi Rolu" ,
@@ -197,6 +218,8 @@ $dil = array(
     "prev_employer"   =>"İşəgötürənin adı",
     "date_range"   =>"Tarix aralığı",
     "leave_reason"   =>"İşdən çıxma səbəbi",
+    "sector"   =>"Fəaliyyət sektoru",
+
     "sector"   =>"Fəaliyyət sektoru",
 
 	"time_management"   =>"İş vaxtının uçotu",

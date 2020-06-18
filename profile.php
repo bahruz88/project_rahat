@@ -818,7 +818,7 @@ if ($result_positions->num_rows > 0) {
 
                                             <div class="col-md-6">
                                                 <label class="col-sm-8 col-form-label" for="cat_desc"><?php echo $dil["driving_category"];?></label>
-                                                <input type="text" class="form-control" id="cat_desc" name="cat_desc" value="<?php echo $cat_desc; ?>"  placeholder="<?php echo $dil["cat_desc"];?>" readonly />
+                                                <input type="text" class="form-control" id="cat_desc" name="cat_desc" value="<?php echo $cat_desc; ?>"  placeholder="<?php echo $dil["driving_category"];?>" readonly />
                                             </div>
 
                                             <div class="col-md-6">
@@ -828,12 +828,12 @@ if ($result_positions->num_rows > 0) {
 
                                             <div class="col-md-6">
                                                 <label class="col-sm-8 col-form-label" for="lic_issue_date"><?php echo $dil["driving_date_issue_card"];?></label>
-                                                <input type="text" class="form-control" id="lic_issue_date" name="lic_issue_date" value="<?php echo $lic_issue_date; ?>"  placeholder="<?php echo $dil["lic_issue_date"];?>" readonly />
+                                                <input type="text" class="form-control" id="lic_issue_date" name="lic_issue_date" value="<?php echo $lic_issue_date; ?>"  placeholder="<?php echo $dil["driving_date_issue_card"];?>" readonly />
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label class="col-sm-8 col-form-label" for="expire_date"><?php echo $dil["driving_period_validity"];?></label>
-                                                <input type="text" class="form-control" id="expire_date" name="expire_date" value="<?php echo $expire_date; ?>"  placeholder="<?php echo $dil["expire_date"];?>" readonly />
+                                                <input type="text" class="form-control" id="expire_date" name="expire_date" value="<?php echo $expire_date; ?>"  placeholder="<?php echo $dil["driving_period_validity"];?>" readonly />
                                             </div>
                                         </div>
 
@@ -1253,9 +1253,11 @@ if ($result_positions->num_rows > 0) {
         var parentId=$(this).closest('li').find('.dropdown-toggle').attr('id')
         if(parentId=='qual'){
             $(this).closest('li').find('a.nav-link').html(atextEdu+'/'+item)
+            $('#qual2').text(atextOther)
 
         }else{
             $(this).closest('li').find('a.nav-link').html(atextOther+'/'+item)
+            $('#qual').text(atextEdu)
         }
     })
     // $('#edu').on('change', function() {

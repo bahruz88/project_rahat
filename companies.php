@@ -220,7 +220,7 @@ $result_roles_view = $db->query($sql_roles);
               <p><?php echo $dil["delete_warning_content"];?></p>
             </div>
             <div class="modal-footer justify-content-between">
-			  <form id="userDelete" method="post" class="form-horizontal" action="">
+			  <form id="companyDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
 			  <input type="hidden" id="userid" name="userid" value="" /> 
 			  </form>
@@ -237,7 +237,7 @@ $result_roles_view = $db->query($sql_roles);
   <!--USER İNSERT MODAL -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
-    <form id="userInsert" method="post" class="form-horizontal" action="">
+    <form id="companyInsert" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
       <div class="modal-content">
       
@@ -350,7 +350,7 @@ $result_roles_view = $db->query($sql_roles);
    <!--USER EDİT MODAL -->
   <div class="modal fade" id="modalEdit" role="dialog">
     <div class="modal-dialog modal-lg">
-    <form id="userUpdate" method="post" class="form-horizontal" action="">
+    <form id="companyUpdate" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
       <div class="modal-content">
       
@@ -460,7 +460,7 @@ $result_roles_view = $db->query($sql_roles);
 						 
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_userid" name="update_userid" value="" /> 			 
+		<input type="hidden" id="update_companyid" name="update_companyid" value="" /> 			 
         </div>	
 		</form>
       </div>
@@ -570,30 +570,48 @@ $result_roles_view = $db->query($sql_roles);
       
     </div>
   </div>
- 
- 
- 
- 
-		   <table id="user_table" class="table table-striped  table-bordered table-hover">
+
+    <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
+        <div class="tab-pane active" id="employees">
+
+
+        <table id="company_table" class="table table-striped  table-bordered table-hover">
                 <thead>
                <tr>
                         <th>id</th>
-                        <th>İstifadəçi  adı </th>
-						<th>Adı</th>
-						<th>Soyadı</th>
-						<th>Mail</th>
-						<th>İş yeri</th>
-						<th>Statusu</th>
-						<th>Action</th>
+                        <th><?php echo $dil["fio"];?></th>
+                        <th><?php echo $dil["company_name"];?></th>
+                        <th><?php echo $dil["voen"];?></th>
+                        <th><?php echo $dil["sun"];?></th>
+                        <th><?php echo $dil["bank_name"];?></th>
+                        <th><?php echo $dil["bank_filial"];?></th>
+                        <th><?php echo $dil["code"];?></th>
+                        <th><?php echo $dil["bank_voen"];?></th>
+                        <th><?php echo $dil["cor_account"];?></th>
+                        <th><?php echo $dil["swift"];?></th>
+                        <th><?php echo $dil["azn_account"];?></th>
+                        <th><?php echo $dil["usd_account"];?></th>
+                        <th><?php echo $dil["eur_account"];?></th>
+                        <th><?php echo $dil["country"];?></th>
+                        <th><?php echo $dil["city"];?></th>
+                        <th><?php echo $dil["address"];?></th>
+                        <th><?php echo $dil["poct_index"];?></th>
+                        <th><?php echo $dil["tel"];?></th>
+                        <th><?php echo $dil["enterprise_head_fullname"];?></th>
+                        <th><?php echo $dil["enterprise_head_position"];?></th>
+                        <th><?php echo $dil["founder"];?></th>
+
+
                    </tr>
-                </thead>  
-	
+                </thead>
+
               </table>
-            
+
+          </div>
           </div>
 
           </div>
-		  
+
 
 </div>
 </div>
@@ -648,7 +666,7 @@ $result_roles_view = $db->query($sql_roles);
   $(function () {
  
 /*FORM  VALIDATE */	  
- 			$( "#userInsert" ).validate( {
+ 			$( "#companyInsert" ).validate( {
 				rules: {
 					firstname: "required",
 					lastname: "required",
@@ -696,7 +714,7 @@ $result_roles_view = $db->query($sql_roles);
  
  
  
-  			$( "#userUpdate" ).validate( {
+  			$( "#companyUpdate" ).validate( {
 				
 				rules: {
 					update_firstname: "required",
@@ -766,8 +784,8 @@ $result_roles_view = $db->query($sql_roles);
 /*LOAD  USER TABLE */
 	
 	
-var table = $("#user_table").DataTable({
-	
+var table = $("#company_table").DataTable({
+    "scrollX": true,
   "paging": true,
       "lengthChange": false,
       "searching": true,
@@ -786,7 +804,7 @@ var table = $("#user_table").DataTable({
     }
         },
 	    "ajax": {
-                url: "user/get_users.php",
+                url: "company/get_company.php",
                 type: "POST"
             },"columnDefs": [ {
 			"width": "8%",
@@ -829,33 +847,33 @@ var table = $("#user_table").DataTable({
  $( ".dt-buttons" ).prepend( $( "<a class='dt-button buttons-excel buttons-html5' id='add_new_item'  data-toggle='modal' data-target='#myModal'><?php echo $dil['addnew'];?> <i class='fa fa-plus'></i></a>" ) );
   
   /*Button  click  on grid */
-	$('#user_table tbody').on( 'click', '#delete', function () {
+	$('#company_table tbody').on( 'click', '#delete', function () {
         var data = table.row( $(this).parents('tr') ).data();
         document.getElementById("userid").value = data[0];
 		$('#modalDelete').modal('show');
     } );
 	
 
-  $('#user_table tbody').on( 'click', '#edit', function () {
+  $('#company_table tbody').on( 'click', '#edit', function () {
         var data = table.row( $(this).parents('tr') ).data();
-		GetUserDetails(data[0],'update');
-		document.getElementById("update_userid").value = data[0];
+		GetCompanyDetails(data[0],'update');
+		document.getElementById("update_companyid").value = data[0];
 		 
     } );
  
-$('#user_table tbody').on( 'click', '#view', function () {
+$('#company_table tbody').on( 'click', '#view', function () {
         var data = table.row( $(this).parents('tr') ).data();
-		GetUserDetails(data[0],'view');
-		document.getElementById("update_userid").value = data[0];
+		GetCompanyDetails(data[0],'view');
+		document.getElementById("update_companyid").value = data[0];
 		 
     } );
 
 
  
  	/*USERIN  UPDATE MELUMATLARINI  GETIRIR*/
-	 function GetUserDetails(userid,optype) 
+	 function GetCompanyDetails(userid,optype) 
 	 {
-			$.post("user/getUserDetail.php", 
+			$.post("company/getCompanyDetail.php", 
 				{
 					userid: userid
 				},
@@ -893,13 +911,13 @@ $('#user_table tbody').on( 'click', '#view', function () {
 }
  
  /*USER MELUMATLARI  DAXIL  EDILIR  */
-		$("#userInsert").submit(function(e)
+		$("#companyInsert").submit(function(e)
 		{
                     e.preventDefault();
-					if($("#userInsert").valid())
+					if($("#companyInsert").valid())
 			{ 
                     $.ajax( {
-                        url: "user/userInsert.php",
+                        url: "company/companyInsert.php",
                         method: "post",
                         data: $("form").serialize(),
                         dataType: "text",
@@ -936,16 +954,16 @@ $('#user_table tbody').on( 'click', '#view', function () {
 						}
                     });
 				    table.ajax.reload();
-					$( "#userInsert" ).get(0).reset();
+					$( "#companyInsert" ).get(0).reset();
 			}
         });
 				
 				
-	$("#userDelete").submit(function(e) {
+	$("#companyDelete").submit(function(e) {
 		
                     e.preventDefault();
                     $.ajax( {
-                        url: "user/userDelete.php",
+                        url: "company/companyDelete.php",
                         method: "post",
                         data: $("form").serialize(),
                         dataType: "text",
@@ -971,11 +989,11 @@ $('#user_table tbody').on( 'click', '#view', function () {
 				
 				
 				
-	$("#userUpdate").submit(function(e) {
+	$("#companyUpdate").submit(function(e) {
                     e.preventDefault();
-			 if($("#userUpdate").valid()){ 
+			 if($("#companyUpdate").valid()){ 
                     $.ajax( {
-                        url: "user/userUpdate.php",
+                        url: "company/companyUpdate.php",
                         method: "post",
                         data: $("form").serialize(),
                         dataType: "text",
