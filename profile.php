@@ -345,6 +345,9 @@ if ($result_positions->num_rows > 0) {
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <style>
@@ -1185,10 +1188,8 @@ if ($result_positions->num_rows > 0) {
                 <!-- /.nav-tabs-custom -->
             </div>
             <!-- /.col -->
-    </div>
-    <!-- /.row -->
-</div><!-- /.container-fluid -->
-</section>
+
+        </section>
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
@@ -1266,5 +1267,8 @@ if ($result_positions->num_rows > 0) {
     //     console.log('salam2='+$(this).closest('li').find('a').text())
     // });
 </script>
+
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 </body>
 </html>
