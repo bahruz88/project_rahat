@@ -368,7 +368,7 @@ if ($result_positions->num_rows > 0) {
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
     <!-- Navbar -->
     <?php  include ("navbar.php")?>
