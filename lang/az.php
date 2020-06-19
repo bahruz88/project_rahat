@@ -57,7 +57,7 @@ $dil = array(
 	"sun" 		                =>"SUN",
 	"bank_name" 	            =>"Bank adı",
 	"code" 	                    =>"Kod",
-	"bank_filial" 		            =>"Filial",
+	"bank_filial" 		        =>"Filial",
 	"bank_voen" 	            =>"Bank VÖEN",
 	"cor_account" 	            =>"Müxbir hesab",
 	"swift" 	                =>"S.W.İ.F.T",
@@ -71,6 +71,10 @@ $dil = array(
 	"enterprise_head_fullname" 	=>"Müəssisənin rəhbərinin S.A.A",
 	"enterprise_head_position" 	=>"Müəssisə rəhbərinin vəzifəsi",
 	"founder" 	                =>"Təsisçi",
+    "company_insert_title"      =>"Yeni şirkət məlumatlarının daxil edilməsi",
+    "company_edit_title"        =>"Şirkət məlumatlarının dəyişdirilməsi",
+    "company_view_title"        =>"Şirkət məlumatlarına baxış",
+
     /*company end*/
 
 	
