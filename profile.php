@@ -5,14 +5,16 @@ if(isset($_GET['empid'])){
     $emp_id=$_GET['empid'];
 }
 $sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
-//echo $sql_employees;
 $u_photo = '';
 $result_emp = $db->query($sql_employees);
-if ($result_emp->num_rows > 0) {
-    while($row_users = $result_emp->fetch_assoc()) {
+if($result_emp){
+    if ($result_emp->num_rows > 0) {
+        while($row_users = $result_emp->fetch_assoc()) {
             $u_photo = $row_users['image_name'];
+        }
     }
 }
+
  $ses_users ="select * from $tbl_users where emp_id =$emp_id ";
 // echo '$ses_users='.$ses_users;
 $result_users = $db->query($ses_users);
@@ -21,19 +23,22 @@ $login_session = '';
 $company_id = '';
 $login_fullname= '';
 $login_lang = '';
-if ($result_users->num_rows > 0) {
-    while($row_users = $result_users->fetch_assoc()) {
+if($result_users){
+    if ($result_users->num_rows > 0) {
+        while($row_users = $result_users->fetch_assoc()) {
 
-        $login_session = $row_users['username'];
-        if($u_photo==''){
-            $u_photo = $row_users['u_photo'];
+            $login_session = $row_users['username'];
+            if($u_photo==''){
+                $u_photo = $row_users['u_photo'];
+            }
+            $company_id = $row_users['company_id'];
+            $login_fullname= $row_users['firstname'].' '.$row['lastname'];
+            $login_lang = $row_users['def_lang'];
+
         }
-        $company_id = $row_users['company_id'];
-        $login_fullname= $row_users['firstname'].' '.$row['lastname'];
-        $login_lang = $row_users['def_lang'];
-
     }
 }
+
 
 
 
@@ -42,20 +47,23 @@ $tbl_education  ee left  join
 $tbl_universities u on ee.institution_id=u.id left  join
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
 $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
-$result_education_view = $db->query($sql_education);
+$result_education = $db->query($sql_education);
 $uni_name='';
 $faculty='';
 $profession='';
 $qualification='';
-if ($result_education_view->num_rows > 0) {
-    while($row_edu = $result_education_view->fetch_assoc()) {
+if($result_education){
+    if ($result_education->num_rows > 0) {
+        while($row_edu = $result_education->fetch_assoc()) {
 
-        $uni_name=$row_edu['uni_name'];
-        $faculty=$row_edu['faculty'];
-        $profession=$row_edu['profession'];
-        $qualification=$row_edu['qualification'];
+            $uni_name=$row_edu['uni_name'];
+            $faculty=$row_edu['faculty'];
+            $profession=$row_edu['profession'];
+            $qualification=$row_edu['qualification'];
         }
+    }
 }
+
 
 $sql_skill = "
 SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname
@@ -64,13 +72,16 @@ where tes.skill_status =1 and  te.emp_status=1 and  te.id=$emp_id";
 $result_skill = $db->query($sql_skill);
 $skill_name=[];
 $skill_descr=[];
-if ($result_skill->num_rows > 0) {
-    while($row_skill = $result_skill->fetch_assoc()) {
-        array_push($skill_name, $row_skill['skill_name']);
-        array_push($skill_descr, $row_skill['skill_descr']);
+if($result_skill){
+    if ($result_skill->num_rows > 0) {
+        while($row_skill = $result_skill->fetch_assoc()) {
+            array_push($skill_name, $row_skill['skill_name']);
+            array_push($skill_descr, $row_skill['skill_descr']);
 
+        }
     }
 }
+
 
 $sql_users= "select te.*,tc.company_name
 from $tbl_employees te
@@ -88,20 +99,23 @@ $birthdate = '';
 $company_name = '';
 $living_address = '';
 $result_users = $db->query($sql_users);
-if ($result_users->num_rows > 0) {
-    while($row= $result_users->fetch_assoc()) {
-        $id = $row['id'];
-        $firstname = $row['firstname'];
-        $lastname = $row['lastname'];
-        $surname = $row['surname'];
-        $reg_mail = $row['email'];
-        $home_tel = $row['home_tel'];
-        $mob_tel = $row['mob_tel'];
-        $birthdate = $row['birth_date'];
-        $company_name = $row['company_name'];
-        $living_address = $row['living_address'];
+if($result_users){
+    if ($result_users->num_rows > 0) {
+        while($row= $result_users->fetch_assoc()) {
+            $id = $row['id'];
+            $firstname = $row['firstname'];
+            $lastname = $row['lastname'];
+            $surname = $row['surname'];
+            $reg_mail = $row['email'];
+            $home_tel = $row['home_tel'];
+            $mob_tel = $row['mob_tel'];
+            $birthdate = $row['birth_date'];
+            $company_name = $row['company_name'];
+            $living_address = $row['living_address'];
+        }
     }
 }
+
 
 $sql_certification= "select * 
 from $tbl_certification 
@@ -113,15 +127,18 @@ $training_center_name = [];
 $training_name = [];
 $training_date =[];
 $cert_given_date = [];
-if ($result_certification->num_rows > 0) {
-while($row_skill= $result_certification->fetch_assoc()) {
-    array_push($training_center_name, $row_skill['training_center_name']);
-    array_push($training_name, $row_skill['training_name']);
-    array_push($training_date, $row_skill['training_date']);
-    array_push($cert_given_date, $row_skill['cert_given_date']);
+if($result_certification){
+    if ($result_certification->num_rows > 0) {
+        while($row_skill= $result_certification->fetch_assoc()) {
+            array_push($training_center_name, $row_skill['training_center_name']);
+            array_push($training_name, $row_skill['training_name']);
+            array_push($training_date, $row_skill['training_date']);
+            array_push($cert_given_date, $row_skill['cert_given_date']);
 
+        }
+    }
 }
-}
+
 
 $sql_langKnow= "select tlk.*,tl.lang_name ,tll.level_name speaking,tllr.level_name reading,tllw.level_name writing,tllu.level_name understanding 
 from $tbl_language_knowledge  tlk
@@ -138,16 +155,19 @@ $speaking = [];
 $reading = [];
 $writing = [];
 $understanding = [];
-if ($result_lang->num_rows > 0) {
-while($row_lang= $result_lang->fetch_assoc()) {
-    array_push($lang_name, $row_lang['lang_name']);
-    array_push($speaking, $row_lang['speaking']);
-    array_push($reading, $row_lang['reading']);
-    array_push($writing, $row_lang['writing']);
-    array_push($understanding, $row_lang['understanding']);
+if($result_lang){
+    if ($result_lang->num_rows > 0) {
+        while($row_lang= $result_lang->fetch_assoc()) {
+            array_push($lang_name, $row_lang['lang_name']);
+            array_push($speaking, $row_lang['speaking']);
+            array_push($reading, $row_lang['reading']);
+            array_push($writing, $row_lang['writing']);
+            array_push($understanding, $row_lang['understanding']);
 
+        }
+    }
 }
-}
+
 $sql_family= "select tef.*,tf.type_desc member,ts.descr gender 
 from $tbl_employee_family_info tef
 inner  join  $tbl_family_member_types tf  on tef.member_type=tf.id
@@ -163,19 +183,22 @@ $birth_date = [];
 $contact_number = [];
 $adress = [];
 $member = [];
-if ($result_family->num_rows > 0) {
-    while($row_fam= $result_family->fetch_assoc()) {
-        array_push($m_firstname, $row_fam['m_firstname']);
-        array_push($m_lastname, $row_fam['m_lastname']);
-        array_push($m_surname, $row_fam['m_surname']);
-        array_push($gender, $row_fam['gender']);
-        array_push($birth_date, $row_fam['birth_date']);
-        array_push($contact_number, $row_fam['contact_number']);
-        array_push($adress, $row_fam['adress']);
-        array_push($member, $row_fam['member']);
+if($result_family){
+    if ($result_family->num_rows > 0) {
+        while($row_fam= $result_family->fetch_assoc()) {
+            array_push($m_firstname, $row_fam['m_firstname']);
+            array_push($m_lastname, $row_fam['m_lastname']);
+            array_push($m_surname, $row_fam['m_surname']);
+            array_push($gender, $row_fam['gender']);
+            array_push($birth_date, $row_fam['birth_date']);
+            array_push($contact_number, $row_fam['contact_number']);
+            array_push($adress, $row_fam['adress']);
+            array_push($member, $row_fam['member']);
 
+        }
     }
 }
+
 $sql_militaryInfo= "select tmi.*,tmr.rank_desc,tms.staff_desc 
 from $tbl_military_information tmi
 inner  join  $tbl_military_rank tmr  on tmr.rank_id=tmi.military_rank
@@ -196,34 +219,37 @@ $military_special = [];
 $military_no_official = [];
 $military_additional_information = [];
 $military_date_completion = [];
- if ($result_military->num_rows > 0) {
-    while($row_military= $result_military->fetch_assoc()) {
-        if($row_military['military_reg_category']==1){
-            $military_reg_category1='Kateqoriya 1';
-        }else{
-            $military_reg_category1='Kateqoriya 2';
-        }
-        if($row_military['military_reg_group']==1){
-            $military_reg_group1='Çağırışçı';
-        }else{
-            $military_reg_group1='Hərbi vəzifəli';
-        }
-        array_push($military_reg_category, $military_reg_category1);
-        array_push($military_reg_group, $military_reg_group1);
-        array_push($staff_desc, $row_military['staff_desc']);
-        array_push($rank_desc, $row_military['rank_desc']);
-         array_push($military_specialty_acc, $row_military['military_specialty_acc']);
-        array_push($military_fitness_service, $row_military['military_fitness_service']);
-        array_push($military_registration_service, $row_military['military_registration_service']);
-        array_push($military_registration_date, $row_military['military_registration_date']);
-        array_push($military_general, $row_military['military_general']);
-        array_push($military_special, $row_military['military_special']);
-        array_push($military_no_official, $row_military['military_no_official']);
-        array_push($military_additional_information, $row_military['military_additional_information']);
-        array_push($military_date_completion, $row_military['military_date_completion']);
+if($result_military){
+    if ($result_military->num_rows > 0) {
+        while($row_military= $result_military->fetch_assoc()) {
+            if($row_military['military_reg_category']==1){
+                $military_reg_category1='Kateqoriya 1';
+            }else{
+                $military_reg_category1='Kateqoriya 2';
+            }
+            if($row_military['military_reg_group']==1){
+                $military_reg_group1='Çağırışçı';
+            }else{
+                $military_reg_group1='Hərbi vəzifəli';
+            }
+            array_push($military_reg_category, $military_reg_category1);
+            array_push($military_reg_group, $military_reg_group1);
+            array_push($staff_desc, $row_military['staff_desc']);
+            array_push($rank_desc, $row_military['rank_desc']);
+            array_push($military_specialty_acc, $row_military['military_specialty_acc']);
+            array_push($military_fitness_service, $row_military['military_fitness_service']);
+            array_push($military_registration_service, $row_military['military_registration_service']);
+            array_push($military_registration_date, $row_military['military_registration_date']);
+            array_push($military_general, $row_military['military_general']);
+            array_push($military_special, $row_military['military_special']);
+            array_push($military_no_official, $row_military['military_no_official']);
+            array_push($military_additional_information, $row_military['military_additional_information']);
+            array_push($military_date_completion, $row_military['military_date_completion']);
 
+        }
     }
 }
+
 
 
 $sql_drivers= "select td.*,tc.cat_desc ,tc.lang
@@ -236,15 +262,18 @@ $lic_issuer = '';
 $lic_issue_date = '';
 $expire_date = '';
 $result_drivers = $db->query($sql_drivers);
-if ($result_drivers->num_rows > 0) {
-    while($row= $result_drivers->fetch_assoc()) {
-        $lic_seria_number = $row['lic_seria_number'];
-        $cat_desc = $row['cat_desc'];
-        $lic_issuer = $row['lic_issuer'];
-        $lic_issue_date = $row['lic_issue_date'];
-        $expire_date = $row['expire_date'];
+if($result_drivers){
+    if ($result_drivers->num_rows > 0) {
+        while($row= $result_drivers->fetch_assoc()) {
+            $lic_seria_number = $row['lic_seria_number'];
+            $cat_desc = $row['cat_desc'];
+            $lic_issuer = $row['lic_issuer'];
+            $lic_issue_date = $row['lic_issue_date'];
+            $expire_date = $row['expire_date'];
+        }
     }
 }
+
 
 $sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.trp_seria_number,tmi.trp_permit_reason,
  DATE_FORMAT(tmi.trp_permit_date,'%d/%m/%Y') trp_permit_date,DATE_FORMAT(tmi.trp_valid_date,'%d/%m/%Y') trp_valid_date,
@@ -265,22 +294,25 @@ $wp_seria_number = '';
 $wp_permit_date = '';
 $wp_valid_date = '';
 $result_minfo = $db->query($sql_minfo);
-if ($result_minfo->num_rows > 0) {
-    while($row= $result_minfo->fetch_assoc()) {
-         $trp_seria_number = $row['trp_seria_number'];
-        $trp_permit_reason = $row['trp_permit_reason'];
-        $trp_permit_date = $row['trp_permit_date'];
-        $trp_valid_date = $row['trp_valid_date'];
-        $trp_issuer = $row['trp_issuer'];
-        $prp_seria_number = $row['prp_seria_number'];
-        $prp_permit_date = $row['prp_permit_date'];
-        $prp_valid_date = $row['prp_valid_date'];
-        $prp_issuer = $row['prp_issuer'];
-        $wp_seria_number = $row['wp_seria_number'];
-        $wp_permit_date = $row['wp_permit_date'];
-        $wp_valid_date = $row['wp_valid_date'];
+if($result_minfo){
+    if ($result_minfo->num_rows > 0) {
+        while($row= $result_minfo->fetch_assoc()) {
+            $trp_seria_number = $row['trp_seria_number'];
+            $trp_permit_reason = $row['trp_permit_reason'];
+            $trp_permit_date = $row['trp_permit_date'];
+            $trp_valid_date = $row['trp_valid_date'];
+            $trp_issuer = $row['trp_issuer'];
+            $prp_seria_number = $row['prp_seria_number'];
+            $prp_permit_date = $row['prp_permit_date'];
+            $prp_valid_date = $row['prp_valid_date'];
+            $prp_issuer = $row['prp_issuer'];
+            $wp_seria_number = $row['wp_seria_number'];
+            $wp_permit_date = $row['wp_permit_date'];
+            $wp_valid_date = $row['wp_valid_date'];
+        }
     }
 }
+
 
 $sql_miginfo = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
  DATE_FORMAT(tmi.last_renew_date,'%d/%m/%Y') last_renew_date,tmi.physical_deficiency,tmi.deficiency_desc,
@@ -298,15 +330,18 @@ $last_renew_date = '';
 $physical_deficiency = '';
 $deficiency_desc = '';
 $result_miginfo = $db->query($sql_miginfo);
-if ($result_miginfo->num_rows > 0) {
-    while($row= $result_miginfo->fetch_assoc()) {
-        $medical_app = $row['mmedical_app'];
-        $renew_interval = $row['renew_interval'];
-        $last_renew_date = $row['last_renew_date'];
-        $physical_deficiency = $row['mphysical_deficiency'];
-        $deficiency_desc = $row['deficiency_desc'];
+if($result_miginfo){
+    if ($result_miginfo->num_rows > 0) {
+        while($row= $result_miginfo->fetch_assoc()) {
+            $medical_app = $row['mmedical_app'];
+            $renew_interval = $row['renew_interval'];
+            $last_renew_date = $row['last_renew_date'];
+            $physical_deficiency = $row['mphysical_deficiency'];
+            $deficiency_desc = $row['deficiency_desc'];
+        }
     }
 }
+
 
 $sql_positions = "SELECT tepp.id,tepp.emp_id,tepp.prev_employer, DATE_FORMAT(tepp.start_date,'%d/%m/%Y') start_date,
 DATE_FORMAT(tepp.end_date,'%d/%m/%Y') end_date,
@@ -320,15 +355,18 @@ $end_date = '';
 $leave_reason = '';
 $sector = '';
 $result_positions = $db->query($sql_positions);
-if ($result_positions->num_rows > 0) {
-    while($row= $result_positions->fetch_assoc()) {
-        $prev_employer = $row['prev_employer'];
-        $start_date = $row['start_date'];
-        $end_date = $row['end_date'];
-        $leave_reason =$row['leave_reason'];
-        $sector = $row['sector'];
+if($result_positions){
+    if ($result_positions->num_rows > 0) {
+        while($row= $result_positions->fetch_assoc()) {
+            $prev_employer = $row['prev_employer'];
+            $start_date = $row['start_date'];
+            $end_date = $row['end_date'];
+            $leave_reason =$row['leave_reason'];
+            $sector = $row['sector'];
+        }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -420,6 +458,10 @@ if ($result_positions->num_rows > 0) {
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
+                                    <?php
+                                    if($u_photo==''){
+                                        $u_photo = 'images/users/def.png';
+                                    }?>
 
                                     <form id="uploadForm" action="upload.php" method="post">
                                         <img class="profile-user-img img-fluid img-circle"
