@@ -153,7 +153,7 @@
 					</div>
  			<div class="card-body" >
 						 
-						 		<div class="form-group row">
+						 	<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_eduempid"><?php echo $dil["employee"];?></label>
 								<div class="col-sm-6">
 									<select data-live-search="true"  name="update_eduempid" id='update_eduempid' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  Disabled="true"  >

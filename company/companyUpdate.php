@@ -72,5 +72,5 @@ include('../session.php') ;
     //Close connection
     mysqli_close($db);
 
- 
+
 ?>

@@ -362,7 +362,22 @@ $result_roles_view = $db->query($sql_roles);
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body">
-						
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="update_compempid"><?php echo $dil["employee"];?></label>
+                            <div class="col-sm-6">
+                                <select data-live-search="true"  name="update_compempid" id='update_compempid' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  Disabled="true"  >
+                                    <?php
+                                    $result_employees_s_view = $db->query($sql_employees);
+                                    if ($result_employees_s_view->num_rows > 0) {
+                                        while($row_employees= $result_employees_s_view->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'] ;  ?></option>
+
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
 							<div class="form-group row">
 								<label class="col-sm-5 col-form-label" for="update_company_name"><?php echo $dil["company_name"];?></label>
 								<div class="col-sm-6">
@@ -543,80 +558,172 @@ $result_roles_view = $db->query($sql_roles);
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body">
-						
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="view_username"><?php echo $dil["username"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_username" name="view_username" value="" placeholder="<?php echo $dil["username"];?>" readonly />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="view_firstname"><?php echo $dil["firstname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_firstname" name="view_firstname" placeholder="<?php echo $dil["firstname"];?>" readonly />
-								</div>
-							</div>
-														<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="view_lastname"><?php echo $dil["lastname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_lastname" name="view_lastname" placeholder="<?php echo $dil["lastname"];?>" readonly />
-								</div>
-							</div>
 
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="view_email"><?php echo $dil["email"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_email" name="view_email" placeholder="<?php echo $dil["email"];?>" readonly />
-								</div>
-							</div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_compempid"><?php echo $dil["employee"];?></label>
+                            <div class="col-sm-6">
+                                <select data-live-search="true"  name="view_compempid" id='view_compempid' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  Disabled="true"  >
+                                    <?php
+                                    $result_employees_s_view = $db->query($sql_employees);
+                                    if ($result_employees_s_view->num_rows > 0) {
+                                        while($row_employees= $result_employees_s_view->fetch_assoc()) {
 
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-								<div class="col-sm-6">
-					
-						<select Disabled="true" data-live-search="true" name="view_empno" title="<?php echo $dil["selectone"];?>" id="view_empno" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-							<option value="90051676">Eli</option>
-							<option value="90051677">Veli</option>
-							<option value="90051678">Pirveli</option>
-						</select>
-					
-									 
-								</div>
-							</div>
+                                            ?>
+                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'] ;  ?></option>
 
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="userlevel"><?php echo $dil["userlevel"];?></label>
-								<div class="col-sm-6">
-						<select  data-live-search="true"  Disabled="true"  title="<?php echo $dil["selectone"];?>" id="view_userlevel"  name ="view_userlevel" class="form-control selectpicker"  placeholder="<?php echo $dil["userlevel"];?>" multiple="">
-				<?php if ($result_roles_view->num_rows > 0) {
-							// output data of each row
-					while($row_roles = $result_roles_view->fetch_assoc()) {
-						
-					?>
-							<option  value="<?php echo $row_roles["id"] ; ?>" ><?php echo $row_roles["role_name"] ; ?> </option>
-				<?php }}?>
-						</select>
-								</div>
-							</div>
-								<div class="form-group row">
-								
-								<label class="col-sm-3 col-form-label" for="langinput"><?php echo $dil["soft_lang"];?></label>
-								<div class="col-sm-6">
-					<select Disabled="true" data-live-search="true"   title="<?php echo $dil["selectone"];?>" id="view_deflang" class="form-control selectpicker"   name="view_deflang" placeholder="<?php echo $dil["soft_lang"];?>">
-							
-							<?php if ($result_lang_view->num_rows > 0) {
-							// output data of each row
-					while($row_lang = $result_lang_view->fetch_assoc()) {
-						
-					?>
-					<option readonly value="<?php echo $row_lang['short_name']; ?>" data-content="<img src='<?php echo $row_lang['image_path']; ?>' width ='25px' height='25px' class='img-circle elevation-2' ><?php echo " ". $dil[$row_lang['lang_code']];?> ">  </option>
-						
-					<?php } }?>
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_company_name"><?php echo $dil["company_name"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_company_name" name="view_company_name" value="" placeholder="<?php echo $dil["company_name"];?>" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_voen"><?php echo $dil["voen"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_voen" name="view_voen" placeholder="<?php echo $dil["voen"];?>" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_sun"><?php echo $dil["sun"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_sun" name="view_sun" placeholder="<?php echo $dil["sun"];?>" readonly/>
+                            </div>
+                        </div>
 
-						</select>
-							
-								</div>
-							</div>				
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_bank_name"><?php echo $dil["bank_name"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_bank_name" name="view_bank_name" placeholder="<?php echo $dil["bank_name"];?>" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_code"><?php echo $dil["code"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_code" name="view_code" placeholder="<?php echo $dil["code"];?>" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_bank_filial"><?php echo $dil["bank_filial"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_bank_filial" name="view_bank_filial" placeholder="<?php echo $dil["bank_filial"];?>" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_bank_voen"><?php echo $dil["bank_voen"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_bank_voen" name="view_bank_voen" placeholder="<?php echo $dil["bank_voen"];?>" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_cor_account"><?php echo $dil["cor_account"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_cor_account" name="view_cor_account" placeholder="<?php echo $dil["cor_account"];?>" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_swift"><?php echo $dil["swift"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_swift" name="view_swift" placeholder="<?php echo $dil["swift"];?>" readonly/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_azn_account"><?php echo $dil["azn_account"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_azn_account" name="view_azn_account" placeholder="<?php echo $dil["azn_account"];?>" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_usd_account"><?php echo $dil["usd_account"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_usd_account" name="view_usd_account" placeholder="<?php echo $dil["usd_account"];?>" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_eur_account"><?php echo $dil["eur_account"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_eur_account" name="view_eur_account" placeholder="<?php echo $dil["eur_account"];?>" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_country"><?php echo $dil["country"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_country" name="view_country" placeholder="<?php echo $dil["country"];?>" readonly/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_city"><?php echo $dil["city"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_city" name="view_city" placeholder="<?php echo $dil["city"];?>" readonly/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_address"><?php echo $dil["address"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_address" name="view_address" placeholder="<?php echo $dil["address"];?>" readonly/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_poct_index"><?php echo $dil["poct_index"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_poct_index" name="view_poct_index" placeholder="<?php echo $dil["poct_index"];?>" readonly/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_tel"><?php echo $dil["tel"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_tel" name="view_tel" placeholder="<?php echo $dil["tel"];?>" readonly/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_enterprise_head_fullname"><?php echo $dil["enterprise_head_fullname"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_enterprise_head_fullname" name="view_enterprise_head_fullname" placeholder="<?php echo $dil["enterprise_head_fullname"];?>" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_enterprise_head_position"><?php echo $dil["enterprise_head_position"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_enterprise_head_position" name="view_enterprise_head_position" placeholder="<?php echo $dil["enterprise_head_position"];?>" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_founder"><?php echo $dil["founder"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_founder" name="view_founder" placeholder="<?php echo $dil["founder"];?>" readonly/>
+                            </div>
+                        </div>
  
 					</div>
 				</div>
@@ -945,6 +1052,7 @@ $('#company_table tbody').on( 'click', '#view', function () {
 					// Assing existing values to the modal popup fields
 					
 					if  (optype=='update') {
+					$("#update_compempid").val(company.emp_id).change();
 					$("#update_company_name").val(company.company_name);
 					$("#update_voen").val(company.voen);
 					$("#update_sun").val(company.sun);
@@ -969,14 +1077,27 @@ $('#company_table tbody').on( 'click', '#view', function () {
 					$('#modalEdit').modal('show');
 					}
 					else {
-					$("#view_username").val(user.username);
-					$("#view_firstname").val(user.firstname);
-					$("#view_lastname").val(user.lastname);
-					$("#view_email").val(user.reg_mail);
-					$('#view_empno').val(user.empno).change();
-					$('#view_deflang').val(user.def_lang).change();
-					$('#view_userlevel').val([1,2,3]).change();
-					//$('#update_userlevel').selectpicker('val', [1,2,3]);
+                        $("#view_compempid").val(company.emp_id).change();
+                        $("#view_company_name").val(company.company_name);
+                        $("#view_voen").val(company.voen);
+                        $("#view_sun").val(company.sun);
+                        $("#view_bank_name").val(company.bank_name);
+                        $("#view_code").val(company.kod);
+                        $("#view_bank_filial").val(company.bank_filial);
+                        $("#view_bank_voen").val(company.bank_voen);
+                        $("#view_cor_account").val(company.cor_account);
+                        $("#view_swift").val(company.swift);
+                        $("#view_azn_account").val(company.azn_account);
+                        $("#view_usd_account").val(company.usd_account);
+                        $("#view_eur_account").val(company.eur_account);
+                        $("#view_country").val(company.country);
+                        $("#view_city").val(company.city);
+                        $("#view_address").val(company.address);
+                        $("#view_poct_index").val(company.poct_index);
+                        $("#view_tel").val(company.tel);
+                        $("#view_enterprise_head_fullname").val(company.enterprise_head_fullname);
+                        $("#view_enterprise_head_position").val(company.enterprise_head_position);
+                        $("#view_founder").val(company.founder);
 						$('#modalView').modal('show');						
 					}
 				}
