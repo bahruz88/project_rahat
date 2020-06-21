@@ -24,7 +24,7 @@ include('../session.php') ;
 	lastname = '$lastname', 
 	reg_mail = '$email', 
 	def_lang = '$langinput', 
-	empno = '$empno' ,
+	emp_id = '$empno' ,
 	upass ='$upass'
 	WHERE id = '$userid'
 	";
