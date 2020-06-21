@@ -2,9 +2,9 @@
 include('../session.php') ;
 
   //Create variables
-    $userid = $_POST['userid'];
+    $companyid = $_POST['companyid'];
  
-    $delete_query = mysqli_query($db,"update  $tbl_users set  ustatus=0 where id='$userid'");
+    $delete_query = mysqli_query($db,"update  $tbl_employee_company set  status=0 where id='$companyid'");
   
     $aff_row_count=mysqli_affected_rows($db) ;
     //Response
@@ -13,7 +13,7 @@ include('../session.php') ;
         echo "success";
     }
     else {
-        echo "error-".$userid."-".$aff_row_count;
+        echo "error-".$companyid."-".$aff_row_count;
     }
 
     //Close connection

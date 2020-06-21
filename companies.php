@@ -222,7 +222,7 @@ $result_roles_view = $db->query($sql_roles);
             <div class="modal-footer justify-content-between">
 			  <form id="companyDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
-			  <input type="hidden" id="userid" name="userid" value="" /> 
+			  <input type="hidden" id="companyid" name="companyid" value="" />
 			  </form>
 			  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
 			   
@@ -1103,7 +1103,7 @@ var table = $("#company_table").DataTable({
   /*Button  click  on grid */
 	$('#company_table tbody').on( 'click', '#delete', function () {
         var data = table.row( $(this).parents('tr') ).data();
-        document.getElementById("userid").value = data[0];
+        document.getElementById("companyid").value = data[0];
 		$('#modalDelete').modal('show');
     } );
 	
