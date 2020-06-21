@@ -28,8 +28,8 @@ if (isset($_POST['search']['value'])) {
 
 						   $sub_array   = array();
 						   $sub_array[] = $row_company['id'];
-						   $sub_array[] = $row_company['company_name'];
-                            $sub_array[] = $row_company['lastname'].' ' .$row_company['firstname'].' ' .$row_company['surname'];
+						   $sub_array[] = $row_company['lastname'].' ' .$row_company['firstname'].' ' .$row_company['surname'];
+                           $sub_array[] = $row_company['company_name'];
 						   $sub_array[] = $row_company['voen'];
 						   $sub_array[] = $row_company['sun'];
 						   $sub_array[] = $row_company['bank_name'];
