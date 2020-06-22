@@ -10,7 +10,10 @@ $result_emp = $db->query($sql_employees);
 if($result_emp){
     if ($result_emp->num_rows > 0) {
         while($row_users = $result_emp->fetch_assoc()) {
-            $u_photo = $row_users['image_name'];
+            $u_photo2 = $row_users['image_name'];
+
+                $login_fullname2= $row_users['firstname'].' '.$row_users['lastname'];
+
         }
     }
 }
@@ -28,8 +31,10 @@ if($result_users){
         while($row_users = $result_users->fetch_assoc()) {
 
             $login_session = $row_users['username'];
-            if($u_photo==''){
+            if($u_photo2 ==''){
                 $u_photo = $row_users['u_photo'];
+            }else{
+                $u_photo=$u_photo2;
             }
             $company_id = $row_users['company_id'];
             $login_fullname= $row_users['firstname'].' '.$row['lastname'];
@@ -37,6 +42,10 @@ if($result_users){
 
         }
     }
+}
+if($login_fullname==''){
+    $login_fullname=$login_fullname2;
+    $u_photo=$u_photo2;
 }
 
 
@@ -83,11 +92,18 @@ if($result_skill){
 }
 
 
-$sql_users= "select te.*,tc.company_name
-from $tbl_employees te
-inner  join  $tbl_companies tc  on tc.id=$company_id
-where  te.emp_status=1   and  te.id=$emp_id ";
-//echo '$sql_users='.$sql_users;
+$sql_users= "select te.* ";
+
+if($company_id!=''){
+    $sql_users.=" ,tc.company_name ";
+
+}
+$sql_users .=" from $tbl_employees te ";
+if($company_id!=''){
+    $sql_users.=" inner  join  $tbl_companies tc  on tc.id=$company_id ";
+
+}
+$sql_users.=" where  te.emp_status=1   and  te.id=$emp_id ";
 $id = '';
 $firstname = '';
 $lastname = '';
@@ -110,7 +126,9 @@ if($result_users){
             $home_tel = $row['home_tel'];
             $mob_tel = $row['mob_tel'];
             $birthdate = $row['birth_date'];
-            $company_name = $row['company_name'];
+            if($company_id!='') {
+                $company_name = $row['company_name'];
+            }
             $living_address = $row['living_address'];
         }
     }
