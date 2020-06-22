@@ -1,7 +1,7 @@
 <?php
  include('../session.php');  
  $userid = $_POST['userid'];
- $sql_user = "select id,username,firstname,lastname,upass,reg_mail,company_id,ustatus,def_lang,empno from $tbl_users  where  id='$userid'";
+ $sql_user = "select id,username,firstname,lastname,upass,reg_mail,company_id,ustatus,def_lang,emp_id from $tbl_users  where  id='$userid'";
 	
  $result_users = $db->query($sql_user);
  $data = array();

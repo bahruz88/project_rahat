@@ -10,7 +10,7 @@ include('../session.php') ;
 	$empno=$_POST['empno'];
 	$query = mysqli_query($db,"SELECT * FROM $tbl_users WHERE username='$username' OR reg_mail='$email'");
 	$upass=md5('qwerty'/*rand()*/) ;
-    $sql = "INSERT INTO $tbl_users (id,username,firstname,lastname,upass, reg_mail,company_id,def_lang,empno,ustatus) VALUES ('Null','$username','$firstname','$lastname','$upass', '$email',1,'$langinput','$empno',1)";
+    $sql = "INSERT INTO $tbl_users (id,username,firstname,lastname,upass, reg_mail,company_id,def_lang,emp_id,ustatus) VALUES ('Null','$username','$firstname','$lastname','$upass', '$email',1,'$langinput','$empno',1)";
   
  //Make sure name is valid
     if(!preg_match("/^[a-zA-Z'-]+$/",$username)) { 
