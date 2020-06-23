@@ -3,9 +3,12 @@
  $companyid = $_POST['companyid'];
 
 
-$sql_company = "select tec.* ,concat(e.lastname,' ', e.firstname ,' ', e.surname) full_name
-from $tbl_employee_company tec inner  join  
-$tbl_employees e on e.id=tec.emp_id where tec.id='$companyid'";
+//$sql_company = "select tec.* ,concat(e.lastname,' ', e.firstname ,' ', e.surname) full_name
+//from $tbl_employee_company tec inner  join
+//$tbl_employees e on e.id=tec.emp_id where tec.id='$companyid'";
+
+$sql_company = "select tec.* 
+from $tbl_employee_company tec  where tec.id='$companyid'";
   $result_company = $db->query($sql_company);
  $data = array();
 if ($result_company->num_rows > 0) {

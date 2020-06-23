@@ -250,22 +250,22 @@ $result_roles_view = $db->query($sql_roles);
 					</div>
 					<div class="card-body">
 
-                        <div class="form-group row">
-                            <label class="col-sm-5 col-form-label" for="compempid"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-6">
-                                <select data-live-search="true"  name="compempid" id='compempid' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  >
-                                    <?php
-                                    $result_employees_s_view = $db->query($sql_employees);
-                                    if ($result_employees_s_view->num_rows > 0) {
-                                        while($row_employees= $result_employees_s_view->fetch_assoc()) {
-
-                                            ?>
-                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'] ;  ?></option>
-
-                                        <?php } }?>
-                                </select>
-                            </div>
-                        </div>
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-5 col-form-label" for="compempid">--><?php //echo $dil["employee"];?><!--</label>-->
+<!--                            <div class="col-sm-6">-->
+<!--                                <select data-live-search="true"  name="compempid" id='compempid' title="--><?php //echo $dil["selectone"];?><!--" class="form-control selectpicker"  placeholder="--><?php //echo $dil["employee"];?><!--"  >-->
+<!--                                    --><?php
+//                                    $result_employees_s_view = $db->query($sql_employees);
+//                                    if ($result_employees_s_view->num_rows > 0) {
+//                                        while($row_employees= $result_employees_s_view->fetch_assoc()) {
+//
+//                                            ?>
+<!--                                            <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'] ;  ?><!--</option>-->
+<!---->
+<!--                                        --><?php //} }?>
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="form-group row">
                             <label class="col-sm-5 col-form-label" for="company_name"><?php echo $dil["company_name"];?></label>
                             <div class="col-sm-6">
@@ -449,22 +449,22 @@ $result_roles_view = $db->query($sql_roles);
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-sm-5 col-form-label" for="update_compempid"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-6">
-                                <select data-live-search="true"  name="update_compempid" id='update_compempid' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  Disabled="true"  >
-                                    <?php
-                                    $result_employees_s_view = $db->query($sql_employees);
-                                    if ($result_employees_s_view->num_rows > 0) {
-                                        while($row_employees= $result_employees_s_view->fetch_assoc()) {
-
-                                            ?>
-                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'] ;  ?></option>
-
-                                        <?php } }?>
-                                </select>
-                            </div>
-                        </div>
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-5 col-form-label" for="update_compempid">--><?php //echo $dil["employee"];?><!--</label>-->
+<!--                            <div class="col-sm-6">-->
+<!--                                <select data-live-search="true"  name="update_compempid" id='update_compempid' title="--><?php //echo $dil["selectone"];?><!--" class="form-control selectpicker"  placeholder="--><?php //echo $dil["employee"];?><!--"  Disabled="true"  >-->
+<!--                                    --><?php
+//                                    $result_employees_s_view = $db->query($sql_employees);
+//                                    if ($result_employees_s_view->num_rows > 0) {
+//                                        while($row_employees= $result_employees_s_view->fetch_assoc()) {
+//
+//                                            ?>
+<!--                                            <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'] ;  ?><!--</option>-->
+<!---->
+<!--                                        --><?php //} }?>
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
 							<div class="form-group row">
 								<label class="col-sm-5 col-form-label" for="update_company_name"><?php echo $dil["company_name"];?></label>
 								<div class="col-sm-6">
@@ -646,22 +646,22 @@ $result_roles_view = $db->query($sql_roles);
 					</div>
 					<div class="card-body">
 
-                        <div class="form-group row">
-                            <label class="col-sm-5 col-form-label" for="view_compempid"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-6">
-                                <select data-live-search="true"  name="view_compempid" id='view_compempid' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  Disabled="true"  >
-                                    <?php
-                                    $result_employees_s_view = $db->query($sql_employees);
-                                    if ($result_employees_s_view->num_rows > 0) {
-                                        while($row_employees= $result_employees_s_view->fetch_assoc()) {
-
-                                            ?>
-                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'] ;  ?></option>
-
-                                        <?php } }?>
-                                </select>
-                            </div>
-                        </div>
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-5 col-form-label" for="view_compempid">--><?php //echo $dil["employee"];?><!--</label>-->
+<!--                            <div class="col-sm-6">-->
+<!--                                <select data-live-search="true"  name="view_compempid" id='view_compempid' title="--><?php //echo $dil["selectone"];?><!--" class="form-control selectpicker"  placeholder="--><?php //echo $dil["employee"];?><!--"  Disabled="true"  >-->
+<!--                                    --><?php
+//                                    $result_employees_s_view = $db->query($sql_employees);
+//                                    if ($result_employees_s_view->num_rows > 0) {
+//                                        while($row_employees= $result_employees_s_view->fetch_assoc()) {
+//
+//                                            ?>
+<!--                                            <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'] ;  ?><!--</option>-->
+<!---->
+<!--                                        --><?php //} }?>
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="form-group row">
                             <label class="col-sm-5 col-form-label" for="view_company_name"><?php echo $dil["company_name"];?></label>
                             <div class="col-sm-6">
@@ -833,7 +833,7 @@ $result_roles_view = $db->query($sql_roles);
                 <thead>
                <tr>
                         <th>id</th>
-                        <th><?php echo $dil["fio"];?></th>
+<!--                        <th>--><?php //echo $dil["fio"];?><!--</th>-->
                         <th><?php echo $dil["company_name"];?></th>
                         <th><?php echo $dil["voen"];?></th>
                         <th><?php echo $dil["sun"];?></th>
@@ -1139,7 +1139,7 @@ $('#company_table tbody').on( 'click', '#view', function () {
 					// Assing existing values to the modal popup fields
 					
 					if  (optype=='update') {
-					$("#update_compempid").val(company.emp_id).change();
+					// $("#update_compempid").val(company.emp_id).change();
 					$("#update_company_name").val(company.company_name);
 					$("#update_voen").val(company.voen);
 					$("#update_sun").val(company.sun);
@@ -1164,7 +1164,7 @@ $('#company_table tbody').on( 'click', '#view', function () {
 					$('#modalEdit').modal('show');
 					}
 					else {
-                        $("#view_compempid").val(company.emp_id).change();
+                        // $("#view_compempid").val(company.emp_id).change();
                         $("#view_company_name").val(company.company_name);
                         $("#view_voen").val(company.voen);
                         $("#view_sun").val(company.sun);

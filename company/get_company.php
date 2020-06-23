@@ -1,9 +1,11 @@
 <?php
  include('../session.php');  
 
-$sql_company = "select tec.* ,e.lastname,e.firstname,e.surname
-from $tbl_employee_company tec inner  join  
-$tbl_employees e on e.id=tec.emp_id where status=1";
+//$sql_company = "select tec.* ,e.lastname,e.firstname,e.surname
+//from $tbl_employee_company tec inner  join
+//$tbl_employees e on e.id=tec.emp_id where status=1";
+$sql_company = "select tec.*  
+from $tbl_employee_company tec   where status=1";
 
 if (isset($_POST['search']['value'])) {
     $sql_company .= '
@@ -28,7 +30,7 @@ if (isset($_POST['search']['value'])) {
 
 						   $sub_array   = array();
 						   $sub_array[] = $row_company['id'];
-						   $sub_array[] = $row_company['lastname'].' ' .$row_company['firstname'].' ' .$row_company['surname'];
+//						   $sub_array[] = $row_company['lastname'].' ' .$row_company['firstname'].' ' .$row_company['surname'];
                            $sub_array[] = $row_company['company_name'];
 						   $sub_array[] = $row_company['voen'];
 						   $sub_array[] = $row_company['sun'];

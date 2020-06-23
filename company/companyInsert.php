@@ -2,7 +2,6 @@
 include('../session.php') ;
 
   //Create variables
-$emp_id = $_POST['compempid'];
 $company_name = $_POST['company_name'];
 $voen = $_POST['voen'];
 $sun=$_POST['sun'];
@@ -26,8 +25,8 @@ $founder=$_POST['founder'];
 
 //	$query = mysqli_query($db,"SELECT * FROM $tbl_users WHERE username='$username' OR reg_mail='$email'");
 //	$upass=md5('qwerty'/*rand()*/) ;
-    $sql = "INSERT INTO $tbl_employee_company (id,emp_id,company_name,voen,sun,bank_name, kod,bank_filial,bank_voen,cor_account,swift,azn_account,usd_account,eur_account,country,city,address,poct_index,tel,enterprise_head_fullname,enterprise_head_position,founder) 
-    VALUES ('Null','$emp_id','$company_name','$voen','$sun','$bank_name', '$code','$bank_filial','$bank_voen','$cor_account','$swift','$azn_account','$usd_account','$eur_account','$country','$city','$address','$poct_index','$tel','$enterprise_head_fullname','$enterprise_head_position','$founder')";
+    $sql = "INSERT INTO $tbl_employee_company (id,company_name,voen,sun,bank_name, kod,bank_filial,bank_voen,cor_account,swift,azn_account,usd_account,eur_account,country,city,address,poct_index,tel,enterprise_head_fullname,enterprise_head_position,founder) 
+    VALUES ('Null','$company_name','$voen','$sun','$bank_name', '$code','$bank_filial','$bank_voen','$cor_account','$swift','$azn_account','$usd_account','$eur_account','$country','$city','$address','$poct_index','$tel','$enterprise_head_fullname','$enterprise_head_position','$founder')";
 
  //Make sure name is valid
 //    if(!preg_match("/^[a-zA-Z'-]+$/",$username)) {
