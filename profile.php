@@ -224,45 +224,45 @@ inner  join  $tbl_military_staff tms  on tms.staff_id=tmi.military_staff
  where  tmi.status =1   and  tmi.emp_id=$id ";
 
 $result_military = $db->query($sql_militaryInfo);
-$military_reg_group = [];
-$military_reg_category = [];
-$staff_desc =[];
-$rank_desc = [];
-$military_specialty_acc = [];
-$military_fitness_service = [];
-$military_registration_service = [];
-$military_registration_date = [];
-$military_general = [];
-$military_special = [];
-$military_no_official = [];
-$military_additional_information = [];
-$military_date_completion = [];
+$military_reg_group1 = [];
+$military_reg_category1 = [];
+$staff_desc1 =[];
+$rank_desc1 = [];
+$military_special1ty_acc1 = [];
+$military_fitness_service1 = [];
+$military_registration_service1 = [];
+$military_registration_date1 = [];
+$military_general1 = [];
+$military_special1 = [];
+$military_no_official1 = [];
+$military_additional_information1 = [];
+$military_date_completion1 = [];
 if($result_military){
     if ($result_military->num_rows > 0) {
         while($row_military= $result_military->fetch_assoc()) {
             if($row_military['military_reg_category']==1){
-                $military_reg_category1='Kateqoriya 1';
+                $military_reg_category11='Kateqoriya 1';
             }else{
-                $military_reg_category1='Kateqoriya 2';
+                $military_reg_category11='Kateqoriya 2';
             }
             if($row_military['military_reg_group']==1){
-                $military_reg_group1='Çağırışçı';
+                $military_reg_group11='Çağırışçı';
             }else{
-                $military_reg_group1='Hərbi vəzifəli';
+                $military_reg_group11='Hərbi vəzifəli';
             }
-            array_push($military_reg_category, $military_reg_category1);
-            array_push($military_reg_group, $military_reg_group1);
-            array_push($staff_desc, $row_military['staff_desc']);
-            array_push($rank_desc, $row_military['rank_desc']);
-            array_push($military_specialty_acc, $row_military['military_specialty_acc']);
-            array_push($military_fitness_service, $row_military['military_fitness_service']);
-            array_push($military_registration_service, $row_military['military_registration_service']);
-            array_push($military_registration_date, $row_military['military_registration_date']);
-            array_push($military_general, $row_military['military_general']);
-            array_push($military_special, $row_military['military_special']);
-            array_push($military_no_official, $row_military['military_no_official']);
-            array_push($military_additional_information, $row_military['military_additional_information']);
-            array_push($military_date_completion, $row_military['military_date_completion']);
+            array_push($military_reg_category1, $military_reg_category11);
+            array_push($military_reg_group1, $military_reg_group11);
+            array_push($staff_desc1, $row_military['staff_desc']);
+            array_push($rank_desc1, $row_military['rank_desc']);
+            array_push($military_special1ty_acc1, $row_military['military_specialty_acc']);
+            array_push($military_fitness_service1, $row_military['military_fitness_service']);
+            array_push($military_registration_service1, $row_military['military_registration_service']);
+            array_push($military_registration_date1, $row_military['military_registration_date']);
+            array_push($military_general1, $row_military['military_general']);
+            array_push($military_special1, $row_military['military_special']);
+            array_push($military_no_official1, $row_military['military_no_official']);
+            array_push($military_additional_information1, $row_military['military_additional_information']);
+            array_push($military_date_completion1, $row_military['military_date_completion']);
 
         }
     }
@@ -775,72 +775,72 @@ if($result_positions){
 
                                         <!--<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>-->
                                         <div class="tab-pane" id="militaryInfo">
-                                            <?php for($i=0;$i<count($military_reg_group);$i++){?>
+                                            <?php for($i=0;$i<count($military_reg_group1);$i++){?>
                                                 <div class="panel">
                                                     <div class="form-group  row">
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_reg_group"><?php echo $dil["military_registration_group"];?></label>
-                                                            <input type="text" class="form-control" id="military_reg_group" value="<?php echo $military_reg_group[$i]; ?>" name="military_reg_group" placeholder="<?php echo $dil["military_registration_group"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_reg_group" value="<?php echo $military_reg_group1[$i]; ?>" name="military_reg_group" placeholder="<?php echo $dil["military_registration_group"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_reg_category"><?php echo $dil["military_registration_category"];?></label>
-                                                            <input type="text" class="form-control" id="military_reg_category" name="military_reg_category" value="<?php echo $military_reg_category[$i]; ?>"  placeholder="<?php echo $dil["military_registration_category"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_reg_category" name="military_reg_category" value="<?php echo $military_reg_category1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_category"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="staff_desc"><?php echo $dil["military_staff"];?></label>
-                                                            <input type="text" class="form-control" id="staff_desc" name="staff_desc" value="<?php echo $staff_desc[$i]; ?>"  placeholder="<?php echo $dil["military_staff"];?>" readonly />
+                                                            <input type="text" class="form-control" id="staff_desc" name="staff_desc" value="<?php echo $staff_desc1[$i]; ?>"  placeholder="<?php echo $dil["military_staff"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="rank_desc"><?php echo $dil["military_rank"];?></label>
-                                                            <input type="text" class="form-control" id="rank_desc" name="rank_desc" value="<?php echo $rank_desc[$i]; ?>"  placeholder="<?php echo $dil["military_rank"];?>" readonly />
+                                                            <input type="text" class="form-control" id="rank_desc" name="rank_desc" value="<?php echo $rank_desc1[$i]; ?>"  placeholder="<?php echo $dil["military_rank"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_specialty_acc"><?php echo $dil["military_specialty_accounting"];?></label>
-                                                            <input type="text" class="form-control" id="military_specialty_acc" name="military_specialty_acc" value="<?php echo $military_specialty_acc[$i]; ?>"  placeholder="<?php echo $dil["military_specialty_accounting"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_specialty_acc" name="military_specialty_acc" value="<?php echo $military_special1ty_acc1[$i]; ?>"  placeholder="<?php echo $dil["military_specialty_accounting"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_fitness_service"><?php echo $dil["military_fitness_service"];?></label>
-                                                            <input type="text" class="form-control" id="military_fitness_service" name="military_fitness_service" value="<?php echo $military_fitness_service[$i]; ?>"  placeholder="<?php echo $dil["military_fitness_service"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_fitness_service" name="military_fitness_service" value="<?php echo $military_fitness_service1[$i]; ?>"  placeholder="<?php echo $dil["military_fitness_service"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_registration_service"><?php echo $dil["military_registration_service"];?></label>
-                                                            <input type="text" class="form-control" id="military_registration_service" name="military_registration_service" value="<?php echo $military_registration_service[$i]; ?>"  placeholder="<?php echo $dil["military_registration_service"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_registration_service" name="military_registration_service" value="<?php echo $military_registration_service1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_service"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_registration_date"><?php echo $dil["military_registration_date"];?></label>
-                                                            <input type="text" class="form-control" id="military_registration_date" name="military_registration_date" value="<?php echo $military_registration_date[$i]; ?>"  placeholder="<?php echo $dil["military_registration_date"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_registration_date" name="military_registration_date" value="<?php echo $military_registration_date1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_date"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_general"><?php echo $dil["military_general"];?></label>
-                                                            <input type="text" class="form-control" id="military_general" name="military_general" value="<?php echo $military_general[$i]; ?>"  placeholder="<?php echo $dil["military_general"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_general" name="military_general" value="<?php echo $military_general1[$i]; ?>"  placeholder="<?php echo $dil["military_general"];?>" readonly />
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_special"><?php echo $dil["military_special"];?></label>
-                                                            <input type="text" class="form-control" id="military_special" name="military_special" value="<?php echo $military_special[$i]; ?>"  placeholder="<?php echo $dil["military_special"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_special" name="military_special" value="<?php echo $military_special1[$i]; ?>"  placeholder="<?php echo $dil["military_special"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_no_official"><?php echo $dil["military_no_official"];?></label>
-                                                            <input type="text" class="form-control" id="military_no_official" name="military_no_official" value="<?php echo $military_no_official[$i]; ?>"  placeholder="<?php echo $dil["military_no_official"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_no_official" name="military_no_official" value="<?php echo $military_no_official1[$i]; ?>"  placeholder="<?php echo $dil["military_no_official"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_additional_information"><?php echo $dil["military_additional_information"];?></label>
-                                                            <input type="text" class="form-control" id="military_additional_information" name="military_additional_information" value="<?php echo $military_additional_information[$i]; ?>"  placeholder="<?php echo $dil["military_additional_information"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_additional_information" name="military_additional_information" value="<?php echo $military_additional_information1[$i]; ?>"  placeholder="<?php echo $dil["military_additional_information"];?>" readonly />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label class="col-sm-8 col-form-label" for="military_date_completion"><?php echo $dil["military_date_completion"];?></label>
-                                                            <input type="text" class="form-control" id="military_date_completion" name="military_date_completion" value="<?php echo $military_date_completion[$i]; ?>"  placeholder="<?php echo $dil["military_date_completion"];?>" readonly />
+                                                            <input type="text" class="form-control" id="military_date_completion" name="military_date_completion" value="<?php echo $military_date_completion1[$i]; ?>"  placeholder="<?php echo $dil["military_date_completion"];?>" readonly />
                                                         </div>
 
                                                     </div>
@@ -850,24 +850,24 @@ if($result_positions){
                                             <?php } ?>
                                         </div>
                                         <div class="tab-pane" id="paymentSalary">
-                                            <table id="payment_salary_table" class="table table-striped  table-bordered table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width:15px;">id</th>
-                                                    <th><?php echo $dil["fio"];?></th>
-                                                    <th><?php echo $dil["payment_wage"];?></th>
-                                                    <th><?php echo $dil["payment_addition_salary"];?></th>
-                                                    <th><?php echo $dil["payment_addition_salary2"];?></th>
-                                                    <th><?php echo $dil["payment_total_monthly_salary"];?></th>
-                                                    <th><?php echo $dil["payment_prize_amount"];?></th>
-                                                    <th><?php echo $dil["payment_reward_period"];?></th>
-                                                    <th><?php echo $dil["payment_place_expenditure"];?></th>
-                                                    <th><?php echo $dil["payment_salary_payment_day"];?></th>
-                                                    <th><?php echo $dil["payment_parties_agree_payment_wages"];?></th>
-                                                    <th><?php echo $dil["operation"];?></th>
-                                                </tr>
-                                                </thead>
-                                            </table>
+<!--                                            <table id="payment_salary_table" class="table table-striped  table-bordered table-hover">-->
+<!--                                                <thead>-->
+<!--                                                <tr>-->
+<!--                                                    <th style="width:15px;">id</th>-->
+<!--                                                    <th>--><?php //echo $dil["fio"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_wage"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_addition_salary"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_addition_salary2"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_total_monthly_salary"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_prize_amount"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_reward_period"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_place_expenditure"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_salary_payment_day"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["payment_parties_agree_payment_wages"];?><!--</th>-->
+<!--                                                    <th>--><?php //echo $dil["operation"];?><!--</th>-->
+<!--                                                </tr>-->
+<!--                                                </thead>-->
+<!--                                            </table>-->
                                         </div>
 
                                         <div class="tab-pane" id="drivingLicense">

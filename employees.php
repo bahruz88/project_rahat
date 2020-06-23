@@ -404,24 +404,24 @@
     </table>
 </div>
 <div class="tab-pane" id="paymentSalary">
-    <table id="payment_salary_table" class="table table-striped  table-bordered table-hover">
-        <thead>
-        <tr>
-            <th style="width:15px;">id</th>
-            <th><?php echo $dil["fio"];?></th>
-            <th><?php echo $dil["payment_wage"];?></th>
-            <th><?php echo $dil["payment_addition_salary"];?></th>
-            <th><?php echo $dil["payment_addition_salary2"];?></th>
-            <th><?php echo $dil["payment_total_monthly_salary"];?></th>
-            <th><?php echo $dil["payment_prize_amount"];?></th>
-            <th><?php echo $dil["payment_reward_period"];?></th>
-            <th><?php echo $dil["payment_place_expenditure"];?></th>
-            <th><?php echo $dil["payment_salary_payment_day"];?></th>
-            <th><?php echo $dil["payment_parties_agree_payment_wages"];?></th>
-            <th><?php echo $dil["operation"];?></th>
-        </tr>
-        </thead>
-    </table>
+<!--    <table id="payment_salary_table" class="table table-striped  table-bordered table-hover">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th style="width:15px;">id</th>-->
+<!--            <th>--><?php //echo $dil["fio"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_wage"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_addition_salary"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_addition_salary2"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_total_monthly_salary"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_prize_amount"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_reward_period"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_place_expenditure"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_salary_payment_day"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["payment_parties_agree_payment_wages"];?><!--</th>-->
+<!--            <th>--><?php //echo $dil["operation"];?><!--</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--    </table>-->
 </div>
 
     <div class="tab-pane" id="drivingLicense">
