@@ -20,12 +20,12 @@ $sql_employees = "select  id, firstname, lastname, surname , emp_status,empno,im
 						   $sub_array[] = $row_employees['id'];
 //						   $sub_array[] = $row_employees['image_name'];
                         if($row_employees['image_name']){
-                            $sub_array[] = '<img class="profile-user-img"
-                             src="'.$row_employees['image_name'].'" alt="User profile picture" id="default">';
+                            $sub_array[] = '<img class="img-circle elevation-2"
+                             src="'.$row_employees['image_name'].'" alt="User profile picture" id="default" width="40px" height="40px">';
 
                         }else{
-                            $sub_array[] = '<img class="profile-user-img"
-                             src="images/users/def.png" alt="User profile picture" id="default">';
+                            $sub_array[] = '<img class="img-circle elevation-2" 
+                             src="images/users/def.png" alt="User profile picture" id="default" width="40px" height="40px">';
 
                         }
 						   $sub_array[] = $row_employees['firstname'];
