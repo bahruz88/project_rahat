@@ -31,6 +31,7 @@ $dil = array(
 	"lastname"		    =>"Soyadı",
 	"surname"		    =>"Ata adı",
 	"sex"			    =>"Cinsi",
+	"company"			=>"İş yeri",
 	"marital_status"    =>"Ailə vəziyyəti",
 	"birth_date" 	    =>"Doğum tarixi",
 	"birth_place" 	    =>"Doğum yeri",

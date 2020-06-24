@@ -65,12 +65,12 @@
           <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" alt="User profile picture" src="./dist/img/user2-160x160.jpg">
+                  <img class="profile-user-img img-fluid img-circle" alt="User profile picture" src="<?php echo $u_photo; ?>">
                 </div>
 
                 <h3 class="profile-username text-center"><?php  echo $login_fullname ; ?></h3>
 
-                <p class="text-muted text-center">Oracle BI& DWH Senior Specialist</p>
+                <p class="text-muted text-center"><?php echo $profession; ?></p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                  </ul>

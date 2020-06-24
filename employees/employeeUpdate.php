@@ -15,7 +15,8 @@ include('../session.php') ;
 	$citizenship=$_POST['update_citizenshipn'];
 	$pincode=$_POST['update_pincoden'];
 	$pass_seria_num=$_POST['update_pass_seria_numn'];
-	
+	$update_company_id=$_POST['update_company_id'];
+
 	$passport_date = strtr($_POST['update_passport_daten'], '/', '-');
     $passport_date= date('Y-m-d', strtotime($passport_date));
 	//$passport_date=$_POST['update_passport_daten'];
@@ -32,6 +33,7 @@ include('../session.php') ;
 	$emr_contact=$_POST['update_emr_contactn'];
 	
 	$sql =   "UPDATE  $tbl_employees SET 
+		company_id = '$update_company_id',
 		surname = '$surname',
 		email = '$email',
 		firstname='$firstname',

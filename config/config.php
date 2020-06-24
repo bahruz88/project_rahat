@@ -45,6 +45,8 @@
 
    $sql_employees= "select * from $tbl_employees where  emp_status=1 ";
 
+   $sql_employee_company= "select * from $tbl_employee_company where  status=1 ";
+
    $sql_employees_asc= "select * from $tbl_employees where  emp_status=1 ORDER BY id DESC LIMIT 1";
 
    

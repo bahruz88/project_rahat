@@ -13,10 +13,10 @@
   <div class="modal fade" id="myModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
     <form id="employeeInsert" method="post" class="form-horizontal" action="">
-	
+
       <!-- Modal content-->
       <div class="modal-content" >
-      
+
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
@@ -25,8 +25,7 @@
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
-						 
-						
+
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="image"><?php echo $dil["image"];?></label>
 								<div class="col-sm-6" id="imgAdd">
@@ -58,21 +57,21 @@
 								<select   name="sex"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sex"];?>" >
 									<option value="1">Kişi</option>
 									<option value="2">Qadın</option>
-								</select>	 
+								</select>
 								</div>
 							</div>
-							
+
 							 <div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="marital_status"><?php echo $dil["marital_status"];?></label>
 								<div class="col-sm-6">
 								<select   name="marital_status"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["marital_status"];?>" >
 									<option value="1">Evli</option>
 									<option value="2">Subay</option>
-								</select>	 
+								</select>
 								</div>
 							</div>
-			 
-						 
+
+
 
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="birth_date"><?php echo $dil["birth_date"];?></label>
@@ -159,29 +158,45 @@
 								</div>
 							</div>
 
- 				
-					</div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
+                            <div class="col-sm-6">
+                                <select data-live-search="true"  name="company_id" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                    <?php
+                                    $result_company = $db->query($sql_employee_company);
+                                    if ($result_company->num_rows > 0) {
+                                        while($row_company= $result_company->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                    </div>
 				</div>
-   
+
 		</div>
         <div class="modal-footer">
-						 
+
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
 
-        </div>	
+        </div>
 		</form>
       </div>
-      
+
     </div>
   </div>
   <!--EMPLOYEE EDİT MODAL -->
    <div class="modal fade" id="modalEdit" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
     <form id="employeeUpdate" method="post" class="form-horizontal" action="">
-	
+
       <!-- Modal content-->
       <div class="modal-content" >
-      
+
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
@@ -223,21 +238,21 @@
 								<select   name="update_sexn" id="update_sex" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sex"];?>" >
 									<option value="1">Kişi</option>
 									<option value="2">Qadın</option>
-								</select>	 
+								</select>
 								</div>
 							</div>
-							
+
 							 <div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_marital_status"><?php echo $dil["marital_status"];?></label>
 								<div class="col-sm-6">
 								<select   name="update_marital_statusn" id="update_marital_status" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["marital_status"];?>" >
 									<option value="1">Evli</option>
 									<option value="2">Subay</option>
-								</select>	 
+								</select>
 								</div>
 							</div>
-			 
-						 
+
+
 
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_birth_date"><?php echo $dil["birth_date"];?></label>
@@ -323,21 +338,35 @@
 									<input type="text" class="form-control" id="update_emr_contact" name="update_emr_contactn" placeholder="<?php echo $dil["emr_contact"];?>" />
 								</div>
 							</div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="update_company_id"><?php echo $dil["company"];?></label>
+                                <div class="col-sm-6">
+                                    <select data-live-search="true"  name="update_company_id" id='update_company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
+                                        <?php
+                                        $result_company = $db->query($sql_employee_company);
+                                        if ($result_company->num_rows > 0) {
+                                            while($row_company= $result_company->fetch_assoc()) {
+                                                ?>
+                                                <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                            <?php } }?>
+                                    </select>
+                                </div>
+                            </div>
 
- 				
+
 					</div>
 				</div>
-   
+
 		</div>
         <div class="modal-footer">
-						 
+
 		<button  id ="add_new_item2" typemodalEdit="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_empid" name="update_empidn" value="" /> 						 
-        </div>	
+		<input type="hidden" id="update_empid" name="update_empidn" value="" />
+        </div>
 		</form>
       </div>
-      
+
     </div>
   </div>
 
@@ -444,7 +473,7 @@
                 <?php } }?>
             <!--                                            <input name="uid" type="hidden" class="inputFile"  value=""/>-->
             <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkil əlavə et</label>
-            <input id="files"  name="userImage" style="display: none" type="file">
+            <input id="files"  name="imgName" style="display: none" type="file">
             <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
             <input type="button" value="Əlavə et" class="btnSubmit" id="addImage" style="display:none;" />
         </div>

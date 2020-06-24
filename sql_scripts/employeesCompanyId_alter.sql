@@ -1,0 +1,1 @@
+ALTER TABLE `tbl_employees` ADD `company_id` INT(11) NULL AFTER `id`;

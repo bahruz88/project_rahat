@@ -252,6 +252,7 @@ $('#employee_table tbody').on( 'click', '#view', function () {
 
 					$("#empno").val(employee.empno)
 					$("#uid").val(empid)
+					$("#update_company_id").val(employee.company_id).change();
 					$("#update_firstname").val(employee.firstname);
 					$("#update_lastname").val(employee.lastname);
 					$("#update_surname").val(employee.surname);
