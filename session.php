@@ -17,6 +17,30 @@
       header("location:login.php");
       die();
    }
+   if($emp_id){
+       $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
+$tbl_education  ee left  join
+$tbl_universities u on ee.institution_id=u.id left  join
+$tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
+$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
+       $result_education = $db->query($sql_education);
+       $uni_name='';
+       $faculty='';
+       $profession='';
+       $qualification='';
+       if($result_education){
+           if ($result_education->num_rows > 0) {
+               while($row_edu = $result_education->fetch_assoc()) {
+
+                   $uni_name=$row_edu['uni_name'];
+                   $faculty=$row_edu['faculty'];
+                   $profession=$row_edu['profession'];
+                   $qualification=$row_edu['qualification'];
+               }
+           }
+       }
+   }
+
    
    if  (isset($_GET["dil"])){	   
 	$dil=strip_tags($_GET["dil"]);	

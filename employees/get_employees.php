@@ -21,11 +21,11 @@ $sql_employees = "select  id, firstname, lastname, surname , emp_status,empno,im
 //						   $sub_array[] = $row_employees['image_name'];
                         if($row_employees['image_name']){
                             $sub_array[] = '<img class="img-circle elevation-2"
-                             src="'.$row_employees['image_name'].'" alt="User profile picture" id="default" width="40px" height="40px">';
+                             src="'.$row_employees['image_name'].'" alt="User" id="default"  style="border-radius: 0;"  width="40px" height="40px">';
 
                         }else{
                             $sub_array[] = '<img class="img-circle elevation-2" 
-                             src="images/users/def.png" alt="User profile picture" id="default" width="40px" height="40px">';
+                             src="images/users/def.png" alt="User" id="default" style="border-radius: 0;" width="40px" height="40px">';
 
                         }
 						   $sub_array[] = $row_employees['firstname'];
