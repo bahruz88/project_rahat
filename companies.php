@@ -244,7 +244,7 @@ $result_roles_view = $db->query($sql_roles);
         <div class="modal-body" >
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["user_input_title"];?></h4>
+						<h4 class="card-title"><?php echo $dil["company_insert_title"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
@@ -640,7 +640,7 @@ $result_roles_view = $db->query($sql_roles);
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-text"><?php echo $dil["user_view_title"];?></h4>
+						<h4 class="card-text"><?php echo $dil["company_view_title"];?></h4>
 
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
