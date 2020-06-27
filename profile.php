@@ -4,15 +4,34 @@ include('session.php');
 if(isset($_GET['empid'])){
     $emp_id=$_GET['empid'];
 }
-$sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
-$u_photo = '';
+$sql_employees= "select te.* ";
+
+if($company_id!=''){
+    $sql_employees.=" ,tc.company_name ";
+
+}
+$sql_employees .=" from $tbl_employees te ";
+if($company_id!=''){
+    $sql_employees.=" inner  join  $tbl_companies tc  on tc.id=$company_id ";
+
+}
+$sql_employees.=" where  te.emp_status=1   and  te.id=$emp_id_user ";
+//$u_photo = '';
 $result_emp = $db->query($sql_employees);
 if($result_emp){
     if ($result_emp->num_rows > 0) {
         while($row_users = $result_emp->fetch_assoc()) {
-            $u_photo2 = $row_users['image_name'];
+            $home_tel_user = $row_users['home_tel'];
+            $mob_tel_user = $row_users['mob_tel'];
+            $birthdate_user = $row_users['birth_date'];
+            if($company_id!='') {
+                $company_name_user = $row_users['company_name'];
+            }
+            if($u_photo==''){
+                $u_photo= $row_users['image_name'];
+            }
 
-                $login_fullname2= $row_users['firstname'].' '.$row_users['lastname'];
+//                $login_fullname2= $row_users['firstname'].' '.$row_users['lastname'];
 
         }
     }
@@ -24,29 +43,29 @@ $result_users = $db->query($ses_users);
 $login_session = '';
 
 $company_id = '';
-$login_fullname= '';
+//$login_fullname= '';
 $login_lang = '';
 if($result_users){
     if ($result_users->num_rows > 0) {
         while($row_users = $result_users->fetch_assoc()) {
 
             $login_session = $row_users['username'];
-            if($u_photo2 ==''){
-                $u_photo = $row_users['u_photo'];
-            }else{
-                $u_photo=$u_photo2;
-            }
+//            if($u_photo2 ==''){
+//                $u_photo = $row_users['u_photo'];
+//            }else{
+//                $u_photo=$u_photo2;
+//            }
             $company_id = $row_users['company_id'];
-            $login_fullname= $row_users['firstname'].' '.$row['lastname'];
+//            $login_fullname= $row_users['firstname'].' '.$row['lastname'];
             $login_lang = $row_users['def_lang'];
 
         }
     }
 }
-if($login_fullname==''){
-    $login_fullname=$login_fullname2;
-    $u_photo=$u_photo2;
-}
+//if($login_fullname==''){
+//    $login_fullname=$login_fullname2;
+//    $u_photo=$u_photo2;
+//}
 
 
 
@@ -504,13 +523,13 @@ if($result_positions){
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b><?php echo $dil["mob_tel"];?></b> <a class="float-right"><?php echo $mob_tel; ?></a>
+                                        <b><?php echo $dil["mob_tel"];?></b> <a class="float-right"><?php echo $mob_tel_user; ?></a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b><?php echo $dil["home_tel"];?></b> <a class="float-right"><?php echo $home_tel; ?></a>
+                                        <b><?php echo $dil["home_tel"];?></b> <a class="float-right"><?php echo $home_tel_user; ?></a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b><?php echo $dil["company_name"];?></b> <a class="float-right"><?php echo $company_name; ?></a>
+                                        <b><?php echo $dil["company_name"];?></b> <a class="float-right"><?php echo $company_name_user; ?></a>
                                     </li>
                                 </ul>
 
