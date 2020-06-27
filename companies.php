@@ -241,14 +241,14 @@ $result_roles_view = $db->query($sql_roles);
       <!-- Modal content-->
       <div class="modal-content">
       
-        <div class="modal-body">
+        <div class="modal-body" >
 			<div class="card card-success">
 					<div class="card-header">
 						<h4 class="card-title"><?php echo $dil["user_input_title"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 
 <!--                        <div class="form-group row">-->
 <!--                            <label class="col-sm-5 col-form-label" for="compempid">--><?php //echo $dil["employee"];?><!--</label>-->
@@ -448,7 +448,7 @@ $result_roles_view = $db->query($sql_roles);
 
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 <!--                        <div class="form-group row">-->
 <!--                            <label class="col-sm-5 col-form-label" for="update_compempid">--><?php //echo $dil["employee"];?><!--</label>-->
 <!--                            <div class="col-sm-6">-->
@@ -644,7 +644,7 @@ $result_roles_view = $db->query($sql_roles);
 
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 
 <!--                        <div class="form-group row">-->
 <!--                            <label class="col-sm-5 col-form-label" for="view_compempid">--><?php //echo $dil["employee"];?><!--</label>-->
