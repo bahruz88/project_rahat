@@ -70,7 +70,7 @@
 
                 <h3 class="profile-username text-center"><?php  echo $login_fullname ; ?></h3>
 
-                <p class="text-muted text-center"><?php echo $profession; ?></p>
+                <p class="text-muted text-center"><?php echo $profession_user; ?></p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                  </ul>

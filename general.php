@@ -2,11 +2,11 @@
 include('session.php');
 
 if(isset($_GET['empid'])){
-    $emp_id=$_GET['empid'];
+    $emp_id_user=$_GET['empid'];
 }
 
 
- $ses_users ="select * from $tbl_users where emp_id =$emp_id ";
+ $ses_users ="select * from $tbl_users where emp_id =$emp_id_user ";
 // echo '$ses_users='.$ses_users;
 $result_users = $db->query($ses_users);
 $user_name = '';
@@ -136,7 +136,7 @@ if($result_users){
                                         <div id="targetLayer"></div>
                                         <div id="uploadFormLayer">
                                             <input name="uid" type="hidden" class="inputFile"  value="<?php  echo $uid ; ?>"/>
-                                            <input name="emp_id" type="hidden" class="inputFile"  value="<?php  echo $emp_id ; ?>"/>
+                                            <input name="emp_id" type="hidden" class="inputFile"  value="<?php  echo $emp_id_user ; ?>"/>
                                             <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkli dəyiş</label>
                                             <input id="files"  name="userImage" style="display: none" type="file">
                                             <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->

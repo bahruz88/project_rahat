@@ -37,7 +37,7 @@ if($result_emp){
     }
 }
 
- $ses_users ="select * from $tbl_users where emp_id =$emp_id ";
+ $ses_users ="select * from $tbl_users where emp_id =$emp_id_user ";
 // echo '$ses_users='.$ses_users;
 $result_users = $db->query($ses_users);
 $login_session = '';
@@ -69,48 +69,61 @@ if($result_users){
 
 
 
-//
-// $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
-//$tbl_education  ee left  join
-//$tbl_universities u on ee.institution_id=u.id left  join
-//$tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
-//$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
-//$result_education = $db->query($sql_education);
-//$uni_name='';
-//$faculty='';
-//$profession='';
-//$qualification='';
-//if($result_education){
-//    if ($result_education->num_rows > 0) {
-//        while($row_edu = $result_education->fetch_assoc()) {
-//
-//            $uni_name=$row_edu['uni_name'];
-//            $faculty=$row_edu['faculty'];
-//            $profession=$row_edu['profession'];
-//            $qualification=$row_edu['qualification'];
-//        }
-//    }
-//}
+$uni_name='';
+$faculty='';
+$profession='';
+$qualification='';
+if(isset($emp_id)){
+ $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
+$tbl_education  ee left  join
+$tbl_universities u on ee.institution_id=u.id left  join
+$tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
+$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
+$result_education = $db->query($sql_education);
 
+if($result_education){
+    if ($result_education->num_rows > 0) {
+        while($row_edu = $result_education->fetch_assoc()) {
 
-$sql_skill = "
-SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname
-FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id
-where tes.skill_status =1 and  te.emp_status=1 and  te.id=$emp_id";
-$result_skill = $db->query($sql_skill);
-$skill_name=[];
-$skill_descr=[];
-if($result_skill){
-    if ($result_skill->num_rows > 0) {
-        while($row_skill = $result_skill->fetch_assoc()) {
-            array_push($skill_name, $row_skill['skill_name']);
-            array_push($skill_descr, $row_skill['skill_descr']);
-
+            $uni_name=$row_edu['uni_name'];
+            $faculty=$row_edu['faculty'];
+            $profession=$row_edu['profession'];
+            $qualification=$row_edu['qualification'];
         }
     }
 }
+}
+$skill_name=[];
+$skill_descr=[];
+if(isset($emp_id)){
+    $sql_skill = "
+SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname
+FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id
+where tes.skill_status =1 and  te.emp_status=1 and  te.id=$emp_id";
+    $result_skill = $db->query($sql_skill);
 
+    if($result_skill){
+        if ($result_skill->num_rows > 0) {
+            while($row_skill = $result_skill->fetch_assoc()) {
+                array_push($skill_name, $row_skill['skill_name']);
+                array_push($skill_descr, $row_skill['skill_descr']);
 
+            }
+        }
+    }
+
+}
+$id = '';
+$firstname = '';
+$lastname = '';
+$surname = '';
+$reg_mail = '';
+$home_tel = '';
+$mob_tel ='';
+$birthdate = '';
+$company_name = '';
+$living_address = '';
+if(isset($emp_id)){
 $sql_users= "select te.* ";
 
 if($company_id!=''){
@@ -123,16 +136,7 @@ if($company_id!=''){
 
 }
 $sql_users.=" where  te.emp_status=1   and  te.id=$emp_id ";
-$id = '';
-$firstname = '';
-$lastname = '';
-$surname = '';
-$reg_mail = '';
-$home_tel = '';
-$mob_tel ='';
-$birthdate = '';
-$company_name = '';
-$living_address = '';
+
 $result_users = $db->query($sql_users);
 if($result_users){
     if ($result_users->num_rows > 0) {
@@ -151,6 +155,7 @@ if($result_users){
             $living_address = $row['living_address'];
         }
     }
+}
 }
 
 
@@ -506,7 +511,7 @@ if($result_positions){
                                         <div id="targetLayer"></div>
                                         <div id="uploadFormLayer">
                                             <input name="uid" type="hidden" class="inputFile"  value="<?php  echo $uid ; ?>"/>
-                                            <input name="emp_id" type="hidden" class="inputFile"  value="<?php  echo $emp_id ; ?>"/>
+                                            <input name="emp_id" type="hidden" class="inputFile"  value="<?php  echo $emp_id_user ; ?>"/>
                                             <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkli dəyiş</label>
                                             <input id="files"  name="userImage" style="display: none" type="file">
                                             <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
