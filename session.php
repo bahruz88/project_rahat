@@ -11,6 +11,7 @@
    $u_photo = $row['u_photo'];
    $emp_id = $row['emp_id'];
    $company_id = $row['company_id'];
+   $id = $row['id'];
    $login_fullname= $row['firstname'].' '.$row['lastname'];
    $login_lang = $row['def_lang'];
    if(!isset($_SESSION['login_user'])){

@@ -76,7 +76,7 @@
                  </ul>
   <div class="btn-group btn-group-lg" style="text-align:center;width:100%;">
 
-    <a type="button" href="profile.php" class="btn btn-primary"><?php echo $dil["profile"];?></a>
+    <a type="button" href="general.php?id=<?php  echo $id ; ?>" class="btn btn-primary"><?php echo $dil["profile"];?></a>
     <a type="button" href="logout.php" class="btn btn-primary"><?php echo $dil["logout"];?></a>         
 			 </div>
               <!-- /.card-body -->
