@@ -9,7 +9,7 @@
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    $login_session = $row['username'];
    $u_photo = $row['u_photo'];
-   $emp_id_user = $row['emp_id'];
+   $emp_id = $row['emp_id'];
    $company_id = $row['company_id'];
    $id = $row['id'];
    $login_fullname= $row['firstname'].' '.$row['lastname'];
@@ -18,19 +18,18 @@
       header("location:login.php");
       die();
    }
-   if($emp_id_user){
+   if($emp_id){
        $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
 $tbl_education  ee left  join
 $tbl_universities u on ee.institution_id=u.id left  join
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
-$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id_user";
+$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
        $result_education = $db->query($sql_education);
 
-       $profession_user='';
+       $profession_user=''; ;
        if($result_education){
            if ($result_education->num_rows > 0) {
                while($row_edu = $result_education->fetch_assoc()) {
-
                    $profession_user=$row_edu['profession'];
                }
            }

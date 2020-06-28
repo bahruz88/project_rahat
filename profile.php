@@ -4,83 +4,63 @@ include('session.php');
 if(isset($_GET['empid'])){
     $emp_id=$_GET['empid'];
 }
-$sql_employees= "select te.* ";
-
-if($company_id!=''){
-    $sql_employees.=" ,tc.company_name ";
-
-}
-$sql_employees .=" from $tbl_employees te ";
-if($company_id!=''){
-    $sql_employees.=" inner  join  $tbl_companies tc  on tc.id=$company_id ";
-
-}
-$sql_employees.=" where  te.emp_status=1   and  te.id=$emp_id_user ";
-//$u_photo = '';
+$sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
+$u_photo = '';
 $result_emp = $db->query($sql_employees);
 if($result_emp){
     if ($result_emp->num_rows > 0) {
         while($row_users = $result_emp->fetch_assoc()) {
-            $home_tel_user = $row_users['home_tel'];
-            $mob_tel_user = $row_users['mob_tel'];
-            $birthdate_user = $row_users['birth_date'];
-            if($company_id!='') {
-                $company_name_user = $row_users['company_name'];
-            }
-            if($u_photo==''){
-                $u_photo= $row_users['image_name'];
-            }
+            $u_photo2 = $row_users['image_name'];
 
-//                $login_fullname2= $row_users['firstname'].' '.$row_users['lastname'];
+                $login_fullname2= $row_users['firstname'].' '.$row_users['lastname'];
 
         }
     }
 }
 
- $ses_users ="select * from $tbl_users where emp_id =$emp_id_user ";
+ $ses_users ="select * from $tbl_users where emp_id =$emp_id ";
 // echo '$ses_users='.$ses_users;
 $result_users = $db->query($ses_users);
 $login_session = '';
 
 $company_id = '';
-//$login_fullname= '';
+$login_fullname= '';
 $login_lang = '';
 if($result_users){
     if ($result_users->num_rows > 0) {
         while($row_users = $result_users->fetch_assoc()) {
 
             $login_session = $row_users['username'];
-//            if($u_photo2 ==''){
-//                $u_photo = $row_users['u_photo'];
-//            }else{
-//                $u_photo=$u_photo2;
-//            }
+            if($u_photo2 ==''){
+                $u_photo = $row_users['u_photo'];
+            }else{
+                $u_photo=$u_photo2;
+            }
             $company_id = $row_users['company_id'];
-//            $login_fullname= $row_users['firstname'].' '.$row['lastname'];
+            $login_fullname= $row_users['firstname'].' '.$row['lastname'];
             $login_lang = $row_users['def_lang'];
 
         }
     }
 }
-//if($login_fullname==''){
-//    $login_fullname=$login_fullname2;
-//    $u_photo=$u_photo2;
-//}
+if($login_fullname==''){
+    $login_fullname=$login_fullname2;
+    $u_photo=$u_photo2;
+}
 
 
 
-$uni_name='';
-$faculty='';
-$profession='';
-$qualification='';
-if(isset($emp_id)){
+//
  $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
 $tbl_education  ee left  join
 $tbl_universities u on ee.institution_id=u.id left  join
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
 $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
 $result_education = $db->query($sql_education);
-
+$uni_name='';
+$faculty='';
+$profession='';
+$qualification='';
 if($result_education){
     if ($result_education->num_rows > 0) {
         while($row_edu = $result_education->fetch_assoc()) {
@@ -92,38 +72,26 @@ if($result_education){
         }
     }
 }
-}
-$skill_name=[];
-$skill_descr=[];
-if(isset($emp_id)){
-    $sql_skill = "
+
+
+$sql_skill = "
 SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname
 FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id
 where tes.skill_status =1 and  te.emp_status=1 and  te.id=$emp_id";
-    $result_skill = $db->query($sql_skill);
+$result_skill = $db->query($sql_skill);
+$skill_name=[];
+$skill_descr=[];
+if($result_skill){
+    if ($result_skill->num_rows > 0) {
+        while($row_skill = $result_skill->fetch_assoc()) {
+            array_push($skill_name, $row_skill['skill_name']);
+            array_push($skill_descr, $row_skill['skill_descr']);
 
-    if($result_skill){
-        if ($result_skill->num_rows > 0) {
-            while($row_skill = $result_skill->fetch_assoc()) {
-                array_push($skill_name, $row_skill['skill_name']);
-                array_push($skill_descr, $row_skill['skill_descr']);
-
-            }
         }
     }
-
 }
-$id = '';
-$firstname = '';
-$lastname = '';
-$surname = '';
-$reg_mail = '';
-$home_tel = '';
-$mob_tel ='';
-$birthdate = '';
-$company_name = '';
-$living_address = '';
-if(isset($emp_id)){
+
+
 $sql_users= "select te.* ";
 
 if($company_id!=''){
@@ -136,7 +104,16 @@ if($company_id!=''){
 
 }
 $sql_users.=" where  te.emp_status=1   and  te.id=$emp_id ";
-
+$id = '';
+$firstname = '';
+$lastname = '';
+$surname = '';
+$reg_mail = '';
+$home_tel = '';
+$mob_tel ='';
+$birthdate = '';
+$company_name = '';
+$living_address = '';
 $result_users = $db->query($sql_users);
 if($result_users){
     if ($result_users->num_rows > 0) {
@@ -155,7 +132,6 @@ if($result_users){
             $living_address = $row['living_address'];
         }
     }
-}
 }
 
 
@@ -511,7 +487,7 @@ if($result_positions){
                                         <div id="targetLayer"></div>
                                         <div id="uploadFormLayer">
                                             <input name="uid" type="hidden" class="inputFile"  value="<?php  echo $uid ; ?>"/>
-                                            <input name="emp_id" type="hidden" class="inputFile"  value="<?php  echo $emp_id_user ; ?>"/>
+                                            <input name="emp_id" type="hidden" class="inputFile"  value="<?php  echo $emp_id ; ?>"/>
                                             <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkli dəyiş</label>
                                             <input id="files"  name="userImage" style="display: none" type="file">
                                             <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
@@ -528,13 +504,13 @@ if($result_positions){
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b><?php echo $dil["mob_tel"];?></b> <a class="float-right"><?php echo $mob_tel_user; ?></a>
+                                        <b><?php echo $dil["mob_tel"];?></b> <a class="float-right"><?php echo $mob_tel; ?></a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b><?php echo $dil["home_tel"];?></b> <a class="float-right"><?php echo $home_tel_user; ?></a>
+                                        <b><?php echo $dil["home_tel"];?></b> <a class="float-right"><?php echo $home_tel; ?></a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b><?php echo $dil["company_name"];?></b> <a class="float-right"><?php echo $company_name_user; ?></a>
+                                        <b><?php echo $dil["company_name"];?></b> <a class="float-right"><?php echo $company_name; ?></a>
                                     </li>
                                 </ul>
 
