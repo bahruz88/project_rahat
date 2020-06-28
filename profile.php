@@ -24,7 +24,7 @@ $result_users = $db->query($ses_users);
 $login_session = '';
 
 $company_id = '';
-$login_fullname= '';
+$login_fullname3= '';
 $login_lang = '';
 if($result_users){
     if ($result_users->num_rows > 0) {
@@ -37,14 +37,14 @@ if($result_users){
                 $u_photo=$u_photo2;
             }
             $company_id = $row_users['company_id'];
-            $login_fullname= $row_users['firstname'].' '.$row['lastname'];
+            $login_fullname3= $row_users['firstname'].' '.$row['lastname'];
             $login_lang = $row_users['def_lang'];
 
         }
     }
 }
-if($login_fullname==''){
-    $login_fullname=$login_fullname2;
+if($login_fullname3==''){
+    $login_fullname3=$login_fullname2;
     $u_photo=$u_photo2;
 }
 
@@ -498,7 +498,7 @@ if($result_positions){
                                 </div>
                                 <div class="clearFix"></div>
 
-                                <h3 class="profile-username text-center"><?php  echo $login_fullname ; ?></h3>
+                                <h3 class="profile-username text-center"><?php  echo $login_fullname3 ; ?></h3>
 
                                 <p class="text-muted text-center"><?php echo $profession; ?></p>
 
