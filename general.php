@@ -1,12 +1,12 @@
 <?php
 include('session.php');
 
-if(isset($_GET['empid'])){
-    $emp_id=$_GET['empid'];
+if(isset($_GET['id_user'])){
+    $id_user=$_GET['id_user'];
 }
 
 
- $ses_users ="select * from $tbl_users where emp_id =$emp_id ";
+ $ses_users ="select * from $tbl_users where id =$id_user ";
 // echo '$ses_users='.$ses_users;
 $result_users = $db->query($ses_users);
 $user_name = '';
@@ -73,6 +73,9 @@ if($result_users){
             width:100px;
             height:100px;
         }
+        .btn {
+            padding:5px !important;
+        }
     </style>
 </head>
 
@@ -137,17 +140,24 @@ if($result_users){
                                         <div id="uploadFormLayer">
                                             <input name="uid" type="hidden" class="inputFile"  value="<?php  echo $uid ; ?>"/>
                                             <input name="emp_id" type="hidden" class="inputFile"  value="<?php  echo $emp_id ; ?>"/>
-                                            <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkli dəyiş</label>
-                                            <input id="files"  name="userImage" style="display: none" type="file">
-                                            <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
-                                            <input type="submit" value="Əlavə et" class="btnSubmit" style="display:none;" />
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkli dəyiş</label>
+                                                <input id="files"  name="userImage" style="display: none" type="file">
+                                                <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
+                                                <input type="submit" value="Əlavə et" class="btnSubmit" style="display:none;" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="password" class="btn btn-primary btn-block btn-outlined">Şifrəni dəyiş</label>
+                                                    <input id="password"  name="password" style="display: none" type="button">
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
 
                                 </div>
                                 <div class="clearFix"></div>
-                                <label for="password" class="btn btn-primary btn-block btn-outlined">Şifrəni dəyiş</label>
-                                <input id="password"  name="password" style="display: none" type="button">
+
 
                                 <h3 class="profile-username text-center"><?php  echo $login_fullname ; ?></h3>
 
@@ -382,6 +392,8 @@ if($result_users){
     })
     $('#password').on('click', function() {
         console.log('sss')
+        // window.location.href='changePass.php;
+        window.location.href ="/changePass.php?id_user=<?php  echo $id_user; ?>"
     });
     // $("#eduinfotab").on('click',(function(e) {
     //     console.log('salam='+$(this).closest('li').find('a').text())
