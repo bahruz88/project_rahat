@@ -57,6 +57,7 @@ $tbl_universities u on ee.institution_id=u.id left  join
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
 $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
 $result_education = $db->query($sql_education);
+$uni_id='';
 $uni_name='';
 $faculty='';
 $profession='';
@@ -65,6 +66,7 @@ if($result_education){
     if ($result_education->num_rows > 0) {
         while($row_edu = $result_education->fetch_assoc()) {
 
+            $uni_id=$row_edu['id'];
             $uni_name=$row_edu['uni_name'];
             $faculty=$row_edu['faculty'];
             $profession=$row_edu['profession'];
@@ -560,6 +562,7 @@ if($result_positions){
                                     <!-- Tab panes -->
                                     <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
                                         <div class="tab-pane active" id="employees">
+                                            <?php if($id!=''){?>
                                             <div class="form-group  row">
                                                 <div class="col-md-6">
                                                     <label class="col-sm-4 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
@@ -601,6 +604,11 @@ if($result_positions){
                                                     <input type="text" class="form-control" id="company_name"  value="<?php echo $company_name; ?>" name="company_name" placeholder="<?php echo $dil["company_name"];?>" readonly />
                                                 </div>
                                             </div>
+                                            <?php } else{?>
+                                                <div class="col-md-12">
+                                                    <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                                </div>
+                                            <?php  }?>
 
 
 
@@ -610,7 +618,7 @@ if($result_positions){
                                         <div class="tab-pane" id="main_information"> main_information  </div>
                                         <div class="tab-pane" id="eduinfo">
 
-
+                                            <?php if($uni_id!=''){?>
                                             <div class="form-group  row">
                                                 <div class="col-md-6">
                                                     <label class="col-sm-6 col-form-label" for="uni_name"><?php echo $dil["institution_name"];?></label>
@@ -632,11 +640,19 @@ if($result_positions){
                                                 </div>
                                             </div>
 
+                                            <?php } else{?>
+                                            <div class="col-md-12">
+                                                <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                            </div>
+                                            <?php  }?>
+
 
                                         </div>
                                         <div class="tab-pane" id="certification">
 
-                                            <?php for($i=0;$i<count($training_center_name);$i++){?>
+                                            <?php
+                                            if(count($training_center_name)>0){
+                                            for($i=0;$i<count($training_center_name);$i++){?>
                                                 <div class="panel">
                                                 <div class="form-group  row">
 
@@ -663,10 +679,16 @@ if($result_positions){
                                                     </div>
                                                 </div>
                                                 </div>
-                                            <?php } ?>
+                                            <?php } }else{?>
+                                                <div class="col-md-12">
+                                                    <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                                </div>
+                                            <?php  }?>
                                         </div>
                                         <div class="tab-pane" id="skills">
-                                            <?php for($i=0;$i<count($skill_name);$i++){?>
+                                            <?php
+                                            if(count($skill_name)>0){
+                                            for($i=0;$i<count($skill_name);$i++){?>
                                             <div class="panel">
 
                                                 <div class="form-group  row">
@@ -682,12 +704,18 @@ if($result_positions){
                                                     </div>
                                                 </div>
                                             </div>
-                                            <?php } ?>
+                                            <?php }} else{?>
+                                            <div class="col-md-12">
+                                                <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                            </div>
+                                            <?php  }?>
 
 
                                         </div>
                                         <div class="tab-pane" id="lang">
-                                            <?php for($i=0;$i<count($lang_name);$i++){?>
+                                            <?php
+                                            if(count($lang_name)>0){
+                                            for($i=0;$i<count($lang_name);$i++){?>
                                                 <div class="panel">
                                                     <div class="form-group  row">
 
@@ -718,12 +746,18 @@ if($result_positions){
                                                     </div>
 
                                                 </div>
-                                            <?php } ?>
+                                            <?php } } else{?>
+                                                <div class="col-md-12">
+                                                    <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                                </div>
+                                            <?php  }?>
 
                                         </div>
                                         <div class="tab-pane" id="aileinfo">
 
-                                            <?php for($i=0;$i<count($m_firstname);$i++){?>
+                                            <?php
+                                            if(count($m_firstname)>0){
+                                            for($i=0;$i<count($m_firstname);$i++){?>
                                                 <div class="panel">
                                                     <div class="form-group  row">
 
@@ -770,86 +804,99 @@ if($result_positions){
                                                     </div>
 
                                                 </div>
-                                            <?php } ?>
+                                            <?php } } else{?>
+                                            <div class="col-md-12">
+                                                <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                            </div>
+                                            <?php  }?>
                                         </div>
 
                                         <!--<div class="tab-pane" id="herbi">HERBI  MELUMATLAR</div>-->
                                         <div class="tab-pane" id="militaryInfo">
-                                            <?php for($i=0;$i<count($military_reg_group1);$i++){?>
-                                                <div class="panel">
-                                                    <div class="form-group  row">
+                                            <?php if(count($military_reg_group1)>0){
+                                                for($i=0;$i<count($military_reg_group1);$i++){?>
+                                                    <div class="panel">
+                                                        <div class="form-group  row">
 
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_reg_group"><?php echo $dil["military_registration_group"];?></label>
-                                                            <input type="text" class="form-control" id="military_reg_group" value="<?php echo $military_reg_group1[$i]; ?>" name="military_reg_group" placeholder="<?php echo $dil["military_registration_group"];?>" readonly />
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_reg_group"><?php echo $dil["military_registration_group"];?></label>
+                                                                <input type="text" class="form-control" id="military_reg_group" value="<?php echo $military_reg_group1[$i]; ?>" name="military_reg_group" placeholder="<?php echo $dil["military_registration_group"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_reg_category"><?php echo $dil["military_registration_category"];?></label>
+                                                                <input type="text" class="form-control" id="military_reg_category" name="military_reg_category" value="<?php echo $military_reg_category1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_category"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="staff_desc"><?php echo $dil["military_staff"];?></label>
+                                                                <input type="text" class="form-control" id="staff_desc" name="staff_desc" value="<?php echo $staff_desc1[$i]; ?>"  placeholder="<?php echo $dil["military_staff"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="rank_desc"><?php echo $dil["military_rank"];?></label>
+                                                                <input type="text" class="form-control" id="rank_desc" name="rank_desc" value="<?php echo $rank_desc1[$i]; ?>"  placeholder="<?php echo $dil["military_rank"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_specialty_acc"><?php echo $dil["military_specialty_accounting"];?></label>
+                                                                <input type="text" class="form-control" id="military_specialty_acc" name="military_specialty_acc" value="<?php echo $military_special1ty_acc1[$i]; ?>"  placeholder="<?php echo $dil["military_specialty_accounting"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_fitness_service"><?php echo $dil["military_fitness_service"];?></label>
+                                                                <input type="text" class="form-control" id="military_fitness_service" name="military_fitness_service" value="<?php echo $military_fitness_service1[$i]; ?>"  placeholder="<?php echo $dil["military_fitness_service"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_registration_service"><?php echo $dil["military_registration_service"];?></label>
+                                                                <input type="text" class="form-control" id="military_registration_service" name="military_registration_service" value="<?php echo $military_registration_service1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_service"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_registration_date"><?php echo $dil["military_registration_date"];?></label>
+                                                                <input type="text" class="form-control" id="military_registration_date" name="military_registration_date" value="<?php echo $military_registration_date1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_date"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_general"><?php echo $dil["military_general"];?></label>
+                                                                <input type="text" class="form-control" id="military_general" name="military_general" value="<?php echo $military_general1[$i]; ?>"  placeholder="<?php echo $dil["military_general"];?>" readonly />
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_special"><?php echo $dil["military_special"];?></label>
+                                                                <input type="text" class="form-control" id="military_special" name="military_special" value="<?php echo $military_special1[$i]; ?>"  placeholder="<?php echo $dil["military_special"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_no_official"><?php echo $dil["military_no_official"];?></label>
+                                                                <input type="text" class="form-control" id="military_no_official" name="military_no_official" value="<?php echo $military_no_official1[$i]; ?>"  placeholder="<?php echo $dil["military_no_official"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_additional_information"><?php echo $dil["military_additional_information"];?></label>
+                                                                <input type="text" class="form-control" id="military_additional_information" name="military_additional_information" value="<?php echo $military_additional_information1[$i]; ?>"  placeholder="<?php echo $dil["military_additional_information"];?>" readonly />
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label class="col-sm-8 col-form-label" for="military_date_completion"><?php echo $dil["military_date_completion"];?></label>
+                                                                <input type="text" class="form-control" id="military_date_completion" name="military_date_completion" value="<?php echo $military_date_completion1[$i]; ?>"  placeholder="<?php echo $dil["military_date_completion"];?>" readonly />
+                                                            </div>
+
                                                         </div>
 
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_reg_category"><?php echo $dil["military_registration_category"];?></label>
-                                                            <input type="text" class="form-control" id="military_reg_category" name="military_reg_category" value="<?php echo $military_reg_category1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_category"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="staff_desc"><?php echo $dil["military_staff"];?></label>
-                                                            <input type="text" class="form-control" id="staff_desc" name="staff_desc" value="<?php echo $staff_desc1[$i]; ?>"  placeholder="<?php echo $dil["military_staff"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="rank_desc"><?php echo $dil["military_rank"];?></label>
-                                                            <input type="text" class="form-control" id="rank_desc" name="rank_desc" value="<?php echo $rank_desc1[$i]; ?>"  placeholder="<?php echo $dil["military_rank"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_specialty_acc"><?php echo $dil["military_specialty_accounting"];?></label>
-                                                            <input type="text" class="form-control" id="military_specialty_acc" name="military_specialty_acc" value="<?php echo $military_special1ty_acc1[$i]; ?>"  placeholder="<?php echo $dil["military_specialty_accounting"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_fitness_service"><?php echo $dil["military_fitness_service"];?></label>
-                                                            <input type="text" class="form-control" id="military_fitness_service" name="military_fitness_service" value="<?php echo $military_fitness_service1[$i]; ?>"  placeholder="<?php echo $dil["military_fitness_service"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_registration_service"><?php echo $dil["military_registration_service"];?></label>
-                                                            <input type="text" class="form-control" id="military_registration_service" name="military_registration_service" value="<?php echo $military_registration_service1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_service"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_registration_date"><?php echo $dil["military_registration_date"];?></label>
-                                                            <input type="text" class="form-control" id="military_registration_date" name="military_registration_date" value="<?php echo $military_registration_date1[$i]; ?>"  placeholder="<?php echo $dil["military_registration_date"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_general"><?php echo $dil["military_general"];?></label>
-                                                            <input type="text" class="form-control" id="military_general" name="military_general" value="<?php echo $military_general1[$i]; ?>"  placeholder="<?php echo $dil["military_general"];?>" readonly />
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_special"><?php echo $dil["military_special"];?></label>
-                                                            <input type="text" class="form-control" id="military_special" name="military_special" value="<?php echo $military_special1[$i]; ?>"  placeholder="<?php echo $dil["military_special"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_no_official"><?php echo $dil["military_no_official"];?></label>
-                                                            <input type="text" class="form-control" id="military_no_official" name="military_no_official" value="<?php echo $military_no_official1[$i]; ?>"  placeholder="<?php echo $dil["military_no_official"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_additional_information"><?php echo $dil["military_additional_information"];?></label>
-                                                            <input type="text" class="form-control" id="military_additional_information" name="military_additional_information" value="<?php echo $military_additional_information1[$i]; ?>"  placeholder="<?php echo $dil["military_additional_information"];?>" readonly />
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="col-sm-8 col-form-label" for="military_date_completion"><?php echo $dil["military_date_completion"];?></label>
-                                                            <input type="text" class="form-control" id="military_date_completion" name="military_date_completion" value="<?php echo $military_date_completion1[$i]; ?>"  placeholder="<?php echo $dil["military_date_completion"];?>" readonly />
-                                                        </div>
 
                                                     </div>
-
-
+                                                <?php }
+                                            } else{?>
+                                                <div class="col-md-12">
+                                                    <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
                                                 </div>
-                                            <?php } ?>
+                                            <?php  }?>
                                         </div>
                                         <div class="tab-pane" id="paymentSalary">
+                                            <div class="col-md-12">
+                                                <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                            </div>
 <!--                                            <table id="payment_salary_table" class="table table-striped  table-bordered table-hover">-->
 <!--                                                <thead>-->
 <!--                                                <tr>-->
@@ -871,7 +918,9 @@ if($result_positions){
                                         </div>
 
                                         <div class="tab-pane" id="drivingLicense">
-                                            <div class="col-md-6">
+                                            <?php if($lic_seria_number!=''){?>
+
+                                                <div class="col-md-6">
                                                 <label class="col-sm-8 col-form-label" for="lic_seria_number"><?php echo $dil["driving_serial_number_card"];?></label>
                                                 <input type="text" class="form-control" id="lic_seria_number" value="<?php echo $lic_seria_number; ?>" name="lic_seria_number" placeholder="<?php echo $dil["driving_serial_number_card"];?>" readonly />
                                             </div>
@@ -895,82 +944,94 @@ if($result_positions){
                                                 <label class="col-sm-8 col-form-label" for="expire_date"><?php echo $dil["driving_period_validity"];?></label>
                                                 <input type="text" class="form-control" id="expire_date" name="expire_date" value="<?php echo $expire_date; ?>"  placeholder="<?php echo $dil["driving_period_validity"];?>" readonly />
                                             </div>
+                                            <?php } else{?>
+                                            <div class="col-md-12">
+                                                <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                            </div>
+                                            <?php  }?>
                                         </div>
 
                                         <div class="tab-pane" id="migrationInfo">
-                                            <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
-                                                <i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo   $dil["migration_temporary_residence_permit"]; ?> </i>
-                                            </div>
+                                            <?php if($trp_seria_number!=''){?>
+                                                <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+                                                    <i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo   $dil["migration_temporary_residence_permit"]; ?> </i>
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="trp_seria_number"><?php echo $dil["trp_seria_number"];?></label>
-                                                <input type="text" class="form-control" id="trp_seria_number" value="<?php echo $trp_seria_number; ?>" name="trp_seria_number" placeholder="<?php echo $dil["trp_seria_number"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="trp_seria_number"><?php echo $dil["trp_seria_number"];?></label>
+                                                    <input type="text" class="form-control" id="trp_seria_number" value="<?php echo $trp_seria_number; ?>" name="trp_seria_number" placeholder="<?php echo $dil["trp_seria_number"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="trp_permit_reason"><?php echo $dil["trp_permit_reason"];?></label>
-                                                <input type="text" class="form-control" id="trp_permit_reason" name="trp_permit_reason" value="<?php echo $trp_permit_reason; ?>"  placeholder="<?php echo $dil["trp_permit_reason"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="trp_permit_reason"><?php echo $dil["trp_permit_reason"];?></label>
+                                                    <input type="text" class="form-control" id="trp_permit_reason" name="trp_permit_reason" value="<?php echo $trp_permit_reason; ?>"  placeholder="<?php echo $dil["trp_permit_reason"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="trp_permit_date"><?php echo $dil["trp_permit_date"];?></label>
-                                                <input type="text" class="form-control" id="trp_permit_date" name="trp_permit_date" value="<?php echo $trp_permit_date; ?>"  placeholder="<?php echo $dil["trp_permit_date"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="trp_permit_date"><?php echo $dil["trp_permit_date"];?></label>
+                                                    <input type="text" class="form-control" id="trp_permit_date" name="trp_permit_date" value="<?php echo $trp_permit_date; ?>"  placeholder="<?php echo $dil["trp_permit_date"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="trp_valid_date"><?php echo $dil["trp_valid_date"];?></label>
-                                                <input type="text" class="form-control" id="trp_valid_date" name="trp_valid_date" value="<?php echo $trp_valid_date; ?>"  placeholder="<?php echo $dil["trp_valid_date"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="trp_valid_date"><?php echo $dil["trp_valid_date"];?></label>
+                                                    <input type="text" class="form-control" id="trp_valid_date" name="trp_valid_date" value="<?php echo $trp_valid_date; ?>"  placeholder="<?php echo $dil["trp_valid_date"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="trp_issuer"><?php echo $dil["trp_issuer"];?></label>
-                                                <input type="text" class="form-control" id="trp_issuer" name="trp_issuer" value="<?php echo $trp_issuer; ?>"  placeholder="<?php echo $dil["trp_issuer"];?>" readonly />
-                                            </div>
-                                            <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
-                                                <i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo $dil["migration_permanent_residence_permit"];?> </i>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="prp_seria_number"><?php echo $dil["prp_seria_number"];?></label>
-                                                <input type="text" class="form-control" id="prp_seria_number" name="prp_seria_number" value="<?php echo $prp_seria_number; ?>"  placeholder="<?php echo $dil["prp_seria_number"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="trp_issuer"><?php echo $dil["trp_issuer"];?></label>
+                                                    <input type="text" class="form-control" id="trp_issuer" name="trp_issuer" value="<?php echo $trp_issuer; ?>"  placeholder="<?php echo $dil["trp_issuer"];?>" readonly />
+                                                </div>
+                                                <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+                                                    <i class="fas  fa-check-double"   style="color:#bd2130;"><?php echo $dil["migration_permanent_residence_permit"];?> </i>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="prp_seria_number"><?php echo $dil["prp_seria_number"];?></label>
+                                                    <input type="text" class="form-control" id="prp_seria_number" name="prp_seria_number" value="<?php echo $prp_seria_number; ?>"  placeholder="<?php echo $dil["prp_seria_number"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="prp_permit_date"><?php echo $dil["prp_permit_date"];?></label>
-                                                <input type="text" class="form-control" id="prp_permit_date" name="prp_permit_date" value="<?php echo $prp_permit_date; ?>"  placeholder="<?php echo $dil["prp_permit_date"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="prp_permit_date"><?php echo $dil["prp_permit_date"];?></label>
+                                                    <input type="text" class="form-control" id="prp_permit_date" name="prp_permit_date" value="<?php echo $prp_permit_date; ?>"  placeholder="<?php echo $dil["prp_permit_date"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="prp_valid_date"><?php echo $dil["prp_valid_date"];?></label>
-                                                <input type="text" class="form-control" id="prp_valid_date" name="prp_valid_date" value="<?php echo $prp_valid_date; ?>"  placeholder="<?php echo $dil["prp_valid_date"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="prp_valid_date"><?php echo $dil["prp_valid_date"];?></label>
+                                                    <input type="text" class="form-control" id="prp_valid_date" name="prp_valid_date" value="<?php echo $prp_valid_date; ?>"  placeholder="<?php echo $dil["prp_valid_date"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="prp_issuer"><?php echo $dil["prp_issuer"];?></label>
-                                                <input type="text" class="form-control" id="prp_issuer" name="prp_issuer" value="<?php echo $prp_issuer; ?>"  placeholder="<?php echo $dil["prp_issuer"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="prp_issuer"><?php echo $dil["prp_issuer"];?></label>
+                                                    <input type="text" class="form-control" id="prp_issuer" name="prp_issuer" value="<?php echo $prp_issuer; ?>"  placeholder="<?php echo $dil["prp_issuer"];?>" readonly />
+                                                </div>
 
-                                            <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
-                                                <i class="fas  fa-check-double" right" style="color:#bd2130;"><?php echo $dil["migration_work_permit_labor_activity"]; ?> </i>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
-                                                <input type="text" class="form-control" id="wp_seria_number" name="wp_seria_number" value="<?php echo $wp_seria_number; ?>"  placeholder="<?php echo $dil["wp_seria_number"];?>" readonly />
-                                            </div>
+                                                <div  style="padding:3px; color:#bd2130;border-left-color:#1e7e34; border-left:5px solid ;">
+                                                    <i class="fas  fa-check-double" right" style="color:#bd2130;"><?php echo $dil["migration_work_permit_labor_activity"]; ?> </i>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="wp_seria_number"><?php echo $dil["wp_seria_number"];?></label>
+                                                    <input type="text" class="form-control" id="wp_seria_number" name="wp_seria_number" value="<?php echo $wp_seria_number; ?>"  placeholder="<?php echo $dil["wp_seria_number"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="wp_permit_date"><?php echo $dil["wp_permit_date"];?></label>
-                                                <input type="text" class="form-control" id="wp_permit_date" name="wp_permit_date" value="<?php echo $wp_permit_date; ?>"  placeholder="<?php echo $dil["wp_permit_date"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="wp_permit_date"><?php echo $dil["wp_permit_date"];?></label>
+                                                    <input type="text" class="form-control" id="wp_permit_date" name="wp_permit_date" value="<?php echo $wp_permit_date; ?>"  placeholder="<?php echo $dil["wp_permit_date"];?>" readonly />
+                                                </div>
 
-                                            <div class="col-md-6">
-                                                <label class="col-sm-8 col-form-label" for="wp_valid_date"><?php echo $dil["wp_valid_date"];?></label>
-                                                <input type="text" class="form-control" id="wp_valid_date" name="trp_issuer" value="<?php echo $wp_valid_date; ?>"  placeholder="<?php echo $dil["wp_valid_date"];?>" readonly />
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-sm-8 col-form-label" for="wp_valid_date"><?php echo $dil["wp_valid_date"];?></label>
+                                                    <input type="text" class="form-control" id="wp_valid_date" name="trp_issuer" value="<?php echo $wp_valid_date; ?>"  placeholder="<?php echo $dil["wp_valid_date"];?>" readonly />
+                                                </div>
 
+
+                                            <?php } else{?>
+                                                <div class="col-md-12">
+                                                    <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                                </div>
+                                            <?php  }?>
 
                                         </div>
                                         <div class="tab-pane" id="medicalInfo">
-
+                                            <?php if($medical_app!=''){?>
                                             <div class="col-md-6">
                                                 <label class="col-sm-8 col-form-label" for="medical_app"><?php echo $dil["medical_app"];?></label>
                                                 <input type="text" class="form-control" id="medical_app" value="<?php echo $medical_app; ?>" name="medical_app" placeholder="<?php echo $dil["medical_app"];?>" readonly />
@@ -995,10 +1056,16 @@ if($result_positions){
                                                 <label class="col-sm-8 col-form-label" for="deficiency_desc"><?php echo $dil["medical_deficiency_desc"];?></label>
                                                 <input type="text" class="form-control" id="deficiency_desc" name="deficiency_desc" value="<?php echo $deficiency_desc; ?>"  placeholder="<?php echo $dil["medical_deficiency_desc"];?>" readonly />
                                             </div>
+                                            <?php } else{?>
+                                            <div class="col-md-12">
+                                                <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                            </div>
+                                            <?php  }?>
 
 
                                         </div>
                                         <div class="tab-pane" id="previousPositions">
+                                            <?php if($prev_employer!=''){?>
                                             <div class="col-md-6">
                                                 <label class="col-sm-8 col-form-label" for="prev_employer"><?php echo $dil["prev_employer"];?></label>
                                                 <input type="text" class="form-control" id="prev_employer" value="<?php echo $prev_employer; ?>" name="prev_employer" placeholder="<?php echo $dil["prev_employer"];?>" readonly />
@@ -1020,18 +1087,14 @@ if($result_positions){
                                                 <label class="col-sm-8 col-form-label" for="sector"><?php echo $dil["sector"];?></label>
                                                 <input type="text" class="form-control" id="sector" name="sector" value="<?php echo $sector; ?>"  placeholder="<?php echo $dil["sector"];?>" readonly />
                                             </div>
+                                            <?php } else{?>
+                                                <div class="col-md-12">
+                                                    <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                                </div>
+                                            <?php  }?>
                                         </div>
 
-                                        <div class="tab-pane" id="bootstab">Bootstrap Content here
-                                            <ul>
-                                                <li>Bootstrap forms</li>
-                                                <li>Bootstrap buttons</li>
-                                                <li>Bootstrap navbar</li>
-                                                <li>Bootstrap footer</li>
-                                            </ul>
-                                        </div>
-                                        <div class="tab-pane" id="htmltab">Hypertext Markup Language</div>
-                                    </div>
+                                          </div>
                                     <div class="active tab-pane" id="activity">
                                         <!-- Post -->
                                         <!--                    <div class="post">-->

@@ -65,7 +65,7 @@
           <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" alt="User profile picture" src="<?php echo $u_photo; ?>">
+                  <img class="profile-user-img img-fluid img-circle" alt="User profile picture" src="<?php echo $u_photo_user; ?>">
                 </div>
 
                 <h3 class="profile-username text-center"><?php  echo $login_fullname ; ?></h3>

@@ -8,7 +8,7 @@
    $ses_sql = mysqli_query($db,"select * from $tbl_users where username = '$user_check' ");
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    $login_session = $row['username'];
-   $u_photo = $row['u_photo'];
+   $u_photo_user = $row['u_photo'];
    $emp_id = $row['emp_id'];
    $company_id = $row['company_id'];
    $id_user = $row['id'];

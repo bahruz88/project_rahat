@@ -66,11 +66,16 @@ if(isset($_POST['Submit']))
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+<div class="row">
+<div class="col-md-3">&nbsp;</div>
+<div class="col-md-6  col-md-offset-3  panel panel-white">
+
+    <div class="panel-body">
 <p style="color:red;" class="text-center"><?php echo $_SESSION['msg1'];?><?php echo $_SESSION['msg1']="";?></p>
 <form name="chngpwd" action="" method="post" onSubmit="return valid();">
     <table align="center">
         <tr height="50">
-            <td>İndiki Şifrə :</td>
+            <td>Köhnə Şifrə :</td>
             <td><input type="password" class="form-control inputFile" name="opwd" id="opwd"></td>
         </tr>
         <tr height="50">
@@ -87,30 +92,32 @@ if(isset($_POST['Submit']))
         </tr>
     </table>
 </form>
+</div>
+</div></div>
 <script type="text/javascript">
     function valid()
     {
         if(document.chngpwd.opwd.value=="")
         {
-            alert("Old Password Filed is Empty !!");
+            alert("Köhnə Şifrə xanası Boşdur !!");
             document.chngpwd.opwd.focus();
             return false;
         }
         else if(document.chngpwd.npwd.value=="")
         {
-            alert("New Password Filed is Empty !!");
+            alert("Yeni Şifrə xanası Boşdur !!");
             document.chngpwd.npwd.focus();
             return false;
         }
         else if(document.chngpwd.cpwd.value=="")
         {
-            alert("Confirm Password Filed is Empty !!");
+            alert("Yeni şifrənin təsdiqi xanası Boşdur !!");
             document.chngpwd.cpwd.focus();
             return false;
         }
         else if(document.chngpwd.npwd.value!= document.chngpwd.cpwd.value)
         {
-            alert("Password and Confirm Password Field do not match  !!");
+            alert("Yeni Şifrə və Yeni şifrənin təsdiqi xanası uyğun gəlmir  !!");
             document.chngpwd.cpwd.focus();
             return false;
         }
