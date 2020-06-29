@@ -76,6 +76,9 @@ if($result_users){
         .btn {
             padding:5px !important;
         }
+        .tab-content>.tab-pane{
+            padding: 10px !important;
+        }
     </style>
 </head>
 

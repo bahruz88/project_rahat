@@ -426,6 +426,9 @@ if($result_positions){
             width:100px;
             height:100px;
         }
+        .tab-content>.tab-pane{
+            padding: 10px !important;
+        }
     </style>
 </head>
 

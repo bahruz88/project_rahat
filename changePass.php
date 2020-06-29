@@ -88,7 +88,7 @@ if(isset($_POST['Submit']))
         </tr>
         <tr>
             <td><a href="general.php">Geri qayıt</a></td>
-            <td><input type="submit" name="Submit" value="Şifrəni dəyiş" /></td>
+            <td><input type="submit" name="Submit" class="btn btn-primary btn-block btn-outlined" value="Şifrəni dəyiş" /></td>
         </tr>
     </table>
 </form>
