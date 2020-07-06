@@ -39,6 +39,7 @@ $user_id =implode(",", $user_id);
 <input type="hidden" id="user" name="user" value="<?php echo $user; ?>">
 <input type="hidden" id="parent" name="parent" value="<?php echo $parent; ?>">
 <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
+<input type="text" id="user_name" name="user_name" value="">
 <div class="content_wrap">
 	<div class="zTreeDemoBackground left">
 		<ul id="treeDemo" class="ztree"></ul>
@@ -188,8 +189,23 @@ $user_id =implode(",", $user_id);
             isParent = e.data.isParent,
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
+
         if (treeNode) {
-            treeNode = zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent:isParent, name:"new node" + (newCount++)});
+            treeNode = zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent:isParent, name:$('#user_name').val() + (newCount++)});
+            console.log('treeNode=',treeNode[0])
+            console.log('treeNode.pId='+treeNode[0].pId)
+            console.log('isParent='+isParent)
+            // $('#'+treeNode[0].tId+'_a').append($('#user_name'));
+            $.ajax({
+                url: 'st_insert.php',
+                type: "POST",
+                data: {id:(100 + newCount), pId:treeNode[0].pId, isParent:isParent, name:$('#user_name').val() + (newCount++)},
+                success: function (data) {
+                    console.log('data=' + data)
+                    // members=$.parseJSON(data)
+                },
+            });
+
         } else {
             treeNode = zTree.addNodes(null, {id:(100 + newCount), pId:0, isParent:isParent, name:"new node" + (newCount++)});
         }
