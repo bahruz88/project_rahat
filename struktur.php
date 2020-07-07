@@ -98,18 +98,17 @@
         return false;
     });
     $(document).on("keypress", ".hid", function (e) {
-    console.log(e.which)
-    if(e.which === 13) {
-        if($(this).val()!=''){
-            btnId.html($(this).val());
-        }else{
-            btnId.html('Neew Element');
+        console.log(e.which)
+        if(e.which === 13) {
+            if($(this).val()!=''){
+                btnId.html($(this).val());
+            }else{
+                btnId.html('Neew Element');
+            }
+
+            $(this).val('');
+            $('.hid').css('display', 'none');
         }
-
-        $(this).val('');
-        $('.hid').css('display', 'none');
-    }
-
 
     } );
 

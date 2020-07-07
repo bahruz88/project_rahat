@@ -17,7 +17,6 @@ if($result_users){
 $user = implode(",", $user);
 $parent =implode(",", $parent);
 $user_id =implode(",", $user_id);
-
 ?>
 <!DOCTYPE html>
 <HTML>
@@ -39,6 +38,7 @@ $user_id =implode(",", $user_id);
 <input type="hidden" id="user" name="user" value="<?php echo $user; ?>">
 <input type="hidden" id="parent" name="parent" value="<?php echo $parent; ?>">
 <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
+<input type="hidden" id="user_id_edit" name="user_id_edit" value="">
 <input type="text" id="user_name" name="user_name" value="">
 <div class="content_wrap">
 	<div class="zTreeDemoBackground left">
@@ -189,20 +189,19 @@ $user_id =implode(",", $user_id);
             isParent = e.data.isParent,
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
-
         if (treeNode) {
-            treeNode = zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent:isParent, name:$('#user_name').val() + (newCount++)});
+            treeNode = zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent:isParent, name:"new mmm" + (newCount++)});
             console.log('treeNode=',treeNode[0])
             console.log('treeNode.pId='+treeNode[0].pId)
             console.log('isParent='+isParent)
-            // $('#'+treeNode[0].tId+'_a').append($('#user_name'));
             $.ajax({
                 url: 'st_insert.php',
                 type: "POST",
-                data: {id:(100 + newCount), pId:treeNode[0].pId, isParent:isParent, name:$('#user_name').val() + (newCount++)},
+                data: {id:(100 + newCount), pId:treeNode[0].pId, isParent:isParent, name:"new node" + (newCount++)},
                 success: function (data) {
                     console.log('data=' + data)
                     // members=$.parseJSON(data)
+
                 },
             });
 
@@ -215,16 +214,52 @@ $user_id =implode(",", $user_id);
             alert("Leaf node is locked and can not add child node.");
         }
     };
+    var tId='';
+    var userId='';
+    var bClick=0;
+    var editT=false;
+
     function edit() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
-        if (nodes.length == 0) {
+        console.log('treeNode=',treeNode);
+            if(treeNode){
+                tId=treeNode.tId;
+                userId=treeNode.id;
+            }
+
+         if (nodes.length == 0) {
             alert("Please select one node at first...");
             return;
         }
         zTree.editName(treeNode);
+        bClick=0;
+        editT=true;
+
     };
+        $('body').click(function() {
+            bClick++;
+
+            if(editT==true && bClick==2){
+                var user_id_edit=userId;
+                var user_name=$('#'+tId+'_a').attr('title');
+                console.log('user_name='+user_name)
+                $.ajax({
+                    url: 'st_update.php',
+                    type: "POST",
+                    data: {id:user_id_edit, name:user_name},
+                    success: function (data) {
+                        console.log('data=',jQuery.parseJSON(data));
+                        zNodes=jQuery.parseJSON(data);
+                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+                    },
+                });
+            }
+
+        });
+
     function remove(e) {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
             nodes = zTree.getSelectedNodes(),
