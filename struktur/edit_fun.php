@@ -21,67 +21,48 @@ $user_id =implode(",", $user_id);
 <!DOCTYPE html>
 <HTML>
 <HEAD>
-	<TITLE> ZTREE DEMO - addNodes / editName / removeNode / removeChildNodes</TITLE>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="css/demo.css" type="text/css">
-	<link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css">
-	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="js/jquery.ztree.core.js"></script>
-	<script type="text/javascript" src="js/jquery.ztree.excheck.js"></script>
-	<script type="text/javascript" src="js/jquery.ztree.exedit.js"></script>
+    <TITLE> ZTREE DEMO - addNodes / editName / removeNode / removeChildNodes</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/demo.css" type="text/css">
+    <link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="js/jquery.ztree.exedit.js"></script>
 
 </HEAD>
 
 <BODY>
-<h1>Edit Nodes - zTree methods</h1>
-<h6>[ File Path: exedit/edit_fun.html ]</h6>
+<h1>STRUKTUR</h1>
 <input type="hidden" id="user" name="user" value="<?php echo $user; ?>">
 <input type="hidden" id="parent" name="parent" value="<?php echo $parent; ?>">
 <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
 <input type="hidden" id="user_id_edit" name="user_id_edit" value="">
-<input type="text" id="user_name" name="user_name" value="">
+<input type="hidden" id="user_name" name="user_name" value="">
 <div class="content_wrap">
-	<div class="zTreeDemoBackground left">
-		<ul id="treeDemo" class="ztree"></ul>
-	</div>
-	<div class="right">
-		<ul class="info">
-			<li class="title"><h2>1, Explanation of 'addNodes / editName / removeNode / removeChildNodes' method</h2>
-				<ul class="list">
-				<li>Use 'addNodes / editName / removeNode / removeChildNodes' method can also be achieved copy / move nodes.</li>
-				<li>Method 'cancelEditName' is effective, only when edit the node name. Please use it when necessary, this demo doesn't show how to use the method.</li>
-				<li class="highlight_red">Use setting.data.keep.parent / leaf attribute, you can lock the parent node and leaf node.</li>
-				<li><p>Try to edit node:<br/>
-					&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="callbackTrigger" checked /> Whether trigger the callback when execution removeNode() method.<br/>
-					&nbsp;&nbsp;&nbsp;&nbsp;[ <a id="addParent" href="#" title="add parent node" onclick="return false;">add parent node</a> ]
-					&nbsp;&nbsp;&nbsp;&nbsp;[ <a id="addLeaf" href="#" title="add leaf node" onclick="return false;">add leaf node</a> ]
-					&nbsp;&nbsp;&nbsp;&nbsp;[ <a id="edit" href="#" title="edit name" onclick="return false;">edit name</a> ]<br/>
-					&nbsp;&nbsp;&nbsp;&nbsp;[ <a id="remove" href="#" title="remove node" onclick="return false;">remove node</a> ]
-					&nbsp;&nbsp;&nbsp;&nbsp;[ <a id="clearChildren" href="#" title="make child nodes to empty" onclick="return false;">make child nodes to empty</a> ]<br/>
-					remove log:<br/>
-					<ul id="log" class="log"></ul></p>
-				</li>
-				<li class="highlight_red">How to use 'zTreeObj.addNodes / cancelEditName / editName / removeNode / removeChildNodes' method,  please see the API documentation.</li>
-				</ul>
-			</li>
-			<li class="title"><h2>2, Explanation of setting</h2>
-				<ul class="list">
-				<li>Same as 'Basic Edit Nodes'</li>
-				<li class="highlight_red">Lock the parent / leaf node status, need to set setting.data.keep.parent / leaf attribute, see the API documentation for more related contents</li>
-				</ul>
-			</li>
-			<li class="title"><h2>3, Explanation of treeNode</h2>
-				<ul class="list">
-				<li>Same as 'Basic Edit Nodes'</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    <div class="right">
+        <ul class="info">
+            <li class="title">
+<!--                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="callbackTrigger" checked /> Whether trigger the callback when execution removeNode() method.<br/>-->
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="addParent" href="#" title="add parent node" onclick="return false;">add parent node</a> ]
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="addLeaf" href="#" title="add leaf node" onclick="return false;">add leaf node</a> ]
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="edit" href="#" title="edit name" onclick="return false;">edit name</a> ]<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="remove" href="#" title="remove node" onclick="return false;">remove node</a> ]
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="clearChildren" href="#" title="make child nodes to empty" onclick="return false;">make child nodes to empty</a> ]<br/>
+
+
+            </li>
+
+        </ul>
+    </div>
 </div>
 </BODY>
 </HTML>
-    <SCRIPT type="text/javascript">
-        <!--
+<SCRIPT type="text/javascript">
+    <!--
     var setting = {
         view: {
             selectedMulti: false
@@ -119,18 +100,22 @@ $user_id =implode(",", $user_id);
     console.log('userArray=',userArray)
     console.log('parentArray=',parentArray)
     console.log('userIdArray=',userIdArray)
-        var zNodeArray=[]
-        var open=false;
-        for(var j=0;j<userArray.length;j++){
-            if(parentArray[j]==''){
-                open=true;
-            }else{
-                open=false;
-            }
-            zNodeArray.push({"id":userIdArray[j], "pId":parentArray[j],"name":userArray[j],"open":open});
-
+    var zNodeArray=[]
+    var open=false;
+    var lastId=0;
+    for(var j=0;j<userArray.length;j++){
+        if(parentArray[j]==''){
+            open=true;
+        }else{
+            open=false;
         }
-        console.log('zNodeArray=',zNodeArray)
+        zNodeArray.push({"id":userIdArray[j], "pId":parentArray[j],"name":userArray[j],"open":open});
+        if(j+1==userArray.length){
+            lastId=userIdArray[j]
+        }
+
+    }
+    console.log('zNodeArray=',zNodeArray)
     // var zNodes =[
     //     { id:1, pId:0, name:"parent node 1", open:true},
     //     { id:11, pId:1, name:"leaf node 1-1"},
@@ -145,7 +130,7 @@ $user_id =implode(",", $user_id);
     //     { id:32, pId:3, name:"leaf node 3-2"},
     //     { id:33, pId:3, name:"leaf node 3-3"}
     // ];
-        var zNodes =zNodeArray;
+    var zNodes =zNodeArray;
     var log, className = "dark";
     function beforeDrag(treeId, treeNodes) {
         return false;
@@ -184,52 +169,61 @@ $user_id =implode(",", $user_id);
     }
 
     var newCount = 1;
+    var tId='';
+    var userId='';
+    var bClick=0;
+    var editT=false;
+    var insertT=false;
+    var PID=0;
+    var isParent=''
     function add(e) {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
             isParent = e.data.isParent,
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
-        if (treeNode) {
-            treeNode = zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent:isParent, name:"new mmm" + (newCount++)});
-            console.log('treeNode=',treeNode[0])
-            console.log('treeNode.pId='+treeNode[0].pId)
-            console.log('isParent='+isParent)
-            $.ajax({
-                url: 'st_insert.php',
-                type: "POST",
-                data: {id:(100 + newCount), pId:treeNode[0].pId, isParent:isParent, name:"new node" + (newCount++)},
-                success: function (data) {
-                    console.log('data=' + data)
-                    // members=$.parseJSON(data)
+        console.log('nodes=',nodes)
+        console.log('treeNode treeNode=',treeNode)
 
-                },
-            });
+        var u_name="new node" + (newCount++);
+        isParent=isParent;
+        bClick=0;
+        console.log('isParentisParent='+isParent)
+
+        if (treeNode) {
+            PID=treeNode.id;
+            console.log('PID 1=',PID)
+            console.log('treeNode1=',treeNode)
+            treeNode = zTree.addNodes(treeNode, {id:(lastId + newCount), pId:PID, isParent:isParent, name:u_name});
 
         } else {
-            treeNode = zTree.addNodes(null, {id:(100 + newCount), pId:0, isParent:isParent, name:"new node" + (newCount++)});
+            PID='';
+            treeNode = zTree.addNodes(null, {id:(lastId + newCount), pId:PID, isParent:isParent, name:u_name});
         }
         if (treeNode) {
             zTree.editName(treeNode[0]);
+            tId=treeNode[0].tId;
+            userId=treeNode.id;
+            insertT=true;
+
         } else {
             alert("Leaf node is locked and can not add child node.");
         }
+
+
     };
-    var tId='';
-    var userId='';
-    var bClick=0;
-    var editT=false;
+
 
     function edit() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
         console.log('treeNode=',treeNode);
-            if(treeNode){
-                tId=treeNode.tId;
-                userId=treeNode.id;
-            }
+        if(treeNode){
+            tId=treeNode.tId;
+            userId=treeNode.id;
+        }
 
-         if (nodes.length == 0) {
+        if (nodes.length == 0) {
             alert("Please select one node at first...");
             return;
         }
@@ -238,48 +232,83 @@ $user_id =implode(",", $user_id);
         editT=true;
 
     };
-        $('body').click(function() {
-            bClick++;
+    $('body').click(function() {
+        bClick++;
 
-            if(editT==true && bClick==2){
-                var user_id_edit=userId;
-                var user_name=$('#'+tId+'_a').attr('title');
-                console.log('user_name='+user_name)
-                $.ajax({
-                    url: 'st_update.php',
-                    type: "POST",
-                    data: {id:user_id_edit, name:user_name},
-                    success: function (data) {
-                        console.log('data=',jQuery.parseJSON(data));
-                        zNodes=jQuery.parseJSON(data);
-                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        if(editT==true && bClick==2){
+            var user_id_edit=userId;
+            var user_name=$('#'+tId+'_a').attr('title');
+            console.log('user_name='+user_name)
+            $.ajax({
+                url: 'st_update.php',
+                type: "POST",
+                data: {id:user_id_edit, name:user_name},
+                success: function (data) {
+                    console.log('data=',jQuery.parseJSON(data));
+                    zNodes=jQuery.parseJSON(data);
+                    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
-                    },
-                });
-            }
+                },
+            });
+        }
+        if(insertT==true && bClick==2){
+            var user_id_edit=userId;
+            var user_name=$('#'+tId+'_a').attr('title');
+            console.log('#='+'#'+tId+'_a')
+            console.log('user_name='+user_name)
+            $.ajax({
+                url: 'st_insert.php',
+                type: "POST",
+                data: {id:(lastId + newCount), pId:PID, isParent:isParent, name:user_name},
+                success: function (data) {
+                    console.log('data=' + data)
+                    // members=$.parseJSON(data)
 
-        });
+                },
+            });
+        }
+
+    });
 
     function remove(e) {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
+        userId=treeNode.id;
         if (nodes.length == 0) {
             alert("Please select one node at first...");
             return;
         }
-        var callbackFlag = $("#callbackTrigger").attr("checked");
+        var callbackFlag = '';
         zTree.removeNode(treeNode, callbackFlag);
+        $.ajax({
+            url: 'st_delete.php',
+            type: "POST",
+            data: {id:userId},
+            success: function (data) {
+                console.log('data=' + data)
+            },
+        });
     };
     function clearChildren(e) {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
+        PID=treeNode.id;
         if (nodes.length == 0 || !nodes[0].isParent) {
             alert("Please select one parent node at first...");
             return;
         }
+        console.log('PID=',PID)
         zTree.removeChildNodes(treeNode);
+        $.ajax({
+            url: 'st_delete.php',
+            type: "POST",
+            data: {parent:PID},
+            success: function (data) {
+                console.log('data=' + data)
+            },
+        });
     };
 
     $(document).ready(function(){
