@@ -19,7 +19,7 @@ if(!mysqli_query($db, $sql)) {
     echo "error" .mysqli_error($db);
 }
 else {
-    echo "success" ;
+//    echo "success" ;
 }
 
 //Close connection

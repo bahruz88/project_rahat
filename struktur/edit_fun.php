@@ -29,7 +29,18 @@ $user_id =implode(",", $user_id);
     <script type="text/javascript" src="js/jquery.ztree.core.js"></script>
     <script type="text/javascript" src="js/jquery.ztree.excheck.js"></script>
     <script type="text/javascript" src="js/jquery.ztree.exedit.js"></script>
-
+    <style type="text/css">
+        .ztree li span.button.pIcon01_ico_open{margin-right:2px; background: url(css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.pIcon01_ico_close{margin-right:2px; background: url(css/zTreeStyle/img/diy/1_close.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon01_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/2.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon02_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/3.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon03_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/4.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon04_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/5.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon05_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/6.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon06_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/7.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon07_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/8.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon08_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/9.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+    </style>
 </HEAD>
 
 <BODY>
@@ -52,6 +63,7 @@ $user_id =implode(",", $user_id);
                             &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="edit" href="#" title="edit name" onclick="return false;">edit name</a> ]<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="remove" href="#" title="remove node" onclick="return false;">remove node</a> ]
                             &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="clearChildren" href="#" title="make child nodes to empty" onclick="return false;">make child nodes to empty</a> ]<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="changeIcon" href="#" onclick="return false;">Change Icon</a> ]<br/>
 
 
             </li>
@@ -181,9 +193,9 @@ $user_id =implode(",", $user_id);
             isParent = e.data.isParent,
             nodes = zTree.getSelectedNodes(),
             treeNode = nodes[0];
-        console.log('nodes=',nodes)
-        console.log('treeNode treeNode=',treeNode)
-
+        // console.log('nodes=',nodes)
+        // console.log('treeNode treeNode=',treeNode)
+        var treeNodeOld=treeNode;
         var u_name="new node" + (newCount++);
         isParent=isParent;
         bClick=0;
@@ -191,21 +203,44 @@ $user_id =implode(",", $user_id);
 
         if (treeNode) {
             PID=treeNode.id;
+             tId=treeNode.tId;
+            var user_name=$('#'+tId+'_a').attr('title');
             console.log('PID 1=',PID)
+            console.log('lastId=',lastId)
             console.log('treeNode1=',treeNode)
-            treeNode = zTree.addNodes(treeNode, {id:(lastId + newCount), pId:PID, isParent:isParent, name:u_name});
+            treeNode = zTree.addNodes(treeNode, {id:(parseInt(lastId) + parseInt(newCount)), pId:PID, isParent:isParent, name:user_name});
 
         } else {
+             tId=treeNode.tId;
+            var user_name=$('#'+tId+'_a').attr('title');
+            console.log('alt=',PID)
+            console.log('treeNode1=',treeNode)
             PID='';
-            treeNode = zTree.addNodes(null, {id:(lastId + newCount), pId:PID, isParent:isParent, name:u_name});
+            treeNode = zTree.addNodes(null, {id:(parseInt(lastId) + parseInt(newCount)), pId:PID, isParent:isParent, name:user_name});
         }
+        console.log('treeNode2=',treeNode)
         if (treeNode) {
+            console.log('lastId=',lastId)
             zTree.editName(treeNode[0]);
             tId=treeNode[0].tId;
             userId=treeNode.id;
             insertT=true;
+            editT=false;
 
-        } else {
+        }
+    else if (treeNodeOld) {
+            treeNodeOld['pId']=lastId;
+            treeNodeOld['id']=parseInt(lastId)+1;
+
+            zTree.editName(treeNodeOld);
+            console.log('treeNodeOld=',treeNodeOld)
+            tId=treeNodeOld.tId;
+            userId=treeNodeOld.id;
+            insertT=true;
+            editT=false;
+
+        }
+    else {
             alert("Leaf node is locked and can not add child node.");
         }
 
@@ -230,6 +265,7 @@ $user_id =implode(",", $user_id);
         zTree.editName(treeNode);
         bClick=0;
         editT=true;
+        insertT=false;
 
     };
     $('body').click(function() {
@@ -259,10 +295,12 @@ $user_id =implode(",", $user_id);
             $.ajax({
                 url: 'st_insert.php',
                 type: "POST",
-                data: {id:(lastId + newCount), pId:PID, isParent:isParent, name:user_name},
+                data: {id:(parseInt(lastId) + parseInt(newCount)), pId:PID, isParent:isParent, name:user_name},
                 success: function (data) {
-                    console.log('data=' + data)
-                    // members=$.parseJSON(data)
+                    // console.log('data=' + data)
+                    console.log('data=',jQuery.parseJSON(data));
+                    zNodes=jQuery.parseJSON(data);
+                    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
                 },
             });
@@ -311,6 +349,48 @@ $user_id =implode(",", $user_id);
         });
     };
 
+    var nameCount = 0, iconCount = 1, color = [0, 0, 0];
+    function updateNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            type = e.data.type,
+            nodes = zTree.getSelectedNodes();
+        if (nodes.length == 0) {
+            alert("Please select one node...");
+        }
+        for (var i=0, l=nodes.length; i<l; i++) {
+            zTree.setting.view.fontCss = {};
+            if (type == "rename") {
+                nodes[i].name = nodes[i].name.replace(/_[\d]*$/g, "") + "_" + (nameCount++);
+            } else if (type == "icon") {
+                if (iconCount > 8) {
+                    nodes[i].iconSkin = null;
+                    iconCount = 1;
+                }
+                else if (nodes[i].isParent) {
+                    nodes[i].iconSkin = nodes[i].iconSkin ? null : "pIcon01";
+                    // nodes[i].iconSkin = "icon0" + (iconCount++);
+                }
+                else {
+                    nodes[i].iconSkin = "icon0" + (iconCount++);
+                }
+            } else if (type == "color") {
+                color = [0, 0, 0];
+                var r1 = Math.round(Math.random()*3 - 0.5);
+                color[r1] = 15;
+                var r2 = Math.round(Math.random()*3 - 0.5);
+                while (r2 === r1) {
+                    r2 = Math.round(Math.random()*3 - 0.5);
+                }
+                color[r2] = Math.round(Math.random()*16-0.5);
+                zTree.setting.view.fontCss["color"] = "#"+color[0].toString(16)+color[1].toString(16)+color[2].toString(16);
+            } else if (type == "font") {
+                var style = $("#" + nodes[i].tId + "_a").css("font-style") ;
+                style = (style=="italic" ? "normal" : "italic");
+                zTree.setting.view.fontCss["font-style"] = style;
+            }
+            zTree.updateNode(nodes[i]);
+        }
+    }
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         $("#addParent").bind("click", {isParent:true}, add);
@@ -318,6 +398,9 @@ $user_id =implode(",", $user_id);
         $("#edit").bind("click", edit);
         $("#remove").bind("click", remove);
         $("#clearChildren").bind("click", clearChildren);
+        $("#changeIcon").bind("click", {type:"icon"}, updateNode);
     });
+
+
     //-->
 </SCRIPT>
