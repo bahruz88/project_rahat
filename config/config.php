@@ -7,7 +7,7 @@
    $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
    
    $tbl_users='tbl_users' ;
-   $users='users' ;
+   $tbl_employee_category='tbl_employee_category';
    $tbl_employee_company='tbl_employee_company' ;
    $tbl_lang='tbl_site_languages' ;
    $tbl_emp_lang='tbl_languages' ;

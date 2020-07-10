@@ -10,8 +10,8 @@ $pId                = $_POST['pId'];
 $isParent           = $_POST['isParent'];
 $name               = $_POST['name'];
 
-$sql = "INSERT INTO $users( 
-	 id, parent, user) 
+$sql = "INSERT INTO $tbl_employee_category( 
+	 id, parent, category) 
 	 VALUES (NULL, '$pId','$name')";
 
 
@@ -25,7 +25,7 @@ else {
 //Close connection
 //mysqli_close($db);
 
-$users= "select * from $users";
+$users= "select * from $tbl_employee_category";
 $result_users = $db->query($users);
 $user=[];
 $parent=[];
@@ -41,7 +41,7 @@ if($result_users){
             }else {
                 $open=false;
             }
-            array_push($zNodeArray, ['id'=>$row_users['id'],'pId'=>$row_users['parent'],'name'=>$row_users['user'],'open'=>$open]);
+            array_push($zNodeArray, ['id'=>$row_users['id'],'pId'=>$row_users['parent'],'name'=>$row_users['category'],'open'=>$open]);
 
 
 

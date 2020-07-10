@@ -8,8 +8,8 @@ include('../session.php') ;
 $id                 =$_POST['id'];
 $name               = $_POST['name'];
 
-$sql = "UPDATE  $users SET  
-		user  = '$name'
+$sql = "UPDATE  $tbl_employee_category SET  
+		category  = '$name'
 		WHERE id 	= '$id' ";
 
 if(mysqli_query($db, $sql) ) {
@@ -23,7 +23,7 @@ else  {
 //Close connection
 //mysqli_close($db);
 
-$users= "select * from $users";
+$users= "select * from $tbl_employee_category";
 $result_users = $db->query($users);
 $user=[];
 $parent=[];
@@ -39,7 +39,7 @@ if($result_users){
             }else {
                 $open=false;
             }
-                array_push($zNodeArray, ['id'=>$row_users['id'],'pId'=>$row_users['parent'],'name'=>$row_users['user'],'open'=>$open]);
+                array_push($zNodeArray, ['id'=>$row_users['id'],'pId'=>$row_users['parent'],'name'=>$row_users['category'],'open'=>$open]);
 
 
 

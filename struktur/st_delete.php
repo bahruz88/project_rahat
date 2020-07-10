@@ -8,13 +8,13 @@ include('../session.php') ;
 if(isset($_POST['id'])){
     $id                 =$_POST['id'];
 
-    $delete_query = mysqli_query($db,"delete FROM  $users where id='$id'");// set  status=0
+    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where id='$id'");// set  status=0
 
 }
 if(isset($_POST['parent'])){
     $parent                 =$_POST['parent'];
 
-    $delete_query = mysqli_query($db,"delete FROM  $users where parent='$parent'");// set  status=0
+    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where parent='$parent'");// set  status=0
 
 }
 

@@ -1,22 +1,25 @@
 <?php
 include('../session.php');
-$users= "select * from $users";
+$users= "select * from $tbl_employee_category";
 $result_users = $db->query($users);
 $user = [];
 $parent = [];
 $user_id= [];
+$icon= [];
 if($result_users){
     if ($result_users->num_rows > 0) {
         while($row_users = $result_users->fetch_assoc()) {
-            array_push($user, $row_users['user']);
+            array_push($user, $row_users['category']);
             array_push($parent, $row_users['parent']);
             array_push($user_id, $row_users['id']);
+            array_push($icon, $row_users['icon']);
         }
     }
 }
 $user = implode(",", $user);
 $parent =implode(",", $parent);
 $user_id =implode(",", $user_id);
+$icon =implode(",", $icon);
 ?>
 <!DOCTYPE html>
 <HTML>
@@ -48,6 +51,7 @@ $user_id =implode(",", $user_id);
 <input type="hidden" id="user" name="user" value="<?php echo $user; ?>">
 <input type="hidden" id="parent" name="parent" value="<?php echo $parent; ?>">
 <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
+<input type="hidden" id="icon" name="icon" value="<?php echo $icon; ?>">
 <input type="hidden" id="user_id_edit" name="user_id_edit" value="">
 <input type="hidden" id="user_name" name="user_name" value="">
 <div class="content_wrap">
@@ -109,6 +113,9 @@ $user_id =implode(",", $user_id);
 
     var userId=$('#user_id').val();
     var userIdArray=userId.split(",");
+
+    var icon=$('#icon').val();
+    var iconArray=icon.split(",");
     console.log('userArray=',userArray)
     console.log('parentArray=',parentArray)
     console.log('userIdArray=',userIdArray)
@@ -121,7 +128,7 @@ $user_id =implode(",", $user_id);
         }else{
             open=false;
         }
-        zNodeArray.push({"id":userIdArray[j], "pId":parentArray[j],"name":userArray[j],"open":open});
+        zNodeArray.push({"id":userIdArray[j], "pId":parentArray[j],"name":userArray[j],"icon":iconArray[j],"open":open});
         if(j+1==userArray.length){
             lastId=userIdArray[j]
         }
