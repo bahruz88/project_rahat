@@ -234,7 +234,9 @@ $dil = array(
 	"about_me"   =>"Mənim haqqımda",
     "exceptions"   =>"Güzəştlər",
     "permits"   =>"İcazələr",	
-    "inouttime"   =>"Giriş Çıxış Saatları",		
+    "inouttime"   =>"Giriş Çıxış Saatları",	
+	"sch_input_title"   =>"Yeni Qrafikin  daxil  edilməsi",	
+	"schname"   =>"Qrafikin adı",		
 	"operation"   =>"Əməliyyat"
 );
 ?>
