@@ -222,6 +222,12 @@
                   <p>Struktur</p>
                 </a>
               </li>
+                <li class="nav-item">
+                <a href="struktur/org/index.php" class="nav-link">
+
+                  <p>Struktur menu</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="pages/charts/flot.html" class="nav-link">
                   

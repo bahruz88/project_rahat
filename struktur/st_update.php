@@ -6,10 +6,17 @@ include('../session.php') ;
 //Create variables
 
 $id                 =$_POST['id'];
-$name               = $_POST['name'];
+$change             = $_POST['change'];
+if(isset($_POST['name'])){
+    $name           = $_POST['name'];
+}
+if(isset($_POST['icon'])){
+    $name           = $_POST['icon'];
+}
+
 
 $sql = "UPDATE  $tbl_employee_category SET  
-		category  = '$name'
+		$change  = '$name'
 		WHERE id 	= '$id' ";
 
 if(mysqli_query($db, $sql) ) {

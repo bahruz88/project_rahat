@@ -150,6 +150,7 @@ $icon =implode(",", $icon);
     //     { id:33, pId:3, name:"leaf node 3-3"}
     // ];
     var zNodes =zNodeArray;
+    console.log('zNodes==',zNodes)
     var log, className = "dark";
     function beforeDrag(treeId, treeNodes) {
         return false;
@@ -209,13 +210,23 @@ $icon =implode(",", $icon);
         console.log('isParentisParent='+isParent)
 
         if (treeNode) {
-            PID=treeNode.id;
-             tId=treeNode.tId;
-            var user_name=$('#'+tId+'_a').attr('title');
-            console.log('PID 1=',PID)
-            console.log('lastId=',lastId)
-            console.log('treeNode1=',treeNode)
-            treeNode = zTree.addNodes(treeNode, {id:(parseInt(lastId) + parseInt(newCount)), pId:PID, isParent:isParent, name:user_name});
+            if(!isParent){
+                PID=treeNode.id;
+                tId=treeNode.tId;
+                var user_name=$('#'+tId+'_a').attr('title');
+                console.log('PID 1=',PID)
+                console.log('lastId=',lastId)
+                console.log('treeNode1=',treeNode)
+                treeNode = zTree.addNodes(treeNode, {id:(parseInt(lastId) + parseInt(newCount)), pId:PID, isParent:isParent, name:user_name});
+
+            }else{
+                console.log('isParent='+isParent)
+                PID=treeNode.pId;
+                tId=treeNode.tId;
+                var user_name=$('#'+tId+'_a').attr('title');
+                treeNode = zTree.addNodes(treeNode, {id:(parseInt(lastId) + parseInt(newCount)), pId:PID, isParent:isParent, name:user_name});
+
+            }
 
         } else {
              tId=treeNode.tId;
@@ -285,7 +296,7 @@ $icon =implode(",", $icon);
             $.ajax({
                 url: 'st_update.php',
                 type: "POST",
-                data: {id:user_id_edit, name:user_name},
+                data: {id:user_id_edit, name:user_name,change:"category"},
                 success: function (data) {
                     console.log('data=',jQuery.parseJSON(data));
                     zNodes=jQuery.parseJSON(data);
@@ -361,6 +372,8 @@ $icon =implode(",", $icon);
         var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
             type = e.data.type,
             nodes = zTree.getSelectedNodes();
+        var id=0;
+        var iconChange=0;
         if (nodes.length == 0) {
             alert("Please select one node...");
         }
@@ -369,16 +382,19 @@ $icon =implode(",", $icon);
             if (type == "rename") {
                 nodes[i].name = nodes[i].name.replace(/_[\d]*$/g, "") + "_" + (nameCount++);
             } else if (type == "icon") {
+                console.log('nodes[i]=',nodes[i])
+                id=nodes[i].id;
+
                 if (iconCount > 8) {
                     nodes[i].iconSkin = null;
                     iconCount = 1;
                 }
                 else if (nodes[i].isParent) {
                     nodes[i].iconSkin = nodes[i].iconSkin ? null : "pIcon01";
-                    // nodes[i].iconSkin = "icon0" + (iconCount++);
                 }
                 else {
                     nodes[i].iconSkin = "icon0" + (iconCount++);
+                    iconChange="css/zTreeStyle/img/diy/"+iconCount+".png";
                 }
             } else if (type == "color") {
                 color = [0, 0, 0];
@@ -396,6 +412,15 @@ $icon =implode(",", $icon);
                 zTree.setting.view.fontCss["font-style"] = style;
             }
             zTree.updateNode(nodes[i]);
+            console.log('iconChange='+iconChange)
+            $.ajax({
+                url: 'st_update.php',
+                type: "POST",
+                data: {id:id,icon:iconChange,change:"icon"},
+                success: function (data) {
+                    // console.log('data=' + data)
+                },
+            });
         }
     }
     $(document).ready(function(){
