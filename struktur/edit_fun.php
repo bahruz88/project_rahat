@@ -62,12 +62,12 @@ $icon =implode(",", $icon);
         <ul class="info">
             <li class="title">
 <!--                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="callbackTrigger" checked /> Whether trigger the callback when execution removeNode() method.<br/>-->
-                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="addParent" href="#" title="add parent node" onclick="return false;">add parent node</a> ]
-                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="addLeaf" href="#" title="add leaf node" onclick="return false;">add leaf node</a> ]
-                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="edit" href="#" title="edit name" onclick="return false;">edit name</a> ]<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="remove" href="#" title="remove node" onclick="return false;">remove node</a> ]
-                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="clearChildren" href="#" title="make child nodes to empty" onclick="return false;">make child nodes to empty</a> ]<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="changeIcon" href="#" onclick="return false;">Change Icon</a> ]<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="addParent" href="#" title="add parent node" onclick="return false;">Yenisini yarat(add parent node)</a> ]<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="addLeaf" href="#" title="add leaf node" onclick="return false;">Alt coxluğuna əlavə et(add leaf node)</a> ]<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="edit" href="#" title="edit name" onclick="return false;">Adını dəyiş(edit name)</a> ]<br/><br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="remove" href="#" title="remove node" onclick="return false;">Sil(remove node)</a> ]<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="clearChildren" href="#" title="make child nodes to empty" onclick="return false;">Alt çoxluğunu sil(make child nodes to empty)</a> ]<br/><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="changeIcon" href="#" onclick="return false;">İconu dəyiş(Change Icon)</a> ]<br/>
 
 
             </li>
