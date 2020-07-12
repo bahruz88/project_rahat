@@ -41,6 +41,16 @@ if(is_array($_FILES)) {
         }else{
             $fileName ='S' . $uid . '.' . $fileData['extension'];
             $targetPath = "images/users/".$fileName;
+			
+			$sql = "UPDATE  $tbl_users SET  u_photo  = '$targetPath' WHERE id= '$uid' ";
+
+            if(!mysqli_query($db, $sql)) {
+                echo "error" .mysqli_error($db);
+            }
+            else {
+//            echo "success=".$uid ;
+            }
+            mysqli_close($db);
         }
 
 
