@@ -217,7 +217,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="struktur/edit_fun.php" class="nav-link">
+                <a href="struktur2/index.php" class="nav-link">
                   
                   <p>Struktur</p>
                 </a>
