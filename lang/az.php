@@ -236,7 +236,21 @@ $dil = array(
     "permits"   =>"İcazələr",	
     "inouttime"   =>"Giriş Çıxış Saatları",	
 	"sch_input_title"   =>"Yeni Qrafikin  daxil  edilməsi",	
-	"schname"   =>"Qrafikin adı",		
+	"schname"   =>"Qrafikin adı",
+	"sch_start_date"   =>"Qrafikin başlama tarixi",
+	"sch_expire_date"   =>"Qrafikin bitmə tarixi",
+	"tm_type"   =>"Vaxt idarəsi tipi ",
+	"sch_type"   =>"Qrafik tipi ",
+	"reduce_type"   =>"Kəsilmə tipi",
+	"red_working_hours"   =>"Kəsilmə saat sayı",
+	"reduce_reason"   =>"Kəsintinin səbəbi",
+	"sch_start_time"   =>"Başlama saatı",
+	"sch_end_time"   =>"Bitmə saatı",
+	"break_start_time"   =>"Fasilə Başlama saatı",
+	"break_end_time"   =>"Fasilə Bitmə saatı",	
+	"dinner_start_time"   =>"Nahar Başlama saatı",
+	"dinner_end_time"   =>"Nahar Bitmə saatı",
+	"sch_night_time"   =>"Gecə iş növbəsi",
 	"operation"   =>"Əməliyyat"
 );
 ?>
