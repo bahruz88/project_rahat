@@ -1,8 +1,9 @@
 <?php
 include('../session.php') ;
 //if(isset($_POST['parent'])) {
-    $parent = $_POST['parent'];
-$childs= "select * from $tbl_employee_category where parent=$parent";
+//    $parent = $_POST['parent'];
+//$childs= "select * from $tbl_employee_category where parent=$parent";
+$childs= "select * from $tbl_employee_category";
 $result_childs = $db->query($childs);
 
     $data = array();
@@ -17,7 +18,9 @@ if($result_childs){
             $sub_array[] = $row_childs['parent'];
             $sub_array[] = $row_childs['create_date'];
             $sub_array[] = $row_childs['st_type'];
-            $data[]     = $sub_array;
+
+            $data[]     = $sub_array;//push edir
+
         }
     }
 }
@@ -26,7 +29,7 @@ if($result_childs){
     $row_count=$result_childs->num_rows ;
 
     $draw=10;
-
+//print_r($data);
     echo  json_encode($data);
 //}
 
