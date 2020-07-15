@@ -38,7 +38,7 @@
 
             <span  id="badge_danger_update" class="badge badge-danger"></span>
 					</div>
- 					<div class="card-body" >
+ 					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 
 						 	<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="view_militaryemp"><?php echo $dil["employee"];?></label>
@@ -180,7 +180,7 @@
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body" >
+					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 
  						 		<div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
@@ -350,7 +350,7 @@
                          <span  id="badge_success" class="badge badge-success"></span>
                         <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
- 						<div class="card-body" >
+ 						<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 
  						 		<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_militaryempid"><?php echo $dil["employee"];?></label>
