@@ -7,6 +7,8 @@ $parent = [];
 $user_id= [];
 $create_date= [];
 $st_type= [];
+$sub_array='';
+$data = array();
 if($result_users){
     if ($result_users->num_rows > 0) {
         while($row_users = $result_users->fetch_assoc()) {
@@ -15,6 +17,14 @@ if($result_users){
             array_push($user_id, $row_users['id']);
             array_push($create_date, $row_users['create_date']);
             array_push($st_type, $row_users['st_type']);
+            $sub_array   = array();
+            $sub_array[] = $row_users['id'];
+            $sub_array[] = $row_users['category'];
+            $sub_array[] = $row_users['parent'];
+            $sub_array[] = $row_users['create_date'];
+            $sub_array[] = $row_users['st_type'];
+            $sub_array[] = [];
+            $data[]     = $sub_array;
         }
     }
 }
@@ -23,15 +33,78 @@ $parent =implode(",", $parent);
 $user_id =implode(",", $user_id);
 $create_date =implode(",", $create_date);
 $st_type =implode(",", $st_type);
+//print_r($data);
+//$sub_array =implode(",", json_encode($data));
+//$subArray =$data;
+$flatArray=$data;
+unflattenArray($flatArray);
+function createArray($arrC){
+    $arrChil=array();
+    foreach ($arrC as $arrCh)
+    {
+        $arrCh['id'] = $arrCh[0];
+        $arrCh['title'] = $arrCh[1];
+        $arrCh['pId'] = $arrCh[2];
+        $arrCh['st_type'] = $arrCh[3];
+        $arrCh['year'] = $arrCh[4];
+//        $arrCh['children'] = $arrCh[5];
+        $arrCh['expanded'] = false;
+        $arrCh['folder'] = true;
+        if(count($arrCh[5])>0){
 
+            $arrCh['children'] = createArray($arrCh[5]);
+            unset($arrCh[0]);
+            unset($arrCh[1]);
+            unset($arrCh[2]);
+            unset($arrCh[3]);
+            unset($arrCh[4]);
+            unset($arrCh[5]);
+        }
+        $arrChil[]=$arrCh;
+    }
+    return $arrChil;
+}
+function unflattenArray($flatArray)
+{
+
+    $refs = array(); //for setting children without having to search the parents in the result tree.
+    $result = array();
+    $arrr = array();
+
+    //process all elements until nohting could be resolved.
+    //then add remaining elements to the root one by one.
+    while (count($flatArray) > 0) {
+        for ($i = count($flatArray) - 1; $i >= 0; $i--) {
+//
+            if ($flatArray[$i][2] == 0) {
+                //root element: set in result and ref!
+                $result[$flatArray[$i][0]] = $flatArray[$i];
+                $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
+                unset($flatArray[$i]);
+                $flatArray = array_values($flatArray);
+            } else if ($flatArray[$i][2] != 0) {
+                //no root element. Push to the referenced parent, and add to references as well.
+                if (array_key_exists($flatArray[$i][2], $refs)) {
+                    //parent found
+                    $o = $flatArray[$i];
+                    $refs[$flatArray[$i][0]] = $o;
+                    $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
+                    unset($flatArray[$i]);
+                    $flatArray = array_values($flatArray);
+                }
+            }
+        }
+    }
+    if (count($result) > 0) {
+        return createArray($result);
+    }
+}
 
 ?>
 
-<input type="hidden" id="user" name="user" value="<?php echo $user; ?>">
-<input type="hidden" id="parent" name="parent" value="<?php echo $parent; ?>">
-<input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
 <input type="hidden" id="create_date" name="create_date" value="<?php echo $create_date; ?>">
 <input type="hidden" id="st_type" name="st_type" value="<?php echo $st_type; ?>">
+<!--<input type="hidden" id="sub_array" name="sub_array" value="--><?php //echo $sub_array; ?><!--">-->
 <input type="hidden" id="user_id_edit" name="user_id_edit" value="">
 <input type="hidden" id="user_name" name="user_name" value="">
 <!DOCTYPE html>
@@ -61,7 +134,7 @@ $st_type =implode(",", $st_type);
     <script src="src/jquery.fancytree.gridnav.js"></script>
     <script src="src/jquery.fancytree.table.js"></script>
     <!--
-<script src="../../build/jquery.fancytree-all.min.js"></script>
+    <script src="../../build/jquery.fancytree-all.min.js"></script>
 -->
 
     <!-- Start_Exclude: This block is not part of the sample code -->
@@ -73,111 +146,16 @@ $st_type =implode(",", $st_type);
     <script type="text/javascript">
         var CLIPBOARD = null;
         var myJSON;
-        var pushOldu=false;
+        // var pushOldu=false;
+
         $(function() {
-            var  zNodeArray=[]
-            // var open=false;
-            var user=$('#user').val();
-            var userArray=user.split(",");
-            var parent=$('#parent').val();
-            var parentArray=parent.split(",");
+            var subArray =  <?php echo json_encode(unflattenArray($flatArray)); ?>;
+            console.log('subArray parent=',subArray);
 
-            var userId=$('#user_id').val();
-            var userIdArray=userId.split(",")
-
-            var create_date=$('#create_date').val();
-            var createDateArray=create_date.split(",")
-
-            var st_type=$('#st_type').val();
-            var stTypeArray=st_type.split(",");
-
-            var childrenArray=[];
-            var pushArray=[];
-
-
-            for(var j=0;j<userArray.length;j++){
-                if(parentArray[j]==''){
-                    open=true;
-                }else{
-                    open=false;
-                }
-                findChild(j,userIdArray[j])
-
-            }
-            function findChild(j,parentId){
-                console.log('findChild parent='+parentId)
-                $.ajax({
-                    url: 'st_select.php',
-                    type: "POST",
-                    data: {parent:parentId},
-                    success: function (data) {
-                        console.log('data ss=',data)
-
-                        var jsonARR=jQuery.parseJSON(data);
-
-
-                        childrenArray=[];
-                        $.each(jsonARR, function(k,v){
-
-                            childrenArray.push({"id":v[0],"title":v[1],"pId":v[2],"st_type":v[4],"year":v[3],"type":v[4],"author":v[2],"qty":332,"price":224});
-                            // console.log('childrenArray=',childrenArray)
-
-                        })
-                        zNodeArray.push({"id":userIdArray[j],"title":userArray[j],"pId":parentArray[j],"st_type":stTypeArray[j],"year":createDateArray[j], "expanded":true,"folder": true,"children":childrenArray});
-                        //zNodeArray+=[{"title":userArray[j], "expanded":true,"folder": true,"children":childrenArray}]
-
-                        // console.log('zNodeArray=',zNodeArray)
-                        pushOldu(zNodeArray);
-                    },
-                });
-
-            }
-
-
-            function pushOldu(zNodeArray) {
-                pushArray = zNodeArray
-                // console.log('pushArray=', pushArray)
-
-
-                // var SOURCE = [
-                //         {"title": "Books", "expanded": true, "folder": true, "children": [
-                //                 {"title": "Art of War", "type": "book", "author": "Sun Tzu", "year": -500, "qty": 21, "price": 5.95},
-                //                 {"title": "The Hobbit", "type": "book", "author": "J.R.R. Tolkien", "year": 1937, "qty": 32, "price": 8.97},
-                //                 {"title": "The Little Prince", "type": "book", "author": "Antoine de Saint-Exupery", "year": 1943, "qty": 2946, "price": 6.82},
-                //                 {"title": "Don Quixote", "type": "book", "author": "Miguel de Cervantes", "year": 1615, "qty": 932, "price": 15.99}
-                //             ]},
-                //         {"title": "Music", "folder": true, "children": [
-                //                 {"title": "Nevermind", "type": "music", "author": "Nirvana", "year": 1991, "qty": 916, "price": 15.95},
-                //                 {"title": "Autobahn", "type": "music", "author": "Kraftwerk", "year": 1974, "qty": 2261, "price": 23.98},
-                //                 {"title": "Kind of Blue", "type": "music", "author": "Miles Davis", "year": 1959, "qty": 9735, "price": 21.90},
-                //                 {"title": "Back in Black", "type": "music", "author": "AC/DC", "year": 1980, "qty": 3895, "price": 17.99},
-                //                 {"title": "The Dark Side of the Moon", "type": "music", "author": "Pink Floyd", "year": 1973, "qty": 263, "price": 17.99},
-                //                 {"title": "Sgt. Pepper's Lonely Hearts Club Band", "type": "music", "author": "The Beatles", "year": 1967, "qty": 521, "price": 13.98}
-                //             ]},
-                //         {"title": "Electronics & Computers", "expanded": true, "folder": true, "children": [
-                //                 {"title": "Cell Phones", "folder": true, "children": [
-                //                         {"title": "Moto G", "type": "phone", "author": "Motorola", "year": 2014, "qty": 332, "price": 224.99},
-                //                         {"title": "Galaxy S8", "type": "phone", "author": "Samsung", "year": 2016, "qty": 952, "price": 509.99},
-                //                         {"title": "iPhone SE", "type": "phone", "author": "Apple", "year": 2016, "qty": 444, "price": 282.75},
-                //                         {"title": "G6", "type": "phone", "author": "LG", "year": 2017, "qty": 951, "price": 309.99},
-                //                         {"title": "Lumia", "type": "phone", "author": "Microsoft", "year": 2014, "qty": 32, "price": 205.95},
-                //                         {"title": "Xperia", "type": "phone", "author": "Sony", "year": 2014, "qty": 77, "price": 195.95},
-                //                         {"title": "3210", "type": "phone", "author": "Nokia", "year": 1999, "qty": 3, "price": 85.99}
-                //                     ]},
-                //                 {"title": "Computers", "folder": true, "children": [
-                //                         {"title": "ThinkPad", "type": "computer", "author": "IBM", "year": 1992, "qty": 16, "price": 749.90},
-                //                         {"title": "C64", "type": "computer", "author": "Commodore", "year": 1982, "qty": 83, "price": 595.00},
-                //                         {"title": "MacBook Pro", "type": "computer", "author": "Apple", "year": 2006, "qty": 482, "price": 1949.95},
-                //                         {"title": "Sinclair ZX Spectrum", "type": "computer", "author": "Sinclair Research", "year": 1982, "qty": 1, "price": 529},
-                //                         {"title": "Apple II", "type": "computer", "author": "Apple", "year": 1977, "qty": 17, "price": 1298},
-                //                         {"title": "PC AT", "type": "computer", "author": "IBM", "year": 1984, "qty": 3, "price": 1235.00}
-                //                     ]}
-                //             ]},
-                // {"title": "More...", "folder": true, "lazy": true}
-                // ];
-                // console.log('SOURCE=',SOURCE)
-
-
+            pushOldu(subArray)
+            function pushOldu(subArray) {
+                console.log('subArray=', subArray)
+                var addNew=0;
                 $("#tree")
                     .fancytree({
                         checkbox: true,
@@ -186,8 +164,8 @@ $st_type =implode(",", $st_type);
                         quicksearch: true, // Jump to nodes when pressing first character
                         // source: myJSON,
                         // source: { url: "ajax-tree-products.json" },
-                        source: pushArray,
-                        //  source: SOURCE,
+                        source: subArray,
+                        //source: SOURCE,
 
                         extensions: ["edit", "dnd5", "table", "gridnav"],
 
@@ -210,6 +188,32 @@ $st_type =implode(",", $st_type);
                             triggerStart: ["f2", "shift+click", "mac+enter"],
                             close: function(event, data) {
                                 if (data.save && data.isNew) {
+                                    console.log('editttttttttttttt',data)
+                                    console.log('eventeventeventevent',event)
+                                    console.log('data.cmd==',data.cmd)
+                                    var PID;
+                                    var title;
+
+                                    if(data.node.parent.data.id){
+                                        PID=data.node.parent.data.id;
+                                    }else{
+                                        PID=data.node.parent.children[0].data.pId;
+                                    }
+                                    title=data.node.title;
+                                    console.log('PID=='+PID);
+                                    console.log('title=='+title);
+
+                                    $.ajax({
+                                        url: 'st_insert.php',
+                                        type: "POST",
+                                        data: { pId:PID, name:title},
+                                        success: function (data) {
+                                            console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                                            var tree = $('#tree').fancytree('getTree');
+                                            tree.reload($.parseJSON(data));
+
+                                        },
+                                    });
                                     // Quick-enter: add new nodes until we hit [enter] on an empty title
                                     $("#tree").trigger("nodeCommand", {
                                         cmd: "addSibling",
@@ -256,18 +260,21 @@ $st_type =implode(",", $st_type);
                             // console.log('renderColumns node.year=',node.data.year)
                             // (Index #0 is rendered by fancytree by adding the checkbox)
                             // Set column #1 info from node data:
-                            $tdList.eq(1).text(node.getIndexHier());
+                            // $tdList.eq(1).text(node.getIndexHier());
+                            $tdList.eq(1).text(node.data.id);
                             //*men
-                            $tdList.eq(3).text('hg');
+                            // $tdList.eq(3).text('hg');
                             // (Index #2 is rendered by fancytree)
                             // Set column #3 info from node data:
                             $tdList
-                                .eq(3)
+                                .eq(4)
+                                // .find('input')
                                 .text(node.data.st_type);
                             // .find("input")
                             // .val(node.key);
                             $tdList
-                                .eq(4)
+                                .eq(3)
+                                // .find('input')
                                 .text(node.data.year);
                             // .find("input")
                             // .val(node.data.foo);
@@ -282,8 +289,63 @@ $st_type =implode(",", $st_type);
                             // ...
                         },
                         modifyChild: function(event, data) {
-                            console.log('modifyChild')
+                            console.log('modifyChild event.type='+event.type)
+                            console.log('modifyChild data=',data)
                             data.tree.info(event.type, data);
+
+                            if(data.operation=='add'){
+                                addNew++;
+                            }
+                            if(data.operation=='remove'){
+                                addNew++;
+                            }
+                            if(data.operation=='rename' && addNew==0){
+                                console.log('rename',data)
+                                console.log('data.cmd==',data.cmd)
+                                var ID;
+                                var title;
+
+                                ID=data.childNode.data.id;
+                                title=data.childNode.title;
+                                console.log('ID=='+ID);
+                                console.log('title=='+title);
+
+                                $.ajax({
+                                    url: 'st_update.php',
+                                    type: "POST",
+                                    data: { id:ID, name:title,change:'category'},
+                                    success: function (data) {
+                                        console.log('data=' + data)
+                                        // members=$.parseJSON(data)
+
+                                    },
+                                });
+                            }
+                            if(data.operation=='remove' && addNew==1){
+                                console.log('rename sil',data)
+                                console.log('data.cmd==',data.cmd)
+                                var ID;
+                                var title;
+                                if(data.childNode){
+                                    ID=data.childNode.data.id;
+                                }else{
+                                    ID=data.node.data.id;
+                                }
+                                // ID=data.childNode.data.id;
+                                // title=data.childNode.title;
+                                console.log('ID=='+ID);
+                                // console.log('title=='+title);
+
+                                $.ajax({
+                                    url: 'st_delete.php',
+                                    type: "POST",
+                                    data: {id:ID},
+                                    success: function (data) {
+                                        console.log('data=' + data)
+                                        // members=$.parseJSON(data)
+                                    },
+                                });
+                            }
                         },
                     })
                     .on("nodeCommand", function(event, data) {
@@ -293,6 +355,7 @@ $st_type =implode(",", $st_type);
                             moveMode,
                             tree = $.ui.fancytree.getTree(this),
                             node = tree.getActiveNode();
+                        var say=0;
 
                         switch (data.cmd) {
 
@@ -339,7 +402,7 @@ $st_type =implode(",", $st_type);
                     .on("keydown", function(e) {
                         var cmd = null;
 
-                        // console.log(e.type, $.ui.fancytree.eventToString(e));
+                        console.log("keyDown"+$.ui.fancytree.eventToString(e));
                         switch ($.ui.fancytree.eventToString(e)) {
                             case "ctrl+shift+n":
                             case "meta+shift+n": // mac: cmd+shift+n
@@ -385,88 +448,91 @@ $st_type =implode(",", $st_type);
                                 cmd = "outdent";
                         }
                         if (cmd) {
+                            console.log('trigger')
                             $(this).trigger("nodeCommand", { cmd: cmd });
                             return false;
                         }
                     });
+
+                /*
+                 * Tooltips
+                 */
+                // $("#tree").tooltip({
+                // 	content: function () {
+                // 		return $(this).attr("title");
+                // 	}
+                // });
+
+                /*
+                 * Context menu (https://github.com/mar10/jquery-ui-contextmenu)
+                 */
+                $("#tree").contextmenu({
+
+
+                    delegate: "span.fancytree-node",
+                    menu: [
+                        {
+                            title: "Edit <kbd>[F2]</kbd>",
+                            cmd: "rename",
+                            uiIcon: "ui-icon-pencil",
+                        },
+                        {
+                            title: "Delete <kbd>[Del]</kbd>",
+                            cmd: "remove",
+                            uiIcon: "ui-icon-trash",
+                        },
+                        { title: "----" },
+                        {
+                            title: "New sibling <kbd>[Ctrl+N]</kbd>",
+                            cmd: "addSibling",
+                            uiIcon: "ui-icon-plus",
+                        },
+                        {
+                            title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
+                            cmd: "addChild",
+                            uiIcon: "ui-icon-arrowreturn-1-e",
+                        },
+                        { title: "----" },
+                        {
+                            title: "Cut <kbd>Ctrl+X</kbd>",
+                            cmd: "cut",
+                            uiIcon: "ui-icon-scissors",
+                        },
+                        {
+                            title: "Copy <kbd>Ctrl-C</kbd>",
+                            cmd: "copy",
+                            uiIcon: "ui-icon-copy",
+                        },
+                        {
+                            title: "Paste as child<kbd>Ctrl+V</kbd>",
+                            cmd: "paste",
+                            uiIcon: "ui-icon-clipboard",
+                            disabled: true,
+                        },
+                    ],
+                    beforeOpen: function(event, ui) {
+                        console.log('beforeOpen')
+                        var node = $.ui.fancytree.getNode(ui.target);
+                        $("#tree").contextmenu(
+                            "enableEntry",
+                            "paste",
+                            !!CLIPBOARD
+                        );
+                        node.setActive();
+                    },
+                    select: function(event, ui) {
+                        console.log('event=',event)
+                        console.log('ui=',ui);
+                        addNew=0;
+                        var that = this;
+                        // delay the event, so the menu can close and the click event does
+                        // not interfere with the edit control
+                        setTimeout(function() {
+                            $(that).trigger("nodeCommand", { cmd: ui.cmd });
+                        }, 100);
+                    },
+                });
             }
-
-            /*
-             * Tooltips
-             */
-            // $("#tree").tooltip({
-            // 	content: function () {
-            // 		return $(this).attr("title");
-            // 	}
-            // });
-
-            /*
-             * Context menu (https://github.com/mar10/jquery-ui-contextmenu)
-             */
-            $("#tree").contextmenu({
-
-                delegate: "span.fancytree-node",
-                menu: [
-                    {
-                        title: "Edit <kbd>[F2]</kbd>",
-                        cmd: "rename",
-                        uiIcon: "ui-icon-pencil",
-                    },
-                    {
-                        title: "Delete <kbd>[Del]</kbd>",
-                        cmd: "remove",
-                        uiIcon: "ui-icon-trash",
-                    },
-                    { title: "----" },
-                    {
-                        title: "New sibling <kbd>[Ctrl+N]</kbd>",
-                        cmd: "addSibling",
-                        uiIcon: "ui-icon-plus",
-                    },
-                    {
-                        title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
-                        cmd: "addChild",
-                        uiIcon: "ui-icon-arrowreturn-1-e",
-                    },
-                    { title: "----" },
-                    {
-                        title: "Cut <kbd>Ctrl+X</kbd>",
-                        cmd: "cut",
-                        uiIcon: "ui-icon-scissors",
-                    },
-                    {
-                        title: "Copy <kbd>Ctrl-C</kbd>",
-                        cmd: "copy",
-                        uiIcon: "ui-icon-copy",
-                    },
-                    {
-                        title: "Paste as child<kbd>Ctrl+V</kbd>",
-                        cmd: "paste",
-                        uiIcon: "ui-icon-clipboard",
-                        disabled: true,
-                    },
-                ],
-                beforeOpen: function(event, ui) {
-                    var node = $.ui.fancytree.getNode(ui.target);
-                    $("#tree").contextmenu(
-                        "enableEntry",
-                        "paste",
-                        !!CLIPBOARD
-                    );
-                    node.setActive();
-                },
-                select: function(event, ui) {
-                    console.log('event=',event)
-                    console.log('ui=',ui)
-                    var that = this;
-                    // delay the event, so the menu can close and the click event does
-                    // not interfere with the edit control
-                    setTimeout(function() {
-                        $(that).trigger("nodeCommand", { cmd: ui.cmd });
-                    }, 100);
-                },
-            });
-            // }
         });
     </script>
 
@@ -558,7 +624,7 @@ $st_type =implode(",", $st_type);
     <thead>
     <tr>
         <th></th>
-        <th>#</th>
+        <th>Id</th>
         <th></th>
         <th> Tip </th>
         <th>İl</th>
@@ -570,8 +636,8 @@ $st_type =implode(",", $st_type);
         <td class="alignCenter"></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td> </td>
+        <td> </td>
         <!--					<td><input name="input1" type="input" /></td>-->
         <!--					<td><input name="input2" type="input" /></td>-->
         <!--					<td class="alignCenter">-->

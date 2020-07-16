@@ -64,28 +64,27 @@ function createArray($arrC){
     }
     return $arrChil;
 }
-function unflattenArray($flatArray){
-    
+function unflattenArray($flatArray)
+{
+
     $refs = array(); //for setting children without having to search the parents in the result tree.
     $result = array();
     $arrr = array();
 
     //process all elements until nohting could be resolved.
     //then add remaining elements to the root one by one.
-    while(count($flatArray) > 0){
-        for ($i=count($flatArray)-1; $i>=0; $i--){
+    while (count($flatArray) > 0) {
+        for ($i = count($flatArray) - 1; $i >= 0; $i--) {
 //
-            if ($flatArray[$i][2]==0){
+            if ($flatArray[$i][2] == 0) {
                 //root element: set in result and ref!
                 $result[$flatArray[$i][0]] = $flatArray[$i];
                 $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
                 unset($flatArray[$i]);
                 $flatArray = array_values($flatArray);
-            }
-
-            else if ($flatArray[$i][2] != 0){
+            } else if ($flatArray[$i][2] != 0) {
                 //no root element. Push to the referenced parent, and add to references as well.
-                if (array_key_exists($flatArray[$i][2], $refs)){
+                if (array_key_exists($flatArray[$i][2], $refs)) {
                     //parent found
                     $o = $flatArray[$i];
                     $refs[$flatArray[$i][0]] = $o;
@@ -96,68 +95,13 @@ function unflattenArray($flatArray){
             }
         }
     }
-    $arrResult=array();
-    foreach ($result as $arr)
-    {
-        $arr['id'] = $arr[0];
-        $arr['title'] = $arr[1];
-        $arr['pId'] = $arr[2];
-        $arr['st_type'] = $arr[3];
-        $arr['year'] = $arr[4];
-        $arr['expanded'] = true;
-        $arr['folder'] = true;
-        $arrCi=array();
-        foreach ($arr[5] as $arrC)
-        {
-            $arrC['id'] = $arrC[0];
-            $arrC['title'] = $arrC[1];
-            $arrC['pId'] = $arrC[2];
-            $arrC['st_type'] = $arrC[3];
-            $arrC['year'] = $arrC[4];
-            $arrC['expanded'] = false;
-            $arrC['folder'] = true;
-//            $arrC['children'] = $arrC[5];
-            $arrChi=array();
-            if(count($arrC[5])>0){
-                $arrChi= createArray($arrC[5]);
-                $arrC['children'] = $arrChi;
-                unset($arrC[0]);
-                unset($arrC[1]);
-                unset($arrC[2]);
-                unset($arrC[3]);
-                unset($arrC[4]);
-                unset($arrC[5]);
-            }
-
-//            $arrC['children'] = $arrChi;
-            $arrCi[]=$arrC;
-
-
-        }
-        $arr['children'] = $arrCi;
-        unset($arr[0]);
-        unset($arr[1]);
-        unset($arr[2]);
-        unset($arr[3]);
-        unset($arr[4]);
-        unset($arr[5]);
-        $arrResult[]= $arr;
+    if (count($result) > 0) {
+        return createArray($result);
     }
-
- return $arrResult;
-//
-//print_r($result);
-
-
-
-//    return forArray($result);
 }
 
 ?>
 
-<input type="hidden" id="user" name="user" value="<?php echo $user; ?>">
-<input type="hidden" id="parent" name="parent" value="<?php echo $parent; ?>">
-<input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
 <input type="hidden" id="create_date" name="create_date" value="<?php echo $create_date; ?>">
 <input type="hidden" id="st_type" name="st_type" value="<?php echo $st_type; ?>">
 <!--<input type="hidden" id="sub_array" name="sub_array" value="--><?php //echo $sub_array; ?><!--">-->
@@ -210,7 +154,7 @@ function unflattenArray($flatArray){
 
             pushOldu(subArray)
             function pushOldu(subArray) {
-               console.log('subArray=', subArray)
+                console.log('subArray=', subArray)
                 var addNew=0;
                 $("#tree")
                     .fancytree({
@@ -220,7 +164,7 @@ function unflattenArray($flatArray){
                         quicksearch: true, // Jump to nodes when pressing first character
                         // source: myJSON,
                         // source: { url: "ajax-tree-products.json" },
-                       source: subArray,
+                        source: subArray,
                         //source: SOURCE,
 
                         extensions: ["edit", "dnd5", "table", "gridnav"],
@@ -324,11 +268,13 @@ function unflattenArray($flatArray){
                             // Set column #3 info from node data:
                             $tdList
                                 .eq(4)
+                                // .find('input')
                                 .text(node.data.st_type);
                             // .find("input")
                             // .val(node.key);
                             $tdList
                                 .eq(3)
+                                // .find('input')
                                 .text(node.data.year);
                             // .find("input")
                             // .val(node.data.foo);
@@ -456,7 +402,7 @@ function unflattenArray($flatArray){
                     .on("keydown", function(e) {
                         var cmd = null;
 
-                         console.log("keyDown"+$.ui.fancytree.eventToString(e));
+                        console.log("keyDown"+$.ui.fancytree.eventToString(e));
                         switch ($.ui.fancytree.eventToString(e)) {
                             case "ctrl+shift+n":
                             case "meta+shift+n": // mac: cmd+shift+n
@@ -508,85 +454,85 @@ function unflattenArray($flatArray){
                         }
                     });
 
-            /*
-             * Tooltips
-             */
-            // $("#tree").tooltip({
-            // 	content: function () {
-            // 		return $(this).attr("title");
-            // 	}
-            // });
+                /*
+                 * Tooltips
+                 */
+                // $("#tree").tooltip({
+                // 	content: function () {
+                // 		return $(this).attr("title");
+                // 	}
+                // });
 
-            /*
-             * Context menu (https://github.com/mar10/jquery-ui-contextmenu)
-             */
-            $("#tree").contextmenu({
+                /*
+                 * Context menu (https://github.com/mar10/jquery-ui-contextmenu)
+                 */
+                $("#tree").contextmenu({
 
 
-                delegate: "span.fancytree-node",
-                menu: [
-                    {
-                        title: "Edit <kbd>[F2]</kbd>",
-                        cmd: "rename",
-                        uiIcon: "ui-icon-pencil",
+                    delegate: "span.fancytree-node",
+                    menu: [
+                        {
+                            title: "Edit <kbd>[F2]</kbd>",
+                            cmd: "rename",
+                            uiIcon: "ui-icon-pencil",
+                        },
+                        {
+                            title: "Delete <kbd>[Del]</kbd>",
+                            cmd: "remove",
+                            uiIcon: "ui-icon-trash",
+                        },
+                        { title: "----" },
+                        {
+                            title: "New sibling <kbd>[Ctrl+N]</kbd>",
+                            cmd: "addSibling",
+                            uiIcon: "ui-icon-plus",
+                        },
+                        {
+                            title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
+                            cmd: "addChild",
+                            uiIcon: "ui-icon-arrowreturn-1-e",
+                        },
+                        { title: "----" },
+                        {
+                            title: "Cut <kbd>Ctrl+X</kbd>",
+                            cmd: "cut",
+                            uiIcon: "ui-icon-scissors",
+                        },
+                        {
+                            title: "Copy <kbd>Ctrl-C</kbd>",
+                            cmd: "copy",
+                            uiIcon: "ui-icon-copy",
+                        },
+                        {
+                            title: "Paste as child<kbd>Ctrl+V</kbd>",
+                            cmd: "paste",
+                            uiIcon: "ui-icon-clipboard",
+                            disabled: true,
+                        },
+                    ],
+                    beforeOpen: function(event, ui) {
+                        console.log('beforeOpen')
+                        var node = $.ui.fancytree.getNode(ui.target);
+                        $("#tree").contextmenu(
+                            "enableEntry",
+                            "paste",
+                            !!CLIPBOARD
+                        );
+                        node.setActive();
                     },
-                    {
-                        title: "Delete <kbd>[Del]</kbd>",
-                        cmd: "remove",
-                        uiIcon: "ui-icon-trash",
+                    select: function(event, ui) {
+                        console.log('event=',event)
+                        console.log('ui=',ui);
+                        addNew=0;
+                        var that = this;
+                        // delay the event, so the menu can close and the click event does
+                        // not interfere with the edit control
+                        setTimeout(function() {
+                            $(that).trigger("nodeCommand", { cmd: ui.cmd });
+                        }, 100);
                     },
-                    { title: "----" },
-                    {
-                        title: "New sibling <kbd>[Ctrl+N]</kbd>",
-                        cmd: "addSibling",
-                        uiIcon: "ui-icon-plus",
-                    },
-                    {
-                        title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
-                        cmd: "addChild",
-                        uiIcon: "ui-icon-arrowreturn-1-e",
-                    },
-                    { title: "----" },
-                    {
-                        title: "Cut <kbd>Ctrl+X</kbd>",
-                        cmd: "cut",
-                        uiIcon: "ui-icon-scissors",
-                    },
-                    {
-                        title: "Copy <kbd>Ctrl-C</kbd>",
-                        cmd: "copy",
-                        uiIcon: "ui-icon-copy",
-                    },
-                    {
-                        title: "Paste as child<kbd>Ctrl+V</kbd>",
-                        cmd: "paste",
-                        uiIcon: "ui-icon-clipboard",
-                        disabled: true,
-                    },
-                ],
-                beforeOpen: function(event, ui) {
-                    console.log('beforeOpen')
-                    var node = $.ui.fancytree.getNode(ui.target);
-                    $("#tree").contextmenu(
-                        "enableEntry",
-                        "paste",
-                        !!CLIPBOARD
-                    );
-                    node.setActive();
-                },
-                select: function(event, ui) {
-                    console.log('event=',event)
-                    console.log('ui=',ui);
-                    addNew=0;
-                    var that = this;
-                    // delay the event, so the menu can close and the click event does
-                    // not interfere with the edit control
-                    setTimeout(function() {
-                        $(that).trigger("nodeCommand", { cmd: ui.cmd });
-                    }, 100);
-                },
-            });
-             }
+                });
+            }
         });
     </script>
 
@@ -690,8 +636,8 @@ function unflattenArray($flatArray){
         <td class="alignCenter"></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td> </td>
+        <td> </td>
         <!--					<td><input name="input1" type="input" /></td>-->
         <!--					<td><input name="input2" type="input" /></td>-->
         <!--					<td class="alignCenter">-->
