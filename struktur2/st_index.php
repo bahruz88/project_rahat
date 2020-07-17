@@ -69,12 +69,30 @@ function unflattenArray($flatArray)
 
     $refs = array(); //for setting children without having to search the parents in the result tree.
     $result = array();
-    $arrr = array();
-
+    $arrrId = array();
+    $arrrPId = array();
+    $arrrId[]=0;
+for ($j = 0; $j < count($flatArray); $j++) {
+    $arrrId[]=$flatArray[$j][0];
+    $arrrPId[]=$flatArray[$j][2];
+}
+//print_r($arrrId);
+//echo "<br/>";
+//print_r($arrrId);
+//    for($j = 0; $j < count($flatArray); $j++){
+//        if(in_array($flatArray[$j][2],$arrrId)){
+//            echo "<br/>";
+//            echo $flatArray[$j][2];
+//        }
+//    }
     //process all elements until nohting could be resolved.
     //then add remaining elements to the root one by one.
     while (count($flatArray) > 0) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
+            if(in_array($flatArray[$i][2],$arrrId)){
+//                            echo "<br/>";
+//            echo $flatArray[$i][0];
+
 //
             if ($flatArray[$i][2] == 0) {
                 //root element: set in result and ref!
@@ -85,13 +103,19 @@ function unflattenArray($flatArray)
             } else if ($flatArray[$i][2] != 0) {
                 //no root element. Push to the referenced parent, and add to references as well.
                 if (array_key_exists($flatArray[$i][2], $refs)) {
-                    //parent found
-                    $o = $flatArray[$i];
-                    $refs[$flatArray[$i][0]] = $o;
-                    $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
-                    unset($flatArray[$i]);
-                    $flatArray = array_values($flatArray);
+                        //parent found
+                        $o = $flatArray[$i];
+                        $refs[$flatArray[$i][0]] = $o;
+                        $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
+                        unset($flatArray[$i]);
+                        $flatArray = array_values($flatArray);
+
+
                 }
+            }
+            }else {
+                unset($flatArray[$i]);
+                $flatArray = array_values($flatArray);
             }
         }
     }
@@ -325,24 +349,22 @@ function unflattenArray($flatArray)
                                 console.log('rename sil',data)
                                 console.log('data.cmd==',data.cmd)
                                 var ID;
-                                var title;
+                                var delet;
                                 if(data.childNode){
                                     ID=data.childNode.data.id;
+                                    delet="id"
                                 }else{
                                     ID=data.node.data.id;
+                                    delet="parent"
                                 }
-                                // ID=data.childNode.data.id;
-                                // title=data.childNode.title;
                                 console.log('ID=='+ID);
-                                // console.log('title=='+title);
 
                                 $.ajax({
                                     url: 'st_delete.php',
                                     type: "POST",
-                                    data: {id:ID},
+                                    data: {id:ID,delet:delet},
                                     success: function (data) {
                                         console.log('data=' + data)
-                                        // members=$.parseJSON(data)
                                     },
                                 });
                             }

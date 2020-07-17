@@ -5,17 +5,16 @@ include('../session.php');
 
 //Create variables
 
-if(isset($_POST['id'])){
+
+if($_POST['delet']=="id"){
+    $id                 =$_POST['id'];
+    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where id=$id or  parent=$id");// set  status=0
+
+}
+if($_POST['delet']=="parent"){
     $id                 =$_POST['id'];
 
-    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where id=$id or  parent=$id");// set  status=0
-    $ddd="delete FROM  $tbl_employee_category where id=$id or  parent=$id";
-echo $ddd;
-}
-if(isset($_POST['parent'])){
-    $parent                 =$_POST['parent'];
-
-    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where parent='$parent'");// set  status=0
+    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where parent='$id'");// set  status=0
 
 }
 
