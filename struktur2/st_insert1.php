@@ -11,8 +11,8 @@ $name               = $_POST['name'];
 $st_type           = $_POST['st_type'];
 
 
-$sql = "INSERT INTO $tbl_employee_category( 
-	 id, parent, category,st_type) 
+$sql = "INSERT INTO $tbl_employee_position( 
+	 id, parent, title,st_type) 
 	 VALUES (NULL, '$pId','$name','$st_type')";
 
 

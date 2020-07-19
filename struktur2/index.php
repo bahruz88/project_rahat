@@ -69,29 +69,53 @@ function unflattenArray($flatArray)
 
     $refs = array(); //for setting children without having to search the parents in the result tree.
     $result = array();
-    $arrr = array();
-
+    $arrrId = array();
+    $arrrPId = array();
+    $arrrId[]=0;
+    for ($j = 0; $j < count($flatArray); $j++) {
+        $arrrId[]=$flatArray[$j][0];
+        $arrrPId[]=$flatArray[$j][2];
+    }
+//print_r($arrrId);
+//echo "<br/>";
+//print_r($arrrId);
+//    for($j = 0; $j < count($flatArray); $j++){
+//        if(in_array($flatArray[$j][2],$arrrId)){
+//            echo "<br/>";
+//            echo $flatArray[$j][2];
+//        }
+//    }
     //process all elements until nohting could be resolved.
     //then add remaining elements to the root one by one.
     while (count($flatArray) > 0) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
+            if(in_array($flatArray[$i][2],$arrrId)){
+//                            echo "<br/>";
+//            echo $flatArray[$i][0];
+
 //
-            if ($flatArray[$i][2] == 0) {
-                //root element: set in result and ref!
-                $result[$flatArray[$i][0]] = $flatArray[$i];
-                $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
-                unset($flatArray[$i]);
-                $flatArray = array_values($flatArray);
-            } else if ($flatArray[$i][2] != 0) {
-                //no root element. Push to the referenced parent, and add to references as well.
-                if (array_key_exists($flatArray[$i][2], $refs)) {
-                    //parent found
-                    $o = $flatArray[$i];
-                    $refs[$flatArray[$i][0]] = $o;
-                    $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
+                if ($flatArray[$i][2] == 0) {
+                    //root element: set in result and ref!
+                    $result[$flatArray[$i][0]] = $flatArray[$i];
+                    $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
                     unset($flatArray[$i]);
                     $flatArray = array_values($flatArray);
+                } else if ($flatArray[$i][2] != 0) {
+                    //no root element. Push to the referenced parent, and add to references as well.
+                    if (array_key_exists($flatArray[$i][2], $refs)) {
+                        //parent found
+                        $o = $flatArray[$i];
+                        $refs[$flatArray[$i][0]] = $o;
+                        $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
+                        unset($flatArray[$i]);
+                        $flatArray = array_values($flatArray);
+
+
+                    }
                 }
+            }else {
+                unset($flatArray[$i]);
+                $flatArray = array_values($flatArray);
             }
         }
     }
@@ -115,7 +139,9 @@ function unflattenArray($flatArray)
             content="text/html; charset=ISO-8859-1"
     />
     <title>Multiple Extensions - Fancytree</title>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <!-- This demo uses an 3rd-party, jQuery UI based context menu -->
@@ -123,6 +149,8 @@ function unflattenArray($flatArray)
             href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
             rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- jquery-contextmenu (https://github.com/mar10/jquery-ui-contextmenu/) -->
     <script src="//cdn.jsdelivr.net/npm/ui-contextmenu/jquery.ui-contextmenu.min.js"></script>
@@ -188,32 +216,21 @@ function unflattenArray($flatArray)
                             triggerStart: ["f2", "shift+click", "mac+enter"],
                             close: function(event, data) {
                                 if (data.save && data.isNew) {
-                                    console.log('editttttttttttttt',data)
-                                    console.log('eventeventeventevent',event)
-                                    console.log('data.cmd==',data.cmd)
-                                    var PID;
-                                    var title;
+                                    console.log('a1')
 
-                                    if(data.node.parent.data.id){
-                                        PID=data.node.parent.data.id;
-                                    }else{
-                                        PID=data.node.parent.children[0].data.pId;
-                                    }
-                                    title=data.node.title;
-                                    console.log('PID=='+PID);
-                                    console.log('title=='+title);
-
-                                    $.ajax({
-                                        url: 'st_insert.php',
-                                        type: "POST",
-                                        data: { pId:PID, name:title},
-                                        success: function (data) {
-                                            console.log('dataaaaaaaaaa=' , $.parseJSON(data));
-                                            var tree = $('#tree').fancytree('getTree');
-                                            tree.reload($.parseJSON(data));
-
-                                        },
+                                    $(document).on('click', '#struktur', function(e) {
+                                        console.log('a2')
+                                        createNew(event, data,'struktur');
+                                        $('.close').trigger('click');
+                                        $(document).off('click', '#struktur');
                                     });
+                                    $(document).on('click', '#pozisya', function(e) {
+                                        console.log('a3')
+                                        createNew(event, data,'pozisya');
+                                        $('.close').trigger('click');
+                                        $(document).off('click', '#pozisya');
+                                    });
+
                                     // Quick-enter: add new nodes until we hit [enter] on an empty title
                                     $("#tree").trigger("nodeCommand", {
                                         cmd: "addSibling",
@@ -235,7 +252,13 @@ function unflattenArray($flatArray)
                             data.result = { url: "../demo/ajax-sub2.json" };
                         },
                         createNode: function(event, data) {
-                            console.log('createNode')
+                            console.log('createNode',data)
+                            if(data.node.data.id){
+                                $('#butModal').css('display','none');
+                                $(document).off('click', '#struktur');
+                                $(document).off('click', '#pozisya');
+
+                            }
                             var node = data.node,
                                 $tdList = $(node.tr).find(">td");
                             // console.log('createNode node=',node)
@@ -325,24 +348,22 @@ function unflattenArray($flatArray)
                                 console.log('rename sil',data)
                                 console.log('data.cmd==',data.cmd)
                                 var ID;
-                                var title;
+                                var delet;
                                 if(data.childNode){
                                     ID=data.childNode.data.id;
+                                    delet="id"
                                 }else{
                                     ID=data.node.data.id;
+                                    delet="parent"
                                 }
-                                // ID=data.childNode.data.id;
-                                // title=data.childNode.title;
                                 console.log('ID=='+ID);
-                                // console.log('title=='+title);
 
                                 $.ajax({
                                     url: 'st_delete.php',
                                     type: "POST",
-                                    data: {id:ID},
+                                    data: {id:ID,delet:delet},
                                     success: function (data) {
                                         console.log('data=' + data)
-                                        // members=$.parseJSON(data)
                                     },
                                 });
                             }
@@ -355,7 +376,6 @@ function unflattenArray($flatArray)
                             moveMode,
                             tree = $.ui.fancytree.getTree(this),
                             node = tree.getActiveNode();
-                        var say=0;
 
                         switch (data.cmd) {
 
@@ -367,7 +387,16 @@ function unflattenArray($flatArray)
                             case "outdent":
                             case "remove":
                             case "rename":
-                                tree.applyCommand(data.cmd, node);
+                                console.log('-----------------='+addNew)
+                                if(addNew==1){
+                                    $('#butModal').trigger('click');
+                                    // $(document).on('click', '#struktur', function(){
+                                    //     $('.close').trigger('click');
+                                    // });
+                                }else{
+                                    tree.applyCommand(data.cmd, node);
+                                }
+
                                 break;
                             case "cut":
                                 CLIPBOARD = { mode: data.cmd, data: node };
@@ -521,6 +550,8 @@ function unflattenArray($flatArray)
                         node.setActive();
                     },
                     select: function(event, ui) {
+
+
                         console.log('event=',event)
                         console.log('ui=',ui);
                         addNew=0;
@@ -530,10 +561,67 @@ function unflattenArray($flatArray)
                         setTimeout(function() {
                             $(that).trigger("nodeCommand", { cmd: ui.cmd });
                         }, 100);
+
                     },
                 });
             }
         });
+        $(document).on('click', '#struktur', function(){
+            console.log('struktur');
+            createNew('struktur',0,'struktur')
+            $(document).off('click', '#struktur');
+            $(document).off('click', '#pozisya');
+            $('.close').trigger('click');
+
+        });
+        $(document).on('click', '#pozisya', function(){
+            console.log('pozisya');
+            createNew('pozisya',0,'pozisya')
+            $(document).off('click', '#pozisya');
+            $(document).off('click', '#struktur');
+            $('.close').trigger('click');
+            // $('#butModal').css('display','none');
+
+        });
+
+
+        function createNew(event,data,type){
+            console.log('editttttttttttttt',data)
+            console.log('eventeventeventevent',event)
+            console.log('data.cmd==',data.cmd)
+            var PID;
+            var title;
+            var st_type;
+            if(data==0){
+                PID=0;
+                title=event;
+            }else
+
+            if(data.node.parent.data.id){
+                PID=data.node.parent.data.id;
+                title=data.node.title;
+
+            }else{
+                PID=data.node.parent.children[0].data.pId;
+                title=data.node.title;
+            }
+            st_type=type;
+
+            console.log('PID=='+PID);
+            console.log('title=='+title);
+
+            $.ajax({
+                url: 'st_insert.php',
+                type: "POST",
+                data: { pId:PID, name:title,st_type:st_type},
+                success: function (data) {
+                    console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                    var tree = $('#tree').fancytree('getTree');
+                    tree.reload($.parseJSON(data));
+
+                },
+            });
+        }
     </script>
 
 
@@ -563,56 +651,33 @@ function unflattenArray($flatArray)
 
 <body class="example">
 <h2>STRUKTUR</h2>
-<!--		<h1>-->
-<!--			Example: tree grid with keyboard navigation, DnD, and editing-->
-<!--			capabilites-->
-<!--		</h1>-->
-<!--		<div class="description">-->
-<!--			Bringing it all together: this sample combines different extensions-->
-<!--			and custom events to implement an editable tree grid:-->
-<!--			<ul>-->
-<!--				<li>'ext-dnd' to re-order nodes using drag-and-drop.</li>-->
-<!--				<li>-->
-<!--					'ext-table' + 'ext-gridnav' to implement a tree grid.<br />-->
-<!--					Try <kbd>UP / DOWN / LEFT / RIGHT</kbd>, <kbd>TAB</kbd>,-->
-<!--					<kbd>Shift+TAB</kbd>-->
-<!--					to navigate between grid cells. Note that embedded input-->
-<!--					controls remain functional.-->
-<!--				</li>-->
-<!--				<li>-->
-<!--					'ext-edit': inline editing.<br />-->
-<!--					Try <kbd>F2</kbd> to rename a node.<br />-->
-<!--					<kbd>Ctrl+N</kbd>, <kbd>Ctrl+Shift+N</kbd> to add nodes-->
-<!--					(Quick-enter: add new nodes until [enter] is hit on an empty-->
-<!--					title).-->
-<!--				</li>-->
-<!--				<li>-->
-<!--					Extended keyboard shortcuts:<br />-->
-<!--					<kbd>Ctrl+C</kbd>, <kbd>Ctrl+X</kbd>, <kbd>Ctrl+V</kbd> for-->
-<!--					copy/paste,<br />-->
-<!--					<kbd>Ctrl+UP</kbd>, <kbd>Ctrl+DOWN</kbd>,-->
-<!--					<kbd>Ctrl+LEFT</kbd>, <kbd>Ctrl+RIGHT</kbd>-->
-<!--          to move nodes around and change indentation.<br>-->
-<!--          (On macOS, add <kbd>Shift</kbd> to the keystrokes.)-->
-<!--				</li>-->
-<!--				<li>-->
-<!--					3rd-party-->
-<!--					<a href="https://github.com/mar10/jquery-ui-contextmenu"-->
-<!--						>contextmenu</a-->
-<!--					>-->
-<!--					for additional edit commands-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</div>-->
-<!--		<div>-->
-<!--			<label for="skinswitcher">Skin:</label>-->
-<!--			<select id="skinswitcher"></select>-->
-<!--		</div>-->
-<!---->
-<!--		<h1>Table Tree</h1>-->
-<!--		<div>-->
-<!--			<label>Fake input:<input id="input1"/></label>-->
-<!--		</div>-->
+
+<!-- Small modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-sm">New</button>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" id="new" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Struktur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p><br/>
+                <div class="row TEXT-CENTER">
+                    <div class="col-md-6"><button type="button" class="btn btn-info" id="struktur">Strukur</button></div>
+                    <div class="col-md-6"><button type="button" class="btn btn-info" id="pozisya" >Pozisya</button></div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <table id="tree">
     <colgroup>
         <col width="30px" />

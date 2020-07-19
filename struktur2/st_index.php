@@ -1,6 +1,11 @@
 <?php
 include('../session.php');
+$sql_employees= "select * from $tbl_employees where  emp_status=1";
+
+
 $users= "select * from $tbl_employee_category";
+//$users= "select tec.*,tep.* from $tbl_employee_category tec
+//INNER join $tbl_employee_position tep on tep.category_id=tec.id";
 $result_users = $db->query($users);
 $user = [];
 $parent = [];
@@ -220,15 +225,24 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
                                     $(document).on('click', '#struktur', function(e) {
                                         console.log('a2')
-                                        createNew(event, data);
+                                        createNew(event, data,'struktur');
                                         $('.close').trigger('click');
                                         $(document).off('click', '#struktur');
                                     });
                                     $(document).on('click', '#pozisya', function(e) {
-                                        console.log('a3')
-                                        createNew(event, data);
-                                        $('.close').trigger('click');
+                                        console.log('a3');
+                                        $('#query').css('display','none')
+                                        $('#employeesQuery').css('display','block')
                                         $(document).off('click', '#pozisya');
+
+
+                                    });
+                                    $(document).on("change", "select[name^=employee]", function(){
+                                    // $(document).on('change', '#employeesQuery', function(e) {
+                                        console.log('employeesQuery');
+                                        var employee=$('#employeesQuery option:selected').text()
+                                        createNew(event, data, employee);
+                                        $('.close').trigger('click');
                                     });
 
                                     // Quick-enter: add new nodes until we hit [enter] on an empty title
@@ -255,6 +269,11 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             console.log('createNode',data)
                             if(data.node.data.id){
                                 $('#butModal').css('display','none');
+                                $(document).off('click', '#struktur');
+                                $(document).off('click', '#pozisya');
+                                $('#query').css('display','block')
+                                $('#employeesQuery').css('display','none')
+
                             }
                             var node = data.node,
                                 $tdList = $(node.tr).find(">td");
@@ -373,7 +392,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             moveMode,
                             tree = $.ui.fancytree.getTree(this),
                             node = tree.getActiveNode();
-                        var say=0;
 
                         switch (data.cmd) {
 
@@ -566,27 +584,30 @@ for ($j = 0; $j < count($flatArray); $j++) {
         });
         $(document).on('click', '#struktur', function(){
             console.log('struktur');
-            createNew('struktur',0)
+            createNew('struktur',0,'struktur')
             $(document).off('click', '#struktur');
+            $(document).off('click', '#pozisya');
             $('.close').trigger('click');
 
         });
         $(document).on('click', '#pozisya', function(){
             console.log('pozisya');
-            createNew('pozisya',0)
+            createNew('pozisya',0,'pozisya')
             $(document).off('click', '#pozisya');
+            $(document).off('click', '#struktur');
             $('.close').trigger('click');
             // $('#butModal').css('display','none');
 
         });
 
 
-        function createNew(event,data){
+        function createNew(event,data,type){
             console.log('editttttttttttttt',data)
             console.log('eventeventeventevent',event)
             console.log('data.cmd==',data.cmd)
             var PID;
             var title;
+            var st_type;
             if(data==0){
                 PID=0;
                 title=event;
@@ -595,10 +616,12 @@ for ($j = 0; $j < count($flatArray); $j++) {
             if(data.node.parent.data.id){
                 PID=data.node.parent.data.id;
                 title=data.node.title;
+
             }else{
                 PID=data.node.parent.children[0].data.pId;
                 title=data.node.title;
             }
+            st_type=type;
 
             console.log('PID=='+PID);
             console.log('title=='+title);
@@ -606,7 +629,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             $.ajax({
                 url: 'st_insert.php',
                 type: "POST",
-                data: { pId:PID, name:title},
+                data: { pId:PID, name:title,st_type:st_type},
                 success: function (data) {
                     console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                     var tree = $('#tree').fancytree('getTree');
@@ -658,8 +681,25 @@ for ($j = 0; $j < count($flatArray); $j++) {
                 </button>
             </div>
             <div class="modal-body">
-                 <p>Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p><br/>
+                 <p id="query">Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p>
+                <div class="form-group row" id="employeesQuery" style="display: none;">
+                    <label class="col-sm-12 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                    <div class="col-sm-12">
+                        <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                            <?php
+                            $result_employees_view = $db->query($sql_employees);
+                            if ($result_employees_view->num_rows > 0) {
+                                while($row_employees= $result_employees_view->fetch_assoc()) {
+
+                                    ?>
+                                    <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+
+                                <?php } }?>
+                        </select>
+                    </div>
+                </div>
                 <div class="row TEXT-CENTER">
+
                     <div class="col-md-6"><button type="button" class="btn btn-info" id="struktur">Strukur</button></div>
                     <div class="col-md-6"><button type="button" class="btn btn-info" id="pozisya" >Pozisya</button></div>
                 </div>
