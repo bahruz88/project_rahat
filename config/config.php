@@ -35,20 +35,26 @@
    $tbl_employee_prev_positions='tbl_employee_prev_positions';
    $tbl_migration_info='tbl_migration_info';
    $tbl_companies='tbl_companies';
-
+   $tbl_sch_time_managment_type='tbl_sch_time_managment_type';
+   $tbl_sch_schtype='tbl_sch_schtype';
+   $tbl_sch_reduce_from='tbl_sch_reduce_from';
+   $tbl_sch_reduce_reason='tbl_sch_reduce_reason';
+   $tbl_schedules='tbl_schedules';
    $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
    $sql_roles = "select * from $tbl_roles where status=1 order  by position";				
    $sql_qua_dic = "select * from $tbl_qualification_dic ";
    $sql_university= "select * from $tbl_universities where status=1 ";
    $sql_emp_lang= "select * from $tbl_emp_lang ";
-   $sql_yesno= "select * from $tbl_yesno ";
-   $sql_exist_not_exist= "select * from $tbl_exist_not_exist ";
+   $site_lang=$_SESSION['dil'] ;
+   
+   $sql_yesno= "select * from $tbl_yesno where lang='$site_lang' ";
+   $sql_exist_not_exist= "select * from $tbl_exist_not_exist where lang='$site_lang'";
 
    $sql_employees= "select * from $tbl_employees where  emp_status=1 ";
 
    $sql_employee_company= "select * from $tbl_employee_company where  status=1 ";
 
    $sql_employees_asc= "select * from $tbl_employees where  emp_status=1 ORDER BY id DESC LIMIT 1";
-
+  
    
 ?>
