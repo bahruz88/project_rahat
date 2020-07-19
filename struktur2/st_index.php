@@ -1,6 +1,11 @@
 <?php
 include('../session.php');
+$sql_employees= "select * from $tbl_employees where  emp_status=1";
+
+
 $users= "select * from $tbl_employee_category";
+//$users= "select tec.*,tep.* from $tbl_employee_category tec
+//INNER join $tbl_employee_position tep on tep.category_id=tec.id";
 $result_users = $db->query($users);
 $user = [];
 $parent = [];
@@ -225,10 +230,19 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                         $(document).off('click', '#struktur');
                                     });
                                     $(document).on('click', '#pozisya', function(e) {
-                                        console.log('a3')
-                                        createNew(event, data,'pozisya');
-                                        $('.close').trigger('click');
+                                        console.log('a3');
+                                        $('#query').css('display','none')
+                                        $('#employeesQuery').css('display','block')
                                         $(document).off('click', '#pozisya');
+
+
+                                    });
+                                    $(document).on("change", "select[name^=employee]", function(){
+                                    // $(document).on('change', '#employeesQuery', function(e) {
+                                        console.log('employeesQuery');
+                                        var employee=$('#employeesQuery option:selected').text()
+                                        createNew(event, data, employee);
+                                        $('.close').trigger('click');
                                     });
 
                                     // Quick-enter: add new nodes until we hit [enter] on an empty title
@@ -665,8 +679,25 @@ for ($j = 0; $j < count($flatArray); $j++) {
                 </button>
             </div>
             <div class="modal-body">
-                 <p>Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p><br/>
+                 <p id="query">Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p>
+                <div class="form-group row" id="employeesQuery" style="display: none;">
+                    <label class="col-sm-12 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                    <div class="col-sm-12">
+                        <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                            <?php
+                            $result_employees_view = $db->query($sql_employees);
+                            if ($result_employees_view->num_rows > 0) {
+                                while($row_employees= $result_employees_view->fetch_assoc()) {
+
+                                    ?>
+                                    <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+
+                                <?php } }?>
+                        </select>
+                    </div>
+                </div>
                 <div class="row TEXT-CENTER">
+
                     <div class="col-md-6"><button type="button" class="btn btn-info" id="struktur">Strukur</button></div>
                     <div class="col-md-6"><button type="button" class="btn btn-info" id="pozisya" >Pozisya</button></div>
                 </div>
