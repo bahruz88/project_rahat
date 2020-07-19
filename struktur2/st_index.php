@@ -271,6 +271,8 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                 $('#butModal').css('display','none');
                                 $(document).off('click', '#struktur');
                                 $(document).off('click', '#pozisya');
+                                $('#query').css('display','block')
+                                $('#employeesQuery').css('display','none')
 
                             }
                             var node = data.node,
