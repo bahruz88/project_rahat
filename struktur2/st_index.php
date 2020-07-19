@@ -220,13 +220,13 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
                                     $(document).on('click', '#struktur', function(e) {
                                         console.log('a2')
-                                        createNew(event, data);
+                                        createNew(event, data,'struktur');
                                         $('.close').trigger('click');
                                         $(document).off('click', '#struktur');
                                     });
                                     $(document).on('click', '#pozisya', function(e) {
                                         console.log('a3')
-                                        createNew(event, data);
+                                        createNew(event, data,'pozisya');
                                         $('.close').trigger('click');
                                         $(document).off('click', '#pozisya');
                                     });
@@ -255,6 +255,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             console.log('createNode',data)
                             if(data.node.data.id){
                                 $('#butModal').css('display','none');
+                                $(document).off('click', '#struktur');
+                                $(document).off('click', '#pozisya');
+
                             }
                             var node = data.node,
                                 $tdList = $(node.tr).find(">td");
@@ -373,7 +376,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             moveMode,
                             tree = $.ui.fancytree.getTree(this),
                             node = tree.getActiveNode();
-                        var say=0;
 
                         switch (data.cmd) {
 
@@ -566,27 +568,30 @@ for ($j = 0; $j < count($flatArray); $j++) {
         });
         $(document).on('click', '#struktur', function(){
             console.log('struktur');
-            createNew('struktur',0)
+            createNew('struktur',0,'struktur')
             $(document).off('click', '#struktur');
+            $(document).off('click', '#pozisya');
             $('.close').trigger('click');
 
         });
         $(document).on('click', '#pozisya', function(){
             console.log('pozisya');
-            createNew('pozisya',0)
+            createNew('pozisya',0,'pozisya')
             $(document).off('click', '#pozisya');
+            $(document).off('click', '#struktur');
             $('.close').trigger('click');
             // $('#butModal').css('display','none');
 
         });
 
 
-        function createNew(event,data){
+        function createNew(event,data,type){
             console.log('editttttttttttttt',data)
             console.log('eventeventeventevent',event)
             console.log('data.cmd==',data.cmd)
             var PID;
             var title;
+            var st_type;
             if(data==0){
                 PID=0;
                 title=event;
@@ -595,10 +600,12 @@ for ($j = 0; $j < count($flatArray); $j++) {
             if(data.node.parent.data.id){
                 PID=data.node.parent.data.id;
                 title=data.node.title;
+
             }else{
                 PID=data.node.parent.children[0].data.pId;
                 title=data.node.title;
             }
+            st_type=type;
 
             console.log('PID=='+PID);
             console.log('title=='+title);
@@ -606,7 +613,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             $.ajax({
                 url: 'st_insert.php',
                 type: "POST",
-                data: { pId:PID, name:title},
+                data: { pId:PID, name:title,st_type:st_type},
                 success: function (data) {
                     console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                     var tree = $('#tree').fancytree('getTree');

@@ -7,13 +7,13 @@ include('../session.php') ;
 
 ////$id                 =$_POST['id'];
 $pId                = $_POST['pId'];
-//$isParent           = $_POST['isParent'];
 $name               = $_POST['name'];
+$st_type           = $_POST['st_type'];
 
 
 $sql = "INSERT INTO $tbl_employee_category( 
-	 id, parent, category) 
-	 VALUES (NULL, '$pId','$name')";
+	 id, parent, category,st_type) 
+	 VALUES (NULL, '$pId','$name','$st_type')";
 
 
 if(!mysqli_query($db, $sql)) {

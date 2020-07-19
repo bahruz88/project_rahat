@@ -9,6 +9,8 @@ include('../session.php');
 if($_POST['delet']=="id"){
     $id                 =$_POST['id'];
     $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where id=$id or  parent=$id");// set  status=0
+
+
 //    $delete_query = mysqli_query($db,"DELETE FROM
 //  $tbl_employee_category mem1
 //  INNER JOIN $tbl_employee_category mem2 ON  mem1.id = mem2.parent
