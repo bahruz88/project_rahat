@@ -8,12 +8,19 @@ include('../session.php') ;
 ////$id                 =$_POST['id'];
 $pId                = $_POST['pId'];
 $name               = $_POST['name'];
-$st_type           = $_POST['st_type'];
+$emp_id             = $_POST['emp_id'];
+$structure_level    = $_POST['structure_level'];
+$position_level     = $_POST['position_level'];
+$create_date        = $_POST['create_date'];
+$create_date = strtr( $create_date , '/', '-');
+$create_date= date('Y-m-d', strtotime($create_date));
+
+$code               = '';
 
 
 $sql = "INSERT INTO $tbl_employee_category( 
-	 id, parent, category,st_type) 
-	 VALUES (NULL, '$pId','$name','$st_type')";
+	 id, parent, category,code,emp_id,structure_level,position_level,create_date) 
+	 VALUES (NULL, '$pId','$name','$code','$emp_id','$structure_level','$position_level','$create_date')";
 
 
 if(!mysqli_query($db, $sql)) {
@@ -26,7 +33,12 @@ else {
 //Close connection
 //mysqli_close($db);
 
-$users= "select * from $tbl_employee_category";
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,teco.company_name company,tsl.title struc,tpl.title posit 
+from $tbl_employee_category tec
+LEFT join $tbl_employees te on te.id=tec.emp_id 
+LEFT join $tbl_employee_company teco on tec.company_id=teco.id
+LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
+LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level";
 $result_users = $db->query($users);
 $user=[];
 $parent=[];
@@ -41,11 +53,16 @@ if($result_users){
 
             $sub_array   = array();
             $sub_array[] = $row_users['id'];
-            $sub_array[] = $row_users['category'];
+            $sub_array[] = utf8_encode($row_users['category']);
             $sub_array[] = $row_users['parent'];
             $sub_array[] = $row_users['create_date'];
-            $sub_array[] = $row_users['st_type'];
-            $sub_array[] = [];
+            $sub_array[] = utf8_encode($row_users['code']);
+
+            $sub_array[] = [];//children
+            $sub_array[] = utf8_encode($row_users['full_name']);
+            $sub_array[] = utf8_encode($row_users['company']);
+            $sub_array[] = utf8_encode($row_users['struc']);
+            $sub_array[] = utf8_encode($row_users['posit']);
             $data[]     = $sub_array;
 
 
@@ -65,9 +82,13 @@ function createArray($arrC){
         $arrCh['id'] = $arrCh[0];
         $arrCh['title'] = $arrCh[1];
         $arrCh['pId'] = $arrCh[2];
-        $arrCh['st_type'] = $arrCh[3];
-        $arrCh['year'] = $arrCh[4];
-//        $arrCh['children'] = $arrCh[5];
+        $arrCh['year'] = $arrCh[3];
+        $arrCh['code'] = $arrCh[4];
+
+        $arrCh['full_name'] = $arrCh[6];
+        $arrCh['company'] = $arrCh[7];
+        $arrCh['structure'] = $arrCh[8];
+        $arrCh['posit'] = $arrCh[9];
         $arrCh['expanded'] = true;
         $arrCh['folder'] = true;
         if(count($arrCh[5])>0){
@@ -79,6 +100,10 @@ function createArray($arrC){
             unset($arrCh[3]);
             unset($arrCh[4]);
             unset($arrCh[5]);
+            unset($arrCh[6]);
+            unset($arrCh[7]);
+            unset($arrCh[8]);
+            unset($arrCh[9]);
         }
         $arrChil[]=$arrCh;
     }
@@ -97,24 +122,12 @@ function unflattenArray($flatArray)
         $arrrId[]=$flatArray[$j][0];
         $arrrPId[]=$flatArray[$j][2];
     }
-//print_r($arrrId);
-//echo "<br/>";
-//print_r($arrrId);
-//    for($j = 0; $j < count($flatArray); $j++){
-//        if(in_array($flatArray[$j][2],$arrrId)){
-//            echo "<br/>";
-//            echo $flatArray[$j][2];
-//        }
-//    }
+
     //process all elements until nohting could be resolved.
     //then add remaining elements to the root one by one.
     while (count($flatArray) > 0) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
             if(in_array($flatArray[$i][2],$arrrId)){
-//                            echo "<br/>";
-//            echo $flatArray[$i][0];
-
-//
                 if ($flatArray[$i][2] == 0) {
                     //root element: set in result and ref!
                     $result[$flatArray[$i][0]] = $flatArray[$i];

@@ -251,6 +251,11 @@ $dil = array(
 	"dinner_start_time"   =>"Nahar Başlama saatı",
 	"dinner_end_time"   =>"Nahar Bitmə saatı",
 	"sch_night_time"   =>"Gecə iş növbəsi",
-	"operation"   =>"Əməliyyat"
+	"operation"   =>"Əməliyyat",
+	//structure
+	"create_date"   =>"Yaranma tarixi",
+	"structure_level"   =>"Struktur səviyyəsi",
+	"position_level"   =>"Pozisya səviyyəsi",
+
 );
 ?>

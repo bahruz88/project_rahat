@@ -1,46 +1,45 @@
 <?php
 include('../session.php');
 $sql_employees= "select * from $tbl_employees where  emp_status=1";
+$sql_position_level= "select * from $tbl_position_level";
+$sql_structure_level= "select * from $tbl_structure_level";
 
 
-$users= "select * from $tbl_employee_category";
+//$users= "select * from $tbl_employee_category";
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,teco.company_name company,tsl.title struc,tpl.title posit 
+from $tbl_employee_category tec
+LEFT join $tbl_employees te on te.id=tec.emp_id 
+LEFT join $tbl_employee_company teco on tec.company_id=teco.id
+LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
+LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level";
+//echo $users;
 //$users= "select tec.*,tep.* from $tbl_employee_category tec
 //INNER join $tbl_employee_position tep on tep.category_id=tec.id";
 $result_users = $db->query($users);
-$user = [];
-$parent = [];
-$user_id= [];
-$create_date= [];
-$st_type= [];
+
 $sub_array='';
 $data = array();
 if($result_users){
     if ($result_users->num_rows > 0) {
         while($row_users = $result_users->fetch_assoc()) {
-            array_push($user, $row_users['category']);
-            array_push($parent, $row_users['parent']);
-            array_push($user_id, $row_users['id']);
-            array_push($create_date, $row_users['create_date']);
-            array_push($st_type, $row_users['st_type']);
             $sub_array   = array();
             $sub_array[] = $row_users['id'];
-            $sub_array[] = $row_users['category'];
+            $sub_array[] = utf8_encode($row_users['category']);
             $sub_array[] = $row_users['parent'];
             $sub_array[] = $row_users['create_date'];
-            $sub_array[] = $row_users['st_type'];
-            $sub_array[] = [];
+            $sub_array[] = utf8_encode($row_users['code']);
+
+            $sub_array[] = [];//children
+             $sub_array[] = utf8_encode($row_users['full_name']);
+            $sub_array[] = utf8_encode($row_users['company']);
+           $sub_array[] = utf8_encode($row_users['struc']);
+            $sub_array[] = utf8_encode($row_users['posit']);
             $data[]     = $sub_array;
         }
     }
 }
-$user = implode(",", $user);
-$parent =implode(",", $parent);
-$user_id =implode(",", $user_id);
-$create_date =implode(",", $create_date);
-$st_type =implode(",", $st_type);
 //print_r($data);
-//$sub_array =implode(",", json_encode($data));
-//$subArray =$data;
+
 $flatArray=$data;
 unflattenArray($flatArray);
 function createArray($arrC){
@@ -50,9 +49,13 @@ function createArray($arrC){
         $arrCh['id'] = $arrCh[0];
         $arrCh['title'] = $arrCh[1];
         $arrCh['pId'] = $arrCh[2];
-        $arrCh['st_type'] = $arrCh[3];
-        $arrCh['year'] = $arrCh[4];
-//        $arrCh['children'] = $arrCh[5];
+        $arrCh['year'] = $arrCh[3];
+        $arrCh['code'] = $arrCh[4];
+        $arrCh['full_name'] = $arrCh[6];
+        $arrCh['company'] = $arrCh[7];
+        $arrCh['structure'] = $arrCh[8];
+        $arrCh['posit'] = $arrCh[9];
+        $arrCh['children'] = $arrCh[5];
         $arrCh['expanded'] = false;
         $arrCh['folder'] = true;
         if(count($arrCh[5])>0){
@@ -64,6 +67,10 @@ function createArray($arrC){
             unset($arrCh[3]);
             unset($arrCh[4]);
             unset($arrCh[5]);
+            unset($arrCh[6]);
+            unset($arrCh[7]);
+            unset($arrCh[8]);
+            unset($arrCh[9]);
         }
         $arrChil[]=$arrCh;
     }
@@ -81,24 +88,13 @@ for ($j = 0; $j < count($flatArray); $j++) {
     $arrrId[]=$flatArray[$j][0];
     $arrrPId[]=$flatArray[$j][2];
 }
-//print_r($arrrId);
-//echo "<br/>";
-//print_r($arrrId);
-//    for($j = 0; $j < count($flatArray); $j++){
-//        if(in_array($flatArray[$j][2],$arrrId)){
-//            echo "<br/>";
-//            echo $flatArray[$j][2];
-//        }
-//    }
+
     //process all elements until nohting could be resolved.
     //then add remaining elements to the root one by one.
     while (count($flatArray) > 0) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
             if(in_array($flatArray[$i][2],$arrrId)){
-//                            echo "<br/>";
-//            echo $flatArray[$i][0];
 
-//
             if ($flatArray[$i][2] == 0) {
                 //root element: set in result and ref!
                 $result[$flatArray[$i][0]] = $flatArray[$i];
@@ -114,8 +110,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
                         unset($flatArray[$i]);
                         $flatArray = array_values($flatArray);
-
-
                 }
             }
             }else {
@@ -125,20 +119,25 @@ for ($j = 0; $j < count($flatArray); $j++) {
         }
     }
     if (count($result) > 0) {
+//        print_r(createArray($result));
         return createArray($result);
     }
 }
+//print_r(unflattenArray($flatArray));
+//$arr = array_map('utf8_encode', );
+//echo '--'.json_encode(unflattenArray($flatArray));
 
 ?>
 
-<input type="hidden" id="create_date" name="create_date" value="<?php echo $create_date; ?>">
-<input type="hidden" id="st_type" name="st_type" value="<?php echo $st_type; ?>">
+<!--<input type="hidden" id="create_date" name="create_date" value="--><?php //echo $create_date; ?><!--">-->
+<!--<input type="hidden" id="st_type" name="st_type" value="--><?php //echo $st_type; ?><!--">-->
 <!--<input type="hidden" id="sub_array" name="sub_array" value="--><?php //echo $sub_array; ?><!--">-->
 <input type="hidden" id="user_id_edit" name="user_id_edit" value="">
 <input type="hidden" id="user_name" name="user_name" value="">
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <meta
             http-equiv="content-type"
             content="text/html; charset=ISO-8859-1"
@@ -225,24 +224,45 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
                                     $(document).on('click', '#struktur', function(e) {
                                         console.log('a2')
-                                        createNew(event, data,'struktur');
-                                        $('.close').trigger('click');
+                                        // createNew(event, data,'struktur');
+                                        // $('.close').trigger('click');
                                         $(document).off('click', '#struktur');
+                                        $('#query').css('display','none')
+                                        $('#stQuery').css('display','block')
+                                        $('#employeesQuery').css('display','none');
+                                        $('#positionQuery').css('display','none');
+                                        $('#dateQuery').css('display','block')
+                                        $('#confirmQuery').css('display','block')
+                                        $('#structureQuery').css('display','block')
                                     });
                                     $(document).on('click', '#pozisya', function(e) {
                                         console.log('a3');
                                         $('#query').css('display','none')
+                                        $('#stQuery').css('display','block')
                                         $('#employeesQuery').css('display','block')
+                                        $('#positionQuery').css('display','block')
+                                        $('#dateQuery').css('display','block')
+                                        $('#confirmQuery').css('display','block')
+                                        $('#structureQuery').css('display','none')
                                         $(document).off('click', '#pozisya');
 
 
                                     });
-                                    $(document).on("change", "select[name^=employee]", function(){
+                                    $(document).on("click", "#confirm", function(){
                                     // $(document).on('change', '#employeesQuery', function(e) {
                                         console.log('employeesQuery');
-                                        var employee=$('#employeesQuery option:selected').text()
-                                        createNew(event, data, employee);
+
+                                        $('#stQuery').css('display','none')
+                                        var employee=$('#employeesQuery option:selected').val()
+                                        var structure_level=$('#structure_level option:selected').val()
+                                        var position_level=$('#position_level option:selected').val()
+                                        var st_create_date=$('#st_create_date').val();
+                                        console.log('st_create_date='+st_create_date)
+                                        createNew(event, data, employee,structure_level,position_level,st_create_date);
                                         $('.close').trigger('click');
+                                        $(document).off('click', '#pozisya');
+                                        $(document).off('click', '#struktur');
+                                        $(document).off('click', '#confirm');
                                     });
 
                                     // Quick-enter: add new nodes until we hit [enter] on an empty title
@@ -306,13 +326,32 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             // (Index #2 is rendered by fancytree)
                             // Set column #3 info from node data:
                             $tdList
-                                .eq(4)
+                                .eq(3)
                                 // .find('input')
-                                .text(node.data.st_type);
+                                .text(node.data.code);
+                            if(node.data.structure){
+                                $tdList
+                                    .eq(4)
+                                    // .find('input')
+                                    .text(node.data.structure);
+                            }
+                            if(node.data.posit){
+                                $tdList
+                                    .eq(4)
+                                    // .find('input')
+                                    .text(node.data.posit);
+                            }
+
+                            // .find("input")
+                            // .val(node.key);
+                             $tdList
+                                .eq(5)
+                                // .find('input')
+                                .text(node.data.full_name);
                             // .find("input")
                             // .val(node.key);
                             $tdList
-                                .eq(3)
+                                .eq(6)
                                 // .find('input')
                                 .text(node.data.year);
                             // .find("input")
@@ -584,7 +623,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
         });
         $(document).on('click', '#struktur', function(){
             console.log('struktur');
-            createNew('struktur',0,'struktur')
+            createNew('struktur',0,1)
             $(document).off('click', '#struktur');
             $(document).off('click', '#pozisya');
             $('.close').trigger('click');
@@ -592,7 +631,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
         });
         $(document).on('click', '#pozisya', function(){
             console.log('pozisya');
-            createNew('pozisya',0,'pozisya')
+            createNew('pozisya',0,1)
             $(document).off('click', '#pozisya');
             $(document).off('click', '#struktur');
             $('.close').trigger('click');
@@ -600,9 +639,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
         });
 
-
-        function createNew(event,data,type){
-            console.log('editttttttttttttt',data)
+        // createNew(event, data, employee,structure_level,position_level)
+        function createNew(event,data,employee,structure_level,position_level,st_create_date){
+            console.log('st_create_date',st_create_date)
             console.log('eventeventeventevent',event)
             console.log('data.cmd==',data.cmd)
             var PID;
@@ -621,7 +660,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                 PID=data.node.parent.children[0].data.pId;
                 title=data.node.title;
             }
-            st_type=type;
+            // st_type=type;
 
             console.log('PID=='+PID);
             console.log('title=='+title);
@@ -629,7 +668,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             $.ajax({
                 url: 'st_insert.php',
                 type: "POST",
-                data: { pId:PID, name:title,st_type:st_type},
+                data: { pId:PID, name:title,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date},
                 success: function (data) {
                     console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                     var tree = $('#tree').fancytree('getTree');
@@ -669,10 +708,10 @@ for ($j = 0; $j < count($flatArray); $j++) {
 <h2>STRUKTUR</h2>
 
 <!-- Small modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-sm">New</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-lg">New</button>
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1" id="new" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Struktur</h5>
@@ -681,11 +720,22 @@ for ($j = 0; $j < count($flatArray); $j++) {
                 </button>
             </div>
             <div class="modal-body">
-                 <p id="query">Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p>
-                <div class="form-group row" id="employeesQuery" style="display: none;">
-                    <label class="col-sm-12 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                    <div class="col-sm-12">
+                <div  id="query">
+                    <p>Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p>
+                    <div class="row TEXT-CENTER">
+
+                        <div class="col-md-6"><button type="button" class="btn btn-info" id="struktur">Strukur</button></div>
+                        <div class="col-md-6"><button type="button" class="btn btn-info" id="pozisya" >Pozisya</button></div>
+                    </div>
+                </div>
+
+
+                <div class="container" style="display: none;"  id="stQuery">
+                    <div class="form-group row" id="employeesQuery">
+                    <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                    <div class="col-sm-6">
                         <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                            <option  value="0" >Seçin...</option>
                             <?php
                             $result_employees_view = $db->query($sql_employees);
                             if ($result_employees_view->num_rows > 0) {
@@ -697,12 +747,55 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                 <?php } }?>
                         </select>
                     </div>
-                </div>
-                <div class="row TEXT-CENTER">
+                    </div>
 
-                    <div class="col-md-6"><button type="button" class="btn btn-info" id="struktur">Strukur</button></div>
-                    <div class="col-md-6"><button type="button" class="btn btn-info" id="pozisya" >Pozisya</button></div>
+                    <div class="form-group row"  id="positionQuery">
+                        <label class="col-sm-4 col-form-label" for="position_level"><?php echo $dil["position_level"];?></label>
+                        <div class="col-sm-6">
+                            <select data-live-search="true"  name="position_level" id="position_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["position_level"];?>" >
+                                <option  value="0" >Seçin...</option>
+
+                                <?php
+                                $result_position_view = $db->query($sql_position_level);
+                                if ($result_position_view->num_rows > 0) {
+                                    while($row_position= $result_position_view->fetch_assoc()) {
+
+                                        ?>
+                                        <option  value="<?php echo $row_position['id']; ?>" ><?php echo $row_position['title'];  ?></option>
+
+                                    <?php } }?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="structureQuery">
+                        <label class="col-sm-4 col-form-label" for="structure_level"><?php echo $dil["structure_level"];?></label>
+                        <div class="col-sm-6">
+                            <select data-live-search="true"  name="structure_level" id="structure_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["structure_level"];?>" >
+                                <option  value="0" >Seçin...</option>
+                                <?php
+                                $result_structure_view = $db->query($sql_structure_level);
+                                if ($result_structure_view->num_rows > 0) {
+                                    while($row_structure= $result_structure_view->fetch_assoc()) {
+
+                                        ?>
+                                        <option  value="<?php echo $row_structure['id']; ?>" ><?php echo $row_structure['title'];  ?></option>
+
+                                    <?php } }?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="dateQuery">
+                        <label class="col-sm-4 col-form-label" for="st_create_date"><?php echo $dil["create_date"];?></label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="st_create_date" name="st_create_date" placeholder="0000-00-00" />
+                        </div>
+                    </div>
+                    <div class="row TEXT-CENTER"  id="confirmQuery">
+
+                        <div class="col-md-12"><button type="button" class="btn btn-info" id="confirm" >Təsdiq</button></div>
+                    </div>
                 </div>
+
 
 
 
@@ -718,14 +811,20 @@ for ($j = 0; $j < count($flatArray); $j++) {
         <col width="350px" />
         <col width="150px" />
         <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
+        <col width="150px" />
     </colgroup>
     <thead>
     <tr>
         <th></th>
         <th>Id</th>
         <th></th>
-        <th> Tip </th>
+        <th> Kod </th>
+        <th> Səviyyə </th>
+        <th> Person </th>
         <th>İl</th>
+        <th>Status</th>
     </tr>
     </thead>
     <tbody>
@@ -734,6 +833,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
         <td class="alignCenter"></td>
         <td></td>
         <td></td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
         <td> </td>
         <td> </td>
         <!--					<td><input name="input1" type="input" /></td>-->
@@ -768,3 +870,23 @@ for ($j = 0; $j < count($flatArray); $j++) {
 <!-- End_Exclude -->
 </body>
 </html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#st_create_date').datepicker({
+            todayHighlight: true,
+            format: 'dd/mm/yyyy',
+            // startDate: new Date()
+        });
+    });
+</script>
+<script>
+
+    $(document).ready(function() {
+        // $('#create_date').datetimepicker({ format: 'DD/MM/YYYY'  });
+    });
+</script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->

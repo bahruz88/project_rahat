@@ -3620,6 +3620,7 @@ $('#drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#prp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
  	$("#wp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#wp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+
 });
 $(document).ready(function (e) {
 	$(document).on('change', '#files', function () {
