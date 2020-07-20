@@ -8,6 +8,8 @@
    
    $tbl_users='tbl_users' ;
    $tbl_employee_category='tbl_employee_category';
+   $tbl_position_level='tbl_position_level';
+   $tbl_structure_level='tbl_structure_level';
    $tbl_employee_position='tbl_employee_position';
    $tbl_employee_company='tbl_employee_company' ;
    $tbl_lang='tbl_site_languages' ;

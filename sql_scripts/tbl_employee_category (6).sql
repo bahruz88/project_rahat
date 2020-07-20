@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2020 at 12:56 PM
+-- Generation Time: Jul 20, 2020 at 06:27 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -31,9 +31,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbl_employee_category` (
   `id` int(10) UNSIGNED NOT NULL,
   `category` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `parent` int(10) UNSIGNED NOT NULL,
-  `st_type` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parent` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `code` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `structure_level` int(11) DEFAULT NULL,
+  `position_level` int(11) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
+  `emp_id` int(11) DEFAULT NULL,
   `create_date` date DEFAULT NULL,
   `insert_date` date NOT NULL DEFAULT current_timestamp(),
   `update_date` datetime NOT NULL DEFAULT current_timestamp()
@@ -43,13 +46,8 @@ CREATE TABLE `tbl_employee_category` (
 -- Dumping data for table `tbl_employee_category`
 --
 
-INSERT INTO `tbl_employee_category` (`id`, `category`, `parent`, `st_type`, `company_id`, `create_date`, `insert_date`, `update_date`) VALUES
-(1, 'Electronics', 0, NULL, NULL, NULL, '2020-07-19', '2020-07-19 14:34:59'),
-(5, 'Cameras & photo', 1, NULL, NULL, NULL, '2020-07-19', '2020-07-19 14:34:59'),
-(6, 'Camera', 5, NULL, NULL, NULL, '2020-07-19', '2020-07-19 14:34:59'),
-(15, 'Phones & Accessories', 1, NULL, NULL, NULL, '2020-07-19', '2020-07-19 14:40:01'),
-(17, 'Phones & Accessories', 1, NULL, NULL, NULL, '2020-07-19', '2020-07-19 14:40:42'),
-(23, 'ss', 6, 'struktur', NULL, NULL, '2020-07-19', '2020-07-19 14:51:39');
+INSERT INTO `tbl_employee_category` (`id`, `category`, `parent`, `code`, `structure_level`, `position_level`, `company_id`, `emp_id`, `create_date`, `insert_date`, `update_date`) VALUES
+(40, 'Electronics', 0, 'g', 1, 1, 1, 36, '2020-07-01', '2020-07-20', '2020-07-20 11:55:11');
 
 --
 -- Indexes for dumped tables
@@ -70,7 +68,7 @@ ALTER TABLE `tbl_employee_category`
 -- AUTO_INCREMENT for table `tbl_employee_category`
 --
 ALTER TABLE `tbl_employee_category`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- Constraints for dumped tables

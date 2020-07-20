@@ -252,11 +252,17 @@ $dil = array(
 	"dinner_start_time"   =>"Nahar Başlama saatı",
 	"dinner_end_time"   =>"Nahar Bitmə saatı",
 	"sch_night_time"   =>"Gecə iş növbəsi",
+
 	"empty_sch_name" 	    =>"Qrafikin adını  boş qoymaq olmaz",
 	"empty_sch_start_date_name" 	=>"Qrafikin başlama  tarixini boş qoymaq olmaz",
 	"empty_sch_expire_date" 	    =>"Qrafikin bitmə  tarixini boş qoymaq olmaz",
 	"all_data" 	    =>"Bütün məlumatlar",
 	"filter_by_company" 	    =>"Şirkət üzrə Filter",
-	"operation"   =>"Əməliyyat"
+
+	"operation"   =>"Əməliyyat",
+	//structure
+	"create_date"   =>"Yaranma tarixi",
+	"structure_level"   =>"Struktur səviyyəsi",
+	"position_level"   =>"Pozisya səviyyəsi" 
 );
 ?>
