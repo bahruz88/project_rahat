@@ -237,13 +237,14 @@ $dil = array(
     "inouttime"   =>"Giriş Çıxış Saatları",	
 	"sch_input_title"   =>"Yeni Qrafikin  daxil  edilməsi",	
 	"schname"   =>"Qrafikin adı",
+	"schcode"   =>"Qrafikin kodu",
 	"sch_start_date"   =>"Qrafikin başlama tarixi",
 	"sch_expire_date"   =>"Qrafikin bitmə tarixi",
 	"tm_type"   =>"Vaxt idarəsi tipi ",
 	"sch_type"   =>"Qrafik tipi ",
-	"reduce_type"   =>"Kəsilmə tipi",
-	"red_working_hours"   =>"Kəsilmə saat sayı",
-	"reduce_reason"   =>"Kəsintinin səbəbi",
+	"reduce_type"   =>"Qısaltma tipi",
+	"red_working_hours"   =>"Qısaltma saat sayı",
+	"reduce_reason"   =>"Qısaltmanın səbəbi",
 	"sch_start_time"   =>"Başlama saatı",
 	"sch_end_time"   =>"Bitmə saatı",
 	"break_start_time"   =>"Fasilə Başlama saatı",
@@ -251,11 +252,17 @@ $dil = array(
 	"dinner_start_time"   =>"Nahar Başlama saatı",
 	"dinner_end_time"   =>"Nahar Bitmə saatı",
 	"sch_night_time"   =>"Gecə iş növbəsi",
+
+	"empty_sch_name" 	    =>"Qrafikin adını  boş qoymaq olmaz",
+	"empty_sch_start_date_name" 	=>"Qrafikin başlama  tarixini boş qoymaq olmaz",
+	"empty_sch_expire_date" 	    =>"Qrafikin bitmə  tarixini boş qoymaq olmaz",
+	"all_data" 	    =>"Bütün məlumatlar",
+	"filter_by_company" 	    =>"Şirkət üzrə Filter",
+
 	"operation"   =>"Əməliyyat",
 	//structure
 	"create_date"   =>"Yaranma tarixi",
 	"structure_level"   =>"Struktur səviyyəsi",
-	"position_level"   =>"Pozisya səviyyəsi",
-
+	"position_level"   =>"Pozisya səviyyəsi" 
 );
 ?>
