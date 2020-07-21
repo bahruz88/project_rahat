@@ -23,7 +23,7 @@ if(mysqli_query($db, $sql) ) {
 //    echo "success";
 }
 else  {
-    echo "error" .mysqli_error($db);
+    echo "errorwww" .mysqli_error($db);
 }
 
 include ('st_select.php');

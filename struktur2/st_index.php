@@ -6,7 +6,7 @@ $sql_structure_level= "select * from $tbl_structure_level";
 
 
 //$users= "select * from $tbl_employee_category";
-$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,teco.company_name company,tsl.title struc,tpl.title posit 
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit 
 from $tbl_employee_category tec
 LEFT join $tbl_employees te on te.id=tec.emp_id 
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
@@ -18,11 +18,13 @@ LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level";
 $result_users = $db->query($users);
 
 $sub_array='';
+$idArray=array();
 $data = array();
 if($result_users){
     if ($result_users->num_rows > 0) {
         while($row_users = $result_users->fetch_assoc()) {
             $sub_array   = array();
+            $idArray[]=$row_users['id'];
             $sub_array[] = $row_users['id'];
             $sub_array[] = utf8_encode($row_users['category']);
             $sub_array[] = $row_users['parent'];
@@ -34,6 +36,10 @@ if($result_users){
             $sub_array[] = utf8_encode($row_users['company']);
            $sub_array[] = utf8_encode($row_users['struc']);
             $sub_array[] = utf8_encode($row_users['posit']);
+            $sub_array[] = utf8_encode($row_users['struc_id']);
+            $sub_array[] = utf8_encode($row_users['posit_id']);
+            $sub_array[] = utf8_encode($row_users['emp_id']);
+
             $data[]     = $sub_array;
         }
     }
@@ -55,6 +61,9 @@ function createArray($arrC){
         $arrCh['company'] = $arrCh[7];
         $arrCh['structure'] = $arrCh[8];
         $arrCh['posit'] = $arrCh[9];
+        $arrCh['struc_id'] = $arrCh[10];
+        $arrCh['posit_id'] = $arrCh[11];
+        $arrCh['emp_id'] = $arrCh[12];
         $arrCh['children'] = $arrCh[5];
         $arrCh['expanded'] = false;
         $arrCh['folder'] = true;
@@ -71,6 +80,9 @@ function createArray($arrC){
             unset($arrCh[7]);
             unset($arrCh[8]);
             unset($arrCh[9]);
+            unset($arrCh[10]);
+            unset($arrCh[11]);
+            unset($arrCh[12]);
         }
         $arrChil[]=$arrCh;
     }
@@ -123,15 +135,8 @@ for ($j = 0; $j < count($flatArray); $j++) {
         return createArray($result);
     }
 }
-//print_r(unflattenArray($flatArray));
-//$arr = array_map('utf8_encode', );
-//echo '--'.json_encode(unflattenArray($flatArray));
 
 ?>
-
-<!--<input type="hidden" id="create_date" name="create_date" value="--><?php //echo $create_date; ?><!--">-->
-<!--<input type="hidden" id="st_type" name="st_type" value="--><?php //echo $st_type; ?><!--">-->
-<!--<input type="hidden" id="sub_array" name="sub_array" value="--><?php //echo $sub_array; ?><!--">-->
 <input type="hidden" id="user_id_edit" name="user_id_edit" value="">
 <input type="hidden" id="user_name" name="user_name" value="">
 <!DOCTYPE html>
@@ -174,14 +179,52 @@ for ($j = 0; $j < count($flatArray); $j++) {
     <script src="lib/prettify.js"></script>
     <link href="demo/sample.css" rel="stylesheet" />
     <script src="demo/sample.js"></script>
+    <style>
+
+        /* Context menu */
+        .context-menu{
+            display: none;
+            position: absolute;
+            border: 1px solid #5d6974;
+            border-radius: 3px;
+            width: 200px;
+            background: white;
+            /*box-shadow: 10px 10px 5px #5d6974;*/
+            font-size: 12px;
+        }
+
+        .context-menu ul{
+            list-style: none;
+            padding: 2px;
+        }
+
+        .context-menu ul li{
+            padding: 1px 2px;
+            margin-bottom: 3px;
+            color: black;
+            /*font-weight: bold;*/
+            /*background-color: darkturquoise;*/
+
+        }
+
+        .context-menu ul li:hover{
+            cursor: pointer;
+            color:white;
+            background-color:#0d70b7;
+        }
+
+
+    </style>
     <!-- End_Exclude -->
     <script type="text/javascript">
         var CLIPBOARD = null;
         var myJSON;
         // var pushOldu=false;
-
+        var idArray;
         $(function() {
             var subArray =  <?php echo json_encode(unflattenArray($flatArray)); ?>;
+            idArray =  <?php echo json_encode($idArray); ?>;
+            console.log('subArray $idArray=',idArray);
             console.log('subArray parent=',subArray);
 
             pushOldu(subArray)
@@ -205,16 +248,16 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             preventVoidMoves: true,
                             preventRecursion: true,
                             autoExpandMS: 400,
-                            dragStart: function(node, data) {
-                                return true;
-                            },
-                            dragEnter: function(node, data) {
-                                // return ["before", "after"];
-                                return true;
-                            },
-                            dragDrop: function(node, data) {
-                                data.otherNode.moveTo(node, data.hitMode);
-                            },
+                            // dragStart: function(node, data) {
+                            //     return true;
+                            // },
+                            // dragEnter: function(node, data) {
+                            //     // return ["before", "after"];
+                            //     return true;
+                            // },
+                            // dragDrop: function(node, data) {
+                            //     data.otherNode.moveTo(node, data.hitMode);
+                            // },
                         },
                         edit: {
                             triggerStart: ["f2", "shift+click", "mac+enter"],
@@ -287,6 +330,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         },
                         createNode: function(event, data) {
                             console.log('createNode',data)
+
                             if(data.node.data.id){
                                 $('#butModal').css('display','none');
                                 $(document).off('click', '#struktur');
@@ -297,6 +341,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             }
                             var node = data.node,
                                 $tdList = $(node.tr).find(">td");
+
                             // console.log('createNode node=',node)
 
                             // Span the remaining columns if it's a folder.
@@ -332,22 +377,85 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             if(node.data.structure){
                                 $tdList
                                     .eq(4)
-                                    // .find('input')
+                                    .find('span')
                                     .text(node.data.structure);
-                            }
-                            if(node.data.posit){
                                 $tdList
                                     .eq(4)
-                                    // .find('input')
+                                    .find('select')
+                                    .find('option[value=' + node.data.struc_id + ']').attr('selected', 'selected');
+
+                                $tdList
+                                    .eq(4)
+                                    .find('#structure_level1')
+                                    .css('display','block');
+                                $tdList
+                                    .eq(4)
+                                    .find('#position_level1')
+                                    .css('display','none');
+                            }else  if(node.data.posit){
+                                $tdList
+                                    .eq(4)
+                                    .find('span')
                                     .text(node.data.posit);
+                                $tdList
+                                    .eq(4)
+                                    .find('select')
+                                    .find('option[value=' + node.data.posit_id + ']').attr('selected', 'selected');
+                                    // .val(node.data.posit);
+
+                                $tdList
+                                    .eq(4)
+                                    .find('#structure_level1')
+                                    .css('display','none');
+                                $tdList
+                                    .eq(4)
+                                    .find('#position_level1')
+                                    .css('display','block');
+                            }else{
+                                $tdList
+                                    .eq(4)
+                                    .find('#structure_level1')
+                                    .css('display','none');
+                                $tdList
+                                    .eq(4)
+                                    .find('#position_level1')
+                                    .css('display','none');
                             }
+                            $tdList
+                                .eq(4)
+                                // .find('input')
+                                .attr('id','idst'+node.data.id);
+                            $tdList
+                                .eq(4)
+                                .find('input')
+                                .attr('id','idstInput'+node.data.id);
+
+                            $tdList
+                                .eq(4)
+                                .find('select')
+                                .css('display','none');
 
                             // .find("input")
                             // .val(node.key);
                              $tdList
                                 .eq(5)
-                                // .find('input')
+                                .find('span')
                                 .text(node.data.full_name);
+                             if(node.data.emp_id){
+                                 $tdList
+                                     .eq(5)
+                                     .find('select')
+                                     .find('option[value=' + node.data.emp_id + ']').attr('selected', 'selected');
+                             }
+
+                            $tdList
+                                .eq(5)
+                                .find('select')
+                                .css('display','none');
+                            $tdList
+                                .eq(5)
+                                // .find('input')
+                                .attr('id','idemp'+node.data.id);
                             // .find("input")
                             // .val(node.key);
                             $tdList
@@ -358,6 +466,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                 .eq(6)
                                 // .find('input')
                                 .attr('id','idyear'+node.data.id);
+
                             // .find("input")
                             // .val(node.data.foo);
                             // $tdList
@@ -369,6 +478,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             // Static markup (more efficiently defined as html row template):
                             // $tdList.eq(3).html("<input type='input' value='"  "" + "'>");
                             // ...
+                            sagClick(node.data.id);
                         },
                         modifyChild: function(event, data) {
                             console.log('modifyChild event.type='+event.type)
@@ -625,6 +735,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
                     },
                 });
+
             }
 
         });
@@ -690,7 +801,136 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
         }
 
+            function sagClick(number){
+            // Hide context menu
+            $(document).bind('contextmenu click',function(){
+                $(".context-menu").hide();
+                $("#txt_id").val("");
+                $("#number_id").val("");
 
+            });
+
+            // disable right click and show custom context menu
+            // for (var i=0;i<idArray.length;i++){
+            //     console.log('idArray['+i+']'+id)
+
+                $("#idst"+number).bind('contextmenu', function (e) {
+
+                    var id = this.id;
+                    $("#txt_id").val(id);
+                    $("#number_id").val(number);
+                    console.log('number_id[='+$("#number_id").val())
+                    var top = e.pageY+5;
+                    var left = e.pageX;
+
+                    // Show contextmenu
+                    $(".context-menu").toggle(100).css({
+                        top: top + "px",
+                        left: left + "px"
+                    });
+
+                    // Disable default menu
+                    return false;
+                });
+
+
+                $("#idemp"+number).bind('contextmenu', function (e) {
+
+                    var id = this.id;
+                    $("#txt_id").val(id);
+                    $("#number_id").val(number);
+                    console.log('number_id[='+$("#number_id").val())
+                    var top = e.pageY+5;
+                    var left = e.pageX;
+
+                    // Show contextmenu
+                    $(".context-menu").toggle(100).css({
+                        top: top + "px",
+                        left: left + "px"
+                    });
+
+                    // Disable default menu
+                    return false;
+                });
+            // }
+
+
+            // disable context-menu from custom menu
+            $('.context-menu').bind('contextmenu',function(){
+                return false;
+            });
+
+            // Clicked context-menu item
+            $('.context-menu li').click(function(){
+                var className = $(this).find("span:nth-child(1)").attr("class");
+                var titleid = $('#txt_id').val();
+                $( "#"+ titleid ).css( "background-color", className );
+                $(".context-menu").hide();
+            });
+
+
+            // Clicked context-menu item
+            $('#contentEdit').click(function(){
+                var idCont = $('#txt_id').val();
+                if(idCont){
+                    console.log('idCont='+idCont)
+                    $('#'+idCont).find('span').css('display','none')
+                    $('#'+idCont).find('select').css('display','block')
+                }
+
+            });
+            // Clicked context-menu item
+            $("#idst"+number).find('select').change(function(){
+                console.log('contentEdit change'+$(this).attr('name'));
+                if($(this).find('option:selected').val()!='0'){
+                    $(this).closest('td').find('span').text($(this).find('option:selected').text())
+                }else{
+                    $(this).closest('td').find('span').text('')
+                }
+
+                $(this).closest('td').find('span').css('display','block')
+                $(this).css('display','none');
+                var thisName=$(this).attr('name')
+                var thisVal=$(this).find('option:selected').val()
+                $.ajax({
+                    url: 'st_update.php',
+                    type: "POST",
+                    data: { id:number, name:thisVal,change:thisName},
+                    success: function (data) {
+                        console.log('dataaaaaaa=' + data)
+                        // members=$.parseJSON(data)
+
+                    },
+                });
+            });
+
+
+            $("#idemp"+number).find('select').change(function(){
+                console.log('contentEdit change'+$(this).attr('name'));
+                if($(this).find('option:selected').val()!='0'){
+                    $(this).closest('td').find('span').text($(this).find('option:selected').text())
+                }else{
+                    $(this).closest('td').find('span').text('')
+                }
+
+                $(this).closest('td').find('span').css('display','block')
+                $(this).css('display','none');
+                var thisName='emp_id'
+                var thisVal=$(this).find('option:selected').val()
+                $.ajax({
+                    url: 'st_update.php',
+                    type: "POST",
+                    data: { id:number, name:thisVal,change:thisName},
+                    success: function (data) {
+                        console.log('dataaaaaaaw=' + data)
+                        $("#idemp"+number).find('span').css('display','block')
+                        $("#idemp"+number).find('select').css('display','none')
+
+                    },
+                });
+            });
+
+        }
     </script>
 
 
@@ -720,7 +960,14 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
 <body class="example">
 <h2>STRUKTUR</h2>
-
+<div class='context-menu'>
+    <ul>
+        <li id="contentEdit"> &nbsp;<span> Edit</span></li>
+        <li>&nbsp;<span>Delete</span></li>
+    </ul>
+</div>
+<input type='hidden' value='' id='txt_id'>
+<input type='hidden' value='' id='number_id'>
 <!-- Small modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-lg">New</button>
 
@@ -848,9 +1095,53 @@ for ($j = 0; $j < count($flatArray); $j++) {
         <td></td>
         <td></td>
         <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td><span></span>
+            <div id="structure_level1">
+                <select data-live-search="true"  style="font-size:14px;" name="structure_level"   title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["structure_level"];?>" >
+                    <option  value="0" >Seçin...</option>
+                    <?php
+                    $result_structure_view = $db->query($sql_structure_level);
+                    if ($result_structure_view->num_rows > 0) {
+                        while($row_structure= $result_structure_view->fetch_assoc()) {
+
+                            ?>
+                            <option  value="<?php echo $row_structure['id']; ?>" ><?php echo $row_structure['title'];  ?></option>
+
+                        <?php } }?>
+                </select>
+            </div>
+            <div id="position_level1">
+                <select data-live-search="true"  style="font-size:14px;" name="position_level"   title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["position_level"];?>" >
+                <option  value="0" >Seçin...</option>
+
+                <?php
+                $result_position_view = $db->query($sql_position_level);
+                if ($result_position_view->num_rows > 0) {
+                    while($row_position= $result_position_view->fetch_assoc()) {
+
+                        ?>
+                        <option  value="<?php echo $row_position['id']; ?>" ><?php echo $row_position['title'];  ?></option>
+
+                    <?php } }?>
+            </select>
+            </div>
+        </td>
+        <td> <span></span>
+            <select data-live-search="true"  name="employee" style="font-size:14px;"   title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                <option  value="0" >Seçin...</option>
+                <?php
+                $result_employees_view = $db->query($sql_employees);
+                if ($result_employees_view->num_rows > 0) {
+                    while($row_employees= $result_employees_view->fetch_assoc()) {
+
+                        ?>
+                        <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+
+                    <?php } }?>
+            </select>
+
+        </td>
+        <td> <input name="input1" type="text" /></td>
         <td> </td>
         <!--					<td><input name="input1" type="input" /></td>-->
         <!--					<td><input name="input2" type="input" /></td>-->

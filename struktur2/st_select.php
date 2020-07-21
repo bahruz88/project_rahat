@@ -1,7 +1,9 @@
 <?php
-$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,teco.company_name company,tsl.title struc,tpl.title posit
+
+
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit 
 from $tbl_employee_category tec
-LEFT join $tbl_employees te on te.id=tec.emp_id
+LEFT join $tbl_employees te on te.id=tec.emp_id 
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
 LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
 LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level";
@@ -29,6 +31,9 @@ if($result_users){
             $sub_array[] = utf8_encode($row_users['company']);
             $sub_array[] = utf8_encode($row_users['struc']);
             $sub_array[] = utf8_encode($row_users['posit']);
+            $sub_array[] = utf8_encode($row_users['struc_id']);
+            $sub_array[] = utf8_encode($row_users['posit_id']);
+            $sub_array[] = utf8_encode($row_users['emp_id']);
             $data[]     = $sub_array;
 
 
@@ -54,7 +59,9 @@ function createArray($arrC){
         $arrCh['full_name'] = $arrCh[6];
         $arrCh['company'] = $arrCh[7];
         $arrCh['structure'] = $arrCh[8];
-        $arrCh['posit'] = $arrCh[9];
+        $arrCh['struc_id'] = $arrCh[10];
+        $arrCh['posit_id'] = $arrCh[11];
+        $arrCh['emp_id'] = $arrCh[12];
         $arrCh['expanded'] = true;
         $arrCh['folder'] = true;
         if(count($arrCh[5])>0){
@@ -70,6 +77,9 @@ function createArray($arrC){
             unset($arrCh[7]);
             unset($arrCh[8]);
             unset($arrCh[9]);
+            unset($arrCh[10]);
+            unset($arrCh[11]);
+            unset($arrCh[12]);
         }
         $arrChil[]=$arrCh;
     }
