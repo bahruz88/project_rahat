@@ -13,6 +13,11 @@ if(isset($_POST['name'])){
 if(isset($_POST['icon'])){
     $name           = $_POST['icon'];
 }
+if($_POST['change']=='create_date'){
+    $name           = $_POST['name'];
+    $name = strtr( $name , '/', '-');
+    $name= date('Y-m-d', strtotime($name));
+}
 
 
 $sql = "UPDATE  $tbl_employee_category SET  

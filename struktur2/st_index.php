@@ -460,12 +460,20 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             // .val(node.key);
                             $tdList
                                 .eq(6)
-                                // .find('input')
+                                 .find('span')
                                 .text(node.data.year);
                             $tdList
                                 .eq(6)
                                 // .find('input')
                                 .attr('id','idyear'+node.data.id);
+                            $tdList
+                                .eq(6)
+                                .find('input')
+                                .attr('id','idyearInput'+node.data.id);
+                            $tdList
+                                .eq(6)
+                                .find('input')
+                                .css('display','none');
 
                             // .find("input")
                             // .val(node.data.foo);
@@ -769,9 +777,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             if(data==0){
                 PID=0;
                 title=event;
-            }else
-
-            if(data.node.parent.data.id){
+            }else if(data.node.parent.data.id){
                 PID=data.node.parent.data.id;
                 title=data.node.title;
 
@@ -811,8 +817,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
             });
 
             // disable right click and show custom context menu
-            // for (var i=0;i<idArray.length;i++){
-            //     console.log('idArray['+i+']'+id)
 
                 $("#idst"+number).bind('contextmenu', function (e) {
 
@@ -833,7 +837,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     return false;
                 });
 
-
                 $("#idemp"+number).bind('contextmenu', function (e) {
 
                     var id = this.id;
@@ -852,7 +855,24 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     // Disable default menu
                     return false;
                 });
-            // }
+
+                $("#idyear"+number).bind('contextmenu', function (e) {
+
+                    var id = this.id;
+                    $("#txt_id").val(id);
+                    $("#number_id").val(number);
+                    console.log('number_id[='+$("#number_id").val())
+                    var top = e.pageY+5;
+                    var left = e.pageX;
+
+                    // Show contextmenu
+                    $(".context-menu").toggle(100).css({
+                        top: top + "px",
+                        left: left + "px"
+                    });
+                    // Disable default menu
+                    return false;
+                });
 
 
             // disable context-menu from custom menu
@@ -876,6 +896,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     console.log('idCont='+idCont)
                     $('#'+idCont).find('span').css('display','none')
                     $('#'+idCont).find('select').css('display','block')
+                    $('#'+idCont).find('input').css('display','block')
                 }
 
             });
@@ -898,7 +919,8 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     data: { id:number, name:thisVal,change:thisName},
                     success: function (data) {
                         console.log('dataaaaaaa=' + data)
-                        // members=$.parseJSON(data)
+                        var tree = $('#tree').fancytree('getTree');
+                        tree.reload($.parseJSON(data));
 
                     },
                 });
@@ -929,6 +951,38 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     },
                 });
             });
+
+            $("#idyearInput"+number).change(function(){
+                console.log('contentEdit change'+$(this).val());
+
+                 $(this).closest('td').find('span').text($(this).val())
+
+                $(this).closest('td').find('span').css('display','block')
+                // $(this).css('display','none');
+                var thisName='create_date'
+                var thisVal=$(this).closest('td').find('input').val()
+                console.log('thisVal=='+thisVal)
+                $.ajax({
+                    url: 'st_update.php',
+                    type: "POST",
+                    data: { id:number, name:thisVal,change:thisName},
+                    success: function (data) {
+                        console.log('dataaaaaaaw=' + data)
+                        $("#idyear"+number).find('span').css('display','block')
+                        $("#idyear"+number).find('input').css('display','none')
+                        $('.datepicker').css('display','none')
+                        var tree = $('#tree').fancytree('getTree');
+                        tree.reload($.parseJSON(data));
+
+                    },
+                });
+            });
+            $("#idyearInput"+number).datepicker({
+                todayHighlight: true,
+                format: 'dd/mm/yyyy',
+                // startDate: new Date()
+                // });
+            })
 
         }
     </script>
@@ -1141,36 +1195,16 @@ for ($j = 0; $j < count($flatArray); $j++) {
             </select>
 
         </td>
-        <td> <input name="input1" type="text" /></td>
+        <td>
+            <span></span>
+            <input type="text" class="form-control"  style="font-size:14px;" name="st_create_date" placeholder="0000-00-00" />
+        </td>
         <td> </td>
-        <!--					<td><input name="input1" type="input" /></td>-->
-        <!--					<td><input name="input2" type="input" /></td>-->
-        <!--					<td class="alignCenter">-->
-        <!--						<input name="cb1" type="checkbox" />-->
-        <!--					</td>-->
-        <!--					<td class="alignCenter">-->
-        <!--						<input name="cb2" type="checkbox" />-->
-        <!--					</td>-->
-        <!--					<td>-->
-        <!--						<select name="sel1" id="">-->
-        <!--							<option value="a">A</option>-->
-        <!--							<option value="b">B</option>-->
-        <!--						</select>-->
-        <!--					</td>-->
+
     </tr>
     </tbody>
 </table>
 
-<!-- Start_Exclude: This block is not part of the sample code -->
-<!--		<hr />-->
-<!--		<p class="sample-links  no_code">-->
-<!--			<a class="hideInsideFS" href="https://github.com/mar10/fancytree"-->
-<!--				>jquery.fancytree.js project home</a-->
-<!--			>-->
-<!--			<a class="hideOutsideFS" href="#">Link to this page</a>-->
-<!--			<a class="hideInsideFS" href="index.html">Example Browser</a>-->
-<!--			<a href="#" id="codeExample">View source code</a>-->
-<!--		</p>-->
 <pre id="sourceCode" class="prettyprint" style="display:none"></pre>
 <!-- End_Exclude -->
 </body>
@@ -1187,11 +1221,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
         });
     });
 </script>
-<script>
 
-    $(document).ready(function() {
-        // $('#create_date').datetimepicker({ format: 'DD/MM/YYYY'  });
-    });
-</script>
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
