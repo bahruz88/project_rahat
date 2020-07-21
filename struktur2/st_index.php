@@ -95,13 +95,13 @@ for ($j = 0; $j < count($flatArray); $j++) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
             if(in_array($flatArray[$i][2],$arrrId)){
 
-            if ($flatArray[$i][2] == 0) {
+            if ($flatArray[$i][2] == NULL) {
                 //root element: set in result and ref!
                 $result[$flatArray[$i][0]] = $flatArray[$i];
                 $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
                 unset($flatArray[$i]);
                 $flatArray = array_values($flatArray);
-            } else if ($flatArray[$i][2] != 0) {
+            } else if ($flatArray[$i][2] != NULL) {
                 //no root element. Push to the referenced parent, and add to references as well.
                 if (array_key_exists($flatArray[$i][2], $refs)) {
                         //parent found
@@ -354,6 +354,10 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                 .eq(6)
                                 // .find('input')
                                 .text(node.data.year);
+                            $tdList
+                                .eq(6)
+                                // .find('input')
+                                .attr('id','idyear'+node.data.id);
                             // .find("input")
                             // .val(node.data.foo);
                             // $tdList
@@ -412,6 +416,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                     delet="parent"
                                 }
                                 console.log('ID=='+ID);
+                                console.log('delet=='+delet);
 
                                 $.ajax({
                                     url: 'st_delete.php',
@@ -595,7 +600,8 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         },
                     ],
                     beforeOpen: function(event, ui) {
-                        console.log('beforeOpen')
+                        console.log('before event',event)
+                        console.log('beforeOpen',ui)
                         var node = $.ui.fancytree.getNode(ui.target);
                         $("#tree").contextmenu(
                             "enableEntry",
@@ -620,7 +626,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     },
                 });
             }
+
         });
+
         $(document).on('click', '#struktur', function(){
             console.log('struktur');
             createNew('struktur',0,1)
@@ -664,6 +672,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
             console.log('PID=='+PID);
             console.log('title=='+title);
+            // if(PID==0){
+            //     PID='NULL';
+            // }
 
             $.ajax({
                 url: 'st_insert.php',
@@ -676,7 +687,10 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
                 },
             });
+
         }
+
+
     </script>
 
 

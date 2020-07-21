@@ -6,9 +6,10 @@ include('../session.php');
 //Create variables
 
 
-if($_POST['delet']=="id"){
+//if($_POST['delet']=="id"){
     $id                 =$_POST['id'];
-    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where id=$id or  parent=$id");// set  status=0
+    $sql="delete FROM  $tbl_employee_category where id=$id";
+    $delete_query = mysqli_query($db,$sql);// set  status=0
 
 
 //    $delete_query = mysqli_query($db,"DELETE FROM
@@ -19,13 +20,13 @@ if($_POST['delet']=="id"){
 //  INNER JOIN $tbl_employee_category mem5 ON mem4.id = mem5.parent
 //  WHERE mem1.parent = $id;");// set  status=0
 
-}
-if($_POST['delet']=="parent"){
-    $id                 =$_POST['id'];
-
-    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where parent='$id'");// set  status=0
-
-}
+//}
+//if($_POST['delet']=="parent"){
+//    $id                 =$_POST['id'];
+//
+//    $delete_query = mysqli_query($db,"delete FROM  $tbl_employee_category where parent='$id'");// set  status=0
+//
+//}
 
 $aff_row_count = mysqli_affected_rows($db);
 //Response
@@ -33,7 +34,7 @@ $aff_row_count = mysqli_affected_rows($db);
 if ($aff_row_count > 0) {
     echo "success";
 } else {
-    echo "error-" . $id . "-" . $aff_row_count;
+    echo "error-" . $id . "-" . $aff_row_count.'='.$sql;
 }
 
 //Close connection
