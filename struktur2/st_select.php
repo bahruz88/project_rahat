@@ -1,7 +1,7 @@
 <?php
 
 
-$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit 
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
 from $tbl_employee_category tec
 LEFT join $tbl_employees te on te.id=tec.emp_id 
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
@@ -34,6 +34,8 @@ if($result_users){
             $sub_array[] = utf8_encode($row_users['struc_id']);
             $sub_array[] = utf8_encode($row_users['posit_id']);
             $sub_array[] = utf8_encode($row_users['emp_id']);
+            $sub_array[] = $row_users['icon'];
+            $sub_array[] = $row_users['posit_icon'];
             $data[]     = $sub_array;
 
 
@@ -62,6 +64,8 @@ function createArray($arrC){
         $arrCh['struc_id'] = $arrCh[10];
         $arrCh['posit_id'] = $arrCh[11];
         $arrCh['emp_id'] = $arrCh[12];
+        $arrCh['icon'] = $arrCh[13];
+        $arrCh['posit_icon'] = $arrCh[14];
         $arrCh['expanded'] = true;
         $arrCh['folder'] = true;
         if(count($arrCh[5])>0){
@@ -80,6 +84,8 @@ function createArray($arrC){
             unset($arrCh[10]);
             unset($arrCh[11]);
             unset($arrCh[12]);
+            unset($arrCh[13]);
+            unset($arrCh[14]);
         }
         $arrChil[]=$arrCh;
     }

@@ -6,7 +6,7 @@ $sql_structure_level= "select * from $tbl_structure_level";
 
 
 //$users= "select * from $tbl_employee_category";
-$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit 
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
 from $tbl_employee_category tec
 LEFT join $tbl_employees te on te.id=tec.emp_id 
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
@@ -39,6 +39,8 @@ if($result_users){
             $sub_array[] = utf8_encode($row_users['struc_id']);
             $sub_array[] = utf8_encode($row_users['posit_id']);
             $sub_array[] = utf8_encode($row_users['emp_id']);
+            $sub_array[] = $row_users['icon'];
+            $sub_array[] = $row_users['posit_icon'];
 
             $data[]     = $sub_array;
         }
@@ -64,6 +66,8 @@ function createArray($arrC){
         $arrCh['struc_id'] = $arrCh[10];
         $arrCh['posit_id'] = $arrCh[11];
         $arrCh['emp_id'] = $arrCh[12];
+        $arrCh['icon'] = $arrCh[13];
+        $arrCh['posit_icon'] = $arrCh[14];
         $arrCh['children'] = $arrCh[5];
         $arrCh['expanded'] = false;
         $arrCh['folder'] = true;
@@ -83,6 +87,8 @@ function createArray($arrC){
             unset($arrCh[10]);
             unset($arrCh[11]);
             unset($arrCh[12]);
+            unset($arrCh[13]);
+            unset($arrCh[14]);
         }
         $arrChil[]=$arrCh;
     }
@@ -212,783 +218,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
             color:white;
             background-color:#0d70b7;
         }
-
-
-    </style>
-    <!-- End_Exclude -->
-    <script type="text/javascript">
-        var CLIPBOARD = null;
-        var myJSON;
-        // var pushOldu=false;
-        var idArray;
-        $(function() {
-            var subArray =  <?php echo json_encode(unflattenArray($flatArray)); ?>;
-            idArray =  <?php echo json_encode($idArray); ?>;
-            console.log('subArray $idArray=',idArray);
-            console.log('subArray parent=',subArray);
-
-            pushOldu(subArray)
-            function pushOldu(subArray) {
-                console.log('subArray=', subArray)
-                var addNew=0;
-                $("#tree")
-                    .fancytree({
-                        checkbox: true,
-                        checkboxAutoHide: true,
-                        titlesTabbable: true, // Add all node titles to TAB chain
-                        quicksearch: true, // Jump to nodes when pressing first character
-                        // source: myJSON,
-                        // source: { url: "ajax-tree-products.json" },
-                        source: subArray,
-                        //source: SOURCE,
-
-                        extensions: ["edit", "dnd5", "table", "gridnav"],
-
-                        dnd5: {
-                            preventVoidMoves: true,
-                            preventRecursion: true,
-                            autoExpandMS: 400,
-                            // dragStart: function(node, data) {
-                            //     return true;
-                            // },
-                            // dragEnter: function(node, data) {
-                            //     // return ["before", "after"];
-                            //     return true;
-                            // },
-                            // dragDrop: function(node, data) {
-                            //     data.otherNode.moveTo(node, data.hitMode);
-                            // },
-                        },
-                        edit: {
-                            triggerStart: ["f2", "shift+click", "mac+enter"],
-                            close: function(event, data) {
-                                if (data.save && data.isNew) {
-                                    console.log('a1')
-
-                                    $(document).on('click', '#struktur', function(e) {
-                                        console.log('a2')
-                                        // createNew(event, data,'struktur');
-                                        // $('.close').trigger('click');
-                                        $(document).off('click', '#struktur');
-                                        $('#query').css('display','none')
-                                        $('#stQuery').css('display','block')
-                                        $('#employeesQuery').css('display','none');
-                                        $('#positionQuery').css('display','none');
-                                        $('#dateQuery').css('display','block')
-                                        $('#confirmQuery').css('display','block')
-                                        $('#structureQuery').css('display','block')
-                                    });
-                                    $(document).on('click', '#pozisya', function(e) {
-                                        console.log('a3');
-                                        $('#query').css('display','none')
-                                        $('#stQuery').css('display','block')
-                                        $('#employeesQuery').css('display','block')
-                                        $('#positionQuery').css('display','block')
-                                        $('#dateQuery').css('display','block')
-                                        $('#confirmQuery').css('display','block')
-                                        $('#structureQuery').css('display','none')
-                                        $(document).off('click', '#pozisya');
-
-
-                                    });
-                                    $(document).on("click", "#confirm", function(){
-                                    // $(document).on('change', '#employeesQuery', function(e) {
-                                        console.log('employeesQuery');
-
-                                        $('#stQuery').css('display','none')
-                                        var employee=$('#employeesQuery option:selected').val()
-                                        var structure_level=$('#structure_level option:selected').val()
-                                        var position_level=$('#position_level option:selected').val()
-                                        var st_create_date=$('#st_create_date').val();
-                                        console.log('st_create_date='+st_create_date)
-                                        createNew(event, data, employee,structure_level,position_level,st_create_date);
-                                        $('.close').trigger('click');
-                                        $(document).off('click', '#pozisya');
-                                        $(document).off('click', '#struktur');
-                                        $(document).off('click', '#confirm');
-                                    });
-
-                                    // Quick-enter: add new nodes until we hit [enter] on an empty title
-                                    $("#tree").trigger("nodeCommand", {
-                                        cmd: "addSibling",
-                                    });
-                                }
-                            },
-                        },
-                        table: {
-                            indentation: 20,
-                            nodeColumnIdx: 2,
-                            checkboxColumnIdx: 0,
-                        },
-                        gridnav: {
-                            autofocusInput: false,
-                            handleCursorKeys: true,
-                        },
-
-                        lazyLoad: function(event, data) {
-                            data.result = { url: "../demo/ajax-sub2.json" };
-                        },
-                        createNode: function(event, data) {
-                            console.log('createNode',data)
-
-                            if(data.node.data.id){
-                                $('#butModal').css('display','none');
-                                $(document).off('click', '#struktur');
-                                $(document).off('click', '#pozisya');
-                                $('#query').css('display','block')
-                                $('#employeesQuery').css('display','none')
-
-                            }
-                            var node = data.node,
-                                $tdList = $(node.tr).find(">td");
-
-                            // console.log('createNode node=',node)
-
-                            // Span the remaining columns if it's a folder.
-                            // We can do this in createNode instead of renderColumns, because
-                            // the `isFolder` status is unlikely to change later
-                            // if (node.isFolder()) {
-                            //     $tdList
-                            //         .eq(2)
-                            //         .prop("colspan", 6)
-                            //         .nextAll()
-                            //         .remove();
-                            //
-                            // }
-                        },
-                        renderColumns: function(event, data) {
-                            console.log('renderColumns')
-                            var node = data.node,
-                                $tdList = $(node.tr).find(">td");
-                            // console.log('renderColumns node=',node)
-                            // console.log('renderColumns node.year=',node.data.year)
-                            // (Index #0 is rendered by fancytree by adding the checkbox)
-                            // Set column #1 info from node data:
-                            // $tdList.eq(1).text(node.getIndexHier());
-                            $tdList.eq(1).text(node.data.id);
-                            //*men
-                            // $tdList.eq(3).text('hg');
-                            // (Index #2 is rendered by fancytree)
-                            // Set column #3 info from node data:
-                            $tdList
-                                .eq(3)
-                                // .find('input')
-                                .text(node.data.code);
-                            if(node.data.structure){
-                                $tdList
-                                    .eq(4)
-                                    .find('span')
-                                    .text(node.data.structure);
-                                $tdList
-                                    .eq(4)
-                                    .find('select')
-                                    .find('option[value=' + node.data.struc_id + ']').attr('selected', 'selected');
-
-                                $tdList
-                                    .eq(4)
-                                    .find('#structure_level1')
-                                    .css('display','block');
-                                $tdList
-                                    .eq(4)
-                                    .find('#position_level1')
-                                    .css('display','none');
-                            }else  if(node.data.posit){
-                                $tdList
-                                    .eq(4)
-                                    .find('span')
-                                    .text(node.data.posit);
-                                $tdList
-                                    .eq(4)
-                                    .find('select')
-                                    .find('option[value=' + node.data.posit_id + ']').attr('selected', 'selected');
-                                    // .val(node.data.posit);
-
-                                $tdList
-                                    .eq(4)
-                                    .find('#structure_level1')
-                                    .css('display','none');
-                                $tdList
-                                    .eq(4)
-                                    .find('#position_level1')
-                                    .css('display','block');
-                            }else{
-                                $tdList
-                                    .eq(4)
-                                    .find('#structure_level1')
-                                    .css('display','none');
-                                $tdList
-                                    .eq(4)
-                                    .find('#position_level1')
-                                    .css('display','none');
-                            }
-                            $tdList
-                                .eq(4)
-                                // .find('input')
-                                .attr('id','idst'+node.data.id);
-                            $tdList
-                                .eq(4)
-                                .find('input')
-                                .attr('id','idstInput'+node.data.id);
-
-                            $tdList
-                                .eq(4)
-                                .find('select')
-                                .css('display','none');
-
-                            // .find("input")
-                            // .val(node.key);
-                             $tdList
-                                .eq(5)
-                                .find('span')
-                                .text(node.data.full_name);
-                             if(node.data.emp_id){
-                                 $tdList
-                                     .eq(5)
-                                     .find('select')
-                                     .find('option[value=' + node.data.emp_id + ']').attr('selected', 'selected');
-                             }
-
-                            $tdList
-                                .eq(5)
-                                .find('select')
-                                .css('display','none');
-                            $tdList
-                                .eq(5)
-                                // .find('input')
-                                .attr('id','idemp'+node.data.id);
-                            // .find("input")
-                            // .val(node.key);
-                            $tdList
-                                .eq(6)
-                                 .find('span')
-                                .text(node.data.year);
-                            $tdList
-                                .eq(6)
-                                // .find('input')
-                                .attr('id','idyear'+node.data.id);
-                            $tdList
-                                .eq(6)
-                                .find('input')
-                                .attr('id','idyearInput'+node.data.id);
-                            $tdList
-                                .eq(6)
-                                .find('input')
-                                .css('display','none');
-
-                            // .find("input")
-                            // .val(node.data.foo);
-                            // $tdList
-                            // 	.eq(5)
-                            // 	.find("input")
-                            // 	.val(node.data.children);
-                            // console.log('$tdList=',$tdList)
-
-                            // Static markup (more efficiently defined as html row template):
-                            // $tdList.eq(3).html("<input type='input' value='"  "" + "'>");
-                            // ...
-                            sagClick(node.data.id);
-                        },
-                        modifyChild: function(event, data) {
-                            console.log('modifyChild event.type='+event.type)
-                            console.log('modifyChild data=',data)
-                            data.tree.info(event.type, data);
-
-                            if(data.operation=='add'){
-                                addNew++;
-                            }
-                            if(data.operation=='remove'){
-                                addNew++;
-                            }
-                            if(data.operation=='rename' && addNew==0){
-                                console.log('rename',data)
-                                console.log('data.cmd==',data.cmd)
-                                var ID;
-                                var title;
-
-                                ID=data.childNode.data.id;
-                                title=data.childNode.title;
-                                console.log('ID=='+ID);
-                                console.log('title=='+title);
-
-                                $.ajax({
-                                    url: 'st_update.php',
-                                    type: "POST",
-                                    data: { id:ID, name:title,change:'category'},
-                                    success: function (data) {
-                                        console.log('data=' + data)
-                                        // members=$.parseJSON(data)
-
-                                    },
-                                });
-                            }
-                            if(data.operation=='remove' && addNew==1){
-                                console.log('rename sil',data)
-                                console.log('data.cmd==',data.cmd)
-                                var ID;
-                                var delet;
-                                if(data.childNode){
-                                    ID=data.childNode.data.id;
-                                    delet="id"
-                                }else{
-                                    ID=data.node.data.id;
-                                    delet="parent"
-                                }
-                                console.log('ID=='+ID);
-                                console.log('delet=='+delet);
-
-                                $.ajax({
-                                    url: 'st_delete.php',
-                                    type: "POST",
-                                    data: {id:ID,delet:delet},
-                                    success: function (data) {
-                                        console.log('data=' + data)
-                                    },
-                                });
-                            }
-                        },
-                    })
-                    .on("nodeCommand", function(event, data) {
-                        // Custom event handler that is triggered by keydown-handler and
-                        // context menu:
-                        var refNode,
-                            moveMode,
-                            tree = $.ui.fancytree.getTree(this),
-                            node = tree.getActiveNode();
-
-                        switch (data.cmd) {
-
-                            case "addChild":
-                            case "addSibling":
-                            case "indent":
-                            case "moveDown":
-                            case "moveUp":
-                            case "outdent":
-                            case "remove":
-                            case "rename":
-                                console.log('-----------------='+addNew)
-                                if(addNew==1){
-                                    $('#butModal').trigger('click');
-                                    // $(document).on('click', '#struktur', function(){
-                                    //     $('.close').trigger('click');
-                                    // });
-                                }else{
-                                    tree.applyCommand(data.cmd, node);
-                                }
-
-                                break;
-                            case "cut":
-                                CLIPBOARD = { mode: data.cmd, data: node };
-                                break;
-                            case "copy":
-                                CLIPBOARD = {
-                                    mode: data.cmd,
-                                    data: node.toDict(true, function(dict, node) {
-                                        delete dict.key;
-                                    }),
-                                };
-                                break;
-                            case "clear":
-                                CLIPBOARD = null;
-                                break;
-                            case "paste":
-                                if (CLIPBOARD.mode === "cut") {
-                                    // refNode = node.getPrevSibling();
-                                    CLIPBOARD.data.moveTo(node, "child");
-                                    CLIPBOARD.data.setActive();
-                                } else if (CLIPBOARD.mode === "copy") {
-                                    node.addChildren(
-                                        CLIPBOARD.data
-                                    ).setActive();
-                                }
-                                break;
-                            default:
-                                alert("Unhandled command: " + data.cmd);
-                                return;
-                        }
-                    })
-                    .on("keydown", function(e) {
-                        var cmd = null;
-
-                        console.log("keyDown"+$.ui.fancytree.eventToString(e));
-                        switch ($.ui.fancytree.eventToString(e)) {
-                            case "ctrl+shift+n":
-                            case "meta+shift+n": // mac: cmd+shift+n
-                                cmd = "addChild";
-                                break;
-                            case "ctrl+c":
-                            case "meta+c": // mac
-                                cmd = "copy";
-                                break;
-                            case "ctrl+v":
-                            case "meta+v": // mac
-                                cmd = "paste";
-                                break;
-                            case "ctrl+x":
-                            case "meta+x": // mac
-                                cmd = "cut";
-                                break;
-                            case "ctrl+n":
-                            case "meta+n": // mac
-                                cmd = "addSibling";
-                                break;
-                            case "del":
-                            case "meta+backspace": // mac
-                                cmd = "remove";
-                                break;
-                            // case "f2":  // already triggered by ext-edit pluging
-                            // 	cmd = "rename";
-                            // 	break;
-                            case "ctrl+up":
-                            case "ctrl+shift+up": // mac
-                                cmd = "moveUp";
-                                break;
-                            case "ctrl+down":
-                            case "ctrl+shift+down": // mac
-                                cmd = "moveDown";
-                                break;
-                            case "ctrl+right":
-                            case "ctrl+shift+right": // mac
-                                cmd = "indent";
-                                break;
-                            case "ctrl+left":
-                            case "ctrl+shift+left": // mac
-                                cmd = "outdent";
-                        }
-                        if (cmd) {
-                            console.log('trigger')
-                            $(this).trigger("nodeCommand", { cmd: cmd });
-                            return false;
-                        }
-                    });
-
-                /*
-                 * Tooltips
-                 */
-                // $("#tree").tooltip({
-                // 	content: function () {
-                // 		return $(this).attr("title");
-                // 	}
-                // });
-
-                /*
-                 * Context menu (https://github.com/mar10/jquery-ui-contextmenu)
-                 */
-                $("#tree").contextmenu({
-
-
-                    delegate: "span.fancytree-node",
-                    menu: [
-                        {
-                            title: "Edit <kbd>[F2]</kbd>",
-                            cmd: "rename",
-                            uiIcon: "ui-icon-pencil",
-                        },
-                        {
-                            title: "Delete <kbd>[Del]</kbd>",
-                            cmd: "remove",
-                            uiIcon: "ui-icon-trash",
-                        },
-                        { title: "----" },
-                        {
-                            title: "New sibling <kbd>[Ctrl+N]</kbd>",
-                            cmd: "addSibling",
-                            uiIcon: "ui-icon-plus",
-                        },
-                        {
-                            title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
-                            cmd: "addChild",
-                            uiIcon: "ui-icon-arrowreturn-1-e",
-                        },
-                        { title: "----" },
-                        {
-                            title: "Cut <kbd>Ctrl+X</kbd>",
-                            cmd: "cut",
-                            uiIcon: "ui-icon-scissors",
-                        },
-                        {
-                            title: "Copy <kbd>Ctrl-C</kbd>",
-                            cmd: "copy",
-                            uiIcon: "ui-icon-copy",
-                        },
-                        {
-                            title: "Paste as child<kbd>Ctrl+V</kbd>",
-                            cmd: "paste",
-                            uiIcon: "ui-icon-clipboard",
-                            disabled: true,
-                        },
-                    ],
-                    beforeOpen: function(event, ui) {
-                        console.log('before event',event)
-                        console.log('beforeOpen',ui)
-                        var node = $.ui.fancytree.getNode(ui.target);
-                        $("#tree").contextmenu(
-                            "enableEntry",
-                            "paste",
-                            !!CLIPBOARD
-                        );
-                        node.setActive();
-                    },
-                    select: function(event, ui) {
-
-
-                        console.log('event=',event)
-                        console.log('ui=',ui);
-                        addNew=0;
-                        var that = this;
-                        // delay the event, so the menu can close and the click event does
-                        // not interfere with the edit control
-                        setTimeout(function() {
-                            $(that).trigger("nodeCommand", { cmd: ui.cmd });
-                        }, 100);
-
-                    },
-                });
-
-            }
-
-        });
-
-        $(document).on('click', '#struktur', function(){
-            console.log('struktur');
-            createNew('struktur',0,1)
-            $(document).off('click', '#struktur');
-            $(document).off('click', '#pozisya');
-            $('.close').trigger('click');
-
-        });
-        $(document).on('click', '#pozisya', function(){
-            console.log('pozisya');
-            createNew('pozisya',0,1)
-            $(document).off('click', '#pozisya');
-            $(document).off('click', '#struktur');
-            $('.close').trigger('click');
-            // $('#butModal').css('display','none');
-
-        });
-
-        // createNew(event, data, employee,structure_level,position_level)
-        function createNew(event,data,employee,structure_level,position_level,st_create_date){
-            console.log('st_create_date',st_create_date)
-            console.log('eventeventeventevent',event)
-            console.log('data.cmd==',data.cmd)
-            var PID;
-            var title;
-            var st_type;
-            if(data==0){
-                PID=0;
-                title=event;
-            }else if(data.node.parent.data.id){
-                PID=data.node.parent.data.id;
-                title=data.node.title;
-
-            }else{
-                PID=data.node.parent.children[0].data.pId;
-                title=data.node.title;
-            }
-            // st_type=type;
-
-            console.log('PID=='+PID);
-            console.log('title=='+title);
-            // if(PID==0){
-            //     PID='NULL';
-            // }
-
-            $.ajax({
-                url: 'st_insert.php',
-                type: "POST",
-                data: { pId:PID, name:title,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date},
-                success: function (data) {
-                    console.log('dataaaaaaaaaa=' , $.parseJSON(data));
-                    var tree = $('#tree').fancytree('getTree');
-                    tree.reload($.parseJSON(data));
-
-                },
-            });
-
-        }
-
-            function sagClick(number){
-            // Hide context menu
-            $(document).bind('contextmenu click',function(){
-                $(".context-menu").hide();
-                $("#txt_id").val("");
-                $("#number_id").val("");
-
-            });
-
-            // disable right click and show custom context menu
-
-                $("#idst"+number).bind('contextmenu', function (e) {
-
-                    var id = this.id;
-                    $("#txt_id").val(id);
-                    $("#number_id").val(number);
-                    console.log('number_id[='+$("#number_id").val())
-                    var top = e.pageY+5;
-                    var left = e.pageX;
-
-                    // Show contextmenu
-                    $(".context-menu").toggle(100).css({
-                        top: top + "px",
-                        left: left + "px"
-                    });
-
-                    // Disable default menu
-                    return false;
-                });
-
-                $("#idemp"+number).bind('contextmenu', function (e) {
-
-                    var id = this.id;
-                    $("#txt_id").val(id);
-                    $("#number_id").val(number);
-                    console.log('number_id[='+$("#number_id").val())
-                    var top = e.pageY+5;
-                    var left = e.pageX;
-
-                    // Show contextmenu
-                    $(".context-menu").toggle(100).css({
-                        top: top + "px",
-                        left: left + "px"
-                    });
-
-                    // Disable default menu
-                    return false;
-                });
-
-                $("#idyear"+number).bind('contextmenu', function (e) {
-
-                    var id = this.id;
-                    $("#txt_id").val(id);
-                    $("#number_id").val(number);
-                    console.log('number_id[='+$("#number_id").val())
-                    var top = e.pageY+5;
-                    var left = e.pageX;
-
-                    // Show contextmenu
-                    $(".context-menu").toggle(100).css({
-                        top: top + "px",
-                        left: left + "px"
-                    });
-                    // Disable default menu
-                    return false;
-                });
-
-
-            // disable context-menu from custom menu
-            $('.context-menu').bind('contextmenu',function(){
-                return false;
-            });
-
-            // Clicked context-menu item
-            $('.context-menu li').click(function(){
-                var className = $(this).find("span:nth-child(1)").attr("class");
-                var titleid = $('#txt_id').val();
-                $( "#"+ titleid ).css( "background-color", className );
-                $(".context-menu").hide();
-            });
-
-
-            // Clicked context-menu item
-            $('#contentEdit').click(function(){
-                var idCont = $('#txt_id').val();
-                if(idCont){
-                    console.log('idCont='+idCont)
-                    $('#'+idCont).find('span').css('display','none')
-                    $('#'+idCont).find('select').css('display','block')
-                    $('#'+idCont).find('input').css('display','block')
-                }
-
-            });
-            // Clicked context-menu item
-            $("#idst"+number).find('select').change(function(){
-                console.log('contentEdit change'+$(this).attr('name'));
-                if($(this).find('option:selected').val()!='0'){
-                    $(this).closest('td').find('span').text($(this).find('option:selected').text())
-                }else{
-                    $(this).closest('td').find('span').text('')
-                }
-
-                $(this).closest('td').find('span').css('display','block')
-                $(this).css('display','none');
-                var thisName=$(this).attr('name')
-                var thisVal=$(this).find('option:selected').val()
-                $.ajax({
-                    url: 'st_update.php',
-                    type: "POST",
-                    data: { id:number, name:thisVal,change:thisName},
-                    success: function (data) {
-                        console.log('dataaaaaaa=' + data)
-                        var tree = $('#tree').fancytree('getTree');
-                        tree.reload($.parseJSON(data));
-
-                    },
-                });
-            });
-
-
-            $("#idemp"+number).find('select').change(function(){
-                console.log('contentEdit change'+$(this).attr('name'));
-                if($(this).find('option:selected').val()!='0'){
-                    $(this).closest('td').find('span').text($(this).find('option:selected').text())
-                }else{
-                    $(this).closest('td').find('span').text('')
-                }
-
-                $(this).closest('td').find('span').css('display','block')
-                $(this).css('display','none');
-                var thisName='emp_id'
-                var thisVal=$(this).find('option:selected').val()
-                $.ajax({
-                    url: 'st_update.php',
-                    type: "POST",
-                    data: { id:number, name:thisVal,change:thisName},
-                    success: function (data) {
-                        console.log('dataaaaaaaw=' + data)
-                        $("#idemp"+number).find('span').css('display','block')
-                        $("#idemp"+number).find('select').css('display','none')
-
-                    },
-                });
-            });
-
-            $("#idyearInput"+number).change(function(){
-                console.log('contentEdit change'+$(this).val());
-
-                 $(this).closest('td').find('span').text($(this).val())
-
-                $(this).closest('td').find('span').css('display','block')
-                // $(this).css('display','none');
-                var thisName='create_date'
-                var thisVal=$(this).closest('td').find('input').val()
-                console.log('thisVal=='+thisVal)
-                $.ajax({
-                    url: 'st_update.php',
-                    type: "POST",
-                    data: { id:number, name:thisVal,change:thisName},
-                    success: function (data) {
-                        console.log('dataaaaaaaw=' + data)
-                        $("#idyear"+number).find('span').css('display','block')
-                        $("#idyear"+number).find('input').css('display','none')
-                        $('.datepicker').css('display','none')
-                        var tree = $('#tree').fancytree('getTree');
-                        tree.reload($.parseJSON(data));
-
-                    },
-                });
-            });
-            $("#idyearInput"+number).datepicker({
-                todayHighlight: true,
-                format: 'dd/mm/yyyy',
-                // startDate: new Date()
-                // });
-            })
-
-        }
-    </script>
-
-
-    <style type="text/css">
         .ui-menu {
             width: 180px;
             font-size: 63%;
@@ -1012,7 +241,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
 </head>
 
-<body class="example">
+<body class="example text-center">
 <h2>STRUKTUR</h2>
 <div class='context-menu'>
     <ul>
@@ -1047,21 +276,21 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
                 <div class="container" style="display: none;"  id="stQuery">
                     <div class="form-group row" id="employeesQuery">
-                    <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                    <div class="col-sm-6">
-                        <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-                            <option  value="0" >Seçin...</option>
-                            <?php
-                            $result_employees_view = $db->query($sql_employees);
-                            if ($result_employees_view->num_rows > 0) {
-                                while($row_employees= $result_employees_view->fetch_assoc()) {
+                        <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                        <div class="col-sm-6">
+                            <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                <option  value="0" >Seçin...</option>
+                                <?php
+                                $result_employees_view = $db->query($sql_employees);
+                                if ($result_employees_view->num_rows > 0) {
+                                    while($row_employees= $result_employees_view->fetch_assoc()) {
 
-                                    ?>
-                                    <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+                                        ?>
+                                        <option  value="<?php echo $row_employees['id']; ?>" ><?php echo utf8_encode($row_employees['firstname'])." " .utf8_encode($row_employees['lastname']);  ?></option>
 
-                                <?php } }?>
-                        </select>
-                    </div>
+                                    <?php } }?>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group row"  id="positionQuery">
@@ -1076,7 +305,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                     while($row_position= $result_position_view->fetch_assoc()) {
 
                                         ?>
-                                        <option  value="<?php echo $row_position['id']; ?>" ><?php echo $row_position['title'];  ?></option>
+                                        <option  value="<?php echo $row_position['id']; ?>" data-icon="<?php echo $row_position['posit_icon']; ?>" ><?php echo utf8_encode($row_position['title']);  ?></option>
 
                                     <?php } }?>
                             </select>
@@ -1093,7 +322,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                     while($row_structure= $result_structure_view->fetch_assoc()) {
 
                                         ?>
-                                        <option  value="<?php echo $row_structure['id']; ?>" ><?php echo $row_structure['title'];  ?></option>
+                                        <option  value="<?php echo $row_structure['id']; ?>" ><?php echo utf8_encode($row_structure['title']);  ?></option>
 
                                     <?php } }?>
                             </select>
@@ -1103,6 +332,12 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         <label class="col-sm-4 col-form-label" for="st_create_date"><?php echo $dil["create_date"];?></label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="st_create_date" name="st_create_date" placeholder="0000-00-00" />
+                        </div>
+                    </div>
+                    <div class="form-group row" id="iconQuery" style="display:none;">
+                        <label class="col-sm-4 col-form-label" for="icon"> </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="icon" name="icon"   />
                         </div>
                     </div>
                     <div class="row TEXT-CENTER"  id="confirmQuery">
@@ -1159,7 +394,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         while($row_structure= $result_structure_view->fetch_assoc()) {
 
                             ?>
-                            <option  value="<?php echo $row_structure['id']; ?>" ><?php echo $row_structure['title'];  ?></option>
+                            <option  value="<?php echo $row_structure['id']; ?>" ><?php echo utf8_encode($row_structure['title']);  ?></option>
 
                         <?php } }?>
                 </select>
@@ -1174,23 +409,21 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     while($row_position= $result_position_view->fetch_assoc()) {
 
                         ?>
-                        <option  value="<?php echo $row_position['id']; ?>" ><?php echo $row_position['title'];  ?></option>
+                        <option  value="<?php echo $row_position['id']; ?>"  data-icon="<?php echo $row_position['posit_icon']; ?>"><?php echo utf8_encode($row_position['title']);  ?></option>
 
                     <?php } }?>
             </select>
             </div>
         </td>
         <td> <span></span>
-            <select data-live-search="true"  name="employee" style="font-size:14px;"   title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-                <option  value="0" >Seçin...</option>
+            <select data-live-search="true"  name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                <option  value="0">Seçin...</option>
                 <?php
                 $result_employees_view = $db->query($sql_employees);
                 if ($result_employees_view->num_rows > 0) {
                     while($row_employees= $result_employees_view->fetch_assoc()) {
-
                         ?>
                         <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
-
                     <?php } }?>
             </select>
 
@@ -1209,6 +442,858 @@ for ($j = 0; $j < count($flatArray); $j++) {
 <!-- End_Exclude -->
 </body>
 </html>
+<script type="text/javascript">
+    var CLIPBOARD = null;
+    var myJSON;
+    // var pushOldu=false;
+    var idArray;
+    var eventArray=[];
+    var dataArray=[];
+    var silArray=[];
+    $(function() {
+        var subArray =  <?php echo json_encode(unflattenArray($flatArray)); ?>;
+        idArray =  <?php echo json_encode($idArray); ?>;
+        console.log('subArray $idArray=',idArray);
+        console.log('subArray parent=',subArray);
+
+        pushOldu(subArray)
+        function pushOldu(subArray) {
+            console.log('subArray=', subArray)
+            var addNew=0;
+            $("#tree")
+                .fancytree({
+                    checkbox: true,
+                    checkboxAutoHide: true,
+                    titlesTabbable: true, // Add all node titles to TAB chain
+                    quicksearch: true, // Jump to nodes when pressing first character
+                    // source: myJSON,
+                    // source: { url: "ajax-tree-products.json" },
+                    source: subArray,
+                    //source: SOURCE,
+
+                    extensions: ["edit", "dnd5", "table", "gridnav"],
+
+                    dnd5: {
+                        preventVoidMoves: true,
+                        preventRecursion: true,
+                        autoExpandMS: 400,
+                        // dragStart: function(node, data) {
+                        //     return true;
+                        // },
+                        // dragEnter: function(node, data) {
+                        //     // return ["before", "after"];
+                        //     return true;
+                        // },
+                        // dragDrop: function(node, data) {
+                        //     data.otherNode.moveTo(node, data.hitMode);
+                        // },
+                    },
+                    edit: {
+                        triggerStart: ["f2", "shift+click", "mac+enter"],
+                        close: function(event, data) {
+                            if (data.save && data.isNew) {
+                                console.log('a1')
+                                eventArray=event;
+                                dataArray=data;
+                                $(document).on('click', '#struktur', function(e) {
+                                    console.log('a2')
+                                    $('#query').css('display','none')
+                                    $('#stQuery').css('display','block')
+                                    $('#employeesQuery').css('display','none');
+                                    $('#positionQuery').css('display','none');
+                                    $('#dateQuery').css('display','block')
+                                    $('#confirmQuery').css('display','block')
+                                    $('#structureQuery').css('display','block')
+                                    $(document).off('click', '#pozisya');
+                                    $(document).off('click', '#struktur');
+
+                                });
+                                $(document).on('click', '#pozisya', function(e) {
+                                    console.log('a3');
+                                    $('#query').css('display','none')
+                                    $('#stQuery').css('display','block')
+                                    $('#employeesQuery').css('display','block')
+                                    $('#positionQuery').css('display','block')
+                                    $('#dateQuery').css('display','block')
+                                    $('#confirmQuery').css('display','block')
+                                    $('#structureQuery').css('display','none')
+                                    $(document).off('click', '#pozisya');
+                                    $(document).off('click', '#struktur');
+
+
+                                });
+                                confirmClick();
+                                // $(document).on("click", "#confirm", function(){
+                                // // $(document).on('change', '#employeesQuery', function(e) {
+                                //     console.log('confirm iceri ');
+                                //
+                                //     $('#stQuery').css('display','none')
+                                //     var employee=$('#employeesQuery option:selected').val()
+                                //     var structure_level=$('#structure_level option:selected').val()
+                                //     var position_level=$('#position_level option:selected').val()
+                                //     var st_create_date=$('#st_create_date').val();
+                                //     console.log('st_create_date='+st_create_date);
+                                //     if(structure_level!=0){
+                                //         $('#icon').val('../images/icons/box1.png')
+                                //     }
+                                //     if(position_level!=0){
+                                //         $('#icon').val($('#position_level option:selected').attr('data-icon'))
+                                //     }
+                                //     var icon=$('#icon').val()
+                                //
+                                //
+                                //     createNew(event, data, employee,structure_level,position_level,st_create_date,icon);
+                                //     $('.close').trigger('click');
+                                //     $(document).off('click', '#pozisya');
+                                //     $(document).off('click', '#struktur');
+                                //     $(document).off('click', '#confirm');
+                                // });
+
+                                // Quick-enter: add new nodes until we hit [enter] on an empty title
+                                $("#tree").trigger("nodeCommand", {
+                                    cmd: "addSibling",
+                                });
+                            }
+                        },
+                    },
+                    table: {
+                        indentation: 20,
+                        nodeColumnIdx: 2,
+                        checkboxColumnIdx: 0,
+                    },
+                    gridnav: {
+                        autofocusInput: false,
+                        handleCursorKeys: true,
+                    },
+
+                    lazyLoad: function(event, data) {
+                        data.result = { url: "../demo/ajax-sub2.json" };
+                    },
+                    createNode: function(event, data) {
+                        console.log('createNode',data)
+
+                        if(data.node.data.id){
+                            $('#butModal').css('display','none');
+                            $(document).off('click', '#struktur');
+                            $(document).off('click', '#pozisya');
+                            $('#query').css('display','block')
+                            $('#employeesQuery').css('display','none')
+
+                        }
+                        var node = data.node,
+                            $tdList = $(node.tr).find(">td");
+
+                        // console.log('createNode node=',node)
+
+                        // Span the remaining columns if it's a folder.
+                        // We can do this in createNode instead of renderColumns, because
+                        // the `isFolder` status is unlikely to change later
+                        // if (node.isFolder()) {
+                        //     $tdList
+                        //         .eq(2)
+                        //         .prop("colspan", 6)
+                        //         .nextAll()
+                        //         .remove();
+                        //
+                        // }
+                    },
+                    renderColumns: function(event, data) {
+                        console.log('renderColumns',data)
+                        var node = data.node,
+                            $tdList = $(node.tr).find(">td");
+                        // console.log('renderColumns node=',node)
+                        // console.log('renderColumns node.year=',node.data.year)
+                        // (Index #0 is rendered by fancytree by adding the checkbox)
+                        // Set column #1 info from node data:
+                        // $tdList.eq(1).text(node.getIndexHier());
+                        $tdList.eq(1).text(node.data.id);
+                        //*men
+                        // $tdList.eq(3).text('hg');
+                        // (Index #2 is rendered by fancytree)
+                        // Set column #3 info from node data:
+                        $tdList
+                            .eq(3)
+                            // .find('input')
+                            .text(node.data.code);
+                        if(node.data.structure){
+                            $tdList
+                                .eq(4)
+                                .find('span')
+                                .text(node.data.structure);
+                            $tdList
+                                .eq(4)
+                                .find('select')
+                                .find('option[value=' + node.data.struc_id + ']').attr('selected', 'selected');
+
+                            $tdList
+                                .eq(4)
+                                .find('#structure_level1')
+                                .css('display','block');
+                            $tdList
+                                .eq(4)
+                                .find('#position_level1')
+                                .css('display','none');
+                        }else  if(node.data.posit){
+                            $tdList
+                                .eq(4)
+                                .find('span')
+                                .text(node.data.posit);
+                            $tdList
+                                .eq(4)
+                                .find('select')
+                                .find('option[value=' + node.data.posit_id + ']').attr('selected', 'selected');
+                            // .val(node.data.posit);
+
+                            $tdList
+                                .eq(4)
+                                .find('#structure_level1')
+                                .css('display','none');
+                            $tdList
+                                .eq(4)
+                                .find('#position_level1')
+                                .css('display','block');
+                        }else{
+                            $tdList
+                                .eq(4)
+                                .find('#structure_level1')
+                                .css('display','none');
+                            $tdList
+                                .eq(4)
+                                .find('#position_level1')
+                                .css('display','none');
+                        }
+                        $tdList
+                            .eq(4)
+                            // .find('input')
+                            .attr('id','idst'+node.data.id);
+                        $tdList
+                            .eq(4)
+                            .find('input')
+                            .attr('id','idstInput'+node.data.id);
+
+                        $tdList
+                            .eq(4)
+                            .find('select')
+                            .css('display','none');
+
+                        // .find("input")
+                        // .val(node.key);
+                        $tdList
+                            .eq(5)
+                            .find('span')
+                            .text(node.data.full_name);
+                        if(node.data.emp_id){
+                            $tdList
+                                .eq(5)
+                                .find('select')
+                                .find('option[value=' + node.data.emp_id + ']').attr('selected', 'selected');
+                        }
+
+                        $tdList
+                            .eq(5)
+                            .find('select')
+                            .css('display','none');
+                        $tdList
+                            .eq(5)
+                            // .find('input')
+                            .attr('id','idemp'+node.data.id);
+                        // .find("input")
+                        // .val(node.key);
+                        $tdList
+                            .eq(6)
+                            .find('span')
+                            .text(node.data.year);
+                        $tdList
+                            .eq(6)
+                            // .find('input')
+                            .attr('id','idyear'+node.data.id);
+                        $tdList
+                            .eq(6)
+                            .find('input')
+                            .attr('id','idyearInput'+node.data.id);
+                        $tdList
+                            .eq(6)
+                            .find('input')
+                            .css('display','none');
+
+                        // .find("input")
+                        // .val(node.data.foo);
+                        // $tdList
+                        // 	.eq(5)
+                        // 	.find("input")
+                        // 	.val(node.data.children);
+                        // console.log('$tdList=',$tdList)
+
+                        // Static markup (more efficiently defined as html row template):
+                        // $tdList.eq(3).html("<input type='input' value='"  "" + "'>");
+                        // ...
+                        sagClick(node.data.id);
+                    },
+                    modifyChild: function(event, data) {
+                        console.log('modifyChild event.type='+event.type)
+                        console.log('modifyChild data=',data)
+
+                        data.tree.info(event.type, data);
+
+                        if(data.operation=='add'){
+                            addNew++;
+                        }
+                        if(data.operation=='remove'){
+                            addNew++;
+                        }
+                        if(data.operation=='rename' && addNew==0){
+                            console.log('rename',data)
+                            console.log('data.cmd==',data.cmd)
+                            var ID;
+                            var title;
+
+                            ID=data.childNode.data.id;
+                            title=data.childNode.title;
+                            console.log('ID=='+ID);
+                            console.log('title=='+title);
+
+                            $.ajax({
+                                url: 'st_update.php',
+                                type: "POST",
+                                data: { id:ID, name:title,change:'category'},
+                                success: function (data) {
+                                    console.log('data=' + data)
+                                    // members=$.parseJSON(data)
+
+                                },
+                            });
+                        }
+                        if(data.operation=='remove' && addNew==1){
+                            console.log('rename sil',data)
+                            console.log('rename silArray',silArray)
+                            console.log('data.cmd==',data.cmd)
+                            var ID;
+                            var delet;
+                            // if(data.childNode){
+                            //     ID=data.childNode.data.id;
+                            //     delet="id"
+                            // }else
+                                if(silArray.data.id){
+                                ID=silArray.data.id;
+                                delet="id"
+                            }else {
+                                ID=0
+                                delet="parent"
+                            }
+                            console.log('ID=='+ID);
+                            console.log('delet=='+delet);
+
+                            $.ajax({
+                                url: 'st_delete.php',
+                                type: "POST",
+                                data: {id:ID,delet:delet},
+                                success: function (data) {
+                                    console.log('data=' + data)
+                                },
+                            });
+                        }
+                    },
+                })
+                .on("nodeCommand", function(event, data) {
+                    // Custom event handler that is triggered by keydown-handler and
+                    // context menu:
+                    var refNode,
+                        moveMode,
+                        tree = $.ui.fancytree.getTree(this),
+                        node = tree.getActiveNode();
+
+                    switch (data.cmd) {
+
+                        case "addChild":
+                        case "addSibling":
+                        case "indent":
+                        case "moveDown":
+                        case "moveUp":
+                        case "outdent":
+                        case "remove":
+                        case "rename":
+                            console.log('-----------------='+addNew)
+                            silArray=node;
+                            console.log('-----------------= html=',silArray)
+                            if(addNew==1){
+                                $('#butModal').trigger('click');
+
+                            }else{
+                                tree.applyCommand(data.cmd, node);
+                            }
+
+
+                            break;
+                        case "cut":
+                            CLIPBOARD = { mode: data.cmd, data: node };
+                            break;
+                        case "copy":
+                            CLIPBOARD = {
+                                mode: data.cmd,
+                                data: node.toDict(true, function(dict, node) {
+                                    delete dict.key;
+                                }),
+                            };
+                            break;
+                        case "clear":
+                            CLIPBOARD = null;
+                            break;
+                        case "paste":
+                            if (CLIPBOARD.mode === "cut") {
+                                // refNode = node.getPrevSibling();
+                                CLIPBOARD.data.moveTo(node, "child");
+                                CLIPBOARD.data.setActive();
+                            } else if (CLIPBOARD.mode === "copy") {
+                                node.addChildren(
+                                    CLIPBOARD.data
+                                ).setActive();
+                            }
+                            break;
+                        default:
+                            alert("Unhandled command: " + data.cmd);
+                            return;
+                    }
+                })
+                .on("keydown", function(e) {
+                    var cmd = null;
+
+                    console.log("keyDown"+$.ui.fancytree.eventToString(e));
+                    switch ($.ui.fancytree.eventToString(e)) {
+                        case "ctrl+shift+n":
+                        case "meta+shift+n": // mac: cmd+shift+n
+                            cmd = "addChild";
+                            break;
+                        case "ctrl+c":
+                        case "meta+c": // mac
+                            cmd = "copy";
+                            break;
+                        case "ctrl+v":
+                        case "meta+v": // mac
+                            cmd = "paste";
+                            break;
+                        case "ctrl+x":
+                        case "meta+x": // mac
+                            cmd = "cut";
+                            break;
+                        case "ctrl+n":
+                        case "meta+n": // mac
+                            cmd = "addSibling";
+                            break;
+                        case "del":
+                        case "meta+backspace": // mac
+                            cmd = "remove";
+                            break;
+                        // case "f2":  // already triggered by ext-edit pluging
+                        // 	cmd = "rename";
+                        // 	break;
+                        case "ctrl+up":
+                        case "ctrl+shift+up": // mac
+                            cmd = "moveUp";
+                            break;
+                        case "ctrl+down":
+                        case "ctrl+shift+down": // mac
+                            cmd = "moveDown";
+                            break;
+                        case "ctrl+right":
+                        case "ctrl+shift+right": // mac
+                            cmd = "indent";
+                            break;
+                        case "ctrl+left":
+                        case "ctrl+shift+left": // mac
+                            cmd = "outdent";
+                    }
+                    if (cmd) {
+                        console.log('trigger')
+                        $(this).trigger("nodeCommand", { cmd: cmd });
+                        return false;
+                    }
+                });
+
+            /*
+             * Tooltips
+             */
+            // $("#tree").tooltip({
+            // 	content: function () {
+            // 		return $(this).attr("title");
+            // 	}
+            // });
+
+            /*
+             * Context menu (https://github.com/mar10/jquery-ui-contextmenu)
+             */
+            $("#tree").contextmenu({
+
+
+                delegate: "span.fancytree-node",
+                menu: [
+                    {
+                        title: "Edit <kbd>[F2]</kbd>",
+                        cmd: "rename",
+                        uiIcon: "ui-icon-pencil",
+                    },
+                    {
+                        title: "Delete <kbd>[Del]</kbd>",
+                        cmd: "remove",
+                        uiIcon: "ui-icon-trash",
+                    },
+                    { title: "----" },
+                    {
+                        title: "New sibling <kbd>[Ctrl+N]</kbd>",
+                        cmd: "addSibling",
+                        uiIcon: "ui-icon-plus",
+                    },
+                    {
+                        title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
+                        cmd: "addChild",
+                        uiIcon: "ui-icon-arrowreturn-1-e",
+                    },
+                    { title: "----" },
+                    {
+                        title: "Cut <kbd>Ctrl+X</kbd>",
+                        cmd: "cut",
+                        uiIcon: "ui-icon-scissors",
+                    },
+                    {
+                        title: "Copy <kbd>Ctrl-C</kbd>",
+                        cmd: "copy",
+                        uiIcon: "ui-icon-copy",
+                    },
+                    {
+                        title: "Paste as child<kbd>Ctrl+V</kbd>",
+                        cmd: "paste",
+                        uiIcon: "ui-icon-clipboard",
+                        disabled: true,
+                    },
+                ],
+                beforeOpen: function(event, ui) {
+                    console.log('before event',event)
+                    console.log('beforeOpen',ui)
+                    var node = $.ui.fancytree.getNode(ui.target);
+                    $("#tree").contextmenu(
+                        "enableEntry",
+                        "paste",
+                        !!CLIPBOARD
+                    );
+                    node.setActive();
+                },
+                select: function(event, ui) {
+
+
+                    console.log('event=',event)
+                    console.log('ui=',ui);
+                    addNew=0;
+                    var that = this;
+                    // delay the event, so the menu can close and the click event does
+                    // not interfere with the edit control
+                    setTimeout(function() {
+                        $(that).trigger("nodeCommand", { cmd: ui.cmd });
+                    }, 100);
+
+                },
+            });
+
+        }
+
+    });
+
+    $(document).on('click', '#struktur', function(e) {
+        console.log('a2')
+        $('#query').css('display','none')
+        $('#stQuery').css('display','block')
+        $('#employeesQuery').css('display','none');
+        $('#positionQuery').css('display','none');
+        $('#dateQuery').css('display','block')
+        $('#confirmQuery').css('display','block')
+        $('#structureQuery').css('display','block')
+        $(document).off('click', '#pozisya');
+        $(document).off('click', '#struktur');
+
+    });
+    $(document).on('click', '#pozisya', function(e) {
+        console.log('a3');
+        $('#query').css('display','none')
+        $('#stQuery').css('display','block')
+        $('#employeesQuery').css('display','block')
+        $('#positionQuery').css('display','block')
+        $('#dateQuery').css('display','block')
+        $('#confirmQuery').css('display','block')
+        $('#structureQuery').css('display','none')
+        $(document).off('click', '#pozisya');
+        $(document).off('click', '#struktur');
+
+
+    });
+
+    function confirmClick(e){
+
+        //
+
+        $(document).on("click", "#confirm", function(e){
+
+            // $(document).on('change', '#employeesQuery', function(e) {
+            console.log('confirm col ');
+
+            $('#stQuery').css('display','none')
+            var employee=$('#employeesQuery option:selected').val()
+            var structure_level=$('#structure_level option:selected').val()
+            var position_level=$('#position_level option:selected').val()
+
+            var d = new Date();
+            var strDate = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+            var st_create_date=$('#st_create_date').val()!='' ? $('#st_create_date').val() :strDate ;
+            console.log('st_create_date='+st_create_date)
+            if(structure_level!=0){
+                $('#icon').val('../images/icons/box1.png')
+            }
+            if(position_level!=0){
+                $('#icon').val($('#position_level option:selected').attr('data-icon'))
+            }
+            $('#structure_level').find('option[value="0"]').attr('selected', 'selected');
+            $('#position_level').find('option[value="0"]').attr('selected', 'selected');
+            var icon=$('#icon').val();
+            if(eventArray){
+                createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,icon);
+
+            }else{
+                createNew('yeni', 0, employee,structure_level,position_level,st_create_date,icon);
+
+            }
+            $('#st_create_date').val('')
+            $('.close').trigger('click');
+            $(document).off('click', '#pozisya');
+            $(document).off('click', '#struktur');
+            $(document).off('click', '#confirm');
+            // confirmClick().remove()
+        });
+
+    }
+
+    // createNew(event, data, employee,structure_level,position_level)
+    function createNew(event,data,employee,structure_level,position_level,st_create_date,icon){
+        console.log('data',data)
+        console.log('eventeventeventevent',event)
+        console.log('data.cmd==',data.cmd)
+        var PID;
+        var title;
+
+        if (data==0){
+            PID=0;
+            title='Yeni';
+        }else if(data.node.parent.data.id){
+            PID=data.node.parent.data.id;
+            title=data.node.title;
+
+        }else if(data.node.parent.children[0].data.pId){
+            PID=data.node.parent.children[0].data.pId;
+            title=data.node.title;
+        }else if(data.node.title &&(!data.node.parent.children[0].data.pId || !data.node.parent.data.id)  ){
+            title=data.node.title;
+            PID=0;
+        }
+
+        console.log('PID=='+PID);
+        console.log('title=='+title);
+        $.ajax({
+            url: 'st_insert.php',
+            type: "POST",
+            data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date},
+            success: function (data) {
+                console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                var tree = $('#tree').fancytree('getTree');
+                tree.reload($.parseJSON(data));
+            },
+        });
+
+    }
+
+    function sagClick(number){
+        // Hide context menu
+        $(document).bind('contextmenu click',function(){
+            $(".context-menu").hide();
+            $("#txt_id").val("");
+            $("#number_id").val("");
+
+        });
+
+        // disable right click and show custom context menu
+
+        $("#idst"+number).bind('contextmenu', function (e) {
+
+            var id = this.id;
+            $("#txt_id").val(id);
+            $("#number_id").val(number);
+            console.log('number_id[='+$("#number_id").val())
+            var top = e.pageY+5;
+            var left = e.pageX;
+
+            // Show contextmenu
+            $(".context-menu").toggle(100).css({
+                top: top + "px",
+                left: left + "px"
+            });
+
+            // Disable default menu
+            return false;
+        });
+
+        $("#idemp"+number).bind('contextmenu', function (e) {
+
+            var id = this.id;
+            $("#txt_id").val(id);
+            $("#number_id").val(number);
+            console.log('number_id[='+$("#number_id").val())
+            var top = e.pageY+5;
+            var left = e.pageX;
+
+            // Show contextmenu
+            $(".context-menu").toggle(100).css({
+                top: top + "px",
+                left: left + "px"
+            });
+
+            // Disable default menu
+            return false;
+        });
+
+        $("#idyear"+number).bind('contextmenu', function (e) {
+
+            var id = this.id;
+            $("#txt_id").val(id);
+            $("#number_id").val(number);
+            console.log('number_id[='+$("#number_id").val())
+            var top = e.pageY+5;
+            var left = e.pageX;
+
+            // Show contextmenu
+            $(".context-menu").toggle(100).css({
+                top: top + "px",
+                left: left + "px"
+            });
+            // Disable default menu
+            return false;
+        });
+
+
+        // disable context-menu from custom menu
+        $('.context-menu').bind('contextmenu',function(){
+            return false;
+        });
+
+        // Clicked context-menu item
+        $('.context-menu li').click(function(){
+            var className = $(this).find("span:nth-child(1)").attr("class");
+            var titleid = $('#txt_id').val();
+            $( "#"+ titleid ).css( "background-color", className );
+            $(".context-menu").hide();
+        });
+
+
+        // Clicked context-menu item
+        $('#contentEdit').click(function(){
+            var idCont = $('#txt_id').val();
+            if(idCont){
+                console.log('idCont='+idCont)
+                $('#'+idCont).find('span').css('display','none')
+                $('#'+idCont).find('select').css('display','block')
+                $('#'+idCont).find('input').css('display','block')
+            }
+
+        });
+        // Clicked context-menu item
+        $("#idst"+number).find('select').change(function(){
+            console.log('contentEdit change'+$(this).attr('name'));
+            if($(this).find('option:selected').val()!='0'){
+                $(this).closest('td').find('span').text($(this).find('option:selected').text())
+            }else{
+                $(this).closest('td').find('span').text('')
+            }
+
+            $(this).closest('td').find('span').css('display','block')
+            $(this).css('display','none');
+            var thisName=$(this).attr('name')
+            var thisVal=$(this).find('option:selected').val()
+            var icon='../images/icons/box1.png'
+
+            if(thisName=='structure_level'){
+                $('#icon').val('../images/icons/box1.png')
+            }else {
+                $('#icon').val($('#position_level option:selected').attr('data-icon'))
+            }
+
+
+            $.ajax({
+                url: 'st_update.php',
+                type: "POST",
+                data: { id:number, name:thisVal,change:thisName},
+                success: function (data) {
+                    console.log('dataaaaaaa=' + data)
+                    var tree = $('#tree').fancytree('getTree');
+                    tree.reload($.parseJSON(data));
+
+                },
+            });
+        });
+
+
+        $("#idemp"+number).find('select').change(function(){
+            console.log('contentEdit change'+$(this).attr('name'));
+            if($(this).find('option:selected').val()!='0'){
+                $(this).closest('td').find('span').text($(this).find('option:selected').text())
+            }else{
+                $(this).closest('td').find('span').text('')
+            }
+
+            $(this).closest('td').find('span').css('display','block')
+            $(this).css('display','none');
+            var thisName='emp_id'
+            var thisVal=$(this).find('option:selected').val()
+            $.ajax({
+                url: 'st_update.php',
+                type: "POST",
+                data: { id:number, name:thisVal,change:thisName},
+                success: function (data) {
+                    console.log('dataaaaaaaw=' + data)
+                    $("#idemp"+number).find('span').css('display','block')
+                    $("#idemp"+number).find('select').css('display','none')
+
+                },
+            });
+        });
+
+        $("#idyearInput"+number).change(function(){
+            console.log('contentEdit change'+$(this).val());
+
+            $(this).closest('td').find('span').text($(this).val())
+
+            $(this).closest('td').find('span').css('display','block')
+            // $(this).css('display','none');
+            var thisName='create_date'
+            var thisVal=$(this).closest('td').find('input').val()
+            console.log('thisVal=='+thisVal)
+            $.ajax({
+                url: 'st_update.php',
+                type: "POST",
+                data: { id:number, name:thisVal,change:thisName},
+                success: function (data) {
+                    console.log('dataaaaaaaw=' + data)
+                    $("#idyear"+number).find('span').css('display','block')
+                    $("#idyear"+number).find('input').css('display','none')
+                    $('.datepicker').css('display','none')
+                    var tree = $('#tree').fancytree('getTree');
+                    tree.reload($.parseJSON(data));
+
+                },
+            });
+        });
+        $("#idyearInput"+number).datepicker({
+            todayHighlight: true,
+            format: 'dd/mm/yyyy',
+            // startDate: new Date()
+            // });
+        })
+
+    }
+</script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>

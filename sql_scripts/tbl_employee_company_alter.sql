@@ -1,0 +1,1 @@
+ALTER TABLE `tbl_employee_category` ADD `icon` VARCHAR(300) NULL AFTER `code`;

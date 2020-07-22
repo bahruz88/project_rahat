@@ -1,0 +1,1 @@
+ALTER TABLE `tbl_position_level` ADD `posit_icon` VARCHAR(300) NULL AFTER `title`;
