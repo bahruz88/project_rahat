@@ -254,7 +254,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
 <!-- Small modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-lg">New</button>
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg text-left" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -1007,7 +1007,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
         $('#structureQuery').css('display','block')
         $(document).off('click', '#pozisya');
         $(document).off('click', '#struktur');
-
+        confirmClick();
     });
     $(document).on('click', '#pozisya', function(e) {
         console.log('a3');
@@ -1021,7 +1021,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
         $(document).off('click', '#pozisya');
         $(document).off('click', '#struktur');
 
-
+        confirmClick();
     });
 
     function confirmClick(e){
