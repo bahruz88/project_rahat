@@ -4,53 +4,70 @@
 include('../session.php') ;
 
 //Create variables
+$c=0;
+$rs='';
+$c = 1;
+function generateRandomString($length = 8) {
+    $characters = '0123456789abcdefghijklmnopqrs092u3tuvwxyzaskdhfhf9882323ABCDEFGHIJKLMNksadf9044OPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+WHILE ($c > 0){
+  $rs = generateRandomString(5);
 
-//$id                 =$_POST['id'];
+    $users= "select * from $tbl_employee_category WHERE code = $rs";
+    $result_users = $db->query($users);
+    if($result_users) {
+        $c = 1;
+    }else{
+        $c=0;
+    }
+}
+
+
+
+////$id                 =$_POST['id'];
 $pId                = $_POST['pId'];
-$isParent           = $_POST['isParent'];
 $name               = $_POST['name'];
+$emp_id             = $_POST['emp_id'];
+$structure_level    = $_POST['structure_level'];
+$position_level     = $_POST['position_level'];
+$create_date        = $_POST['create_date'];
+$end_date        = $_POST['end_date'];
+$icon        = $_POST['icon'];
+$create_date = strtr( $create_date , '/', '-');
+$create_date= date('Y-m-d', strtotime($create_date));
 
-$sql = "INSERT INTO $tbl_employee_category( 
-	 id, parent, category) 
-	 VALUES (NULL, '$pId','$name')";
+$end_date = strtr( $end_date , '/', '-');
+$end_date= date('Y-m-d', strtotime($end_date));
+$code               = $rs;
+if($pId==0 or $pId=='' or $pId=='null'){
+    $sql = "INSERT INTO $tbl_employee_category( 
+	 id, parent, category,icon,code,emp_id,structure_level,position_level,create_date,end_date) 
+	 VALUES (NULL, NULL,'$name','$icon','$code','$emp_id','$structure_level','$position_level','$create_date','$end_date')";
+
+}else{
+    $sql = "INSERT INTO $tbl_employee_category( 
+	 id, parent, category,icon,code,emp_id,structure_level,position_level,create_date,end_date) 
+	 VALUES (NULL, '$pId','$name','$icon','$code','$emp_id','$structure_level','$position_level','$create_date','$end_date')";
+
+}
+
 
 
 if(!mysqli_query($db, $sql)) {
-    echo "error" .mysqli_error($db);
+    echo "error=".$pId.'=' .mysqli_error($db);
 }
 else {
-//    echo "success" ;
+//  echo "success" ;
 }
 
 //Close connection
 //mysqli_close($db);
-
-$users= "select * from $tbl_employee_category";
-$result_users = $db->query($users);
-$user=[];
-$parent=[];
-$user_id=[];
-$zNodeArray=[];
-if($result_users){
-    if ($result_users->num_rows > 0) {
-        while($row_users = $result_users->fetch_assoc()) {
-//            $zNodeArray["user"]=$row_users['user'];
-//            $zNodeArray.array_push({"id":userIdArray[j], "pId":parentArray[j],"name":userArray[j],"open":open});
-            if($row_users['parent']==null){
-                $open=true;
-            }else {
-                $open=false;
-            }
-            array_push($zNodeArray, ['id'=>$row_users['id'],'pId'=>$row_users['parent'],'name'=>$row_users['category'],'open'=>$open]);
-
-
-
-
-
-        }
-
-    }
-}
-echo  json_encode($zNodeArray);
-
+//
+include ('st_select.php');
 ?>

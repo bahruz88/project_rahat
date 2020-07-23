@@ -25,23 +25,23 @@ include('session.php');
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="struktur/css/demo.css" type="text/css">
-    <link rel="stylesheet" href="struktur/css/zTreeStyle/zTreeStyle.css" type="text/css">
-    <script type="text/javascript" src="struktur/js/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="struktur/js/jquery.ztree.core.js"></script>
-    <script type="text/javascript" src="struktur/js/jquery.ztree.excheck.js"></script>
-    <script type="text/javascript" src="struktur/js/jquery.ztree.exedit.js"></script>
+    <link rel="stylesheet" href="struktur3/css/demo.css" type="text/css">
+    <link rel="stylesheet" href="struktur3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script type="text/javascript" src="struktur3/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="struktur3/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="struktur3/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="struktur3/js/jquery.ztree.exedit.js"></script>
     <style type="text/css">
-        .ztree li span.button.pIcon01_ico_open{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.pIcon01_ico_close{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/1_close.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.icon01_ico_docu{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/2.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.icon02_ico_docu{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/3.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.icon03_ico_docu{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/4.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.icon04_ico_docu{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/5.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.icon05_ico_docu{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/6.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.icon06_ico_docu{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/7.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.icon07_ico_docu{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/8.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-        .ztree li span.button.icon08_ico_docu{margin-right:2px; background: url(struktur/css/zTreeStyle/img/diy/9.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.pIcon01_ico_open{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.pIcon01_ico_close{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/1_close.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon01_ico_docu{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/2.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon02_ico_docu{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/3.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon03_ico_docu{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/4.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon04_ico_docu{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/5.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon05_ico_docu{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/6.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon06_ico_docu{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/7.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon07_ico_docu{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/8.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+        .ztree li span.button.icon08_ico_docu{margin-right:2px; background: url(struktur3/css/zTreeStyle/img/diy/9.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
     </style>
     <style>
         .clearFix{
@@ -113,7 +113,7 @@ include('session.php');
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <?php  include("struktur/edit_fun.php") ?>
+                    <?php include("struktur3/edit_fun.php") ?>
 
                 </div>
                 <!-- /.nav-tabs-custom -->
