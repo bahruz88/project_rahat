@@ -4,8 +4,8 @@
    define('DB_USERNAME', 'root');
    define('DB_PASSWORD', 'root');
    define('DB_DATABASE', 'rhr');
-   $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-//$db->set_charset('utf-8');
+ $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+
    $tbl_users='tbl_users' ;
    $tbl_employee_category='tbl_employee_category';
    $tbl_position_level='tbl_position_level';

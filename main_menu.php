@@ -223,7 +223,7 @@
                 </a>
               </li>
                 <li class="nav-item">
-                <a href="struktur3/org/index.php" class="nav-link">
+                <a href="struktur/org/st.php" class="nav-link">
 
                   <p>Struktur menu</p>
                 </a>
