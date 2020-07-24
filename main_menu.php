@@ -217,13 +217,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="struktur2/st_index.php" class="nav-link">
+                <a href="struktur.php" class="nav-link">
                   
                   <p>Struktur</p>
                 </a>
               </li>
                 <li class="nav-item">
-                <a href="struktur/org/index.php" class="nav-link">
+                <a href="struktur3/org/index.php" class="nav-link">
 
                   <p>Struktur menu</p>
                 </a>
