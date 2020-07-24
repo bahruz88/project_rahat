@@ -968,6 +968,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             console.log('-----------------= html=',silArray)
                             if(addNew==1){
                                 $('#butModal').trigger('click');
+                                console.log('butModal')
 
                             }else{
                                 tree.applyCommand(data.cmd, node);
