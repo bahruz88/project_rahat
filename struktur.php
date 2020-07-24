@@ -950,7 +950,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         moveMode,
                         tree = $.ui.fancytree.getTree(this),
                         node = tree.getActiveNode();
-                    tree_e = $.ui.fancytree.getTree(this);
 
                     switch (data.cmd) {
 
@@ -1461,18 +1460,17 @@ for ($j = 0; $j < count($flatArray); $j++) {
         $("#tree").trigger("nodeCommand", { cmd: 'rename' });
     })
     $(document).on('click', '#menyu_delete', function(e) {
+        addNew=0;
         $("#tree").trigger("nodeCommand", { cmd: 'remove' });
     })
     $(document).on('click', '#menyu_add', function(e) {
-
-        $("#tree").trigger("nodeCommand", { cmd: "addSibling"});
-        $('#struktur').click();
-        $('#pozisya').click();
+      addNew=0;
+      console.log('sssss')
+         $("#tree").trigger("nodeCommand", { cmd: "addSibling"});
     })
     $(document).on('click', '#menyu_addChild', function(e) {
+        addNew=0;
         $("#tree").trigger("nodeCommand", { cmd: 'addChild' });
-        $('#struktur').click();
-        $('#pozisya').click();
     })
 
 </script>
