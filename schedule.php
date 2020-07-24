@@ -1,11 +1,27 @@
 <?php    
- include('session.php');  
+ include('session.php'); 
+$sql_tm_type="Select   *  from $tbl_sch_time_managment_type where  lang='$site_lang'";
+$result_tm_type = $db->query($sql_tm_type); 
+ 
+$sql_sch_type="Select   *  from $tbl_sch_schtype where  lang='$site_lang'";
+$result_sch_type = $db->query($sql_sch_type); 
+
+$sql_reduce_type="Select   *  from $tbl_sch_reduce_from where  lang='$site_lang'";
+$result_reduce_type = $db->query($sql_reduce_type); 
+ 
+$sql_reduce_reason="Select   *  from $tbl_sch_reduce_reason where  lang='$site_lang'";
+$result_reduce_reason = $db->query($sql_reduce_reason);  
+ 
+ 
+ 
+ 
 $result_lang = $db->query($sql_lang);
 $result_roles = $db->query($sql_roles);		
 $result_lang_edit = $db->query($sql_lang);	
 $result_roles_edit = $db->query($sql_roles);
 $result_lang_view = $db->query($sql_lang);	
-$result_roles_view = $db->query($sql_roles);	
+$result_roles_view = $db->query($sql_roles);
+$message=$dil["selectone"]; 	
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,10 +36,10 @@ $result_roles_view = $db->query($sql_roles);
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
 <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
 
-  <!-- Font Awesome -->
+    <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
@@ -41,9 +57,9 @@ $result_roles_view = $db->query($sql_roles);
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
-  
+  <link href="css/google_fonts.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
+     
   <!--  
   <style>
         .dataTables_length {
@@ -222,7 +238,7 @@ $result_roles_view = $db->query($sql_roles);
             <div class="modal-footer justify-content-between">
 			  <form id="userDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
-			  <input type="hidden" id="userid" name="userid" value="" /> 
+			  <input type="hidden" id="schid" name="schid" value="" /> 
 			  </form>
 			  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
 			   
@@ -234,101 +250,207 @@ $result_roles_view = $db->query($sql_roles);
       </div>
 	  
 	  
-  <!--USER İNSERT MODAL -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <!--SCH İNSERT MODAL -->
+  <div class="modal fade" id="schModal" role="dialog">
     <div class="modal-dialog modal-lg">
-    <form id="userInsert" method="post" class="form-horizontal" action="">
+    <form id="schInsert" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
       <div class="modal-content">
       
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["user_input_title"];?></h4>
+						<h4 class="card-title"><?php echo $dil["sch_input_title"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 						
+						 <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
+                            <div class="col-sm-6">
+                                <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')" data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                    <?php
+                                    $result_company = $db->query($sql_employee_company);
+                                    if ($result_company->num_rows > 0) {
+                                        while($row_company= $result_company->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="username"><?php echo $dil["username"];?></label>
+								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="username" name="username" placeholder="<?php echo $dil["username"];?>" />
+									<input type="text" class="form-control" id="schname_id" name="schname_name" placeholder="<?php echo $dil["schname"];?>" />
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="sch_start_date"><?php echo $dil["sch_start_date"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="sch_start_date_id" name="sch_start_date_name" placeholder="<?php echo $dil["sch_start_date"];?>" />
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
+								<label class="col-sm-3 col-form-label" for="sch_expire_date"><?php echo $dil["sch_expire_date"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="firstname" name="firstname" placeholder="<?php echo $dil["firstname"];?>" />
+									<input type="text" class="form-control" id="sch_expire_date_id" name="sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
 								</div>
 							</div>
-														<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="lastname"><?php echo $dil["lastname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="lastname" name="lastname" placeholder="<?php echo $dil["lastname"];?>" />
-								</div>
-							</div>
-
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="email"><?php echo $dil["email"];?></label>
+								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="email" name="email" placeholder="<?php echo $dil["email"];?>" />
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-								<div class="col-sm-6">
-					
-						<select data-live-search="true" name="empno" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="tm_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
 								 	<?php 
-									 $result_employees_view = $db->query($sql_employees);
-										if ($result_employees_view->num_rows > 0) {
-										while($row_employees= $result_employees_view->fetch_assoc()) {
+									 $result_tm_type = $db->query($sql_tm_type);
+										if ($result_tm_type->num_rows > 0) {
+										while($row_tm_type= $result_tm_type->fetch_assoc()) {
 											
 										?>
-										<option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+										<option  value="<?php echo $row_tm_type['tm_id']; ?>" ><?php echo $row_tm_type['tm_descr'] ;  ?></option>
 											
 										<?php } }?>
 						</select>
-					
-									 
-								</div>
+						</div>
 							</div>
-
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="userlevel"><?php echo $dil["userlevel"];?></label>
+								<label class="col-sm-3 col-form-label" for="sch_type"><?php echo $dil["sch_type"];?></label>
 								<div class="col-sm-6">
-						<select data-live-search="true"   title="<?php echo $dil["selectone"];?>"  class="form-control selectpicker" id="userlevel" name="userlevel" placeholder="<?php echo $dil["userlevel"];?>" multiple="">
-					<?php if ($result_roles->num_rows > 0) {
-							// output data of each row
-					while($row_roles = $result_roles->fetch_assoc()) {
-						
-					?>
-							<option value="<?php echo $row_roles["id"] ; ?>" ><?php echo $row_roles["role_name"] ; ?> </option>
-					<?php }}?>
+						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="sch_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
+								 	<?php 
+									 $result_sch_type = $db->query($sql_sch_type);
+										if ($result_sch_type->num_rows > 0) {
+										while($row_sch_type= $result_sch_type->fetch_assoc()) {
+											
+										?>
+										<option  value="<?php echo $row_sch_type['sch_type_id']; ?>" ><?php echo $row_sch_type['sch_type_desc'] ;  ?></option>
+											
+										<?php } }?>
 						</select>
-								</div>
-							</div>
-							<div class="form-group row">
-								
-								<label class="col-sm-3 col-form-label" for="langinput"><?php echo $dil["soft_lang"];?></label>
-								<div class="col-sm-6">
-					<select data-live-search="true"   title="<?php echo $dil["selectone"];?>"  class="form-control selectpicker" id="langinput" name="langinput" placeholder="<?php echo $dil["soft_lang"];?>">
+						</div>
+							</div>	
 							
-					<?php if ($result_lang->num_rows > 0) {
-							// output data of each row
-					while($row_lang = $result_lang->fetch_assoc()) {
-						
-					?>
-					<option  value="<?php echo $row_lang['short_name']; ?>" data-content="<img src='<?php echo $row_lang['image_path']; ?>' width ='25px' height='25px' class='img-circle elevation-2' ><?php echo " ". $dil[$row_lang['lang_code']];?> ">  </option>
-						
-					<?php } }?>
-
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="reduce_type"><?php echo $dil["reduce_type"];?></label>
+								<div class="col-sm-6">
+						<select    data-live-search="true" name="reduce_type_name" id="reduce_type" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
+								 	<?php 
+									 $result_reduce_type = $db->query($sql_reduce_type);
+										if ($result_reduce_type->num_rows > 0) {
+										while($row_reduce_type= $result_reduce_type->fetch_assoc()) {
+											
+										?>
+										<option  value="<?php echo $row_reduce_type['type_id']; ?>" ><?php echo $row_reduce_type['type_descr'] ;  ?></option>
+											
+										<?php } }?>
 						</select>
-
+						</div>
+							</div>	
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="red_working_hours"><?php echo $dil["red_working_hours"];?></label>
+								<div class="col-sm-6">
+								
+								<select    name="red_working_hours_name" id="red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
+								 
+										<option  value="1" >1</option>
+										<option  value="2" >2</option>
+										<option  value="3" >3</option>
+										<option  value="4" >4</option>
+										<option  value="5" >5</option>
+										<option  value="6" >6</option>
+										<option  value="7" >7</option>
+										<option  value="8" >8</option>
+										<option  value="9" >9</option>
+										<option  value="10" >10</option>
+ 									
+								</select>
+ 
 								</div>
 							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="reduce_reason"><?php echo $dil["reduce_reason"];?></label>
+								<div class="col-sm-6">
+							
+								<select   data-live-search="true" name="reduce_reason_name" id="reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>" >
+											<?php 
+											 $result_reduce_reason = $db->query($sql_reduce_reason);
+												if ($result_reduce_reason->num_rows > 0) {
+												while($row_reduce_reason= $result_reduce_reason->fetch_assoc()) {
+													
+												?>
+												<option  value="<?php echo $row_reduce_reason['reason_id']; ?>" ><?php echo $row_reduce_reason['res_desc'] ;  ?></option>
+													
+												<?php } }?>
+								</select>
+							</div>
+							</div>	
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="start_time"><?php echo $dil["sch_start_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="start_time_id" name="start_time_name" placeholder="<?php echo $dil["sch_start_time"];?>" />
+								</div>
+							</div>
+ 
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="end_time"><?php echo $dil["sch_end_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="end_time_id" name="end_time_name" placeholder="<?php echo $dil["sch_end_time"];?>" />
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="break_start_time"><?php echo $dil["break_start_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="break_start_time_id" name="break_start_time_name" placeholder="<?php echo $dil["break_start_time"];?>" />
+								</div>
+							</div>
+ 
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="break_end_time"><?php echo $dil["break_end_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="break_end_time_id" name="break_end_time_name" placeholder="<?php echo $dil["break_end_time"];?>" />
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="dinner_start_time"><?php echo $dil["dinner_start_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="dinner_start_time_id" name="dinner_start_time_name" placeholder="<?php echo $dil["dinner_start_time"];?>" />
+								</div>
+							</div>
+ 
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="dinner_end_time"><?php echo $dil["dinner_end_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="dinner_end_time_id" name="dinner_end_time_name" placeholder="<?php echo $dil["dinner_end_time"];?>" />
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["sch_night_time"];?></label>
+								<div class="col-sm-6">
+		                        <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true"  name="night_time_name"  id="night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
+                                    <?php
+                                    $result_yesno = $db->query($sql_yesno); 
+                                    if ($result_yesno->num_rows > 0) {
+                                        while($row_yesno= $result_yesno->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_yesno['chois_id']; ?>" ><?php echo $row_yesno['chois_desc'];  ?></option>
+
+                                        <?php } }?>
+                                </select>
+								</div>
+							</div>
+				 
  				
 					</div>
 				</div>
@@ -348,110 +470,206 @@ $result_roles_view = $db->query($sql_roles);
  
  
    <!--USER EDİT MODAL -->
-  <div class="modal fade" id="modalEdit" role="dialog">
+  <div class="modal fade" id="schEdit" role="dialog">
     <div class="modal-dialog modal-lg">
-    <form id="userUpdate" method="post" class="form-horizontal" action="">
+    <form id="schUpdate" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
       <div class="modal-content">
-      
-        <div class="modal-body">
+          <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["user_update_title"];?></h4>
-
-            <span  id="badge_danger_update" class="badge badge-danger"></span>
+						<h4 class="card-title"><?php echo $dil["sch_input_title"];?></h4>
+			 <span  id="badge_success" class="badge badge-success"></span>
+            <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 						
+						 <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
+                            <div class="col-sm-6">
+                                <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')" data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                    <?php
+                                    $result_company = $db->query($sql_employee_company);
+                                    if ($result_company->num_rows > 0) {
+                                        while($row_company= $result_company->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="username"><?php echo $dil["username"];?></label>
+								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_username" name="update_username" value="" placeholder="<?php echo $dil["username"];?>" />
+									<input type="text" class="form-control" id="schname_id" name="schname_name" placeholder="<?php echo $dil["schname"];?>" />
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="sch_start_date"><?php echo $dil["sch_start_date"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="sch_start_date_id" name="sch_start_date_name" placeholder="<?php echo $dil["sch_start_date"];?>" />
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
+								<label class="col-sm-3 col-form-label" for="sch_expire_date"><?php echo $dil["sch_expire_date"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_firstname" name="update_firstname" placeholder="<?php echo $dil["firstname"];?>" />
+									<input type="text" class="form-control" id="sch_expire_date_id" name="sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
 								</div>
 							</div>
-														<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="lastname"><?php echo $dil["lastname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_lastname" name="update_lastname" placeholder="<?php echo $dil["lastname"];?>" />
-								</div>
-							</div>
-
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="email"><?php echo $dil["email"];?></label>
+								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_email" name="update_email" placeholder="<?php echo $dil["email"];?>" />
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-								<div class="col-sm-6">
-					
-						<select data-live-search="true" name="update_empno" title="<?php echo $dil["selectone"];?>" id="update_empno" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-							<option value="90051676">Eli</option>
-							<option value="90051677">Veli</option>
-							<option value="90051678">Pirveli</option>
+						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="tm_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
+								 	<?php 
+									 $result_tm_type = $db->query($sql_tm_type);
+										if ($result_tm_type->num_rows > 0) {
+										while($row_tm_type= $result_tm_type->fetch_assoc()) {
+											
+										?>
+										<option  value="<?php echo $row_tm_type['tm_id']; ?>" ><?php echo $row_tm_type['tm_descr'] ;  ?></option>
+											
+										<?php } }?>
 						</select>
-					
-									 
-								</div>
+						</div>
 							</div>
-
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="userlevel"><?php echo $dil["userlevel"];?></label>
+								<label class="col-sm-3 col-form-label" for="sch_type"><?php echo $dil["sch_type"];?></label>
 								<div class="col-sm-6">
-						<select data-live-search="true"   title="<?php echo $dil["selectone"];?>" id="update_userlevel"  name ="update_userlevel" class="form-control selectpicker"  placeholder="<?php echo $dil["userlevel"];?>" multiple="">
-				<?php if ($result_roles_edit->num_rows > 0) {
-							// output data of each row
-					while($row_roles = $result_roles_edit->fetch_assoc()) {
-						
-					?>
-							<option value="<?php echo $row_roles["id"] ; ?>" ><?php echo $row_roles["role_name"] ; ?> </option>
-				<?php }}?>
+						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="sch_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
+								 	<?php 
+									 $result_sch_type = $db->query($sql_sch_type);
+										if ($result_sch_type->num_rows > 0) {
+										while($row_sch_type= $result_sch_type->fetch_assoc()) {
+											
+										?>
+										<option  value="<?php echo $row_sch_type['sch_type_id']; ?>" ><?php echo $row_sch_type['sch_type_desc'] ;  ?></option>
+											
+										<?php } }?>
 						</select>
-								</div>
-							</div>
-								<div class="form-group row">
+						</div>
+							</div>	
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="reduce_type"><?php echo $dil["reduce_type"];?></label>
+								<div class="col-sm-6">
+						<select    data-live-search="true" name="reduce_type_name" id="reduce_type" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
+								 	<?php 
+									 $result_reduce_type = $db->query($sql_reduce_type);
+										if ($result_reduce_type->num_rows > 0) {
+										while($row_reduce_type= $result_reduce_type->fetch_assoc()) {
+											
+										?>
+										<option  value="<?php echo $row_reduce_type['type_id']; ?>" ><?php echo $row_reduce_type['type_descr'] ;  ?></option>
+											
+										<?php } }?>
+						</select>
+						</div>
+							</div>	
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="red_working_hours"><?php echo $dil["red_working_hours"];?></label>
+								<div class="col-sm-6">
 								
-								<label class="col-sm-3 col-form-label" for="langinput"><?php echo $dil["soft_lang"];?></label>
-								<div class="col-sm-6">
-					<select data-live-search="true"   title="<?php echo $dil["selectone"];?>" id="update_deflang" class="form-control selectpicker"   name="update_deflang" placeholder="<?php echo $dil["soft_lang"];?>">
-							
-							<?php 
-							if ($result_lang_edit->num_rows > 0) {
-							// output data of each row
-					while($row_lang = $result_lang_edit->fetch_assoc()) {
-						
-					?>
-					<option  value="<?php echo $row_lang['short_name']; ?>" data-content="<img src='<?php echo $row_lang['image_path']; ?>' width ='25px' height='25px' class='img-circle elevation-2' ><?php echo " ". $dil[$row_lang['lang_code']];?> ">  </option>
-						
-					<?php } }?>
+								<select    name="red_working_hours_name" id="red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
+								 
+										<option  value="1" >1</option>
+										<option  value="2" >2</option>
+										<option  value="3" >3</option>
+										<option  value="4" >4</option>
+										<option  value="5" >5</option>
+										<option  value="6" >6</option>
+										<option  value="7" >7</option>
+										<option  value="8" >8</option>
+										<option  value="9" >9</option>
+										<option  value="10" >10</option>
+ 									
+								</select>
+ 
+								</div>
+							</div>
 
-						</select>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="reduce_reason"><?php echo $dil["reduce_reason"];?></label>
+								<div class="col-sm-6">
 							
+								<select   data-live-search="true" name="reduce_reason_name" id="reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>" >
+											<?php 
+											 $result_reduce_reason = $db->query($sql_reduce_reason);
+												if ($result_reduce_reason->num_rows > 0) {
+												while($row_reduce_reason= $result_reduce_reason->fetch_assoc()) {
+													
+												?>
+												<option  value="<?php echo $row_reduce_reason['reason_id']; ?>" ><?php echo $row_reduce_reason['res_desc'] ;  ?></option>
+													
+												<?php } }?>
+								</select>
+							</div>
+							</div>	
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="start_time"><?php echo $dil["sch_start_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="start_time_id" name="start_time_name" placeholder="<?php echo $dil["sch_start_time"];?>" />
 								</div>
 							</div>
  
-						<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="password"><?php echo $dil["password"];?></label>
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="end_time"><?php echo $dil["sch_end_time"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="password" name="password"  value="" placeholder="<?php echo $dil["password"];?>" />
+									<input type="text" class="form-control" id="end_time_id" name="end_time_name" placeholder="<?php echo $dil["sch_end_time"];?>" />
 								</div>
 							</div>
-						<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="confirm_password"><?php echo $dil["passwordrep"];?></label>
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="break_start_time"><?php echo $dil["break_start_time"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="confirm_password" name="confirm_password" value="" placeholder="<?php echo $dil["passwordrep"];?>" />
+									<input type="text" class="form-control" id="break_start_time_id" name="break_start_time_name" placeholder="<?php echo $dil["break_start_time"];?>" />
 								</div>
-			 
-							</div>					
+							</div>
  
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="break_end_time"><?php echo $dil["break_end_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="break_end_time_id" name="break_end_time_name" placeholder="<?php echo $dil["break_end_time"];?>" />
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="dinner_start_time"><?php echo $dil["dinner_start_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="dinner_start_time_id" name="dinner_start_time_name" placeholder="<?php echo $dil["dinner_start_time"];?>" />
+								</div>
+							</div>
+ 
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="dinner_end_time"><?php echo $dil["dinner_end_time"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="dinner_end_time_id" name="dinner_end_time_name" placeholder="<?php echo $dil["dinner_end_time"];?>" />
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["sch_night_time"];?></label>
+								<div class="col-sm-6">
+		                        <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true"  name="night_time_name"  id="night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
+                                    <?php
+                                    $result_yesno = $db->query($sql_yesno); 
+                                    if ($result_yesno->num_rows > 0) {
+                                        while($row_yesno= $result_yesno->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_yesno['chois_id']; ?>" ><?php echo $row_yesno['chois_desc'];  ?></option>
+
+                                        <?php } }?>
+                                </select>
+								</div>
+							</div>
+				 
+ 				
 					</div>
 				</div>
    
@@ -460,7 +678,7 @@ $result_roles_view = $db->query($sql_roles);
 						 
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_userid" name="update_userid" value="" /> 			 
+		<input type="hidden" id="update_schid" name="update_schid" value="" /> 			 
         </div>	
 		</form>
       </div>
@@ -469,121 +687,33 @@ $result_roles_view = $db->query($sql_roles);
   </div>
  
  
-   <!--USER VIEW MODAL -->
-  <div class="modal fade" id="modalView" role="dialog">
-    <div class="modal-dialog modal-lg">
-       <!-- Modal content-->
-      <div class="modal-content">
-      
-        <div class="modal-body">
-			<div class="card card-success">
-					<div class="card-header">
-						<h4 class="card-text"><?php echo $dil["user_view_title"];?></h4>
 
-            <span  id="badge_danger_update" class="badge badge-danger"></span>
-					</div>
-					<div class="card-body">
-						
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="view_username"><?php echo $dil["username"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_username" name="view_username" value="" placeholder="<?php echo $dil["username"];?>" readonly />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="view_firstname"><?php echo $dil["firstname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_firstname" name="view_firstname" placeholder="<?php echo $dil["firstname"];?>" readonly />
-								</div>
-							</div>
-														<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="view_lastname"><?php echo $dil["lastname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_lastname" name="view_lastname" placeholder="<?php echo $dil["lastname"];?>" readonly />
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="view_email"><?php echo $dil["email"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="view_email" name="view_email" placeholder="<?php echo $dil["email"];?>" readonly />
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-								<div class="col-sm-6">
-					
-						<select Disabled="true" data-live-search="true" name="view_empno" title="<?php echo $dil["selectone"];?>" id="view_empno" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-							<option value="90051676">Eli</option>
-							<option value="90051677">Veli</option>
-							<option value="90051678">Pirveli</option>
-						</select>
-					
-									 
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="userlevel"><?php echo $dil["userlevel"];?></label>
-								<div class="col-sm-6">
-						<select  data-live-search="true"  Disabled="true"  title="<?php echo $dil["selectone"];?>" id="view_userlevel"  name ="view_userlevel" class="form-control selectpicker"  placeholder="<?php echo $dil["userlevel"];?>" multiple="">
-				<?php if ($result_roles_view->num_rows > 0) {
-							// output data of each row
-					while($row_roles = $result_roles_view->fetch_assoc()) {
-						
-					?>
-							<option  value="<?php echo $row_roles["id"] ; ?>" ><?php echo $row_roles["role_name"] ; ?> </option>
-				<?php }}?>
-						</select>
-								</div>
-							</div>
-								<div class="form-group row">
-								
-								<label class="col-sm-3 col-form-label" for="langinput"><?php echo $dil["soft_lang"];?></label>
-								<div class="col-sm-6">
-					<select Disabled="true" data-live-search="true"   title="<?php echo $dil["selectone"];?>" id="view_deflang" class="form-control selectpicker"   name="view_deflang" placeholder="<?php echo $dil["soft_lang"];?>">
-							
-							<?php if ($result_lang_view->num_rows > 0) {
-							// output data of each row
-					while($row_lang = $result_lang_view->fetch_assoc()) {
-						
-					?>
-					<option readonly value="<?php echo $row_lang['short_name']; ?>" data-content="<img src='<?php echo $row_lang['image_path']; ?>' width ='25px' height='25px' class='img-circle elevation-2' ><?php echo " ". $dil[$row_lang['lang_code']];?> ">  </option>
-						
-					<?php } }?>
-
-						</select>
-							
-								</div>
-							</div>				
- 
-					</div>
-				</div>
-   
-		</div>
-        <div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-        </div>	
-
-      </div>
-      
-    </div>
-  </div>
  
  
  
- 
-		   <table id="user_table" class="table table-striped  table-bordered table-hover">
+ <div id="filtercol"></div>
+		   <table id="sch_table" class="table table-striped  table-bordered table-hover">
                 <thead>
                <tr>
                         <th>id</th>
-                        <th>İstifadəçi  adı </th>
-						<th>Adı</th>
-						<th>Soyadı</th>
-						<th>Mail</th>
-						<th>İş yeri</th>
-						<th>Statusu</th>
+                        <th><?php echo $dil["schname"];?></th>
+						<th><?php echo $dil["schcode"];?></th>
+						<th><?php echo $dil["company_name"];?></th>
+						<th><?php echo $dil["sch_start_date"];?></th>
+						<th><?php echo $dil["sch_expire_date"];?></th>
+						<th><?php echo $dil["tm_type"];?></th>
+						<th><?php echo $dil["sch_type"];?></th>
+						<th><?php echo $dil["reduce_type"];?></th>
+						<th><?php echo $dil["red_working_hours"];?></th>
+						<th><?php echo $dil["reduce_reason"];?></th>
+						
+						<th><?php echo $dil["sch_start_time"];?></th>
+						<th><?php echo $dil["sch_end_time"];?></th>
+						<th><?php echo $dil["break_start_time"];?></th>
+						<th><?php echo $dil["break_end_time"];?></th>
+						<th><?php echo $dil["dinner_start_time"];?></th>
+						<th><?php echo $dil["dinner_end_time"];?></th>
+						<th><?php echo $dil["sch_night_time"];?></th>
 						<th>Action</th>
                    </tr>
                 </thead>  
@@ -604,15 +734,13 @@ $result_roles_view = $db->query($sql_roles);
 
 </div>
 <!-- ./wrapper -->
-
-<!-- jQuery -->
+ <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<link href="style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="script.js"></script>
-
+ 
+ 
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -628,7 +756,6 @@ $result_roles_view = $db->query($sql_roles);
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
-
 <script src="plugins/summernote/summernote-bs4.min.js"></script>
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.js"></script>
@@ -643,37 +770,38 @@ $result_roles_view = $db->query($sql_roles);
 <script type="text/javascript" src="dist/js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-select.min.js"></script>	
+<script type="text/javascript" src="js/popper.min.js" ></script>
+<script type="text/javascript" src="js/moment.min.js"  ></script>
+<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
+  
 <script>
 
   $(function () {
  
 /*FORM  VALIDATE */	  
- 			$( "#userInsert" ).validate( {
+ 			$( "#schInsert" ).validate( {
 				rules: {
-					firstname: "required",
-					lastname: "required",
-					userlevel: "required",
-					username: {
+					schname_name2: "required",
+					sch_start_date_name: "required",
+					sch_expire_date: "required",
+					schname_name: {
 						required: true,
-						minlength: 3
-					},
-					email: {
-						required: true,
-						email: true
+						minlength: 5
 					},
 					langinput: "required"
 				},
 				messages: {
-					firstname: "<?php echo $dil['empty_firstname'];?>",
-					lastname: "<?php echo $dil['empty_lastname'];?>",
-					userlevel: "<?php echo $dil['empty_role'];?>",
-					username: {
-						required: "<?php echo $dil['empty_user'];?>",
+					schname_name2: "<?php echo $dil['empty_firstname'];?>",
+					sch_start_date_name: "<?php echo $dil['empty_sch_start_date_name'];?>",
+					sch_expire_date: "<?php echo $dil['empty_sch_expire_date'];?>",
+					langinput: "<?php echo $dil['wrong_lang'];?>",
+					schname_name: {
+						required: "<?php echo $dil['empty_sch_name'];?>",
 						minlength: "<?php echo $dil['length_input'];?>"
-					},
+					}
 
-					email: "<?php echo $dil['wrong_mail'];?>",
-					langinput: "<?php echo $dil['wrong_lang'];?>"
+
+
 				},
 				errorElement: "em",
 				errorPlacement: function ( error, element ) {
@@ -763,10 +891,12 @@ $result_roles_view = $db->query($sql_roles);
 			} );
 	
 	
-/*LOAD  USER TABLE */
+/*LOAD  USER TABLE 
+	$("#sch_table").append(
+       $('<filtercol>').append( $("#sch_table thead tr").clone() )
+   );*/
 	
-	
-var table = $("#user_table").DataTable({
+var table = $("#sch_table").DataTable({
 	
   "paging": true,
       "lengthChange": false,
@@ -774,6 +904,7 @@ var table = $("#user_table").DataTable({
       "ordering": true,
       "info": true,
       "autoWidth": false,
+
 	    "language": {
             "lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
             "zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
@@ -786,13 +917,13 @@ var table = $("#user_table").DataTable({
     }
         },
 	    "ajax": {
-                url: "user/get_users.php",
+                url: "schedule/get_sch.php",
                 type: "POST"
             },"columnDefs": [ {
-			"width": "8%",
+			"width": "4%",
             "targets": -1,
             "data": null,
-            "defaultContent": "<img  id='view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+  
+            "defaultContent": 
 			"<img  id='delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
 			"<img id='edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
         } ],
@@ -822,50 +953,65 @@ var table = $("#user_table").DataTable({
 			 "lengthMenu": [
                 [10, 20, 50, -1],
                 [10, 20, 50, "All"]
-            ]
+            ],
+			   initComplete: function () {
+            this.api().columns(3).every( function () {
+                var column = this;
+                var select = $('<a class=" dt-button buttons-excel buttons-html5"><?php echo $dil["filter_by_company"];?> :  <select  id="selectf"><option value=""><?php echo $dil["all_data"];?> </option></select></a>')
+                    .appendTo( ".dt-buttons" );
+                    $( "#selectf" ).on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    $("#selectf").append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }//initComplete
 
         });
 		
- $( ".dt-buttons" ).prepend( $( "<a class='dt-button buttons-excel buttons-html5' id='add_new_item'  data-toggle='modal' data-target='#myModal'><?php echo $dil['addnew'];?> <i class='fa fa-plus'></i></a>" ) );
+		
+ $( ".dt-buttons" ).prepend( $( "<a class='dt-button buttons-excel buttons-html5' id='add_new_item'  data-toggle='modal' data-target='#schModal'><?php echo $dil['addnew'];?> <i class='fa fa-plus'></i></a>" ) );
   
   /*Button  click  on grid */
-	$('#user_table tbody').on( 'click', '#delete', function () {
+	$('#sch_table tbody').on( 'click', '#delete', function () {
         var data = table.row( $(this).parents('tr') ).data();
-        document.getElementById("userid").value = data[0];
+        document.getElementById("schid").value = data[0];
 		$('#modalDelete').modal('show');
     } );
 	
 
-  $('#user_table tbody').on( 'click', '#edit', function () {
+  $('#sch_table tbody').on( 'click', '#edit', function () {
         var data = table.row( $(this).parents('tr') ).data();
-		GetUserDetails(data[0],'update');
-		document.getElementById("update_userid").value = data[0];
+		GetSchDetails(data[0]);
+		document.getElementById("update_schid").value = data[0];
 		 
     } );
  
-$('#user_table tbody').on( 'click', '#view', function () {
-        var data = table.row( $(this).parents('tr') ).data();
-		GetUserDetails(data[0],'view');
-		document.getElementById("update_userid").value = data[0];
-		 
-    } );
+
 
 
  
  	/*USERIN  UPDATE MELUMATLARINI  GETIRIR*/
-	 function GetUserDetails(userid,optype) 
+	 function GetSchDetails(userid) 
 	 {
-			$.post("user/getUserDetail.php", 
+			$.post("schedule/getSchDetail.php", 
 				{
-					userid: userid
+					schid: schid
 				},
-				function (user_data, status) 
+				function (sch_data, status) 
 				{
 					// PARSE json data
-					var user = JSON.parse(user_data);
+					var schedule = JSON.parse(sch_data);
 					// Assing existing values to the modal popup fields
 					
-					if  (optype=='update') {
 					$("#update_username").val(user.username);
 					$("#update_firstname").val(user.firstname);
 					$("#update_lastname").val(user.lastname);
@@ -874,32 +1020,21 @@ $('#user_table tbody').on( 'click', '#view', function () {
 					$('#update_deflang').val(user.def_lang).change();
 					$('#update_userlevel').val([1,2,3]).change();
 					//$('#update_userlevel').selectpicker('val', [1,2,3]);
-					$('#modalEdit').modal('show');
-					}
-					else {
-					$("#view_username").val(user.username);
-					$("#view_firstname").val(user.firstname);
-					$("#view_lastname").val(user.lastname);
-					$("#view_email").val(user.reg_mail);
-					$('#view_empno').val(user.empno).change();
-					$('#view_deflang').val(user.def_lang).change();
-					$('#view_userlevel').val([1,2,3]).change();
-					//$('#update_userlevel').selectpicker('val', [1,2,3]);
-						$('#modalView').modal('show');						
-					}
+					$('#schEdit').modal('show');
+					
 				}
 			);
 
 }
  
  /*USER MELUMATLARI  DAXIL  EDILIR  */
-		$("#userInsert").submit(function(e)
+		$("#schInsert").submit(function(e)
 		{
                     e.preventDefault();
-					if($("#userInsert").valid())
+					if($("#schInsert").valid())
 			{ 
                     $.ajax( {
-                        url: "user/userInsert.php",
+                        url: "schedule/schInsert.php",
                         method: "post",
                         data: $("form").serialize(),
                         dataType: "text",
@@ -918,25 +1053,25 @@ $('#user_table tbody').on( 'click', '#view', function () {
 									 
 									 $("#errorp").text(strMessage);
 									 $("#modalInsertError").modal('show');
-									 $("#myModal").modal('hide');
+									 $("#schModal").modal('hide');
 								 }
 								 else if (strMessage==='success')
 								 {
 									 $("#successp").text('Melumat muveffeqiyyetle daxil edildi');
 									 $("#modalInsertSuccess").modal('show');
-									 $("#myModal").modal('hide');
-									 
+									 $("#schModal").modal('hide');
+									 table.ajax.reload();
 								 }
 								 else  {
 									  $("#errorp").text(strMessage);
 									 $("#modalInsertError").modal('show');
-									 $("#myModal").modal('hide');
+									 $("#schModal").modal('hide');
 									 
 								 }
 						}
                     });
 				    table.ajax.reload();
-					$( "#userInsert" ).get(0).reset();
+					$( "#schInsert" ).get(0).reset();
 			}
         });
 				
@@ -945,7 +1080,7 @@ $('#user_table tbody').on( 'click', '#view', function () {
 		
                     e.preventDefault();
                     $.ajax( {
-                        url: "user/userDelete.php",
+                        url: "schedule/schDelete.php",
                         method: "post",
                         data: $("form").serialize(),
                         dataType: "text",
@@ -1006,8 +1141,14 @@ $('#user_table tbody').on( 'click', '#view', function () {
 					 table.ajax.reload();	
 			 }
                 });
-				
-
+	    $("#sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });			
+	    $("#sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
+		$('#end_time_id').datetimepicker({ format: 'HH:mm'   });
+		$('#start_time_id').datetimepicker({ format: 'HH:mm'   });
+		$('#break_end_time_id').datetimepicker({ format: 'HH:mm'   });
+		$('#break_start_time_id').datetimepicker({ format: 'HH:mm'   });
+		$('#dinner_end_time_id').datetimepicker({ format: 'HH:mm'   });
+		$('#dinner_start_time_id').datetimepicker({ format: 'HH:mm'   });
   });
 </script>
 </body>
