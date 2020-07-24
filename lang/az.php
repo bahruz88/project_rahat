@@ -261,7 +261,8 @@ $dil = array(
 
 	"operation"   =>"Əməliyyat",
 	//structure
-    "create_end_date"   =>"Yaranma - bitmə tarixi",
+
+	"create_end_date"   =>"Yaranma - bitmə tarixi",
 	"structure_level"   =>"Struktur səviyyəsi",
 	"position_level"   =>"Pozisya səviyyəsi" 
 );

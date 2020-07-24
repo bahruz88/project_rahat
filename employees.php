@@ -66,11 +66,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
-    <style>
-        /*#employee_table td{*/
-        /*    width:150px;*/
-        /*}*/
-    </style>
+     
 </head>
  
 <body class="hold-transition sidebar-mini layout-fixed">
