@@ -286,7 +286,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="../index3.html" class="brand-link">
+        <a href="index3.html" class="brand-link">
             <img src="dist/img/rhr.png" alt="RahatHR Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">RahatHR</span>
@@ -405,7 +405,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                     while($row_position= $result_position_view->fetch_assoc()) {
 
                                         ?>
-                                        <option  value="<?php echo $row_position['id']; ?>" data-icon="<?php echo $row_position['posit_icon']; ?>"  style="background-image:url(../images/icons/man2.png);"  ><?php echo  $row_position['title'];  ?></option>
+                                        <option  value="<?php echo $row_position['id']; ?>" data-icon="<?php echo $row_position['posit_icon']; ?>"  style="background-image:url(images/icons/man2.png);"  ><?php echo  $row_position['title'];  ?></option>
 
                                     <?php } }?>
                             </select>
@@ -589,12 +589,12 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
 <!--<script type="text/javascript" src="js/datatables.min.js"></script>-->
 <script type="text/javascript" src="dist/js/jquery.validate.js"></script>
-<script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 <!--<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>-->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="../js/employee.js"></script>
+<script type="text/javascript" src="js/employee.js"></script>
 
 </body>
 </html>
@@ -1193,7 +1193,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             var st_end_date=$('#st_end_date').val()!='' ? $('#st_end_date').val() :'0000-00-00' ;
             console.log('st_create_date='+st_create_date)
             if(structure_level!=0){
-                $('#icon').val('../images/icons/box1.png')
+                $('#icon').val('images/icons/box1.png')
             }
             if(position_level!=0){
                 $('#icon').val($('#position_level option:selected').attr('data-icon'))
@@ -1366,10 +1366,10 @@ for ($j = 0; $j < count($flatArray); $j++) {
             $(this).css('display','none');
             var thisName=$(this).attr('name')
             var thisVal=$(this).find('option:selected').val()
-            var icon='../images/icons/box1.png'
+            var icon='images/icons/box1.png'
 
             if(thisName=='structure_level'){
-                $('#icon').val('../images/icons/box1.png')
+                $('#icon').val('images/icons/box1.png')
             }else {
                 $('#icon').val($('#position_level option:selected').attr('data-icon'))
             }
