@@ -479,7 +479,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
         <th>Status</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="fancyBody">
     <!-- Define a row template for all invariant markup: -->
     <tr>
         <td class="alignCenter"></td>
@@ -487,7 +487,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
         <td></td>
         <td> </td>
         <td><span></span>
-            <div id="structure_level1">
+            <div id="structure_level1" style="display: none;">
                 <select data-live-search="true"  style="font-size:14px;" name="structure_level"   title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["structure_level"];?>" >
                     <option  value="0" >Seçin...</option>
                     <?php
@@ -501,7 +501,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         <?php } }?>
                 </select>
             </div>
-            <div id="position_level1">
+            <div id="position_level1" style="display: none;">
                 <select data-live-search="true"  style="font-size:14px;" name="position_level"   title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["position_level"];?>" >
                 <option  value="0" >Seçin...</option>
 
@@ -518,7 +518,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             </div>
         </td>
         <td> <span></span>
-            <select data-live-search="true"  name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
+            <select data-live-search="true"  style="display: none;" name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
                 <option  value="0">Seçin...</option>
                 <?php
                 $result_employees_view = $db->query($sql_employees);
@@ -532,9 +532,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
         </td>
         <td>
             <span></span>
-            <input type="text" class="form-control"  style="font-size:14px;" name="st_create_date" placeholder="0000-00-00" />
-            <input type="text" class="form-control"  style="font-size:14px;" name="st_end_date" placeholder="0000-00-00" />
-            <button type="button" class="btn btn-info"  style="font-size:10px;" >+</button>
+            <input type="text" class="form-control"  style="font-size:14px;display: none;" name="st_create_date" placeholder="0000-00-00" />
+            <input type="text" class="form-control"  style="font-size:14px;display: none;" name="st_end_date" placeholder="0000-00-00" />
+            <button type="button" class="btn btn-info"  style="font-size:10px;display: none;" >+</button>
         </td>
         <td> </td>
 
@@ -733,6 +733,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         // }
                     },
                     renderColumns: function(event, data) {
+
                         console.log('renderColumns',data)
                         var node = data.node,
                             $tdList = $(node.tr).find(">td");
