@@ -7,10 +7,10 @@ $sql_lang = "
 FROM  $tbl_language_knowledge tlk  
 inner join  $tbl_employees te on tlk.emp_id=te.id 
 inner  join  $tbl_emp_lang tl  on tlk.lang_id=tl.id
-left join $tbl_lang_level tllr on tlk.lang_reading=tllr.level_id  and tllr.lang_short_name='az'
-left join $tbl_lang_level tlls on tlk.lang_speaking=tlls.level_id and tlls.lang_short_name='az'
-left join $tbl_lang_level tllw on tlk.lang_writing=tllw.level_id and tllw.lang_short_name='az'
-left join $tbl_lang_level tllu on tlk.lang_understanding=tllu.level_id and tllu.lang_short_name='az'
+left join $tbl_lang_level tllr on tlk.lang_reading=tllr.level_id  and tllr.lang_short_name='$site_lang'
+left join $tbl_lang_level tlls on tlk.lang_speaking=tlls.level_id and tlls.lang_short_name='$site_lang'
+left join $tbl_lang_level tllw on tlk.lang_writing=tllw.level_id and tllw.lang_short_name='$site_lang'
+left join $tbl_lang_level tllu on tlk.lang_understanding=tllu.level_id and tllu.lang_short_name='$site_lang'
 where tlk.lang_status=1 and  te.emp_status=1";
 
 					
