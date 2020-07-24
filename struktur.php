@@ -167,7 +167,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/ionic.css">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
@@ -185,10 +185,10 @@ for ($j = 0; $j < count($flatArray); $j++) {
     <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="css/google_fonts.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="js/popper.min.js" ></script>
 <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
     <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -351,9 +351,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
 <input type='hidden' value='' id='txt_id'>
 <input type='hidden' value='' id='number_id'>
 <!-- Small modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-lg">New</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target="#bd-example-modal-lg">New</button>
 
-<div class="modal fade bd-example-modal-lg text-left" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg text-left" tabindex="-1" id="bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -479,7 +479,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
         <th>Status</th>
     </tr>
     </thead>
-    <tbody id="fancyBody">
+    <tbody>
     <!-- Define a row template for all invariant markup: -->
     <tr>
         <td class="alignCenter"></td>
@@ -487,7 +487,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
         <td></td>
         <td> </td>
         <td><span></span>
-            <div id="structure_level1" style="display: none;">
+            <div id="structure_level1">
                 <select data-live-search="true"  style="font-size:14px;" name="structure_level"   title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["structure_level"];?>" >
                     <option  value="0" >Seçin...</option>
                     <?php
@@ -501,7 +501,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         <?php } }?>
                 </select>
             </div>
-            <div id="position_level1" style="display: none;">
+            <div id="position_level1">
                 <select data-live-search="true"  style="font-size:14px;" name="position_level"   title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["position_level"];?>" >
                 <option  value="0" >Seçin...</option>
 
@@ -518,7 +518,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             </div>
         </td>
         <td> <span></span>
-            <select data-live-search="true"  style="display: none;" name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
+            <select data-live-search="true"  name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
                 <option  value="0">Seçin...</option>
                 <?php
                 $result_employees_view = $db->query($sql_employees);
@@ -532,9 +532,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
         </td>
         <td>
             <span></span>
-            <input type="text" class="form-control"  style="font-size:14px;display: none;" name="st_create_date" placeholder="0000-00-00" />
-            <input type="text" class="form-control"  style="font-size:14px;display: none;" name="st_end_date" placeholder="0000-00-00" />
-            <button type="button" class="btn btn-info"  style="font-size:10px;display: none;" >+</button>
+            <input type="text" class="form-control"  style="font-size:14px;" name="st_create_date" placeholder="0000-00-00" />
+            <input type="text" class="form-control"  style="font-size:14px;" name="st_end_date" placeholder="0000-00-00" />
+            <button type="button" class="btn btn-info"  style="font-size:10px;" >+</button>
         </td>
         <td> </td>
 
@@ -572,7 +572,8 @@ for ($j = 0; $j < count($flatArray); $j++) {
 <!-- jQuery Knob Chart -->
 <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
+<script src="js/popper.min.js" type="text/javascript"></script> 
+<script src="js/moment.min.js" type="text/javascript"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
@@ -589,12 +590,11 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
 <!--<script type="text/javascript" src="js/datatables.min.js"></script>-->
 <script type="text/javascript" src="dist/js/jquery.validate.js"></script>
-<script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 <!--<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>-->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
+
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="../js/employee.js"></script>
+<script type="text/javascript" src="js/employee.js"></script>
 
 </body>
 </html>
@@ -733,7 +733,6 @@ for ($j = 0; $j < count($flatArray); $j++) {
                         // }
                     },
                     renderColumns: function(event, data) {
-
                         console.log('renderColumns',data)
                         var node = data.node,
                             $tdList = $(node.tr).find(">td");
