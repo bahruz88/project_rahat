@@ -35,10 +35,10 @@ if($result_users){
 
 
             $sub_array[] = [];//children
-             $sub_array[] = utf8_encode($row_users['code']);
-             $sub_array[] = utf8_encode($row_users['full_name']);
+            $sub_array[] = utf8_encode($row_users['code']);
+            $sub_array[] = utf8_encode($row_users['full_name']);
             $sub_array[] = utf8_encode($row_users['company']);
-           $sub_array[] = utf8_encode($row_users['struc']);
+            $sub_array[] = utf8_encode($row_users['struc']);
             $sub_array[] = utf8_encode($row_users['posit']);
             $sub_array[] = utf8_encode($row_users['struc_id']);
             $sub_array[] = utf8_encode($row_users['posit_id']);
@@ -108,10 +108,10 @@ function unflattenArray($flatArray)
     $arrrId = array();
     $arrrPId = array();
     $arrrId[]=0;
-for ($j = 0; $j < count($flatArray); $j++) {
-    $arrrId[]=$flatArray[$j][0];
-    $arrrPId[]=$flatArray[$j][2];
-}
+    for ($j = 0; $j < count($flatArray); $j++) {
+        $arrrId[]=$flatArray[$j][0];
+        $arrrPId[]=$flatArray[$j][2];
+    }
 
     //process all elements until nohting could be resolved.
     //then add remaining elements to the root one by one.
@@ -119,23 +119,23 @@ for ($j = 0; $j < count($flatArray); $j++) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
             if(in_array($flatArray[$i][2],$arrrId)){
 
-            if ($flatArray[$i][2] == NULL) {
-                //root element: set in result and ref!
-                $result[$flatArray[$i][0]] = $flatArray[$i];
-                $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
-                unset($flatArray[$i]);
-                $flatArray = array_values($flatArray);
-            } else if ($flatArray[$i][2] != NULL) {
-                //no root element. Push to the referenced parent, and add to references as well.
-                if (array_key_exists($flatArray[$i][2], $refs)) {
+                if ($flatArray[$i][2] == NULL) {
+                    //root element: set in result and ref!
+                    $result[$flatArray[$i][0]] = $flatArray[$i];
+                    $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
+                    unset($flatArray[$i]);
+                    $flatArray = array_values($flatArray);
+                } else if ($flatArray[$i][2] != NULL) {
+                    //no root element. Push to the referenced parent, and add to references as well.
+                    if (array_key_exists($flatArray[$i][2], $refs)) {
                         //parent found
                         $o = $flatArray[$i];
                         $refs[$flatArray[$i][0]] = $o;
                         $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
                         unset($flatArray[$i]);
                         $flatArray = array_values($flatArray);
+                    }
                 }
-            }
             }else {
                 unset($flatArray[$i]);
                 $flatArray = array_values($flatArray);
@@ -189,7 +189,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
     <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
     <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <!-- This demo uses an 3rd-party, jQuery UI based context menu -->
@@ -214,10 +214,10 @@ for ($j = 0; $j < count($flatArray); $j++) {
 -->
 
     <!-- Start_Exclude: This block is not part of the sample code -->
-<!--    <link href="../lib/prettify.css" rel="stylesheet" />-->
-<!--    <script src="../lib/prettify.js"></script>-->
-<!--    <link href="../demo/sample.css" rel="stylesheet" />-->
-<!--    <script src="../demo/sample.js"></script>-->
+    <!--    <link href="../lib/prettify.css" rel="stylesheet" />-->
+    <!--    <script src="../lib/prettify.js"></script>-->
+    <!--    <link href="../demo/sample.css" rel="stylesheet" />-->
+    <!--    <script src="../demo/sample.js"></script>-->
     <style>
 
         /* Context menu */
@@ -318,233 +318,233 @@ for ($j = 0; $j < count($flatArray); $j++) {
             <div class="card">
                 <div class="card-body">
 
-<h2>STRUKTUR</h2>
-<div class='context-menu text-left'>
-    <ul>
-        <li id="contentEdit"> &nbsp;<span> Redaktə et</span></li>
-<!--        <li>&nbsp;<span>Delete</span></li>-->
-    </ul>
-</div>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#" id="menyu_edit">Redaktə et </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#" id="menyu_delete">Sil  </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#" id="menyu_add">New sibling</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#" id="menyu_addChild"> New child</a>
-            </li>
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-<!--            </li>-->
-        </ul>
-    </div>
-</nav>
-<input type='hidden' value='' id='txt_id'>
-<input type='hidden' value='' id='number_id'>
-<!-- Small modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-lg">New</button>
-
-<div class="modal fade bd-example-modal-lg text-left" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Struktur</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div  id="query">
-                    <p>Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p>
-                    <div class="row TEXT-CENTER">
-
-                        <div class="col-md-6"><button type="button" class="btn btn-info" id="struktur">Strukur</button></div>
-                        <div class="col-md-6"><button type="button" class="btn btn-info" id="pozisya" >Pozisya</button></div>
+                    <h2>STRUKTUR</h2>
+                    <div class='context-menu text-left'>
+                        <ul>
+                            <li id="contentEdit"> &nbsp;<span> Redaktə et</span></li>
+                            <!--        <li>&nbsp;<span>Delete</span></li>-->
+                        </ul>
                     </div>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#" id="menyu_edit">Redaktə et </a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#" id="menyu_delete">Sil  </a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#" id="menyu_add">New sibling</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#" id="menyu_addChild"> New child</a>
+                                </li>
+                                <!--            <li class="nav-item">-->
+                                <!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+                                <!--            </li>-->
+                            </ul>
+                        </div>
+                    </nav>
+                    <input type='hidden' value='' id='txt_id'>
+                    <input type='hidden' value='' id='number_id'>
+                    <!-- Small modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-lg">New</button>
+
+                    <div class="modal fade bd-example-modal-lg text-left" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Struktur</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div  id="query">
+                                        <p>Siz "Struktur" yaratmaq isteyirsiniz yoxsa "Pozisya"?</p>
+                                        <div class="row TEXT-CENTER">
+
+                                            <div class="col-md-6"><button type="button" class="btn btn-info" id="struktur">Strukur</button></div>
+                                            <div class="col-md-6"><button type="button" class="btn btn-info" id="pozisya" >Pozisya</button></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="container" style="display: none;"  id="stQuery">
+                                        <div class="form-group row" id="employeesQuery">
+                                            <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                                            <div class="col-sm-6">
+                                                <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
+                                                    <option  value="0" >Seçin...</option>
+                                                    <?php
+                                                    $result_employees_view = $db->query($sql_employees);
+                                                    if ($result_employees_view->num_rows > 0) {
+                                                        while($row_employees= $result_employees_view->fetch_assoc()) {
+
+                                                            ?>
+                                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo utf8_encode($row_employees['firstname'])." " .utf8_encode($row_employees['lastname']);  ?></option>
+
+                                                        <?php } }?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row"  id="positionQuery">
+                                            <label class="col-sm-4 col-form-label" for="position_level"><?php echo $dil["position_level"];?></label>
+                                            <div class="col-sm-6">
+
+                                                <select data-live-search="true"  name="position_level" id="position_level"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["position_level"];?>" >
+                                                    <option  value="0" >Seçin...</option>
+
+                                                    <?php
+                                                    $result_position_view = $db->query($sql_position_level);
+                                                    if ($result_position_view->num_rows > 0) {
+                                                        while($row_position= $result_position_view->fetch_assoc()) {
+
+                                                            ?>
+                                                            <option  value="<?php echo $row_position['id']; ?>" data-icon="<?php echo $row_position['posit_icon']; ?>"  style="background-image:url(../images/icons/man2.png);"  ><?php echo  $row_position['title'];  ?></option>
+
+                                                        <?php } }?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" id="structureQuery">
+                                            <label class="col-sm-4 col-form-label" for="structure_level"><?php echo $dil["structure_level"];?></label>
+                                            <div class="col-sm-6">
+                                                <select data-live-search="true"  name="structure_level" id="structure_level"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["structure_level"];?>" >
+                                                    <option  value="0" >Seçin...</option>
+                                                    <?php
+                                                    $result_structure_view = $db->query($sql_structure_level);
+                                                    if ($result_structure_view->num_rows > 0) {
+                                                        while($row_structure= $result_structure_view->fetch_assoc()) {
+
+                                                            ?>
+                                                            <option  value="<?php echo $row_structure['id']; ?>" ><?php echo $row_structure['title'];  ?></option>
+
+                                                        <?php } }?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" id="dateQuery">
+                                            <label class="col-sm-4 col-form-label" for="st_create_date"><?php echo $dil["create_end_date"];?></label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="st_create_date" name="st_create_date" placeholder="0000-00-00" />
+                                                <input type="text" class="form-control" id="st_end_date" name="st_end_date" placeholder="0000-00-00" />
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" id="iconQuery" style="display:none;">
+                                            <label class="col-sm-4 col-form-label" for="icon"> </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="icon" name="icon"   />
+                                            </div>
+                                        </div>
+                                        <div class="row TEXT-CENTER"  id="confirmQuery">
+
+                                            <div class="col-md-12"><button type="button" class="btn btn-info" id="confirm" >Təsdiq</button></div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id="tree">
+                        <colgroup>
+                            <col width="30px" />
+                            <col width="50px" />
+                            <col width="350px" />
+                            <col width="150px" />
+                            <col width="150px" />
+                            <col width="150px" />
+                            <col width="150px" />
+                            <col width="150px" />
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id</th>
+                            <th></th>
+                            <th> Kod </th>
+                            <th> Səviyyə </th>
+                            <th> Person </th>
+                            <th>İl</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Define a row template for all invariant markup: -->
+                        <tr>
+                            <td class="alignCenter"></td>
+                            <td></td>
+                            <td></td>
+                            <td> </td>
+                            <td><span></span>
+                                <div id="structure_level1">
+                                    <select data-live-search="true"  style="font-size:14px;" name="structure_level"   title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["structure_level"];?>" >
+                                        <option  value="0" >Seçin...</option>
+                                        <?php
+                                        $result_structure_view = $db->query($sql_structure_level);
+                                        if ($result_structure_view->num_rows > 0) {
+                                            while($row_structure= $result_structure_view->fetch_assoc()) {
+
+                                                ?>
+                                                <option  value="<?php echo $row_structure['id']; ?>" ><?php echo utf8_encode($row_structure['title']);  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                </div>
+                                <div id="position_level1">
+                                    <select data-live-search="true"  style="font-size:14px;" name="position_level"   title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["position_level"];?>" >
+                                        <option  value="0" >Seçin...</option>
+
+                                        <?php
+                                        $result_position_view = $db->query($sql_position_level);
+                                        if ($result_position_view->num_rows > 0) {
+                                            while($row_position= $result_position_view->fetch_assoc()) {
+
+                                                ?>
+                                                <option  value="<?php echo $row_position['id']; ?>"  data-icon="<?php echo $row_position['posit_icon']; ?>"><?php echo utf8_encode($row_position['title']);  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                </div>
+                            </td>
+                            <td> <span></span>
+                                <select data-live-search="true"  name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
+                                    <option  value="0">Seçin...</option>
+                                    <?php
+                                    $result_employees_view = $db->query($sql_employees);
+                                    if ($result_employees_view->num_rows > 0) {
+                                        while($row_employees= $result_employees_view->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+                                        <?php } }?>
+                                </select>
+
+                            </td>
+                            <td>
+                                <span></span>
+                                <input type="text" class="form-control"  style="font-size:14px;" name="st_create_date" placeholder="0000-00-00" />
+                                <input type="text" class="form-control"  style="font-size:14px;" name="st_end_date" placeholder="0000-00-00" />
+                                <button type="button" class="btn btn-info"  style="font-size:10px;" >+</button>
+                            </td>
+                            <td> </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <pre id="sourceCode" class="prettyprint" style="display:none"></pre>
+                    <!-- End_Exclude -->
                 </div>
-
-
-                <div class="container" style="display: none;"  id="stQuery">
-                    <div class="form-group row" id="employeesQuery">
-                        <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                        <div class="col-sm-6">
-                            <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
-                                <option  value="0" >Seçin...</option>
-                                <?php
-                                $result_employees_view = $db->query($sql_employees);
-                                if ($result_employees_view->num_rows > 0) {
-                                    while($row_employees= $result_employees_view->fetch_assoc()) {
-
-                                        ?>
-                                        <option  value="<?php echo $row_employees['id']; ?>" ><?php echo utf8_encode($row_employees['firstname'])." " .utf8_encode($row_employees['lastname']);  ?></option>
-
-                                    <?php } }?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row"  id="positionQuery">
-                        <label class="col-sm-4 col-form-label" for="position_level"><?php echo $dil["position_level"];?></label>
-                        <div class="col-sm-6">
-
-                            <select data-live-search="true"  name="position_level" id="position_level"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["position_level"];?>" >
-                                <option  value="0" >Seçin...</option>
-
-                                <?php
-                                $result_position_view = $db->query($sql_position_level);
-                                if ($result_position_view->num_rows > 0) {
-                                    while($row_position= $result_position_view->fetch_assoc()) {
-
-                                        ?>
-                                        <option  value="<?php echo $row_position['id']; ?>" data-icon="<?php echo $row_position['posit_icon']; ?>"  style="background-image:url(../images/icons/man2.png);"  ><?php echo  $row_position['title'];  ?></option>
-
-                                    <?php } }?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row" id="structureQuery">
-                        <label class="col-sm-4 col-form-label" for="structure_level"><?php echo $dil["structure_level"];?></label>
-                        <div class="col-sm-6">
-                            <select data-live-search="true"  name="structure_level" id="structure_level"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["structure_level"];?>" >
-                                <option  value="0" >Seçin...</option>
-                                <?php
-                                $result_structure_view = $db->query($sql_structure_level);
-                                if ($result_structure_view->num_rows > 0) {
-                                    while($row_structure= $result_structure_view->fetch_assoc()) {
-
-                                        ?>
-                                        <option  value="<?php echo $row_structure['id']; ?>" ><?php echo $row_structure['title'];  ?></option>
-
-                                    <?php } }?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row" id="dateQuery">
-                        <label class="col-sm-4 col-form-label" for="st_create_date"><?php echo $dil["create_end_date"];?></label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="st_create_date" name="st_create_date" placeholder="0000-00-00" />
-                            <input type="text" class="form-control" id="st_end_date" name="st_end_date" placeholder="0000-00-00" />
-
-                        </div>
-                    </div>
-                    <div class="form-group row" id="iconQuery" style="display:none;">
-                        <label class="col-sm-4 col-form-label" for="icon"> </label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="icon" name="icon"   />
-                        </div>
-                    </div>
-                    <div class="row TEXT-CENTER"  id="confirmQuery">
-
-                        <div class="col-md-12"><button type="button" class="btn btn-info" id="confirm" >Təsdiq</button></div>
-                    </div>
-                </div>
-
-
-
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<table id="tree">
-    <colgroup>
-        <col width="30px" />
-        <col width="50px" />
-        <col width="350px" />
-        <col width="150px" />
-        <col width="150px" />
-        <col width="150px" />
-        <col width="150px" />
-        <col width="150px" />
-    </colgroup>
-    <thead>
-    <tr>
-        <th></th>
-        <th>Id</th>
-        <th></th>
-        <th> Kod </th>
-        <th> Səviyyə </th>
-        <th> Person </th>
-        <th>İl</th>
-        <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Define a row template for all invariant markup: -->
-    <tr>
-        <td class="alignCenter"></td>
-        <td></td>
-        <td></td>
-        <td> </td>
-        <td><span></span>
-            <div id="structure_level1">
-                <select data-live-search="true"  style="font-size:14px;" name="structure_level"   title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["structure_level"];?>" >
-                    <option  value="0" >Seçin...</option>
-                    <?php
-                    $result_structure_view = $db->query($sql_structure_level);
-                    if ($result_structure_view->num_rows > 0) {
-                        while($row_structure= $result_structure_view->fetch_assoc()) {
-
-                            ?>
-                            <option  value="<?php echo $row_structure['id']; ?>" ><?php echo utf8_encode($row_structure['title']);  ?></option>
-
-                        <?php } }?>
-                </select>
-            </div>
-            <div id="position_level1">
-                <select data-live-search="true"  style="font-size:14px;" name="position_level"   title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["position_level"];?>" >
-                <option  value="0" >Seçin...</option>
-
-                <?php
-                $result_position_view = $db->query($sql_position_level);
-                if ($result_position_view->num_rows > 0) {
-                    while($row_position= $result_position_view->fetch_assoc()) {
-
-                        ?>
-                        <option  value="<?php echo $row_position['id']; ?>"  data-icon="<?php echo $row_position['posit_icon']; ?>"><?php echo utf8_encode($row_position['title']);  ?></option>
-
-                    <?php } }?>
-            </select>
-            </div>
-        </td>
-        <td> <span></span>
-            <select data-live-search="true"  name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
-                <option  value="0">Seçin...</option>
-                <?php
-                $result_employees_view = $db->query($sql_employees);
-                if ($result_employees_view->num_rows > 0) {
-                    while($row_employees= $result_employees_view->fetch_assoc()) {
-                        ?>
-                        <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
-                    <?php } }?>
-            </select>
-
-        </td>
-        <td>
-            <span></span>
-            <input type="text" class="form-control"  style="font-size:14px;" name="st_create_date" placeholder="0000-00-00" />
-            <input type="text" class="form-control"  style="font-size:14px;" name="st_end_date" placeholder="0000-00-00" />
-            <button type="button" class="btn btn-info"  style="font-size:10px;" >+</button>
-        </td>
-        <td> </td>
-
-    </tr>
-    </tbody>
-</table>
-
-<pre id="sourceCode" class="prettyprint" style="display:none"></pre>
-<!-- End_Exclude -->
-            </div>
             </div>
         </div>
     </div>
@@ -914,7 +914,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             //     ID=data.childNode.data.id;
                             //     delet="id"
                             // }else
-                                if(silArray.data.id){
+                            if(silArray.data.id){
                                 ID=silArray.data.id;
                                 delet="id"
                             }else {
@@ -1248,7 +1248,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             type: "POST",
             data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date},
             success: function (data) {
-                  // console.log('dataaaaaaaaaa=' , data);
+                // console.log('dataaaaaaaaaa=' , data);
                 console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                 var tree = $('#tree').fancytree('getTree');
                 tree.reload($.parseJSON(data));
@@ -1465,9 +1465,9 @@ for ($j = 0; $j < count($flatArray); $j++) {
         $("#tree").trigger("nodeCommand", { cmd: 'remove' });
     })
     $(document).on('click', '#menyu_add', function(e) {
-      addNew=0;
-      console.log('sssss')
-         $("#tree").trigger("nodeCommand", { cmd: "addSibling"});
+        addNew=0;
+        console.log('sssss')
+        $("#tree").trigger("nodeCommand", { cmd: "addSibling"});
     })
     $(document).on('click', '#menyu_addChild', function(e) {
         addNew=0;
