@@ -66,7 +66,7 @@ function createArray($arrC){
         $arrCh['icon'] = $arrCh[14];
         $arrCh['posit_icon'] = $arrCh[15];
 //        $arrCh['children'] = $arrCh[5];
-        $arrCh['expanded'] = false;
+        $arrCh['expanded'] = true;
         $arrCh['folder'] = true;
         if(count($arrCh[5])>0){
 
