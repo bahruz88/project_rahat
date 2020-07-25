@@ -425,7 +425,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     <button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-lg">New</button>
 
                     <div class="modal fade bd-example-modal-lg text-left" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+                         <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Struktur</h5>
@@ -525,7 +525,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             </div>
         </div>
     </div>
-</div>
+                    </div>
 
                     <table id="tree">
                         <colgroup>
@@ -614,26 +614,26 @@ for ($j = 0; $j < count($flatArray); $j++) {
                     </table>
                     <div class="text-center">
                     <!-- Button HTML (to Trigger Modal) -->
-                        <a href="#myModal" class="trigger-btn" data-toggle="modal"  style="display:none;">Click to Open Confirm Modal</a>
+                        <a href="#deleteModal" id="deleteModalClick" class="trigger-btn" data-toggle="modal"  style="display:none;">Click to Open Confirm Modal</a>
                     </div>
 
                     <!-- Modal HTML -->
-                     <div id="myModal" class="modal fade">
+                     <div id="deleteModal" class="modal fade">
                          <div class="modal-dialog modal-confirm">
                              <div class="modal-content">
                                  <div class="modal-header flex-column">
                                      <div class="icon-box">
                                          <i class="material-icons">&#xE5CD;</i>
                                      </div>
-                                     <h4 class="modal-title w-100">Are you sure?</h4>
+                                     <h4 class="modal-title w-100">Siz əminsiniz?</h4>
                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                  </div>
                                  <div class="modal-body">
-                                     <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                     <p>Həqiqətən bu qeydləri silmək istəyirsiniz? Bu prosesi geri qaytarmaq olmaz.</p>
                                  </div>
                                  <div class="modal-footer justify-content-center">
-                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                     <button type="button" class="btn btn-danger">Delete</button>
+                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">İmtina et</button>
+                                     <button type="button" class="btn btn-danger" id="deleteItem">Sil</button>
                                  </div></div>
                          </div>
                      </div>
@@ -1004,11 +1004,12 @@ for ($j = 0; $j < count($flatArray); $j++) {
                             console.log('data.cmd==',data.cmd)
                             var ID;
                             var delet;
-                            // if(data.childNode){
+
+                            // if(data.childNode){//deleteModal
                             //     ID=data.childNode.data.id;
                             //     delet="id"
                             // }else
-                                if(silArray.data.id){
+                            if(silArray.data.id){
                                 ID=silArray.data.id;
                                 delet="id"
                             }else {
@@ -1064,7 +1065,19 @@ for ($j = 0; $j < count($flatArray); $j++) {
                                 $('#butModal').trigger('click');
 
                             }else{
-                                tree.applyCommand(data.cmd, node);
+                                if(data.cmd=='remove'){
+                                    $('#deleteModalClick').trigger('click');
+                                    $('#deleteItem').on('click',function(){
+                                        // do your stuffs with id
+                                        console.log('sildim')
+                                        tree.applyCommand(data.cmd, node);
+                                        // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
+                                        $('#deleteModal').modal('hide'); // now close modal
+                                    })
+                                }else{
+                                    tree.applyCommand(data.cmd, node);
+                                }
+
                             }
 
 
@@ -1584,6 +1597,7 @@ for ($j = 0; $j < count($flatArray); $j++) {
             // startDate: new Date()
         });
     });
+
 </script>
 
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
