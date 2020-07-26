@@ -17,21 +17,21 @@ if($result_users){
 
             $sub_array   = array();
             $sub_array[] = $row_users['id'];
-            $sub_array[] = utf8_encode($row_users['category']);
+            $sub_array[] = ($row_users['category']);
             $sub_array[] = $row_users['parent'];
             $sub_array[] = $row_users['create_date'];
             $sub_array[] = $row_users['end_date'];
 
 
             $sub_array[] = [];//children
-            $sub_array[] = utf8_encode($row_users['code']);
-            $sub_array[] = utf8_encode($row_users['full_name']);
-            $sub_array[] = utf8_encode($row_users['company']);
-            $sub_array[] = utf8_encode($row_users['struc']);
-            $sub_array[] = utf8_encode($row_users['posit']);
-            $sub_array[] = utf8_encode($row_users['struc_id']);
-            $sub_array[] = utf8_encode($row_users['posit_id']);
-            $sub_array[] = utf8_encode($row_users['emp_id']);
+            $sub_array[] = ($row_users['code']);
+            $sub_array[] = ($row_users['full_name']);
+            $sub_array[] = ($row_users['company']);
+            $sub_array[] = ($row_users['struc']);
+            $sub_array[] = ($row_users['posit']);
+            $sub_array[] = ($row_users['struc_id']);
+            $sub_array[] = ($row_users['posit_id']);
+            $sub_array[] = ($row_users['emp_id']);
             $sub_array[] = $row_users['icon'];
             $sub_array[] = $row_users['posit_icon'];
             $data[]     = $sub_array;
@@ -66,7 +66,7 @@ function createArray($arrC){
         $arrCh['icon'] = $arrCh[14];
         $arrCh['posit_icon'] = $arrCh[15];
 //        $arrCh['children'] = $arrCh[5];
-        $arrCh['expanded'] = false;
+        $arrCh['expanded'] = true;
         $arrCh['folder'] = true;
         if(count($arrCh[5])>0){
 
