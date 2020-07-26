@@ -330,8 +330,16 @@ for ($j = 0; $j < count($flatArray); $j++) {
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+		
+            <li >
+              
+		       <a class="btn btn-app" id="menyu_edit">
+                  <i class="fas fa-edit"></i> Edit
+                </a>   
+		</li>
             <li class="nav-item active">
-                <a class="nav-link" href="#" id="menyu_edit">Redaktə et </a>
+              
+		  <a class="nav-link" href="#" id="menyu_edit">Redaktə et </a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#" id="menyu_delete">Sil  </a>
