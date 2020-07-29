@@ -16,6 +16,7 @@ $db->set_charset('utf8');
    $tbl_emp_lang='tbl_languages' ;
    $tbl_roles='tbl_roles' ;
    $tbl_employees='tbl_employees' ;
+   $tbl_structure_roles='tbl_structure_roles';
    $tbl_education='tbl_employee_education' ;
    $tbl_qualification_dic='tbl_qualification_dic' ;
    $tbl_universities='tbl_universities';

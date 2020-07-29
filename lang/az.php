@@ -264,6 +264,13 @@ $dil = array(
 
 	"create_end_date"   =>"Yaranma - bitmə tarixi",
 	"structure_level"   =>"Struktur səviyyəsi",
-	"position_level"   =>"Pozisya səviyyəsi" 
+	"structure_role"   =>"Struktur rolu",
+	"general_info"   =>"Əsas məlumatlar",
+	"position"   =>"Pozisya",
+	"icon"   =>"İcon",
+	"percent"   =>"Faiz",
+	"start_date"   =>"Başlama tarixi",
+	"end_date"   =>"Bitmə tarixi",
+	"position_level"   =>"Pozisya səviyyəsi"
 );
 ?>
