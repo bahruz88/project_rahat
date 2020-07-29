@@ -897,13 +897,13 @@ $message=$dil["selectone"];
    );*/
 	
 var table = $("#sch_table").DataTable({
-	
+	"scrollX": true,
   "paging": true,
       "lengthChange": false,
       "searching": true,
       "ordering": true,
       "info": true,
-      "autoWidth": false,
+      "autoWidth": true,
 
 	    "language": {
             "lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
