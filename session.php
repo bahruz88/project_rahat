@@ -1,5 +1,6 @@
 <?php 
   session_start();
+  $_SESSION["dil"]='az';
    include('config/config.php');
    $user_check = $_SESSION['login_user'];
    $uid = $_SESSION['uid'];

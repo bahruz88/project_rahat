@@ -50,8 +50,14 @@ $db->set_charset('utf8');
    $sql_qua_dic = "select * from $tbl_qualification_dic ";
    $sql_university= "select * from $tbl_universities where status=1 ";
    $sql_emp_lang= "select * from $tbl_emp_lang ";
-   $site_lang=$_SESSION['dil'] ;
-   
+  if(!isset($_SESSION['login_user'])){
+       $site_lang='az' ;
+   }else 
+   {
+	$site_lang=$_SESSION['dil'] ;
+	   
+   }	   
+    
    $sql_yesno= "select * from $tbl_yesno where lang='$site_lang' ";
    $sql_exist_not_exist= "select * from $tbl_exist_not_exist where lang='$site_lang'";
 
