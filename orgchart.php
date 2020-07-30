@@ -58,6 +58,9 @@
             font-size:20px;
             font-weight: 700;
         }
+        body {
+            width: auto !important;
+        }
     </style>
     <script type='text/javascript' src='js/jquery.js'></script>
     <script src="js/jquery.orgchart.js"></script>

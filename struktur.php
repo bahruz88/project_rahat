@@ -1143,10 +1143,6 @@ $sql_position= "select * from $tbl_employee_category";
                             var ID;
                             var delet;
 
-                            // if(data.childNode){//deleteModal
-                            //     ID=data.childNode.data.id;
-                            //     delet="id"
-                            // }else
                             if(silArray.data.id){
                                 ID=silArray.data.id;
                                 delet="id"
@@ -1162,8 +1158,9 @@ $sql_position= "select * from $tbl_employee_category";
                                 type: "POST",
                                 data: {id:ID,delet:delet},
                                 success: function (data) {
-                                    console.log('data=' + data)
+
                                     if(data){
+                                        console.log('data=' + data);
                                         tree = $('#tree').fancytree('getTree');
                                         tree.reload($.parseJSON(data));
                                     }else{
@@ -1183,6 +1180,7 @@ $sql_position= "select * from $tbl_employee_category";
                         moveMode,
                         tree = $.ui.fancytree.getTree(this),
                         node = tree.getActiveNode();
+                    console.log('node cagirdim /////////////////////////////////////////',node)
 
                     switch (data.cmd) {
 
@@ -1207,8 +1205,10 @@ $sql_position= "select * from $tbl_employee_category";
                                     $('#deleteModalClick').trigger('click');
                                     $('#deleteItem').on('click',function(){
                                         // do your stuffs with id
-                                        console.log('sildim')
-                                        tree.applyCommand(data.cmd, node);
+                                        console.log('sildim',data.cmd)
+                                        console.log('silArray',silArray)
+                                        console.log('addNew',addNew)
+                                        tree.applyCommand(data.cmd, silArray);
                                         // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
                                         $('#deleteModal').modal('hide'); // now close modal
                                     })

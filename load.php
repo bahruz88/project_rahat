@@ -11,14 +11,15 @@ if($result_position){
         while($row_users = $result_position->fetch_assoc()) {
 //            $zNodeArray["user"]=$row_users['user'];
 //            $zNodeArray.array_push({"id":userIdArray[j], "pId":parentArray[j],"name":userArray[j],"open":open});
-
-            $sub_array   = array();
-            $sub_array[] = $row_users['id'];
-            $sub_array[] = ($row_users['parent']);
-            $sub_array[] = ($row_users['category']);
-            $sub_array[] = ($row_users['full_name']);
-            $data[]     = $sub_array;
-
+            if(substr($row_users['code'],0,1)!="P"){
+                $sub_array   = array();
+                $sub_array[] = $row_users['id'];
+                $sub_array[] = ($row_users['parent']);
+                $sub_array[] = ($row_users['category']);
+                $sub_array[] = ($row_users['full_name']);
+                $sub_array[] = ($row_users['code']);
+                $data[]     = $sub_array;
+            }
         }
 
     }
