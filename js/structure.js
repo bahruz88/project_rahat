@@ -380,23 +380,38 @@ function treeClick(trList){
                 $('#tablePositions').find('tbody').html('');
                 $.each(jQuery.parseJSON(data), function(k,v){
                     option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'">'+v[2]+'</option>';
-                    row +='<tr data-id="'+v[0]+'"> '  +
+                    row +='<tr data-id="'+v[0]+'" data-positcode="'+v[2]+'"> '  +
                         ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
                         ' <td>'+v[2]+'</td>  '  +
-                        ' <td class="myText" data-val="percent">100</td>  '  +
-                        ' <td class="myText" data-val="start_date">'+v[4]+'</td>  '  +
-                        ' <td class="myText" data-val="end_date">'+v[5]+'</td>  '  +
+                        ' <td class="myText" data-val="percent">'+v[7]+'</td>  '  +
+                        ' <td class="myText" id="start_date">'+v[4]+'</td>  '  +
+                        ' <td class="myText" id="end_date">'+v[5]+'</td>  '  +
                         '</tr>  ';
                 });
                 $('#tablePositions').find('tbody').html(row);
                 $('#positionList').html(option);
                 $('.myText').on('click', function() {
-                    console.log('myText')
+
                     var div = $(this);
                     var dataVal = $(this).attr('data-val');
+                    var positcode = $(this).closest('tr').attr('data-positcode');
+                    var start_date = $(this).closest('tr').find('#start_date').text();
+                    var end_date = $(this).closest('tr').find('#end_date').text();
+                    console.log('myText='+start_date+'=en='+end_date);
                     var tb = div.find('input:text');//get textbox, if exist
                     if (tb.length) {//text box already exist
                         div.text(tb.val());//remove text box & put its current value as text to the div
+                        $.ajax({
+                            url: 'st_insertRole.php',
+                            type: "POST",
+                            data: {  posit_code:positcode,role_id:'', role_start_date:start_date,role_end_date:end_date, percent:tb.val()},
+                            success: function (data) {
+                                console.log('dataaaaaaaaaa=' , data);
+                                // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                                // var tree = $('#tree').fancytree('getTree');
+                                // tree.reload($.parseJSON(data));
+                            },
+                        });
                     } else {
                             tb = $('<input>').prop({
                                 'type': 'text',
@@ -448,15 +463,15 @@ $(function () {
     });
     $("#confirmRole").click(function() {
         console.log('confirmRole change');
-       var role_id= $('#positionList option:selected').val();
-       var posit_code= $('#roles option:selected').val();
+       var role_id=  $('#roles option:selected').val();
+       var posit_code=$('#positionList option:selected').text();
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
-        console.log('confirmRole change');
+        console.log('confirmRole change'+posit_code);
         $.ajax({
             url: 'st_insertRole.php',
             type: "POST",
-            data: { role_id:role_id, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date, percent:100},
+            data: { role_id:role_id, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
             success: function (data) {
                 console.log('dataaaaaaaaaa=' , data);
                 // console.log('dataaaaaaaaaa=' , $.parseJSON(data));

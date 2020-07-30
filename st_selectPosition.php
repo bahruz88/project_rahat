@@ -10,19 +10,43 @@ $result_position = $db->query($sql_positions);
 if($result_position){
     if ($result_position->num_rows > 0) {
         while($row_users = $result_position->fetch_assoc()) {
-//            $zNodeArray["user"]=$row_users['user'];
-//            $zNodeArray.array_push({"id":userIdArray[j], "pId":parentArray[j],"name":userArray[j],"open":open});
 
-            $sub_array   = array();
-            $sub_array[] = $row_users['id'];
-            $sub_array[] = ($row_users['category']);
-            $sub_array[] = ($row_users['code']);
-            $sub_array[] = $row_users['parent'];
+            $code=$row_users["code"];
 
-            $sub_array[] = $row_users['create_date'];
-            $sub_array[] = $row_users['end_date'];
-            $sub_array[] = $row_users['icon'];
-            $data[]     = $sub_array;
+             $structure_positions= "select * from $tbl_structure_positions WHERE posit_code = '$code'";
+             $result_structure_positions = $db->query($structure_positions);
+            if($result_structure_positions->num_rows > 0) {
+                while($row_structure_positions = $result_structure_positions->fetch_assoc()) {
+                    $sub_array = array();
+                    $sub_array[] = $row_users['id'];
+                    $sub_array[] = ($row_users['category']);
+                    $sub_array[] = ($row_users['code']);
+
+                    $sub_array[] = $row_users['parent'];
+
+                    $sub_array[] = $row_structure_positions['start_date'];
+                    $sub_array[] = $row_structure_positions['end_date'];
+                    $sub_array[] = $row_users['icon'];
+                    $sub_array[] = ($row_structure_positions['percent']);
+                    $data[] = $sub_array;
+                }
+
+            }else{
+                $sub_array = array();
+                $sub_array[] = $row_users['id'];
+                $sub_array[] = ($row_users['category']);
+                $sub_array[] = ($row_users['code']);
+
+                $sub_array[] = $row_users['parent'];
+
+                $sub_array[] = $row_users['create_date'];
+                $sub_array[] = $row_users['end_date'];
+                $sub_array[] = $row_users['icon'];
+                $sub_array[] = 100;
+                $data[] = $sub_array;
+            }
+
+
 
         }
 

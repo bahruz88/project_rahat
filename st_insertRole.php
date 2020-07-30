@@ -9,7 +9,11 @@ $role_id                = $_POST['role_id'];
 $posit_code               = $_POST['posit_code'];
 $start_date             = $_POST['role_start_date'];
 $end_date    = $_POST['role_end_date'];
-$percent    = $_POST['percent'];
+$percent='';
+if(isset($_POST['percent'])){
+    $percent    = $_POST['percent'];
+}
+
 
 $start_date = strtr( $start_date , '/', '-');
 $start_date= date('Y-m-d', strtotime($start_date));
@@ -17,19 +21,35 @@ $start_date= date('Y-m-d', strtotime($start_date));
 $end_date = strtr( $end_date , '/', '-');
 $end_date= date('Y-m-d', strtotime($end_date));
 
-    $sql = "INSERT INTO tbl_structure_positions( 
+$users= "select * from $tbl_structure_positions WHERE posit_code = '$posit_code'";
+//    echo $users;
+$result_users = $db->query($users);
+if($result_users->num_rows > 0) {
+    $sql = "UPDATE  $tbl_structure_positions SET
+		role_id  = '$role_id',
+		posit_code  = '$posit_code',
+		start_date  = '$start_date',";
+    if($percent!=''){
+        $sql.=" percent  = '$percent', ";
+    }
+    $sql.="end_date  = '$end_date'
+		WHERE posit_code 	= '$posit_code'";
+}else{
+    $sql = "INSERT INTO $tbl_structure_positions( 
 	 id, role_id, posit_code,start_date,end_date) 
 	 VALUES (NULL, '$role_id','$posit_code','$start_date','$end_date')";
+}
+
 
 
 
 
 
 if(!mysqli_query($db, $sql)) {
-    echo "error=".$pId.'=' .mysqli_error($db);
+    echo "error=".$sql.'=' .mysqli_error($db);
 }
 else {
-  echo "success" ;
+  echo "success".$sql ;
 }
 
 //Close connection
