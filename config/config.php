@@ -8,6 +8,7 @@ header('Content-type: text/html; charset=utf-8');
 $db->set_charset('utf8');
    $tbl_users='tbl_users' ;
    $tbl_employee_category='tbl_employee_category';
+   $tbl_structure_positions='tbl_structure_positions';
    $tbl_position_level='tbl_position_level';
    $tbl_structure_level='tbl_structure_level';
    $tbl_employee_position='tbl_employee_position';

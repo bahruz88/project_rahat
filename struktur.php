@@ -672,13 +672,17 @@ $sql_position= "select * from $tbl_employee_category";
                             <div class="card-body tab-alt">
                                 <!-- Tab panes -->
                                 <div class="tab-content" >
-                                    <div class="tab-pane active" id="structure_roles">
+                                    <div class="tab-pane " id="structure_roles">
+                                        <div class="form-group  row">
+                                            <button type="button" class="btn btn-info" id="confirmRole" ><i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i></button>
+
+                                        </div>
 
                                         <div class="form-group  row">
                                             <div class="col-md-1">
                                                 <label class=" col-form-label" for="roles"><?php echo $dil["structure_role"];?></label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <select data-live-search="true"  name="roles" id="roles"  title="<?php echo $dil["selectone"];?>" class="form-control"  placeholder="<?php echo $dil["structure_role"];?>" >
                                                     <option  value="0" >Seçin...</option>
                                                     <?php
@@ -695,37 +699,40 @@ $sql_position= "select * from $tbl_employee_category";
                                                     }?>
                                                 </select>
                                             </div>
+                                            <div class="col-md-2">
+                                                <label class=" col-form-label" for="role_start_date"><?php echo $dil["start_date"];?></label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="role_start_date" name="role_start_date" placeholder="0000-00-00" />
+
+                                            </div>
                                         </div>
                                         <div class="form-group  row">
                                             <div class="col-md-1">
-                                                <label class=" col-form-label" for="position"><?php echo $dil["position"];?></label>
+                                                <label class=" col-form-label" for="positionList"><?php echo $dil["position"];?></label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select data-live-search="true"  name="position" id="position"  title="<?php echo $dil["selectone"];?>" class="form-control"  placeholder="<?php echo $dil["position"];?>" >
-                                                    <option  value="0" >Seçin...</option>
-                                                    <?php
-                                                    $result_structure_roles = $db->query($sql_structure_roles);
-                                                    if($result_structure_roles){
-                                                        if ($result_structure_roles->num_rows > 0) {
-                                                            while($row_structure_roles = $result_structure_roles->fetch_assoc()) {
+                                            <div class="col-md-5">
+                                                <select data-live-search="true"  name="positionList" id="positionList"  title="<?php echo $dil["selectone"];?>" class="form-control"  placeholder="<?php echo $dil["position"];?>" >
 
-                                                                ?>
-                                                                <option  value="<?php echo $row_structure_roles['id']; ?>" ><?php echo  $row_structure_roles['role'];  ?></option>
-
-                                                            <?php }
-                                                        }
-                                                    }?>
                                                 </select>
                                             </div>
+                                            <div class="col-md-2">
+                                                <label class=" col-form-label" for="role_end_date"><?php echo $dil["end_date"];?></label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="role_end_date" name="role_end_date" placeholder="0000-00-00" />
+
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="general_info">
+                                    <div class="tab-pane active" id="general_info">
 
 
                                         <div class="panel">
                                             <div class="form-group  row">
 
-                                                <div class="col-md-6">
+                                                <div class="col-md-8">
                                                     <table class="table table-striped" id="tablePositions">
                                                         <thead>
                                                         <tr>
@@ -811,6 +818,7 @@ $sql_position= "select * from $tbl_employee_category";
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="js/employee.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <script type="text/javascript">
     var CLIPBOARD = null;
     var myJSON;
@@ -824,6 +832,7 @@ $sql_position= "select * from $tbl_employee_category";
     var tree_e=[];
     var addNew=0;
     var tree=[];
+    var trList;
     $(function() {
         var subArray =  <?php echo json_encode(unflattenArray($flatArray)); ?>;
         idArray =  <?php echo json_encode($idArray); ?>;
@@ -833,7 +842,6 @@ $sql_position= "select * from $tbl_employee_category";
         pushOldu(subArray)
         function pushOldu(subArray) {
             console.log('subArray=', subArray)
-
             $("#tree")
                 .fancytree({
                     checkbox: true,
@@ -956,7 +964,10 @@ $sql_position= "select * from $tbl_employee_category";
                         // console.log('renderColumns',data)
                         var node = data.node,
                             $tdList = $(node.tr).find(">td");
+                            trList = $(node.tr);
+
                         $tdList.eq(1).text(node.data.id);
+                        $(node.tr).attr('data-id',node.data.id);
                         //*men
                         $tdList
                             .eq(3)
@@ -1089,6 +1100,7 @@ $sql_position= "select * from $tbl_employee_category";
                         // $tdList.eq(3).html("<input type='input' value='"  "" + "'>");
                         // ...
                         sagClick(node.data.id);
+                        treeClick(trList)
                     },
                     modifyChild: function(event, data) {
                         console.log('modifyChild event.type='+event.type)
@@ -1379,410 +1391,13 @@ $sql_position= "select * from $tbl_employee_category";
         }
 
     });
-    stClick();
-    function stClick() {
-        $(document).on('click', '#struktur', function (e) {
-            console.log('a2')
-            $('#query').css('display', 'none')
-            $('#stQuery').css('display', 'block')
-            $('#employeesQuery').css('display', 'none');
-            $('#positionQuery').css('display', 'none');
-            $('#dateQuery').css('display', 'block')
-            $('#confirmQuery').css('display', 'block')
-            $('#structureQuery').css('display', 'block')
-            $(document).off('click', '#pozisya');
-            $(document).off('click', '#struktur');
-            confirmClick();
-        });
-        $(document).on('click', '#pozisya', function (e) {
-            console.log('a3');
-            $('#query').css('display', 'none')
-            $('#stQuery').css('display', 'block')
-            $('#employeesQuery').css('display', 'block')
-            $('#positionQuery').css('display', 'block')
-            $('#dateQuery').css('display', 'block')
-            $('#confirmQuery').css('display', 'block')
-            $('#structureQuery').css('display', 'none')
-            $(document).off('click', '#pozisya');
-            $(document).off('click', '#struktur');
-
-            confirmClick();
-        });
-    }
-
-    function confirmClick(e){
-        $(document).on("click", "#confirm", function(e){
-            console.log('confirm col ');
-            var employee=$('#employeesQuery option:selected').val()
-            var structure_level=$('#structure_level option:selected').val()
-            var position_level=$('#position_level option:selected').val()
-
-            var st_create_date=$('#st_create_date').val()!='' ? $('#st_create_date').val() :'1900-01-01';
-            var st_end_date=$('#st_end_date').val()!='' ? $('#st_end_date').val() :'9999-12-31';
-
-            if(validate(st_create_date)){
-                $('#stQuery').css('display','none')
-
-                if(structure_level!=0){
-                    $('#icon').val('images/icons/box1.png')
-                }
-                if(position_level!=0){
-                    $('#icon').val($('#position_level option:selected').attr('data-icon'))
-                }
-                $('#structure_level').find('option[value="0"]').prop('selected', true);
-                $('#position_level').find('option[value="0"]').prop('selected', true);
-                $('#employee').find('option[value="0"]').prop('selected', true);
-                var icon=$('#icon').val();
-                if(eventArray){
-                    createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon);
-
-                }else{
-                    createNew('yeni', 0, employee,structure_level,position_level,st_create_date,st_end_date,icon);
-
-                }
-                $('#st_create_date').val('')
-                $('#st_end_date').val('')
-                $('.close').trigger('click');
-                $(document).off('click', '#pozisya');
-                $(document).off('click', '#struktur');
-                $(document).off('click', '#confirm');
-                // confirmClick().remove()
-            }
-
-
-        });
-
-    }
-    function validate(st_create_date){
-
-        console.log('st_create_date='+st_create_date+'='+createDateParent)
-        // console.log('st_create_date='+date.toString('dd-MM-yy');+'='+createDateParent)
-        var dateAr = createDateParent.split('-');
-        dateAr = dateAr[1] + '/' + dateAr[2] + '/' + dateAr[0];
-
-        var dateAr2 = st_create_date.split('/');
-        dateAr2 = dateAr2[1] + '/' + dateAr2[0] + '/' + dateAr2[2];
-
-        console.log('dateAr2='+dateAr2+'='+dateAr)
-        console.log('st_create_date='+Date.parse(dateAr2)+'='+Date.parse(dateAr))
-
-        if(Date.parse(dateAr2)<Date.parse(dateAr)){
-            console.log('kicikdr');
-            Swal.fire({
-                icon: 'error',
-                title: 'Xəbərdarlıq',
-                text: 'Başlama tarixi əsas strukturun tarixindən əvvəl ola bilməz!',
-                // footer: '<a href>Why do I have this issue?</a>'
-            })
-            return false;
-        }
-        return true;
-    }
-    function createNew(event,data,employee,structure_level,position_level,st_create_date,st_end_date,icon){
-        // console.log('data',createRequestNumber(8))
-        console.log('eventeventeventevent',event)
-        console.log('data.cmd==',data.cmd)
-        var PID;
-        var title;
-
-        if (data==0){
-            PID=0;
-            title='Yeni';
-        }else if(data.node.parent.data.id){
-            PID=data.node.parent.data.id;
-            title=data.node.title;
-
-        }else if(data.node.parent.children[0].data.pId){
-            PID=data.node.parent.children[0].data.pId;
-            title=data.node.title;
-        }else if(data.node.title &&(!data.node.parent.children[0].data.pId || !data.node.parent.data.id)  ){
-            title=data.node.title;
-            PID=0;
-        }
-
-        console.log('PID=='+PID);
-        console.log('title=='+title);
-        console.log('st_create_date=='+st_create_date);
-        $.ajax({
-            url: 'st_insert.php',
-            type: "POST",
-            data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date},
-            success: function (data) {
-                // console.log('dataaaaaaaaaa=' , data);
-                console.log('dataaaaaaaaaa=' , $.parseJSON(data));
-                var tree = $('#tree').fancytree('getTree');
-                tree.reload($.parseJSON(data));
-            },
-        });
-
-    }
-
-    function sagClick(number){
-        // Hide context menu
-        $(document).bind('contextmenu click',function(){
-            $(".context-menu").hide();
-            $("#txt_id").val("");
-            $("#number_id").val("");
-
-        });
-
-        // disable right click and show custom context menu
-
-        $("#idst"+number).bind('contextmenu', function (e) {
-
-            var id = this.id;
-            $("#txt_id").val(id);
-            $("#number_id").val(number);
-            console.log('number_id[='+$("#number_id").val())
-            // var top = e.pageY+5;
-            // var left = e.pageX;
-            var top = e.pageY-90;
-            var left = e.pageX-215;
-
-            $(".context-menu").toggle(100).css({
-                top: top + "px",
-                left: left + "px"
-
-            });
-
-            // Disable default menu
-            return false;
-        });
-
-        $("#idemp"+number).bind('contextmenu', function (e) {
-
-            var id = this.id;
-            $("#txt_id").val(id);
-            $("#number_id").val(number);
-            console.log('number_id[='+$("#number_id").val())
-            var top = e.pageY-90;
-            var left = e.pageX-215;
-
-            // Show contextmenu
-            $(".context-menu").toggle(100).css({
-                top: top + "px",
-                left: left + "px"
-            });
-
-            // Disable default menu
-            return false;
-        });
-
-        $("#idyear"+number).bind('contextmenu', function (e) {
-
-            var id = this.id;
-            $("#txt_id").val(id);
-            $("#number_id").val(number);
-            console.log('number_id[='+$("#number_id").val())
-            var top = e.pageY-90;
-            var left = e.pageX-215;
-
-            // Show contextmenu
-            $(".context-menu").toggle(100).css({
-                top: top + "px",
-                left: left + "px"
-            });
-            // Disable default menu
-            return false;
-        });
-
-
-        // disable context-menu from custom menu
-        $('.context-menu').bind('contextmenu',function(){
-            return false;
-        });
-
-        // Clicked context-menu item
-        $('.context-menu li').click(function(){
-            var className = $(this).find("span:nth-child(1)").attr("class");
-            var titleid = $('#txt_id').val();
-            $( "#"+ titleid ).css( "background-color", className );
-            $(".context-menu").hide();
-        });
-
-
-        // Clicked context-menu item
-        $('#contentEdit').click(function(){
-            var idCont = $('#txt_id').val();
-            if(idCont){
-                console.log('idCont='+idCont)
-                $('#'+idCont).find('span').css('display','none')
-                $('#'+idCont).find('select').css('display','block')
-                $('#'+idCont).find('input').css('display','block')
-                $('#'+idCont).find('button').css('display','block')
-            }
-
-        });
-        // Clicked context-menu item
-        $("#idst"+number).find('select').change(function(){
-            console.log('contentEdit change'+$(this).attr('name'));
-            if($(this).find('option:selected').val()!='0'){
-                $(this).closest('td').find('span').text($(this).find('option:selected').text())
-            }else{
-                $(this).closest('td').find('span').text('')
-            }
-
-            $(this).closest('td').find('span').css('display','block')
-            $(this).css('display','none');
-            var thisName=$(this).attr('name')
-            var thisVal=$(this).find('option:selected').val()
-            var icon='images/icons/box1.png'
-
-            if(thisName=='structure_level'){
-                $('#icon').val('images/icons/box1.png')
-            }else {
-                $('#icon').val($('#position_level option:selected').attr('data-icon'))
-            }
-
-
-            $.ajax({
-                url: 'st_update.php',
-                type: "POST",
-                data: { id:number, name:thisVal,change:thisName},
-                success: function (data) {
-                    console.log('dataaaaaaa=' + data)
-                    var tree = $('#tree').fancytree('getTree');
-                    tree.reload($.parseJSON(data));
-
-                },
-            });
-        });
-
-
-        $("#idemp"+number).find('select').change(function(){
-            console.log('contentEdit change'+$(this).attr('name'));
-            if($(this).find('option:selected').val()!='0'){
-                $(this).closest('td').find('span').text($(this).find('option:selected').text())
-            }else{
-                $(this).closest('td').find('span').text('')
-            }
-
-            $(this).closest('td').find('span').css('display','block')
-            $(this).css('display','none');
-            var thisName='emp_id'
-            var thisVal=$(this).find('option:selected').val()
-            $.ajax({
-                url: 'st_update.php',
-                type: "POST",
-                data: { id:number, name:thisVal,change:thisName},
-                success: function (data) {
-                    console.log('dataaaaaaaw=' + data)
-                    $("#idemp"+number).find('span').css('display','block')
-                    $("#idemp"+number).find('select').css('display','none')
-
-                },
-            });
-        });
-
-        $("#idyearButton"+number).click(function(){
-
-            $(this).closest('td').find('span').text($("#idcreateInput"+number).val()+'/'+$("#idendInput"+number).val())
-
-            $(this).closest('td').find('span').css('display','block')
-            // $(this).css('display','none');
-            var createDate=$(this).closest('td').find("#idcreateInput"+number).val()
-            var endDate=$(this).closest('td').find("#idendInput"+number).val()
-            console.log('contentEdit createDate'+createDate);
-            console.log('contentEdit endDate'+endDate);
-
-            $.ajax({
-                url: 'st_update.php',
-                type: "POST",
-                data: { id:number, createDate:createDate,endDate:endDate},
-                success: function (data) {
-                    console.log('dataaaaaaaw=' + $.parseJSON(data))
-                    $("#idyear"+number).find('span').css('display','block')
-                    $("#idyear"+number).find('button').css('display','block')
-                    $("#idcreateInput"+number).css('display','none')
-                    $("#idendInput"+number).css('display','none')
-                    $('.datepicker').css('display','none')
-                    var tree = $('#tree').fancytree('getTree');
-                    tree.reload($.parseJSON(data));
-
-                },
-            });
-        });
-        $("#idcreateInput"+number).datepicker({
-            todayHighlight: true,
-            format: 'dd/mm/yyyy',
-            // startDate: new Date()
-            // });
-        })
-        $("#idendInput"+number).datepicker({
-            todayHighlight: true,
-            format: 'dd/mm/yyyy',
-            // startDate: new Date()
-            // });
-        })
-
-    }
-    $(document).on('click', '#menyu_edit', function(e) {
-        addNew=0;
-        $("#tree").trigger("nodeCommand", { cmd: 'rename' });
-    })
-    $(document).on('click', '#menyu_delete', function(e) {
-        addNew=0;
-        $("#tree").trigger("nodeCommand", { cmd: 'remove' });
-    })
-    $(document).on('click', '#menyu_add', function(e) {
-        addNew=0;
-        console.log('sssss')
-        $("#tree").trigger("nodeCommand", { cmd: "addSibling"});
-    })
-    $(document).on('click', '#menyu_addChild', function(e) {
-        addNew=0;
-        $("#tree").trigger("nodeCommand", { cmd: 'addChild' });
-    })
-    function alertFunc(extOptions){
-        var options = {
-            title:'',
-            content:'',
-            text: '',
-            type:'info',//info,warning
-            showCancelButton: false,
-            buttonText: 'Bağla',
-            redirectUrl:'',
-        };
-        options = $.extend(true,options,extOptions);
-        // swal({
-        //         type: options.type,
-        //         title: options.title,
-        //         text: options.content,
-        //         allowEscapeKey:false,
-        //         html: true,
-        //         showCancelButton: options.showCancelButton,
-        //         confirmButtonColor: "#263238",
-        //         confirmButtonText: options.buttonText,
-        //     },
-        //     function(){
-        //     if (options.redirectUrl){
-        //         options.redirectUrl=='reload' ? parent.location.reload() : parent.document.location.href = options.redirectUrl;
-        //     }
-        // });
-    };
 
 </script>
+<script src="js/structure.js"></script>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('#st_create_date').datepicker({
-            todayHighlight: true,
-            format: 'dd/mm/yyyy',
-            // startDate: new Date()
-        });
-        $('#st_end_date').datepicker({
-            todayHighlight: true,
-            format: 'dd/mm/yyyy',
-            // startDate: new Date()
-        });
-    });
-
-</script>
-
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
 
 </body>
