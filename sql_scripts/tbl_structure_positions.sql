@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2020 at 03:53 PM
+-- Generation Time: Jul 30, 2020 at 02:10 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -31,7 +31,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbl_structure_positions` (
   `id` int(11) NOT NULL,
   `role_id` int(11) DEFAULT NULL,
-  `posit_code` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL
+  `posit_code` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `percent` int(11) DEFAULT NULL,
+  `icon` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -52,7 +56,7 @@ ALTER TABLE `tbl_structure_positions`
 -- AUTO_INCREMENT for table `tbl_structure_positions`
 --
 ALTER TABLE `tbl_structure_positions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
