@@ -224,7 +224,7 @@
               </li>
                 <li class="nav-item">
  
-                <a href="org/st.php" class="nav-link">
+                <a href="orgchart.php" class="nav-link">
 
                   <p>Struktur menu</p>
                 </a>
