@@ -23,7 +23,6 @@ WHILE ($c > 0){
   $rs = generateRandomString($number,$head);
 
     $users= "select * from $tbl_employee_category WHERE code = '$rs'";
-//    echo $users;
     $result_users = $db->query($users);
     if($result_users->num_rows > 0) {
         $c = 1;
@@ -35,9 +34,6 @@ WHILE ($c > 0){
 
 }
 
-
-
-////$id                 =$_POST['id'];
 $pId                = $_POST['pId'];
 $name               = $_POST['name'];
 $emp_id             = $_POST['emp_id'];
@@ -63,9 +59,17 @@ if($pId==0 or $pId=='' or $pId=='null'){
 	 VALUES (NULL, '$pId','$name','$icon','$code','$emp_id','$structure_level','$position_level','$create_date','$end_date')";
 
 }
+if($_POST['position_level']!='0'){
+    $sqlpositions = "INSERT INTO $tbl_structure_positions( 
+	 id, role_id, posit_code,start_date,end_date,percent) 
+	 VALUES (NULL, '','$code','$create_date','$end_date',100)";
+}
 
 
 
+if(!mysqli_query($db, $sqlpositions)) {
+    echo "error=".$code.'=' .mysqli_error($db);
+}
 if(!mysqli_query($db, $sql)) {
     echo "error=".$pId.'=' .mysqli_error($db);
 }
