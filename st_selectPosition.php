@@ -31,19 +31,6 @@ if($result_position){
                     $data[] = $sub_array;
                 }
 
-            }else{
-                $sub_array = array();
-                $sub_array[] = $row_users['id'];
-                $sub_array[] = ($row_users['category']);
-                $sub_array[] = ($row_users['code']);
-
-                $sub_array[] = $row_users['parent'];
-
-                $sub_array[] = $row_users['create_date'];
-                $sub_array[] = $row_users['end_date'];
-                $sub_array[] = $row_users['icon'];
-                $sub_array[] = 100;
-                $data[] = $sub_array;
             }
 
 

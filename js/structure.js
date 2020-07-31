@@ -406,7 +406,7 @@ function treeClick(trList){
                             type: "POST",
                             data: {  posit_code:positcode,role_id:'', role_start_date:start_date,role_end_date:end_date, percent:tb.val()},
                             success: function (data) {
-                                console.log('dataaaaaaaaaa=' , data);
+                                console.log('dataaaaaaapp=' , data);
                                 // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                                 // var tree = $('#tree').fancytree('getTree');
                                 // tree.reload($.parseJSON(data));
@@ -473,7 +473,16 @@ $(function () {
             type: "POST",
             data: { role_id:role_id, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
             success: function (data) {
-                console.log('dataaaaaaaaaa=' , data);
+                console.log('dataaaaas=' , data);
+                $('#roles').find('option[value="0"]').prop('selected', true);
+                $('#positionList').find('option[value="0"]').prop('selected', true);
+                $('#role_start_date').val('')
+                $('#role_end_date').val('')
+                Swal.fire(
+                    'Əməliyyat müvəffəqiyyətlə yerine yetirildi!',
+                    '',
+                    'success'
+                )
                 // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                 // var tree = $('#tree').fancytree('getTree');
                 // tree.reload($.parseJSON(data));
