@@ -715,6 +715,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                 <select data-live-search="true"  name="positionList" id="positionList"  title="<?php echo $dil["selectone"];?>" class="form-control"  placeholder="<?php echo $dil["position"];?>" >
 
                                                 </select>
+                                                <label id="fullName" class=" col-form-label"></label>
                                             </div>
                                             <div class="col-md-2">
                                                 <label class=" col-form-label" for="role_end_date"><?php echo $dil["end_date"];?></label>

@@ -382,7 +382,7 @@ function treeClick(trList){
                 $.each(jQuery.parseJSON(data), function(k,v){
                     console.log('trList fullname=' + v[8]);
 
-                    option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'">'+v[2]+'</option>';
+                    option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'">'+v[2]+'</option>';
                     row +='<tr data-id="'+v[0]+'" data-positcode="'+v[2]+'"> '  +
                         ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
                         ' <td>'+v[2]+'</td>  '  +
@@ -457,8 +457,10 @@ $(function () {
         if($(this).find('option:selected').val()!='0'){
             var role_createdate=$(this).find('option:selected').attr('data-createdate')
             var role_enddate=$(this).find('option:selected').attr('data-enddate')
+            var fullName=$(this).find('option:selected').attr('data-fullName')
             $('#role_start_date').val(role_createdate)
             $('#role_end_date').val(role_enddate)
+            $('#fullName').text(fullName)
             console.log('role_createdate'+role_createdate);
         }else{
             $('#role_start_date').val(role_createdate)
