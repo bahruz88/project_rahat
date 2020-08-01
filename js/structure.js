@@ -375,14 +375,18 @@ function treeClick(trList){
             success: function (data) {
 
                 console.log('trList data=' + jQuery.parseJSON( data));
+
                 var option = '<option value="0">Seçin..</option>';
                 var row = '';
                 $('#tablePositions').find('tbody').html('');
                 $.each(jQuery.parseJSON(data), function(k,v){
+                    console.log('trList fullname=' + v[8]);
+
                     option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'">'+v[2]+'</option>';
                     row +='<tr data-id="'+v[0]+'" data-positcode="'+v[2]+'"> '  +
                         ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
                         ' <td>'+v[2]+'</td>  '  +
+                        ' <td>'+v[8]+'</td>  '  +
                         ' <td class="myText" data-val="percent">'+v[7]+'</td>  '  +
                         ' <td class="myText" id="start_date">'+v[4]+'</td>  '  +
                         ' <td class="myText" id="end_date">'+v[5]+'</td>  '  +

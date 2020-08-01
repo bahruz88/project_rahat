@@ -738,6 +738,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                         <tr>
                                                             <th><strong><?php echo $dil["icon"];?></strong></th>
                                                             <th><strong><?php echo $dil["position"];?></strong></th>
+                                                            <th><strong><?php echo $dil["firstname"].' '.$dil["lastname"].' '.$dil["surname"];?></strong></th>
                                                             <th><strong><?php echo $dil["percent"];?></span></strong></th>
                                                             <th><strong><?php echo $dil["start_date"];?></span></strong></th>
                                                             <th><strong><?php echo $dil["end_date"];?></span></strong></th>
