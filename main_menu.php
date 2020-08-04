@@ -248,8 +248,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
+                <a href="contracts.php" class="nav-link">
                   
+                  <p>Müqavilələr</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="pages/forms/general.html" class="nav-link">
+
                   <p>General Elements</p>
                 </a>
               </li>

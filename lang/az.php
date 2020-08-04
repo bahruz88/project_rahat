@@ -271,6 +271,8 @@ $dil = array(
 	"percent"   =>"Faiz",
 	"start_date"   =>"Başlama tarixi",
 	"end_date"   =>"Bitmə tarixi",
-	"position_level"   =>"Pozisya səviyyəsi"
+	"position_level"   =>"Pozisya səviyyəsi",
+    /**/
+    "contracts"   =>"Müqavilələr",
 );
 ?>

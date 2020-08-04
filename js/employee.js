@@ -275,35 +275,8 @@ $('#employee_table tbody').on( 'click', '#view', function () {
 					$('#modalEdit').modal('show');
 					}
 					else {
-						//document.location = 'profile.php?id='+empid;
 						 window.location.href='profile.php?empid='+empid;
-					// 	$('#imgView').html($('#uploadDiv').html())
-					// 	$('#imgAdd').html('')
-					// 	$('#imgUpdate').html('')
-					// 	addImage();
-					// 	console.log('employee.image_name='+employee.image_name)
-					// 	if(employee.image_name){
-					// 		$("#default").css('display','none')
-					//
-					// 		$("#targetLayer").html('<img class="profile-user-img img-fluid img-circle image-preview"  class="upload-preview"\n' +
-					// 			'                 src="'+employee.image_name+'"\n' +
-					// 			'                 alt="User profile picture">\n' +
-					// 			'            <input type="hidden" name="imgName" value="'+employee.image_name+'">');
-					// 	}else{
-					// 		$("#default").css('display','block');
-					// 		$("#targetLayer").html('');
-					// 	}
-					// $("#view_name").html(employee.full_name);
-					// $("#view_phone").html(employee.mob_tel);
-					// $("#view_email").html(employee.email);
-					// $("#view_empno").html(employee.empno);
-					// $("#view_home_tel").html(employee.home_tel);
-					// $("#view_emr_contact").html(employee.emr_contact);
-					// // $('#view_empno').val(user.empno).change();
-					// // $('#view_deflang').val(user.def_lang).change();
-					// // $('#view_userlevel').val([1,2,3]).change();*/
-					// //$('#update_userlevel').selectpicker('val', [1,2,3]);
-					// 	$('#modalView').modal('show');
+
 					}
 				}
 			);
