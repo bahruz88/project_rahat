@@ -4,7 +4,7 @@ $id                 =$_POST['id'];
 $data=array();
 
 $sql_positions="select id, category,code,create_date,end_date, parent,icon,emp_id
- from (select * from tbl_employee_category  order by parent, id) folders_sorted,
+ from (select * from $tbl_employee_category  order by parent, id) folders_sorted,
   (select @pv := $id) initialisation where find_in_set(parent, @pv) > 0 and @pv := concat(@pv, ',', id)";
 $result_position = $db->query($sql_positions);
 if($result_position){
@@ -21,7 +21,7 @@ if($result_position){
                     $sub_array = array();
                     $sub_array[] = $row_users['id'];
                     $sub_array[] = ($row_users['category']);
-                    $sub_array[] = ($row_users['code']);
+                    $sub_array[] = ($row_structure_positions['posit_code']);
 
                     $sub_array[] = $row_users['parent'];
 
@@ -54,5 +54,6 @@ if($result_position){
 
     }
 }
+//print_r($data);
 echo json_encode($data);
 ?>

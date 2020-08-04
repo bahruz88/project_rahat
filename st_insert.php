@@ -9,9 +9,10 @@ $rs='';
 $c = 1;
 $number=1;
 $head='';
-if($_POST['position_level']!='0'){
+if($_POST['position_level']!='0' && $_POST['position_level']!=''){
     $head='P';
-}else if($_POST['structure_level']!='0'){
+}
+if($_POST['structure_level']!='0'&& $_POST['structure_level']!=''){
     $head='S';
 }
 function generateRandomString($length,$head) {
@@ -59,16 +60,17 @@ if($pId==0 or $pId=='' or $pId=='null'){
 	 VALUES (NULL, '$pId','$name','$icon','$code','$emp_id','$structure_level','$position_level','$create_date','$end_date')";
 
 }
-if($_POST['position_level']!='0'){
+if($_POST['position_level']!='0' && $_POST['position_level']!=''){
     $sqlpositions = "INSERT INTO $tbl_structure_positions( 
 	 id, role_id, posit_code,start_date,end_date,percent) 
 	 VALUES (NULL, '','$code','$create_date','$end_date',100)";
-}
 
 
 
-if(!mysqli_query($db, $sqlpositions)) {
-    echo "error=".$code.'=' .mysqli_error($db);
+
+    if(!mysqli_query($db, $sqlpositions)) {
+        echo "error=".$code.'=' .mysqli_error($db);
+    }
 }
 if(!mysqli_query($db, $sql)) {
     echo "error=".$pId.'=' .mysqli_error($db);

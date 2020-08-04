@@ -49,6 +49,9 @@ function confirmClick(e){
                 $('#icon').val($('#position_level option:selected').attr('data-icon'))
             }
             $('#structure_level').find('option[value="0"]').prop('selected', true);
+
+//Check the selected attribute for the real select
+//             $('select[name=selValue]').val(1);
             $('#position_level').find('option[value="0"]').prop('selected', true);
             $('#employee').find('option[value="0"]').prop('selected', true);
             var icon=$('#icon').val();
@@ -121,16 +124,19 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
 
     console.log('PID=='+PID);
     console.log('title=='+title);
+    console.log('structure_level=='+structure_level);
+    console.log('position_level=='+position_level);
     console.log('st_create_date=='+st_create_date);
     $.ajax({
         url: 'st_insert.php',
         type: "POST",
         data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date},
         success: function (data) {
-            // console.log('dataaaaaaaaaa=' , data);
+            console.log('dataaaaaaaaada=' , data);
             console.log('dataaaaaaaaaa=' , $.parseJSON(data));
             var tree = $('#tree').fancytree('getTree');
             tree.reload($.parseJSON(data));
+            $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
         },
     });
 
@@ -304,22 +310,22 @@ function sagClick(number){
         console.log('contentEdit createDate'+createDate);
         console.log('contentEdit endDate'+endDate);
         // if(validate(createDate)) {
-            $.ajax({
-                url: 'st_update.php',
-                type: "POST",
-                data: {id: number, createDate: createDate, endDate: endDate},
-                success: function (data) {
-                    console.log('dataaaaaaaw=' + $.parseJSON(data))
-                    $("#idyear" + number).find('span').css('display', 'block')
-                    $("#idyear" + number).find('button').css('display', 'block')
-                    $("#idcreateInput" + number).css('display', 'none')
-                    $("#idendInput" + number).css('display', 'none')
-                    $('.datepicker').css('display', 'none')
-                    var tree = $('#tree').fancytree('getTree');
-                    tree.reload($.parseJSON(data));
+        $.ajax({
+            url: 'st_update.php',
+            type: "POST",
+            data: {id: number, createDate: createDate, endDate: endDate},
+            success: function (data) {
+                console.log('dataaaaaaaw=' + $.parseJSON(data))
+                $("#idyear" + number).find('span').css('display', 'block')
+                $("#idyear" + number).find('button').css('display', 'block')
+                $("#idcreateInput" + number).css('display', 'none')
+                $("#idendInput" + number).css('display', 'none')
+                $('.datepicker').css('display', 'none')
+                var tree = $('#tree').fancytree('getTree');
+                tree.reload($.parseJSON(data));
 
-                },
-            });
+            },
+        });
         // }
     });
     $("#idcreateInput"+number).datepicker({
@@ -376,12 +382,14 @@ function treeClick(trList){
 
                 console.log('trList data=' + jQuery.parseJSON( data));
 
-                var option = '<option value="0">Seçin..</option>';
+                var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+               option += '<option value="0">Seçin..</option>';
+
                 var row = '';
                 $('#tablePositions').find('tbody').html('');
                 $.each(jQuery.parseJSON(data), function(k,v){
                     console.log('trList fullname=' + v[8]);
-
+                    console.log('trList option=' + v[2]);
                     option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'">'+v[2]+'</option>';
                     row +='<tr data-id="'+v[0]+'" data-positcode="'+v[2]+'"> '  +
                         ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
@@ -392,8 +400,12 @@ function treeClick(trList){
                         ' <td class="myText" id="end_date">'+v[5]+'</td>  '  +
                         '</tr>  ';
                 });
+                option+=' </select>';
                 $('#tablePositions').find('tbody').html(row);
-                $('#positionList').html(option);
+                console.log('option='+option)
+                $('#posList').html(option);
+                $(".selectpicker").selectpicker();
+                positionList();
                 $('.myText').on('click', function() {
 
                     var div = $(this);
@@ -417,10 +429,10 @@ function treeClick(trList){
                             },
                         });
                     } else {
-                            tb = $('<input>').prop({
-                                'type': 'text',
-                                'value': div.text()//set text box value from div current text
-                            });
+                        tb = $('<input>').prop({
+                            'type': 'text',
+                            'value': div.text()//set text box value from div current text
+                        });
                         div.empty().append(tb);//add new text box
                         tb.focus();//put text box on focus
                     }
@@ -429,7 +441,23 @@ function treeClick(trList){
         });
     })
 }
-
+function positionList(){
+    $("#positionList").change(function(){
+        console.log('positionList change'+$(this).attr('name'));
+        if($(this).find('option:selected').val()!='0'){
+            var role_createdate=$(this).find('option:selected').attr('data-createdate')
+            var role_enddate=$(this).find('option:selected').attr('data-enddate')
+            var fullName=$(this).find('option:selected').attr('data-fullName')
+            $('#role_start_date').val(role_createdate)
+            $('#role_end_date').val(role_enddate)
+            $('#fullName').text(fullName)
+            console.log('role_createdate'+role_createdate);
+        }else{
+            $('#role_start_date').val(role_createdate)
+            $('#role_end_date').val(role_enddate)
+        }
+    });
+}
 $(function () {
     $('#st_create_date').datepicker({
         todayHighlight: true,
@@ -452,25 +480,11 @@ $(function () {
         // startDate: new Date()
     });
 
-    $("#positionList").change(function(){
-        console.log('positionList change'+$(this).attr('name'));
-        if($(this).find('option:selected').val()!='0'){
-            var role_createdate=$(this).find('option:selected').attr('data-createdate')
-            var role_enddate=$(this).find('option:selected').attr('data-enddate')
-            var fullName=$(this).find('option:selected').attr('data-fullName')
-            $('#role_start_date').val(role_createdate)
-            $('#role_end_date').val(role_enddate)
-            $('#fullName').text(fullName)
-            console.log('role_createdate'+role_createdate);
-        }else{
-            $('#role_start_date').val(role_createdate)
-            $('#role_end_date').val(role_enddate)
-        }
-    });
+
     $("#confirmRole").click(function() {
         console.log('confirmRole change');
-       var role_id=  $('#roles option:selected').val();
-       var posit_code=$('#positionList option:selected').text();
+        var role_id=  $('#roles option:selected').val();
+        var posit_code=$('#positionList option:selected').text();
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
         console.log('confirmRole change'+posit_code);

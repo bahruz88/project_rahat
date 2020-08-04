@@ -204,7 +204,6 @@ $sql_position= "select * from $tbl_employee_category";
             href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
             rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- jquery-contextmenu (https://github.com/mar10/jquery-ui-contextmenu/) -->
@@ -218,6 +217,8 @@ $sql_position= "select * from $tbl_employee_category";
     <script src="src/jquery.fancytree.table.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <!--
     <script src="../../build/jquery.fancytree-all.min.js"></script>
 -->
@@ -365,14 +366,24 @@ $sql_position= "select * from $tbl_employee_category";
             margin: 100px auto;
         }
         .treeStruk{
-            height:300px;
+            min-height:300px;
+            height:500px;
             overflow-x:auto;
+        }
+        .stTab{
+            min-height:200px;
+            height:400px;
+            overflow-x:auto;
+            overflow-y:auto;
         }
         .tab-content>.tab-pane{
             padding: 10px !important;
         }
         .tab-alt{
             background-color: #f7f7f7;
+        }
+        .dropdown-toggle{
+            height:40px !important;
         }
     </style>
 </head>
@@ -463,7 +474,7 @@ $sql_position= "select * from $tbl_employee_category";
                                             <div class="form-group row" id="employeesQuery">
                                                 <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
                                                 <div class="col-sm-6">
-                                                    <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
+                                                    <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
                                                         <option  value="0" >Seçin...</option>
                                                         <?php
                                                         $result_employees_view = $db->query($sql_employees);
@@ -482,7 +493,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                 <label class="col-sm-4 col-form-label" for="position_level"><?php echo $dil["position_level"];?></label>
                                                 <div class="col-sm-6">
 
-                                                    <select data-live-search="true"  name="position_level" id="position_level"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["position_level"];?>" >
+                                                    <select data-live-search="true"  name="position_level" id="position_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["position_level"];?>" >
                                                         <option  value="0" >Seçin...</option>
 
                                                         <?php
@@ -500,7 +511,7 @@ $sql_position= "select * from $tbl_employee_category";
                                             <div class="form-group row" id="structureQuery">
                                                 <label class="col-sm-4 col-form-label" for="structure_level"><?php echo $dil["structure_level"];?></label>
                                                 <div class="col-sm-6">
-                                                    <select data-live-search="true"  name="structure_level" id="structure_level"  title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["structure_level"];?>" >
+                                                    <select data-live-search="true"  name="structure_level" id="structure_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["structure_level"];?>" >
                                                         <option  value="0" >Seçin...</option>
                                                         <?php
                                                         $result_structure_view = $db->query($sql_structure_level);
@@ -655,7 +666,13 @@ $sql_position= "select * from $tbl_employee_category";
                         <pre id="sourceCode" class="prettyprint" style="display:none"></pre>
                         <!-- End_Exclude -->
                     </div>
-                    <div class="tabs">
+
+
+
+                </div>
+            </div>
+        </div><div class="col-12 col-sm-6 col-lg-12">
+              <div class="tabs">
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
@@ -671,7 +688,7 @@ $sql_position= "select * from $tbl_employee_category";
                             </div><!-- /.card-header -->
                             <div class="card-body tab-alt">
                                 <!-- Tab panes -->
-                                <div class="tab-content" >
+                                <div class="tab-content stTab" >
                                     <div class="tab-pane " id="structure_roles">
                                         <div class="form-group  row">
                                             <button type="button" class="btn btn-info" id="confirmRole" ><i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i></button>
@@ -683,7 +700,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                 <label class=" col-form-label" for="roles"><?php echo $dil["structure_role"];?></label>
                                             </div>
                                             <div class="col-md-5">
-                                                <select data-live-search="true"  name="roles" id="roles"  title="<?php echo $dil["selectone"];?>" class="form-control"  placeholder="<?php echo $dil["structure_role"];?>" >
+                                                <select data-live-search="true"  name="roles" id="roles"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["structure_role"];?>" >
                                                     <option  value="0" >Seçin...</option>
                                                     <?php
                                                     $result_structure_roles = $db->query($sql_structure_roles);
@@ -712,9 +729,10 @@ $sql_position= "select * from $tbl_employee_category";
                                                 <label class=" col-form-label" for="positionList"><?php echo $dil["position"];?></label>
                                             </div>
                                             <div class="col-md-5">
-                                                <select data-live-search="true"  name="positionList" id="positionList"  title="<?php echo $dil["selectone"];?>" class="form-control"  placeholder="<?php echo $dil["position"];?>" >
+                                                <div id="posList">
 
-                                                </select>
+                                                </div>
+
                                                 <label id="fullName" class=" col-form-label"></label>
                                             </div>
                                             <div class="col-md-2">
@@ -766,11 +784,8 @@ $sql_position= "select * from $tbl_employee_category";
 
                         </div>
                     </div>
-
-
-                </div>
-            </div>
         </div>
+
     </div>
     <!-- /.content-wrapper -->
     <?php  include ("footer.php"); ?>
@@ -814,7 +829,7 @@ $sql_position= "select * from $tbl_employee_category";
 <!--<script type="text/javascript" src="js/datatables.min.js"></script>-->
 <script type="text/javascript" src="dist/js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-<!--<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>-->
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
