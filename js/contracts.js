@@ -224,6 +224,12 @@ function GetEmpContractDetails(empid,optype)
 					$("#structure4").val(employee.structure);
 				}
 
+				if(employee.marital_status=='1'){
+					$("#marital_status").val('Evli');
+				}else{
+					$("#marital_status").val('Subay');
+				}
+
 
 				$("#full_name").val(employee.full_name)
 				// $("#uid").val(empid)
@@ -241,6 +247,14 @@ function GetEmpContractDetails(empid,optype)
 				$("#uni_name").val(employee.uni_name);
 				$("#profession").val(employee.profession);
 				$("#create_date").val(employee.create_date);
+				$("#firstname").val(employee.firstname);
+				$("#lastname").val(employee.lastname);
+				$("#surname").val(employee.surname);
+				$("#birth_date").val(employee.birth_date);
+				$("#birth_place").val(employee.birth_place);
+				$("#mob_tel").val(employee.mob_tel);
+				$("#living_address").val(employee.living_address);
+
 				// $("#structure").val(employee.structure);
 				$('#myContracts').modal('show');
 				// $('#modalEdit').modal('show');

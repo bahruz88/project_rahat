@@ -30,7 +30,7 @@ Mandatory in IE 6, 7, 8 and 9.
 								<select   name="contracts" id="contracts"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["contracts"];?>" >
 									<option value="1">Əmək müqaviləsi</option>
 									<option value="2">Əmək müqaviləsinə əlavə</option>
-									<option value="2">Hərbi uçot vərəqəsi</option>
+									<option value="3">Hərbi uçot vərəqəsi</option>
 								</select>
 								</div>
 							</div>
@@ -54,6 +54,14 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="structure2" name="structure"   />
                         <input type="hidden" class="form-control" id="structure3" name="structure"   />
                         <input type="hidden" class="form-control" id="structure4" name="structure"   />
+                        <input type="hidden" class="form-control" id="lastname" name="lastname"   />
+                        <input type="hidden" class="form-control" id="firstname" name="firstname"   />
+                        <input type="hidden" class="form-control" id="surname" name="surname"   />
+                        <input type="hidden" class="form-control" id="birth_date" name="birth_date"   />
+                        <input type="hidden" class="form-control" id="birth_place" name="birth_place"   />
+                        <input type="hidden" class="form-control" id="marital_status" name="marital_status"   />
+                        <input type="hidden" class="form-control" id="mob_tel" name="mob_tel"   />
+                        <input type="hidden" class="form-control" id="living_address" name="living_address"   />
 
                         <input type="hidden" id="update_empid" name="update_empidn" value="" />
 
@@ -87,6 +95,8 @@ Mandatory in IE 6, 7, 8 and 9.
             generate("emek2")
         }else if(thisVal=='2'){
             generate("emekElave")
+        }else if(thisVal=='3'){
+            generate("herbi")
         }
     });
 </script>
@@ -152,6 +162,14 @@ Mandatory in IE 6, 7, 8 and 9.
                 structure2: $('#structure2').val(),
                 structure3: $('#structure3').val(),
                 structure4: $('#structure4').val(),
+                lastname: $('#lastname').val(),
+                firstname: $('#firstname').val(),
+                surname: $('#surname').val(),
+                birth_date: $('#birth_date').val(),
+                birth_place: $('#birth_place').val(),
+                marital_status: $('#marital_status').val(),
+                mob_tel: $('#mob_tel').val(),
+                living_address: $('#living_address').val(),
             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
