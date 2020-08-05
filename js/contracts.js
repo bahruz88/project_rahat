@@ -189,85 +189,64 @@ var table = $("#cont_employee_table").DataTable({
 
 $('#cont_employee_table tbody').on( 'click', '#print', function () {
 	console.log('$row_employees[\'image_name\']');
-	$('#myContracts').modal('show');
-	// var data = table.row( $(this).parents('tr') ).data();
-	// GetEmpDetails(data[0],'view');
-	// document.getElementById("update_empid").value = data[0];
+
+	var data = table.row( $(this).parents('tr') ).data();
+	 GetEmpContractDetails(data[0],'update');
+	 document.getElementById("update_empid").value = data[0];
 
 } );
 
 
-
-/*İSCHİ  MELUMATALRİ SİLİNİR */
-$("#employeeDelete").submit(function(e) {
-
-	e.preventDefault();
-	$.ajax( {
-		url: "contracts/employeeDelete.php",
-		method: "post",
-		data: $("form").serialize(),
-		dataType: "text",
-		success: function(strMessage)
-		{
-			if (strMessage.substr(1, 4)==='error')
-			{
-				console.log(strMessage);
-			}
-			else if (strMessage==='success')
-			{
-				$('#modalDelete').modal('hide');
-				$('#modalDeleteSuccess').modal('show');
-				table.ajax.reload();
-			}
-			else  {
-				$("#badge_danger").text(strMessage);
-			}
-		}
-	});
-	table.ajax.reload();
-});
-
-
-/*İSCHİ MEULMATALRİNİN  YENİLENMESİ */
-$("#employeeUpdate").submit(function(e)
+/*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
+function GetEmpContractDetails(empid,optype)
 {
-	e.preventDefault();
-	if($("#employeeUpdate").valid())
-	{
+	$.post("contracts/getEmployeeContractDetail.php",
+		{
+			empid: empid
+		},
+		function (emp_data, status)
+		{
+			// PARSE json data
+			console.log('emp_data=',emp_data)
+			var employee = JSON.parse(emp_data);
+			// Assing existing values to the modal popup fields
+			console.log('employee=',employee)
 
-		$.ajax( {
-			url: "contracts/employeeUpdate.php",
-			method: "post",
-			data: $("#employeeUpdate").serialize(),
-			dataType: "text",
-			success: function(strMessage)
-			{
-				console.log(strMessage);
-				$("#badge_danger_update").text("");
-				if (strMessage.substr(1, 4)==='error')
-				{
-					console.log(strMessage);
-				}
-				else if (strMessage==='success')
-				{
-					$('#modalEdit').modal('hide');
-					$('#modalUpdateSuccess').modal('show');
-					table.ajax.reload();
-				}
-				else if (strMessage==='duplicate')
-				{
+			if  (optype=='update') {
 
-					$("#badge_danger_update").text("<?php echo $dil['duplicate_username']?>");
+				if(employee.structure_level==2){
+					$("#structure1").val(employee.structure);
+				}else if(employee.structure_level==3){
+					$("#structure2").val(employee.structure);
+				}else if(employee.structure_level==4){
+					$("#structure3").val(employee.structure);
+				}else if(employee.structure_level==5){
+					$("#structure4").val(employee.structure);
+				}
 
-				}
-				else  {
-					$("#badge_danger_update").text(strMessage);
-				}
+
+				$("#full_name").val(employee.full_name)
+				// $("#uid").val(empid)
+				$("#citizenship").val(employee.citizenship);
+				$("#passport_seria_number").val(employee.passport_seria_number);
+				$("#pincode").val(employee.pincode);
+				$("#passport_date").val(employee.passport_date);
+				$("#pass_given_authority").val(employee.pass_given_authority);
+				$("#company_name").val(employee.company_name);
+				$("#voen").val(employee.voen);
+				$("#sun").val(employee.sun);
+				$("#enterprise_head_position").val(employee.enterprise_head_position);
+				$("#enterprise_head_fullname").val(employee.enterprise_head_fullname);
+				$("#qualification").val(employee.qualification);
+				$("#uni_name").val(employee.uni_name);
+				$("#profession").val(employee.profession);
+				$("#create_date").val(employee.create_date);
+				// $("#structure").val(employee.structure);
+				$('#myContracts').modal('show');
+				// $('#modalEdit').modal('show');
 			}
-		});
-		table.ajax.reload();
-	}
-	else {
-		alert('Form not valid') ;
-	}
-});
+
+		}
+	);
+
+}
