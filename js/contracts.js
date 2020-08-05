@@ -230,6 +230,18 @@ function GetEmpContractDetails(empid,optype)
 					$("#marital_status").val('Subay');
 				}
 
+				var military_reg_category='';
+				var military_reg_group='';
+				if(employee.military_reg_category==1){
+					military_reg_category='Kateqoriya 1';
+				}else{
+					military_reg_category='Kateqoriya 2';
+				}
+				if(employee.military_reg_group==1){
+					military_reg_group='Çağırışçı';
+				}else{
+					military_reg_group='Hərbi vəzifəli';
+				}
 
 				$("#full_name").val(employee.full_name)
 				// $("#uid").val(empid)
@@ -254,6 +266,19 @@ function GetEmpContractDetails(empid,optype)
 				$("#birth_place").val(employee.birth_place);
 				$("#mob_tel").val(employee.mob_tel);
 				$("#living_address").val(employee.living_address);
+				$("#military_reg_group").val(military_reg_group);
+				$("#military_reg_category").val(military_reg_category);
+				$("#military_staff").val(employee.staff_desc);
+				$("#military_rank").val(employee.rank_desc);
+				$("#military_specialty_acc").val(employee.military_specialty_acc);
+				$("#military_fitness_service").val(employee.military_fitness_service);
+				$("#military_registration_service").val(employee.military_registration_service);
+				$("#military_registration_date").val(employee.military_registration_date);
+				$("#military_general").val(employee.military_general);
+				$("#military_special").val(employee.military_special);
+				$("#military_no_official").val(employee.military_no_official);
+				$("#military_additional_information").val(employee.military_additional_information);
+				$("#military_date_completion").val(employee.military_date_completion);
 
 				// $("#structure").val(employee.structure);
 				$('#myContracts').modal('show');

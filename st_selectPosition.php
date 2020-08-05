@@ -6,6 +6,8 @@ $data=array();
 $sql_positions="select id, category,code,create_date,end_date, parent,icon,emp_id
  from (select * from $tbl_employee_category  order by parent, id) folders_sorted,
   (select @pv := $id) initialisation where find_in_set(parent, @pv) > 0 and @pv := concat(@pv, ',', id)";
+
+
 $result_position = $db->query($sql_positions);
 if($result_position){
     if ($result_position->num_rows > 0) {

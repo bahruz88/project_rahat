@@ -63,6 +63,20 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="mob_tel" name="mob_tel"   />
                         <input type="hidden" class="form-control" id="living_address" name="living_address"   />
 
+                        <input type="hidden" class="form-control" id="military_reg_group" name="military_reg_group"   />
+                        <input type="hidden" class="form-control" id="military_reg_category" name="military_reg_category"   />
+                        <input type="hidden" class="form-control" id="military_staff" name="military_staff"   />
+                        <input type="hidden" class="form-control" id="military_rank" name="military_rank"   />
+                        <input type="hidden" class="form-control" id="military_specialty_acc" name="military_specialty_acc"   />
+                        <input type="hidden" class="form-control" id="military_fitness_service" name="military_fitness_service"   />
+                        <input type="hidden" class="form-control" id="military_registration_service" name="military_registration_service"   />
+                        <input type="hidden" class="form-control" id="military_registration_date" name="military_registration_date"   />
+                        <input type="hidden" class="form-control" id="military_general" name="military_general"   />
+                        <input type="hidden" class="form-control" id="military_special" name="military_special"   />
+                        <input type="hidden" class="form-control" id="military_no_official" name="military_no_official"   />
+                        <input type="hidden" class="form-control" id="military_additional_information" name="military_additional_information"   />
+                        <input type="hidden" class="form-control" id="military_date_completion" name="military_date_completion"   />
+
                         <input type="hidden" id="update_empid" name="update_empidn" value="" />
 
 
@@ -170,6 +184,20 @@ Mandatory in IE 6, 7, 8 and 9.
                 marital_status: $('#marital_status').val(),
                 mob_tel: $('#mob_tel').val(),
                 living_address: $('#living_address').val(),
+
+                military_reg_group: $('#military_reg_group').val(),
+                military_reg_category: $('#military_reg_category').val(),
+                military_staff: $('#military_staff').val(),
+                military_rank: $('#military_rank').val(),
+                military_specialty_acc: $('#military_specialty_acc').val(),
+                military_fitness_service: $('#military_fitness_service').val(),
+                military_registration_service: $('#military_registration_service').val(),
+                military_registration_date: $('#military_registration_date').val(),
+                military_general: $('#military_general').val(),
+                military_special: $('#military_special').val(),
+                military_no_official: $('#military_no_official').val(),
+                military_additional_information: $('#military_additional_information').val(),
+                military_date_completion: $('#military_date_completion').val()
             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
