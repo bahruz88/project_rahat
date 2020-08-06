@@ -210,18 +210,24 @@ function GetEmpContractDetails(empid,optype)
 			console.log('emp_data=',emp_data)
 			var employee = JSON.parse(emp_data);
 			// Assing existing values to the modal popup fields
-			console.log('employee=',employee)
+			console.log('employee=',employee.structure_level1)
 
 			if  (optype=='update') {
 
-				if(employee.structure_level==2){
-					$("#structure1").val(employee.structure);
-				}else if(employee.structure_level==3){
-					$("#structure2").val(employee.structure);
-				}else if(employee.structure_level==4){
-					$("#structure3").val(employee.structure);
-				}else if(employee.structure_level==5){
-					$("#structure4").val(employee.structure);
+				if(employee.structure_level1){
+					$("#structure1").val(employee.category1);
+				}
+				if(employee.structure_level2){
+					$("#structure2").val(employee.category2);
+				}
+				if(employee.structure_level3){
+					$("#structure3").val(employee.category3);
+				}
+				if(employee.structure_level4){
+					$("#structure4").val(employee.category4);
+				}
+				if(employee.structure_level5){
+					$("#structure5").val(employee.category5);
 				}
 
 				if(employee.marital_status=='1'){

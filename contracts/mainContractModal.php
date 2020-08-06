@@ -28,6 +28,7 @@ Mandatory in IE 6, 7, 8 and 9.
 								<label class="col-sm-4 col-form-label" for="contracts"><?php echo $dil["contracts"];?></label>
 								<div class="col-sm-6">
 								<select   name="contracts" id="contracts"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["contracts"];?>" >
+									<option value="0">Seçin...</option>
 									<option value="1">Əmək müqaviləsi</option>
 									<option value="2">Əmək müqaviləsinə əlavə</option>
 									<option value="3">Hərbi uçot vərəqəsi</option>
@@ -54,6 +55,7 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="structure2" name="structure"   />
                         <input type="hidden" class="form-control" id="structure3" name="structure"   />
                         <input type="hidden" class="form-control" id="structure4" name="structure"   />
+                        <input type="hidden" class="form-control" id="structure5" name="structure"   />
                         <input type="hidden" class="form-control" id="lastname" name="lastname"   />
                         <input type="hidden" class="form-control" id="firstname" name="firstname"   />
                         <input type="hidden" class="form-control" id="surname" name="surname"   />
@@ -86,11 +88,12 @@ Mandatory in IE 6, 7, 8 and 9.
 				</div>
 
 		</div>
-<!--        <div class="modal-footer">-->
-<!---->
-<!--		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up">--><?php //echo $dil["save"];?><!--</button><button type="button" class="btn btn-default" data-dismiss="modal">--><?php //echo $dil["close"];?><!--</button>-->
-<!---->
-<!--        </div>-->
+        <div class="modal-footer">
+
+<!--		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up">--><?php //echo $dil["save"];?><!--</button>-->
+            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
+
+        </div>
 		</form>
       </div>
 
@@ -176,6 +179,7 @@ Mandatory in IE 6, 7, 8 and 9.
                 structure2: $('#structure2').val(),
                 structure3: $('#structure3').val(),
                 structure4: $('#structure4').val(),
+                structure5: $('#structure5').val(),
                 lastname: $('#lastname').val(),
                 firstname: $('#firstname').val(),
                 surname: $('#surname').val(),
@@ -202,6 +206,10 @@ Mandatory in IE 6, 7, 8 and 9.
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
                 doc.render();
+                $('#contracts').find('option[value="0"]').prop('selected', true);
+                $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
+
+
             }
             catch (error) {
                 // Catch rendering errors (errors relating to the rendering of the template : angularParser throws an error)

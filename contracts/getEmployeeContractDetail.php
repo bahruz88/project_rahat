@@ -25,30 +25,59 @@ LEFT join $tbl_military_rank tmr on tmr.rank_id=tmi.military_rank
 $data = array();
  /***/
 
-//$id='';
-//$result = $db->query($sql_emp);
-//if($result){
-//    if ($result->num_rows > 0) {
-//        while ($row = $result->fetch_assoc()) {
-//            $id=$row["id"];
-//        }
-//    }
-//}
-//$sql_parents="SELECT  @org_id as id,
-//    (SELECT structure_level FROM $tbl_employee_category WHERE id = @org_id) as structure_level,
-//    (SELECT @org_id := parent FROM $tbl_employee_category WHERE id = @org_id) AS parent
-//FROM (SELECT @org_id := $id) vars, $tbl_employee_category org
-//WHERE @org_id is not NULL
-//ORDER BY id;";
-//$result_parents = $db->query($sql_parents);
-//if($result_parents){
-//    if ($result_parents->num_rows > 0) {
-//        while($row_parents = $result_parents->fetch_assoc()) {
-//            $data[] =$row_parents["structure_level"];
-//
-//        }
-//    }
-// }
+$id='';
+$parent='';
+$i=5;
+$result = $db->query($sql_emp);
+if($result){
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $id=$row["id"];
+//            $parent=$row["parent"];
+        }
+    }
+}
+
+    $sql_parent="select * from $tbl_employee_category WHERE emp_id = '$id'";
+
+//   echo $sql_parents;
+    $result_parent = $db->query($sql_parent);
+    if($result_parent){
+        if ($result_parent->num_rows > 0) {
+            while($row_parent = $result_parent->fetch_assoc()) {
+                $parent =$row_parent["parent"];
+//            $parent =$row_parents["structure_level"];
+                while($parent!=''){
+                    $sql_parents="select tec.*, tsl.title structure from $tbl_employee_category  tec
+                    LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
+                     WHERE tec.id = '$parent'";
+//                    echo $sql_parents;
+                    $result_parents = $db->query($sql_parents);
+                    if($result_parents){
+                        if ($result_parents->num_rows > 0) {
+                            while($row_parents = $result_parents->fetch_assoc()) {
+
+                                    $parent = $row_parents["parent"];
+                                 if($row_parents["structure_level"]!=1){
+                                    $data['structure_level'.$i]  = $row_parents["structure"];
+                                    $data['category'.$i]  = $row_parents["category"];
+
+                                }$i--;
+
+//                                $data[] =$row_parents["structure_level"];
+                            }
+                        }
+
+                    }
+                }
+
+
+
+            }
+
+    }
+}
+
 /**/
 	
  $result_emp = $db->query($sql_emp);
@@ -56,7 +85,7 @@ $data = array();
 if ($result_emp->num_rows > 0) 
 {
  $row_emp = $result_emp->fetch_assoc();
- $data = $row_emp;
+    $data[]  = $row_emp;
 }
 //echo $sql_emp;
 echo json_encode($data);
