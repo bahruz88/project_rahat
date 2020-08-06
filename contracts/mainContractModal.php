@@ -35,6 +35,7 @@ Mandatory in IE 6, 7, 8 and 9.
 								</select>
 								</div>
 							</div>
+                        <input type="hidden" class="form-control" id="emp_id" name="emp_id"   />
                         <input type="hidden" class="form-control" id="full_name" name="full_name"   />
                         <input type="hidden" class="form-control" id="citizenship" name="citizenship"   />
                         <input type="hidden" class="form-control" id="passport_seria_number" name="passport_seria_number"   />
@@ -51,11 +52,11 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="uni_name" name="uni_name"   />
                         <input type="hidden" class="form-control" id="profession" name="profession"   />
                         <input type="hidden" class="form-control" id="create_date" name="create_date"   />
-                        <input type="hidden" class="form-control" id="structure1" name="structure"   />
-                        <input type="hidden" class="form-control" id="structure2" name="structure"   />
-                        <input type="hidden" class="form-control" id="structure3" name="structure"   />
-                        <input type="hidden" class="form-control" id="structure4" name="structure"   />
-                        <input type="hidden" class="form-control" id="structure5" name="structure"   />
+                        <input type="hidden" class="form-control" id="structure1" name="structure1"   />
+                        <input type="hidden" class="form-control" id="structure2" name="structure2"   />
+                        <input type="hidden" class="form-control" id="structure3" name="structure3"   />
+                        <input type="hidden" class="form-control" id="structure4" name="structure4"   />
+                        <input type="hidden" class="form-control" id="structure5" name="structure5"   />
                         <input type="hidden" class="form-control" id="lastname" name="lastname"   />
                         <input type="hidden" class="form-control" id="firstname" name="firstname"   />
                         <input type="hidden" class="form-control" id="surname" name="surname"   />
@@ -99,23 +100,45 @@ Mandatory in IE 6, 7, 8 and 9.
 
     </div>
   </div>
+
+<!--EMPLOYEE query MODAL -->
+<div class="modal fade" id="whichContracts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+<!--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+<!--                    <label class="col-sm-4 col-form-label" for="contracts">--><?php //echo $dil["contracts"];?><!--</label>-->
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label" for="contracts">Hansı tarixdəki sənədi çap etmək istəyirsiniz?</label>
+
+                        <fieldset >
+                            <input type="radio" value="1" name="contractDate">&nbsp; <label for="">İlkin</label><br/>
+                            <input type="radio" value="2" name="contractDate">&nbsp;<label for="">Son</label><br/>
+                            <input type="radio" value="3" name="contractDate">&nbsp;<label for="">Digər</label>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-primary" id="confirmContract">Təsdiq</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script>
-    $('#myContracts').on( 'change', '#contracts', function () {
 
-        console.log('ssss');
-        var thisVal=$(this).find('option:selected').val();
-        if(thisVal=='1'){
-            generate("emek2")
-        }else if(thisVal=='2'){
-            generate("emekElave")
-        }else if(thisVal=='3'){
-            generate("herbi")
-        }
-    });
+
 </script>
 <script>
     function loadFile(url,callback){

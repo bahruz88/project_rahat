@@ -7,6 +7,7 @@ header('Content-type: text/html; charset=utf-8');
  $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 $db->set_charset('utf8');
    $tbl_users='tbl_users' ;
+   $tbl_contracts='tbl_contracts' ;
    $tbl_employee_category='tbl_category';
    $tbl_structure_positions='tbl_structure_positions';
    $tbl_position_level='tbl_position_level';
