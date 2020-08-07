@@ -2,11 +2,66 @@
  include('../session.php');  
  $empid = $_POST['empid'];
 $order = $_POST['order'];
+
+$contractDate = $_POST['contractDate'];
+$company_name_2= '';
+$voen_2= '';
+$enterprise_head_position_2= '';
+$enterprise_head_fullname_2= '';
+$profession_2= '';
+$create_date_2= '';
+$structure1_2= '';
+
+$structure2_2= '';
+
+$structure3_2= '';
+
+$structure4_2= '';
+
+$structure5_2= '';
+
+
 $data = array();
-if($order!=""){
-    $sql_emp_contracts = "select * from $tbl_contracts 
-  where  emp_id='$empid' $order";
-}else{
+$data2 = array();
+if($order!="" && $contractDate=='1'){
+    $sql_emp_contracts = "select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+from $tbl_contracts tc
+LEFT join $tbl_employees te on te.id=tc.emp_id     
+  where  tc.emp_id='$empid' $order";
+}else if($order!="" && $contractDate=='2'){
+    $sql_emp_contracts = "select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+from $tbl_contracts tc
+LEFT join $tbl_employees te on te.id=tc.emp_id     
+  where  tc.emp_id='$empid' $order";
+
+    $result_emp_contracts = $db->query($sql_emp_contracts);
+    $row_emp_contracts = $result_emp_contracts->fetch_assoc();
+    $data2[]  = $row_emp_contracts;
+
+            $company_name_2= $data2[0]['company_name'];
+            $voen_2= $data2[0]['voen'];
+            $enterprise_head_position_2= $data2[0]['enterprise_head_position'];
+            $enterprise_head_fullname_2= $data2[0]['enterprise_head_fullname'];
+            $profession_2= $data2[0]['profession'];
+            $create_date_2= $data2[0]['create_date'];
+            $structure1_2= $data2[0]['structure1'];
+
+            $structure2_2= $data2[0]['structure2'];
+
+            $structure3_2= $data2[0]['structure3'];
+
+            $structure4_2= $data2[0]['structure4'];
+
+            $structure5_2= $data2[0]['structure5'];
+
+
+
+
+
+
+
+}
+else{
     $sql_id1 = "select id from $tbl_contracts 
   where  emp_id='$empid' ORDER BY id ASC LIMIT 1";
     $result = $db->query($sql_id1);
@@ -18,6 +73,7 @@ if($order!=""){
         }
     }
     $sql_id2 = "select id from $tbl_contracts 
+
   where  emp_id='$empid' ORDER BY id DESC LIMIT 1";
     $result2 = $db->query($sql_id2);
     if($result2){
@@ -28,22 +84,23 @@ if($order!=""){
         }
     }
 
-    $sql_emp_contracts ="select * from $tbl_contracts 
-  where  emp_id='$empid' and id!='$id1' and id!='$id2'";
+    $sql_emp_contracts ="select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id from $tbl_contracts tc
+LEFT join $tbl_employees te on te.id=tc.emp_id 
+  where  tc.emp_id='$empid' and tc.id!='$id1' and tc.id!='$id2'";
 //    echo $sql_emp_contracts;
 }
 
 
 //echo $sql_emp_contracts;
 $result_emp_contracts = $db->query($sql_emp_contracts);
-
-if ($result_emp_contracts->num_rows > 0)
+//eger tbl_contract cedvelinde verilen varsa ordan serte uygun secir
+if ($result_emp_contracts->num_rows > 0&& $contractDate!='2')
 {
     $row_emp_contracts = $result_emp_contracts->fetch_assoc();
     $data[]  = $row_emp_contracts;
 }else {
+    //eger tbl_contract cedvelinde verilen yoxdursa umumi bazadan secib getirir ve tbl_contract cedveline de yazir
     $sql_emp = "select e.* ,e.company_id company_id,
- DATE_FORMAT(e.birth_date,'%d/%m/%Y') birth_date_u, DATE_FORMAT(e.passport_date,'%d/%m/%Y') passport_date_u,DATE_FORMAT(e.passport_end_date,'%d/%m/%Y') passport_end_date_u, concat(e.lastname,' ', e.firstname ,' ', e.surname) full_name,
  tec.company_name,tec.voen,tec.sun,tec.enterprise_head_position,tec.enterprise_head_fullname,
  te.qualification_id ,te.profession,te.institution_id, 
  tqd.qualification ,tu.uni_name,
@@ -129,6 +186,7 @@ LEFT join $tbl_military_rank tmr on tmr.rank_id=tmi.military_rank
 
         $row_emp = $result_emp->fetch_assoc();
         $data[]  = $row_emp;
+
         /***/
 //        print_r($data);
         $structure1= '';
@@ -138,12 +196,7 @@ LEFT join $tbl_military_rank tmr on tmr.rank_id=tmi.military_rank
         $structure5= '';
 
         $emp_id=$empid;
-        $full_name=$data[0]['full_name'];
-        $citizenship= $data[0]['citizenship'];
-        $passport_seria_number= $data[0]['passport_seria_number'];
-        $pincode= $data[0]['pincode'];
-        $passport_date= $data[0]['passport_date'];
-        $pass_given_authority= $data[0]['pass_given_authority'];
+
         $company_name= $data[0]['company_name'];
         $voen= $data[0]['voen'];
         $sun= $data[0]['sun'];
@@ -170,14 +223,6 @@ LEFT join $tbl_military_rank tmr on tmr.rank_id=tmi.military_rank
         }
 
 
-        $lastname= $data[0]['lastname'];
-        $firstname= $data[0]['firstname'];
-        $surname= $data[0]['surname'];
-        $birth_date= $data[0]['birth_date'];
-        $birth_place= $data[0]['birth_place'];
-        $marital_status= $data[0]['marital_status'];
-        $mob_tel= $data[0]['mob_tel'];
-        $living_address= $data[0]['living_address'];
 
         $military_reg_group= $data[0]['military_reg_group'];
         $military_reg_category= $data[0]['military_reg_category'];
@@ -193,14 +238,11 @@ LEFT join $tbl_military_rank tmr on tmr.rank_id=tmi.military_rank
         $military_additional_information= $data[0]['military_additional_information'];
         $military_date_completion= $data[0]['military_date_completion'];
 
-        $passport_date = strtr($passport_date, '/', '-');
-        $passport_date= date('Y-m-d', strtotime($passport_date));
+//        $passport_date = strtr($passport_date, '/', '-');
+//        $passport_date= date('Y-m-d', strtotime($passport_date));
 
         $create_date = strtr($create_date, '/', '-');
         $create_date= date('Y-m-d', strtotime($create_date));
-
-        $birth_date = strtr($birth_date, '/', '-');
-        $birth_date= date('Y-m-d', strtotime($birth_date));
 
         $military_registration_date = strtr($military_registration_date, '/', '-');
         $military_registration_date= date('Y-m-d', strtotime($military_registration_date));
@@ -208,25 +250,36 @@ LEFT join $tbl_military_rank tmr on tmr.rank_id=tmi.military_rank
         $military_date_completion = strtr($military_date_completion, '/', '-');
         $military_date_completion= date('Y-m-d', strtotime($military_date_completion));
         $insert_date= date("Y-m-d h:i:sa") ;
-
-        $sql = "INSERT INTO $tbl_contracts (id,emp_id,company_name,full_name,citizenship,passport_seria_number, pincode,
-passport_date,pass_given_authority,voen,sun,enterprise_head_position,enterprise_head_fullname,qualification,uni_name,profession,
-create_date,structure1,structure2,structure3,structure4,structure5,lastname,firstname,surname,birth_date,birth_place,marital_status,mob_tel,living_address,military_reg_group,military_reg_category
-,military_staff,military_rank,military_specialty_acc,military_fitness_service,military_registration_service,military_registration_date,military_general,military_special,military_no_official,military_additional_information,military_date_completion,insert_date) 
-    VALUES ('Null','$emp_id','$company_name','$full_name','$citizenship','$passport_seria_number','$pincode','$
-    passport_date','$pass_given_authority','$voen','$sun','$enterprise_head_position','$enterprise_head_fullname','$qualification','$uni_name','$profession','$
-    create_date','$structure1','$structure2','$structure3','$structure4','$structure5','$lastname','$firstname','$surname','$birth_date','$birth_place','$marital_status','$mob_tel','$living_address','$military_reg_group','$military_reg_category
+        if($structure5!=$structure5_2 ||
+            $structure4!=$structure4_2 ||
+            $structure3!=$structure3_2 ||
+            $structure2!=$structure2_2 ||
+            $structure1!=$structure1_2 ||
+            $create_date!=$create_date_2 ||
+            $profession!=$profession_2 ||
+            $enterprise_head_fullname!=$enterprise_head_fullname_2 ||
+            $enterprise_head_position!=$enterprise_head_position_2 ||
+            $voen!=$voen_2 ||
+            $company_name!=$company_name_2
+        ){
+            $sql = "INSERT INTO $tbl_contracts (id,emp_id,company_name,
+voen,sun,enterprise_head_position,enterprise_head_fullname,qualification,uni_name,profession,
+create_date,structure1,structure2,structure3,structure4,structure5,military_reg_group,military_reg_category
+,military_staff,military_rank,military_specialty_acc,military_fitness_service,military_registration_service,military_registration_date,military_general,military_special,military_no_official,military_additional_information,military_date_completion,insert_date)
+    VALUES ('Null','$emp_id','$company_name','$voen','$sun','$enterprise_head_position','$enterprise_head_fullname','$qualification','$uni_name','$profession','$create_date','$structure1','$structure2','$structure3','$structure4','$structure5','$military_reg_group','$military_reg_category
     ','$military_staff','$military_rank','$military_specialty_acc','$military_fitness_service','$military_registration_service','$military_registration_date','$military_general','$military_special','$military_no_official','$military_additional_information','$military_date_completion','$insert_date')";
 
 
-        if(!mysqli_query($db, $sql)) {
-            echo "error" .mysqli_error($db);
-        }
-        else {
+            if(!mysqli_query($db, $sql)) {
+                echo "error" .mysqli_error($db);
+            }
+            else {
 //            echo "success".$sql;
+            }
+        }else{
+//            echo "eynidir";
         }
 
-        /**/
 
 
 

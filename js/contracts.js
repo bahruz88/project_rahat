@@ -195,16 +195,17 @@ $('#cont_employee_table tbody').on( 'click', '#print', function () {
 	 // document.getElementById("update_empid").value = data[0];
 
 } );
+ var contract='';
 $('#myContracts').on( 'change', '#contracts', function () {
 
 	console.log('ssss');
 	$('#whichContracts').modal('show');
-	// var thisVal=$(this).find('option:selected').val();
-	// if(thisVal=='1'){
+	contract=$(this).find('option:selected').val();
+	// if(contract=='1'){
 	//     generate("emek2")
-	// }else if(thisVal=='2'){
+	// }else if(contract=='2'){
 	//     generate("emekElave")
-	// }else if(thisVal=='3'){
+	// }else if(contract=='3'){
 	//     generate("herbi")
 	// }
 	// var data = table.row( $(this).parents('tr') ).data();
@@ -219,92 +220,31 @@ $('#whichContracts').on( 'click', '#confirmContract', function () {
 	var contractDate=$('#whichContracts input[name=contractDate]:checked').val();
 	var order='';
 	if(contractDate=='1'){
-		order="  ORDER BY id ASC LIMIT 1"
+		order="  ORDER BY tc.id ASC LIMIT 1";
+		contractDate='1';
 	}
 	if(contractDate=='2'){
-		order="  ORDER BY id DESC LIMIT 1"
+		order="  ORDER BY tc.id DESC LIMIT 1";
+		contractDate='2';
 	}
 	if(contractDate=='3'){
-		order=""
+		order="";
+		contractDate='3';
 	}
 
-	GetEmpContractDetails(data[0],'update',order);
+	GetEmpContractDetails(data[0],'update',order,contractDate);
 	document.getElementById("update_empid").value = data[0];
-	// var thisVal=$('input[name=group2]:checked').val();
-	// if(thisVal=='1'){
-	//     generate("emek2")
-	// }else if(thisVal=='2'){
-	//     generate("emekElave")
-	// }else if(thisVal=='3'){
-	//     generate("herbi")
-	// }
-	// var emp_id=$('#emp_id').val();
-	// var full_name=$('#full_name').val();
-	// var citizenship= $('#citizenship').val();
-	// var passport_seria_number= $('#passport_seria_number').val();
-	// var pincode= $('#pincode').val();
-	// var passport_date= $('#passport_date').val();
-	// var pass_given_authority= $('#pass_given_authority').val();
-	// var company_name= $('#company_name').val();
-	// var voen= $('#voen').val();
-	// var sun= $('#sun').val();
-	// var enterprise_head_position= $('#enterprise_head_position').val();
-	// var enterprise_head_fullname= $('#enterprise_head_fullname').val();
-	// var qualification= $('#qualification').val();
-	// var  uni_name= $('#uni_name').val();
-	// var profession= $('#profession').val();
-	// var create_date= $('#create_date').val();
-	// var structure1= $('#structure1').val();
-	// var structure2= $('#structure2').val();
-	// var structure3= $('#structure3').val();
-	// var structure4= $('#structure4').val();
-	// var structure5= $('#structure5').val();
-	// var lastname= $('#lastname').val();
-	// var firstname= $('#firstname').val();
-	// var surname= $('#surname').val();
-	// var birth_date= $('#birth_date').val();
-	// var birth_place= $('#birth_place').val();
-	// var marital_status= $('#marital_status').val();
-	// var mob_tel= $('#mob_tel').val();
-	// var living_address= $('#living_address').val();
-	//
-	// var military_reg_group= $('#military_reg_group').val();
-	// var military_reg_category= $('#military_reg_category').val();
-	// var military_staff= $('#military_staff').val();
-	// var military_rank= $('#military_rank').val();
-	// var military_specialty_acc= $('#military_specialty_acc').val();
-	// var military_fitness_service= $('#military_fitness_service').val();
-	// var military_registration_service= $('#military_registration_service').val();
-	// var military_registration_date= $('#military_registration_date').val();
-	// var military_general= $('#military_general').val();
-	// var military_special= $('#military_special').val();
-	// var military_no_official= $('#military_no_official').val();
-	// var military_additional_information= $('#military_additional_information').val();
-	// var military_date_completion= $('#military_date_completion').val();
-	// $.ajax({
-	// 	url: 'contracts/contractInsert.php',
-	// 	type: "POST",
-	// 	// data: $('#employeeInsert').serialize(),
-	// 	data: { company_name:company_name,emp_id:emp_id,full_name:full_name,citizenship:citizenship,passport_seria_number:passport_seria_number, pincode:pincode,
-	// 		passport_date:passport_date,pass_given_authority:pass_given_authority,voen:voen,sun:sun,enterprise_head_position:enterprise_head_position,enterprise_head_fullname:enterprise_head_fullname,qualification:qualification,uni_name:uni_name,profession:profession,
-	// 		create_date:create_date,structure1:structure1,structure2:structure2,structure3:structure3,structure4:structure4,structure5:structure5,lastname:lastname,firstname:firstname,surname:surname,birth_date:birth_date,birth_place:birth_place,marital_status:marital_status,mob_tel:mob_tel,living_address:living_address,military_reg_group:military_reg_group,military_reg_category:military_reg_category
-	// 		,military_staff:military_staff,military_rank:military_rank,military_specialty_acc:military_specialty_acc,military_fitness_service:military_fitness_service,military_registration_service:military_registration_service,military_registration_date:military_registration_date,military_general:military_general,military_special:military_special,military_no_official:military_no_official,military_additional_information:military_additional_information,military_date_completion:military_date_completion},
-	// 	success: function (data) {
-	// 		console.log('dataaaaaaapp=' , data);
-	// 		// console.log('dataaaaaaaaaa=' , $.parseJSON(data));
-	// 		// var tree = $('#tree').fancytree('getTree');
-	// 		// tree.reload($.parseJSON(data));
-	// 	},
-	// });
+
 });
 
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
-function GetEmpContractDetails(empid,optype,order)
+function GetEmpContractDetails(empid,optype,order,contractDate)
 {
 	$.post("contracts/getEmployeeContractDetail.php",
 		{
 			empid: empid,
-			order: order
+			order: order,
+			contractDate: contractDate
 		},
 		function (emp_data, status)
 		{
@@ -391,6 +331,13 @@ function GetEmpContractDetails(empid,optype,order)
 
 				// $("#structure").val(employee.structure);
 				$('#myContracts').modal('show');
+				if(contract=='1'){
+					generate("emek2")
+				}else if(contract=='2'){
+					generate("emekElave")
+				}else if(contract=='3'){
+					generate("herbi")
+				}
 				// $('#modalEdit').modal('show');
 			}
 
