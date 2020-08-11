@@ -5,6 +5,7 @@
 <!--
 Mandatory in IE 6, 7, 8 and 9.
 -->
+
 <!--[if IE]>
 <script type="text/javascript" src="https://unpkg.com/pizzip@3.0.6/dist/pizzip-utils-ie.js"></script>
 <![endif]-->
@@ -21,7 +22,7 @@ Mandatory in IE 6, 7, 8 and 9.
 					<div class="card-header">
 						<h4 class="card-title"><?php echo $dil["contracts"];?></h4>
 					</div>
-					<div class="card-body" style="position: relative; overflow: auto; height: 200px;overflow-y: scroll; ">
+					<div class="card-body" style="position: relative; overflow: auto; height: 350px;overflow-y: scroll; ">
 
 
 							 <div class="form-group row">
@@ -35,7 +36,23 @@ Mandatory in IE 6, 7, 8 and 9.
 								</select>
 								</div>
 							</div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="commands"><?php echo $dil["commands"];?></label>
+                            <div class="col-sm-6">
+                                <select data-live-search="true"  name="commands" id="commands"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["commands"];?>" >
+                                    <option  value="0" >Seçin...</option>
+                                    <?php
+                                    if($result_commands->num_rows > 0) {
+                                        while($row_commands = $result_commands->fetch_assoc()) {
+                                            ?>
+                                            <option  value="c<?php echo $row_commands['id']; ?>" ><?php echo $row_commands['title'];  ?></option>
+
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
                         <input type="hidden" class="form-control" id="emp_id" name="emp_id"   />
+                        <input type="hidden" class="form-control" id="currentDate" name="currentDate"   />
                         <input type="hidden" class="form-control" id="full_name" name="full_name"   />
                         <input type="hidden" class="form-control" id="citizenship" name="citizenship"   />
                         <input type="hidden" class="form-control" id="passport_seria_number" name="passport_seria_number"   />
@@ -43,6 +60,8 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="passport_date" name="passport_date"   />
                         <input type="hidden" class="form-control" id="pass_given_authority" name="pass_given_authority"   />
                         <input type="hidden" class="form-control" id="company_name" name="company_name"   />
+                        <input type="hidden" class="form-control" id="company_address" name="company_address"   />
+                        <input type="hidden" class="form-control" id="company_tel" name="company_tel"   />
                         <input type="hidden" class="form-control" id="voen" name="voen"   />
                         <input type="hidden" class="form-control" id="sun" name="sun"   />
                         <input type="hidden" class="form-control" id="enterprise_head_position" name="enterprise_head_position"   />
@@ -183,6 +202,7 @@ Mandatory in IE 6, 7, 8 and 9.
             }
 
             doc.setData({
+                current_date: $('#currentDate').val(),
                 full_name: $('#full_name').val(),
                 citizenship: $('#citizenship').val(),
                 passport_seria_number: $('#passport_seria_number').val(),
@@ -190,6 +210,8 @@ Mandatory in IE 6, 7, 8 and 9.
                 passport_date: $('#passport_date').val(),
                 pass_given_authority: $('#pass_given_authority').val(),
                 company_name: $('#company_name').val(),
+                company_address: $('#company_address').val(),
+                company_tel: $('#company_tel').val(),
                 voen: $('#voen').val(),
                 sun: $('#sun').val(),
                 enterprise_head_position: $('#enterprise_head_position').val(),

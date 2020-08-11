@@ -7,30 +7,11 @@
  $sql_driving_category= "select * from $tbl_driver_lic_cat  where lang='$site_lang' ";
 
  $sql_lang_level= "select * from $tbl_lang_level  where lang_short_name='$site_lang' ";
- $result_qua_dic_view = $db->query($sql_qua_dic);
- $result_qua_dic_s_view = $db->query($sql_qua_dic);	 
- $result_university_view = $db->query($sql_university);
- $result_university_s_view = $db->query($sql_university);
- $result_emp_lang_view = $db->query($sql_emp_lang);
- $result_emp_lang_edit = $db->query($sql_emp_lang);
- $result_lang_level_view = $db->query($sql_lang_level);
- $result_lang_level_edit = $db->query($sql_lang_level);
- $result_lang_level_w_view = $db->query($sql_lang_level);
- $result_lang_level_w_edit = $db->query($sql_lang_level);
- $result_lang_level_s_view = $db->query($sql_lang_level);
- $result_lang_level_s_edit = $db->query($sql_lang_level);
- $result_lang_level_u_view = $db->query($sql_lang_level);
- $result_lang_level_u_edit = $db->query($sql_lang_level);
- $result_fam_member_type_view = $db->query($sql_fam_member_type);
- $result_fam_member_type_edit = $db->query($sql_fam_member_type);
- $result_military_rank_view = $db->query($sql_military_rank);
- $result_military_rank_edit = $db->query($sql_military_rank);
- $result_military_staff_view = $db->query($sql_military_staff);
- $result_military_staff_edit = $db->query($sql_military_staff);
 
- $result_driving_category_view = $db->query($sql_driving_category);
- $result_driving_category_edit = $db->query($sql_driving_category);
 
+
+$commands= "select * from tbl_commands";
+$result_commands = $db->query($commands);
 ?>
 <!DOCTYPE html>
 <html>

@@ -229,6 +229,13 @@
                   <p>Struktur menu</p>
                 </a>
               </li>
+                <li class="nav-item">
+
+                <a href="staff.php" class="nav-link">
+
+                  <p>Ştat cədvəli</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="pages/charts/flot.html" class="nav-link">
                   

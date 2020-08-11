@@ -100,8 +100,8 @@ if ($result_emp_contracts->num_rows > 0&& $contractDate!='2')
     $data[]  = $row_emp_contracts;
 }else {
     //eger tbl_contract cedvelinde verilen yoxdursa umumi bazadan secib getirir ve tbl_contract cedveline de yazir
-    $sql_emp = "select e.* ,e.company_id company_id,
- tec.company_name,tec.voen,tec.sun,tec.enterprise_head_position,tec.enterprise_head_fullname,
+    $sql_emp = "select e.* ,concat(e.lastname,' ', e.firstname ,' ', e.surname) full_name,e.company_id company_id,
+ tec.company_name,tec.address company_address,tec.tel company_tel,tec.voen,tec.sun,tec.enterprise_head_position,tec.enterprise_head_fullname,
  te.qualification_id ,te.profession,te.institution_id, 
  tqd.qualification ,tu.uni_name,
  tc.create_date ,tc.structure_level,

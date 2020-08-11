@@ -75,6 +75,7 @@ $dil = array(
     "company_insert_title"      =>"Yeni şirkət məlumatlarının daxil edilməsi",
     "company_edit_title"        =>"Şirkət məlumatlarının dəyişdirilməsi",
     "company_view_title"        =>"Şirkət məlumatlarına baxış",
+    "enterprise_name" 	=>"Müəssisənin adı",
 
     /*company end*/
 
@@ -274,5 +275,7 @@ $dil = array(
 	"position_level"   =>"Pozisya səviyyəsi",
     /**/
     "contracts"   =>"Müqavilələr",
+    "commands"   =>"Əmrlər",
+    "structure_names"   =>"Struktur bölmələrin adı və vəzifələr",
 );
 ?>
