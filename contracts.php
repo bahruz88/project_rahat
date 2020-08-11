@@ -12,6 +12,7 @@
 
 $commands= "select * from tbl_commands";
 $result_commands = $db->query($commands);
+//$sql_employees= "select * from $tbl_employees where  emp_status=1 ";
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,20 +102,32 @@ $result_commands = $db->query($commands);
 
 <!-- Tab panes -->
 <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
-	<div class="tab-pane active" id="employees">   
-		<table id="cont_employee_table" class="table table-striped  table-bordered table-hover">
-            <thead>
-				<tr>
-                    <th>id</th>
-                    <th width="150px;">Şəkil</th>
-                    <th>Adı</th>
-					<th>Soyadı</th>
-					<th>Ataadı</th>
-					<th>Kodu</th>
-					<th></th>
-				</tr>
-            </thead>  
-        </table>
+	<div class="tab-pane active" id="employees" style="padding: 10px;">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
+            <div class="col-sm-6">
+                <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
+                    <?php
+                    $result_company = $db->query($sql_employee_company);
+                    if ($result_company->num_rows > 0) {
+                        while($row_company= $result_company->fetch_assoc()) {
+                            ?>
+                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                        <?php } }?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="empid"><?php echo $dil["employee"];?></label>
+            <div class="col-sm-6" id="contract_emp">
+                <select data-live-search="true"  name="empid"  id="empid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>">
+
+                </select>
+            </div>
+        </div>
+
+        <button id="print">Yüklə</button>
+
 	</div>
 
 
@@ -172,6 +185,6 @@ $result_commands = $db->query($commands);
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
  <script type="text/javascript" src="js/contracts.js"></script>
- 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </body>
 </html>

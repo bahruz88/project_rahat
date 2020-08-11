@@ -114,88 +114,28 @@ $( "#employeeUpdate" ).validate( {
 } );
 
 
-/* EMPLOYEE  TABLE LOAD  */
-var table = $("#cont_employee_table").DataTable({
-	"scrollX": true,
-	"paging": true,
-	"lengthChange": false,
-	"searching": true,
-	"ordering": true,
-	"info": true,
-	"autoWidth": false,
-	"language": {
-		"lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
-		"zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
-		"info": "Showing page _PAGE_ of _PAGES_",
-		"infoEmpty": "<?php echo $dil['datanotfound'] ; ?>",
-		"infoFiltered": "(filtered from _MAX_ total records)",
-		"paginate": {
-			"previous": "<?php echo $dil['previous'] ; ?> " ,
-			"next": "<?php echo $dil['next'] ; ?>"
-		}
-	},
-	"ajax": {
-		url: "contracts/get_cont_employees.php",
-		type: "POST"
-	},"columnDefs": [ {
-		"width": "8%",
-		"targets": -1,
-		"data": null,
-		"defaultContent": " <img  id='print' style='cursor:pointer' src='dist/img/icons/print.png' width='22' height='22'>"
-			// "<img  id='delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
-			// "<img id='edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
-	} ],
-	dom: 'lBfrtip',
-
-	buttons: [
-		// {
-		// 	text: 'Add New <i class="fa fa-plus"></i>',
-		// 	action: function ( e, dt, node, config ) {
-		// 		$("#myModal").modal();
-		// 		$('#imgAdd').html($('#uploadDiv').html())
-		// 		$('#imgUpdate').html('')
-		// 		addImage();
-		// 	}
-		// },
-		// {
-		// 	extend: 'excelHtml5',
-		// 	exportOptions: {
-		// 		columns: ':visible'
-		// 	}
-		// },
-		// {
-		// 	extend: 'csvHtml5',
-		// 	exportOptions: {
-		// 		columns: ':visible'
-		// 	}
-		// },
-		// {
-		// 	extend: 'pdfHtml5',
-		// 	exportOptions: {
-		// 		columns: ':visible'
-		// 	}
-		// }  ,'copy','print',
-		// 'colvis'
-	],
-
-	"lengthMenu": [
-		[10, 20, 50, -1],
-		[10, 20, 50, "All"]
-	]
-
-});
-
-
 var data;
-$('#cont_employee_table tbody').on( 'click', '#print', function () {
+$('#employees').on( 'click', '#print', function () {
 	console.log('$row_employees[\'image_name\']');
-	$('#myContracts').modal('show');
-	 data = table.row( $(this).parents('tr') ).data();
+
+	 // data = table.row( $(this).parents('tr') ).data();
+	if($('#empid').find('option:selected').val()!="0" &&$('#empid').find('option:selected').val()!=""){
+		$('#myContracts').modal('show');
+		data =   $('#empid').find('option:selected').val()
+	}else{
+		Swal.fire(
+			'',
+			'Bu əməliyyat üçün işçi seçilməyib! Zəhmət olmasa işçi seçin.',
+			'info'
+		)
+	}
+
 	 // GetEmpContractDetails(data[0],'update');
 	 // document.getElementById("update_empid").value = data[0];
 
 } );
  var contract='';
+ var company_id='';
 $('#myContracts').on( 'change', '#contracts', function () {
 
 	console.log('ssss');
@@ -208,6 +148,7 @@ $('#myContracts').on( 'change', '#commands', function () {
 	$('#whichContracts').modal('show');
 	contract=$(this).find('option:selected').val();
 });
+
 
 $('#whichContracts').on( 'click', '#confirmContract', function () {
 
@@ -228,7 +169,7 @@ $('#whichContracts').on( 'click', '#confirmContract', function () {
 		contractDate='3';
 	}
 
-	GetEmpContractDetails(data[0],'update',order,contractDate);
+	GetEmpContractDetails(data,'update',order,contractDate);
 	document.getElementById("update_empid").value = data[0];
 
 });
@@ -384,3 +325,34 @@ function GetEmpContractDetails(empid,optype,order,contractDate)
 	);
 
 }
+$('#employees').on( 'change','#company',  function () {
+
+	console.log('company');
+	// $('#whichContracts').modal('show');
+	company_id=$(this).find('option:selected').val();
+	$.ajax({
+		url: "contracts/get_cont_employees.php",
+		type: "POST",
+		data: { company_id:company_id},
+		success: function (data) {
+			console.log('data=',data)
+			console.log('$.parseJSON(data)=',$.parseJSON(data))
+			var option='<select data-live-search="true"  name="empid" id="empid"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+			option += '<option value="0">Seçin..</option>';
+
+			var row = '';
+			// $('#tablePositions').find('tbody').html('');
+			$.each($.parseJSON(data), function(k,v) {
+				console.log('v=',v[1])
+					option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
+
+			});
+			option+=' </select>';
+			console.log('option='+option)
+			// option += '</select>';
+			$('#contract_emp').html(option);
+			$(".selectpicker").selectpicker();
+
+			}
+		})
+});

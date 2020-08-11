@@ -112,7 +112,7 @@ $result_employee_category = $db->query($employee_category);
             </select>
         </div>
     </div>
-	<div class="tab-pane active" id="staff">
+	<div class="tab-pane active" id="staff" style="display: none;">
         <div class="staffText">
         <div class="container text-center"><span id="companyName"></span></div>
         <div class="container text-center">AZ1114, AZƏRBAYCAN, BAKI ŞƏHƏRİ, BİNƏQƏDİ RAYONU, M.RƏSULZADƏ ŞTQ, AĞAMALI OĞLU (RƏSULZADƏ QƏS.), EV 5A
@@ -167,6 +167,7 @@ $result_employee_category = $db->query($employee_category);
         </table>
 
 	</div>
+        <button onclick="generate('staff')">Yüklə</button>
 	</div>
     <input type="hidden" class="form-control" id="tableStaff" name="tableStaff"   />
     <input type="hidden" class="form-control" id="company_name" name="company_name"   />
@@ -176,7 +177,7 @@ $result_employee_category = $db->query($employee_category);
 
 
     <div id="editor"></div>
-     <button onclick="generate('staff')">Yüklə</button>
+
 <!--    <button onclick="printDiv('staff','Title')">Print</button>-->
 </div>
 </div>
@@ -405,6 +406,7 @@ $result_employee_category = $db->query($employee_category);
                 arrayData=JSON.stringify(arrayData2);
 
                 $("table#staff_table tbody").append(table);
+                $("#staff").css("display","block");
                 $("#tableStaff").val( $("table#staff_table").html());
 
 
