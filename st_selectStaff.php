@@ -14,6 +14,7 @@ if($result_category_company->num_rows > 0) {
         $sub_array1[] = $row_category_company['company_name'];
         $sub_array1[] = $row_category_company['company_address'];
         $sub_array1[] = $row_category_company['company_tel'];
+        $sub_array1[] = $row_category_company['enterprise_head_position'];
         $data['bir'] = $sub_array1;
     }
 }
@@ -77,7 +78,8 @@ $arrb=$data["bir"];
 $arrChil["enterprise_head_fullname"]=$arrb[0];
 $arrChil["company_name"]=$arrb[1];
 $arrChil["company_address"]=$arrb[2];
-$arrChil["company_tel"]=$arrb[2];
+$arrChil["company_tel"]=$arrb[3];
+$arrChil["enterprise_head_position"]=$arrb[4];
 unset($data["bir"]);
 
 foreach ($data as $arrC)

@@ -115,21 +115,21 @@ $result_employee_category = $db->query($employee_category);
 	<div class="tab-pane active" id="staff" style="display: none;">
         <div class="staffText">
         <div class="container text-center"><span id="companyName"></span></div>
-        <div class="container text-center">AZ1114, AZƏRBAYCAN, BAKI ŞƏHƏRİ, BİNƏQƏDİ RAYONU, M.RƏSULZADƏ ŞTQ, AĞAMALI OĞLU (RƏSULZADƏ QƏS.), EV 5A
-            Tel: 012 404 19 19 / 050 265 14 36</div>
+        <div class="container text-center"><span class="company_adress"></span><span class="company_tel"></span></div>
         <br/>
         <div class="row">
-            <div class="col-md-8">2020-ci ilin iyun ayı üzrə ştat cədvəli</div>
+            <div class="col-md-8"><span class="year"></span>-ci ilin <span class="month"></span> ayı üzrə ştat cədvəli</div>
             <div class="col-md-4">TƏSDİQ EDİRƏM:</div>
         </div>
 
         <br/>
         <div class="row">
-            <div class="col-md-12  text-right">      Direktor _______________________ Aftandil Aftandil</div>
+            <div class="col-md-9  text-right">      <span class="enterprise_head_position"></span>   </div>
+            <div class="col-md-3  text-left">       <span class="enterprise_head_fullname"></span></div>
         </div>
         <div class="row">
             <div class="col-md-8">&nbsp;</div>
-            <div class="col-md-4">01 iyun 2020-ci il</div>
+            <div class="col-md-4"><span class="day"></span> <span class="month"></span> <span class="year"></span>-ci il</div>
         </div>
         <div class="row">
             <div class="col-md-4">Ştat vahidi     </div>
@@ -142,8 +142,8 @@ $result_employee_category = $db->query($employee_category);
             <div class="col-md-6">manat</div>
         </div>
         <div class="row">
-            <div class="col-md-1"><span id="companyDate"></span>     </div>
-            <div class="col-md-11">-ci il tarixindən qüvvəyə minir</div>
+            <div class="col-md-2"><span class="day"></span> <span class="month"></span> <span class="year"></span>     </div>
+            <div class="col-md-10">-ci il tarixindən qüvvəyə minir</div>
         </div>
         </div>
         <div id="staffTab">
@@ -167,13 +167,17 @@ $result_employee_category = $db->query($employee_category);
         </table>
 
 	</div>
-        <button onclick="generate('staff')">Yüklə</button>
+        <button onclick="generate('staff2')">Yüklə</button>
 	</div>
     <input type="hidden" class="form-control" id="tableStaff" name="tableStaff"   />
     <input type="hidden" class="form-control" id="company_name" name="company_name"   />
     <input type="hidden" class="form-control" id="company_address" name="company_address"   />
     <input type="hidden" class="form-control" id="company_tel" name="company_tel"   />
      <input type="hidden" class="form-control" id="enterprise_head_fullname" name="enterprise_head_fullname"   />
+     <input type="hidden" class="form-control" id="enterprise_head_position" name="enterprise_head_position"   />
+     <input type="hidden" class="form-control" id="day" name="day"   />
+     <input type="hidden" class="form-control" id="month" name="month"   />
+     <input type="hidden" class="form-control" id="year" name="year"   />
 
 
     <div id="editor"></div>
@@ -301,6 +305,9 @@ $result_employee_category = $db->query($employee_category);
                     company_tel: $('#company_tel').val(),
                     enterprise_head_position: $('#enterprise_head_position').val(),
                     enterprise_head_fullname: $('#enterprise_head_fullname').val(),
+                    day: $('#day').val(),
+                    month: $('#month').val(),
+                    year: $('#year').val(),
 
             });
 
@@ -367,6 +374,7 @@ $result_employee_category = $db->query($employee_category);
         format: 'dd/mm/yyyy',
         // startDate: new Date()
     });
+
     $("#enterprise_name").change(function(){
         console.log('enterprise_name change'+$(this).attr('name'));
         var id=$(this).find('option:selected').val();
@@ -380,8 +388,65 @@ $result_employee_category = $db->query($employee_category);
 
                 $('#companyDate').text($('#date_completion').val())
                 var table='';
+                // console.log('day='+$('#date_completion').val().substr(0, 2))
+                // console.log('month='+$('#date_completion').val().substr(3, 2))
+                var year=$('#date_completion').val().substr(6, 4);
+                var month=$('#date_completion').val().substr(3, 2);
+                switch ($('#date_completion').val().substr(3, 2)) {
+                    case "01":
+                        month = "Yanvar";
+                        break;
+                    case "02":
+                        month = "Fevral";
+                        break;
+                    case "03":
+                        month = "Mart";
+                        break;
+                    case "04":
+                        month = "Aprel";
+                        break;
+                    case "05":
+                        month = "May";
+                        break;
+                    case "06":
+                        month = "İyun";
+                        break;
+                    case "07":
+                        month = "İyul";
+                        break;
+                    case "08":
+                        month = "Avqust";
+                        break;
+                    case "09":
+                        month = "Sentyabr";
+                        break;
+                    case "10":
+                        month = "Oktyabr";
+                        break;
+                    case "11":
+                        month = "Noyabr";
+                        break;
+                    case "12":
+                        month = "Dekabr";
+                        break;
+                }
+                var day=$('#date_completion').val().substr(0, 2);
+
+                $('#year').val(year)
+                $('#month').val(month)
+                $('#day').val(day)
+
+                $('.year').text(year)
+                $('.month').text(month)
+                $('.day').text(day)
+                $('.enterprise_head_fullname').text(data1["enterprise_head_fullname"])
+                $('.enterprise_head_position').text(data1["enterprise_head_position"])
+                $('#companyName').text('"'+data1["company_name"]+'"')
+                $('.company_address').text(data1["company_address"])
+                $('.company_tel').text(data1["company_tel"])
 
                     $('#enterprise_head_fullname').val(data1["enterprise_head_fullname"])
+                    $('#enterprise_head_position').val(data1["enterprise_head_position"])
                     $('#company_name').val(data1["company_name"])
                     $('#company_address').val(data1["company_address"])
                     $('#company_tel').val(data1["company_tel"])
@@ -389,7 +454,7 @@ $result_employee_category = $db->query($employee_category);
 
                 $("table#staff_table tbody").html('');
                 $.each(data1, function (key, value) {
-                    if(key!="company_tel" && key!="company_address" && key!="company_name" && key!="enterprise_head_fullname" )
+                    if(key!="company_tel" && key!="company_address" && key!="company_name" && key!="enterprise_head_fullname"&& key!="enterprise_head_position" )
                     {
                         table+='<tr class="typeOfDocument" >' +
                             '<td>'+value.id+'</td>'+
