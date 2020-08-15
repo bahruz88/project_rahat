@@ -8,7 +8,8 @@ $sql_driving_category= "select * from $tbl_driver_lic_cat  where lang='$site_lan
 
 $sql_lang_level= "select * from $tbl_lang_level  where lang_short_name='$site_lang' ";
 
-
+$sql_position_level= "select * from $tbl_position_level";
+$sql_employee= "select * from $tbl_employees where  emp_status=1";
 
 $commands= "select * from tbl_commands";
 $result_commands = $db->query($commands);
@@ -107,6 +108,8 @@ $result_commands = $db->query($commands);
                                 <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
                                 <div class="col-sm-6">
                                     <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
+                                        <option  value="" >Seçin...</option>
+
                                         <?php
                                         $result_company = $db->query($sql_employee_company);
                                         if ($result_company->num_rows > 0) {
@@ -120,10 +123,12 @@ $result_commands = $db->query($commands);
 
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="code"><?php echo $dil["code"];?></label>
-                                <div class="col-sm-6" id="contract_emp">
-                                    <select data-live-search="true"  name="code"  id="code" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["code"];?>">
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="code" name="code"   />
 
-                                    </select>
+                                    <!--                                    <select data-live-search="true"  name="code"  id="code" title="--><?php //echo $dil["selectone"];?><!--" class="form-control selectpicker"  placeholder="--><?php //echo $dil["code"];?><!--">-->
+<!---->
+<!--                                    </select>-->
                                 </div>
                             </div>
 
@@ -131,15 +136,33 @@ $result_commands = $db->query($commands);
                                 <label class="col-sm-4 col-form-label" for="empid"><?php echo $dil["employee"];?></label>
                                 <div class="col-sm-6" id="contract_emp">
                                     <select data-live-search="true"  name="empid"  id="empid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>">
+                                        <?php
+                                        $result_employees_view = $db->query($sql_employee);
+                                        if ($result_employees_view->num_rows > 0) {
+                                            while($row_employees= $result_employees_view->fetch_assoc()) {
 
+                                                ?>
+                                                <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+
+                                            <?php } }?>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="position"><?php echo $dil["position"];?></label>
-                                <div class="col-sm-6" id="contract_emp">
-                                    <select data-live-search="true"  name="position"  id="position" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["position"];?>">
+                                <div class="col-sm-6">
+                                    <select data-live-search="true"  name="position_level" id="position_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["position_level"];?>" >
+                                        <option  value="" >Seçin...</option>
 
+                                        <?php
+                                        $result_position_view = $db->query($sql_position_level);
+                                        if ($result_position_view->num_rows > 0) {
+                                            while($row_position= $result_position_view->fetch_assoc()) {
+
+                                                ?>
+                                                <option  value="<?php echo $row_position['id']; ?>" data-icon="<?php echo $row_position['posit_icon']; ?>"  style="background-image:url(images/icons/man2.png);"  ><?php echo  $row_position['title'];  ?></option>
+
+                                            <?php } }?>
                                     </select>
                                 </div>
                             </div>

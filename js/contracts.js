@@ -121,6 +121,10 @@ $( "#employeeUpdate" ).validate( {
 
 $('#myContracts').on( 'click', 'input[name=contractSelect]', function () {
 	console.log('contractSelect'+$(this).val());
+ 	// $('#myContracts').find("input[name='contractDate']:checked").removeAttr("checked");
+ 	$('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
+ 	$('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
+
 	if($(this).val()=='1'){
 		$('#contractsDiv').css('display','block');
 		$('#commandsDiv').css('display','none');
@@ -142,10 +146,26 @@ $('#myContracts').on( 'click', 'input[name=contractSelect]', function () {
 
 });
 
+$('#myContracts').on( 'click', '#closeContract', function () {
+	$('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
+	$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
+	$('#myContracts').find('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
+	$("table#command_table tbody").html('');
+	$('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
+	$('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
+	$('#myContracts input[name=sinceDate]').val('')
+	$('#myContracts').find('#commandsDate').css('display','none')
+	$('#myContracts').find('#contractsDate').css('display','none')
+	$('#contractsDiv').css('display','none');
+	$('#commandsDiv').css('display','none');
+	$('#myContracts').find("input[name='contractSelect']:checked").prop('checked', false);
+
+
+})
 $('#myContracts').on( 'click', '#confirmContract', function () {
 	$("table#command_table tbody").html('');
-	console.log('$(\'#myContracts\').find(\'#commands\')='+$('#myContracts').find('#commands').html())
-	if($('#myContracts').find('#commands').find('option:selected').val()!="0"){
+	contract='';
+ 	if($('#myContracts').find('#commands').find('option:selected').val()!="0"){
 		contract=$('#myContracts').find('#commands option:selected').val();
 
 	}else
@@ -189,11 +209,17 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 {
 	console.log('contractDate='+contractDate)
 	console.log('command_id='+contract)
+	console.log('contName='+contName)
+	console.log('sinceDate='+sinceDate)
 	var url="";
 	if(contName=="contracts"){
 		url="contracts/getEmployeeContractDetail.php"
 	}else if(contName=="commands"){
 		url="contracts/getEmployeeCommandDetail.php"
+	}
+	if(sinceDate==''){
+		var d = new Date();
+		sinceDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 	}
 	$.post(url,
 		{
@@ -356,20 +382,20 @@ $('#employees').on( 'change','#company',  function () {
 	// $('#whichContracts').modal('show');
 	company_id=$(this).find('option:selected').val();
 	$.ajax({
-		url: "contracts/get_cont_employees.php",
+		url: "contracts/get_employees.php",
 		type: "POST",
 		data: { company_id:company_id},
 		success: function (data) {
 			console.log('data=',data)
 			console.log('$.parseJSON(data)=',$.parseJSON(data))
 			var option='<select data-live-search="true"  name="empid" id="empid"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-			option += '<option value="0">Seçin..</option>';
+			option += '<option value="">Seçin..</option>';
 
 			var row = '';
 			// $('#tablePositions').find('tbody').html('');
 			$.each($.parseJSON(data), function(k,v) {
 				console.log('v=',v[1])
-					option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
+					option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
 
 			});
 			option+=' </select>';
@@ -384,37 +410,48 @@ $('#employees').on( 'change','#company',  function () {
 var company_id='';
 var code='';
 var position='';
+var empid='';
 $('#employees').on( 'click','#searchContract',  function () {
 	console.log('company');
 	// $('#whichContracts').modal('show');
 	company_id=$('#company').find('option:selected').val();
-	code=$('#code').find('option:selected').val();
-	position=$('#code').find('option:selected').val();
+	position=$('#position_level').find('option:selected').val();
+	empid=$('#empid').find('option:selected').val();
+	code=$('#code').val();
+	position=$('#position_level').find('option:selected').val();
 	$.ajax({
 		url: "contracts/get_cont_employees.php",
 		type: "POST",
-		data: { company_id:company_id},
+		data: { company_id:company_id,code:code,position:position,empid:empid},
 		success: function (data) {
 			console.log('data=',data)
+			console.log('dataparseJSON=',$.parseJSON(data))
 
 			var table = '';
+			$("table#emp_table tbody").html('');
 			// $('#tablePositions').find('tbody').html('');
 			$.each($.parseJSON(data), function(k,value) {
-				$("table#emp_table tbody").html('');
+
 
 
 				table+='<tr class="typeOfDocument" >' +
-					'<td><a href="#" class="contractShow" data-id="'+value[0]+'">Senede bax</a></td>'+
-					'<td>'+value[0]+'</td>'+
-					'<td>'+value[1]+'</td>'+
-					'<td>'+value[2]+'</td>'+
-					'<td>'+value[3]+'</td>'+
-					'<td>'+1000+'</td>';
+					'<td><a href="#" class="contractShow" data-id="'+value.id+'" data-empid="'+value.emp_id+'">Senede bax</a></td>'+
+					'<td>'+value.code+'</td>'+
+					'<td>'+value.firstname+'</td>'+
+					'<td>'+value.lastname+'</td>'+
+					'<td>'+value.surname+'</td>'+
+					'<td>'+value.position_level+'</td>';
 
 
 
 			});
 			$("table#emp_table tbody").append(table);
+			// $('#company').find('option[value=""]').prop('selected', true);
+			// $('#position_level').find('option[value=""]').prop('selected', true);
+			// $('#empid').find('option[value=""]').prop('selected', true);
+			// $('#code').val('');
+			// $(".selectpicker").selectpicker();
+
 
 		}
 	})
@@ -425,7 +462,7 @@ var data;
 $('#emp_table').on( 'click','.contractShow',  function () {
 	console.log('contractShow');
 		$('#myContracts').modal('show');
-		data =   $(this).attr("data-id")
+		data =   $(this).attr("data-empid")
 		// data =   $('#empid').find('option:selected').val()
 
 });

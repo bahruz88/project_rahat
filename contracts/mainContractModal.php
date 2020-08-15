@@ -173,7 +173,7 @@ Mandatory in IE 6, 7, 8 and 9.
             <table id="command_table" style="display: none;width:100%;" class="table table-striped  table-bordered table-hover">
                 <thead style="font-weight: bold;">
                     <td width="10px;">1</td>
-                    <td width="50px;" class="cno">Emr nomresi</td>
+                    <td width="50px;" class="cno">Əmr nömrəsi</td>
                     <td>Ad</td>
                     <td>Soyad</td>
                     <td>Ata adı</td>
@@ -189,7 +189,7 @@ Mandatory in IE 6, 7, 8 and 9.
 
 
             <!--		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up">--><?php //echo $dil["save"];?><!--</button>-->
-            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
+            <button type="button" class="btn btn-default"  id="closeContract" data-dismiss="modal"><?php echo $dil["close"];?></button>
 
         </div>
 		</form>
