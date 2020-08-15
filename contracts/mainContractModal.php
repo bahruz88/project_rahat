@@ -5,7 +5,22 @@
 <!--
 Mandatory in IE 6, 7, 8 and 9.
 -->
-
+<style>
+    .altxett  {
+        border-style: solid;
+        border-bottom: thick line #ff0000;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        width: 250px;
+    }
+    .disabled {
+        color: grey;
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: default;
+    }
+</style>
 <!--[if IE]>
 <script type="text/javascript" src="https://unpkg.com/pizzip@3.0.6/dist/pizzip-utils-ie.js"></script>
 <![endif]-->
@@ -20,39 +35,83 @@ Mandatory in IE 6, 7, 8 and 9.
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["contracts"];?></h4>
+						<h4 class="card-title"><?php echo $dil["contracts_commands"];?></h4>
 					</div>
 					<div class="card-body" style="position: relative; overflow: auto; height: 350px;overflow-y: scroll; ">
-
-
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="contracts"><?php echo $dil["contracts"];?></label>
-								<div class="col-sm-6">
-								<select   name="contracts" id="contracts"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["contracts"];?>" >
-									<option value="0">Seçin...</option>
-									<option value="1">Əmək müqaviləsi</option>
-									<option value="2">Əmək müqaviləsinə əlavə</option>
-									<option value="3">Hərbi uçot vərəqəsi</option>
-								</select>
-								</div>
-							</div>
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label" for="commands"><?php echo $dil["commands"];?></label>
-                            <div class="col-sm-6">
-                                <select data-live-search="true"  name="commands" id="commands"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["commands"];?>" >
-                                    <option  value="0" >Seçin...</option>
-                                    <?php
-                                    if($result_commands->num_rows > 0) {
-                                        while($row_commands = $result_commands->fetch_assoc()) {
-                                            ?>
-                                            <option  value="c<?php echo $row_commands['id']; ?>" ><?php echo $row_commands['title'];  ?></option>
+                            <div class="col-sm-5">
 
-                                        <?php } }?>
-                                </select>
+                                <fieldset >
+                                    <input type="radio" value="1" name="contractSelect">&nbsp; <label for="">Müqavilə</label><br/>
+                                    <input type="radio" value="2" name="contractSelect">&nbsp;<label for="">Əmr</label><br/>
+                                 </fieldset>
                             </div>
+
+                            <div class="col-sm-5">
+                                <div  id="contractsDiv" style="display: none;">
+                                    <select   name="contracts" id="contracts"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["contracts"];?>" >
+                                        <option value="0">Seçin...</option>
+                                        <option value="1">Əmək müqaviləsi</option>
+                                        <option value="2">Əmək müqaviləsinə əlavə</option>
+                                        <option value="3">Hərbi uçot vərəqəsi</option>
+                                    </select>
+                                </div>
+
+                                <div  id="commandsDiv" style="display: none;">
+                                    <select data-live-search="true"  name="commands" style="display: none;" id="commands"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["commands"];?>" >
+                                        <option  value="0" >Seçin...</option>
+                                        <?php
+                                        if($result_commands->num_rows > 0) {
+                                            while($row_commands = $result_commands->fetch_assoc()) {
+                                                ?>
+                                                <option  value="c<?php echo $row_commands['id']; ?>" ><?php echo $row_commands['title'];  ?></option>
+
+                                            <?php } }?>
+                                    </select>
+                                </div>
+
+                             </div>
+
+
+                        </div>
+                        <div class="form-group row" id="contractsDate" style="display: none;">
+                            <!--                    <label class="col-sm-4 col-form-label" for="contracts">--><?php //echo $dil["contracts"];?><!--</label>-->
+                            <div class="col-sm-12">
+                                <label class="col-sm-12 col-form-label" for="contracts">Hansı tarixdəki sənədi çap etmək istəyirsiniz?</label>
+
+                                <fieldset >
+                                    <input type="radio" value="1" name="contractDate">&nbsp; <label for="">İlkin</label><br/>
+                                    <input type="radio" value="2" name="contractDate">&nbsp;<label for="">Son</label><br/>
+                                    <input type="radio" value="3" name="contractDate">&nbsp;<label for="">Digər</label>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="commandsDate" style="display: none;">
+                            <div class="col-sm-7">
+
+                                <label class="col-form-label" for="contracts">Hansı növ sənədi çap etmək istəyirsiniz?</label>
+
+                                <fieldset >
+                                    <input type="radio" value="1" name="commandDate">&nbsp; <label for="">Nömrələnmiş</label><br/>
+                                    <input type="radio" value="2" name="commandDate">&nbsp;<label for="">Nömrələnməmiş</label><br/>
+                                    <input type="radio" value="3" name="commandDate">&nbsp;<label for="">Hamsı</label>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-5">
+                                <label class="col-form-label" for="contracts">Tarix</label>
+
+                                <input type="text" class="form-control" id="sinceDate" name="sinceDate" placeholder="0000-00-00" />
+
+
+                            </div>
+
+
                         </div>
                         <input type="hidden" class="form-control" id="emp_id" name="emp_id"   />
                         <input type="hidden" class="form-control" id="currentDate" name="currentDate"   />
+                        <input type="hidden" class="form-control" id="command_no" name="command_no"   />
                         <input type="hidden" class="form-control" id="full_name" name="full_name"   />
                         <input type="hidden" class="form-control" id="citizenship" name="citizenship"   />
                         <input type="hidden" class="form-control" id="passport_seria_number" name="passport_seria_number"   />
@@ -101,16 +160,35 @@ Mandatory in IE 6, 7, 8 and 9.
 
                         <input type="hidden" id="update_empid" name="update_empidn" value="" />
 
-
+<!--                        <div id="previewImage"  style="display: none">-->
+<!---->
+<!--                        </div>-->
 
 
                     </div>
-				</div>
+
+
+
+            </div>
+            <table id="command_table" style="display: none;width:100%;" class="table table-striped  table-bordered table-hover">
+                <thead style="font-weight: bold;">
+                    <td width="10px;">1</td>
+                    <td width="50px;" class="cno">Emr nomresi</td>
+                    <td>Ad</td>
+                    <td>Soyad</td>
+                    <td>Ata adı</td>
+                    <td>Əməliyyat</td>
+                 </thead>
+                <tbody></tbody>
+
+            </table>
 
 		</div>
         <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="confirmContract">Təsdiq</button>
 
-<!--		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up">--><?php //echo $dil["save"];?><!--</button>-->
+
+            <!--		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up">--><?php //echo $dil["save"];?><!--</button>-->
             <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
 
         </div>
@@ -120,46 +198,73 @@ Mandatory in IE 6, 7, 8 and 9.
     </div>
   </div>
 
-<!--EMPLOYEE query MODAL -->
-<div class="modal fade" id="whichContracts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="whichDate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-<!--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+                <!--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-<!--                    <label class="col-sm-4 col-form-label" for="contracts">--><?php //echo $dil["contracts"];?><!--</label>-->
+                    <!--                    <label class="col-sm-4 col-form-label" for="contracts">--><?php //echo $dil["contracts"];?><!--</label>-->
                     <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label" for="contracts">Hansı tarixdəki sənədi çap etmək istəyirsiniz?</label>
+                        <label class="col-sm-12 col-form-label" for="selectDate">Zəhmət olmasa tarix seçin</label>
+                        <input type="text" class="form-control" id="selectDate" name="selectDate" placeholder="0000-00-00" />
 
-                        <fieldset >
-                            <input type="radio" value="1" name="contractDate">&nbsp; <label for="">İlkin</label><br/>
-                            <input type="radio" value="2" name="contractDate">&nbsp;<label for="">Son</label><br/>
-                            <input type="radio" value="3" name="contractDate">&nbsp;<label for="">Digər</label>
-                        </fieldset>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                <!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-primary" id="confirmDate">Təsdiq</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--word to html-->
+<div class="modal fade" id="emek" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <?php include("emek.php");?>
+
+            </div>
+            <div class="modal-footer">
+                <!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
                 <button type="button" class="btn btn-primary" id="confirmContract">Təsdiq</button>
             </div>
         </div>
     </div>
 </div>
+
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-<script>
 
-
-</script>
 <script>
+    var getCanvas; // global variable
+    function saveDiv(divId) {
+        // generate(divId)
+        var imgageData = getCanvas.toDataURL("image/png");
+        var doc = new jsPDF('p', 'mm');
+        // var width = doc.internal.pageSize.getWidth();
+        // var height = doc.internal.pageSize.getHeight();
+        // doc.addImage(imgageData, 'PNG', 0, 0, width, height);
+        doc.addImage(imgageData, 'PNG', 10, 10);
+        doc.save('sample-file.pdf');
+    }
     function loadFile(url,callback){
         PizZipUtils.getBinaryContent(url,callback);
     }
@@ -203,6 +308,7 @@ Mandatory in IE 6, 7, 8 and 9.
 
             doc.setData({
                 current_date: $('#currentDate').val(),
+                command_no: $('#command_no').val(),
                 full_name: $('#full_name').val(),
                 citizenship: $('#citizenship').val(),
                 passport_seria_number: $('#passport_seria_number').val(),

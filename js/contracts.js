@@ -114,53 +114,59 @@ $( "#employeeUpdate" ).validate( {
 } );
 
 
-var data;
-$('#employees').on( 'click', '#print', function () {
-	console.log('$row_employees[\'image_name\']');
 
-	 // data = table.row( $(this).parents('tr') ).data();
-	if($('#empid').find('option:selected').val()!="0" &&$('#empid').find('option:selected').val()!=""){
-		$('#myContracts').modal('show');
-		data =   $('#empid').find('option:selected').val()
-	}else{
-		Swal.fire(
-			'',
-			'Bu əməliyyat üçün işçi seçilməyib! Zəhmət olmasa işçi seçin.',
-			'info'
-		)
+ var contract='';
+ var contName='';
+
+
+$('#myContracts').on( 'click', 'input[name=contractSelect]', function () {
+	console.log('contractSelect'+$(this).val());
+	if($(this).val()=='1'){
+		$('#contractsDiv').css('display','block');
+		$('#commandsDiv').css('display','none');
+
+		$('#myContracts').find('#commandsDate').css('display','none')
+		$('#myContracts').find('#contractsDate').css('display','block')
+		$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
+		contName="contracts"
+
+	}else {
+		$('#contractsDiv').css('display','none');
+		$('#commandsDiv').css('display','block');
+		$('#myContracts').find('#commandsDate').css('display','flex')
+		$('#myContracts').find('#contractsDate').css('display','none')
+		$('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
+		contName="commands"
 	}
 
-	 // GetEmpContractDetails(data[0],'update');
-	 // document.getElementById("update_empid").value = data[0];
 
-} );
- var contract='';
- var company_id='';
-$('#myContracts').on( 'change', '#contracts', function () {
-
-	console.log('ssss');
-	$('#whichContracts').modal('show');
-	contract=$(this).find('option:selected').val();
-});
-$('#myContracts').on( 'change', '#commands', function () {
-
-	console.log('commands');
-	$('#whichContracts').modal('show');
-	contract=$(this).find('option:selected').val();
 });
 
+$('#myContracts').on( 'click', '#confirmContract', function () {
+	$("table#command_table tbody").html('');
+	console.log('$(\'#myContracts\').find(\'#commands\')='+$('#myContracts').find('#commands').html())
+	if($('#myContracts').find('#commands').find('option:selected').val()!="0"){
+		contract=$('#myContracts').find('#commands option:selected').val();
 
-$('#whichContracts').on( 'click', '#confirmContract', function () {
+	}else
+	if($('#myContracts').find('#contracts').find('option:selected').val()!="0"){
+		contract=$('#myContracts').find('#contracts').find('option:selected').val();
 
-	console.log('ssss'+$('#whichContracts #contractDate').val());
-	console.log('group2='+$('#whichContracts input[name=contractDate]:checked').val());
-	var contractDate=$('#whichContracts input[name=contractDate]:checked').val();
+	}
+
+	console.log('contract='+contract);
+	$('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
+	$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
+
+ 	var contractDate=$('#myContracts input[name=contractDate]:checked').val();
+ 	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
+ 	var sinceDate=$('#myContracts input[name=sinceDate]').val();
 	var order='';
-	if(contractDate=='1'){
+	if(contractDate=='1' || commandDate=='1' ){
 		order="  ORDER BY tc.id ASC LIMIT 1";
 		contractDate='1';
 	}
-	if(contractDate=='2'){
+	if(contractDate=='2'|| commandDate=='2'){
 		order="  ORDER BY tc.id DESC LIMIT 1";
 		contractDate='2';
 	}
@@ -168,163 +174,182 @@ $('#whichContracts').on( 'click', '#confirmContract', function () {
 		order="";
 		contractDate='3';
 	}
+	if(commandDate=='3'){
+		order="";
+		contractDate='3';
+	}
 
-	GetEmpContractDetails(data,'update',order,contractDate);
+	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceDate);
 	document.getElementById("update_empid").value = data[0];
 
 });
-
+var commandArray =[];
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
-function GetEmpContractDetails(empid,optype,order,contractDate)
+function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceDate)
 {
-	$.post("contracts/getEmployeeContractDetail.php",
+	console.log('contractDate='+contractDate)
+	console.log('command_id='+contract)
+	var url="";
+	if(contName=="contracts"){
+		url="contracts/getEmployeeContractDetail.php"
+	}else if(contName=="commands"){
+		url="contracts/getEmployeeCommandDetail.php"
+	}
+	$.post(url,
 		{
 			empid: empid,
 			order: order,
-			contractDate: contractDate
+			contractDate:contractDate,
+			sinceDate:sinceDate,
+			command_id: contract.substr(1, 1),
+			contractDate:contractDate
 		},
 		function (emp_data, status)
 		{
 			// PARSE json data
 			console.log('emp_data=',emp_data)
+			 commandArray = emp_data;
 			var employee = JSON.parse(emp_data);
 			// Assing existing values to the modal popup fields
-			console.log('employee=',employee.structure_level1)
+			console.log('employee=',employee)
+
+
+			var table = '';
+
+			$.each(employee, function(k,value) {
+				console.log('value=',value)
+				console.log('value.command_no=',value.command_no)
+				var dis="";
+				if(value.command_no!=''){
+					dis="disabled";
+					// $('.create_commmand_no').addClass('disabled');
+
+				}
+
+				$("table#command_table tbody").html('');
+
+
+				table+='<tr class="typeOfDocument" >' +
+					'<td>'+value.id+'</td>'+
+					'<td class="cno">'+value.command_no+'</td>'+
+					'<td>'+value.firstname+'</td>'+
+					'<td>'+value.lastname+'</td>'+
+					'<td>'+value.surname+'</td>'+
+					'<td>' +
+					// '<a href="#" class="print" data-id="'+value[0]+'">Çap et</a><br/>' +
+					'<a href="#" class="download" data-id="'+value.id+'" data-contract="'+contract+'" >Yüklə</a><br/>' +
+					'<a href="#" class="create_commmand_no '+dis+'"   data-company_id="'+value.company_id+'" data-id="'+value.id+'" data-empid="'+value.emp_id+'" data-contract="'+contract+'">Əmr nömrəsi ver</a>' +
+					// '<button type="button" class="btn btn-primary" id="print">Çap et</button>' +
+					// '<button type="button" class="btn btn-primary" id="download">Yüklə</button>' +
+					// '<button type="button" class="btn btn-primary" id="create_commmand_no">Əmr nömrəsi ver</button>' +
+					'</td>';
+
+
+
+			});
+			$("table#command_table tbody").append(table);
+			$("table#command_table").css("display","inline-table");
+			if(contName=="contracts") {
+				$(".cno").css("display", "none");
+			}
+
+
 
 			if  (optype=='update') {
 
-				if(employee.structure_level1){
-					$("#structure1").val(employee.category1);
-				}
-				if(employee.structure_level2){
-					$("#structure2").val(employee.category2);
-				}
-				if(employee.structure_level3){
-					$("#structure3").val(employee.category3);
-				}
-				if(employee.structure_level4){
-					$("#structure4").val(employee.category4);
-				}
-				if(employee.structure_level5){
-					$("#structure5").val(employee.category5);
-				}
+				// if(employee.structure_level1){
+				// 	$("#structure1").val(employee.category1);
+				// }
+				// if(employee.structure_level2){
+				// 	$("#structure2").val(employee.category2);
+				// }
+				// if(employee.structure_level3){
+				// 	$("#structure3").val(employee.category3);
+				// }
+				// if(employee.structure_level4){
+				// 	$("#structure4").val(employee.category4);
+				// }
+				// if(employee.structure_level5){
+				// 	$("#structure5").val(employee.category5);
+				// }
+				//
+				// if(employee.marital_status=='1'){
+				// 	$("#marital_status").val('Evli');
+				// }else{
+				// 	$("#marital_status").val('Subay');
+				// }
+				//
+				// var military_reg_category='';
+				// var military_reg_group='';
+				// if(employee.military_reg_category==1){
+				// 	military_reg_category='Kateqoriya 1';
+				// }else{
+				// 	military_reg_category='Kateqoriya 2';
+				// }
+				// if(employee.military_reg_group==1){
+				// 	military_reg_group='Çağırışçı';
+				// }else{
+				// 	military_reg_group='Hərbi vəzifəli';
+				// }
 
-				if(employee.marital_status=='1'){
-					$("#marital_status").val('Evli');
-				}else{
-					$("#marital_status").val('Subay');
-				}
 
-				var military_reg_category='';
-				var military_reg_group='';
-				if(employee.military_reg_category==1){
-					military_reg_category='Kateqoriya 1';
-				}else{
-					military_reg_category='Kateqoriya 2';
-				}
-				if(employee.military_reg_group==1){
-					military_reg_group='Çağırışçı';
-				}else{
-					military_reg_group='Hərbi vəzifəli';
-				}
-				var d = new Date();
-				var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
-				console.log('employee[0]',employee[0])
-				$("#emp_id").val(employee[0].id)
-				$("#currentDate").val(strDate)
-				$("#full_name").val(employee[0].full_name)
-				// $("#uid").val(empid)
-				$("#citizenship").val(employee[0].citizenship);
-				$("#passport_seria_number").val(employee[0].passport_seria_number);
-				$("#pincode").val(employee[0].pincode);
-				$("#passport_date").val(employee[0].passport_date);
-				$("#pass_given_authority").val(employee[0].pass_given_authority);
-				$("#company_name").val(employee[0].company_name);
-				$("#company_address").val(employee[0].company_address);
-				$("#company_tel").val(employee[0].company_tel);
-				$("#voen").val(employee[0].voen);
-				$("#sun").val(employee[0].sun);
-				$("#enterprise_head_position").val(employee[0].enterprise_head_position);
-				$("#enterprise_head_fullname").val(employee[0].enterprise_head_fullname);
-				$("#qualification").val(employee[0].qualification);
-				$("#uni_name").val(employee[0].uni_name);
-				$("#profession").val(employee[0].profession);
-				$("#create_date").val(employee[0].create_date);
-				$("#firstname").val(employee[0].firstname);
-				$("#lastname").val(employee[0].lastname);
-				$("#surname").val(employee[0].surname);
-				$("#birth_date").val(employee[0].birth_date);
-				$("#birth_place").val(employee[0].birth_place);
-				$("#mob_tel").val(employee[0].mob_tel);
-				$("#living_address").val(employee[0].living_address);
-				$("#military_reg_group").val(military_reg_group);
-				$("#military_reg_category").val(military_reg_category);
-				$("#military_staff").val(employee[0].staff_desc);
-				$("#military_rank").val(employee[0].rank_desc);
-				$("#military_specialty_acc").val(employee[0].military_specialty_acc);
-				$("#military_fitness_service").val(employee[0].military_fitness_service);
-				$("#military_registration_service").val(employee[0].military_registration_service);
-				$("#military_registration_date").val(employee[0].military_registration_date);
-				$("#military_general").val(employee[0].military_general);
-				$("#military_special").val(employee[0].military_special);
-				$("#military_no_official").val(employee[0].military_no_official);
-				$("#military_additional_information").val(employee[0].military_additional_information);
-				$("#military_date_completion").val(employee[0].military_date_completion);
 
 				// $("#structure").val(employee.structure);
-				$('#myContracts').modal('show');
-				if(contract=='1'){
-					generate("emek2")
-				}else if(contract=='2'){
-					generate("emekElave")
-				}else if(contract=='3'){
-					generate("herbi")
-				}else if(contract=='c1'){
-					generate("avans_emr")
-				}else if(contract=='c2'){
-					generate("evezgun_verilmesi_hq_emr")
-				}else if(contract=='c3'){
-					generate("ezamiyyet_emri")
-				}else if(contract=='c4'){
-					generate("is_vaxtindan_artiq_is_emri")
-				}else if(contract=='c5'){
-					generate("ise_qebul_emri")
-				}else if(contract=='c6'){
-					generate("maas_deyisikliyi_emri")
-				}else if(contract=='c7'){
-					generate("mezuniyyet_qismen_odenisli")
-				}else if(contract=='c8'){
-					generate("mezuniyyet_emri_odenissiz")
-				}else if(contract=='c9'){
-					generate("mezuniyyet_emri_emek")
-				}else if(contract=='c10'){
-					generate("mezuniyyetden_geri_cagrilma_emri")
-				}else if(contract=='c11'){
-					generate("mukafat_emri")
-				}else if(contract=='c12'){
-					generate("qisaldilmis_is_vaxti_emri")
-				}else if(contract=='c13'){
-					generate("qrafik_deyisikliyi_emri")
-				}else if(contract=='c14'){
-					generate("sosial_mezuniyyet_emri")
-				}else if(contract=='c15'){
-					generate("stat_emri_elave")
-				}else if(contract=='c16'){
-					generate("stat_emri_legv")
-				}else if(contract=='c17'){
-					generate("stat_emri_stat_cedvelinin_tesdiqi")
-				}else if(contract=='c18'){
-					generate("vezife_deyisikliyi_emri")
-				}else if(contract=='c19'){
-					generate("xitam_emri")
-				}
-				 $('#whichContracts').modal('hide');
+				// $('#myContracts').modal('show');
+				// if(contract=='1'){
+				// 	 generate("emek2")
+				// 	//$('#emek').modal('show');
+				// }else if(contract=='2'){
+				// 	generate("emekElave")
+				// }else if(contract=='3'){
+				// 	generate("herbi")
+				// }else if(contract=='c1'){
+				// 	generate("avans_emr")
+				// }else if(contract=='c2'){
+				// 	generate("evezgun_verilmesi_hq_emr")
+				// }else if(contract=='c3'){
+				// 	generate("ezamiyyet_emri")
+				// }else if(contract=='c4'){
+				// 	generate("is_vaxtindan_artiq_is_emri")
+				// }else if(contract=='c5'){
+				// 	generate("ise_qebul_emri")
+				// }else if(contract=='c6'){
+				// 	generate("maas_deyisikliyi_emri")
+				// }else if(contract=='c7'){
+				// 	generate("mezuniyyet_qismen_odenisli")
+				// }else if(contract=='c8'){
+				// 	generate("mezuniyyet_emri_odenissiz")
+				// }else if(contract=='c9'){
+				// 	generate("mezuniyyet_emri_emek")
+				// }else if(contract=='c10'){
+				// 	generate("mezuniyyetden_geri_cagrilma_emri")
+				// }else if(contract=='c11'){
+				// 	generate("mukafat_emri")
+				// }else if(contract=='c12'){
+				// 	generate("qisaldilmis_is_vaxti_emri")
+				// }else if(contract=='c13'){
+				// 	generate("qrafik_deyisikliyi_emri")
+				// }else if(contract=='c14'){
+				// 	generate("sosial_mezuniyyet_emri")
+				// }else if(contract=='c15'){
+				// 	generate("stat_emri_elave")
+				// }else if(contract=='c16'){
+				// 	generate("stat_emri_legv")
+				// }else if(contract=='c17'){
+				// 	generate("stat_emri_stat_cedvelinin_tesdiqi")
+				// }else if(contract=='c18'){
+				// 	generate("vezife_deyisikliyi_emri")
+				// }else if(contract=='c19'){
+				// 	generate("xitam_emri")
+				// }
+				//  $('#whichContracts').modal('hide');
 			}
 
 		}
 	);
 
 }
+
 $('#employees').on( 'change','#company',  function () {
 
 	console.log('company');
@@ -355,4 +380,199 @@ $('#employees').on( 'change','#company',  function () {
 
 			}
 		})
+});
+var company_id='';
+var code='';
+var position='';
+$('#employees').on( 'click','#searchContract',  function () {
+	console.log('company');
+	// $('#whichContracts').modal('show');
+	company_id=$('#company').find('option:selected').val();
+	code=$('#code').find('option:selected').val();
+	position=$('#code').find('option:selected').val();
+	$.ajax({
+		url: "contracts/get_cont_employees.php",
+		type: "POST",
+		data: { company_id:company_id},
+		success: function (data) {
+			console.log('data=',data)
+
+			var table = '';
+			// $('#tablePositions').find('tbody').html('');
+			$.each($.parseJSON(data), function(k,value) {
+				$("table#emp_table tbody").html('');
+
+
+				table+='<tr class="typeOfDocument" >' +
+					'<td><a href="#" class="contractShow" data-id="'+value[0]+'">Senede bax</a></td>'+
+					'<td>'+value[0]+'</td>'+
+					'<td>'+value[1]+'</td>'+
+					'<td>'+value[2]+'</td>'+
+					'<td>'+value[3]+'</td>'+
+					'<td>'+1000+'</td>';
+
+
+
+			});
+			$("table#emp_table tbody").append(table);
+
+		}
+	})
+});
+
+
+var data;
+$('#emp_table').on( 'click','.contractShow',  function () {
+	console.log('contractShow');
+		$('#myContracts').modal('show');
+		data =   $(this).attr("data-id")
+		// data =   $('#empid').find('option:selected').val()
+
+});
+
+var idDownload = '';
+var contractDownload ='';
+$('#command_table').on( 'click','.download',  function () {
+
+
+		 idDownload =   $(this).attr("data-id");
+		 contractDownload =   $(this).attr("data-contract");
+		$('#whichDate').modal('show');
+
+
+
+});
+$('#command_table').on( 'click','.create_commmand_no',  function () {
+	console.log("create_commmand_no");
+	var id=   $(this).attr("data-id");
+	var contract =   $(this).attr("data-contract");
+	var empid =   $(this).attr("data-empid");
+	var company_id =   $(this).attr("data-company_id");
+	$.ajax({
+		url: 'contracts/commandNumber_update.php',
+		type: "POST",
+		data: {id: id, contract:  contract.substr(1, 1), empid: empid, company_id: company_id},
+		success: function (data) {
+			console.log('DATA=',data)
+		}
+		})
+
+})
+
+
+$('#whichDate').on( 'click','#confirmDate',  function () {
+
+	console.log('download='+commandArray);
+	var employee = JSON.parse(commandArray);
+	$.each(employee, function(k,value) {
+		var d = new Date();
+		var contract=contractDownload;
+		var strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+		console.log('employee[0]',value)
+		if(value.id==idDownload){
+			$("#emp_id").val(value.id)
+			$("#currentDate").val($('#selectDate').val())
+			$("#command_no").val(value.command_no)
+			$("#full_name").val(value.full_name)
+			// $("#uid").val(empid)
+			$("#citizenship").val(value.citizenship);
+			$("#passport_seria_number").val(value.passport_seria_number);
+			$("#pincode").val(value.pincode);
+			$("#passport_date").val(value.passport_date);
+			$("#pass_given_authority").val(value.pass_given_authority);
+			$("#company_name").val(value.company_name);
+			$("#company_address").val(value.company_address);
+			$("#company_tel").val(value.company_tel);
+			$("#voen").val(value.voen);
+			$("#sun").val(value.sun);
+			$("#enterprise_head_position").val(value.enterprise_head_position);
+			$("#enterprise_head_fullname").val(value.enterprise_head_fullname);
+			$("#qualification").val(value.qualification);
+			$("#uni_name").val(value.uni_name);
+			$("#profession").val(value.profession);
+			$("#create_date").val(value.create_date);
+			$("#firstname").val(value.firstname);
+			$("#lastname").val(value.lastname);
+			$("#surname").val(value.surname);
+			$("#birth_date").val(value.birth_date);
+			$("#birth_place").val(value.birth_place);
+			$("#mob_tel").val(value.mob_tel);
+			$("#living_address").val(value.living_address);
+			$("#military_reg_group").val(military_reg_group);
+			$("#military_reg_category").val(military_reg_category);
+			$("#military_staff").val(value.staff_desc);
+			$("#military_rank").val(value.rank_desc);
+			$("#military_specialty_acc").val(value.military_specialty_acc);
+			$("#military_fitness_service").val(value.military_fitness_service);
+			$("#military_registration_service").val(value.military_registration_service);
+			$("#military_registration_date").val(value.military_registration_date);
+			$("#military_general").val(value.military_general);
+			$("#military_special").val(value.military_special);
+			$("#military_no_official").val(value.military_no_official);
+			$("#military_additional_information").val(value.military_additional_information);
+			$("#military_date_completion").val(value.military_date_completion);
+		}
+	});
+	if(contract=='1'){
+		generate("emek2")
+		//$('#emek').modal('show');
+	}else if(contract=='2'){
+		generate("emekElave")
+	}else if(contract=='3'){
+		generate("herbi")
+	}else if(contract=='c1'){
+		generate("avans_emr")
+	}else if(contract=='c2'){
+		generate("evezgun_verilmesi_hq_emr")
+	}else if(contract=='c3'){
+		generate("ezamiyyet_emri")
+	}else if(contract=='c4'){
+		generate("is_vaxtindan_artiq_is_emri")
+	}else if(contract=='c5'){
+		generate("ise_qebul_emr")
+	}else if(contract=='c6'){
+		generate("maas_deyisikliyi_emri")
+	}else if(contract=='c7'){
+		generate("mezuniyyet_qismen_odenisli")
+	}else if(contract=='c8'){
+		generate("mezuniyyet_emri_odenissiz")
+	}else if(contract=='c9'){
+		generate("mezuniyyet_emri_emek")
+	}else if(contract=='c10'){
+		generate("mezuniyyetden_geri_cagrilma_emri")
+	}else if(contract=='c11'){
+		generate("mukafat_emri")
+	}else if(contract=='c12'){
+		generate("qisaldilmis_is_vaxti_emri")
+	}else if(contract=='c13'){
+		generate("qrafik_deyisikliyi_emri")
+	}else if(contract=='c14'){
+		generate("sosial_mezuniyyet_emri")
+	}else if(contract=='c15'){
+		generate("stat_emri_elave")
+	}else if(contract=='c16'){
+		generate("stat_emri_legv")
+	}else if(contract=='c17'){
+		generate("stat_emri_stat_cedvelinin_tesdiqi")
+	}else if(contract=='c18'){
+		generate("vezife_deyisikliyi_emri")
+	}else if(contract=='c19'){
+		generate("xitam_emri")
+	}
+
+	$('#whichDate').modal('hide');
+	$('#selectDate').val('')
+})
+
+$(function () {
+	$('#selectDate').datepicker({
+		todayHighlight: true,
+		format: 'dd/mm/yyyy',
+		// startDate: new Date()
+	});
+	$('#sinceDate').datepicker({
+		todayHighlight: true,
+		format: 'dd/mm/yyyy',
+		// startDate: new Date()
+	});
 });

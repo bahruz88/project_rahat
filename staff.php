@@ -112,7 +112,7 @@ $result_employee_category = $db->query($employee_category);
             </select>
         </div>
     </div>
-	<div class="tab-pane active" id="staff" style="display: none;">
+	<div class="tab-pane active" id="staff" style="display: none;width:800px;margin:auto;">
         <div class="staffText">
         <div class="container text-center"><span id="companyName"></span></div>
         <div class="container text-center"><span class="company_adress"></span><span class="company_tel"></span></div>
@@ -146,14 +146,14 @@ $result_employee_category = $db->query($employee_category);
             <div class="col-md-10">-ci il tarixindən qüvvəyə minir</div>
         </div>
         </div>
-        <div id="staffTab">
+        <div id="staffTab" >
 
 		<table id="staff_table" class="table table-striped  table-bordered table-hover">
 
 				<thead>
-                    <th>No</th>
+                    <th style="width:15px;">No</th>
                     <th style="width:150px;">Struktur bölmələrin adı və vəzifələr</th>
-                    <th style="width:150px;">Ştat sayı (vahid)</th>
+                    <th style="width:80px;">Ştat sayı (vahid)</th>
 					<th style="width:150px;">Vəzifə  maaşı (manatla)</th>
 					<th style="width:150px;">Vəzifə maaşına əlavə</th>
 					<th style="width:150px;"> Aylıq əmək haqqı fondu</th>
@@ -167,8 +167,13 @@ $result_employee_category = $db->query($employee_category);
         </table>
 
 	</div>
-        <button onclick="generate('staff2')">Yüklə</button>
+
 	</div>
+    <button onclick="saveDiv('staff2')" id="download" style="display: none">Yüklə</button>
+    <button onclick="printDiv('staff','Title')"  id="print" style="display: none">Çap et</button>
+    <div id="previewImage"  style="display: none">
+
+    </div>
     <input type="hidden" class="form-control" id="tableStaff" name="tableStaff"   />
     <input type="hidden" class="form-control" id="company_name" name="company_name"   />
     <input type="hidden" class="form-control" id="company_address" name="company_address"   />
@@ -202,8 +207,9 @@ $result_employee_category = $db->query($employee_category);
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
- 
- 
+<script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+
+
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -250,124 +256,13 @@ $result_employee_category = $db->query($employee_category);
 <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
 <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 
 <script  charset="UTF-8">
     var arrayData2=[];
     var arrayData=[];
-    function loadFile(url,callback){
-        PizZipUtils.getBinaryContent(url,callback);
-    }
-    function generate(name) {
-        console.log('arrayData===',arrayData)
-        loadFile("senedler/"+name+".docx",function(error,content){
-            if (error) { throw error };
-
-            // The error object contains additional information when logged with JSON.stringify (it contains a properties object containing all suberrors).
-            function replaceErrors(key, value) {
-                if (value instanceof Error) {
-                    return Object.getOwnPropertyNames(value).reduce(function(error, key) {
-                        error[key] = value[key];
-                        return error;
-                    }, {});
-                }
-                return value;
-            }
-
-            function errorHandler(error) {
-                console.log(JSON.stringify({error: error}, replaceErrors));
-
-                if (error.properties && error.properties.errors instanceof Array) {
-                    const errorMessages = error.properties.errors.map(function (error) {
-                        return error.properties.explanation;
-                    }).join("\n");
-                    console.log('errorMessages', errorMessages);
-                    // errorMessages is a humanly readable message looking like this :
-                    // 'The tag beginning with "foobar" is unopened'
-                }
-                throw error;
-            }
-
-            var zip = new PizZip(content);
-            var doc;
-            try {
-                doc=new window.docxtemplater(zip);
-            } catch(error) {
-                // Catch compilation errors (errors caused by the compilation of the template : misplaced tags)
-                errorHandler(error);
-            }
-
-            doc.setData({
-                "clients": arrayData2,
-                    staff_date: $('#date_completion').val(),
-                    company_name: $('#company_name').val(),
-                    company_address: $('#company_address').val(),
-                    company_tel: $('#company_tel').val(),
-                    enterprise_head_position: $('#enterprise_head_position').val(),
-                    enterprise_head_fullname: $('#enterprise_head_fullname').val(),
-                    day: $('#day').val(),
-                    month: $('#month').val(),
-                    year: $('#year').val(),
-
-            });
-
-            try {
-                // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
-                console.log("doc=",doc)
-                doc.render();
-
-                $('#contracts').find('option[value="0"]').prop('selected', true);
-                $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
 
 
-            }
-            catch (error) {
-                console.log("doc=",doc)
-                // Catch rendering errors (errors relating to the rendering of the template : angularParser throws an error)
-                errorHandler(error);
-            }
-
-            var out=doc.getZip().generate({
-                type:"blob",
-                mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            }) //Output the document using Data-URI
-            saveAs(out,"output.docx")
-        })
-    }
-
-    function exportTableToExcel(tableID, filename = ''){
-        var downloadLink;
-        var dataType = 'application/vnd.ms-excel';
-        var tableSelect = document.getElementById(tableID);
-        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-
-        // Specify file name
-        filename = filename?filename+'.xls':'excel_data.xls';
-
-        // Create download link element
-        downloadLink = document.createElement("a");
-
-        document.body.appendChild(downloadLink);
-
-        if(navigator.msSaveOrOpenBlob){
-            var blob = new Blob(['\ufeff', tableHTML], {
-                type: dataType
-            });
-            navigator.msSaveOrOpenBlob( blob, filename);
-        }else{
-            // Create a link to the file
-            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-
-            // Setting the file name
-            downloadLink.download = filename;
-
-            //triggering the function
-            downloadLink.click();
-        }
-    }
-    function saveDiv(divId, title) {
-        generate(divId)
-    }
 
     $('#date_completion').datepicker({
         todayHighlight: true,
@@ -472,29 +367,71 @@ $result_employee_category = $db->query($employee_category);
 
                 $("table#staff_table tbody").append(table);
                 $("#staff").css("display","block");
+                $("#download").css("display","block");
+                $("#print").css("display","block");
                 $("#tableStaff").val( $("table#staff_table").html());
+                var element = $("#staff"); // global variable
+
+
+                html2canvas(element, {
+                    onrendered: function (canvas) {
+                        $("#previewImage").append(canvas);
+                        getCanvas = canvas;
+
+                    }
+                });
 
 
             },
         });
     })
-    // function printDiv(divId,
-    //                   title) {
-    //
-    //     let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
-    //
-    //     mywindow.document.write(`<html><head><title>${title}</title>`);
-    //     mywindow.document.write('</head><body >');
-    //     mywindow.document.write(document.getElementById(divId).innerHTML);
-    //     mywindow.document.write('</body></html>');
-    //
-    //     mywindow.document.close(); // necessary for IE >= 10
-    //     mywindow.focus(); // necessary for IE >= 10*/
-    //
-    //     mywindow.print();
-    //     mywindow.close();
-    //
-    //     return true;
-    // }
+    function printDiv(divId,
+                      title) {
+
+        let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+
+        mywindow.document.write(`<html><head><title>${title}</title>`);
+
+        mywindow.document.write('<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >'+
+            '<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">'+
+            '<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">'+
+            '<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">'+
+            '<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">'+
+            '<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">'+
+            ' <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">'+
+            '<link rel="stylesheet" href="dist/css/adminlte.min.css">'+
+            ' <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">'+
+            ' <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">'+
+            '<link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">'+
+        '<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">'+
+        '<link rel="stylesheet" type="text/css" href="css/datatables.min.css" />'+
+        '<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">');
+
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(document.getElementById(divId).innerHTML);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        setTimeout(function () {
+            mywindow.close();
+        }, 250);
+
+        return true;
+    }
+    var getCanvas; // global variable
+    function saveDiv(divId) {
+        // generate(divId)
+        var imgageData = getCanvas.toDataURL("image/png");
+        var doc = new jsPDF('p', 'mm');
+        // var width = doc.internal.pageSize.getWidth();
+        // var height = doc.internal.pageSize.getHeight();
+        // doc.addImage(imgageData, 'PNG', 0, 0, width, height);
+        doc.addImage(imgageData, 'PNG', 10, 10);
+        doc.save('sample-file.pdf');
+    }
+
 </script>
 

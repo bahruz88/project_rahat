@@ -2,6 +2,8 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.0.0/jspdf.umd.min.js"></script>
+
 </head>
 <body>
 <div id="html-content-holder" style="background-color: #F0F0F1; color: #00cc65; width: 500px;
@@ -19,6 +21,24 @@
         of it, directly on the users browser. The screenshot is based on the DOM and as
         such may not be 100% accurate to the real representation.
     </p>
+    <iframe src=”senedler/emek2.pdf" width=”100%” height=”100%”>
+    <table id="staff_table" class="table table-striped  table-bordered table-hover">
+
+        <thead>
+        <th>No</th>
+        <th style="width:150px;">Struktur bölmələrin adı və vəzifələr</th>
+        <th style="width:150px;">Ştat sayı (vahid)</th>
+        <th style="width:150px;">Vəzifə  maaşı (manatla)</th>
+        <th style="width:150px;">Vəzifə maaşına əlavə</th>
+        <th style="width:150px;"> Aylıq əmək haqqı fondu</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+
+
+
+    </table>
 </div>
 <input id="btn-Preview-Image" type="button" value="Preview"/>
 <a id="btn-Convert-Html2Image" href="#">Download</a>
@@ -84,8 +104,17 @@
         $("#btn-Convert-Html2Image").on('click', function () {
             var imgageData = getCanvas.toDataURL("image/png");
             // Now browser starts downloading it instead of just showing it
-            var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-            $("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
+            // var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+            // console.log('getCanvas',getCanvas)
+            // // console.log('imgageData'+imgageData)
+            // // console.log('newData'+newData)
+            // $("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
+
+
+
+            var doc = new jsPDF('p', 'mm');
+            doc.addImage(imgageData, 'PNG', 10, 10);
+            doc.save('sample-file.pdf');
         });
 
     });

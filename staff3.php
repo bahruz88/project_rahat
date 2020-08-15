@@ -227,7 +227,8 @@ $result_employee_category = $db->query($employee_category);
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.0.0/jspdf.umd.min.js"></script>
 
 
 </body>
@@ -240,42 +241,44 @@ $result_employee_category = $db->query($employee_category);
 <script>if (window.define) delete window.define.amd;</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.28/jspdf.plugin.autotable.js"></script>
-<script src="js/tableHTMLExport.js"></script>
+<!--<script src="js/tableHTMLExport.js"></script>-->
 
 <script>
 
 
     var doc = new jsPDF();
 
+    // toPDF(): void {
+    //     const AmiriRegular = 'AAEAAAASAQAABAAgRFNJR2D2zXQA.....A';
+    //
+    // const doc = new jsPDF({ filters: ["ASCIIHexEncode"] });
+    //
+    // doc.addFileToVFS("Amiri-Regular.ttf", AmiriRegular);
+    // doc.addFont("Amiri-Regular.ttf", "Amiri", "normal");
+    //
+    // doc.setFont("Amiri"); // set font
+    // doc.setFontSize(10);
+    //
+    // doc.text(10,10,'אוהב אותך'.split('').reverse().join(''));
+    // this.CAccounts.forEach(function (AccountsBody, i) {
+    //     doc.text(20, 20 + (i * 10),
+    //
+    //
+    //         "ID: " + AccountsBody.ID +
+    //         "NAME: " + AccountsBody.NAME.split('').reverse().join(''));
+    // });
+    // doc.save('employee.pdf');
+    //
+    // }
     function saveDiv(divId, title) {
-        // alert($('#table1 td:nth-child(3)').map(function(){
-        //     return $(this).text();
-        // }).get());
-        // var columns2 = $('#staff_table thead').find('td');
-        //  var columns = $('#staff_table th').map(function(){
-        //      return $(this).text();
-        //  }).get();
-        // // var columns = $('#staff_table tbody').map(function(){
-        // //     return $(this).text();
-        // // }).get();
-        // var columns2 = ["ID", "Name", "Country"];
-        //  console.log('columns',columns)
-        // console.log('columns2',columns2)
-        // var rows = [
-        //     [1, "Shaw", "Tanzania"],
-        //     [2, "Nelson", "Kazakhstan"],
-        //     [3, "Garcia", "Madagascar"]
-        // ];
-        // var doc = new jsPDF('p', 'pt');
-        // doc.autoTable(columns, rows);
-        // doc.save('table.pdf');
+
         doc.fromHTML(`<html><head><title>${title}</title></head><body>` + document.getElementById(divId).innerHTML + `</body></html>`);
         // doc.setFont('Linearicons-Free');
         // doc.setFontType('normal');
 
-        doc.addFont("Arimo-Regular.ttf", "Arimo", "normal");
-        doc.addFont("Arimo-Bold.ttf", "Arimo", "bold");
-        doc.setFont("Arimo");
+        doc.addFont("Linearicons-Free.ttf", "Arimo", "normal");
+        doc.addFont("Linearicons-Free.ttf", "Arimo", "bold");
+        doc.setFont("Linearicons-Free");
         doc.setFontType("normal");
         doc.setFontSize(28);
 

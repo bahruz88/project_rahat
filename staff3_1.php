@@ -1,5 +1,5 @@
-<?php
- include('session.php');
+<?php    
+ include('session.php');  
  $site_lang=$_SESSION['dil'] ;
 
 
@@ -15,7 +15,7 @@ $result_employee_category = $db->query($employee_category);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+  
   <title>RahatHR</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,6 +46,8 @@ $result_employee_category = $db->query($employee_category);
   <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
     <!-- Daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arimo" />
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -105,6 +107,11 @@ $result_employee_category = $db->query($employee_category);
             </select>
         </div>
     </div>
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+        Your browser does not support the HTML canvas tag.</canvas>
+
+
+
 	<div class="tab-pane active" id="staff">
         <div class="staffText">
             <div class="container text-center"><span id="companyName"></span></div>
@@ -149,6 +156,9 @@ $result_employee_category = $db->query($employee_category);
 					<th style="width:150px;">Vəzifə maaşına əlavə</th>
 					<th style="width:150px;"> Aylıq əmək haqqı fondu</th>
 				</thead>
+            <tbody>
+
+            </tbody>
 
 
 
@@ -159,11 +169,15 @@ $result_employee_category = $db->query($employee_category);
     <div id="editor"></div>
     <button onclick="printDiv('staff','Title')">print div</button>
 
-    <button onclick="saveDiv('staff','Title')">save div as pdf</button>
+    <button onclick="saveDiv('staff','Title')">view image</button>
+    <button onclick="saveDiv2('staff','Title')">save div as pdf</button>
 
  </div>
 </div>
+     <div id="previewImage">
+         Struktur bölmələrin adı və vəzifələr
 
+     </div>
 
 </div>
 </div>
@@ -174,14 +188,15 @@ $result_employee_category = $db->query($employee_category);
 
 </div>
 <!-- ./wrapper -->
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
-
+ 
+ 
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -210,23 +225,25 @@ $result_employee_category = $db->query($employee_category);
 <script type="text/javascript" src="js/datatables.min.js"></script>
 <script type="text/javascript" src="dist/js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>	
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
  <script type="text/javascript" src="js/contracts.js"></script>
+ <script type="text/javascript" src="js/Linearicons-Free-bold.js.js"></script>
 <!-- daterangepicker -->
 <script src="plugins/moment/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.0.0/jspdf.umd.min.js"></script>
 
 
 </body>
 </html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.debug.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 
 <!-- EDIT: For now, add this line between the libraries -->
 <!-- The reason being that jspdf includes a version of requirejs which -->
@@ -234,40 +251,36 @@ $result_employee_category = $db->query($employee_category);
 <script>if (window.define) delete window.define.amd;</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.28/jspdf.plugin.autotable.js"></script>
-<script src="js/tableHTMLExport.js"></script>
+<!--<script src="js/tableHTMLExport.js"></script>-->
 
-<script  charset="UTF-8">
+<script>
 
 
     var doc = new jsPDF();
 
+    var getCanvas; // global variable
     function saveDiv(divId, title) {
-//         doc.fromHTML(`<html><head><title>${title}</title>`);
-//         doc.fromHTML(`<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
-//   <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-//              <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-//              <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-//              <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-//              <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-//              <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-//              <link rel="stylesheet" href="dist/css/adminlte.min.css">
-// <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">`);
-//         doc.fromHTML(`</head><body> <iframe src = "senedler/emek2.docx" width='700' height='550' allowfullscreen webkitallowfullscreen></iframe>
-//        </body></html>`);
-        // doc.setFont('PTSans'); // set custom font
-        // doc.addFont("Linearicons-Free.ttf", "Arimo", "normal");
-        // doc.addFont("Linearicons-Free.ttf", "Arimo", "bold");
-        // doc.setFont("Linearicons-Free");
-        // doc.setFontType("normal");
-        // doc.setFontSize(28);
+        var element = $("#staff"); // global variable
 
-        var doc = new jsPDF()
 
-        doc.setFontSize(40)
-        doc.text(35, 25, 'Paranyan loves jsPDF')
-        doc.text(50, 50, 'Salam')
-        doc.text(20, 20,  `Time: ${this.hour} : ${this.minutes}`);
-        doc.save('div.pdf');
+            html2canvas(element, {
+                onrendered: function (canvas) {
+                    $("#previewImage").append(canvas);
+                    getCanvas = canvas;
+
+                }
+            });
+
+
+
+    }
+    function saveDiv2(divId, title) {
+        var imgageData = getCanvas.toDataURL("image/png");
+        var doc = new jsPDF('p', 'mm');
+        var width = doc.internal.pageSize.getWidth();
+        var height = doc.internal.pageSize.getHeight();
+        doc.addImage(imgageData, 'PNG', 0, 0, width, height);
+        doc.save('sample-file.pdf');
     }
 
     function printDiv(divId,
@@ -302,8 +315,8 @@ $result_employee_category = $db->query($employee_category);
             data: { id:id},
             success: function (data) {
                 console.log('dataaaaaaa=' + data)
-                $('#companyDate').text($('#date_completion').val())
                 var table='';
+                $("table#staff_table tbody").html('');
                 $.each($.parseJSON(data), function (key, value) {
                     table+='<tr class="typeOfDocument" >' +
                        '<td>'+value[0]+'</td>'+
@@ -316,7 +329,7 @@ $result_employee_category = $db->query($employee_category);
 
                 });
 
-                $("table#staff_table").append(table);
+                $("table#staff_table tbody").append(table);
 
 
             },

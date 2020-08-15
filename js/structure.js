@@ -468,6 +468,10 @@ $(function () {
         todayHighlight: true,
         format: 'dd/mm/yyyy',
         // startDate: new Date()
+    }); $('#st_end_date').datepicker({
+        todayHighlight: true,
+        format: 'dd/mm/yyyy',
+        // startDate: new Date()
     });
     $('#role_start_date').datepicker({
         todayHighlight: true,

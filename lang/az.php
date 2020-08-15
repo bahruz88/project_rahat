@@ -275,6 +275,7 @@ $dil = array(
 	"position_level"   =>"Pozisya səviyyəsi",
     /**/
     "contracts"   =>"Müqavilələr",
+    "contracts_commands"   =>"Müqavilələr və Əmrlər",
     "commands"   =>"Əmrlər",
     "structure_names"   =>"Struktur bölmələrin adı və vəzifələr",
 );
