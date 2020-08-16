@@ -390,11 +390,16 @@ function treeClick(trList){
                 $.each(jQuery.parseJSON(data), function(k,v){
                     console.log('trList fullname=' + v[8]);
                     console.log('trList option=' + v[2]);
-                    option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'">'+v[2]+'</option>';
+                    var fName='Təyin edilməyib';
+                    if(v[8]){
+                        fName=v[8];
+                    }
+                    console.log('fName='+fName)
+                    option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'">'+v[2]+' '+v[8]+'</option>';
                     row +='<tr data-id="'+v[0]+'" data-positcode="'+v[2]+'"> '  +
                         ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
                         ' <td>'+v[2]+'</td>  '  +
-                        ' <td>'+v[8]+'</td>  '  +
+                        ' <td>'+fName+'</td>  '  +
                         ' <td class="myText" data-val="percent">'+v[7]+'</td>  '  +
                         ' <td class="myText" id="start_date">'+v[4]+'</td>  '  +
                         ' <td class="myText" id="end_date">'+v[5]+'</td>  '  +
@@ -406,36 +411,54 @@ function treeClick(trList){
                 $('#posList').html(option);
                 $(".selectpicker").selectpicker();
                 positionList();
+                var thisVal =''
                 $('.myText').on('click', function() {
 
-                    var div = $(this);
-                    var dataVal = $(this).attr('data-val');
-                    var positcode = $(this).closest('tr').attr('data-positcode');
-                    var start_date = $(this).closest('tr').find('#start_date').text();
-                    var end_date = $(this).closest('tr').find('#end_date').text();
-                    console.log('myText='+start_date+'=en='+end_date);
-                    var tb = div.find('input:text');//get textbox, if exist
-                    if (tb.length) {//text box already exist
-                        div.text(tb.val());//remove text box & put its current value as text to the div
-                        $.ajax({
-                            url: 'st_insertRole.php',
-                            type: "POST",
-                            data: {  posit_code:positcode,role_id:'', role_start_date:start_date,role_end_date:end_date, percent:tb.val()},
-                            success: function (data) {
-                                console.log('dataaaaaaapp=' , data);
-                                // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
-                                // var tree = $('#tree').fancytree('getTree');
-                                // tree.reload($.parseJSON(data));
-                            },
-                        });
-                    } else {
-                        tb = $('<input>').prop({
-                            'type': 'text',
-                            'value': div.text()//set text box value from div current text
-                        });
-                        div.empty().append(tb);//add new text box
-                        tb.focus();//put text box on focus
+                        var div = $(this);
+
+                        var dataVal = $(this).attr('data-val');
+                        var positcode = $(this).closest('tr').attr('data-positcode');
+                        var start_date = $(this).closest('tr').find('#start_date').text();
+                        var end_date = $(this).closest('tr').find('#end_date').text();
+                        console.log('myText='+start_date+'=en='+end_date);
+                        var tb = div.find('input:text');//get textbox, if exist
+                        if (tb.length) {//text box already exist
+                            if(tb.val()<=100) {
+                                div.text(tb.val());//remove text box & put its current value as text to the div
+                                $.ajax({
+                                    url: 'st_insertRole.php',
+                                    type: "POST",
+                                    data: {
+                                        posit_code: positcode,
+                                        role_id: '',
+                                        role_start_date: start_date,
+                                        role_end_date: end_date,
+                                        percent: tb.val()
+                                    },
+                                    success: function (data) {
+                                        console.log('dataaaaaaapp=', data);
+                                        // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                                        // var tree = $('#tree').fancytree('getTree');
+                                        // tree.reload($.parseJSON(data));
+                                    },
+                                });
+                            }else{
+                                div.text(thisVal)
+
+                            }
+                        } else {
+                             thisVal = $(this).text();
+                            console.log('thisVal='+thisVal)
+                            tb = $('<input>').prop({
+                                'type': 'text',
+                                'value': div.text()//set text box value from div current text
+                            });
+                            div.empty().append(tb);//add new text box
+                            tb.focus();//put text box on focus
+
                     }
+
+
                 });
             },
         });

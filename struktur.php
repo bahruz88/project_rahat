@@ -76,7 +76,7 @@ function createArray($arrC){
         $arrCh['icon'] = $arrCh[14];
         $arrCh['posit_icon'] = $arrCh[15];
         $arrCh['children'] = $arrCh[5];
-        $arrCh['expanded'] = false;
+        $arrCh['expanded'] = true;
         $arrCh['folder'] = true;
         if(count($arrCh[5])>0){
 
@@ -448,7 +448,7 @@ $sql_position= "select * from $tbl_employee_category";
                         <input type='hidden' value='' id='txt_id'>
                         <input type='hidden' value='' id='number_id'>
                         <!-- Small modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" data-target=".bd-example-modal-lg">New</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" style="display:none;" data-target=".bd-example-modal-lg">New</button>
 
                         <div class="modal fade bd-example-modal-lg text-left" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
@@ -571,7 +571,7 @@ $sql_position= "select * from $tbl_employee_category";
                                 <th></th>
                                 <th> Kod </th>
                                 <th> Səviyyə </th>
-                                <th> Person </th>
+                                <th> ASA </th>
                                 <th>İl</th>
                                 <th>Status</th>
                             </tr>
@@ -983,6 +983,7 @@ $sql_position= "select * from $tbl_employee_category";
                             $tdList = $(node.tr).find(">td");
                             trList = $(node.tr);
 
+                        $tdList.eq(0).text('');
                         $tdList.eq(1).text(node.data.id);
                         $(node.tr).attr('data-id',node.data.id);
                         //*men
@@ -1175,14 +1176,16 @@ $sql_position= "select * from $tbl_employee_category";
                                 type: "POST",
                                 data: {id:ID,delet:delet},
                                 success: function (data) {
-
+                                    console.log('data=' + data);
                                     if(data){
-                                        console.log('data=' + data);
+
                                         tree = $('#tree').fancytree('getTree');
                                         tree.reload($.parseJSON(data));
                                     }else{
-                                        $('#butModal').css('display','block');
+                                      $('#butModal').css('display','none');
                                         stClick();
+                                        tree = $('#tree').fancytree('getTree');
+                                        tree.reload([]);
                                     }
 
                                 },
@@ -1209,11 +1212,13 @@ $sql_position= "select * from $tbl_employee_category";
                         case "outdent":
                         case "remove":
                         case "rename":
+                            console.log('----------------tree=',node)
                             console.log('-----------------='+addNew)
                             console.log('-----------------=n'+data.cmd)
                             silArray=node;
                             event_t=data.cmd;
                             console.log('-----------------= html=',silArray)
+                            console.log('-----------------= node=',node)
                             if(addNew==1){
                                 $('#butModal').trigger('click');
 
@@ -1230,7 +1235,13 @@ $sql_position= "select * from $tbl_employee_category";
                                         $('#deleteModal').modal('hide'); // now close modal
                                     })
                                 }else{
-                                    tree.applyCommand(data.cmd, node);
+                                    if(node==null){
+                                        console.log("bosdur");
+                                        $('#butModal').trigger('click');
+                                    }else{
+                                        tree.applyCommand(data.cmd, node);
+                                    }
+
                                 }
 
                             }

@@ -130,7 +130,7 @@ $('#myContracts').on( 'click', 'input[name=contractSelect]', function () {
 		$('#commandsDiv').css('display','none');
 
 		$('#myContracts').find('#commandsDate').css('display','none')
-		$('#myContracts').find('#contractsDate').css('display','block')
+		// $('#myContracts').find('#contractsDate').css('display','block')
 		$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
 		contName="contracts"
 
@@ -162,7 +162,16 @@ $('#myContracts').on( 'click', '#closeContract', function () {
 
 
 })
+$('#myContracts').on( 'change', '#contracts', function () {
+	console.log("contracts CHANGE")
+	if($(this).find('option:selected').val()!="1"){
+		$('#contractsDate').css("display",'none')
+	}else{
+		$('#contractsDate').css("display",'block')
+	}
+})
 $('#myContracts').on( 'click', '#confirmContract', function () {
+	var contractDate='';
 	$("table#command_table tbody").html('');
 	contract='';
  	if($('#myContracts').find('#commands').find('option:selected').val()!="0"){
@@ -178,7 +187,7 @@ $('#myContracts').on( 'click', '#confirmContract', function () {
 	$('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
 	$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
 
- 	var contractDate=$('#myContracts input[name=contractDate]:checked').val();
+ 	 contractDate=$('#myContracts input[name=contractDate]:checked').val();
  	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
  	var sinceDate=$('#myContracts input[name=sinceDate]').val();
 	var order='';
@@ -197,6 +206,10 @@ $('#myContracts').on( 'click', '#confirmContract', function () {
 	if(commandDate=='3'){
 		order="";
 		contractDate='3';
+	}
+	if(contractDate==''){
+		order="";
+		contractDate='';
 	}
 
 	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceDate);
@@ -283,40 +296,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 
 			if  (optype=='update') {
 
-				// if(employee.structure_level1){
-				// 	$("#structure1").val(employee.category1);
-				// }
-				// if(employee.structure_level2){
-				// 	$("#structure2").val(employee.category2);
-				// }
-				// if(employee.structure_level3){
-				// 	$("#structure3").val(employee.category3);
-				// }
-				// if(employee.structure_level4){
-				// 	$("#structure4").val(employee.category4);
-				// }
-				// if(employee.structure_level5){
-				// 	$("#structure5").val(employee.category5);
-				// }
-				//
-				// if(employee.marital_status=='1'){
-				// 	$("#marital_status").val('Evli');
-				// }else{
-				// 	$("#marital_status").val('Subay');
-				// }
-				//
-				// var military_reg_category='';
-				// var military_reg_group='';
-				// if(employee.military_reg_category==1){
-				// 	military_reg_category='Kateqoriya 1';
-				// }else{
-				// 	military_reg_category='Kateqoriya 2';
-				// }
-				// if(employee.military_reg_group==1){
-				// 	military_reg_group='Çağırışçı';
-				// }else{
-				// 	military_reg_group='Hərbi vəzifəli';
-				// }
+
 
 
 
@@ -507,6 +487,33 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		var strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 		console.log('employee[0]',value)
 		if(value.id==idDownload){
+
+			$("#structure1").val(value.structure1);
+			$("#structure2").val(value.structure2);
+			$("#structure3").val(value.structure3);
+			$("#structure4").val(value.structure4);
+			$("#structure5").val(value.structure5);
+
+			if(value.marital_status=='1'){
+				$("#marital_status").val('Evli');
+			}else{
+				$("#marital_status").val('Subay');
+			}
+
+			var military_reg_category='';
+			var military_reg_group='';
+			if(value.military_reg_category==1){
+				military_reg_category='Kateqoriya 1';
+			}else{
+				military_reg_category='Kateqoriya 2';
+			}
+			if(value.military_reg_group==1){
+				military_reg_group='Çağırışçı';
+			}else{
+				military_reg_group='Hərbi vəzifəli';
+			}
+
+
 			$("#emp_id").val(value.id)
 			$("#currentDate").val($('#selectDate').val())
 			$("#command_no").val(value.command_no)

@@ -27,15 +27,19 @@ $data2 = array();
 $sinceDate = strtr( $sinceDate , '/', '-');
 $sinceDate= date('Y-m-d', strtotime($sinceDate));
 if( $contractDate=='1'){
-    $sql_emp_contracts = "select tc.*,te.*,tc.id id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,tc.id id,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_employee_commands tc
-LEFT join $tbl_employees te on te.id=tc.emp_id     
+LEFT join $tbl_employees te on te.id=tc.emp_id   
+LEFT join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id     
+LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
   where  tc.emp_id='$empid' and tc.command_id='$command_id' and tc.insert_date<='$sinceDate' and tc.command_no!=''";
 }else if( $contractDate=='2'){
 
-    $sql_emp_contracts = "select tc.*,te.*,tc.id id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,tc.id id,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_employee_commands tc
-LEFT join $tbl_employees te on te.id=tc.emp_id     
+LEFT join $tbl_employees te on te.id=tc.emp_id
+LEFT join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id     
+LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type        
   where  tc.emp_id='$empid' and tc.command_id='$command_id' and tc.insert_date<='$sinceDate'  and tc.command_no=''";
 
 //    $result_emp_contracts = $db->query($sql_emp_contracts);
@@ -59,9 +63,11 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 //            $structure5_2= $data2[0]['structure5'];
 }
 else if( $contractDate=='3'){
-    $sql_emp_contracts ="select tc.*,te.*,tc.id id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
+    $sql_emp_contracts ="select tc.*,te.*,tc.id id,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
  from $tbl_employee_commands tc
 LEFT join $tbl_employees te on te.id=tc.emp_id 
+LEFT join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id     
+LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type   
   where  tc.emp_id='$empid'and tc.insert_date<='$sinceDate' and tc.command_id='$command_id' ";
 //    echo $sql_emp_contracts;
 }

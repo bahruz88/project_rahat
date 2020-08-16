@@ -158,6 +158,11 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="military_additional_information" name="military_additional_information"   />
                         <input type="hidden" class="form-control" id="military_date_completion" name="military_date_completion"   />
 
+                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />
+                        <input type="hidden" class="form-control" id="m_firstname" name="m_firstname"   />
+                        <input type="hidden" class="form-control" id="m_lastname" name="m_lastname"   />
+                        <input type="hidden" class="form-control" id="m_surname" name="m_surname"   />
+
                         <input type="hidden" id="update_empid" name="update_empidn" value="" />
 
 <!--                        <div id="previewImage"  style="display: none">-->

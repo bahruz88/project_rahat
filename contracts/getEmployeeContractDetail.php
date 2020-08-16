@@ -3,7 +3,11 @@
  $empid = $_POST['empid'];
 $order = $_POST['order'];
 
-$contractDate = $_POST['contractDate'];
+$contractDate ='';
+if (isset($_POST['contractDate']))
+{
+    $contractDate = $_POST['contractDate'];
+}
 $company_name_2= '';
 $voen_2= '';
 $enterprise_head_position_2= '';
@@ -23,15 +27,29 @@ $structure5_2= '';
 
 $data = array();
 $data2 = array();
+if($order=="" && $contractDate==''){
+    $sql_emp_contracts = "select tc.*,te.*,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+from $tbl_contracts tc
+LEFT join $tbl_employees te on te.id=tc.emp_id   
+INNER join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id   
+LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type    
+  where  tc.emp_id='$empid' ";
+}else
 if($order!="" && $contractDate=='1'){
-    $sql_emp_contracts = "select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_contracts tc
 LEFT join $tbl_employees te on te.id=tc.emp_id     
+INNER join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id   
+LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
+  
   where  tc.emp_id='$empid' $order";
 }else if($order!="" && $contractDate=='2'){
-    $sql_emp_contracts = "select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_contracts tc
-LEFT join $tbl_employees te on te.id=tc.emp_id     
+LEFT join $tbl_employees te on te.id=tc.emp_id  
+INNER join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id     
+LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
+
   where  tc.emp_id='$empid' $order";
 
     $result_emp_contracts = $db->query($sql_emp_contracts);
@@ -84,9 +102,12 @@ else{
         }
     }
 
-    $sql_emp_contracts ="select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
+    $sql_emp_contracts ="select tc.*,te.*,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
  from $tbl_contracts tc
 LEFT join $tbl_employees te on te.id=tc.emp_id 
+INNER join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id     
+LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
+
   where  tc.emp_id='$empid' and tc.id!='$id1' and tc.id!='$id2'";
 //    echo $sql_emp_contracts;
 }

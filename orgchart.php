@@ -88,10 +88,10 @@
                 for(var i = 0; i < members.length; i++){
 
                     var member = members[i];
-                    console.log('member.otherInfo=',member)
+                    console.log('member.otherInfo=',member[0])
                     var fullname= member[3]?  member[3] :'';
 
-                    if(i==0){
+                    if(member[1]==null){
                         $("#mainContainer").append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
                     }else{
 
@@ -169,7 +169,9 @@
     <div  style="display: none">
 
 
-        <ul id="mainContainer" class="clearfix"></ul>
+        <ul id="mainContainer" class="clearfix">
+<!--            <li id="+member[0]+"><div class='structureName'>Muessise</div><div class='fullName'></div></li>-->
+        </ul>
 
     </div>
     <div id="main">

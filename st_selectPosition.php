@@ -34,15 +34,23 @@ if($result_position){
 
                     $structure_employees= "select * from $tbl_employees WHERE id = '$emp_id'";
                     $result_employees = $db->query($structure_employees);
-                    if($result_employees->num_rows > 0) {
-                        while($row_employees = $result_employees->fetch_assoc()) {
-//                            $sub_array = array();
-                            $sub_array[] = $row_employees['firstname'].' '.$row_employees['lastname'].' '.$row_employees['surname'];
+                    if($result_employees) {
+                        if($result_employees->num_rows > 0) {
+                            while($row_employees = $result_employees->fetch_assoc()) {
+    //                            $sub_array = array();
 
+                                    $sub_array[] = $row_employees['firstname'].' '.$row_employees['lastname'].' '.$row_employees['surname'];
+
+
+
+
+                            }
 
                         }
+                    }else{
+                    $sub_array[] = '';
 
-                    }
+                }
                     $data[] = $sub_array;
                 }
 

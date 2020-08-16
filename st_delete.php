@@ -27,11 +27,13 @@ if($_POST['delet']=="id"){
 else{
     $sql="delete FROM  $tbl_employee_category where parent=$id";
 }
-if($code!=''){
+if($code!='' &&$code.substr(0,1)=="P"){
+//    echo $code.substr(0,1);
     $sqlpositions="delete FROM  $tbl_structure_positions where posit_code='$code'";
+    $delete_positions = mysqli_query($db,$sqlpositions);// set  status=0
+
 }
 $delete_query = mysqli_query($db,$sql);// set  status=0
-$delete_positions = mysqli_query($db,$sqlpositions);// set  status=0
 
 
 

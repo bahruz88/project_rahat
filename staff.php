@@ -380,6 +380,7 @@ $result_employee_category = $db->query($employee_category);
 
                     }
                 });
+                $(".staffText").css("display","none");
 
 
             },
@@ -387,6 +388,7 @@ $result_employee_category = $db->query($employee_category);
     })
     function printDiv(divId,
                       title) {
+        $(".staffText").css("display","block");
 
         let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
 
@@ -415,6 +417,7 @@ $result_employee_category = $db->query($employee_category);
         mywindow.focus(); // necessary for IE >= 10*/
 
         mywindow.print();
+        $(".staffText").css("display","none");
         setTimeout(function () {
             mywindow.close();
         }, 250);

@@ -2,7 +2,7 @@
 include('session.php') ;
 $data=array();
 
-$sql_category="select * from tbl_employee_category";
+$sql_category="select * from $tbl_employee_category";
 $result_position = $db->query($sql_category);
 if($result_position){
     if ($result_position->num_rows > 0) {
