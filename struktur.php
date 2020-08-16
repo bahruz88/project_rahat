@@ -47,6 +47,7 @@ if($result_users){
             $sub_array[] = ($row_users['emp_id']);
             $sub_array[] = $row_users['icon'];
             $sub_array[] = $row_users['posit_icon'];
+            $sub_array[] = $row_users['company_id'];
 
             $data[]     = $sub_array;
         }
@@ -75,6 +76,7 @@ function createArray($arrC){
         $arrCh['emp_id'] = $arrCh[13];
         $arrCh['icon'] = $arrCh[14];
         $arrCh['posit_icon'] = $arrCh[15];
+        $arrCh['company_id'] = $arrCh[16];
         $arrCh['children'] = $arrCh[5];
         $arrCh['expanded'] = true;
         $arrCh['folder'] = true;
@@ -97,6 +99,7 @@ function createArray($arrC){
             unset($arrCh[13]);
             unset($arrCh[14]);
             unset($arrCh[15]);
+            unset($arrCh[16]);
         }
         $arrChil[]=$arrCh;
     }
@@ -445,6 +448,8 @@ $sql_position= "select * from $tbl_employee_category";
                                 </ul>
                             </div>
                         </nav>
+                        <input type='hidden' value='' id='company_id'>
+                        <input type='hidden' value='' id='company_name'>
                         <input type='hidden' value='' id='txt_id'>
                         <input type='hidden' value='' id='number_id'>
                         <!-- Small modal -->
@@ -473,18 +478,18 @@ $sql_position= "select * from $tbl_employee_category";
                                         <div class="container" style="display: none;"  id="stQuery">
                                             <div class="form-group row" id="employeesQuery">
                                                 <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-6"  id="employees">
                                                     <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
                                                         <option  value="0" >Seçin...</option>
-                                                        <?php
-                                                        $result_employees_view = $db->query($sql_employees);
-                                                        if ($result_employees_view->num_rows > 0) {
-                                                            while($row_employees= $result_employees_view->fetch_assoc()) {
-
-                                                                ?>
-                                                                <option  value="<?php echo $row_employees['id']; ?>" ><?php echo utf8_encode($row_employees['firstname'])." " .utf8_encode($row_employees['lastname']);  ?></option>
-
-                                                            <?php } }?>
+<!--                                                        --><?php
+//                                                        $result_employees_view = $db->query($sql_employees);
+//                                                        if ($result_employees_view->num_rows > 0) {
+//                                                            while($row_employees= $result_employees_view->fetch_assoc()) {
+//
+//                                                                ?>
+<!--                                                                <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo utf8_encode($row_employees['firstname'])." " .utf8_encode($row_employees['lastname']);  ?><!--</option>-->
+<!---->
+<!--                                                            --><?php //} }?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -509,6 +514,22 @@ $sql_position= "select * from $tbl_employee_category";
                                                 </div>
                                             </div>
                                             <div class="form-group row" id="structureQuery">
+                                                <div id="companyDiv">
+                                                    <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
+                                                    <div class="col-sm-6">
+                                                        <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
+                                                            <option  value="" >Seçin...</option>
+
+                                                            <?php
+                                                            $result_company = $db->query($sql_employee_company);
+                                                            if ($result_company->num_rows > 0) {
+                                                                while($row_company= $result_company->fetch_assoc()) {
+                                                                    ?>
+                                                                    <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                                                <?php } }?>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <label class="col-sm-4 col-form-label" for="structure_level"><?php echo $dil["structure_level"];?></label>
                                                 <div class="col-sm-6">
                                                     <select data-live-search="true"  name="structure_level" id="structure_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["structure_level"];?>" >
@@ -524,6 +545,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                             <?php } }?>
                                                     </select>
                                                 </div>
+
                                             </div>
                                             <div class="form-group row" id="dateQuery">
                                                 <label class="col-sm-4 col-form-label" for="st_create_date"><?php echo $dil["create_end_date"];?></label>
@@ -573,6 +595,7 @@ $sql_position= "select * from $tbl_employee_category";
                                 <th> Səviyyə </th>
                                 <th> ASA </th>
                                 <th>İl</th>
+                                <th> Şirkət </th>
                                 <th>Status</th>
                             </tr>
                             </thead>
@@ -633,6 +656,7 @@ $sql_position= "select * from $tbl_employee_category";
                                     <input type="text" class="form-control"  style="font-size:14px;display: none;" name="st_end_date" placeholder="0000-00-00" />
                                     <button type="button" class="btn btn-info"  style="font-size:10px;display: none;" >+</button>
                                 </td>
+                                <td><span></span> </td>
                                 <td> </td>
 
                             </tr>
@@ -922,6 +946,34 @@ $sql_position= "select * from $tbl_employee_category";
                                     $('#structureQuery').css('display','none')
                                     $(document).off('click', '#pozisya');
                                     $(document).off('click', '#struktur');
+                                    var company_id=$('#company_id').val();
+
+
+
+                                    $.ajax({
+                                        url: 'st_emp_select.php',
+                                        type: "POST",
+                                        data: { company_id:company_id},
+                                        success: function (data) {
+                                            console.log('data=' + data)
+                                            var option='<select data-live-search="true"  name="employee" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                                            option += '<option value="">Seçin..</option>';
+
+                                            var row = '';
+                                            // $('#tablePositions').find('tbody').html('');
+                                            $.each($.parseJSON(data), function(k,v) {
+                                                console.log('v=',v)
+                                                option += '<option value="' + v.id + '" >' + v.firstname + ' '+v.lastname + ' '+v.surname + '</option>';
+
+                                            });
+                                            option+=' </select>';
+                                            console.log('option='+option)
+                                            // option += '</select>';
+                                            $('#employees').html(option);
+                                            $(".selectpicker").selectpicker();
+
+                                        },
+                                    });
 
 
                                 });
@@ -1106,6 +1158,16 @@ $sql_position= "select * from $tbl_employee_category";
                             .find('input')
                             .css('display','none');
 
+                        if($('#company_id').val()==''){
+                            $('#company_id').val(node.data.company_id)
+                            $('#company_name').val(node.data.company)
+                        }
+                        $tdList
+                            .eq(7)
+                            .find('span')
+                            .text($('#company_name').val());
+
+
                         // .find("input")
                         // .val(node.data.foo);
                         // $tdList
@@ -1235,11 +1297,17 @@ $sql_position= "select * from $tbl_employee_category";
                                         $('#deleteModal').modal('hide'); // now close modal
                                     })
                                 }else{
-                                    if(node==null){
+                                    if(node==null ){//|| node.data.pId==null
                                         console.log("bosdur");
+                                        $('#structureQuery').find('#companyDiv').css('display','block')
                                         $('#butModal').trigger('click');
+                                        // stClick()
+
                                     }else{
+                                        $('#structureQuery').find('#companyDiv').css('display','none')
                                         tree.applyCommand(data.cmd, node);
+
+
                                     }
 
                                 }

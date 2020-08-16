@@ -34,6 +34,7 @@ function confirmClick(e){
         console.log('confirm col ');
         var employee=$('#employeesQuery option:selected').val()
         var structure_level=$('#structure_level option:selected').val()
+        var company_id=$('#company_id').val()
         var position_level=$('#position_level option:selected').val()
 
         var st_create_date=$('#st_create_date').val()!='' ? $('#st_create_date').val() :'1900-01-01';
@@ -56,10 +57,10 @@ function confirmClick(e){
             $('#employee').find('option[value="0"]').prop('selected', true);
             var icon=$('#icon').val();
             if(eventArray){
-                createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon);
+                createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id);
 
             }else{
-                createNew('yeni', 0, employee,structure_level,position_level,st_create_date,st_end_date,icon);
+                createNew('yeni', 0, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id);
 
             }
             $('#st_create_date').val('')
@@ -100,12 +101,13 @@ function validate(st_create_date){
     }
     return true;
 }
-function createNew(event,data,employee,structure_level,position_level,st_create_date,st_end_date,icon){
+function createNew(event,data,employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id){
     // console.log('data',createRequestNumber(8))
     console.log('eventeventeventevent',event)
     console.log('data.cmd==',data.cmd)
     var PID;
     var title;
+    var company_id;
 
     if (data==0){
         PID=0;
@@ -130,7 +132,7 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     $.ajax({
         url: 'st_insert.php',
         type: "POST",
-        data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date},
+        data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date,company_id:company_id},
         success: function (data) {
             console.log('dataaaaaaaaada=' , data);
             console.log('dataaaaaaaaaa=' , $.parseJSON(data));
@@ -401,8 +403,8 @@ function treeClick(trList){
                         ' <td>'+v[2]+'</td>  '  +
                         ' <td>'+fName+'</td>  '  +
                         ' <td class="myText" data-val="percent">'+v[7]+'</td>  '  +
-                        ' <td class="myText" id="start_date">'+v[4]+'</td>  '  +
-                        ' <td class="myText" id="end_date">'+v[5]+'</td>  '  +
+                        ' <td  id="start_date">'+v[4]+'</td>  '  +
+                        ' <td id="end_date">'+v[5]+'</td>  '  +
                         '</tr>  ';
                 });
                 option+=' </select>';

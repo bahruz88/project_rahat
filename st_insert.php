@@ -43,6 +43,7 @@ $position_level     = $_POST['position_level'];
 $create_date        = $_POST['create_date'];
 $end_date        = $_POST['end_date'];
 $icon        = $_POST['icon'];
+$company_id        = $_POST['company_id'];
 $create_date = strtr( $create_date , '/', '-');
 $create_date= date('Y-m-d', strtotime($create_date));
 
@@ -51,13 +52,13 @@ $end_date= date('Y-m-d', strtotime($end_date));
 $code               = $rs;
 if($pId==0 or $pId=='' or $pId=='null'){
     $sql = "INSERT INTO $tbl_employee_category( 
-	 id, parent, category,icon,code,emp_id,structure_level,position_level,create_date,end_date) 
-	 VALUES (NULL, NULL,'$name','$icon','$code','$emp_id','$structure_level','$position_level','$create_date','$end_date')";
+	 id, parent,company_id, category,icon,code,emp_id,structure_level,position_level,create_date,end_date) 
+	 VALUES (NULL, NULL,'$company_id','$name','$icon','$code','$emp_id','$structure_level','$position_level','$create_date','$end_date')";
 
 }else{
     $sql = "INSERT INTO $tbl_employee_category( 
-	 id, parent, category,icon,code,emp_id,structure_level,position_level,create_date,end_date) 
-	 VALUES (NULL, '$pId','$name','$icon','$code','$emp_id','$structure_level','$position_level','$create_date','$end_date')";
+	 id, parent,company_id, category,icon,code,emp_id,structure_level,position_level,create_date,end_date) 
+	 VALUES (NULL, '$pId','$company_id','$name','$icon','$code','$emp_id','$structure_level','$position_level','$create_date','$end_date')";
 
 }
 if($_POST['position_level']!='0' && $_POST['position_level']!=''){

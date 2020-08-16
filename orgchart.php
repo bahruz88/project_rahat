@@ -67,58 +67,7 @@
 
 
 
-    <script type='text/javascript'>
-        $(function(){
-            var members;
-            $.ajax({
-                url:'load.php',
-                async:false,
-                success:function(data){
-                    console.log('data='+data)
-                    members=$.parseJSON(data)
-                },
-                // error: function(xhr, ajaxOptions, thrownError) {
-                //   console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                // }
-            });
 
-            //memberId,parentId,otherInfo
-            if(members){
-                console.log('members=',members)
-                for(var i = 0; i < members.length; i++){
-
-                    var member = members[i];
-                    console.log('member.otherInfo=',member[0])
-                    var fullname= member[3]?  member[3] :'';
-
-                    if(member[1]==null){
-                        $("#mainContainer").append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-                    }else{
-
-                        if($('#pr_'+member[1]).length<=0){
-                            $('#'+member[1]).append("<ul id='pr_"+member[1]+"'><li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li></ul>")
-                        }
-                        else{
-                            $('#pr_'+member[1]).append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-                        }
-
-                    }
-
-                }
-
-            }
-
-
-
-
-
-
-            $("#mainContainer").orgChart({container: $("#main"),interactive: true, fade: true, speed: 'slow'});
-
-        });
-
-
-    </script>
 </head>
  
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -164,6 +113,22 @@
 <div class="col-12 col-sm-6 col-lg-12">
  <div class="card">
 <div class="card-body">
+    <div id="companyDiv">
+        <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
+        <div class="col-sm-6">
+            <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
+                <option  value="" >Seçin...</option>
+
+                <?php
+                $result_company = $db->query($sql_employee_company);
+                if ($result_company->num_rows > 0) {
+                    while($row_company= $result_company->fetch_assoc()) {
+                        ?>
+                        <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                    <?php } }?>
+            </select>
+        </div>
+    </div>
 
 
     <div  style="display: none">
@@ -231,5 +196,70 @@
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
  <script type="text/javascript" src="js/employee.js"></script>
 <script src="js/jquery.orgchart.js"></script>
+<script type='text/javascript'>
+    $('#companyDiv').on( 'change','#company',  function () {
+        console.log("company CHANGE")
+        if($(this).find('option:selected').val()!="0"){
+            load($(this).find('option:selected').val())
+        }
+    })
+
+
+    function load(company_id){
+
+
+        var members;
+        $.ajax({
+            url:'load.php',
+            async:false,
+            type: "POST",
+            data: { company_id:company_id},
+            success:function(data){
+                console.log('data='+data)
+                members=$.parseJSON(data)
+                $('#companyDiv').css('display','none')
+            },
+            // error: function(xhr, ajaxOptions, thrownError) {
+            //   console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            // }
+        });
+
+        //memberId,parentId,otherInfo
+        if(members){
+            console.log('members=',members)
+            for(var i = 0; i < members.length; i++){
+
+                var member = members[i];
+                console.log('member.otherInfo=',member[0])
+                var fullname= member[3]?  member[3] :'';
+
+                if(member[1]==null){
+                    $("#mainContainer").append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
+                }else{
+
+                    if($('#pr_'+member[1]).length<=0){
+                        $('#'+member[1]).append("<ul id='pr_"+member[1]+"'><li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li></ul>")
+                    }
+                    else{
+                        $('#pr_'+member[1]).append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
+                    }
+
+                }
+
+            }
+
+        }
+
+
+
+
+
+
+        $("#mainContainer").orgChart({container: $("#main"),interactive: true, fade: true, speed: 'slow'});
+
+    }
+
+
+</script>
 </body>
 </html>

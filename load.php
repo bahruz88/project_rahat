@@ -1,8 +1,8 @@
 <?php
 include('session.php') ;
 $data=array();
-
-$sql_category="select * from $tbl_employee_category";
+$company_id                 =$_POST['company_id'];
+$sql_category="select * from $tbl_employee_category where company_id='$company_id'";
 $result_position = $db->query($sql_category);
 if($result_position){
     if ($result_position->num_rows > 0) {
@@ -18,7 +18,7 @@ if($result_position){
 
                 $sql_name="select tec.*,concat(te.lastname,' ', te.firstname) full_name,te.id emp_id 
                     from $tbl_employee_category tec
-                    LEFT join $tbl_employees te on te.id=tec.emp_id where tec.parent='$id' and tec.position_level=2";
+                    LEFT join $tbl_employees te on te.id=tec.emp_id where tec.parent='$id' and tec.position_level=2 and tec.company_id='$company_id'";
                 $result_name = $db->query($sql_name);
                 if($result_name){
                     if ($result_name->num_rows > 0) {
