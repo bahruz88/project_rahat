@@ -246,6 +246,7 @@ $result_employee_category = $db->query($employee_category);
 <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
 
 <script  charset="UTF-8">
     var arrayData2=[];
@@ -338,9 +339,11 @@ $result_employee_category = $db->query($employee_category);
             // saveAs(out,"output.docx")
 
             var fs = require('fs');
-            var buf = doc.getZip().generate({type:"nodebuffer"});
-            var storageDir = analyseObject.conformite.affaire.affairePath;
-            fs.writeFileSync(storageDir+"/offre_affaire_"+affaire.ref+".docx",buf);
+            var buf = doc.getZip()
+                .generate({ type: "nodebuffer",
+                    compression: "DEFLATE"});
+
+            fs.writeFileSync(__dirname+"/output.docx",buf);
         })
     }
 

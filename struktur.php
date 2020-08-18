@@ -775,12 +775,14 @@ $sql_position= "select * from $tbl_employee_category";
                                         <div class="panel">
                                             <div class="form-group  row">
 
-                                                <div class="col-md-8">
+                                                <div class="col-md-10">
                                                     <table class="table table-striped" id="tablePositions">
                                                         <thead>
                                                         <tr>
                                                             <th><strong><?php echo $dil["icon"];?></strong></th>
+                                                            <th><strong><?php echo $dil["role"];?></strong></th>
                                                             <th><strong><?php echo $dil["position"];?></strong></th>
+
                                                             <th><strong><?php echo $dil["firstname"].' '.$dil["lastname"].' '.$dil["surname"];?></strong></th>
                                                             <th><strong><?php echo $dil["percent"];?></span></strong></th>
                                                             <th><strong><?php echo $dil["start_date"];?></span></strong></th>

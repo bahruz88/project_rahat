@@ -388,21 +388,35 @@ function treeClick(trList){
                option += '<option value="0">Seçin..</option>';
 
                 var row = '';
+                var PositArr=['']
                 $('#tablePositions').find('tbody').html('');
                 $.each(jQuery.parseJSON(data), function(k,v){
-                    console.log('trList fullname=' + v[8]);
+                    console.log('trList v=' + v[9]);
                     console.log('trList option=' + v[2]);
                     var fName='Təyin edilməyib';
+                    var fRole='Təyin edilməyib';
+                    var fPercent=0;
+
                     if(v[8]){
                         fName=v[8];
                     }
-                    console.log('fName='+fName)
-                    option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'">'+v[2]+' '+v[8]+'</option>';
+                    if(v[9]){
+                        fRole=v[9];
+                    }
+                    if(v[7]){
+                        fPercent=v[7];
+                    }
+                    if(jQuery.inArray( v[2], PositArr )<0){
+                        option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'" data-positcode="'+v[2]+'">'+v[2]+' '+v[8]+'</option>';
+                        PositArr.push(v[2]);
+                    }
+
                     row +='<tr data-id="'+v[0]+'" data-positcode="'+v[2]+'"> '  +
                         ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
+                        ' <td>'+fRole+'</td>  '  +
                         ' <td>'+v[2]+'</td>  '  +
                         ' <td>'+fName+'</td>  '  +
-                        ' <td class="myText" data-val="percent">'+v[7]+'</td>  '  +
+                        ' <td class="myText" data-val="percent">'+fPercent+'</td>  '  +
                         ' <td  id="start_date">'+v[4]+'</td>  '  +
                         ' <td id="end_date">'+v[5]+'</td>  '  +
                         '</tr>  ';
@@ -513,7 +527,7 @@ $(function () {
     $("#confirmRole").click(function() {
         console.log('confirmRole change');
         var role_id=  $('#roles option:selected').val();
-        var posit_code=$('#positionList option:selected').text();
+        var posit_code=$('#positionList option:selected').attr('data-positcode');
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
         console.log('confirmRole change'+posit_code);

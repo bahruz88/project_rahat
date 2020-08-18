@@ -16,7 +16,9 @@ if($result_position){
             $code=$row_users["code"];
             $emp_id=$row_users["emp_id"];
 
-             $structure_positions= "select * from $tbl_structure_positions WHERE posit_code = '$code'";
+             $structure_positions= "select tsp.*,tsr.role  from $tbl_structure_positions tsp
+ LEFT join $tbl_structure_roles tsr on tsr.id=tsp.role_id 
+ WHERE tsp.posit_code = '$code'";
              $result_structure_positions = $db->query($structure_positions);
             if($result_structure_positions->num_rows > 0) {
                 while($row_structure_positions = $result_structure_positions->fetch_assoc()) {
@@ -31,6 +33,7 @@ if($result_position){
                     $sub_array[] = $row_structure_positions['end_date'];
                     $sub_array[] = $row_users['icon'];
                     $sub_array[] = ($row_structure_positions['percent']);
+
 
                     $structure_employees= "select * from $tbl_employees WHERE id = '$emp_id'";
                     $result_employees = $db->query($structure_employees);
@@ -51,6 +54,7 @@ if($result_position){
                     $sub_array[] = '';
 
                 }
+                    $sub_array[] = ($row_structure_positions['role']);
                     $data[] = $sub_array;
                 }
 

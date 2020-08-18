@@ -268,6 +268,7 @@ $dil = array(
 	"structure_role"   =>"Struktur rolu",
 	"general_info"   =>"Əsas məlumatlar",
 	"position"   =>"Pozisya",
+	"role"   =>"Rol",
 	"icon"   =>"İcon",
 	"percent"   =>"Faiz",
 	"start_date"   =>"Başlama tarixi",
