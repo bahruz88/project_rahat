@@ -40,7 +40,7 @@ $sql_employees = "select tec.*,te.lastname, te.firstname , te.surname,te.id emp_
 from $tbl_employee_category tec
 LEFT join $tbl_employees te on te.id=tec.emp_id
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
- LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level where ".$sql;
+ LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level where ".$sql." and tec.emp_id!=0";
 
 //$sql_employees = "select tec.* ".$sql0." from $tbl_employee_category tec ".$sql1."
 // LEFT join $tbl_employees te on te.id=tec.emp_id

@@ -24,31 +24,24 @@ $structure4_2= '';
 
 $structure5_2= '';
 
-
 $data = array();
 $data2 = array();
 if($order=="" && $contractDate==''){
-    $sql_emp_contracts = "select tc.*,te.*,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_contracts tc
 LEFT join $tbl_employees te on te.id=tc.emp_id   
-INNER join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id   
-LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type    
   where  tc.emp_id='$empid' ";
 }else
 if($order!="" && $contractDate=='1'){
-    $sql_emp_contracts = "select tc.*,te.*,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_contracts tc
-LEFT join $tbl_employees te on te.id=tc.emp_id     
-INNER join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id   
-LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
+LEFT join $tbl_employees te on te.id=tc.emp_id       
   
   where  tc.emp_id='$empid' $order";
 }else if($order!="" && $contractDate=='2'){
-    $sql_emp_contracts = "select tc.*,te.*,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_contracts tc
-LEFT join $tbl_employees te on te.id=tc.emp_id  
-INNER join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id     
-LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
+LEFT join $tbl_employees te on te.id=tc.emp_id    
 
   where  tc.emp_id='$empid' $order";
 
@@ -71,12 +64,6 @@ LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type
             $structure4_2= $data2[0]['structure4'];
 
             $structure5_2= $data2[0]['structure5'];
-
-
-
-
-
-
 
 }
 else{
@@ -102,24 +89,37 @@ else{
         }
     }
 
-    $sql_emp_contracts ="select tc.*,te.*,tefi.*,tefi.id famId,tfmt.type_desc memberType,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
+    $sql_emp_contracts ="select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
  from $tbl_contracts tc
-LEFT join $tbl_employees te on te.id=tc.emp_id 
-INNER join $tbl_employee_family_info tefi on tefi.emp_id=tc.emp_id     
-LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
-
+LEFT join $tbl_employees te on te.id=tc.emp_id
   where  tc.emp_id='$empid' and tc.id!='$id1' and tc.id!='$id2'";
-//    echo $sql_emp_contracts;
+//    LEFT join $tbl_employee_family_info tefi on tefi.emp_id=te.id
+//LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type
 }
 
 
 //echo $sql_emp_contracts;
 $result_emp_contracts = $db->query($sql_emp_contracts);
 //eger tbl_contract cedvelinde verilen varsa ordan serte uygun secir
-if ($result_emp_contracts->num_rows > 0&& $contractDate!='2')
+if ($result_emp_contracts->num_rows > 0 && $contractDate!='2')
 {
-    $row_emp_contracts = $result_emp_contracts->fetch_assoc();
-    $data[]  = $row_emp_contracts;
+    while ($row_emp_contracts = $result_emp_contracts->fetch_assoc()) {
+
+        $data[] = $row_emp_contracts;
+        $emp_id=$row_emp_contracts['emp_id'];
+
+    $sql_member_types ="select tefi.*,tefi.id famId,tfmt.type_desc memberType
+     from $tbl_employee_family_info tefi     
+    LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
+    where  tefi.emp_id='$emp_id' ";
+//    echo $sql_member_types;
+        $result_member_types = $db->query($sql_member_types);
+        if ($result_member_types->num_rows > 0 ) {
+             while ($row_member_types = $result_member_types->fetch_assoc()) {
+                $data[] = $row_member_types;
+            }
+        }
+    }
 }
 //else {
 //    //eger tbl_contract cedvelinde verilen yoxdursa umumi bazadan secib getirir ve tbl_contract cedveline de yazir

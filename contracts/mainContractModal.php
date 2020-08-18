@@ -158,10 +158,13 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="military_additional_information" name="military_additional_information"   />
                         <input type="hidden" class="form-control" id="military_date_completion" name="military_date_completion"   />
 
-                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />
-                        <input type="hidden" class="form-control" id="m_firstname" name="m_firstname"   />
-                        <input type="hidden" class="form-control" id="m_lastname" name="m_lastname"   />
-                        <input type="hidden" class="form-control" id="m_surname" name="m_surname"   />
+<!--                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />-->
+<!--                        <input type="hidden" class="form-control" id="m_firstname" name="m_firstname"   />-->
+<!--                        <input type="hidden" class="form-control" id="m_lastname" name="m_lastname"   />-->
+<!--                        <input type="hidden" class="form-control" id="m_surname" name="m_surname"   />-->
+                        <div id="member">
+
+                        </div>
 
                         <input type="hidden" id="update_empid" name="update_empidn" value="" />
 
@@ -304,8 +307,57 @@ Mandatory in IE 6, 7, 8 and 9.
 
             var zip = new PizZip(content);
             var doc;
+            var mem_father='';
+            var mem_mother='';
+            var mem_boy='';
+            var mem_girl='';
+            var mem_husband='';
+            var mem_wife='';
             try {
                 doc=new window.docxtemplater(zip);
+                if($('#member').find('.m1').length >0){
+                    var father_firstname=$('#member').find('.m1').find('#m_firstname').val()
+                    var father_lastname=$('#member').find('.m1').find('#m_lastname').val()
+                    var father_birth_date=$('#member').find('.m1').find('#birth_date').val()
+                    mem_father=father_firstname+ ' '+father_lastname+' / '+father_birth_date
+                }
+                if($('#member').find('.m2').length >0){
+                    var mother_firstname=$('#member').find('.m2').find('#m_firstname').val()
+                    var mother_lastname=$('#member').find('.m2').find('#m_lastname').val()
+                    var mother_birth_date=$('#member').find('.m2').find('#birth_date').val()
+                    mem_mother=mother_firstname+ ' '+mother_lastname+' / '+mother_birth_date
+                }
+                if($('#member').find('.m5').length >0){
+                    $.each($('#member').find('.m5'), function (i, v) {
+                        var boy_firstname=$(this).find('#m_firstname').val()
+                        var boy_lastname=$(this).find('#m_lastname').val()
+                        var boy_birth_date=$(this).find('#birth_date').val()
+                        mem_boy+=boy_firstname+ ' '+boy_lastname+' / '+boy_birth_date+' ';
+                    });
+
+                }
+                if($('#member').find('.m6').length >0){
+                    $.each($('#member').find('.m6'), function (i, v) {
+                        var girl_firstname = $(this).find('#m_firstname').val()
+                        var girl_lastname = $(this).find('#m_lastname').val()
+                        var girl_birth_date = $(this).find('#birth_date').val()
+                        mem_girl += girl_firstname + ' ' + girl_lastname + ' / ' + girl_birth_date+' ';
+                    });
+                }
+                if($('#member').find('.m7').length >0){
+                    var hus_firstname=$('#member').find('.m7').find('#m_firstname').val()
+                    var hus_lastname=$('#member').find('.m7').find('#m_lastname').val()
+                    var hus_birth_date=$('#member').find('.m7').find('#birth_date').val()
+                    mem_husband=hus_firstname+ ' '+hus_lastname+' / '+hus_birth_date
+                }
+                if($('#member').find('.m8').length >0){
+                    var wife_firstname=$('#member').find('.m8').find('#m_firstname').val()
+                    var wife_lastname=$('#member').find('.m8').find('#m_lastname').val()
+                    var wife_birth_date=$('#member').find('.m8').find('#birth_date').val()
+                    mem_wife=wife_firstname+ ' '+wife_lastname+' / '+wife_birth_date
+                }
+
+
             } catch(error) {
                 // Catch compilation errors (errors caused by the compilation of the template : misplaced tags)
                 errorHandler(error);
@@ -357,7 +409,13 @@ Mandatory in IE 6, 7, 8 and 9.
                 military_special: $('#military_special').val(),
                 military_no_official: $('#military_no_official').val(),
                 military_additional_information: $('#military_additional_information').val(),
-                military_date_completion: $('#military_date_completion').val()
+                military_date_completion: $('#military_date_completion').val(),
+                mem_father: mem_father,
+                mem_mother: mem_mother,
+                mem_boy: mem_boy,
+                mem_girl: mem_girl,
+                mem_husband: mem_husband,
+                mem_wife: mem_wife,
             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
