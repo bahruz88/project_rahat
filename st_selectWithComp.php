@@ -1,10 +1,13 @@
 <?php
-
-
-$users= "select tsp.*,tsr.role  
-from $tbl_structure_positions tsp
- LEFT join $tbl_structure_roles tsr on tsr.id=tsp.role_id 
- WHERE tsp.role_id != 0";
+//include('session.php') ;
+$company_id=$_POST['company_id'];
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
+from $tbl_employee_category tec
+LEFT join $tbl_employees te on te.id=tec.emp_id 
+LEFT join $tbl_employee_company teco on tec.company_id=teco.id
+LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
+LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level
+where tec.company_id='$company_id'";
 $result_users = $db->query($users);
 $data=array();
 if($result_users){

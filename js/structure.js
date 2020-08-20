@@ -31,12 +31,19 @@ function stClick() {
 
 function confirmClick(e){
     $(document).on("click", "#confirm", function(e){
-        console.log('confirm col ');
+
         var employee=$('#employeesQuery option:selected').val()
         var structure_level=$('#structure_level option:selected').val()
-        var company_id=$('#company_id').val()
-        var position_level=$('#position_level option:selected').val()
+        if($('#company_id').val()==''){
+            var company_id=$('#company option:selected').val();
+            $('#company_id').val(company_id);
+        }else{
+            var company_id=$('#company_id').val()
+        }
 
+
+        var position_level=$('#position_level option:selected').val()
+        console.log('confirm col company_id='+company_id);
         var st_create_date=$('#st_create_date').val()!='' ? $('#st_create_date').val() :'1900-01-01';
         var st_end_date=$('#st_end_date').val()!='' ? $('#st_end_date').val() :'9999-12-31';
 
@@ -105,9 +112,9 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     // console.log('data',createRequestNumber(8))
     console.log('eventeventeventevent',event)
     console.log('data.cmd==',data.cmd)
+    console.log('data.company_id=='+company_id)
     var PID;
     var title;
-    var company_id;
 
     if (data==0){
         PID=0;
@@ -260,12 +267,12 @@ function sagClick(number){
         }else {
             $('#icon').val($('#position_level option:selected').attr('data-icon'))
         }
-
+        var company_id=$('#company_id').val()
 
         $.ajax({
             url: 'st_update.php',
             type: "POST",
-            data: { id:number, name:thisVal,change:thisName},
+            data: { id:number, name:thisVal,change:thisName,company_id:company_id},
             success: function (data) {
                 console.log('dataaaaaaa=' + data)
                 var tree = $('#tree').fancytree('getTree');
@@ -287,11 +294,12 @@ function sagClick(number){
         $(this).closest('td').find('span').css('display','block')
         $(this).css('display','none');
         var thisName='emp_id'
-        var thisVal=$(this).find('option:selected').val()
+        var thisVal=$(this).find('option:selected').val();
+        var company_id=$('#company_id').val()
         $.ajax({
             url: 'st_update.php',
             type: "POST",
-            data: { id:number, name:thisVal,change:thisName},
+            data: { id:number, name:thisVal,change:thisName,company_id:company_id},
             success: function (data) {
                 console.log('dataaaaaaaw=' + data)
                 $("#idemp"+number).find('span').css('display','block')
@@ -311,11 +319,12 @@ function sagClick(number){
         var endDate=$(this).closest('td').find("#idendInput"+number).val()
         console.log('contentEdit createDate'+createDate);
         console.log('contentEdit endDate'+endDate);
+        var company_id=$('#company_id').val()
         // if(validate(createDate)) {
         $.ajax({
             url: 'st_update.php',
             type: "POST",
-            data: {id: number, createDate: createDate, endDate: endDate},
+            data: {id: number, createDate: createDate, endDate: endDate,company_id:company_id},
             success: function (data) {
                 console.log('dataaaaaaaw=' + $.parseJSON(data))
                 $("#idyear" + number).find('span').css('display', 'block')
@@ -376,109 +385,128 @@ function alertFunc(extOptions){
 function treeClick(trList){
     trList.on('click',function(){
         console.log('tree event',$(this).attr('data-id'))
+        var stId=$(this).attr('data-id')
+        // $.ajax({
+        //     url: 'st_selectPosition.php',
+        //     type: "POST",
+        //     data: { id:stId},
+        //     success: function (data) {
+        //         console.log('trList data=' + jQuery.parseJSON( data));
+        //         var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+        //         option += '<option value="0">Seçin..</option>';
+        //          var PositArr=['']
+        //         $.each(jQuery.parseJSON( data), function(k,v){
+        //
+        //             if(jQuery.inArray( v[2], PositArr )<0){
+        //                 option += '<option value="'+v[0]+'" data-stId="'+stId+'" data-empid="'+v[10]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'" data-positcode="'+v[2]+'">'+v[2]+' '+v[8]+'</option>';
+        //                 PositArr.push(v[2]);
+        //             }
+        //
+        //
+        //         });
+        //         option+=' </select>';
+        //         console.log('option='+option)
+        //         $('#posList').html(option);
+        //         $(".selectpicker").selectpicker();
+        //
+        //
+        //
+        //
+        //         fillTreeTable(jQuery.parseJSON(data),stId);
+        //
+        //         positionList();
+        //         var thisVal =''
+        //
+        //     },
+        // });
         $.ajax({
             url: 'st_selectPosition.php',
             type: "POST",
-            data: { id:$(this).attr('data-id')},
+            data: { id:stId},
             success: function (data) {
-
                 console.log('trList data=' + jQuery.parseJSON( data));
-
                 var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-               option += '<option value="0">Seçin..</option>';
+                option += '<option value="0">Seçin..</option>';
+                 var PositArr=['']
+                $.each(jQuery.parseJSON( data), function(k,v){
 
-                var row = '';
-                var PositArr=['']
-                $('#tablePositions').find('tbody').html('');
-                $.each(jQuery.parseJSON(data), function(k,v){
-                    console.log('trList v=' + v[9]);
-                    console.log('trList option=' + v[2]);
-                    var fName='Təyin edilməyib';
-                    var fRole='Təyin edilməyib';
-                    var fPercent=0;
-
-                    if(v[8]){
-                        fName=v[8];
-                    }
-                    if(v[9]){
-                        fRole=v[9];
-                    }
-                    if(v[7]){
-                        fPercent=v[7];
-                    }
                     if(jQuery.inArray( v[2], PositArr )<0){
-                        option += '<option value="'+v[0]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'" data-positcode="'+v[2]+'">'+v[2]+' '+v[8]+'</option>';
+                        option += '<option value="'+v[0]+'" data-stId="'+stId+'" data-empid="'+v[10]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'" data-positcode="'+v[2]+'">'+v[2]+' '+v[8]+'</option>';
                         PositArr.push(v[2]);
                     }
 
-                    row +='<tr data-id="'+v[0]+'" data-positcode="'+v[2]+'"> '  +
-                        ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
-                        ' <td>'+fRole+'</td>  '  +
-                        ' <td>'+v[2]+'</td>  '  +
-                        ' <td>'+fName+'</td>  '  +
-                        ' <td class="myText" data-val="percent">'+fPercent+'</td>  '  +
-                        ' <td  id="start_date">'+v[4]+'</td>  '  +
-                        ' <td id="end_date">'+v[5]+'</td>  '  +
-                        '</tr>  ';
+
                 });
                 option+=' </select>';
-                $('#tablePositions').find('tbody').html(row);
                 console.log('option='+option)
                 $('#posList').html(option);
                 $(".selectpicker").selectpicker();
+
+
+
+
+                fillTreeTable(jQuery.parseJSON(data),stId);
+
                 positionList();
                 var thisVal =''
-                $('.myText').on('click', function() {
 
-                        var div = $(this);
-
-                        var dataVal = $(this).attr('data-val');
-                        var positcode = $(this).closest('tr').attr('data-positcode');
-                        var start_date = $(this).closest('tr').find('#start_date').text();
-                        var end_date = $(this).closest('tr').find('#end_date').text();
-                        console.log('myText='+start_date+'=en='+end_date);
-                        var tb = div.find('input:text');//get textbox, if exist
-                        if (tb.length) {//text box already exist
-                            if(tb.val()<=100) {
-                                div.text(tb.val());//remove text box & put its current value as text to the div
-                                $.ajax({
-                                    url: 'st_insertRole.php',
-                                    type: "POST",
-                                    data: {
-                                        posit_code: positcode,
-                                        role_id: '',
-                                        role_start_date: start_date,
-                                        role_end_date: end_date,
-                                        percent: tb.val()
-                                    },
-                                    success: function (data) {
-                                        console.log('dataaaaaaapp=', data);
-                                        // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
-                                        // var tree = $('#tree').fancytree('getTree');
-                                        // tree.reload($.parseJSON(data));
-                                    },
-                                });
-                            }else{
-                                div.text(thisVal)
-
-                            }
-                        } else {
-                             thisVal = $(this).text();
-                            console.log('thisVal='+thisVal)
-                            tb = $('<input>').prop({
-                                'type': 'text',
-                                'value': div.text()//set text box value from div current text
-                            });
-                            div.empty().append(tb);//add new text box
-                            tb.focus();//put text box on focus
-
-                    }
-
-
-                });
             },
         });
     })
+}
+function myTextClick(){
+    $('.myText').on('click', function() {
+
+        var div = $(this);
+
+        var dataVal = $(this).attr('data-val');
+        var positcode = $(this).closest('tr').attr('data-positcode');
+        var empid = $(this).closest('tr').attr('data-empid');
+        var stId = $(this).closest('tr').attr('data-id');
+        var start_date = $(this).closest('tr').find('#start_date').text();
+        var end_date = $(this).closest('tr').find('#end_date').text();
+        console.log('myText='+start_date+'=en='+end_date);
+        var tb = div.find('input:text');//get textbox, if exist
+        if (tb.length) {//text box already exist
+            if(tb.val()<=100) {
+                div.text(tb.val());//remove text box & put its current value as text to the div
+                $.ajax({
+                    url: 'st_insertRole.php',
+                    type: "POST",
+                    data: {
+                         posit_code: positcode,
+                        stId: stId,
+                        role_id: '',
+                        role_start_date: start_date,
+                        role_end_date: end_date,
+                        emp_id: empid,
+                        percent: tb.val()
+                    },
+                    success: function (data) {
+                        console.log('dataaaaaaapp=', data);
+                        // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                        // var tree = $('#tree').fancytree('getTree');
+                        // tree.reload($.parseJSON(data));
+                    },
+                });
+            }else{
+                div.text(thisVal)
+
+            }
+        } else {
+            thisVal = $(this).text();
+            console.log('thisVal='+thisVal)
+            tb = $('<input>').prop({
+                'type': 'text',
+                'value': div.text()//set text box value from div current text
+            });
+            div.empty().append(tb);//add new text box
+            tb.focus();//put text box on focus
+
+        }
+
+
+    });
 }
 function positionList(){
     $("#positionList").change(function(){
@@ -487,10 +515,14 @@ function positionList(){
             var role_createdate=$(this).find('option:selected').attr('data-createdate')
             var role_enddate=$(this).find('option:selected').attr('data-enddate')
             var fullName=$(this).find('option:selected').attr('data-fullName')
+            var stId=$(this).find('option:selected').attr('data-stId')
             $('#role_start_date').val(role_createdate)
             $('#role_end_date').val(role_enddate)
-            $('#fullName').text(fullName)
+            // $('#fullName').text(fullName)
             console.log('role_createdate'+role_createdate);
+
+
+
         }else{
             $('#role_start_date').val(role_createdate)
             $('#role_end_date').val(role_enddate)
@@ -523,24 +555,62 @@ $(function () {
         // startDate: new Date()
     });
 
+    $('#companyDiv').on( 'change','#company',  function () {
+        console.log("company");
+        var company_id=$(this).find('option:selected').val();
+        var company_text=$(this).find('option:selected').text();
+        console.log("company_id="+company_id);
+        $('#company_id').val(company_id);
+        $('#company_name').val(company_text);
 
-    $("#confirmRole").click(function() {
+        $.ajax({
+            url: 'st_selectWithCompany.php',
+            type: "POST",
+            data: {company_id: company_id},
+            success: function (data) {
+                console.log('DATA=',data)
+                var tree = $('#tree').fancytree('getTree');
+                if(data!=''){
+                    tree.reload($.parseJSON(data));
+                }else{
+                    tree.reload([]);
+                }
+
+            }
+        })
+
+    })
+
+
+
+
+$("#confirmRole").click(function() {
         console.log('confirmRole change');
         var role_id=  $('#roles option:selected').val();
         var posit_code=$('#positionList option:selected').attr('data-positcode');
+        var empid=$('#positionList option:selected').attr('data-empid');
+        var stId=$('#positionList option:selected').attr('data-stId')
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
-        console.log('confirmRole change'+posit_code);
+        console.log('confirmRole change start_date='+start_date);
+        console.log('confirmRole change end_date='+end_date);
         $.ajax({
             url: 'st_insertRole.php',
             type: "POST",
-            data: { role_id:role_id, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
+            data: { role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
             success: function (data) {
                 console.log('dataaaaas=' , data);
                 $('#roles').find('option[value="0"]').prop('selected', true);
                 $('#positionList').find('option[value="0"]').prop('selected', true);
                 $('#role_start_date').val('')
                 $('#role_end_date').val('')
+
+                $('#tablePositions').find('tbody').html('');
+                $('#tableStructureRoles').find('tbody').html('');
+
+                fillStTable(jQuery.parseJSON(data),stId)
+
+
                 Swal.fire(
                     'Əməliyyat müvəffəqiyyətlə yerine yetirildi!',
                     '',
@@ -553,3 +623,106 @@ $(function () {
         });
     })
 });
+function fillTreeTable(data,stId){
+
+    var row = '';
+
+    $('#tablePositions').find('tbody').html('');
+     $.each(data, function(k,v){
+        console.log('trList v=' + v[9]);
+        console.log('trList option=' + v[2]);
+        var fName='Təyin edilməyib';
+        var fRole='Təyin edilməyib';
+        var fPercent=0;
+
+        if(v[8]){
+            fName=v[8];
+        }
+        if(v[9]){
+            fRole=v[9];
+        }
+        if(v[7]){
+            fPercent=v[7];
+        }
+
+
+        row +='<tr data-id="'+v[11]+'" data-positcode="'+v[2]+'" data-empid="'+v[10]+'"> '  +
+            ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
+            ' <td>'+fRole+'</td>  '  +
+            ' <td>'+v[2]+'</td>  '  +
+            ' <td>'+fName+'</td>  '  +
+            ' <td class="myText" data-val="percent">'+fPercent+'</td>  '  +
+            ' <td  id="start_date">'+v[4]+'</td>  '  +
+            ' <td id="end_date">'+v[5]+'</td>  '  +
+             '</tr>  ';
+    });
+
+    $('#tablePositions').find('tbody').html(row);
+     myTextClick()
+
+}
+function fillStTable(data,stId){
+
+    var row = '';
+
+    $('#tablePositions').find('tbody').html('');
+    $('#tableStructureRoles').find('tbody').html('');
+    $.each(data, function(k,v){
+        console.log('trList v=' + v[9]);
+        console.log('trList option=' + v[2]);
+        var fName='Təyin edilməyib';
+        var fRole='Təyin edilməyib';
+        var fPercent=0;
+
+        if(v[8]){
+            fName=v[8];
+        }
+        if(v[9]){
+            fRole=v[9];
+        }
+        if(v[7]){
+            fPercent=v[7];
+        }
+
+
+        row +='<tr data-id="'+v[11]+'" data-positcode="'+v[2]+'" data-empid="'+v[10]+'"> '  +
+            ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
+            ' <td>'+fRole+'</td>  '  +
+            ' <td>'+v[2]+'</td>  '  +
+            ' <td>'+fName+'</td>  '  +
+            ' <td class="myText" data-val="percent">'+fPercent+'</td>  '  +
+            ' <td  id="start_date">'+v[4]+'</td>  '  +
+            ' <td id="end_date">'+v[5]+'</td>  '  +
+            ' <td><button type="button" class="btn btn-danger deleteStRole"  >Sil</button></td>  '  +
+            '</tr>  ';
+    });
+
+    $('#tablePositions').find('tbody').html(row);
+    $('#tableStructureRoles').find('tbody').html(row);
+
+    $(".deleteStRole").click(function() {
+        console.log("deleteStRole")
+        var id= $(this).closest('tr').attr('data-id');
+
+
+
+
+
+        $.ajax({
+            url: 'st_deleteStRole.php',
+            type: "POST",
+            data: {id:id,stId:stId},
+            success: function (data) {
+                console.log('data=' + data);
+                // Swal.fire(
+                //     'Silmə əməliyyatı müvəffəqiyyətlə yerine yetirildi!',
+                //     '',
+                //     'success'
+                // )
+                fillStTable(jQuery.parseJSON(data),stId)
+            }
+        })
+    })
+    myTextClick()
+
+}

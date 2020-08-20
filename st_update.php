@@ -46,5 +46,6 @@ else  {
     echo "errorwww" .mysqli_error($db);
 }
 
-include ('st_select.php');
+//include ('st_select.php');
+include ('st_selectWithComp.php');
 ?>

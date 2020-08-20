@@ -9,150 +9,150 @@ $sql_structure_level= "select * from $tbl_structure_level";
 
 
 //$users= "select * from $tbl_employee_category";
-$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
-from $tbl_employee_category tec
-LEFT join $tbl_employees te on te.id=tec.emp_id 
-LEFT join $tbl_employee_company teco on tec.company_id=teco.id
-LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
-LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level";
-//echo $users;
-//$users= "select tec.*,tep.* from $tbl_employee_category tec
-//INNER join $tbl_employee_position tep on tep.category_id=tec.id";
-
-$result_users = $db->query($users);
-
-$sub_array='';
-$idArray=array();
-$data = array();
-if($result_users){
-    if ($result_users->num_rows > 0) {
-        while($row_users = $result_users->fetch_assoc()) {
-            $sub_array   = array();
-            $idArray[]=$row_users['id'];
-            $sub_array[] = $row_users['id'];
-            $sub_array[] = ($row_users['category']);
-            $sub_array[] = $row_users['parent'];
-            $sub_array[] = $row_users['create_date'];
-            $sub_array[] = $row_users['end_date'];
-
-
-            $sub_array[] = [];//children
-            $sub_array[] = ($row_users['code']);
-            $sub_array[] = ($row_users['full_name']);
-            $sub_array[] = ($row_users['company']);
-            $sub_array[] = ($row_users['struc']);
-            $sub_array[] = ($row_users['posit']);
-            $sub_array[] = ($row_users['struc_id']);
-            $sub_array[] = ($row_users['posit_id']);
-            $sub_array[] = ($row_users['emp_id']);
-            $sub_array[] = $row_users['icon'];
-            $sub_array[] = $row_users['posit_icon'];
-            $sub_array[] = $row_users['company_id'];
-
-            $data[]     = $sub_array;
-        }
-    }
-}
-//print_r($data);
-
-$flatArray=$data;
-unflattenArray($flatArray);
-function createArray($arrC){
-    $arrChil=array();
-    foreach ($arrC as $arrCh)
-    {
-        $arrCh['id'] = $arrCh[0];
-        $arrCh['title'] = $arrCh[1];
-        $arrCh['pId'] = $arrCh[2];
-        $arrCh['create_date'] = $arrCh[3];
-        $arrCh['end_date'] = $arrCh[4];
-        $arrCh['code'] = $arrCh[6];
-        $arrCh['full_name'] = $arrCh[7];
-        $arrCh['company'] = $arrCh[8];
-        $arrCh['structure'] = $arrCh[9];
-        $arrCh['posit'] = $arrCh[10];
-        $arrCh['struc_id'] = $arrCh[11];
-        $arrCh['posit_id'] = $arrCh[12];
-        $arrCh['emp_id'] = $arrCh[13];
-        $arrCh['icon'] = $arrCh[14];
-        $arrCh['posit_icon'] = $arrCh[15];
-        $arrCh['company_id'] = $arrCh[16];
-        $arrCh['children'] = $arrCh[5];
-        $arrCh['expanded'] = true;
-        $arrCh['folder'] = true;
-        if(count($arrCh[5])>0){
-
-            $arrCh['children'] = createArray($arrCh[5]);
-            unset($arrCh[0]);
-            unset($arrCh[1]);
-            unset($arrCh[2]);
-            unset($arrCh[3]);
-            unset($arrCh[4]);
-            unset($arrCh[5]);
-            unset($arrCh[6]);
-            unset($arrCh[7]);
-            unset($arrCh[8]);
-            unset($arrCh[9]);
-            unset($arrCh[10]);
-            unset($arrCh[11]);
-            unset($arrCh[12]);
-            unset($arrCh[13]);
-            unset($arrCh[14]);
-            unset($arrCh[15]);
-            unset($arrCh[16]);
-        }
-        $arrChil[]=$arrCh;
-    }
-    return $arrChil;
-}
-function unflattenArray($flatArray)
-{
-
-    $refs = array(); //for setting children without having to search the parents in the result tree.
-    $result = array();
-    $arrrId = array();
-    $arrrPId = array();
-    $arrrId[]=0;
-    for ($j = 0; $j < count($flatArray); $j++) {
-        $arrrId[]=$flatArray[$j][0];
-        $arrrPId[]=$flatArray[$j][2];
-    }
-
-    //process all elements until nohting could be resolved.
-    //then add remaining elements to the root one by one.
-    while (count($flatArray) > 0) {
-        for ($i = count($flatArray) - 1; $i >= 0; $i--) {
-            if(in_array($flatArray[$i][2],$arrrId)){
-
-                if ($flatArray[$i][2] == NULL) {
-                    //root element: set in result and ref!
-                    $result[$flatArray[$i][0]] = $flatArray[$i];
-                    $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
-                    unset($flatArray[$i]);
-                    $flatArray = array_values($flatArray);
-                } else if ($flatArray[$i][2] != NULL) {
-                    //no root element. Push to the referenced parent, and add to references as well.
-                    if (array_key_exists($flatArray[$i][2], $refs)) {
-                        //parent found
-                        $o = $flatArray[$i];
-                        $refs[$flatArray[$i][0]] = $o;
-                        $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
-                        unset($flatArray[$i]);
-                        $flatArray = array_values($flatArray);
-                    }
-                }
-            }else {
-                unset($flatArray[$i]);
-                $flatArray = array_values($flatArray);
-            }
-        }
-    }
-    if (count($result) > 0) {
-//        print_r(createArray($result));
-        return createArray($result);
-    }
-}
-
+//$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon
+//from $tbl_employee_category tec
+//LEFT join $tbl_employees te on te.id=tec.emp_id
+//LEFT join $tbl_employee_company teco on tec.company_id=teco.id
+//LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
+//LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level";
+////echo $users;
+////$users= "select tec.*,tep.* from $tbl_employee_category tec
+////INNER join $tbl_employee_position tep on tep.category_id=tec.id";
+//
+//$result_users = $db->query($users);
+//
+//$sub_array='';
+//$idArray=array();
+//$data = array();
+//if($result_users){
+//    if ($result_users->num_rows > 0) {
+//        while($row_users = $result_users->fetch_assoc()) {
+//            $sub_array   = array();
+//            $idArray[]=$row_users['id'];
+//            $sub_array[] = $row_users['id'];
+//            $sub_array[] = ($row_users['category']);
+//            $sub_array[] = $row_users['parent'];
+//            $sub_array[] = $row_users['create_date'];
+//            $sub_array[] = $row_users['end_date'];
+//
+//
+//            $sub_array[] = [];//children
+//            $sub_array[] = ($row_users['code']);
+//            $sub_array[] = ($row_users['full_name']);
+//            $sub_array[] = ($row_users['company']);
+//            $sub_array[] = ($row_users['struc']);
+//            $sub_array[] = ($row_users['posit']);
+//            $sub_array[] = ($row_users['struc_id']);
+//            $sub_array[] = ($row_users['posit_id']);
+//            $sub_array[] = ($row_users['emp_id']);
+//            $sub_array[] = $row_users['icon'];
+//            $sub_array[] = $row_users['posit_icon'];
+//            $sub_array[] = $row_users['company_id'];
+//
+//            $data[]     = $sub_array;
+//        }
+//    }
+//}
+////print_r($data);
+//
+//$flatArray=$data;
+//unflattenArray($flatArray);
+//function createArray($arrC){
+//    $arrChil=array();
+//    foreach ($arrC as $arrCh)
+//    {
+//        $arrCh['id'] = $arrCh[0];
+//        $arrCh['title'] = $arrCh[1];
+//        $arrCh['pId'] = $arrCh[2];
+//        $arrCh['create_date'] = $arrCh[3];
+//        $arrCh['end_date'] = $arrCh[4];
+//        $arrCh['code'] = $arrCh[6];
+//        $arrCh['full_name'] = $arrCh[7];
+//        $arrCh['company'] = $arrCh[8];
+//        $arrCh['structure'] = $arrCh[9];
+//        $arrCh['posit'] = $arrCh[10];
+//        $arrCh['struc_id'] = $arrCh[11];
+//        $arrCh['posit_id'] = $arrCh[12];
+//        $arrCh['emp_id'] = $arrCh[13];
+//        $arrCh['icon'] = $arrCh[14];
+//        $arrCh['posit_icon'] = $arrCh[15];
+//        $arrCh['company_id'] = $arrCh[16];
+//        $arrCh['children'] = $arrCh[5];
+//        $arrCh['expanded'] = true;
+//        $arrCh['folder'] = true;
+//        if(count($arrCh[5])>0){
+//
+//            $arrCh['children'] = createArray($arrCh[5]);
+//            unset($arrCh[0]);
+//            unset($arrCh[1]);
+//            unset($arrCh[2]);
+//            unset($arrCh[3]);
+//            unset($arrCh[4]);
+//            unset($arrCh[5]);
+//            unset($arrCh[6]);
+//            unset($arrCh[7]);
+//            unset($arrCh[8]);
+//            unset($arrCh[9]);
+//            unset($arrCh[10]);
+//            unset($arrCh[11]);
+//            unset($arrCh[12]);
+//            unset($arrCh[13]);
+//            unset($arrCh[14]);
+//            unset($arrCh[15]);
+//            unset($arrCh[16]);
+//        }
+//        $arrChil[]=$arrCh;
+//    }
+//    return $arrChil;
+//}
+//function unflattenArray($flatArray)
+//{
+//
+//    $refs = array(); //for setting children without having to search the parents in the result tree.
+//    $result = array();
+//    $arrrId = array();
+//    $arrrPId = array();
+//    $arrrId[]=0;
+//    for ($j = 0; $j < count($flatArray); $j++) {
+//        $arrrId[]=$flatArray[$j][0];
+//        $arrrPId[]=$flatArray[$j][2];
+//    }
+//
+//    //process all elements until nohting could be resolved.
+//    //then add remaining elements to the root one by one.
+//    while (count($flatArray) > 0) {
+//        for ($i = count($flatArray) - 1; $i >= 0; $i--) {
+//            if(in_array($flatArray[$i][2],$arrrId)){
+//
+//                if ($flatArray[$i][2] == NULL) {
+//                    //root element: set in result and ref!
+//                    $result[$flatArray[$i][0]] = $flatArray[$i];
+//                    $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
+//                    unset($flatArray[$i]);
+//                    $flatArray = array_values($flatArray);
+//                } else if ($flatArray[$i][2] != NULL) {
+//                    //no root element. Push to the referenced parent, and add to references as well.
+//                    if (array_key_exists($flatArray[$i][2], $refs)) {
+//                        //parent found
+//                        $o = $flatArray[$i];
+//                        $refs[$flatArray[$i][0]] = $o;
+//                        $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
+//                        unset($flatArray[$i]);
+//                        $flatArray = array_values($flatArray);
+//                    }
+//                }
+//            }else {
+//                unset($flatArray[$i]);
+//                $flatArray = array_values($flatArray);
+//            }
+//        }
+//    }
+//    if (count($result) > 0) {
+////        print_r(createArray($result));
+//        return createArray($result);
+//    }
+//}
+//
 
 //roles
 $sql_structure_roles= "select * from $tbl_structure_roles";
@@ -442,21 +442,36 @@ $sql_position= "select * from $tbl_employee_category";
                                     <li class="nav-item active">
                                         <a class="nav-link" href="#" id="menyu_addChild"> New child</a>
                                     </li>
-                                    <!--            <li class="nav-item">-->
-                                    <!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-                                    <!--            </li>-->
+                                    <li class="nav-item">
+                                                                          </li>
                                 </ul>
+                                <div id="companyDiv" class="row" style="width:350px;">
+                                    <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
+                                    <div class="col-sm-8">
+                                        <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
+                                            <option  value="" >Seçin...</option>
+
+                                            <?php
+                                            $result_company = $db->query($sql_employee_company);
+                                            if ($result_company->num_rows > 0) {
+                                                while($row_company= $result_company->fetch_assoc()) {
+                                                    ?>
+                                                    <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                                <?php } }?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </nav>
-                        <input type='hidden' value='' id='company_id'>
-                        <input type='hidden' value='' id='company_name'>
+                        <input type='text' value='' id='company_id'>
+                        <input type='text' value='' id='company_name'>
                         <input type='hidden' value='' id='txt_id'>
                         <input type='hidden' value='' id='number_id'>
                         <!-- Small modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" style="display:none;" data-target=".bd-example-modal-lg">New</button>
 
                         <div class="modal fade bd-example-modal-lg text-left" tabindex="-1" id="new" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
+                            <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Struktur</h5>
@@ -477,8 +492,8 @@ $sql_position= "select * from $tbl_employee_category";
 
                                         <div class="container" style="display: none;"  id="stQuery">
                                             <div class="form-group row" id="employeesQuery">
-                                                <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                                                <div class="col-sm-6"  id="employees">
+                                                <label class="col-sm-12 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                                                <div class="col-sm-12"  id="employees">
                                                     <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
                                                         <option  value="0" >Seçin...</option>
 <!--                                                        --><?php
@@ -495,8 +510,8 @@ $sql_position= "select * from $tbl_employee_category";
                                             </div>
 
                                             <div class="form-group row"  id="positionQuery">
-                                                <label class="col-sm-4 col-form-label" for="position_level"><?php echo $dil["position_level"];?></label>
-                                                <div class="col-sm-6">
+                                                <label class="col-sm-12 col-form-label" for="position_level"><?php echo $dil["position_level"];?></label>
+                                                <div class="col-sm-12">
 
                                                     <select data-live-search="true"  name="position_level" id="position_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["position_level"];?>" >
                                                         <option  value="0" >Seçin...</option>
@@ -514,24 +529,24 @@ $sql_position= "select * from $tbl_employee_category";
                                                 </div>
                                             </div>
                                             <div class="form-group row" id="structureQuery">
-                                                <div id="companyDiv">
-                                                    <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
-                                                    <div class="col-sm-6">
-                                                        <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
-                                                            <option  value="" >Seçin...</option>
-
-                                                            <?php
-                                                            $result_company = $db->query($sql_employee_company);
-                                                            if ($result_company->num_rows > 0) {
-                                                                while($row_company= $result_company->fetch_assoc()) {
-                                                                    ?>
-                                                                    <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
-                                                                <?php } }?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <label class="col-sm-4 col-form-label" for="structure_level"><?php echo $dil["structure_level"];?></label>
-                                                <div class="col-sm-6">
+<!--                                                <div id="companyDiv">-->
+<!--                                                    <label class="col-sm-4 col-form-label" for="company">--><?php //echo $dil["company"];?><!--</label>-->
+<!--                                                    <div class="col-sm-6">-->
+<!--                                                        <select data-live-search="true"  name="company" id='company' title="--><?php //echo $dil["selectone"];?><!--" class="form-control selectpicker"  placeholder="--><?php //echo $dil["company"];?><!--"   >-->
+<!--                                                            <option  value="" >Seçin...</option>-->
+<!---->
+<!--                                                            --><?php
+//                                                            $result_company = $db->query($sql_employee_company);
+//                                                            if ($result_company->num_rows > 0) {
+//                                                                while($row_company= $result_company->fetch_assoc()) {
+//                                                                    ?>
+<!--                                                                    <option  value="--><?php //echo $row_company['id']; ?><!--" >--><?php //echo $row_company['company_name'];  ?><!--</option>-->
+<!--                                                                --><?php //} }?>
+<!--                                                        </select>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                                <label class="col-sm-12 col-form-label" for="structure_level"><?php echo $dil["structure_level"];?></label>
+                                                <div class="col-sm-12">
                                                     <select data-live-search="true"  name="structure_level" id="structure_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["structure_level"];?>" >
                                                         <option  value="0" >Seçin...</option>
                                                         <?php
@@ -548,16 +563,16 @@ $sql_position= "select * from $tbl_employee_category";
 
                                             </div>
                                             <div class="form-group row" id="dateQuery">
-                                                <label class="col-sm-4 col-form-label" for="st_create_date"><?php echo $dil["create_end_date"];?></label>
-                                                <div class="col-sm-6">
+                                                <label class="col-sm-12 col-form-label" for="st_create_date"><?php echo $dil["create_end_date"];?></label>
+                                                <div class="col-sm-12">
                                                     <input type="text" class="form-control" id="st_create_date" name="st_create_date" placeholder="0000-00-00" />
                                                     <input type="text" class="form-control" id="st_end_date" name="st_end_date" placeholder="0000-00-00" />
 
                                                 </div>
                                             </div>
                                             <div class="form-group row" id="iconQuery" style="display:none;">
-                                                <label class="col-sm-4 col-form-label" for="icon"> </label>
-                                                <div class="col-sm-6">
+                                                <label class="col-sm-12 col-form-label" for="icon"> </label>
+                                                <div class="col-sm-12">
                                                     <input type="text" class="form-control" id="icon" name="icon"   />
                                                 </div>
                                             </div>
@@ -720,7 +735,7 @@ $sql_position= "select * from $tbl_employee_category";
                                         </div>
 
                                         <div class="form-group  row">
-                                            <div class="col-md-1">
+                                            <div class="col-md-2">
                                                 <label class=" col-form-label" for="roles"><?php echo $dil["structure_role"];?></label>
                                             </div>
                                             <div class="col-md-5">
@@ -740,16 +755,16 @@ $sql_position= "select * from $tbl_employee_category";
                                                     }?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3 text-right">
                                                 <label class=" col-form-label" for="role_start_date"><?php echo $dil["start_date"];?></label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control" id="role_start_date" name="role_start_date" placeholder="0000-00-00" />
+                                            <div class="col-md-2">
+                                                <input type="text" class="form-control" style="width: 120px;" id="role_start_date" name="role_start_date" placeholder="0000-00-00" />
 
                                             </div>
                                         </div>
                                         <div class="form-group  row">
-                                            <div class="col-md-1">
+                                            <div class="col-md-2">
                                                 <label class=" col-form-label" for="positionList"><?php echo $dil["position"];?></label>
                                             </div>
                                             <div class="col-md-5">
@@ -759,13 +774,39 @@ $sql_position= "select * from $tbl_employee_category";
 
                                                 <label id="fullName" class=" col-form-label"></label>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3 text-right">
                                                 <label class=" col-form-label" for="role_end_date"><?php echo $dil["end_date"];?></label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control" id="role_end_date" name="role_end_date" placeholder="0000-00-00" />
+                                            <div class="col-md-2">
+                                                <input type="text" style="width: 120px;" class="form-control" id="role_end_date" name="role_end_date" placeholder="0000-00-00" />
 
                                             </div>
+
+
+                                        </div>
+                                        <div class="form-group  row">
+
+                                            <div class="col-md-10">
+                                                <table class="table table-striped" id="tableStructureRoles">
+                                                    <thead>
+                                                    <tr>
+                                                        <th><strong><?php echo $dil["icon"];?></strong></th>
+                                                        <th><strong><?php echo $dil["role"];?></strong></th>
+                                                        <th><strong><?php echo $dil["position"];?></strong></th>
+
+                                                        <th><strong><?php echo $dil["firstname"].' '.$dil["lastname"].' '.$dil["surname"];?></strong></th>
+                                                        <th><strong><?php echo $dil["percent"];?></span></strong></th>
+                                                        <th><strong><?php echo $dil["start_date"];?></span></strong></th>
+                                                        <th><strong><?php echo $dil["end_date"];?></span></strong></th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>    </div>
+
+
 
                                         </div>
                                     </div>
@@ -787,7 +828,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                             <th><strong><?php echo $dil["percent"];?></span></strong></th>
                                                             <th><strong><?php echo $dil["start_date"];?></span></strong></th>
                                                             <th><strong><?php echo $dil["end_date"];?></span></strong></th>
-                                                        </tr>
+                                                         </tr>
                                                         </thead>
                                                         <tbody>
 
@@ -877,8 +918,10 @@ $sql_position= "select * from $tbl_employee_category";
     var tree=[];
     var trList;
     $(function() {
-        var subArray =  <?php echo json_encode(unflattenArray($flatArray)); ?>;
-        idArray =  <?php echo json_encode($idArray); ?>;
+        //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
+        var subArray =  [];
+        //idArray =  <?php //echo json_encode($idArray); ?>//;
+        idArray =  [];
         console.log('subArray $idArray=',idArray);
         console.log('subArray parent=',subArray);
 
@@ -1160,7 +1203,9 @@ $sql_position= "select * from $tbl_employee_category";
                             .find('input')
                             .css('display','none');
 
+                        console.log('$(\'#company_id\').val()='+$('#company_id').val())
                         if($('#company_id').val()==''){
+                            console.log('company_idcompany_id='+node.data.company_id)
                             $('#company_id').val(node.data.company_id)
                             $('#company_name').val(node.data.company)
                         }
@@ -1234,11 +1279,12 @@ $sql_position= "select * from $tbl_employee_category";
                             }
                             console.log('ID=='+ID);
                             console.log('delet=='+delet);
+                           var  company_id=$('#company_id').val()
 
                             $.ajax({
                                 url: 'st_delete.php',
                                 type: "POST",
-                                data: {id:ID,delet:delet},
+                                data: {id:ID,delet:delet,company_id:company_id},
                                 success: function (data) {
                                     console.log('data=' + data);
                                     if(data){
@@ -1301,12 +1347,12 @@ $sql_position= "select * from $tbl_employee_category";
                                 }else{
                                     if(node==null ){//|| node.data.pId==null
                                         console.log("bosdur");
-                                        $('#structureQuery').find('#companyDiv').css('display','block')
+                                        // $('#structureQuery').find('#companyDiv').css('display','block')
                                         $('#butModal').trigger('click');
-                                        // stClick()
+                                         stClick()
 
                                     }else{
-                                        $('#structureQuery').find('#companyDiv').css('display','none')
+                                        // $('#structureQuery').find('#companyDiv').css('display','none')
                                         tree.applyCommand(data.cmd, node);
 
 

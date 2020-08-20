@@ -49,5 +49,6 @@ if ($aff_row_count > 0) {
 //Close connection
 //mysqli_close($db);
 
-include ('st_select.php');
+//include ('st_select.php');
+include ('st_selectWithComp.php');
 ?>
