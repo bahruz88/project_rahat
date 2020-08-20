@@ -11,9 +11,12 @@ $emp_id       = $_POST['emp_id'];
 $posit_code   = $_POST['posit_code'];
 $start_date   = $_POST['role_start_date'];
 $end_date     = $_POST['role_end_date'];
-$percent='';
 
+$percent=100;
 
+if(isset($_POST['percent'])) {
+    $percent = $_POST['percent'];
+}
 
 $start_date = strtr( $start_date , '/', '-');
 $start_date= date('Y-m-d', strtotime($start_date));
@@ -21,12 +24,11 @@ $start_date= date('Y-m-d', strtotime($start_date));
 $end_date = strtr( $end_date , '/', '-');
 $end_date= date('Y-m-d', strtotime($end_date));
 
-//$users= "select * from $tbl_structure_positions WHERE posit_code = '$posit_code'";
-////    echo $users;
-//$result_users = $db->query($users);
-//if($result_users->num_rows > 0) {
-if(isset($_POST['percent'])){
-    $percent    = $_POST['percent'];
+$users= "select * from $tbl_structure_positions WHERE posit_code = '$posit_code'";
+//    echo $users;
+$result_users = $db->query($users);
+if($result_users->num_rows > 0) {
+
 
     $sql = "UPDATE  $tbl_structure_positions SET
 		role_id  = '$role_id',
@@ -36,11 +38,13 @@ if(isset($_POST['percent'])){
         $sql.=" percent  = '$percent', ";
     }
     $sql.="end_date  = '$end_date'
-		WHERE id 	= '$id'";
-}else{
+		WHERE posit_code 	= '$posit_code'";
+//		WHERE id 	= '$id'";
+}
+else{
     $sql = "INSERT INTO $tbl_structure_positions( 
 	 id, role_id, posit_code,start_date,end_date,emp_id,percent) 
-	 VALUES (NULL, '$role_id','$posit_code','$start_date','$end_date','$emp_id',100)";
+	 VALUES (NULL, '$role_id','$posit_code','$start_date','$end_date','$emp_id','$percent')";
 }
 
 

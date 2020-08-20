@@ -386,77 +386,65 @@ function treeClick(trList){
     trList.on('click',function(){
         console.log('tree event',$(this).attr('data-id'))
         var stId=$(this).attr('data-id')
-        // $.ajax({
-        //     url: 'st_selectPosition.php',
-        //     type: "POST",
-        //     data: { id:stId},
-        //     success: function (data) {
-        //         console.log('trList data=' + jQuery.parseJSON( data));
-        //         var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-        //         option += '<option value="0">Seçin..</option>';
-        //          var PositArr=['']
-        //         $.each(jQuery.parseJSON( data), function(k,v){
-        //
-        //             if(jQuery.inArray( v[2], PositArr )<0){
-        //                 option += '<option value="'+v[0]+'" data-stId="'+stId+'" data-empid="'+v[10]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'" data-positcode="'+v[2]+'">'+v[2]+' '+v[8]+'</option>';
-        //                 PositArr.push(v[2]);
-        //             }
-        //
-        //
-        //         });
-        //         option+=' </select>';
-        //         console.log('option='+option)
-        //         $('#posList').html(option);
-        //         $(".selectpicker").selectpicker();
-        //
-        //
-        //
-        //
-        //         fillTreeTable(jQuery.parseJSON(data),stId);
-        //
-        //         positionList();
-        //         var thisVal =''
-        //
-        //     },
-        // });
+        var company_id=$('#company_id').val()
         $.ajax({
-            url: 'st_selectPosition.php',
+            url: 'st_selectRoles.php',
             type: "POST",
-            data: { id:stId},
+            async:false,
+            data: {id: stId},
             success: function (data) {
-                console.log('trList data=' + jQuery.parseJSON( data));
+                console.log('dataaaaas=' , data);
+                fillStTable(jQuery.parseJSON(data),stId)
+            },
+        });
+        $.ajax({
+            url: 'st_selectEmpCompany.php',
+            type: "POST",
+            async:false,
+            data: {company_id: company_id},
+            success: function (data) {
+                console.log('DATA11=',data)
+
                 var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value="0">Seçin..</option>';
-                 var PositArr=['']
-                $.each(jQuery.parseJSON( data), function(k,v){
-
-                    if(jQuery.inArray( v[2], PositArr )<0){
-                        option += '<option value="'+v[0]+'" data-stId="'+stId+'" data-empid="'+v[10]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'" data-positcode="'+v[2]+'">'+v[2]+' '+v[8]+'</option>';
-                        PositArr.push(v[2]);
+                var PositArr=['']
+                $.each(jQuery.parseJSON(data), function(k,v){
+                    if(jQuery.inArray( v[0], PositArr )<0){
+                        option += '<option value="'+v[0]+'"  data-stId="'+stId+'" data-empid="'+v[4]+'" data-createdate="'+v[2]+'" data-enddate="'+v[3]+'" data-fullName="'+v[1]+'" data-positcode="'+v[0]+'">'+v[0]+' '+v[1]+'</option>';
+                        PositArr.push(v[0]);
                     }
-
-
                 });
                 option+=' </select>';
-                console.log('option='+option)
-                $('#posList').html(option);
+
+                // $('#posList').html(option);
+                $('#structure_roles').find('#posList').html(option);
                 $(".selectpicker").selectpicker();
+                // console.log('posList='+ $('#posList').html())
+                positionList();
+                // console.log('structure_roles posList='+ $('#structure_roles').find('#posList').html())
 
-
-
+            }
+        })
+        $.ajax({
+            url: 'st_selectStPosition.php',
+            type: "POST",
+            async:false,
+            data: { id:stId},
+            success: function (data) {
+                console.log('trList st_selectStPosition data=' + jQuery.parseJSON(data));
 
                 fillTreeTable(jQuery.parseJSON(data),stId);
 
-                positionList();
-                var thisVal =''
+
+
 
             },
         });
     })
 }
 function myTextClick(){
+    var thisVal =''
     $('.myText').on('click', function() {
-
         var div = $(this);
 
         var dataVal = $(this).attr('data-val');
@@ -465,7 +453,9 @@ function myTextClick(){
         var stId = $(this).closest('tr').attr('data-id');
         var start_date = $(this).closest('tr').find('#start_date').text();
         var end_date = $(this).closest('tr').find('#end_date').text();
+        var roleid = $(this).closest('tr').attr('data-role');
         console.log('myText='+start_date+'=en='+end_date);
+        console.log('roleid='+roleid);
         var tb = div.find('input:text');//get textbox, if exist
         if (tb.length) {//text box already exist
             if(tb.val()<=100) {
@@ -474,9 +464,9 @@ function myTextClick(){
                     url: 'st_insertRole.php',
                     type: "POST",
                     data: {
-                         posit_code: positcode,
+                        posit_code: positcode,
                         stId: stId,
-                        role_id: '',
+                        role_id: roleid,
                         role_start_date: start_date,
                         role_end_date: end_date,
                         emp_id: empid,
@@ -563,6 +553,7 @@ $(function () {
         $('#company_id').val(company_id);
         $('#company_name').val(company_text);
 
+
         $.ajax({
             url: 'st_selectWithCompany.php',
             type: "POST",
@@ -575,14 +566,26 @@ $(function () {
                 }else{
                     tree.reload([]);
                 }
+                // var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                // option += '<option value="0">Seçin..</option>';
+                // var PositArr=['']
+                // $.each(jQuery.parseJSON( data), function(k,v){
+                //
+                //     if(jQuery.inArray( v[2], PositArr )<0){
+                //         option += '<option value="'+v[0]+'" data-stId="'+stId+'" data-empid="'+v[10]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'" data-positcode="'+v[2]+'">'+v[2]+' '+v[8]+'</option>';
+                //         PositArr.push(v[2]);
+                //     }
+                //
+                //
+                // });
+                // option+=' </select>';
+                // console.log('option='+option)
+                // $('#posList').html(option);
 
             }
         })
 
     })
-
-
-
 
 $("#confirmRole").click(function() {
         console.log('confirmRole change');
@@ -592,8 +595,11 @@ $("#confirmRole").click(function() {
         var stId=$('#positionList option:selected').attr('data-stId')
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
+        console.log('confirmRole change role_id='+role_id);
         console.log('confirmRole change start_date='+start_date);
         console.log('confirmRole change end_date='+end_date);
+        console.log('confirmRole change posit_code='+posit_code);
+        console.log('confirmRole change stId='+stId);
         $.ajax({
             url: 'st_insertRole.php',
             type: "POST",
@@ -605,11 +611,11 @@ $("#confirmRole").click(function() {
                 $('#role_start_date').val('')
                 $('#role_end_date').val('')
 
-                $('#tablePositions').find('tbody').html('');
-                $('#tableStructureRoles').find('tbody').html('');
+                // $('#tablePositions').find('tbody').html('');
+                // $('#tableStructureRoles').find('tbody').html('');
 
                 fillStTable(jQuery.parseJSON(data),stId)
-
+                fillTreeTable(jQuery.parseJSON(data),stId)
 
                 Swal.fire(
                     'Əməliyyat müvəffəqiyyətlə yerine yetirildi!',
@@ -629,35 +635,40 @@ function fillTreeTable(data,stId){
 
     $('#tablePositions').find('tbody').html('');
      $.each(data, function(k,v){
-        console.log('trList v=' + v[9]);
-        console.log('trList option=' + v[2]);
-        var fName='Təyin edilməyib';
-        var fRole='Təyin edilməyib';
-        var fPercent=0;
+         if(v[2].substr(0, 1)=="P"){
+             console.log('trList v=' + v[9]);
+             console.log('trList option=' + v[2]);
+             var fName='Təyin edilməyib';
+             var fRole='Təyin edilməyib';
+             var fRole_id=0;
+             var fPercent=0;
 
-        if(v[8]){
-            fName=v[8];
-        }
-        if(v[9]){
-            fRole=v[9];
-        }
-        if(v[7]){
-            fPercent=v[7];
-        }
+             if(v[8]){
+                 fName=v[8];
+             }
+             if(v[9]){
+                 fRole=v[9];
+                 fRole_id=v[12];
+             }
+             if(v[7]){
+                 fPercent=v[7];
+             }
 
+             row +='<tr data-id="'+v[11]+'" data-role="'+fRole_id+'" data-positcode="'+v[2]+'" data-empid="'+v[10]+'"> '  +
+                 ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
+                 ' <td>'+fRole+'</td>  '  +
+                 ' <td>'+v[2]+'</td>  '  +
+                 ' <td>'+fName+'</td>  '  +
+                 ' <td class="myText" data-val="percent">'+fPercent+'</td>  '  +
+                 ' <td  id="start_date">'+v[4]+'</td>  '  +
+                 ' <td id="end_date">'+v[5]+'</td>  '  +
+                 '</tr>  ';
+         }
 
-        row +='<tr data-id="'+v[11]+'" data-positcode="'+v[2]+'" data-empid="'+v[10]+'"> '  +
-            ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
-            ' <td>'+fRole+'</td>  '  +
-            ' <td>'+v[2]+'</td>  '  +
-            ' <td>'+fName+'</td>  '  +
-            ' <td class="myText" data-val="percent">'+fPercent+'</td>  '  +
-            ' <td  id="start_date">'+v[4]+'</td>  '  +
-            ' <td id="end_date">'+v[5]+'</td>  '  +
-             '</tr>  ';
     });
 
     $('#tablePositions').find('tbody').html(row);
+
      myTextClick()
 
 }
@@ -665,7 +676,7 @@ function fillStTable(data,stId){
 
     var row = '';
 
-    $('#tablePositions').find('tbody').html('');
+    // $('#tablePositions').find('tbody').html('');
     $('#tableStructureRoles').find('tbody').html('');
     $.each(data, function(k,v){
         console.log('trList v=' + v[9]);
@@ -697,7 +708,7 @@ function fillStTable(data,stId){
             '</tr>  ';
     });
 
-    $('#tablePositions').find('tbody').html(row);
+    // $('#tablePositions').find('tbody').html(row);
     $('#tableStructureRoles').find('tbody').html(row);
 
     $(".deleteStRole").click(function() {
@@ -723,6 +734,6 @@ function fillStTable(data,stId){
             }
         })
     })
-    myTextClick()
+    // myTextClick()
 
 }
