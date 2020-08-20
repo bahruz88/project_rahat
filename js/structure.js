@@ -607,10 +607,11 @@ $("#confirmRole").click(function() {
             success: function (data) {
                 console.log('dataaaaas=' , data);
                 $('#roles').find('option[value="0"]').prop('selected', true);
+                console.log('confirmRolffffffffffe roles='+$('#roles').html());
                 $('#positionList').find('option[value="0"]').prop('selected', true);
                 $('#role_start_date').val('')
                 $('#role_end_date').val('')
-
+                $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
                 // $('#tablePositions').find('tbody').html('');
                 // $('#tableStructureRoles').find('tbody').html('');
 
@@ -622,6 +623,7 @@ $("#confirmRole").click(function() {
                     '',
                     'success'
                 )
+                $(".selectpicker").selectpicker();
                 // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                 // var tree = $('#tree').fancytree('getTree');
                 // tree.reload($.parseJSON(data));
