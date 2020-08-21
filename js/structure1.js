@@ -31,17 +31,14 @@ function stClick() {
 
 function confirmClick(e){
     $(document).on("click", "#confirm", function(e){
-        $('#companyDiv').off('change', '#company');
 
         var employee=$('#employeesQuery option:selected').val()
         var structure_level=$('#structure_level option:selected').val()
         if($('#company_id').val()==''){
-
-            var company_ids= $('#company').val();
-            $('#company_id').val(company_ids);
-             company_ids='0,'+$('#company').val();
+            var company_id=$('#company option:selected').val();
+            $('#company_id').val(company_id);
         }else{
-            var company_ids='0,'+$('#company_id').val()
+            var company_id=$('#company_id').val()
         }
 
 
@@ -67,10 +64,10 @@ function confirmClick(e){
             $('#employee').find('option[value="0"]').prop('selected', true);
             var icon=$('#icon').val();
             if(eventArray){
-                createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_ids);
+                createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id);
 
             }else{
-                createNew('yeni', 0, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_ids);
+                createNew('yeni', 0, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id);
 
             }
             $('#st_create_date').val('')
@@ -111,15 +108,13 @@ function validate(st_create_date){
     }
     return true;
 }
-function createNew(event,data,employee,structure_level,position_level,st_create_date,st_end_date,icon,company_ids){
+function createNew(event,data,employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id){
     // console.log('data',createRequestNumber(8))
     console.log('eventeventeventevent',event)
     console.log('data.cmd==',data.cmd)
-    console.log('data ==',data)
     console.log('data.company_id=='+company_id)
     var PID;
     var title;
-    var company_id;
 
     if (data==0){
         PID=0;
@@ -127,12 +122,10 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     }else if(data.node.parent.data.id){
         PID=data.node.parent.data.id;
         title=data.node.title;
-        company_id=data.node.parent.data.company_id
 
     }else if(data.node.parent.children[0].data.pId){
         PID=data.node.parent.children[0].data.pId;
         title=data.node.title;
-        company_id= data.node.parent.children[0].data.company_id
     }else if(data.node.title &&(!data.node.parent.children[0].data.pId || !data.node.parent.data.id)  ){
         title=data.node.title;
         PID=0;
@@ -142,20 +135,17 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     console.log('title=='+title);
     console.log('structure_level=='+structure_level);
     console.log('position_level=='+position_level);
-    console.log('company_ids=='+company_ids);
-    console.log('company=='+$('#company').val());
+    console.log('st_create_date=='+st_create_date);
     $.ajax({
         url: 'st_insert.php',
         type: "POST",
-        data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date,company_id:company_id,company_ids:company_ids,st:"st"},
+        data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date,company_id:company_id},
         success: function (data) {
-            console.log('companycer=='+$('#company').val());
             console.log('dataaaaaaaaada=' , data);
             console.log('dataaaaaaaaaa=' , $.parseJSON(data));
             var tree = $('#tree').fancytree('getTree');
-
             tree.reload($.parseJSON(data));
-
+            $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
         },
     });
 
@@ -277,15 +267,14 @@ function sagClick(number){
         }else {
             $('#icon').val($('#position_level option:selected').attr('data-icon'))
         }
-        var company_id=$(this).closest('tr').attr('data-companyId')
-        // var company_id=$('#company_id').val()
+        var company_id=$('#company_id').val()
 
         $.ajax({
             url: 'st_update.php',
             type: "POST",
             data: { id:number, name:thisVal,change:thisName,company_id:company_id},
             success: function (data) {
-                console.log('st_update dataaaaaaa=' + data)
+                console.log('dataaaaaaa=' + data)
                 var tree = $('#tree').fancytree('getTree');
                 tree.reload($.parseJSON(data));
 
@@ -306,8 +295,7 @@ function sagClick(number){
         $(this).css('display','none');
         var thisName='emp_id'
         var thisVal=$(this).find('option:selected').val();
-        // var company_id=$('#company_id').val()
-        var company_id=$(this).closest('tr').attr('data-companyId');
+        var company_id=$('#company_id').val()
         $.ajax({
             url: 'st_update.php',
             type: "POST",
@@ -331,15 +319,14 @@ function sagClick(number){
         var endDate=$(this).closest('td').find("#idendInput"+number).val()
         console.log('contentEdit createDate'+createDate);
         console.log('contentEdit endDate'+endDate);
-        // var company_id=$('#company_id').val()
-        var company_id=$(this).closest('tr').attr('data-companyId')
+        var company_id=$('#company_id').val()
         // if(validate(createDate)) {
         $.ajax({
             url: 'st_update.php',
             type: "POST",
             data: {id: number, createDate: createDate, endDate: endDate,company_id:company_id},
             success: function (data) {
-                console.log('idyearButton dataaaaaaaw=' + $.parseJSON(data))
+                console.log('dataaaaaaaw=' + $.parseJSON(data))
                 $("#idyear" + number).find('span').css('display', 'block')
                 $("#idyear" + number).find('button').css('display', 'block')
                 $("#idcreateInput" + number).css('display', 'none')
@@ -399,8 +386,7 @@ function treeClick(trList){
     trList.on('click',function(){
         console.log('tree event',$(this).attr('data-id'))
         var stId=$(this).attr('data-id')
-        var company_id=$(this).closest('tr').attr('data-companyId')
-        // var company_id=$('#company_id').val()
+        var company_id=$('#company_id').val()
         $.ajax({
             url: 'st_selectRoles.php',
             type: "POST",
@@ -560,31 +546,41 @@ $(function () {
     });
 
     $('#companyDiv').on( 'change','#company',  function () {
-        console.log("change company="+$(this).val());
-        var company_id=$(this).val();
+        console.log("company="+$(this).val());
+        var company_id=$(this).find('option:selected').val();
         var company_text=$(this).find('option:selected').text();
         console.log("company_id="+company_id);
         $('#company_id').val(company_id);
         $('#company_name').val(company_text);
-        // var companyIdArray = company_id.split(',');
-        // var companyIdArray = $.parseJSON("[" + company_id + "]");
-        // $.each(companyIdArray, function(index, value) {
-        //     console.log(index + ': ' + value);   // alerts 0:[1 ,  and  1:2]
-        // });
-        company_id='0,'+company_id;
+
+
         $.ajax({
             url: 'st_selectWithCompany.php',
             type: "POST",
-            data: {company_id: company_id,st:"st"},
+            data: {company_id: company_id},
             success: function (data) {
-                console.log('companyDiv DATA=',data)
+                console.log('DATA=',data)
                 var tree = $('#tree').fancytree('getTree');
                 if(data!=''){
                     tree.reload($.parseJSON(data));
                 }else{
                     tree.reload([]);
                 }
-
+                // var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                // option += '<option value="0">Seçin..</option>';
+                // var PositArr=['']
+                // $.each(jQuery.parseJSON( data), function(k,v){
+                //
+                //     if(jQuery.inArray( v[2], PositArr )<0){
+                //         option += '<option value="'+v[0]+'" data-stId="'+stId+'" data-empid="'+v[10]+'" data-createdate="'+v[4]+'" data-enddate="'+v[5]+'" data-fullName="'+v[8]+'" data-positcode="'+v[2]+'">'+v[2]+' '+v[8]+'</option>';
+                //         PositArr.push(v[2]);
+                //     }
+                //
+                //
+                // });
+                // option+=' </select>';
+                // console.log('option='+option)
+                // $('#posList').html(option);
 
             }
         })

@@ -9,6 +9,7 @@ $rs='';
 $c = 1;
 $number=1;
 $head='';
+
 if($_POST['position_level']!='0' && $_POST['position_level']!=''){
     $head='P';
 }

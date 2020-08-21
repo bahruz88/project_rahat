@@ -1,13 +1,50 @@
 <?php
 //include('session.php') ;
-$company_id=$_POST['company_id'];
-$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
+if(isset($_POST['company_ids'])){
+    $company_id= $_POST['company_ids'];
+}else{
+    $company_id=$_POST['company_id'];
+}
+
+//echo $company_id;
+$haystack = $company_id;
+$needle = ',';
+
+//if (strpos($haystack,$needle) !== false) {
+//    echo "$haystack contains $needle";
+//}
+
+ if(isset($_POST["st"])){
+     $company_id=(int)$company_id;
+
+     $company_idWhere=" tec.company_id='$company_id' ";
+     $search=",";
+     if (strpos($haystack,$needle) !== false) {
+     //     if (preg_match("/{$search}/i", $company_id)) {
+
+         $company_idArr = explode(",", $haystack);
+          if (count($company_idArr) > 1) {
+             $company_idWhere = " tec.company_id=$company_idArr[1] ";
+             for ($i = 2; $i < count($company_idArr); $i++) {
+                 $company_idWhere .= " or tec.company_id=$company_idArr[$i] ";
+//                 echo $company_idWhere;
+             }
+         }
+     }
+
+ }else {
+         $company_idWhere = " tec.company_id='$company_id' ";
+ }
+
+
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,tec.company_id company_id,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
 from $tbl_employee_category tec
 LEFT join $tbl_employees te on te.id=tec.emp_id 
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
 LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
 LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level
-where tec.company_id='$company_id'";
+where $company_idWhere";
+//echo $users;
 $result_users = $db->query($users);
 $data=array();
 if($result_users){
@@ -35,6 +72,8 @@ if($result_users){
             $sub_array[] = ($row_users['emp_id']);
             $sub_array[] = $row_users['icon'];
             $sub_array[] = $row_users['posit_icon'];
+            $sub_array[] = $row_users['company_id'];
+            $sub_array[] =substr($haystack,2);
             $data[]     = $sub_array;
 
 
@@ -66,6 +105,8 @@ function createArray($arrC){
         $arrCh['emp_id'] = $arrCh[13];
         $arrCh['icon'] = $arrCh[14];
         $arrCh['posit_icon'] = $arrCh[15];
+        $arrCh['company_id'] = $arrCh[16];
+        $arrCh['company_ids'] = $arrCh[17];
 //        $arrCh['children'] = $arrCh[5];
         $arrCh['expanded'] = true;
         $arrCh['folder'] = true;
@@ -88,6 +129,8 @@ function createArray($arrC){
             unset($arrCh[13]);
             unset($arrCh[14]);
             unset($arrCh[15]);
+            unset($arrCh[16]);
+            unset($arrCh[17]);
         }
         $arrChil[]=$arrCh;
     }

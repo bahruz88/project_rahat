@@ -8,151 +8,6 @@ $sql_position_level= "select * from $tbl_position_level";
 $sql_structure_level= "select * from $tbl_structure_level";
 
 
-//$users= "select * from $tbl_employee_category";
-//$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon
-//from $tbl_employee_category tec
-//LEFT join $tbl_employees te on te.id=tec.emp_id
-//LEFT join $tbl_employee_company teco on tec.company_id=teco.id
-//LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
-//LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level";
-////echo $users;
-////$users= "select tec.*,tep.* from $tbl_employee_category tec
-////INNER join $tbl_employee_position tep on tep.category_id=tec.id";
-//
-//$result_users = $db->query($users);
-//
-//$sub_array='';
-//$idArray=array();
-//$data = array();
-//if($result_users){
-//    if ($result_users->num_rows > 0) {
-//        while($row_users = $result_users->fetch_assoc()) {
-//            $sub_array   = array();
-//            $idArray[]=$row_users['id'];
-//            $sub_array[] = $row_users['id'];
-//            $sub_array[] = ($row_users['category']);
-//            $sub_array[] = $row_users['parent'];
-//            $sub_array[] = $row_users['create_date'];
-//            $sub_array[] = $row_users['end_date'];
-//
-//
-//            $sub_array[] = [];//children
-//            $sub_array[] = ($row_users['code']);
-//            $sub_array[] = ($row_users['full_name']);
-//            $sub_array[] = ($row_users['company']);
-//            $sub_array[] = ($row_users['struc']);
-//            $sub_array[] = ($row_users['posit']);
-//            $sub_array[] = ($row_users['struc_id']);
-//            $sub_array[] = ($row_users['posit_id']);
-//            $sub_array[] = ($row_users['emp_id']);
-//            $sub_array[] = $row_users['icon'];
-//            $sub_array[] = $row_users['posit_icon'];
-//            $sub_array[] = $row_users['company_id'];
-//
-//            $data[]     = $sub_array;
-//        }
-//    }
-//}
-////print_r($data);
-//
-//$flatArray=$data;
-//unflattenArray($flatArray);
-//function createArray($arrC){
-//    $arrChil=array();
-//    foreach ($arrC as $arrCh)
-//    {
-//        $arrCh['id'] = $arrCh[0];
-//        $arrCh['title'] = $arrCh[1];
-//        $arrCh['pId'] = $arrCh[2];
-//        $arrCh['create_date'] = $arrCh[3];
-//        $arrCh['end_date'] = $arrCh[4];
-//        $arrCh['code'] = $arrCh[6];
-//        $arrCh['full_name'] = $arrCh[7];
-//        $arrCh['company'] = $arrCh[8];
-//        $arrCh['structure'] = $arrCh[9];
-//        $arrCh['posit'] = $arrCh[10];
-//        $arrCh['struc_id'] = $arrCh[11];
-//        $arrCh['posit_id'] = $arrCh[12];
-//        $arrCh['emp_id'] = $arrCh[13];
-//        $arrCh['icon'] = $arrCh[14];
-//        $arrCh['posit_icon'] = $arrCh[15];
-//        $arrCh['company_id'] = $arrCh[16];
-//        $arrCh['children'] = $arrCh[5];
-//        $arrCh['expanded'] = true;
-//        $arrCh['folder'] = true;
-//        if(count($arrCh[5])>0){
-//
-//            $arrCh['children'] = createArray($arrCh[5]);
-//            unset($arrCh[0]);
-//            unset($arrCh[1]);
-//            unset($arrCh[2]);
-//            unset($arrCh[3]);
-//            unset($arrCh[4]);
-//            unset($arrCh[5]);
-//            unset($arrCh[6]);
-//            unset($arrCh[7]);
-//            unset($arrCh[8]);
-//            unset($arrCh[9]);
-//            unset($arrCh[10]);
-//            unset($arrCh[11]);
-//            unset($arrCh[12]);
-//            unset($arrCh[13]);
-//            unset($arrCh[14]);
-//            unset($arrCh[15]);
-//            unset($arrCh[16]);
-//        }
-//        $arrChil[]=$arrCh;
-//    }
-//    return $arrChil;
-//}
-//function unflattenArray($flatArray)
-//{
-//
-//    $refs = array(); //for setting children without having to search the parents in the result tree.
-//    $result = array();
-//    $arrrId = array();
-//    $arrrPId = array();
-//    $arrrId[]=0;
-//    for ($j = 0; $j < count($flatArray); $j++) {
-//        $arrrId[]=$flatArray[$j][0];
-//        $arrrPId[]=$flatArray[$j][2];
-//    }
-//
-//    //process all elements until nohting could be resolved.
-//    //then add remaining elements to the root one by one.
-//    while (count($flatArray) > 0) {
-//        for ($i = count($flatArray) - 1; $i >= 0; $i--) {
-//            if(in_array($flatArray[$i][2],$arrrId)){
-//
-//                if ($flatArray[$i][2] == NULL) {
-//                    //root element: set in result and ref!
-//                    $result[$flatArray[$i][0]] = $flatArray[$i];
-//                    $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
-//                    unset($flatArray[$i]);
-//                    $flatArray = array_values($flatArray);
-//                } else if ($flatArray[$i][2] != NULL) {
-//                    //no root element. Push to the referenced parent, and add to references as well.
-//                    if (array_key_exists($flatArray[$i][2], $refs)) {
-//                        //parent found
-//                        $o = $flatArray[$i];
-//                        $refs[$flatArray[$i][0]] = $o;
-//                        $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
-//                        unset($flatArray[$i]);
-//                        $flatArray = array_values($flatArray);
-//                    }
-//                }
-//            }else {
-//                unset($flatArray[$i]);
-//                $flatArray = array_values($flatArray);
-//            }
-//        }
-//    }
-//    if (count($result) > 0) {
-////        print_r(createArray($result));
-//        return createArray($result);
-//    }
-//}
-//
 
 //roles
 $sql_structure_roles= "select * from $tbl_structure_roles";
@@ -222,15 +77,9 @@ $sql_position= "select * from $tbl_employee_category";
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!--
-    <script src="../../build/jquery.fancytree-all.min.js"></script>
--->
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css?v3" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <!-- Start_Exclude: This block is not part of the sample code -->
-    <!--    <link href="../lib/prettify.css" rel="stylesheet" />-->
-    <!--    <script src="../lib/prettify.js"></script>-->
-    <!--    <link href="../demo/sample.css" rel="stylesheet" />-->
-    <!--    <script src="../demo/sample.js"></script>-->
     <style>
 
         /* Context menu */
@@ -448,8 +297,8 @@ $sql_position= "select * from $tbl_employee_category";
                                 <div id="companyDiv" class="row" style="width:350px;">
                                     <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
                                     <div class="col-sm-8">
-                                        <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
-                                            <option  value="" >Seçin...</option>
+
+                                        <select data-live-search="true"  name="company" id='company'   multiple="multiple" style="display: none;" title="<?php echo $dil["selectone"];?>" class="form-control"  placeholder="<?php echo $dil["company"];?>"   >
 
                                             <?php
                                             $result_company = $db->query($sql_employee_company);
@@ -581,9 +430,6 @@ $sql_position= "select * from $tbl_employee_category";
                                                 <div class="col-md-12"><button type="button" class="btn btn-info" id="confirm" >Təsdiq</button></div>
                                             </div>
                                         </div>
-
-
-
 
                                     </div>
                                 </div>
@@ -916,7 +762,7 @@ $sql_position= "select * from $tbl_employee_category";
     var tree_e=[];
     var addNew=0;
     var tree=[];
-    var trList;
+    var trList;var companyId;
     $(function() {
         //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
         var subArray =  [];
@@ -991,14 +837,14 @@ $sql_position= "select * from $tbl_employee_category";
                                     $('#structureQuery').css('display','none')
                                     $(document).off('click', '#pozisya');
                                     $(document).off('click', '#struktur');
-                                    var company_id=$('#company_id').val();
+                                    // var company_id=$('#company_id').val();
 
 
 
                                     $.ajax({
                                         url: 'st_emp_select.php',
                                         type: "POST",
-                                        data: { company_id:company_id},
+                                        data: { company_id:companyId},
                                         success: function (data) {
                                             console.log('data=' + data)
                                             var option='<select data-live-search="true"  name="employee" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
@@ -1083,6 +929,7 @@ $sql_position= "select * from $tbl_employee_category";
                         $tdList.eq(0).text('');
                         $tdList.eq(1).text(node.data.id);
                         $(node.tr).attr('data-id',node.data.id);
+                        $(node.tr).attr('data-companyId',node.data.company_id);
                         //*men
                         $tdList
                             .eq(3)
@@ -1203,16 +1050,16 @@ $sql_position= "select * from $tbl_employee_category";
                             .find('input')
                             .css('display','none');
 
-                        console.log('$(\'#company_id\').val()='+$('#company_id').val())
+                        // console.log('$(\'#company_id\').val()='+$('#company_id').val())
                         if($('#company_id').val()==''){
-                            console.log('company_idcompany_id='+node.data.company_id)
-                            $('#company_id').val(node.data.company_id)
+                            console.log('company_idcompany_id='+node.data.company_ids)
+                            $('#company_id').val(node.data.company_ids)
                             $('#company_name').val(node.data.company)
                         }
                         $tdList
                             .eq(7)
                             .find('span')
-                            .text($('#company_name').val());
+                            .text(node.data.company);
 
 
                         // .find("input")
@@ -1279,12 +1126,13 @@ $sql_position= "select * from $tbl_employee_category";
                             }
                             console.log('ID=='+ID);
                             console.log('delet=='+delet);
-                           var  company_id=$('#company_id').val()
-
+                           var  company_id=companyId
+                           var  company_ids='0,'+$('#company_id').val();
+                            console.log('delet company_ids=='+company_ids);
                             $.ajax({
                                 url: 'st_delete.php',
                                 type: "POST",
-                                data: {id:ID,delet:delet,company_id:company_id},
+                                data: {id:ID,delet:delet,company_id:company_id,company_ids:company_ids,st:"st"},
                                 success: function (data) {
                                     console.log('data=' + data);
                                     if(data){
@@ -1507,8 +1355,12 @@ $sql_position= "select * from $tbl_employee_category";
                 ],
                 beforeOpen: function(event, ui) {
                     console.log('before event',event)
-                    console.log('beforeOpen',ui)
+                    // console.log('before event',$(this).html())
+
+
                     var node = $.ui.fancytree.getNode(ui.target);
+                    companyId=ui.target.closest('tr').attr('data-companyId')
+                    console.log('node=',node)
                     $("#tree").contextmenu(
                         "enableEntry",
                         "paste",
@@ -1517,25 +1369,21 @@ $sql_position= "select * from $tbl_employee_category";
                     node.setActive();
                 },
                 select: function(event, ui) {
-
-
                     console.log('event=',event)
                     console.log('ui=',ui);
                     addNew=0;
                     var that = this;
+                    console.log('id=',$(that).attr('id'));
+
                     // delay the event, so the menu can close and the click event does
                     // not interfere with the edit control
                     setTimeout(function() {
                         $(that).trigger("nodeCommand", { cmd: ui.cmd });
                     }, 100);
-
                 },
             });
-
         }
-
     });
-
 </script>
 <script src="js/structure.js"></script>
 
@@ -1543,6 +1391,16 @@ $sql_position= "select * from $tbl_employee_category";
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
+
+<!--<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="js/BsMultiSelect.js"></script>
+<script>
+    $("#company").bsMultiSelect({cssPatch : {
+            choices: {columnCount:'1' },
+        }});
+</script>
 
 </body>
 </html>
