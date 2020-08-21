@@ -33,7 +33,7 @@ function confirmClick(e){
     $(document).on("click", "#confirm", function(e){
         $('#companyDiv').off('change', '#company');
 
-        var employee=$('#employeesQuery option:selected').val()
+        var employee=$('#employee option:selected').val()
         var structure_level=$('#structure_level option:selected').val()
         if($('#company_id').val()==''){
 
@@ -66,6 +66,7 @@ function confirmClick(e){
             $('#position_level').find('option[value="0"]').prop('selected', true);
             $('#employee').find('option[value="0"]').prop('selected', true);
             var icon=$('#icon').val();
+            console.log('employee='+employee)
             if(eventArray){
                 createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_ids);
 
@@ -116,25 +117,30 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     console.log('eventeventeventevent',event)
     console.log('data.cmd==',data.cmd)
     console.log('data ==',data)
-    console.log('data.company_id=='+company_id)
+
     var PID;
     var title;
-    var company_id;
+    var company_id=companyId;
 
     if (data==0){
         PID=0;
         title='Yeni';
+        console.log('Yeni')
     }else if(data.node.parent.data.id){
         PID=data.node.parent.data.id;
         title=data.node.title;
         company_id=data.node.parent.data.company_id
+        console.log('data.node.parent.data=',data.node.parent.data)
 
     }else if(data.node.parent.children[0].data.pId){
         PID=data.node.parent.children[0].data.pId;
         title=data.node.title;
-        company_id= data.node.parent.children[0].data.company_id
+        company_id= data.node.parent.children[0].data.company_id;
+        console.log('data.node.parent.children[0].data=',data.node.parent.children[0].data)
+
     }else if(data.node.title &&(!data.node.parent.children[0].data.pId || !data.node.parent.data.id)  ){
         title=data.node.title;
+        console.log('data.node=',data.node)
         PID=0;
     }
 
@@ -144,6 +150,7 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     console.log('position_level=='+position_level);
     console.log('company_ids=='+company_ids);
     console.log('company=='+$('#company').val());
+    console.log('company_id=='+company_id)
     $.ajax({
         url: 'st_insert.php',
         type: "POST",

@@ -868,7 +868,7 @@ $sql_position= "select * from $tbl_employee_category";
 
 
                                 });
-                                confirmClick();
+                                confirmClick(companyId);
 
 
                                 // Quick-enter: add new nodes until we hit [enter] on an empty title
