@@ -73,14 +73,13 @@ if($result_users){
             $sub_array[] = $row_users['icon'];
             $sub_array[] = $row_users['posit_icon'];
             $sub_array[] = $row_users['company_id'];
-            $sub_array[] =substr($haystack,2);
+            if (strpos($haystack,$needle) !== false) {
+                $sub_array[] = substr($haystack, 2);
+            }else{
+                $sub_array[] = $haystack;
+            }
             $data[]     = $sub_array;
-
-
-
-
         }
-
     }
 }
 $flatArray=$data;
@@ -109,7 +108,12 @@ function createArray($arrC){
         $arrCh['company_ids'] = $arrCh[17];
 //        $arrCh['children'] = $arrCh[5];
         $arrCh['expanded'] = true;
-        $arrCh['folder'] = true;
+        if(substr($arrCh[6],0,1)=="P"){
+            $arrCh['folder'] = false;
+        }else{
+            $arrCh['folder'] = true;
+        }
+
         if(count($arrCh[5])>0){
 
             $arrCh['children'] = createArray($arrCh[5]);

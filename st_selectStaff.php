@@ -1,10 +1,11 @@
 <?php
 include('session.php') ;
-$id                 =$_POST['id'];
+$company_id                 =$_POST['company_id'];
 $data=array();
-$category_company= "select tc.*,tec.*,tec.enterprise_head_fullname,tec.company_name,tec.address company_address,tec.tel company_tel from $tbl_employee_category tc
+$category_company= "select tc.*,tec.*,tec.enterprise_head_fullname,tec.company_name,tec.address company_address,tec.tel company_tel 
+from $tbl_employee_category tc
  LEFT join $tbl_employee_company tec on tec.id=tc.company_id
- WHERE tc.id = '$id'";
+ WHERE tc.company_id = '$company_id'";
 //echo $category_company;
 $result_category_company = $db->query($category_company);
 if($result_category_company->num_rows > 0) {

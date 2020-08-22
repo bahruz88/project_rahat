@@ -48,10 +48,16 @@ $result_employee_category = $db->query($employee_category);
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
 <!--    <link rel="stylesheet" type="text/css" href="dist/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arimo" />
+
+
+
     <style>
         .staffText{
             font-weight: 700;
         }
+        /*#stafftree td{*/
+        /*    background-color: rgba(0,0,0,.075);*/
+        /*}*/
     </style>
 </head>
 
@@ -103,10 +109,11 @@ $result_employee_category = $db->query($employee_category);
             <select data-live-search="true"  name="enterprise_name" id="enterprise_name"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["enterprise_name"];?>" >
                 <option  value="0" >Seçin...</option>
                 <?php
-                if($result_employee_category->num_rows > 0) {
-                    while($row_employee_category = $result_employee_category->fetch_assoc()) {
+                $result_company = $db->query($sql_employee_company);
+                if($result_company->num_rows > 0) {
+                    while($row_company = $result_company->fetch_assoc()) {
                 ?>
-                <option  value="<?php echo $row_employee_category['id']; ?>" ><?php echo $row_employee_category['category'];  ?></option>
+                <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
 
                 <?php } }?>
             </select>
@@ -147,24 +154,49 @@ $result_employee_category = $db->query($employee_category);
         </div>
         </div>
         <div id="staffTab" >
-
-		<table id="staff_table" class="table table-striped  table-bordered table-hover">
-
-				<thead>
+            <table id="stafftree">
+                <colgroup>
+                    <col width="15px" />
+                    <col width="15px" />
+                    <col width="200px" />
+                    <col width="80px" />
+                    <col width="150px" />
+                    <col width="100px" />
+                    <col width="150px" />
+                </colgroup>
+                <thead>
+                <tr>
+                    <th style="width:15px;"></th>
                     <th style="width:15px;">No</th>
-                    <th style="width:150px;">Struktur bölmələrin adı və vəzifələr</th>
+                    <th style="width:200px;">Struktur bölmələrin adı və vəzifələr</th>
                     <th style="width:80px;">Ştat sayı (vahid)</th>
-					<th style="width:150px;">Vəzifə  maaşı (manatla)</th>
-					<th style="width:150px;">Vəzifə maaşına əlavə</th>
-					<th style="width:150px;"> Aylıq əmək haqqı fondu</th>
-				</thead>
-            <tbody>
+                    <th style="width:150px;">Vəzifə  maaşı (manatla)</th>
+                    <th style="width:100px;">Vəzifə maaşına əlavə</th>
+                    <th style="width:150px;"> Aylıq əmək haqqı fondu</th>
+                </tr>
+                </thead>
+                <tbody id="fancyBody">
+                <!-- Define a row template for all invariant markup: -->
+                <tr>
+                    <td class="alignCenter"></td>
+                    <td></td>
+                    <td></td>
+                    <td> </td>
+                    <td>
+                        <span></span>
+                    </td>
+                    <td>
+                        <span></span>
 
-            </tbody>
+                    </td>
+                    <td>
+                        <span></span>
 
+                    </td>
 
-
-        </table>
+                </tr>
+                </tbody>
+            </table>
 
 	</div>
 
@@ -257,29 +289,37 @@ $result_employee_category = $db->query($employee_category);
 <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<!-- jquery-contextmenu (https://github.com/mar10/jquery-ui-contextmenu/) -->
+<script src="//cdn.jsdelivr.net/npm/ui-contextmenu/jquery.ui-contextmenu.min.js"></script>
 
+<link href="src/skin-win8/ui.fancytree.css" rel="stylesheet" />
+<script src="src/jquery.fancytree.js"></script>
+<script src="src/jquery.fancytree.dnd5.js"></script>
+<script src="src/jquery.fancytree.edit.js"></script>
+<script src="src/jquery.fancytree.gridnav.js"></script>
+<script src="src/jquery.fancytree.table.js"></script>
 <script  charset="UTF-8">
     var arrayData2=[];
     var arrayData=[];
 
 
 
-    $('#date_completion').datepicker({
-        todayHighlight: true,
-        format: 'dd/mm/yyyy',
-        // startDate: new Date()
-    });
 
     $("#enterprise_name").change(function(){
         console.log('enterprise_name change'+$(this).attr('name'));
-        var id=$(this).find('option:selected').val();
+        var company_id=$(this).find('option:selected').val();
         $.ajax({
-            url: 'st_selectStaff.php',
+            // url: 'st_selectStaff.php',
+            url: 'st_selectWithCompany.php',
             type: "POST",
-            data: { id:id},
+            data: { company_id:company_id},
             success: function (data) {
                 console.log('dataaaaaaa=' + data)
                 var data1=$.parseJSON(data);
+                // data1.remove("icon");
+
+
 
                 $('#companyDate').text($('#date_completion').val())
                 var table='';
@@ -347,17 +387,19 @@ $result_employee_category = $db->query($employee_category);
                     $('#company_tel').val(data1["company_tel"])
 
 
-                $("table#staff_table tbody").html('');
+                // $("table#staff_table tbody").html('');
+                console.log('dataaaaaaa111=', data1)
                 $.each(data1, function (key, value) {
+                    console.log('dataaaaaaa111 value=' , value)
                     if(key!="company_tel" && key!="company_address" && key!="company_name" && key!="enterprise_head_fullname"&& key!="enterprise_head_position" )
                     {
-                        table+='<tr class="typeOfDocument" >' +
-                            '<td>'+value.id+'</td>'+
-                            '<td>'+value.category+'</td>'+
-                            '<td>'+1+'</td>'+
-                            '<td>'+1000+'</td>'+
-                            '<td>'+1000+'</td>'+
-                            '<td>'+1000+'</td>';
+                        // table+='<tr class="typeOfDocument" >' +
+                        //     '<td>'+value.id+'</td>'+
+                        //     '<td>'+value.structure+'</td>'+
+                        //     '<td>'+1+'</td>'+
+                        //     '<td>'+1000+'</td>'+
+                        //     '<td>'+1000+'</td>'+
+                        //     '<td>'+1000+'</td>';
                         arrayData2.push({"id":value.id,"category":value.category})
                     }
 
@@ -365,11 +407,16 @@ $result_employee_category = $db->query($employee_category);
                 console.log('arrayData2=',JSON.stringify(arrayData2))
                 arrayData=JSON.stringify(arrayData2);
 
-                $("table#staff_table tbody").append(table);
+                // $("table#staff_table tbody").append(table);
+
+                tree = $('#stafftree').fancytree('getTree');
+                tree.reload($.parseJSON(data));
+
                 $("#staff").css("display","block");
                 $("#download").css("display","block");
                 $("#print").css("display","block");
-                $("#tableStaff").val( $("table#staff_table").html());
+                // $("#tableStaff").val( $("table#staff_table").html());
+                $("#tableStaff").val( $("table#stafftree").html());
                 var element = $("#staff"); // global variable
 
 
@@ -438,3 +485,443 @@ $result_employee_category = $db->query($employee_category);
 
 </script>
 
+<script type="text/javascript">
+    var CLIPBOARD = null;
+    var myJSON;
+    // var pushOldu=false;
+    var idArray;
+    var eventArray=[];
+    var createDateParent='1900-01-01';
+    var dataArray=[];
+    var silArray=[];
+    var event_t='';
+    var tree_e=[];
+    var addNew=0;
+    var tree=[];
+    var trList;var companyId;
+    $(function() {
+        //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
+        var subArray =  [];
+        //idArray =  <?php //echo json_encode($idArray); ?>//;
+        idArray =  [];
+        console.log('subArray $idArray=',idArray);
+        console.log('subArray parent=',subArray);
+
+        pushOldu(subArray)
+        function pushOldu(subArray) {
+            console.log('subArray=', subArray)
+            $("#stafftree")
+                .fancytree({
+                    checkbox: true,
+                    checkboxAutoHide: true,
+                    titlesTabbable: true, // Add all node titles to TAB chain
+                    quicksearch: true, // Jump to nodes when pressing first character
+                    // source: myJSON,
+                    // source: { url: "ajax-tree-products.json" },
+                    source: subArray,
+                    //source: SOURCE,
+
+                    extensions: ["edit", "dnd5", "table", "gridnav"],
+
+                    dnd5: {
+                        preventVoidMoves: true,
+                        preventRecursion: true,
+                        autoExpandMS: 400,
+                        // dragStart: function(node, data) {
+                        //     return true;
+                        // },
+                        // dragEnter: function(node, data) {
+                        //     // return ["before", "after"];
+                        //     return true;
+                        // },
+                        // dragDrop: function(node, data) {
+                        //     data.otherNode.moveTo(node, data.hitMode);
+                        // },
+                    },
+                    edit: {
+                        triggerStart: ["f2", "shift+click", "mac+enter"],
+                        close: function(event, data) {
+                            if (data.save && data.isNew) {
+                                console.log('a1',data)
+                                if(data.node.parent.data.create_date){
+                                    createDateParent=data.node.parent.data.create_date;
+                                }
+
+                                eventArray=event;
+                                dataArray=data;
+                                $(document).on('click', '#struktur', function(e) {
+                                    console.log('a2')
+                                    $('#query').css('display','none')
+                                    $('#stQuery').css('display','block')
+                                    $('#employeesQuery').css('display','none');
+                                    $('#positionQuery').css('display','none');
+                                    $('#dateQuery').css('display','block')
+                                    $('#confirmQuery').css('display','block')
+                                    $('#structureQuery').css('display','block')
+                                    $(document).off('click', '#pozisya');
+                                    $(document).off('click', '#struktur');
+
+                                });
+                                $(document).on('click', '#pozisya', function(e) {
+                                    console.log('a3');
+                                    $('#query').css('display','none')
+                                    $('#stQuery').css('display','block')
+                                    $('#employeesQuery').css('display','block')
+                                    $('#positionQuery').css('display','block')
+                                    $('#dateQuery').css('display','block')
+                                    $('#confirmQuery').css('display','block')
+                                    $('#structureQuery').css('display','none')
+                                    $(document).off('click', '#pozisya');
+                                    $(document).off('click', '#struktur');
+                                    // var company_id=$('#company_id').val();
+
+
+
+                                    $.ajax({
+                                        url: 'st_emp_select.php',
+                                        type: "POST",
+                                        data: { company_id:companyId},
+                                        success: function (data) {
+                                            console.log('st_emp_select data=' + data)
+                                            var option='<select data-live-search="true"  name="employee" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                                            option += '<option value="">Seçin..</option>';
+
+                                            var row = '';
+                                            // $('#tablePositions').find('tbody').html('');
+                                            $.each($.parseJSON(data), function(k,v) {
+                                                console.log('v=',v)
+                                                option += '<option value="' + v.id + '" >' + v.firstname + ' '+v.lastname + ' '+v.surname + '</option>';
+
+                                            });
+                                            option+=' </select>';
+                                            console.log('option='+option)
+                                            // option += '</select>';
+                                            $('#employees').html(option);
+                                            // $('.employeesTree').html(option);
+                                            $(".selectpicker").selectpicker();
+
+                                        },
+                                    });
+
+
+                                });
+                                confirmClick(companyId);
+
+
+                                // Quick-enter: add new nodes until we hit [enter] on an empty title
+                                $("#stafftree").trigger("nodeCommand", {
+                                    cmd: "addSibling",
+                                });
+                            }
+                        },
+                    },
+                    table: {
+                        indentation: 20,
+                        nodeColumnIdx: 2,
+                        checkboxColumnIdx: 0,
+                    },
+                    gridnav: {
+                        autofocusInput: false,
+                        handleCursorKeys: true,
+                    },
+
+                    lazyLoad: function(event, data) {
+                        data.result = { url: "../demo/ajax-sub2.json" };
+                    },
+                    createNode: function(event, data) {
+                        // console.log('createNode',data)
+
+                        if(data.node.data.id){
+                            $('#butModal').css('display','none');
+                            $(document).off('click', '#struktur');
+                            $(document).off('click', '#pozisya');
+                            $('#query').css('display','block')
+                            $('#employeesQuery').css('display','none')
+
+                        }
+                        var node = data.node,
+                            $tdList = $(node.tr).find(">td");
+
+                        // console.log('createNode node=',node)
+
+                        // Span the remaining columns if it's a folder.
+                        // We can do this in createNode instead of renderColumns, because
+                        // the `isFolder` status is unlikely to change later
+                        if (node.isFolder()) {
+                            $tdList
+                                .eq(2)
+                                .prop("colspan", 6)
+                                .nextAll()
+                                .remove();
+                            $tdList
+                                .css("background-color",'rgba(0,0,0,.075)')
+
+                        }
+                    },
+                    renderColumns: function(event, data) {
+
+                        // console.log('renderColumns',data)
+                        var node = data.node,
+                            $tdList = $(node.tr).find(">td");
+                        trList = $(node.tr);
+
+                        $tdList.eq(0).text('');
+                        $tdList.eq(1).text(node.data.id);
+                        $(node.tr).attr('data-id',node.data.id);
+                        $(node.tr).attr('data-companyId',node.data.company_id);
+                        //*men
+                        $tdList
+                            .eq(3)
+                            // .find('input')
+                            // .text(node.data.code);
+                            .text(1);
+                        //iconu gizledir
+                        $tdList
+                            .find('.fancytree-icon')
+                            .css('display','none');
+                        //ox isaresini gizledir
+                        $tdList
+                            .find('.fancytree-expander')
+                            .css('display','none');
+
+                        $tdList
+                                .eq(4)
+                                .find('span')
+                                .text(1000);
+                        $tdList
+                            .eq(5)
+                            .find('span')
+                            // .text(node.data.full_name);
+                            .text('-');
+
+
+                        $tdList
+                            .eq(6)
+                            .find('span')
+                            .text(10000);
+
+
+                        $tdList
+                            .eq(7)
+                            .find('span')
+                            .text(node.data.company);
+
+
+                        // .find("input")
+                        // .val(node.data.foo);
+                        // $tdList
+                        // 	.eq(5)
+                        // 	.find("input")
+                        // 	.val(node.data.children);
+                        // console.log('$tdList=',$tdList)
+
+                        // Static markup (more efficiently defined as html row template):
+                        // $tdList.eq(3).html("<input type='input' value='"  "" + "'>");
+                        // ...
+                        // sagClick(node.data.id);
+                        // treeClick(trList)
+                    },
+                    modifyChild: function(event, data) {
+                        console.log('modifyChild event.type='+event.type)
+                        console.log('modifyChild data=',data)
+
+                        data.tree.info(event.type, data);
+
+                    },
+                })
+                .on("nodeCommand", function(event, data) {
+                    // Custom event handler that is triggered by keydown-handler and
+                    // context menu:
+                    var refNode,
+                        moveMode,
+                        tree = $.ui.fancytree.getTree(this),
+                        node = tree.getActiveNode();
+                    console.log('node cagirdim /////////////////////////////////////////',node)
+
+                    switch (data.cmd) {
+
+                        case "addChild":
+                        case "addSibling":
+                        case "indent":
+                        case "moveDown":
+                        case "moveUp":
+                        case "outdent":
+                        case "remove":
+                        case "rename":
+                            tree.applyCommand(data.cmd, node);
+                            break;
+                        case "cut":
+                            CLIPBOARD = { mode: data.cmd, data: node };
+                            break;
+                        case "copy":
+                            CLIPBOARD = {
+                                mode: data.cmd,
+                                data: node.toDict(true, function(dict, node) {
+                                    delete dict.key;
+                                }),
+                            };
+                            break;
+                        case "clear":
+                            CLIPBOARD = null;
+                            break;
+                        case "paste":
+                            if (CLIPBOARD.mode === "cut") {
+                                // refNode = node.getPrevSibling();
+                                CLIPBOARD.data.moveTo(node, "child");
+                                CLIPBOARD.data.setActive();
+                            } else if (CLIPBOARD.mode === "copy") {
+                                node.addChildren(
+                                    CLIPBOARD.data
+                                ).setActive();
+                            }
+                            break;
+                        default:
+                            alert("Unhandled command: " + data.cmd);
+                            return;
+                    }
+                })
+                .on("keydown", function(e) {
+                    var cmd = null;
+
+                    console.log("keyDown"+$.ui.fancytree.eventToString(e));
+                    switch ($.ui.fancytree.eventToString(e)) {
+                        case "ctrl+shift+n":
+                        case "meta+shift+n": // mac: cmd+shift+n
+                            cmd = "addChild";
+                            break;
+                        case "ctrl+c":
+                        case "meta+c": // mac
+                            cmd = "copy";
+                            break;
+                        case "ctrl+v":
+                        case "meta+v": // mac
+                            cmd = "paste";
+                            break;
+                        case "ctrl+x":
+                        case "meta+x": // mac
+                            cmd = "cut";
+                            break;
+                        case "ctrl+n":
+                        case "meta+n": // mac
+                            cmd = "addSibling";
+                            break;
+                        case "del":
+                        case "meta+backspace": // mac
+                            cmd = "remove";
+                            break;
+                        // case "f2":  // already triggered by ext-edit pluging
+                        // 	cmd = "rename";
+                        // 	break;
+                        case "ctrl+up":
+                        case "ctrl+shift+up": // mac
+                            cmd = "moveUp";
+                            break;
+                        case "ctrl+down":
+                        case "ctrl+shift+down": // mac
+                            cmd = "moveDown";
+                            break;
+                        case "ctrl+right":
+                        case "ctrl+shift+right": // mac
+                            cmd = "indent";
+                            break;
+                        case "ctrl+left":
+                        case "ctrl+shift+left": // mac
+                            cmd = "outdent";
+                    }
+                    if (cmd) {
+                        console.log('trigger')
+                        $(this).trigger("nodeCommand", { cmd: cmd });
+                        return false;
+                    }
+                });
+
+            /*
+             * Tooltips
+             */
+            // $("#tree").tooltip({
+            // 	content: function () {
+            // 		return $(this).attr("title");
+            // 	}
+            // });
+
+            /*
+             * Context menu (https://github.com/mar10/jquery-ui-contextmenu)
+             */
+            $("#tree").contextmenu({
+
+
+                delegate: "span.fancytree-node",
+                menu: [
+                    {
+                        title: "Redaktə et <kbd>[F2]</kbd>",
+                        cmd: "rename",
+                        uiIcon: "ui-icon-pencil",
+                    },
+                    {
+                        title: "Sil <kbd>[Del]</kbd>",
+                        cmd: "remove",
+                        uiIcon: "ui-icon-trash",
+                    },
+                    { title: "----" },
+                    {
+                        title: "New sibling <kbd>[Ctrl+N]</kbd>",
+                        cmd: "addSibling",
+                        uiIcon: "ui-icon-plus",
+                    },
+                    {
+                        title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
+                        cmd: "addChild",
+                        uiIcon: "ui-icon-arrowreturn-1-e",
+                    },
+                    // { title: "----" },
+                    // {
+                    //     title: "Cut <kbd>Ctrl+X</kbd>",
+                    //     cmd: "cut",
+                    //     uiIcon: "ui-icon-scissors",
+                    // },
+                    // {
+                    //     title: "Copy <kbd>Ctrl-C</kbd>",
+                    //     cmd: "copy",
+                    //     uiIcon: "ui-icon-copy",
+                    // },
+                    // {
+                    //     title: "Paste as child<kbd>Ctrl+V</kbd>",
+                    //     cmd: "paste",
+                    //     uiIcon: "ui-icon-clipboard",
+                    //     disabled: true,
+                    // },
+                ],
+                beforeOpen: function(event, ui) {
+
+
+                    var node = $.ui.fancytree.getNode(ui.target);
+                    companyId=ui.target.closest('tr').attr('data-companyId')
+                    console.log('node=',node)
+                    $("#stafftree").contextmenu(
+                        "enableEntry",
+                        "paste",
+                        !!CLIPBOARD
+                    );
+                    node.setActive();
+                },
+                select: function(event, ui) {
+
+                    var that = this;
+
+
+                    // delay the event, so the menu can close and the click event does
+                    // not interfere with the edit control
+                    setTimeout(function() {
+                        $(that).trigger("nodeCommand", { cmd: ui.cmd });
+                    }, 100);
+                },
+            });
+        }
+
+
+    $('#date_completion').datepicker({
+        todayHighlight: true,
+        format: 'dd/mm/yyyy',
+    });
+  });
+</script>
