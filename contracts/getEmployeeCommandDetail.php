@@ -5,7 +5,8 @@ $order = $_POST['order'];
 
 $contractDate = $_POST['contractDate'];
 $command_id = $_POST['command_id'];
-$sinceDate = $_POST['sinceDate'];
+$sinceBeginDate = $_POST['sinceBeginDate'];
+$sinceEndDate = $_POST['sinceEndDate'];
 $company_name_2= '';
 $voen_2= '';
 $enterprise_head_position_2= '';
@@ -24,19 +25,23 @@ $structure5_2= '';
 
 $data = array();
 $data2 = array();
-$sinceDate = strtr( $sinceDate , '/', '-');
-$sinceDate= date('Y-m-d', strtotime($sinceDate));
+$sinceBeginDate = strtr( $sinceBeginDate , '/', '-');
+$sinceBeginDate= date('Y-m-d', strtotime($sinceBeginDate));
+
+$sinceEndDate = strtr( $sinceEndDate , '/', '-');
+$sinceEndDate= date('Y-m-d', strtotime($sinceEndDate));
+
 if( $contractDate=='1'){
     $sql_emp_contracts = "select tc.*,te.*,tc.id id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_employee_commands tc
 LEFT join $tbl_employees te on te.id=tc.emp_id   
-   where  tc.emp_id='$empid' and tc.command_id='$command_id' and tc.insert_date<='$sinceDate' and tc.command_no!=''";
+   where  tc.emp_id='$empid' and tc.command_id='$command_id'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_no!=''";
 }else if( $contractDate=='2'){
 
     $sql_emp_contracts = "select tc.*,te.*,tc.id id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_employee_commands tc
 LEFT join $tbl_employees te on te.id=tc.emp_id
-   where  tc.emp_id='$empid' and tc.command_id='$command_id' and tc.insert_date<='$sinceDate'  and tc.command_no=''";
+   where  tc.emp_id='$empid' and tc.command_id='$command_id'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate'  and tc.command_no=''";
 
 //    $result_emp_contracts = $db->query($sql_emp_contracts);
 //    $row_emp_contracts = $result_emp_contracts->fetch_assoc();
@@ -62,7 +67,7 @@ else if( $contractDate=='3'){
     $sql_emp_contracts ="select tc.*,te.*,tc.id id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
  from $tbl_employee_commands tc
 LEFT join $tbl_employees te on te.id=tc.emp_id 
-   where  tc.emp_id='$empid'and tc.insert_date<='$sinceDate' and tc.command_id='$command_id' ";
+   where  tc.emp_id='$empid'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_id='$command_id' ";
 //    echo $sql_emp_contracts;
 }
 //echo $sql_emp_contracts;

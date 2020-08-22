@@ -100,9 +100,10 @@ Mandatory in IE 6, 7, 8 and 9.
                             </div>
 
                             <div class="col-sm-5">
-                                <label class="col-form-label" for="contracts">Tarix</label>
+                                <label class="col-form-label" for="contracts">Tarix Aralığı</label>
 
-                                <input type="text" class="form-control" id="sinceDate" name="sinceDate" placeholder="0000-00-00" />
+                                <input type="text" class="form-control" id="sinceBeginDate" name="sinceBeginDate" placeholder="0000-00-00" />
+                                <input type="text" class="form-control" id="sinceEndDate" name="sinceEndDate" placeholder="0000-00-00" />
 
 
                             </div>

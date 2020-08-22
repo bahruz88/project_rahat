@@ -153,7 +153,8 @@ $('#myContracts').on( 'click', '#closeContract', function () {
 	$("table#command_table tbody").html('');
 	$('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
 	$('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
-	$('#myContracts input[name=sinceDate]').val('')
+	$('#myContracts input[name=sinceBeginDate]').val('')
+	$('#myContracts input[name=sinceEndDate]').val('')
 	$('#myContracts').find('#commandsDate').css('display','none')
 	$('#myContracts').find('#contractsDate').css('display','none')
 	$('#contractsDiv').css('display','none');
@@ -184,12 +185,12 @@ $('#myContracts').on( 'click', '#confirmContract', function () {
 	}
 
 	console.log('contract='+contract);
-	$('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
-	$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
+
 
  	 contractDate=$('#myContracts input[name=contractDate]:checked').val();
  	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
- 	var sinceDate=$('#myContracts input[name=sinceDate]').val();
+ 	var sinceBeginDate=$('#myContracts input[name=sinceBeginDate]').val();
+ 	var sinceEndDate=$('#myContracts input[name=sinceEndDate]').val();
 	var order='';
 	if(contractDate=='1' || commandDate=='1' ){
 		order="  ORDER BY tc.id ASC LIMIT 1";
@@ -211,35 +212,45 @@ $('#myContracts').on( 'click', '#confirmContract', function () {
 		order="";
 		contractDate='';
 	}
+	$('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
+	$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
+	$(".selectpicker").selectpicker();
+	$('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
+	$('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
+	$('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
 
-	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceDate);
+	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceBeginDate,sinceEndDate);
 	document.getElementById("update_empid").value = data[0];
 
 });
 var commandArray =[];
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
-function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceDate)
+function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate)
 {
 	console.log('contractDate='+contractDate)
 	console.log('command_id='+contract)
 	console.log('contName='+contName)
-	console.log('sinceDate='+sinceDate)
+	console.log('sinceBeginDate='+sinceBeginDate)
 	var url="";
 	if(contName=="contracts"){
 		url="contracts/getEmployeeContractDetail.php"
 	}else if(contName=="commands"){
 		url="contracts/getEmployeeCommandDetail.php"
 	}
-	if(sinceDate==''){
+	if(sinceBeginDate==''){
+		sinceBeginDate = '1900-01-01';
+	}
+	if(sinceEndDate==''){
 		var d = new Date();
-		sinceDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+		sinceEndDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 	}
 	$.post(url,
 		{
 			empid: empid,
 			order: order,
 			contractDate:contractDate,
-			sinceDate:sinceDate,
+			sinceBeginDate:sinceBeginDate,
+			sinceEndDate:sinceEndDate,
 			command_id: contract.substr(1, 1),
 			contractDate:contractDate
 		},
@@ -402,6 +413,7 @@ $('#command_table').on( 'click','.download',  function () {
 });
 $('#command_table').on( 'click','.create_commmand_no',  function () {
 	console.log("create_commmand_no");
+	var that=$(this);
 	var id=   $(this).attr("data-id");
 	var contract =   $(this).attr("data-contract");
 	var empid =   $(this).attr("data-empid");
@@ -411,7 +423,11 @@ $('#command_table').on( 'click','.create_commmand_no',  function () {
 		type: "POST",
 		data: {id: id, contract:  contract.substr(1, 1), empid: empid, company_id: company_id},
 		success: function (data) {
-			console.log('DATA=',data)
+			console.log('DATA=',data);
+			$('#command_no').val(data)
+			that.closest('tr').find('.cno').html(data)
+			that.addClass('disabled');
+			console.log('cno='+that.closest('tr').find('.cno').html())
 		}
 		})
 
@@ -574,7 +590,12 @@ $(function () {
 		format: 'dd/mm/yyyy',
 		// startDate: new Date()
 	});
-	$('#sinceDate').datepicker({
+	$('#sinceBeginDate').datepicker({
+		todayHighlight: true,
+		format: 'dd/mm/yyyy',
+		// startDate: new Date()
+	});
+	$('#sinceEndDate').datepicker({
 		todayHighlight: true,
 		format: 'dd/mm/yyyy',
 		// startDate: new Date()

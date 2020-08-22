@@ -312,8 +312,8 @@ $sql_position= "select * from $tbl_employee_category";
                                 </div>
                             </div>
                         </nav>
-                        <input type='text' value='' id='company_id'>
-                        <input type='text' value='' id='company_name'>
+                        <input type='hidden' value='' id='company_id'>
+                        <input type='hidden' value='' id='company_name'>
                         <input type='hidden' value='' id='txt_id'>
                         <input type='hidden' value='' id='number_id'>
                         <!-- Small modal -->
@@ -499,16 +499,19 @@ $sql_position= "select * from $tbl_employee_category";
                                     </div>
                                 </td>
                                 <td> <span></span>
-                                    <select data-live-search="true"  style="display: none;" name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
-                                        <option  value="0">Seçin...</option>
-                                        <?php
-                                        $result_employees_view = $db->query($sql_employees);
-                                        if ($result_employees_view->num_rows > 0) {
-                                            while($row_employees= $result_employees_view->fetch_assoc()) {
-                                                ?>
-                                                <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
-                                            <?php } }?>
-                                    </select>
+<!--                                    <div class="employeesTree"  style="display: none;">-->
+                                        <select data-live-search="true"  style="display: none;" name="employee" style="font-size:14px;" title="<?php echo $dil["selectone"];?>" class="form-control "  placeholder="<?php echo $dil["employee"];?>" >
+                                            <option  value="0">Seçin...</option>
+                                            <?php
+                                            $result_employees_view = $db->query($sql_employees);
+                                            if ($result_employees_view->num_rows > 0) {
+                                                while($row_employees= $result_employees_view->fetch_assoc()) {
+                                                    ?>
+                                                    <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+                                                <?php } }?>
+                                        </select>
+<!--                                    </div>-->
+
 
                                 </td>
                                 <td>
@@ -689,6 +692,31 @@ $sql_position= "select * from $tbl_employee_category";
 
                                     </div>
                                 </div>
+                                <div class="text-center">
+                                    <!-- Button HTML (to Trigger Modal) -->
+                                    <a href="#changeRole" id="changeRoleClick" class="trigger-btn" data-toggle="modal"  style="display:none;">Click to Open Confirm Modal</a>
+                                </div>
+
+                                <!-- Modal HTML -->
+                                <div id="changeRole" class="modal fade">
+                                    <div class="modal-dialog modal-confirm">
+                                        <div class="modal-content">
+                                            <div class="modal-header flex-column">
+                                                <div class="icon-box">
+                                                    <i class="material-icons">&#xE5CD;</i>
+                                                </div>
+                                                <h4 class="modal-title w-100">Siz bu rola məxsus insanı dəyişmək istədiyinizə əminsiniz?</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Həqiqətən bu qeydləri silmək istəyirsiniz? Bu prosesi geri qaytarmaq olmaz.</p>
+                                            </div>
+                                            <div class="modal-footer justify-content-center">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">İmtina et</button>
+                                                <button type="button" class="btn btn-danger" id="changeItem">Dəyiş</button>
+                                            </div></div>
+                                    </div>
+                                </div>
 
                                 <!-- /.post -->
                             </div>
@@ -846,7 +874,7 @@ $sql_position= "select * from $tbl_employee_category";
                                         type: "POST",
                                         data: { company_id:companyId},
                                         success: function (data) {
-                                            console.log('data=' + data)
+                                            console.log('st_emp_select data=' + data)
                                             var option='<select data-live-search="true"  name="employee" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                                             option += '<option value="">Seçin..</option>';
 
@@ -861,6 +889,7 @@ $sql_position= "select * from $tbl_employee_category";
                                             console.log('option='+option)
                                             // option += '</select>';
                                             $('#employees').html(option);
+                                             // $('.employeesTree').html(option);
                                             $(".selectpicker").selectpicker();
 
                                         },

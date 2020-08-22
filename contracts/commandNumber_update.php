@@ -62,9 +62,9 @@ WHILE ($c > 0){
     $sql = "UPDATE  $tbl_employee_commands SET  
 		command_no  = '$rs'
 		WHERE id 	= '$id'";
-    echo $sql;
+    echo $rs;
     if(mysqli_query($db, $sql) ) {
-   echo "success";
+//         echo "success";
     }
     else  {
         echo "errorwww" .mysqli_error($db);

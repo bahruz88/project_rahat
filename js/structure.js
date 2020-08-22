@@ -182,9 +182,9 @@ function sagClick(number){
     $("#idst"+number).bind('contextmenu', function (e) {
 
         var id = this.id;
-        $("#txt_id").val(id);
+         $("#txt_id").val(id);
         $("#number_id").val(number);
-        console.log('number_id[='+$("#number_id").val())
+
         // var top = e.pageY+5;
         // var left = e.pageX;
         var top = e.pageY-90;
@@ -196,6 +196,10 @@ function sagClick(number){
 
         });
 
+
+
+
+
         // Disable default menu
         return false;
     });
@@ -203,6 +207,7 @@ function sagClick(number){
     $("#idemp"+number).bind('contextmenu', function (e) {
 
         var id = this.id;
+        console.log('//////////////////////////////////////////'+id)
         $("#txt_id").val(id);
         $("#number_id").val(number);
         console.log('number_id[='+$("#number_id").val())
@@ -213,6 +218,36 @@ function sagClick(number){
         $(".context-menu").toggle(100).css({
             top: top + "px",
             left: left + "px"
+        });
+        console.log('companyid[='+$(this).closest('tr').attr('data-companyid'))
+        var company_id=$(this).closest('tr').attr('data-companyid')
+        $.ajax({
+            url: 'st_emp_select.php',
+            type: "POST",
+            data: { company_id:company_id},
+            success: function (data) {
+                console.log('st_emp_select data=' + data)
+                // var option='<select data-live-search="true" style="display: none;"  name="employee" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                var option  = '<option value="">Seçin..</option>';
+
+                var row = '';
+                // $('#tablePositions').find('tbody').html('');
+                $.each($.parseJSON(data), function(k,v) {
+                    console.log('v=',v)
+                    option += '<option value="' + v.id + '" >' + v.firstname + ' '+v.lastname + ' '+v.surname + '</option>';
+
+                });
+                option+=' </select>';
+                // console.log('select #this td='+ $('#'+id).closest('td').html())
+                // console.log('select #this tr='+ $('#'+id).closest('td').find('select').html())
+                // console.log('select #employee option='+option)
+                // option += '</select>';
+                // $('#employees').html(option);
+                $('#'+id).closest('td').find('select').html(option);
+                // $('.employeesTree').html(option);
+                $(".selectpicker").selectpicker();
+
+            },
         });
 
         // Disable default menu
@@ -261,6 +296,7 @@ function sagClick(number){
             $('#'+idCont).find('select').css('display','block')
             $('#'+idCont).find('input').css('display','block')
             $('#'+idCont).find('button').css('display','block')
+
         }
 
     });
@@ -407,6 +443,7 @@ function treeClick(trList){
         console.log('tree event',$(this).attr('data-id'))
         var stId=$(this).attr('data-id')
         var company_id=$(this).closest('tr').attr('data-companyId')
+        console.log('treeClick company_id='+company_id)
         // var company_id=$('#company_id').val()
         $.ajax({
             url: 'st_selectRoles.php',
@@ -611,35 +648,51 @@ $("#confirmRole").click(function() {
         console.log('confirmRole change end_date='+end_date);
         console.log('confirmRole change posit_code='+posit_code);
         console.log('confirmRole change stId='+stId);
-        $.ajax({
-            url: 'st_insertRole.php',
-            type: "POST",
-            data: { role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
-            success: function (data) {
-                console.log('dataaaaas=' , data);
-                $('#roles').find('option[value="0"]').prop('selected', true);
-                console.log('confirmRolffffffffffe roles='+$('#roles').html());
-                $('#positionList').find('option[value="0"]').prop('selected', true);
-                $('#role_start_date').val('')
-                $('#role_end_date').val('')
-                $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
-                // $('#tablePositions').find('tbody').html('');
-                // $('#tableStructureRoles').find('tbody').html('');
+    $.ajax({
+        url: 'st_selectValidateRole.php',
+        type: "POST",
+        data: { role_id:role_id},
+        success: function (data) {
+            console.log('data='+data)
+            $('#changeRoleClick').trigger('click');
+            $('#changeItem').on('click',function(){
+                // do your stuffs with id
+                console.log('datamodal='+data)
+                // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
+                $('#changeRole').modal('hide'); // now close modal
+                $.ajax({
+                    url: 'st_insertRole.php',
+                    type: "POST",
+                    data: { role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
+                    success: function (data) {
+                        console.log('dataaaaas=' , data);
+                        $('#roles').find('option[value="0"]').prop('selected', true);
+                        console.log('confirmRolffffffffffe roles='+$('#roles').html());
+                        $('#positionList').find('option[value="0"]').prop('selected', true);
+                        $('#role_start_date').val('')
+                        $('#role_end_date').val('')
+                        $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
+                        // $('#tablePositions').find('tbody').html('');
+                        // $('#tableStructureRoles').find('tbody').html('');
 
-                fillStTable(jQuery.parseJSON(data),stId)
-                fillTreeTable(jQuery.parseJSON(data),stId)
+                        fillStTable(jQuery.parseJSON(data),stId)
+                        fillTreeTable(jQuery.parseJSON(data),stId)
 
-                Swal.fire(
-                    'Əməliyyat müvəffəqiyyətlə yerine yetirildi!',
-                    '',
-                    'success'
-                )
-                $(".selectpicker").selectpicker();
-                // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
-                // var tree = $('#tree').fancytree('getTree');
-                // tree.reload($.parseJSON(data));
-            },
+                        Swal.fire(
+                            'Əməliyyat müvəffəqiyyətlə yerine yetirildi!',
+                            '',
+                            'success'
+                        )
+                        $(".selectpicker").selectpicker();
+                        // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                        // var tree = $('#tree').fancytree('getTree');
+                        // tree.reload($.parseJSON(data));
+                    },
+                });
+            })
+            }
         });
+
     })
 });
 function fillTreeTable(data,stId){

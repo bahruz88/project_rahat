@@ -24,7 +24,8 @@ $start_date= date('Y-m-d', strtotime($start_date));
 $end_date = strtr( $end_date , '/', '-');
 $end_date= date('Y-m-d', strtotime($end_date));
 
-$users= "select * from $tbl_structure_positions WHERE posit_code = '$posit_code'";
+//$users= "select * from $tbl_structure_positions WHERE posit_code = '$posit_code'";
+$users= "select * from $tbl_structure_positions WHERE role_id = '$role_id'";
 //    echo $users;
 $result_users = $db->query($users);
 if($result_users->num_rows > 0) {
@@ -38,7 +39,7 @@ if($result_users->num_rows > 0) {
         $sql.=" percent  = '$percent', ";
     }
     $sql.="end_date  = '$end_date'
-		WHERE posit_code 	= '$posit_code'";
+		WHERE role_id 	= '$role_id'";
 //		WHERE id 	= '$id'";
 }
 else{
