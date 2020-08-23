@@ -29,8 +29,9 @@ function stClick() {
     });
 }
 
-function confirmClick(e){
+function confirmClick(companyId){
     $(document).on("click", "#confirm", function(e){
+
         $('#companyDiv').off('change', '#company');
 
         var employee=$('#employee option:selected').val()
@@ -46,7 +47,7 @@ function confirmClick(e){
 
 
         var position_level=$('#position_level option:selected').val()
-        console.log('confirm col company_id='+company_id);
+
         var st_create_date=$('#st_create_date').val()!='' ? $('#st_create_date').val() :'1900-01-01';
         var st_end_date=$('#st_end_date').val()!='' ? $('#st_end_date').val() :'9999-12-31';
 
@@ -66,12 +67,19 @@ function confirmClick(e){
             $('#position_level').find('option[value="0"]').prop('selected', true);
             $('#employee').find('option[value="0"]').prop('selected', true);
             var icon=$('#icon').val();
-            console.log('employee='+employee)
-            if(eventArray){
-                createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_ids);
+            if(companyId){
+                var company_id=companyId;
 
             }else{
-                createNew('yeni', 0, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_ids);
+                var company_id=0;
+            }
+            console.log('confirm col company_id='+companyId);
+            console.log('employee='+employee)
+            if(eventArray){
+                createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id,company_ids);
+
+            }else{
+                createNew('yeni', 0, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id,company_ids);
 
             }
             $('#st_create_date').val('')
@@ -112,7 +120,7 @@ function validate(st_create_date){
     }
     return true;
 }
-function createNew(event,data,employee,structure_level,position_level,st_create_date,st_end_date,icon,company_ids){
+function createNew(event,data,employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id,company_ids){
     // console.log('data',createRequestNumber(8))
     console.log('eventeventeventevent',event)
     console.log('data.cmd==',data.cmd)
@@ -120,7 +128,7 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
 
     var PID;
     var title;
-    var company_id=companyId;
+
 
     if (data==0){
         PID=0;
@@ -219,7 +227,7 @@ function sagClick(number){
             top: top + "px",
             left: left + "px"
         });
-        console.log('companyid[='+$(this).closest('tr').attr('data-companyid'))
+        console.log('companyid[[[[[[[[[[[[='+$(this).closest('tr').attr('data-companyid'))
         var company_id=$(this).closest('tr').attr('data-companyid')
         $.ajax({
             url: 'st_emp_select.php',
@@ -461,14 +469,14 @@ function treeClick(trList){
             async:false,
             data: {company_id: company_id},
             success: function (data) {
-                console.log('DATA11=',data)
+                console.log('st_selectEmpCompany DATA11=',data)
 
                 var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value="0">Seçin..</option>';
                 var PositArr=['']
                 $.each(jQuery.parseJSON(data), function(k,v){
                     if(jQuery.inArray( v[0], PositArr )<0){
-                        option += '<option value="'+v[0]+'"  data-stId="'+stId+'" data-empid="'+v[4]+'" data-createdate="'+v[2]+'" data-enddate="'+v[3]+'" data-fullName="'+v[1]+'" data-positcode="'+v[0]+'">'+v[0]+' '+v[1]+'</option>';
+                        option += '<option value="'+v[0]+'"  data-companyId="'+v[5]+'" data-stId="'+stId+'" data-empid="'+v[4]+'" data-createdate="'+v[2]+'" data-enddate="'+v[3]+'" data-fullName="'+v[1]+'" data-positcode="'+v[0]+'">'+v[0]+' '+v[1]+'</option>';
                         PositArr.push(v[0]);
                     }
                 });
@@ -641,6 +649,7 @@ $("#confirmRole").click(function() {
         var posit_code=$('#positionList option:selected').attr('data-positcode');
         var empid=$('#positionList option:selected').attr('data-empid');
         var stId=$('#positionList option:selected').attr('data-stId')
+        var company_id=$('#positionList option:selected').attr('data-companyId')
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
         console.log('confirmRole change role_id='+role_id);
@@ -648,22 +657,31 @@ $("#confirmRole").click(function() {
         console.log('confirmRole change end_date='+end_date);
         console.log('confirmRole change posit_code='+posit_code);
         console.log('confirmRole change stId='+stId);
+        console.log('confirmRole change company_id='+company_id);
     $.ajax({
         url: 'st_selectValidateRole.php',
         type: "POST",
-        data: { role_id:role_id},
+        data: { role_id:role_id,company_id:company_id},
         success: function (data) {
             console.log('data='+data)
-            $('#changeRoleClick').trigger('click');
-            $('#changeItem').on('click',function(){
-                // do your stuffs with id
-                console.log('datamodal='+data)
-                // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
-                $('#changeRole').modal('hide'); // now close modal
+            console.log('data.length='+jQuery.parseJSON(data).length)
+            if(jQuery.parseJSON(data).length>0){
+                $('#changeRoleClick').trigger('click');
+                $('#changeItem').on('click',function(){
+                    // do your stuffs with id
+                    console.log('datamodal='+data)
+                    // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
+                    $('#changeRole').modal('hide'); // now close modal
+                    insertRole()
+                })
+            }else{
+                insertRole()
+            }
+            function insertRole(){
                 $.ajax({
                     url: 'st_insertRole.php',
                     type: "POST",
-                    data: { role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
+                    data: { company_id:company_id,role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
                     success: function (data) {
                         console.log('dataaaaas=' , data);
                         $('#roles').find('option[value="0"]').prop('selected', true);
@@ -689,7 +707,8 @@ $("#confirmRole").click(function() {
                         // tree.reload($.parseJSON(data));
                     },
                 });
-            })
+            }
+
             }
         });
 

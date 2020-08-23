@@ -865,9 +865,10 @@ $sql_position= "select * from $tbl_employee_category";
                                     $('#structureQuery').css('display','none')
                                     $(document).off('click', '#pozisya');
                                     $(document).off('click', '#struktur');
-                                    // var company_id=$('#company_id').val();
+                                    var companyId=data.node.parent.data.company_id;;
 
-
+                                    console.log('pozisya clickc companyId='+companyId)
+                                    console.log('pozisya clickc dataArray=',dataArray)
 
                                     $.ajax({
                                         url: 'st_emp_select.php',
@@ -1390,6 +1391,7 @@ $sql_position= "select * from $tbl_employee_category";
                     var node = $.ui.fancytree.getNode(ui.target);
                     companyId=ui.target.closest('tr').attr('data-companyId')
                     console.log('node=',node)
+                    console.log('companyId='+companyId)
                     $("#tree").contextmenu(
                         "enableEntry",
                         "paste",

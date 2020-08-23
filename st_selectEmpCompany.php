@@ -24,6 +24,7 @@ if($result_employees) {
                 $sub_array[] = $row_employees['create_date'];
                 $sub_array[] = $row_employees['end_date'];
                 $sub_array[] = $row_employees['emp_id'];
+                $sub_array[] = $row_employees['company_id'];
                 $data[]=$sub_array;
             }
 
