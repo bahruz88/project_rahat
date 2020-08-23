@@ -37,7 +37,7 @@ $needle = ',';
  }
 
 
-$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,tec.company_id company_id,teco.company_name company,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
+$users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,tec.company_id company_id,teco.company_name company,teco.enterprise_head_fullname,teco.enterprise_head_position,teco.address company_address,teco.tel company_tel,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
 from $tbl_employee_category tec
 LEFT join $tbl_employees te on te.id=tec.emp_id 
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
@@ -78,6 +78,10 @@ if($result_users){
             }else{
                 $sub_array[] = $haystack;
             }
+            $sub_array[] = $row_users['enterprise_head_fullname'];
+            $sub_array[] = $row_users['enterprise_head_position'];
+            $sub_array[] = $row_users['company_address'];
+            $sub_array[] = $row_users['company_tel'];
             $data[]     = $sub_array;
         }
     }
@@ -106,6 +110,10 @@ function createArray($arrC){
         $arrCh['posit_icon'] = $arrCh[15];
         $arrCh['company_id'] = $arrCh[16];
         $arrCh['company_ids'] = $arrCh[17];
+        $arrCh['enterprise_head_fullname'] = $arrCh[18];
+        $arrCh['enterprise_head_position'] = $arrCh[19];
+        $arrCh['company_address'] = $arrCh[20];
+        $arrCh['company_tel'] = $arrCh[21];
 //        $arrCh['children'] = $arrCh[5];
         $arrCh['expanded'] = true;
         if(substr($arrCh[6],0,1)=="P"){
@@ -135,6 +143,10 @@ function createArray($arrC){
             unset($arrCh[15]);
             unset($arrCh[16]);
             unset($arrCh[17]);
+            unset($arrCh[18]);
+            unset($arrCh[19]);
+            unset($arrCh[20]);
+            unset($arrCh[21]);
         }
         $arrChil[]=$arrCh;
     }
