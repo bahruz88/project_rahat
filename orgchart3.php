@@ -197,14 +197,10 @@
  <script type="text/javascript" src="js/employee.js"></script>
 <script src="js/jquery.orgchart.js"></script>
 <script type='text/javascript'>
-    var company_id=''
-    var company_name=''
     $('#companyDiv').on( 'change','#company',  function () {
         console.log("company CHANGE")
         if($(this).find('option:selected').val()!="0"){
-            company_id=$(this).find('option:selected').val()
-            company_name=$(this).find('option:selected').text()
-            load(company_id)
+            load($(this).find('option:selected').val())
         }
     })
 
@@ -221,7 +217,7 @@
             success:function(data){
                 console.log('data='+data)
                 members=$.parseJSON(data)
-                $('#companyDiv').css('display','none')
+                // $('#companyDiv').css('display','none')
             },
             // error: function(xhr, ajaxOptions, thrownError) {
             //   console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -237,21 +233,8 @@
                 console.log('member.otherInfo=',member[0])
                 var fullname= member[3]?  member[3] :'';
 
-
-                $("#mainContainer").append("<li id="+company_id+"><div class='structureName'>"+company_name+"</div></li>")
-                $('#'+company_id).append("<ul id='pr_null'></ul>");
-
                 if(member[1]==null){
-                    console.log('ss')
-                    // $('#'+company_name).append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-                    // $('#'+company_id).append("<ul id='pr_"+member[1]+member[0]+"'><li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li></ul>")
-                    // $('#'+company_id).append("<ul id='pr_"+member[1]+member[0]+"'><li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li></ul>")
-                    $('#pr_null').append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-
-
-                    console.log('company_id='+company_id)
-                    console.log('sscompany_name='+$('#'+company_id).html())
-
+                    $("#mainContainer").append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
                 }else{
 
                     if($('#pr_'+member[1]).length<=0){
