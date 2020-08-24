@@ -208,7 +208,7 @@ Mandatory in IE 6, 7, 8 and 9.
   </div>
 
 <div class="modal fade" id="whichDate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <!--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
@@ -221,7 +221,7 @@ Mandatory in IE 6, 7, 8 and 9.
                     <!--                    <label class="col-sm-4 col-form-label" for="contracts">--><?php //echo $dil["contracts"];?><!--</label>-->
                     <div class="col-sm-12">
                         <label class="col-sm-12 col-form-label" for="selectDate">Zəhmət olmasa tarix seçin</label>
-                        <input type="text" class="form-control" id="selectDate" name="selectDate" placeholder="0000-00-00" />
+                        <input type="text" style="width:120px;" class="form-control" id="selectDate" name="selectDate" placeholder="0000-00-00" />
 
                     </div>
                 </div>
