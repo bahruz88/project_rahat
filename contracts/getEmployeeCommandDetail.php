@@ -3,7 +3,12 @@
  $empid = $_POST['empid'];
 $order = $_POST['order'];
 
-$contractDate = $_POST['contractDate'];
+//$contractDate = $_POST['contractDate'];
+$contractDate ='3';
+if (isset($_POST['contractDate']))
+{
+    $contractDate = $_POST['contractDate'];
+}
 $command_id = $_POST['command_id'];
 $sinceBeginDate = $_POST['sinceBeginDate'];
 $sinceEndDate = $_POST['sinceEndDate'];

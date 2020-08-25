@@ -688,8 +688,8 @@ $("#confirmRole").click(function() {
                         // $('#tablePositions').find('tbody').html('');
                         // $('#tableStructureRoles').find('tbody').html('');
 
-                        fillStTable(jQuery.parseJSON(data),stId)
-                        fillTreeTable(jQuery.parseJSON(data),stId)
+                         fillStTable(jQuery.parseJSON(data),stId)
+                        //fillTreeTable(jQuery.parseJSON(data),stId)
 
                         Swal.fire(
                             'Əməliyyat müvəffəqiyyətlə yerine yetirildi!',

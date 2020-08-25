@@ -80,9 +80,9 @@ Mandatory in IE 6, 7, 8 and 9.
                                 <label class="col-sm-12 col-form-label" for="contracts">Hansı tarixdəki sənədi çap etmək istəyirsiniz?</label>
 
                                 <fieldset >
-                                    <input type="radio" value="1" name="contractDate">&nbsp; <label for="">İlkin</label><br/>
-                                    <input type="radio" value="2" name="contractDate">&nbsp;<label for="">Son</label><br/>
-                                    <input type="radio" value="3" name="contractDate">&nbsp;<label for="">Digər</label>
+                                    <input type="radio" value="1" name="contractDate" class="contractDate">&nbsp; <label for="">İlkin</label><br/>
+                                    <input type="radio" value="2" name="contractDate" class="contractDate">&nbsp;<label for="">Son</label><br/>
+                                    <input type="radio" value="3" name="contractDate" class="contractDate">&nbsp;<label for="">Digər</label>
                                 </fieldset>
                             </div>
                         </div>
@@ -172,7 +172,7 @@ Mandatory in IE 6, 7, 8 and 9.
 <!--                        <div id="previewImage"  style="display: none">-->
 <!---->
 <!--                        </div>-->
-
+<!--                        <button type="button" class="btn btn-primary" id="confirmContract">Axtar</button>-->
 
                     </div>
 
@@ -194,7 +194,7 @@ Mandatory in IE 6, 7, 8 and 9.
 
 		</div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="confirmContract">Təsdiq</button>
+<!--            <button type="button" class="btn btn-primary" id="confirmContract">Təsdiq</button>-->
 
 
             <!--		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up">--><?php //echo $dil["save"];?><!--</button>-->

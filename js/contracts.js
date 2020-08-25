@@ -115,16 +115,16 @@ $( "#employeeUpdate" ).validate( {
 
 
 
- var contract='';
- var contName='';
+var contract='';
+var contName='';
 
 
 $('#myContracts').on( 'click', 'input[name=contractSelect]', function () {
 	console.log('contractSelect'+$(this).val());
- 	// $('#myContracts').find("input[name='contractDate']:checked").removeAttr("checked");
- 	$('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
- 	$('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
-
+	// $('#myContracts').find("input[name='contractDate']:checked").removeAttr("checked");
+	$('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
+	$('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
+	$("table#command_table tbody").html('');
 	if($(this).val()=='1'){
 		$('#contractsDiv').css('display','block');
 		$('#commandsDiv').css('display','none');
@@ -132,7 +132,9 @@ $('#myContracts').on( 'click', 'input[name=contractSelect]', function () {
 		$('#myContracts').find('#commandsDate').css('display','none')
 		// $('#myContracts').find('#contractsDate').css('display','block')
 		$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
-		contName="contracts"
+		contName="contracts";
+		$('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
+		$(".selectpicker").selectpicker();
 
 	}else {
 		$('#contractsDiv').css('display','none');
@@ -140,7 +142,9 @@ $('#myContracts').on( 'click', 'input[name=contractSelect]', function () {
 		$('#myContracts').find('#commandsDate').css('display','flex')
 		$('#myContracts').find('#contractsDate').css('display','none')
 		$('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
-		contName="commands"
+		contName="commands";
+		$('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
+		$(".selectpicker").selectpicker();
 	}
 
 
@@ -163,6 +167,7 @@ $('#myContracts').on( 'click', '#closeContract', function () {
 
 
 })
+
 $('#myContracts').on( 'change', '#contracts', function () {
 	console.log("contracts CHANGE")
 	if($(this).find('option:selected').val()!="1"){
@@ -171,11 +176,26 @@ $('#myContracts').on( 'change', '#contracts', function () {
 		$('#contractsDate').css("display",'block')
 	}
 })
-$('#myContracts').on( 'click', '#confirmContract', function () {
+
+
+
+// $('#myContracts').on( 'click', '#confirmContract', function () {
+// $('#myContracts').on( 'change', '#confirmContract,input[name=contractDate], #sinceBeginDate,#sinceEndDate', function () {
+// $('#myContracts').on( 'click', 'input[name=contractDate]', function () {
+// 	$('input:radio[name=contractDate]:checked').change(function () {
+// 	$('input:radio[name=commandDate]:checked').change(function () {
+// 	changeAttr()
+// })
+$('input:radio[name=commandDate],input:radio[name=contractDate],#confirmContract, #sinceBeginDate, #sinceEndDate, #commands').on('change', function() {
+	console.log('change'+$(this).attr('name'))
+	changeAttr()
+
+});
+function changeAttr(){
 	var contractDate='';
 	$("table#command_table tbody").html('');
 	contract='';
- 	if($('#myContracts').find('#commands').find('option:selected').val()!="0"){
+	if($('#myContracts').find('#commands').find('option:selected').val()!="0"){
 		contract=$('#myContracts').find('#commands option:selected').val();
 
 	}else
@@ -183,14 +203,12 @@ $('#myContracts').on( 'click', '#confirmContract', function () {
 		contract=$('#myContracts').find('#contracts').find('option:selected').val();
 
 	}
-
 	console.log('contract='+contract);
 
-
- 	 contractDate=$('#myContracts input[name=contractDate]:checked').val();
- 	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
- 	var sinceBeginDate=$('#myContracts input[name=sinceBeginDate]').val();
- 	var sinceEndDate=$('#myContracts input[name=sinceEndDate]').val();
+	contractDate=$('#myContracts input[name=contractDate]:checked').val();
+	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
+	var sinceBeginDate=$('#myContracts input[name=sinceBeginDate]').val();
+	var sinceEndDate=$('#myContracts input[name=sinceEndDate]').val();
 	var order='';
 	if(contractDate=='1' || commandDate=='1' ){
 		order="  ORDER BY tc.id ASC LIMIT 1";
@@ -212,17 +230,16 @@ $('#myContracts').on( 'click', '#confirmContract', function () {
 		order="";
 		contractDate='';
 	}
-	$('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
-	$('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
-	$(".selectpicker").selectpicker();
-	$('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
-	$('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
-	$('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
+	// $('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
+	// $('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
+	// $(".selectpicker").selectpicker();
+	// $('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
+	// $('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
+	// $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
 
 	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceBeginDate,sinceEndDate);
 	document.getElementById("update_empid").value = data[0];
-
-});
+}
 var commandArray =[];
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
 function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate)
@@ -259,7 +276,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 			// PARSE json data
 			console.log('emp_data=',emp_data)
 			// console.log('count=',emp_data.length)
-			 commandArray = emp_data;
+			commandArray = emp_data;
 			var employee = JSON.parse(emp_data);
 			var countEmp=employee.length;
 			var employeeMem=[]
@@ -296,6 +313,8 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 			$("table#command_table").css("display","inline-table");
 			if(contName=="contracts") {
 				$(".cno").css("display", "none");
+			}else{
+				$(".cno").css("display", "table-cell");
 			}
 
 
@@ -327,7 +346,7 @@ $('#employees').on( 'change','#company',  function () {
 			// $('#tablePositions').find('tbody').html('');
 			$.each($.parseJSON(data), function(k,v) {
 				console.log('v=',v[1])
-					option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
+				option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
 
 			});
 			option+=' </select>';
@@ -336,8 +355,8 @@ $('#employees').on( 'change','#company',  function () {
 			$('#contract_emp').html(option);
 			$(".selectpicker").selectpicker();
 
-			}
-		})
+		}
+	})
 });
 var company_id='';
 var code='';
@@ -372,7 +391,7 @@ $('#employees').on( 'click','#searchContract',  function () {
 					'<td>'+value.firstname+'</td>'+
 					'<td>'+value.lastname+'</td>'+
 					'<td>'+value.surname+'</td>'+
-					'<td>'+value.position_level+'</td>';
+					'<td>'+value.posit+'</td>';
 
 
 
@@ -393,9 +412,9 @@ $('#employees').on( 'click','#searchContract',  function () {
 var data;
 $('#emp_table').on( 'click','.contractShow',  function () {
 	console.log('contractShow');
-		$('#myContracts').modal('show');
-		data =   $(this).attr("data-empid")
-		// data =   $('#empid').find('option:selected').val()
+	$('#myContracts').modal('show');
+	data =   $(this).attr("data-empid")
+	// data =   $('#empid').find('option:selected').val()
 
 });
 
@@ -404,9 +423,9 @@ var contractDownload ='';
 $('#command_table').on( 'click','.download',  function () {
 
 
-		 idDownload =   $(this).attr("data-empid");
-		 contractDownload =   $(this).attr("data-contract");
-		$('#whichDate').modal('show');
+	idDownload =   $(this).attr("data-empid");
+	contractDownload =   $(this).attr("data-contract");
+	$('#whichDate').modal('show');
 
 
 
@@ -429,7 +448,7 @@ $('#command_table').on( 'click','.create_commmand_no',  function () {
 			that.addClass('disabled');
 			console.log('cno='+that.closest('tr').find('.cno').html())
 		}
-		})
+	})
 
 })
 
@@ -516,7 +535,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#military_date_completion").val(value.military_date_completion);
 
 			}
-			 else{
+			else{
 
 				if(value.memberType){
 					var mem='<div class="m'+value.member_type +'" data_memType="'+value.memberType +'"><input type="hidden" class="form-control" id="memberType" name="memberType" value="'+value.memberType +'"   />\n' +
@@ -528,10 +547,10 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 					console.log('mem='+mem)
 					$('#member').append(mem);
 
-				 }
-			 }
-
+				}
 			}
+
+		}
 	});
 	if(contract=='1'){
 		generate("emek2")

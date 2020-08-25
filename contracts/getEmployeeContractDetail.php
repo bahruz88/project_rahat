@@ -1,13 +1,17 @@
 <?php
  include('../session.php');  
  $empid = $_POST['empid'];
-$order = $_POST['order'];
 
-$contractDate ='';
+
+$contractDate ='3';
+$order="";
 if (isset($_POST['contractDate']))
 {
     $contractDate = $_POST['contractDate'];
+    $order = $_POST['order'];
 }
+$id1=0;
+$id2=0;
 $company_name_2= '';
 $voen_2= '';
 $enterprise_head_position_2= '';
@@ -67,6 +71,7 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 
 }
 else{
+
     $sql_id1 = "select id from $tbl_contracts 
   where  emp_id='$empid' ORDER BY id ASC LIMIT 1";
     $result = $db->query($sql_id1);
@@ -88,13 +93,18 @@ else{
             }
         }
     }
-
+if($id1==0 || $id2==0){
+    $sql_emp_contracts ="select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
+ from $tbl_contracts tc
+LEFT join $tbl_employees te on te.id=tc.emp_id
+  where  tc.emp_id='$empid'";
+}else{
     $sql_emp_contracts ="select tc.*,te.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
  from $tbl_contracts tc
 LEFT join $tbl_employees te on te.id=tc.emp_id
   where  tc.emp_id='$empid' and tc.id!='$id1' and tc.id!='$id2'";
-//    LEFT join $tbl_employee_family_info tefi on tefi.emp_id=te.id
-//LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type
+}
+
 }
 
 
