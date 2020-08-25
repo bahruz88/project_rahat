@@ -357,6 +357,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                     </select>
                                                 </div>
                                             </div>
+                                            <input type="hidden" id="companyId">
 
                                             <div class="form-group row"  id="positionQuery">
                                                 <label class="col-sm-12 col-form-label" for="position_level"><?php echo $dil["position_level"];?></label>
@@ -841,6 +842,14 @@ $sql_position= "select * from $tbl_employee_category";
 
                                 eventArray=event;
                                 dataArray=data;
+                                if(data.node.parent.data.company_id){
+                                    var companyId=data.node.parent.data.company_id;
+                                }else{
+                                    var companyId=data.node.parent.children[0].data.company_id;
+                                }
+                                $('#companyId').val(companyId);
+
+                                console.log('struktur clickc companyId='+companyId)
                                 $(document).on('click', '#struktur', function(e) {
                                     console.log('a2')
                                     $('#query').css('display','none')
@@ -865,7 +874,6 @@ $sql_position= "select * from $tbl_employee_category";
                                     $('#structureQuery').css('display','none')
                                     $(document).off('click', '#pozisya');
                                     $(document).off('click', '#struktur');
-                                    var companyId=data.node.parent.data.company_id;;
 
                                     console.log('pozisya clickc companyId='+companyId)
                                     console.log('pozisya clickc dataArray=',dataArray)

@@ -31,7 +31,6 @@ function stClick() {
 
 function confirmClick(companyId){
     $(document).on("click", "#confirm", function(e){
-
         $('#companyDiv').off('change', '#company');
 
         var employee=$('#employee option:selected').val()
@@ -45,9 +44,7 @@ function confirmClick(companyId){
             var company_ids='0,'+$('#company_id').val()
         }
 
-
         var position_level=$('#position_level option:selected').val()
-
         var st_create_date=$('#st_create_date').val()!='' ? $('#st_create_date').val() :'1900-01-01';
         var st_end_date=$('#st_end_date').val()!='' ? $('#st_end_date').val() :'9999-12-31';
 
@@ -67,13 +64,11 @@ function confirmClick(companyId){
             $('#position_level').find('option[value="0"]').prop('selected', true);
             $('#employee').find('option[value="0"]').prop('selected', true);
             var icon=$('#icon').val();
-            if(companyId){
-                var company_id=companyId;
 
-            }else{
-                var company_id=0;
-            }
-            console.log('confirm col company_id='+companyId);
+            var company_id=$('#companyId').val();
+
+
+            console.log('confirm col company_id='+company_id);
             console.log('employee='+employee)
             if(eventArray){
                 createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id,company_ids);
