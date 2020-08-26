@@ -167,7 +167,7 @@ $result_commands = $db->query($commands);
                                 </div>
                             </div>
 
-                            <button id="searchContract">Axtar</button>
+<!--                            <button id="searchContract">Axtar</button>-->
 
                         </div>
 
@@ -205,10 +205,10 @@ $result_commands = $db->query($commands);
         </div>
     </div>
     <!-- /.content-wrapper -->
-    <?php  include ("footer.php"); ?>
 
 
-</div>
+
+</div>  <?php  include ("footer.php"); ?>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
