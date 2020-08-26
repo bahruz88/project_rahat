@@ -362,7 +362,9 @@ var company_id='';
 var code='';
 var position='';
 var empid='';
-$('#employees').on( 'click','#searchContract',  function () {
+ // $('#employees').on( 'click','#searchContract',  function () {
+$('#employees').on( 'change','#company,#code,#empid,#position_level',  function () {
+	// searchPerson();
 	console.log('company');
 	// $('#whichContracts').modal('show');
 	company_id=$('#company').find('option:selected').val();
