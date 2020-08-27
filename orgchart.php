@@ -61,9 +61,12 @@
         body {
             width: auto !important;
         }
+        .line_center{
+            width:50% !important;
+        }
     </style>
     <script type='text/javascript' src='js/jquery.js'></script>
-    <script src="js/jquery.orgchart.js"></script>
+    <script src="https://balkangraph.com/js/latest/OrgChart.js"></script>
 
 
 
@@ -131,17 +134,7 @@
     </div>
 
 
-    <div  style="display: none">
-
-
-        <ul id="mainContainer" class="clearfix">
-<!--            <li id="+member[0]+"><div class='structureName'>Muessise</div><div class='fullName'></div></li>-->
-        </ul>
-
-    </div>
-    <div id="main">
-
-    </div>
+    <div id="tree"></div>
 </div>
 		  
 
@@ -205,78 +198,48 @@
             company_id=$(this).find('option:selected').val()
             company_name=$(this).find('option:selected').text()
             $("#mainContainer").html("")
-            load(company_id)
+            load(company_id,company_name)
         }
-    })
-
-
-    function load(company_id){
-
-
+    });
+    function load(company_id,company_name){
         var members;
         $.ajax({
-            url:'load.php',
+            url:'loadorg.php',
             async:false,
             type: "POST",
             data: { company_id:company_id},
             success:function(data){
-                console.log('data='+data)
-                members=$.parseJSON(data)
-                // $('#companyDiv').css('display','none')
+                console.log('data='+data);
+                members=$.parseJSON(data);
+                var member=[];
+                member.push({ id: 0, name: company_name })
+                $.each(members,function(k,v){
+                    console.log('v=',v);
+                    if(v.pid){
+                        member.push({ id: v.id,pid:v.pid, name: v.name, title: v.title })
+                    }else{
+                        member.push({ id: v.id,pid:0, name: v.name, title: v.title })
+                    }
+
+                })
+                console.log('members=',members);
+                console.log('member=',member);
+                var chart = new OrgChart(document.getElementById("tree"), {
+                    enableDragDrop: false,
+                    enableSearch: false,
+                    // showYScroll: false,
+                    //showXScroll: false,
+                    mouseScrool: false,
+                    nodeMouseClick: false,
+                    nodeBinding: {
+                        field_0: "name",
+                        field_1: "title"
+                    },
+                    nodes:member
+                });
             },
-            // error: function(xhr, ajaxOptions, thrownError) {
-            //   console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            // }
         });
-
-        //memberId,parentId,otherInfo
-        if(members){
-            console.log('members=',members)
-            for(var i = 0; i < members.length; i++){
-
-                var member = members[i];
-                console.log('member.otherInfo=',member[0])
-                var fullname= member[3]?  member[3] :'';
-
-
-                $("#mainContainer").append("<li id="+company_id+"><div class='structureName'>"+company_name+"</div></li>")
-                $('#'+company_id).append("<ul id='pr_null'></ul>");
-
-                if(member[1]==null){
-                    console.log('ss')
-                    // $('#'+company_name).append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-                    // $('#'+company_id).append("<ul id='pr_"+member[1]+member[0]+"'><li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li></ul>")
-                    // $('#'+company_id).append("<ul id='pr_"+member[1]+member[0]+"'><li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li></ul>")
-                    $('#pr_null').append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-
-
-                    console.log('company_id='+company_id)
-                    console.log('sscompany_name='+$('#'+company_id).html())
-
-                }else{
-
-                    if($('#pr_'+member[1]).length<=0){
-                        $('#'+member[1]).append("<ul id='pr_"+member[1]+"'><li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li></ul>")
-                    }
-                    else{
-                        $('#pr_'+member[1]).append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-                    }
-
-                }
-
-            }
-
-        }
-
-
-
-
-
-
-        $("#mainContainer").orgChart({container: $("#main"),interactive: true, fade: true, speed: 'slow'});
-
     }
-
 
 </script>
 </body>
