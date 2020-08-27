@@ -1,3 +1,6 @@
+<?php
+include('session.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,96 +11,98 @@
   
   <script type='text/javascript' src='js/jquery.js'></script>
   <link rel="stylesheet" href="css/demo.css"/>
-  <link rel="stylesheet" href="css/jquery.orgchart.css"/>
     <style>
-        div.orgChart div.node {
-            padding: 4px 4px;
-            width: auto !important;
-            height:auto !important;
-            min-height: 30px !important;
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
-            min-width: 100px !important;
+        #tree {
+            width: 100%;
+            height: 100%;
         }
-        .fullName{
-            margin-top: 10px;
-            font-size:14px;
-            color:#1a252fc9;
-        }
-        .structureName{
-            font-size:20px;
-            font-weight: 700;
-        }
+
     </style>
-  <script src="js/jquery.orgchart.js"></script>
-   <script type='text/javascript'>
-$(function(){
-var members;
-$.ajax({
-	url:'load.php',
-	async:false,
-	success:function(data){
-	  console.log('data='+data)
-		 members=$.parseJSON(data)
-	},
-  // error: function(xhr, ajaxOptions, thrownError) {
-  //   console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-  // }
-});
 
-		//memberId,parentId,otherInfo
-  if(members){
-      console.log('members=',members)
-    for(var i = 0; i < members.length; i++){
-
-      var member = members[i];
-        console.log('member.otherInfo=',member)
-        var fullname= member[3]?  member[3] :'';
-
-      if(i==0){
-        $("#mainContainer").append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-      }else{
-
-        if($('#pr_'+member[1]).length<=0){
-          $('#'+member[1]).append("<ul id='pr_"+member[1]+"'><li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li></ul>")
-        }
-        else{
-          $('#pr_'+member[1]).append("<li id="+member[0]+"><div class='structureName'>"+member[2]+"</div><div class='fullName'>"+fullname+"</div></li>")
-        }
-
-      }
-
-    }
-
-  }
-
-
-					
-
-
-    
-	$("#mainContainer").orgChart({container: $("#main"),interactive: true, fade: true, speed: 'slow'});	
-
-});
-
-
-</script>
-
-
+    <script src="https://balkangraph.com/js/latest/OrgChart.js"></script>
 </head>
 <body>
-<div  style="display: none">
+<div id="companyDiv">
+    <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
+    <div class="col-sm-6">
+        <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
+            <option  value="" >Seçin...</option>
 
-
-    <ul id="mainContainer" class="clearfix"></ul>
-  	
+            <?php
+            $result_company = $db->query($sql_employee_company);
+            if ($result_company->num_rows > 0) {
+                while($row_company= $result_company->fetch_assoc()) {
+                    ?>
+                    <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                <?php } }?>
+        </select>
+    </div>
 </div>
-<div id="main">
-	
-</div>
+<div id="tree"></div>
   
   
 </body>
+<script type='text/javascript'>
+    var company_id=''
+    var company_name=''
+    $('#companyDiv').on( 'change','#company',  function () {
+        console.log("company CHANGE")
+        if($(this).find('option:selected').val()!="0"){
+            company_id=$(this).find('option:selected').val()
+            company_name=$(this).find('option:selected').text()
+            $("#mainContainer").html("")
+            load(company_id,company_name)
+        }
+    });
+    function load(company_id,company_name){
+        var members;
+        $.ajax({
+            url:'loadorg.php',
+            async:false,
+            type: "POST",
+            data: { company_id:company_id},
+            success:function(data){
+                console.log('data='+data);
+                members=$.parseJSON(data);
+                var member=[];
+                member.push({ id: 0, name: company_name })
+                $.each(members,function(k,v){
+                    console.log('v=',v);
+                    if(v.pid){
+                        member.push({ id: v.id,pid:v.pid, name: v.name, title: v.title })
+                    }else{
+                        member.push({ id: v.id,pid:0, name: v.name, title: v.title })
+                    }
 
+                })
+                console.log('members=',members);
+                console.log('member=',member);
+                var chart = new OrgChart(document.getElementById("tree"), {
+                    enableDragDrop: true,
+                    enableSearch: false,
+                    // showYScroll: false,
+                    //showXScroll: false,
+                     mouseScrool: false,
+                    nodeMouseClick: false,
+                    nodeBinding: {
+                        field_0: "name",
+                        field_1: "title"
+                    },
+                    nodes:member
+                });
+            },
+        });
+    }
+
+</script>
 
 </html>
 
