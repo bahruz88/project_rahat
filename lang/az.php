@@ -279,5 +279,6 @@ $dil = array(
     "contracts_commands"   =>"Müqavilələr və Əmrlər",
     "commands"   =>"Əmrlər",
     "structure_names"   =>"Struktur bölmələrin adı və vəzifələr",
+    "ovr_input_title"   =>"Əlavə iş vaxtının sazlanması",
 );
 ?>
