@@ -245,6 +245,44 @@
               <li class="nav-item">        
             </ul>
           </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-sitemap"></i>
+                    <p>
+                        Payroll
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="salaryInformation.php" class="nav-link">
+
+                            <p>Əmək Haqqı məlumatları</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a href="orgchart.php" class="nav-link">
+
+                            <p>Əmək haqqı cədvəli</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a href="staff.php" class="nav-link">
+
+                            <p>Ştat cədvəli</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pages/charts/flot.html" class="nav-link">
+
+                            <p>İş yeri barədə</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                </ul>
+            </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>

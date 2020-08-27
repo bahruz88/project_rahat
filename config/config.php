@@ -48,6 +48,7 @@ $db->set_charset('utf8');
    $tbl_sch_reduce_from='tbl_sch_reduce_from';
    $tbl_sch_reduce_reason='tbl_sch_reduce_reason';
    $tbl_schedules='tbl_schedules';
+   $tbl_position_status='tbl_position_status';
    $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
    $sql_roles = "select * from $tbl_roles where status=1 order  by position";				
    $sql_qua_dic = "select * from $tbl_qualification_dic ";

@@ -279,5 +279,18 @@ $dil = array(
     "contracts_commands"   =>"Müqavilələr və Əmrlər",
     "commands"   =>"Əmrlər",
     "structure_names"   =>"Struktur bölmələrin adı və vəzifələr",
+
+
+
+    "tariffRate"   =>"Tarif dərəcəsi",
+    "positionStatus"   =>"Vəzifə statusu",
+    "wage"   =>"Vəzifə maaşı",
+    "additionsDeductionsSalary"   =>"Vəzifə maaşına əlavə və kəsintilər",
+    "totalMonthlySalary"   =>"Aylıq  toplam maaşı",
+    "prizeAmount"   =>"Mükafat məbləği",
+    "rewardPeriod"   =>"Mükafat dövrü",
+    "placeExpenditure"   =>"Məsrəf yeri",
+    "salaryChangeReason"   =>"Maaşın dəyişmə səbəbi",
+    "otherConditions"   =>"Tərəflərin əmək haqqının ödənilməsi barədə razılığa gəldikləri digər şərtlər",
 );
 ?>
