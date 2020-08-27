@@ -19,8 +19,8 @@ include('../session.php') ;
 	$birth_date_fam_info= date('Y-m-d', strtotime($birth_date_fam_info));
 	
 	
-    $sql = " INSERT INTO $tbl_employee_family_info (id, emp_id, member_type, m_firstname, m_lastname, m_surname, gender, birth_date, contact_number, adress, status) 
-	VALUES (NULL, '$employee', '$family_member_type', '$firstname', '$lastname', '$surname', '$gender', '$birth_date_fam_info', '$contact_number', '$living_address', '1');";
+    $sql = " INSERT INTO $tbl_employee_family_info (id, emp_id, member_type, m_firstname, m_lastname, m_surname, gender, birth_date, contact_number, adress, status,insert_user) 
+	VALUES (NULL, '$employee', '$family_member_type', '$firstname', '$lastname', '$surname', '$gender', '$birth_date_fam_info', '$contact_number', '$living_address', '1','$uid')";
 
 
   if(!mysqli_query($db, $sql)) {
