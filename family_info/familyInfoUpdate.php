@@ -26,7 +26,8 @@ include('../session.php') ;
 		birth_date = '$edit_birth_date_fam_info_name',
 		contact_number = '$edit_contact_number',
 		adress = '$edit_living_address_name',
-		update_date = '$update_date' 
+		update_date = '$update_date', 
+		update_user='$uid'
 		WHERE id 	= '$update_faminfoid_name' ";
   
 	if(mysqli_query($db, $sql) ) {
