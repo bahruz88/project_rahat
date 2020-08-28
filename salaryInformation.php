@@ -13,6 +13,11 @@ $sql_employee= "select * from $tbl_employees where  emp_status=1";
 
 $commands= "select * from tbl_commands";
 $sql_position_status= "select * from $tbl_position_status";
+<<<<<<< HEAD
+=======
+$sql_additions_salary= "select * from $tbl_additions_salary";
+$sql_place_expenditure= "select * from $tbl_place_expenditure";
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
 $result_commands = $db->query($commands);
 //$sql_employees= "select * from $tbl_employees where  emp_status=1 ";
 ?>
@@ -106,8 +111,13 @@ $result_commands = $db->query($commands);
                     <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
                         <div class="tab-pane active" id="employees" style="padding: 10px;">
                             <div class="form-group row">
+<<<<<<< HEAD
                                 <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
                                 <div class="col-sm-6">
+=======
+                                <label class="col-sm-2 col-form-label" for="company"><?php echo $dil["company"];?></label>
+                                <div class="col-sm-4">
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
                                     <select data-live-search="true"  name="company" id='company' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
                                         <option  value="" >Seçin...</option>
 
@@ -120,6 +130,7 @@ $result_commands = $db->query($commands);
                                             <?php } }?>
                                     </select>
                                 </div>
+<<<<<<< HEAD
                             </div>
 
 
@@ -127,6 +138,11 @@ $result_commands = $db->query($commands);
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="empid"><?php echo $dil["employee"];?></label>
                                 <div class="col-sm-6" id="contract_emp">
+=======
+
+                                <label class="col-sm-2 col-form-label text-right" for="empid"><?php echo $dil["employee"];?></label>
+                                <div class="col-sm-4" id="contract_emp">
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
                                     <select data-live-search="true"  name="empid"  id="empid" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>">
                                         <?php
                                         $result_employees_view = $db->query($sql_employee);
@@ -166,7 +182,11 @@ $result_commands = $db->query($commands);
                     </div>
 
                     <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
+<<<<<<< HEAD
                         <div class="tab-pane active" id="salary" style="padding: 10px;">
+=======
+                       <div class="tab-pane active" id="salary" style="padding: 10px;">
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
 
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="tariffRate"><?php echo $dil["tariffRate"];?></label>
@@ -213,6 +233,7 @@ $result_commands = $db->query($commands);
                             </div>
 
                             <div class="form-group row">
+<<<<<<< HEAD
                                 <label class="col-sm-4 col-form-label" for="additionsDeductionsSalary"><?php echo $dil["additionsDeductionsSalary"];?></label>
                                 <div class="col-sm-6">
                                     <select data-live-search="true"  name="additionsDeductionsSalary"  id="additionsDeductionsSalary" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["additionsDeductionsSalary"];?>">
@@ -227,14 +248,34 @@ $result_commands = $db->query($commands);
                                     <select data-live-search="true"  name="totalMonthlySalary"  id="totalMonthlySalary" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["totalMonthlySalary"];?>">
                                         <option value="0">sss</option>
                                     </select>
+=======
+                                <label class="col-sm-4 col-form-label" for="totalMonthlySalary"><?php echo $dil["totalMonthlySalary"];?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="totalMonthlySalary" name="totalMonthlySalary"   placeholder="<?php echo $dil["totalMonthlySalary"];?>" />
+
+
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="prizeAmount"><?php echo $dil["prizeAmount"];?></label>
+<<<<<<< HEAD
                                 <div class="col-sm-6">
                                     <select data-live-search="true"  name="prizeAmount"  id="prizeAmount" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["prizeAmount"];?>">
                                         <option value="0">sss</option>
+=======
+
+                                <div class="col-sm-1">
+                                    <input type="text" class="form-control" id="prizeAmount" name="prizeAmount"  />
+                                </div>
+                                <div class="col-sm-1">
+                                    <select name="prizeCurrency"  class="form-control selectpicker" id="prizeCurrency">
+                                        <option value="0">Seçin...</option>
+                                        <option value="1">AZN</option>
+                                        <option value="2">USD</option>
+                                        <option value="3">EUR</option>
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
                                     </select>
                                 </div>
                             </div>
@@ -243,7 +284,14 @@ $result_commands = $db->query($commands);
                                 <label class="col-sm-4 col-form-label" for="rewardPeriod"><?php echo $dil["rewardPeriod"];?></label>
                                 <div class="col-sm-6">
                                     <select data-live-search="true"  name="rewardPeriod"  id="rewardPeriod" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["rewardPeriod"];?>">
+<<<<<<< HEAD
                                         <option value="0">sss</option>
+=======
+                                        <option value="0">Seçin...</option>
+                                        <option value="1">Aylıq</option>
+                                        <option value="2">Rüblük</option>
+                                        <option value="3">İllik</option>
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
                                     </select>
                                 </div>
                             </div>
@@ -252,17 +300,43 @@ $result_commands = $db->query($commands);
                                 <label class="col-sm-4 col-form-label" for="placeExpenditure"><?php echo $dil["placeExpenditure"];?></label>
                                 <div class="col-sm-6">
                                     <select data-live-search="true"  name="placeExpenditure"  id="placeExpenditure" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["rewardPeriod"];?>">
+<<<<<<< HEAD
                                         <option value="0">sss</option>
+=======
+
+                                    <option  value="" >Seçin...</option>
+
+                                    <?php
+                                    $result_place_expenditure = $db->query($sql_place_expenditure);
+                                    if ($result_place_expenditure->num_rows > 0) {
+                                        while($row_place_expenditure= $result_place_expenditure->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_place_expenditure['id']; ?>" data-icon="<?php echo $row_place_expenditure['posit_icon']; ?>"  style="background-image:url(images/icons/man2.png);"  ><?php echo  $row_place_expenditure['title'];  ?></option>
+
+                                        <?php } }?>
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group row">
+<<<<<<< HEAD
                                 <label class="col-sm-4 col-form-label" for="otherConditions"><?php echo $dil["otherConditions"];?></label>
                                 <div class="col-sm-6">
                                     <select data-live-search="true"  name="otherConditions"  id="otherConditions" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["otherConditions"];?>">
                                         <option value="0">sss</option>
                                     </select>
+=======
+
+                                <label class="col-sm-4 col-form-label" for="otherConditions"><?php echo $dil["otherConditions"];?></label>
+                                <div class="col-sm-6">
+
+                                    <input type="text" class="form-control" id="otherCondition1" name="otherCondition1"  />
+                                    <input type="text" class="form-control" id="otherCondition2" name="otherCondition2"  />
+                                    <input type="text" class="form-control" id="otherCondition3" name="otherCondition3"  />
+
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
                                 </div>
                             </div>
 
@@ -329,6 +403,58 @@ $result_commands = $db->query($commands);
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<<<<<<< HEAD
 
+=======
+<script>
+    $('#addSalary').on('click',function(){
+        console.log('addSalary');
+        var additionsDeductionsSalary=$('#additionsDeductionsSalary option:selected').text()
+        var additionsDeductionsSalaryVal=$('#additionsDeductionsSalary option:selected').val()
+        var additions_salary=$('#additions_salary').val()
+        var begin_date=$('#begin_date').val()
+        var end_date=$('#end_date').val()
+        // $("table#additionSalary_table tbody").html('');
+        $("table#additionSalary_table").css('display','block');
+        var table='';
+        table+='<tr data-val="'+additionsDeductionsSalaryVal+'">' +
+            '<td>'+additionsDeductionsSalary+'</td>'+
+            '<td >'+additions_salary+'</td>'+
+            '<td>'+begin_date+'</td>'+
+            '<td>'+end_date+'</td>'+
+            '<td>' +
+             '<button type="button" class="btn btn-danger deleteSalary"  >Sil</button>' +
+             '</td>';
+        $("table#additionSalary_table tbody").append(table);
+         $('#additionsDeductionsSalary').find('option[value="0"]').prop('selected', true);
+        $('#additions_salary').val('')
+        $('#begin_date').val('')
+        $('#end_date').val('')
+        $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
+        $(".selectpicker").selectpicker();
+
+        $(".deleteSalary").click(function() {
+            console.log("deleteSalary")
+            var tr= $(this).closest('tr');
+            tr.remove();
+        })
+    });
+
+
+    $(function () {
+        $('#begin_date').datepicker({
+            todayHighlight: true,
+            format: 'dd/mm/yyyy',
+            // startDate: new Date()
+        });
+        $('#end_date').datepicker({
+            todayHighlight: true,
+            format: 'dd/mm/yyyy',
+            // startDate: new Date()
+        });
+
+    });
+</script>
+>>>>>>> 8834b5113dc2fcc4d3d746ff1661bcf5b58b8863
 </body>
 </html>

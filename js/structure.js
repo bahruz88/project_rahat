@@ -154,6 +154,7 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     console.log('company_ids=='+company_ids);
     console.log('company=='+$('#company').val());
     console.log('company_id=='+company_id)
+    console.log('$pId=='+PID)
     $.ajax({
         url: 'st_insert.php',
         type: "POST",
@@ -610,8 +611,11 @@ $(function () {
         console.log("change company="+$(this).val());
         var company_id=$(this).val();
         var company_text=$(this).find('option:selected').text();
+        $('#companyId').val(company_id);
         console.log("company_id="+company_id);
+
         $('#company_id').val(company_id);
+
         $('#company_name').val(company_text);
         // var companyIdArray = company_id.split(',');
         // var companyIdArray = $.parseJSON("[" + company_id + "]");
