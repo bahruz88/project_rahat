@@ -39,179 +39,37 @@
                                 </select>
                             </div>
                         </div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="image"><?php echo $dil["image"];?></label>
-								<div class="col-sm-6" id="imgAdd">
-<!--									<input type="text" class="form-control" id="image" name="image" placeholder="--><?php //echo $dil["image"];?><!--" />-->
-
-                                </div>
-							</div>
                         <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="firstname"><?php echo $dil["firstname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="firstname" name="firstname_name" placeholder="<?php echo $dil["firstname"];?>" />
-								</div>
-							</div>
-								<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="lastname"><?php echo $dil["lastname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="lastname" name="lastname_name" placeholder="<?php echo $dil["lastname"];?>" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="surname"><?php echo $dil["surname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="surname" name="surname_name" placeholder="<?php echo $dil["surname"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="sex"><?php echo $dil["sex"];?></label>
-								<div class="col-sm-6">
-								<select   name="sex"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sex"];?>" >
-									<option value="1">Kişi</option>
-									<option value="2">Qadın</option>
-								</select>
-								</div>
-							</div>
+                            <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                            <div class="col-sm-6">
+                                <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                    <?php
+                                    $result_employees_view = $db->query($sql_employees);
+                                    if ($result_employees_view->num_rows > 0) {
+                                        while($row_employees= $result_employees_view->fetch_assoc()) {
 
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="marital_status"><?php echo $dil["marital_status"];?></label>
-								<div class="col-sm-6">
-								<select   name="marital_status"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["marital_status"];?>" >
-									<option value="1">Evli</option>
-									<option value="2">Subay</option>
-								</select>
-								</div>
-							</div>
+                                            ?>
+                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
 
-
-
-								<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="birth_date"><?php echo $dil["birth_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="birth_date" name="birth_date" placeholder="<?php echo $dil["birth_date"];?>" />
-								</div>
-							</div>
-								<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="birth_place"><?php echo $dil["birth_place"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="birth_place" name="birth_place" placeholder="<?php echo $dil["birth_place"];?>" />
-								</div>
-							</div>
-								<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="citizenship"><?php echo $dil["citizenship"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="<?php echo $dil["citizenship"];?>" />
-								</div>
-							</div>
-								<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="pincode"><?php echo $dil["pincode"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="pincode" name="pincode" placeholder="<?php echo $dil["pincode"];?>" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="pass_seria_num"><?php echo $dil["pass_seria_num"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="pass_seria_num" name="pass_seria_num" placeholder="<?php echo $dil["pass_seria_num"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="passport_date"><?php echo $dil["passport_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="passport_date" name="passport_date" placeholder="<?php echo $dil["passport_date"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="passport_end_date"><?php echo $dil["passport_end_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="passport_end_date" name="passport_end_date" placeholder="<?php echo $dil["passport_end_date"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="pass_given_authority"><?php echo $dil["pass_given_authority"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="pass_given_authority" name="pass_given_authority" placeholder="<?php echo $dil["pass_given_authority"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="living_address"><?php echo $dil["living_address"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="living_address" name="living_address" placeholder="<?php echo $dil["living_address"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="reg_address"><?php echo $dil["reg_address"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="reg_address" name="reg_address" placeholder="<?php echo $dil["reg_address"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="mob_tel"><?php echo $dil["mob_tel"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="mob_tel" name="mob_tel" placeholder="<?php echo $dil["mob_tel"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="home_tel"><?php echo $dil["home_tel"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="home_tel" name="home_tel" placeholder="<?php echo $dil["home_tel"];?>" />
-								</div>
-							</div>
-							 <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="email"><?php echo $dil["email"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="email" name="email" placeholder="<?php echo $dil["email"];?>" />
-								</div>
-							</div>
-							  <div class="form-group row">
-								<label class="col-sm-4 col-form-label" for="emr_contact"><?php echo $dil["emr_contact"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="emr_contact" name="emr_contact" placeholder="<?php echo $dil["emr_contact"];?>" />
-								</div>
-							</div>
-
-
-
-
-
-                    </div>
-				</div>
-
-		</div>
-        <div class="modal-footer">
-
-		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-
-        </div>
-		</form>
-      </div>
-
-    </div>
-  </div>
-  <!--EMPLOYEE EDİT MODAL -->
-   <div class="modal fade" id="modalEdit" role="dialog" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-lg" >
-    <form id="salaryUpdate" method="post" class="form-horizontal" action="">
-
-      <!-- Modal content-->
-      <div class="modal-content" >
-
-        <div class="modal-body">
-			<div class="card card-success">
-					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["main_information"];?></h4>
-			 <span  id="badge_success" class="badge badge-success"></span>
-            <span  id="badge_danger" class="badge badge-danger"></span>
-					</div>
-					<div class="card-body"  style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
-
-
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="tariffRate"><?php echo $dil["tariffRate"];?></label>
                             <div class="col-sm-8">
                                 <select data-live-search="true"  name="tariffRate"  id="tariffRate" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tariffRate"];?>">
-                                    <option value="0">sss</option>
+                                    <option value="0">Seçin...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
                                 </select>
                             </div>
                         </div>
@@ -316,6 +174,165 @@
                                 <input type="text" class="form-control" id="otherCondition1" name="otherCondition1"  />
                                 <input type="text" class="form-control" id="otherCondition2" name="otherCondition2"  />
                                 <input type="text" class="form-control" id="otherCondition3" name="otherCondition3"  />
+
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+				</div>
+
+		</div>
+        <div class="modal-footer">
+
+		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
+
+        </div>
+		</form>
+      </div>
+
+    </div>
+  </div>
+  <!--EMPLOYEE EDİT MODAL -->
+   <div class="modal fade" id="modalEdit" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" >
+    <form id="salaryUpdate" method="post" class="form-horizontal" action="">
+
+      <!-- Modal content-->
+      <div class="modal-content" >
+
+        <div class="modal-body">
+			<div class="card card-success">
+					<div class="card-header">
+						<h4 class="card-title"><?php echo $dil["main_information"];?></h4>
+			 <span  id="badge_success" class="badge badge-success"></span>
+            <span  id="badge_danger" class="badge badge-danger"></span>
+					</div>
+					<div class="card-body"  style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_tariffRate"><?php echo $dil["tariffRate"];?></label>
+                            <div class="col-sm-8">
+                                <select data-live-search="true"  name="update_tariffRate"  id="update_tariffRate" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tariffRate"];?>">
+                                    <option value="0">Seçin...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_positionStatus"><?php echo $dil["positionStatus"];?></label>
+                            <div class="col-sm-8">
+                                <select data-live-search="true"  name="update_positionStatus"  id="update_positionStatus" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["positionStatus"];?>">
+                                    <?php
+                                    $result_position_status = $db->query($sql_position_status);
+                                    if ($result_position_status->num_rows > 0) {
+                                        while($row_position_status= $result_position_status->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_position_status['id']; ?>"  data-code="<?php echo $row_position_status['code']; ?>" ><?php echo $row_position_status['title'];  ?></option>
+
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_wage"><?php echo $dil["wage"];?></label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="update_wage" name="update_wage"  />
+                            </div>
+                            <div class="col-sm-2">
+                                <select name="update_currency"  class="form-control selectpicker" id="update_currency">
+                                    <option value="0">Seçin...</option>
+                                    <option value="1">AZN</option>
+                                    <option value="2">USD</option>
+                                    <option value="3">EUR</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="update_reasonChange" name="update_reasonChange"   placeholder="<?php echo $dil["salaryChangeReason"];?>" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_totalMonthlySalary"><?php echo $dil["totalMonthlySalary"];?></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="update_totalMonthlySalary" name="update_totalMonthlySalary"   placeholder="<?php echo $dil["totalMonthlySalary"];?>" />
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_prizeAmount"><?php echo $dil["prizeAmount"];?></label>
+
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="update_prizeAmount" name="update_prizeAmount"  />
+                            </div>
+                            <div class="col-sm-2">
+                                <select name="update_prizeCurrency"  class="form-control selectpicker" id="update_prizeCurrency">
+                                    <option value="0">Seçin...</option>
+                                    <option value="1">AZN</option>
+                                    <option value="2">USD</option>
+                                    <option value="3">EUR</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_rewardPeriod"><?php echo $dil["rewardPeriod"];?></label>
+                            <div class="col-sm-8">
+                                <select data-live-search="true"  name="update_rewardPeriod"  id="update_rewardPeriod" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["rewardPeriod"];?>">
+                                    <option value="0">Seçin...</option>
+                                    <option value="1">Aylıq</option>
+                                    <option value="2">Rüblük</option>
+                                    <option value="3">İllik</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_placeExpenditure"><?php echo $dil["placeExpenditure"];?></label>
+                            <div class="col-sm-8">
+                                <select data-live-search="true"  name="update_placeExpenditure"  id="update_placeExpenditure" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["rewardPeriod"];?>">
+
+                                    <option  value="" >Seçin...</option>
+
+                                    <?php
+                                    $result_place_expenditure = $db->query($sql_place_expenditure);
+                                    if ($result_place_expenditure->num_rows > 0) {
+                                        while($row_place_expenditure= $result_place_expenditure->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_place_expenditure['id']; ?>" data-icon="<?php echo $row_place_expenditure['posit_icon']; ?>"  style="background-image:url(images/icons/man2.png);"  ><?php echo  $row_place_expenditure['title'];  ?></option>
+
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+
+                            <label class="col-sm-4 col-form-label" for="update_otherConditions"><?php echo $dil["otherConditions"];?></label>
+                            <div class="col-sm-8">
+
+                                <input type="text" class="form-control" id="update_otherCondition1" name="update_otherCondition1"  />
+                                <input type="text" class="form-control" id="update_otherCondition2" name="update_otherCondition2"  />
+                                <input type="text" class="form-control" id="update_otherCondition3" name="update_otherCondition3"  />
 
                             </div>
                         </div>

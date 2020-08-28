@@ -218,12 +218,13 @@ $('#salary_table tbody').on( 'click', '#view', function () {
 	
 
  	/*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
-	 function GetSalaryDetails(empid,optype) 
+	 function GetSalaryDetails(id,optype)
 	 {
-		 $('#modalEdit').modal('show');
+	 	console.log('id='+id)
+		 // $('#modalEdit').modal('show');
 			$.post("salaryInfo/getSalaryDetail.php", 
 				{
-					empid: empid
+					id: id
 				},
 				function (emp_data, status) 
 				{
@@ -234,32 +235,23 @@ $('#salary_table tbody').on( 'click', '#view', function () {
 					
 					if  (optype=='update') {
 
-					$("#empno").val(employee.empno)
-					$("#uid").val(empid)
-					$("#update_company_id").val(employee.company_id).change();
-					$("#update_firstname").val(employee.firstname);
-					$("#update_lastname").val(employee.lastname);
-					$("#update_surname").val(employee.surname);
-					$("#update_sex").val(employee.sex).change();
-					$("#update_marital_status").val(employee.marital_status).change();
-					$("#update_birth_date").val(employee.birth_date_u);
-					$("#update_birth_place").val(employee.birth_place);
-					$("#update_citizenship").val(employee.citizenship);
-					$("#update_pincode").val(employee.pincode);
-					$("#update_pass_seria_num").val(employee.passport_seria_number);
-					$("#update_passport_date").val(employee.passport_date_u);
-					$("#update_passport_end_date").val(employee.passport_end_date_u);
-					$("#update_pass_given_authority").val(employee.pass_given_authority);
-					$("#update_living_address").val(employee.living_address);
-					$("#update_reg_address").val(employee.reg_address);
-					$("#update_home_tel").val(employee.home_tel);
-					$("#update_mob_tel").val(employee.mob_tel);
-					$("#update_email").val(employee.email);
-					$("#update_emr_contact").val(employee.emr_contact);
+ 					$("#uid").val(emp_id)
+					// $("#update_company_id").val(employee.company_id).change();
+					$("#update_tariffRate").val(employee.tariff_rate).change();
+					$("#update_positionStatus").val(employee.position_status_id).change();
+					$("#update_wage").val(employee.wage);
+					// $("#update_reasonChange").val(employee.wage);
+					$("#update_totalMonthlySalary").val(employee.total_monthly_salary);
+					$("#update_prizeAmount").val(employee.prize_amount);
+					$("#update_rewardPeriod").val(employee.reward_period).change();
+					$("#update_placeExpenditure").val(employee.place_expenditure_id).change();
+					 $("#update_reasonChange").val(employee.salary_change_reason);
+					$("#update_otherCondition1").val(employee.other_conditions);
+
 					$('#modalEdit').modal('show');
 					}
 					else {
-						 window.location.href='profile.php?empid='+empid;
+						 // window.location.href='profile.php?empid='+empid;
 
 					}
 				}

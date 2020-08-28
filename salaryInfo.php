@@ -1,9 +1,10 @@
 <?php    
  include('session.php');  
  $site_lang=$_SESSION['dil'] ;
- 
 
 
+
+$sql_employees= "select * from $tbl_employees where  emp_status=1   ";
 
 
 $sql_position_status= "select * from $tbl_position_status";
@@ -232,6 +233,7 @@ $sql_place_expenditure= "select * from $tbl_place_expenditure";
 					<th>Tarif dərəcəsi</th>
 					<th>Vəzifə statusu</th>
 					<th>Vəzifə maaşı</th>
+					<th>Dəyişmə səbəbi</th>
 					<th>Aylıq  toplam maaşı</th>
 					<th>Mükafat məbləği</th>
 					<th>Mükafat dövrü</th>
