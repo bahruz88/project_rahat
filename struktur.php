@@ -316,6 +316,7 @@ $sql_position= "select * from $tbl_employee_category";
                         <input type='hidden' value='' id='company_name'>
                         <input type='hidden' value='' id='txt_id'>
                         <input type='hidden' value='' id='number_id'>
+                        <input type="hidden" value='' id="companyId">
                         <!-- Small modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" id="butModal" style="display:none;" data-target=".bd-example-modal-lg">New</button>
 
@@ -357,7 +358,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                     </select>
                                                 </div>
                                             </div>
-                                            <input type="hidden" id="companyId">
+
 
                                             <div class="form-group row"  id="positionQuery">
                                                 <label class="col-sm-12 col-form-label" for="position_level"><?php echo $dil["position_level"];?></label>
@@ -1235,7 +1236,7 @@ $sql_position= "select * from $tbl_employee_category";
                                         console.log("bosdur");
                                         // $('#structureQuery').find('#companyDiv').css('display','block')
                                         $('#butModal').trigger('click');
-                                         stClick()
+                                         stClick();
 
                                     }else{
                                         // $('#structureQuery').find('#companyDiv').css('display','none')
