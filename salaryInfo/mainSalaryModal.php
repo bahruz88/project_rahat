@@ -42,7 +42,7 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
                             <div class="col-sm-6">
-                                <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                <select data-live-search="true"  name="emplo" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
                                     <?php
                                     $result_employees_view = $db->query($sql_employees);
                                     if ($result_employees_view->num_rows > 0) {
@@ -96,7 +96,7 @@
                                 <input type="text" class="form-control" id="wage" name="wage"  />
                             </div>
                             <div class="col-sm-2">
-                                <select name="currency"  class="form-control selectpicker" id="currency">
+                                <select name="wage_currency"  class="form-control selectpicker" id="wage_currency">
                                     <option value="0">Seçin...</option>
                                     <option value="1">AZN</option>
                                     <option value="2">USD</option>
@@ -125,7 +125,7 @@
                                 <input type="text" class="form-control" id="prizeAmount" name="prizeAmount"  />
                             </div>
                             <div class="col-sm-2">
-                                <select name="prizeCurrency"  class="form-control selectpicker" id="prizeCurrency">
+                                <select name="prizeAmount_currency"  class="form-control selectpicker" id="prizeAmount_currency">
                                     <option value="0">Seçin...</option>
                                     <option value="1">AZN</option>
                                     <option value="2">USD</option>
@@ -139,9 +139,14 @@
                             <div class="col-sm-8">
                                 <select data-live-search="true"  name="rewardPeriod"  id="rewardPeriod" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["rewardPeriod"];?>">
                                     <option value="0">Seçin...</option>
-                                    <option value="1">Aylıq</option>
-                                    <option value="2">Rüblük</option>
-                                    <option value="3">İllik</option>
+                                    <?php
+                                    $result_reward_period = $db->query($sql_reward_period);
+                                    if ($result_reward_period->num_rows > 0) {
+                                        while($row_reward_period= $result_reward_period->fetch_assoc()) {
+
+                                            ?>
+                                            <option  value="<?php echo $row_reward_period['id']; ?>"  ><?php echo $row_reward_period['title'];  ?></option>
+                                        <?php } }?>
                                 </select>
                             </div>
                         </div>
@@ -177,10 +182,6 @@
 
                             </div>
                         </div>
-
-
-
-
 
                     </div>
 				</div>
@@ -356,86 +357,108 @@
 
 
 <!--EMPLOYEE VIEw MODAL -->
-   <div class="modal fade" id="modalView" role="dialog" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-lg" >
-    <form id="employeeView" method="post" class="form-horizontal" action="">
+<div class="modal fade" id="modalViewSalary" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
 
-      <!-- Modal content-->
-      <div class="modal-content" >
+            <div class="modal-body">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h4 class="card-text"><?php echo $dil["military_view_title"];?></h4>
 
-        <div class="modal-body">
-			<div class="card card-success">
-					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["main_information"];?></h4>
-                         <span  id="badge_success" class="badge badge-success"></span>
-                        <span  id="badge_danger" class="badge badge-danger"></span>
-					</div>
-					<div class="card-body"  style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="row-fluid">
-                                    <div  class="col-xs-12" style="text-align: center;" id="imgView">
+                        <span  id="badge_danger_update" class="badge badge-danger"></span>
+                    </div>
+                    <div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 
-
-                                    </div>
-<!--                                    <div class="col-xs-12" style="text-align: center;">-->
-<!--                                        <img id="profile_image_1" src="http://apps.gamonoid.com/icehrm-open-core/web/images/user_male.png" class="img-polaroid img-thumbnail" style="max-width: 140px;max-height: 140px;">-->
-<!--                                    </div>-->
-
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_salaryemp"><?php echo $dil["employee"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_salaryemp" name="view_salaryemp_name" placeholder="<?php echo $dil["employee"];?>" readonly />
                             </div>
-                            <div class="col-md-9">
-                                <div class="row-fluid">
-                                    <div class="col-md-12">
-                                        <h2 id="view_name">IceHrm Employee</h2></div>
-                                </div>
-                                <div class="row-fluid">
-                                    <div class="col-md-12">
-                                        <p>
-                                            <i class="fa fa-phone"></i> <span id="view_phone">440-953-4578</span>&nbsp;&nbsp;
-                                            <i class="fa fa-envelope"></i> <span id="view_email">icehrm+admin@web-stalk.com</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row-fluid">
-                                    <div class="col-xs-12" style="font-size:18px;border-bottom: 1px solid #DDD;margin-bottom: 10px;padding-bottom: 10px;">
-                                        <button id="employeeProfileEditInfo" class="btn btn-small btn-success" onclick="modJs.edit(1);" style="margin-right:10px;"><i class="fa fa-edit"></i> Edit Info</button>
-<!--                                        <button id="employeeUploadProfileImage" onclick="showUploadDialog('profile_image_1','Upload Profile Image','profile_image',1,'profile_image_1','src','url','image');return false;" class="btn btn-small btn-primary" type="button" style="margin-right:10px;"><i class="fa fa-upload"></i> Upload Profile Image</button>-->
-                                        <button id="employeeDeleteProfileImage" onclick="modJs.deleteProfileImage(1);return false;" class="btn btn-small btn-warning" type="button" style="margin-right:10px;"><i class="fa fa-times"></i> Delete Profile Image</button>
-                                    </div>
-                                </div>
+                        </div>
 
-                                <div class="row" style="border-top: 1px;">
-                                    <div class="col-md-4" style="font-size:16px;">
-                                        <label class="control-label col-xs-12" style="font-size:15px;"><?php echo $dil["emp_no"];?></label><br/>
-                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="view_empno">EMP001</label>
-                                    </div>
-                                    <div class="col-md-4" style="font-size:16px;">
-                                        <label class="control-label col-xs-12" style="font-size:15px;"><?php echo $dil["home_tel"];?></label><br/>
-                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="view_home_tel">294-38-3535</label>
-                                    </div>
-                                    <div class="col-md-4" style="font-size:16px;">
-                                        <label class="control-label col-xs-12" style="font-size:15px;"><?php echo $dil["emr_contact"];?></label><br/>
-                                        <label class="control-label col-xs-12 iceLabel" style="font-size:13px;font-weight: bold;" id="view_emr_contact"></label>
-                                    </div>
-                                </div>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_tariff_rate"><?php echo $dil["tariffRate"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_tariff_rate" name="view_tariff_rate" placeholder="<?php echo $dil["tariffRate"];?>" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_position_status_id"><?php echo $dil["positionStatus"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_position_status_id" name="view_position_status_id" placeholder="<?php echo $dil["positionStatus"];?>" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_wage"><?php echo $dil["wage"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_wage" name="view_wage" placeholder="<?php echo $dil["wage"];?>" readonly />
+                                 <input type="text" class="form-control" id="view_salary_change_reason" name="view_salary_change_reason" placeholder="<?php echo $dil["salaryChangeReason"];?>" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_total_monthly_salary"><?php echo $dil["totalMonthlySalary"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_total_monthly_salary" name="view_total_monthly_salary" placeholder="<?php echo $dil["totalMonthlySalary"];?>" readonly />
+                            </div>
+                        </div>
 
 
-					</div>
-				</div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_prize_amount"><?php echo $dil["prizeAmount"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_prize_amount" name="view_prize_amount" placeholder="<?php echo $dil["prizeAmount"];?>" readonly />
 
-		</div>
-        <div class="modal-footer">
+                            </div>
+                        </div>
 
-		<button  id ="add_new_item2" typemodalEdit="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
-		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_empid" name="update_empidn" value="" />
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_reward_period"><?php echo $dil["rewardPeriod"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_reward_period" name="view_reward_period" placeholder="<?php echo $dil["rewardPeriod"];?>" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_place_expenditure_id"><?php echo $dil["placeExpenditure"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_place_expenditure_id" name="view_place_expenditure_id" placeholder="<?php echo $dil["placeExpenditure"];?>" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="view_other_conditions1"><?php echo $dil["otherConditions"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_other_conditions1" name="view_other_conditions1" placeholder="<?php echo $dil["otherConditions"];?>" readonly />
+                                <input type="text" class="form-control" id="view_other_conditions2" name="view_other_conditions2" placeholder="<?php echo $dil["otherConditions"];?>" readonly />
+                                <input type="text" class="form-control" id="view_other_conditions3" name="view_other_conditions3" placeholder="<?php echo $dil["otherConditions"];?>" readonly />
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
+            </div>
+
         </div>
-		</form>
-      </div>
 
     </div>
+</div>
+
   </div>
 <div id="uploadDiv" style="display: none">
     <form id="uploadForm" action="upload.php" method="post">

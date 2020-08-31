@@ -1,15 +1,17 @@
-<?php    
- include('session.php');  
- $site_lang=$_SESSION['dil'] ;
+<?php
+include('session.php');
+$site_lang=$_SESSION['dil'] ;
 
 
 
 $sql_employees= "select * from $tbl_employees where  emp_status=1   ";
+$sql_additions_salary= "select * from $tbl_additions_salary";
 
 
 $sql_position_status= "select * from $tbl_position_status";
 $sql_additions_salary= "select * from $tbl_additions_salary";
 $sql_place_expenditure= "select * from $tbl_place_expenditure";
+$sql_reward_period= "select * from $tbl_reward_period";
 ?>
 <!DOCTYPE html>
 <html>
@@ -178,7 +180,7 @@ $sql_place_expenditure= "select * from $tbl_place_expenditure";
 </div>	  
 
 <!-- DELETE  CONTENT MODAL  -->
-<div class="modal fade" id="modalDelete" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="modalAdditionDelete" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm">
           <div class="modal-content bg-danger">
             <div class="modal-header">
@@ -191,9 +193,9 @@ $sql_place_expenditure= "select * from $tbl_place_expenditure";
               <p><?php echo $dil["delete_warning_content"];?></p>
             </div>
             <div class="modal-footer justify-content-between">
-			  <form id="employeeDelete" method="post" class="form-horizontal" action="">
+			  <form id="additionDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
-			  <input type="hidden" id="empid" name="empid" value="" /> 
+			  <input type="hidden" id="id" name="id" value="" />
 			  </form>
 			  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
 			   
@@ -206,6 +208,7 @@ $sql_place_expenditure= "select * from $tbl_place_expenditure";
 
   <?php 
   include  ('salaryInfo/mainSalaryModal.php');
+  include  ('additionSalary/mainAdditionModal.php');
   include  ('payment_salary/paymentSalaryModal.php');
             ?>
   
@@ -214,10 +217,10 @@ $sql_place_expenditure= "select * from $tbl_place_expenditure";
 <ul class="nav nav-tabs"  id="navtabs" role="tablist">
   <li Class="nav-item"><a href="#employees"  style="border-radius:0px;color:#494e53;" class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["employees"];?></a></li>
 
-  <li Class="nav-item"><a href="#additionsDeductionsSalary" id="additionsDeductionsSalaryTab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >
-  <?php echo $dil["additionsDeductionsSalary"];?> </a></li>
 
 
+    <li Class="nav-item"><a href="#additionsDeductions"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >
+            <?php echo $dil["additionsDeductionsSalary"];?> </a></li>
 </ul>
 </li>
 
@@ -244,59 +247,76 @@ $sql_place_expenditure= "select * from $tbl_place_expenditure";
             </thead>
         </table>
 	</div>
-   <div class="tab-pane" id="additionsDeductionsSalary">
+
+   <div class="tab-pane" id="additionsDeductions">
+       <table id="addition_table" class="table table-striped  table-bordered table-hover" >
+           <thead>
+           <tr>
+               <th>id</th>
+               <th>Şirkət</th>
+               <th>Adı Soyadı Ataadı</th>
+               <th><?php echo $dil["additionsDeductionsSalary"];?></th>
+               <th><?php echo $dil["additions_salary"];?></th>
+               <th><?php echo $dil["start_date"];?></th>
+               <th><?php echo $dil["end_date"];?></th>
+                <th></th>
+           </tr>
+           </thead>
+       </table>
 
 
-            <div class="form-group row">
-               <div class="form-group col-md-3 col-sm-3">
-                   <label class=" col-form-label" for="additionsDeductionsSalary"><?php echo $dil["additionsDeductionsSalary"];?></label>
 
-                   <select data-live-search="true"  name="additionsDeductionsSalary"  id="additionsDeductionsSalary" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["additionsDeductionsSalary"];?>">
-                       <?php
-                       $result_additions_salary = $db->query($sql_additions_salary);
-                       if ($result_additions_salary->num_rows > 0) {
-                           while($row_additions_salary= $result_additions_salary->fetch_assoc()) {
-
-                               ?>
-                               <option  value="<?php echo $row_additions_salary['id']; ?>"  data-code="<?php echo $row_additions_salary['code']; ?>" ><?php echo $row_additions_salary['title'];  ?></option>
-
-                           <?php } }?>
-                   </select>
-               </div>
-               <div class="form-group col-md-2 col-sm-2">
-                   <label class=" col-form-label" for="begin_date"><?php echo $dil["additions_salary"];?></label>
-
-                   <input type="text" class="form-control" id="additions_salary" name="additions_salary"   placeholder="<?php echo $dil["additions_salary"];?>" />
-
-               </div>
-               <div class="form-group col-md-2 col-sm-2">
-                   <label class=" col-form-label" for="begin_date"><?php echo $dil["start_date"];?></label>
-
-                   <input type="text" class="form-control" id="begin_date" name="begin_date"    placeholder="0000-00-00"  />
-               </div>
-               <div class="form-group col-md-2 col-sm-2">
-                   <label class="  col-form-label" for="begin_date"><?php echo $dil["end_date"];?></label>
-
-                   <input type="text" class="form-control" id="end_date" name="end_date"    placeholder="0000-00-00"  />
-
-               </div>
-               <div class="form-group col-md-2 col-sm-2" style="padding-top:38px;">
-                   <button type="button" class="btn btn-primary" id="addSalary">Əlavə et</button>
-               </div>
-           </div>
-           <div class="form-group row">
-               <table id="additionSalary_table" style="display: none;width:100%;" class="table table-striped  table-bordered table-hover">
-                   <thead style="font-weight: bold;">
-                   <td width="250px;">Vəzifə maaşına əlavə və kəsintilər</td>
-                   <td width="150px;" >Maaşa əlavə</td>
-                   <td>Başlama tarixi</td>
-                   <td>Bitmə tarixi</td>
-                   <td>Əməliyyat</td>
-                   </thead>
-                   <tbody></tbody>
-
-               </table>
-        </div>
+       <!---->
+<!--            <div class="form-group row">-->
+<!--               <div class="form-group col-md-3 col-sm-3">-->
+<!--                   <label class=" col-form-label" for="additionsDeductionsSalary">--><?php //echo $dil["additionsDeductionsSalary"];?><!--</label>-->
+<!---->
+<!--                   <select data-live-search="true"  name="additionsDeductionsSalary"  id="additionsDeductionsSalary" title="--><?php //echo $dil["selectone"];?><!--" class="form-control selectpicker"  placeholder="--><?php //echo $dil["additionsDeductionsSalary"];?><!--">-->
+<!--                       --><?php
+//                       $result_additions_salary = $db->query($sql_additions_salary);
+//                       if ($result_additions_salary->num_rows > 0) {
+//                           while($row_additions_salary= $result_additions_salary->fetch_assoc()) {
+//
+//                               ?>
+<!--                               <option  value="--><?php //echo $row_additions_salary['id']; ?><!--"  data-code="--><?php //echo $row_additions_salary['code']; ?><!--" >--><?php //echo $row_additions_salary['title'];  ?><!--</option>-->
+<!---->
+<!--                           --><?php //} }?>
+<!--                   </select>-->
+<!--               </div>-->
+<!--               <div class="form-group col-md-2 col-sm-2">-->
+<!--                   <label class=" col-form-label" for="begin_date">--><?php //echo $dil["additions_salary"];?><!--</label>-->
+<!---->
+<!--                   <input type="text" class="form-control" id="additions_salary" name="additions_salary"   placeholder="--><?php //echo $dil["additions_salary"];?><!--" />-->
+<!---->
+<!--               </div>-->
+<!--               <div class="form-group col-md-2 col-sm-2">-->
+<!--                   <label class=" col-form-label" for="begin_date">--><?php //echo $dil["start_date"];?><!--</label>-->
+<!---->
+<!--                   <input type="text" class="form-control" id="begin_date" name="begin_date"    placeholder="0000-00-00"  />-->
+<!--               </div>-->
+<!--               <div class="form-group col-md-2 col-sm-2">-->
+<!--                   <label class="  col-form-label" for="begin_date">--><?php //echo $dil["end_date"];?><!--</label>-->
+<!---->
+<!--                   <input type="text" class="form-control" id="end_date" name="end_date"    placeholder="0000-00-00"  />-->
+<!---->
+<!--               </div>-->
+<!--               <div class="form-group col-md-2 col-sm-2" style="padding-top:38px;">-->
+<!--                   <button type="button" class="btn btn-primary" id="addSalary">Əlavə et</button>-->
+<!--               </div>-->
+<!--           </div>-->
+<!--           <div class="form-group row">-->
+<!--               <table id="additionSalary_table" style="display: none;width:100%;" class="table table-striped  table-bordered table-hover">-->
+<!--                   <thead style="font-weight: bold;">-->
+<!--                   <td width="250px;">Vəzifə maaşına əlavə və kəsintilər</td>-->
+<!--                   <td width="150px;" >Maaşa əlavə</td>-->
+<!--                   <td>Başlama tarixi</td>-->
+<!--                   <td>Bitmə tarixi</td>-->
+<!--                   <td>Əməliyyat</td>-->
+<!--                   </thead>-->
+<!--                   <tbody></tbody>-->
+<!---->
+<!--               </table>-->
+<!--        </div>-->
   </div>
 
 

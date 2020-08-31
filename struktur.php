@@ -1,7 +1,6 @@
-
 <?php
-header("Content-Type: text/html; charset=utf-8");
 include('session.php');
+$site_lang=$_SESSION['dil'] ;
 
 $sql_employees= "select * from $tbl_employees where  emp_status=1";
 $sql_position_level= "select * from $tbl_position_level";

@@ -613,6 +613,7 @@ $(function () {
         var company_text=$(this).find('option:selected').text();
         $('#companyId').val(company_id);
         console.log("company_id="+company_id);
+        console.log("$('#companyId').val()="+$('#companyId').val());
 
         $('#company_id').val(company_id);
 
