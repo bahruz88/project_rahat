@@ -282,6 +282,9 @@ $dil = array(
 
 
 
+    "payrollInfo"   =>"Əmək Haqqı məlumatları",
+    "modal_view_payrollInfo"   =>"Əmək Haqqı məlumatlarına baxış",
+    "modal_edit_payrollInfo"   =>"Əmək Haqqı məlumatlarının redaktəsi",
     "tariffRate"   =>"Tarif dərəcəsi",
     "positionStatus"   =>"Vəzifə statusu",
     "wage"   =>"Vəzifə maaşı",

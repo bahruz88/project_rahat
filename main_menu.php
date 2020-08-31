@@ -255,7 +255,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="salaryInformation.php" class="nav-link">
+                        <a href="salaryInfo.php" class="nav-link">
 
                             <p>Əmək Haqqı məlumatları</p>
                         </a>

@@ -215,7 +215,7 @@ $sql_reward_period= "select * from $tbl_reward_period";
   
   
 <ul class="nav nav-tabs"  id="navtabs" role="tablist">
-  <li Class="nav-item"><a href="#employees"  style="border-radius:0px;color:#494e53;" class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["employees"];?></a></li>
+  <li Class="nav-item"><a href="#payrollInfo"  style="border-radius:0px;color:#494e53;" class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["payrollInfo"];?></a></li>
 
 
 
@@ -227,7 +227,7 @@ $sql_reward_period= "select * from $tbl_reward_period";
 
 <!-- Tab panes -->
 <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
-	<div class="tab-pane active" id="employees">
+	<div class="tab-pane active" id="payrollInfo">
 		<table id="salary_table" class="table table-striped  table-bordered table-hover">
             <thead>
 				<tr>

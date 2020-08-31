@@ -1,7 +1,8 @@
 <?php 
 include('../session.php') ;
 	$id = $_POST['update_empidn'];
-//	$company_id = $_POST['update_company_id'];
+	$company_id = $_POST['update_company_id'];
+	$emp_id = $_POST['update_emplo'];
 	$tariff_rate = $_POST['update_tariffRate'];
     $position_status_id = $_POST['update_positionStatus'];
 	$wage=$_POST['update_wage'];
@@ -18,6 +19,8 @@ include('../session.php') ;
 	$other_conditions3=$_POST['update_otherCondition3'];
 
 	$sql =   "UPDATE  $tbl_salary_info SET 
+		 company_id = '$company_id',
+		 emp_id = '$emp_id',
 		 tariff_rate = '$tariff_rate',
 		position_status_id = '$position_status_id',
 		wage = '$wage',

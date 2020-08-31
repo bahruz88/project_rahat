@@ -231,8 +231,8 @@ $(function () {
 
 				if (optype == 'update') {
 
-					$("#uid").val(emp_id)
-					// $("#update_company_id").val(employee.company_id).change();
+					$("#update_employee").val(employee.emp_id).change();
+					 $("#update_company_id").val(employee.company_id).change();
 					$("#update_tariffRate").val(employee.tariff_rate).change();
 					$("#update_positionStatus").val(employee.position_status_id).change();
 					$("#update_wage").val(employee.wage);

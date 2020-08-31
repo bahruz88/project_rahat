@@ -20,7 +20,7 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["main_information"];?></h4>
+						<h4 class="card-title"><?php echo $dil["payrollInfo"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
@@ -208,12 +208,41 @@
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["main_information"];?></h4>
+						<h4 class="card-title"><?php echo $dil["modal_edit_payrollInfo"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body"  style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_company_id"><?php echo $dil["company"];?></label>
+                            <div class="col-sm-8">
+                                <select data-live-search="true"  name="update_company_id" id='update_company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                    <?php
+                                    $result_company = $db->query($sql_employee_company);
+                                    if ($result_company->num_rows > 0) {
+                                        while($row_company= $result_company->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="update_employee"><?php echo $dil["employee"];?></label>
+                            <div class="col-sm-8">
+                                <select data-live-search="true"  name="update_emplo" id="update_employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                    <?php
+                                    $result_employees_view = $db->query($sql_employees);
+                                    if ($result_employees_view->num_rows > 0) {
+                                        while($row_employees= $result_employees_view->fetch_assoc()) {
 
+                                            ?>
+                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
+
+                                        <?php } }?>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="update_tariffRate"><?php echo $dil["tariffRate"];?></label>
@@ -365,7 +394,7 @@
             <div class="modal-body">
                 <div class="card card-success">
                     <div class="card-header">
-                        <h4 class="card-text"><?php echo $dil["military_view_title"];?></h4>
+                        <h4 class="card-text"><?php echo $dil["modal_view_payrollInfo"];?></h4>
 
                         <span  id="badge_danger_update" class="badge badge-danger"></span>
                     </div>
@@ -460,32 +489,6 @@
 </div>
 
   </div>
-<div id="uploadDiv" style="display: none">
-    <form id="uploadForm" action="upload.php" method="post">
-        <img class="profile-user-img img-fluid img-circle"
-             src="images/users/def.png" alt="User profile picture" id="default">
-        <div id="targetLayer"></div>
-        <div id="uploadFormLayer">
-            <?php
-            $result_employees_asc = $db->query($sql_employees_asc);
-            if ($result_employees_asc->num_rows > 0) {
-                while($row_employees= $result_employees_asc->fetch_assoc()) {
 
-                    ?>
-                    <input name="uid" id="uid" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']; ?>"/>
-                    <input name="emp_id" id="emp_id" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']; ?>"/>
-
-                    <!--                                                    <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'];  ?><!--</option>-->
-
-                <?php } }?>
-            <!--                                            <input name="uid" type="hidden" class="inputFile"  value=""/>-->
-            <label for="files" class="btn btn-primary btn-block btn-outlined">Şəkil əlavə et</label>
-            <input id="files"  name="imgName" style="display: none" type="file">
-            <!--                            <input name="userImage" type="file" class="inputFile" /><br/>-->
-            <input type="button" value="Əlavə et" class="btnSubmit" id="addImage" style="display:none;" />
-        </div>
-    </form>
-
-</div>
 
   <!-- Nav tabs -->
