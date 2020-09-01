@@ -180,7 +180,7 @@ $sql_reward_period= "select * from $tbl_reward_period";
 </div>	  
 
 <!-- DELETE  CONTENT MODAL  -->
-<div class="modal fade" id="modalAdditionDelete" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="modalDelete" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm">
           <div class="modal-content bg-danger">
             <div class="modal-header">
@@ -193,7 +193,7 @@ $sql_reward_period= "select * from $tbl_reward_period";
               <p><?php echo $dil["delete_warning_content"];?></p>
             </div>
             <div class="modal-footer justify-content-between">
-			  <form id="additionDelete" method="post" class="form-horizontal" action="">
+			  <form id="salaryDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
 			  <input type="hidden" id="id" name="id" value="" />
 			  </form>

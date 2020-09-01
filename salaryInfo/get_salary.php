@@ -3,10 +3,10 @@
 
 $sql_salary_info = "select  tsi.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,tpe.title place_expenditure,tps.title position_status,trp.title reward_period,tc.title wage_currency,tc2.title prize_amount_currency
  from $tbl_salary_info tsi
-INNER join $tbl_employees te on te.id=tsi.emp_id
-INNER join $tbl_place_expenditure tpe on tpe.id=tsi.place_expenditure_id
-INNER join $tbl_position_status tps on tps.id=tsi.position_status_id
-INNER join $tbl_reward_period trp on trp.id=tsi.reward_period
+LEFT join $tbl_employees te on te.id=tsi.emp_id
+LEFT join $tbl_place_expenditure tpe on tpe.id=tsi.place_expenditure_id
+LEFT join $tbl_position_status tps on tps.id=tsi.position_status_id
+LEFT join $tbl_reward_period trp on trp.id=tsi.reward_period
 LEFT join $tbl_currency tc on tc.id=tsi.wage_currency
 LEFT join $tbl_currency tc2 on tc2.id=tsi.prize_amount_currency 
 where tsi.status='1'

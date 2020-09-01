@@ -6,11 +6,16 @@ include('../session.php') ;
 	$tariff_rate = $_POST['update_tariffRate'];
     $position_status_id = $_POST['update_positionStatus'];
 	$wage=$_POST['update_wage'];
-	$wage_currency=$_POST['update_currency'];
+
+	 $wage_currency=$_POST['update_currency'];
 	$total_monthly_salary=$_POST['update_totalMonthlySalary'];
 	$prize_amount=$_POST['update_prizeAmount'];
-	$prize_amount_currency=$_POST['update_prizeCurrency'];
-	$reward_period=$_POST['update_rewardPeriod'];
+    $prize_amount_currency=$_POST['update_prizeCurrency'];
+
+
+    $reward_period=$_POST['update_rewardPeriod'];
+
+
 
 	$place_expenditure_id=$_POST['update_placeExpenditure'];
 	$salary_change_reason=$_POST['update_reasonChange'];

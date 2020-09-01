@@ -288,7 +288,7 @@ $('#employee_table tbody').on( 'click', '#view', function () {
 		{
                     e.preventDefault();
 					if($("#employeeInsert").valid())
-			{ 
+					{
                     $.ajax( {
                         url: "employees/employeeInsert.php",
                         method: "post",

@@ -8,119 +8,6 @@ $(function () {
 		}
 	})
 
-	/* EMPLOYEE  İNSERT FORM  VALIDATE */
-	$("#salaryInsert").validate({
-		rules: {
-			firstname: "required",
-			lastname: "required",
-			userlevel: "required",
-			username: {
-				required: true,
-				minlength: 3
-			},
-			email: {
-				required: true,
-				email: true
-			},
-			langinput: "required"
-		},
-		messages: {
-			firstname: "<?php echo $dil['empty_firstname'];?>",
-			lastname: "<?php echo $dil['empty_lastname'];?>",
-			userlevel: "Please enter your lastname",
-			username: {
-				required: "<?php echo $dil['empty_user'];?>",
-				minlength: "<?php echo $dil['length_input'];?>"
-			},
-
-			email: "<?php echo $dil['wrong_mail'];?>",
-			langinput: "<?php echo $dil['wrong_lang'];?>"
-		},
-		errorElement: "em",
-		errorPlacement: function (error, element) {
-			// Add the `invalid-feedback` class to the error element
-			error.addClass("invalid-feedback");
-
-			if (element.prop("type") === "checkbox") {
-				error.insertAfter(element.next("label"));
-			} else {
-				error.insertAfter(element);
-			}
-		},
-		highlight: function (element, errorClass, validClass) {
-			$(element).addClass("is-invalid").removeClass("is-valid");
-		},
-		unhighlight: function (element, errorClass, validClass) {
-			$(element).addClass("is-valid").removeClass("is-invalid");
-		}
-	});
-
-	/*EMPLOYEE  UPDATE VALİDATE*/
-	$("#salaryUpdate").validate({
-
-		rules: {
-			update_firstname: "required",
-			update_lastname: "required",
-			update_username: {
-				required: true,
-				minlength: 3
-			},
-
-			update_email: {
-				required: true,
-				email: true
-			},
-			password: {
-				required: false,
-				minlength: 5
-			},
-			confirm_password: {
-				required: false,
-				minlength: 5,
-				equalTo: "#password"
-			},
-			update_deflang: "required"
-
-		},
-		messages: {
-			update_firstname: "<?php echo $dil['empty_firstname'];?>",
-			update_lastname: "<?php echo $dil['empty_lastname'];?>",
-
-			update_username: {
-				required: "<?php echo $dil['empty_user'];?>",
-				minlength: "<?php echo $dil['length_input'];?>"
-			},
-			password: {
-				required: "Please provide a password",
-				minlength: "<?php echo $dil['length_input'];?>"
-			},
-			confirm_password: {
-				required: "Please provide a password",
-				minlength: "<?php echo $dil['length_input'];?>",
-				equalTo: "Please enter the same password as above"
-			},
-
-			update_email: "<?php echo $dil['wrong_mail'];?>",
-			update_deflang: "<?php echo $dil['wrong_lang'];?>"
-		},
-		errorElement: "em",
-		errorPlacement: function (error, element) {
-			// Add the `invalid-feedback` class to the error element
-			error.addClass("invalid-feedback");
-
-			if (element.prop("type") === "checkbox") {
-				error.insertAfter(element.next("label"));
-			} else {
-				error.insertAfter(element);
-			}
-		},
-		highlight: function (element, errorClass, validClass) {
-			$(element).addClass("is-invalid").removeClass("is-valid");
-		},
-		unhighlight: function (element, errorClass, validClass) {
-			$(element).addClass("is-valid").removeClass("is-invalid");
-		}
-	});
 
 
 	/* EMPLOYEE  TABLE LOAD  */
@@ -236,11 +123,11 @@ $(function () {
 					$("#update_tariffRate").val(employee.tariff_rate).change();
 					$("#update_positionStatus").val(employee.position_status_id).change();
 					$("#update_wage").val(employee.wage);
-					$("#update_wage_currency").val(employee.wage_currency);
+					$("#update_currency").val(employee.wage_currency).change();
 					// $("#update_reasonChange").val(employee.wage);
 					$("#update_totalMonthlySalary").val(employee.total_monthly_salary);
 					$("#update_prizeAmount").val(employee.prize_amount);
-					$("#update_prizeCurrency").val(employee.prize_amount_currency);
+					$("#update_prizeCurrency").val(employee.prize_amount_currency).change();
 					$("#update_rewardPeriod").val(employee.reward_period).change();
 					$("#update_placeExpenditure").val(employee.place_expenditure_id).change();
 					$("#update_reasonChange").val(employee.salary_change_reason);
@@ -261,9 +148,9 @@ $(function () {
 					$("#view_salaryemp").val(employee.full_name);
 					$("#view_tariff_rate").val(employee.tariff_rate);
 					$("#view_position_status_id").val(employee.position_status_id);
-					$("#view_wage").val(employee.wage + ' ' + wage_currency);
+					$("#view_wage").val(employee.wage + ' ' + wage_currencytext);
 					$('#view_total_monthly_salary').val(employee.total_monthly_salary);
-					$('#view_prize_amount').val(employee.prize_amount + ' ' + prize_amount_currency);
+					$('#view_prize_amount').val(employee.prize_amount + ' ' + prize_amount_currencytext);
 					$("#view_reward_period").val(employee.reward_period);
 					$("#view_place_expenditure_id").val(employee.place_expenditure_id);
 					$("#view_salary_change_reason").val(employee.salary_change_reason);
@@ -276,11 +163,186 @@ $(function () {
 		);
 
 	}
+	function validUpdate(){
+		if($('#update_company_id').val()=='' ){
+			$('#update_company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
+		}
+		if( $('#update_employee').val()=='' ){
+			$('#update_employee').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_employee').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if( $('#update_tariffRate').val()=='' || $('#update_tariffRate').val()=='0'){
+			$('#update_tariffRate').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_tariffRate').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if(  $('#update_positionStatus').val()==''){
+			$('#update_positionStatus').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_positionStatus').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if(   $('#update_wage').val()==''){
+			$('#update_wage').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_wage').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if(  $('#update_currency option:selected').val()=='' ||$('#update_currency option:selected').val()=='0' ||$('#update_currency option:selected').val()==null ){
+			$('#update_currency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_currency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if($('#update_reasonChange').val()==''){
+			$('#update_reasonChange').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_reasonChange').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if($('#update_totalMonthlySalary').val()==''){
+			$('#update_totalMonthlySalary').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_totalMonthlySalary').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if( $('#update_prizeAmount').val()==''){
+			$('#update_prizeAmount').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_prizeAmount').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		console.log('$(\'#update_prizeCurrency\').val()='+$('#update_prizeCurrency').val())
+		if(  $('#update_prizeCurrency').val()==''  ||$('#update_prizeCurrency').val()=='0'||$('#update_prizeCurrency').val()==null ){
+			$('#update_prizeCurrency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_prizeCurrency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if($('#update_rewardPeriod').val()==''){
+			$('#update_rewardPeriod').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_rewardPeriod').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if($('#update_placeExpenditure').val()==''){
+			$('#update_placeExpenditure').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_placeExpenditure').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		return true
+	}
+	function validInsert(){
+		if($('#company_id').val()=='' ){
+			$('#company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if( $('#employee').val()=='' ){
+			$('#employee').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#employee').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if( $('#tariffRate').val()=='' || $('#tariffRate').val()=='0'){
+			$('#tariffRate').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#tariffRate').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if(  $('#positionStatus').val()==''){
+			$('#positionStatus').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#positionStatus').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if(   $('#wage').val()==''){
+			$('#wage').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#wage').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if(  $('#wage_currency').val()=='' ||$('#wage_currency').val()=='0' ){
+			$('#wage_currency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#wage_currency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if($('#reasonChange').val()==''){
+			$('#reasonChange').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#reasonChange').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if($('#totalMonthlySalary').val()==''){
+			$('#totalMonthlySalary').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#totalMonthlySalary').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if( $('#prizeAmount').val()==''){
+			$('#prizeAmount').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#prizeAmount').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if(  $('#prizeAmount_currency').val()==''  ||$('#prizeAmount_currency').val()=='0' ){
+			$('#prizeAmount_currency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#prizeAmount_currency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if($('#rewardPeriod').val()==''){
+			$('#rewardPeriod').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#rewardPeriod').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		if($('#placeExpenditure').val()==''){
+			$('#placeExpenditure').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#placeExpenditure').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		return true
+	}
 	/*ISCHI MELUMATLARI  DAXIL  EDILIR  */
 	$("#salaryInsert").submit(function (e) {
 		e.preventDefault();
-		if ($("#salaryInsert").valid()) {
+
+		if (validInsert()) {
 			$.ajax({
 				url: "salaryInfo/salaryInsert.php",
 				method: "post",
@@ -340,7 +402,8 @@ $(function () {
 	/*İSCHİ MEULMATALRİNİN  YENİLENMESİ */
 	$("#salaryUpdate").submit(function (e) {
 		e.preventDefault();
-		if ($("#salaryUpdate").valid()) {
+
+		if (validUpdate()) {
 
 			$.ajax({
 				url: "salaryInfo/salaryUpdate.php",
@@ -435,32 +498,27 @@ $(function () {
 		$("#additionUpdate").validate({
 
 			rules: {
-				update_firstname: "required",
-				update_lastname: "required",
-				update_username: {
-					required: true,
-					minlength: 3
+				update_company_id: "required",
+				update_employee: "required",
+				update_tariffRate: {
+					required: true
 				},
 
-				update_email: {
+				update_positionStatus: {
+					required: true
+				},
+				update_wage: {
+					required: true
+				},
+				update_reasonChange: {
 					required: true,
-					email: true
 				},
-				password: {
-					required: false,
-					minlength: 5
-				},
-				confirm_password: {
-					required: false,
-					minlength: 5,
-					equalTo: "#password"
-				},
-				update_deflang: "required"
+				update_totalMonthlySalary: "required"
 
 			},
 			messages: {
-				update_firstname: "<?php echo $dil['empty_firstname'];?>",
-				update_lastname: "<?php echo $dil['empty_lastname'];?>",
+				update_company_id: "<?php echo $dil['empty_firstname'];?>",
+				update_employee: "<?php echo $dil['empty_lastname'];?>",
 
 				update_username: {
 					required: "<?php echo $dil['empty_user'];?>",
@@ -603,16 +661,21 @@ $(function () {
 					// PARSE json data
 					var employee = JSON.parse(emp_data);
 					// Assing existing values to the modal popup fields
-					console.log('employee=', employee)
+					console.log('employee=', employee);
 
 					if (optype == 'update') {
-
-						$("#uid").val(emp_id)
+						var prize_amount_currency='';
+						if(employee.prize_amount_currency){
+							prize_amount_currency=employee.prize_amount_currency;
+						}
+						// $("#uid").val(emp_id)
 						// $("#update_company_id").val(employee.company_id).change();
 						$("#update_company_id").val(employee.company_id).change();
 						$("#update_employee").val(employee.emp_id).change();
 						$("#update_additionsDeductionsSalary").val(employee.add_salary_id).change();
 						$("#update_additions_salary").val(employee.salary);
+						$("#update_rewardPeriod").val(employee.reward_period).change();
+						$("#update_prizeCurrency").val(prize_amount_currency).change();
 						$("#update_additions_currency").val(employee.additions_currency).change();
 						// $("#update_reasonChange").val(employee.wage);
 						$("#update_begin_date").val(employee.begin_date);
