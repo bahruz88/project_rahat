@@ -45,7 +45,7 @@ $(function () {
 
 		buttons: [
 			{
-				text: 'Add New <i class="fa fa-plus"></i>',
+				text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 				action: function (e, dt, node, config) {
 					$("#myModal").modal();
 
@@ -68,8 +68,18 @@ $(function () {
 				exportOptions: {
 					columns: ':visible'
 				}
-			}, 'copy', 'print',
-			'colvis'
+			},
+			{
+				extend: 'copy',
+				text:'Kopyala'
+			},
+			{
+				extend: 'print',
+				text:'Çap et'
+			},{
+				extend: 'colvis',
+				text:'Sütunu gizlət'
+			},
 		],
 
 		"lengthMenu": [
@@ -482,7 +492,7 @@ $(function () {
 
 			buttons: [
 				{
-					text: 'Add New <i class="fa fa-plus"></i>',
+					text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 					action: function (e, dt, node, config) {
 						$("#myAdditionModal").modal();
 
@@ -505,8 +515,18 @@ $(function () {
 					exportOptions: {
 						columns: ':visible'
 					}
-				}, 'copy', 'print',
-				'colvis'
+				},
+				{
+					extend: 'copy',
+					text:'Kopyala'
+				},
+				{
+					extend: 'print',
+					text:'Çap et'
+				},{
+					extend: 'colvis',
+					text:'Sütunu gizlət'
+				},
 			],
 
 			"lengthMenu": [

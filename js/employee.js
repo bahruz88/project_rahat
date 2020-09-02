@@ -158,7 +158,7 @@ var table = $("#employee_table").DataTable({
         
     buttons: [
 				{
-					 text: 'Add New <i class="fa fa-plus"></i>',
+					 text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 					 action: function ( e, dt, node, config ) {
 					 $("#myModal").modal();
 						 $('#imgAdd').html($('#uploadDiv').html())
@@ -183,8 +183,18 @@ var table = $("#employee_table").DataTable({
                         exportOptions: {
                             columns: ':visible'
                         }
-                    }  ,'copy','print',
-                    'colvis'
+                    }  ,
+					{
+						extend: 'copy',
+						text:'Kopyala'
+					},
+					{
+						extend: 'print',
+						text:'Çap et'
+					},{
+						extend: 'colvis',
+						text:'Sütunu gizlət'
+					},
                 ],
 				
 			 "lengthMenu": [
@@ -309,7 +319,7 @@ $('#employee_table tbody').on( 'click', '#view', function () {
 								 }
 								 else if (strMessage==='success')
 								 {
-									 $("#successp").text('Melumat muveffeqiyyetle daxil edildi');
+									 $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
 									 $("#modalInsertSuccess").modal('show');
 									 $("#myModal").modal('hide');
 							
@@ -459,13 +469,12 @@ $('#eduinfo_table').DataTable().clear().destroy();
         
     buttons: [
 					{
-						
-                   text: 'Add New <i class="fa fa-plus"></i>',
-                action: function ( e, dt, node, config ) {
-                    $("#educationInsert").modal();
-                }
+                   	text: 'Yenisini yarat <i class="fa fa-plus"></i>',
+						action: function ( e, dt, node, config ) {
+							$("#educationInsert").modal();
+						}
                     },
-	{
+					{
                         extend: 'excelHtml5',
                         exportOptions: {
                             columns: ':visible'
@@ -482,9 +491,18 @@ $('#eduinfo_table').DataTable().clear().destroy();
                         exportOptions: {
                             columns: ':visible'
                         }
-                    }  ,'copy','print',
-                    'colvis',
-					
+                    }  ,
+					{
+						extend: 'copy',
+						text:'Kopyala'
+					},
+					{
+						extend: 'print',
+						text:'Çap et'
+					},{
+						extend: 'colvis',
+						text:'Sütunu gizlət'
+					},
                 ],
 				
 			 "lengthMenu": [
@@ -551,7 +569,7 @@ $('#eduinfo_table').DataTable().clear().destroy();
 								 }
 								 else if (strMessage==='success')
 								 {
-									 $("#successp").text('Melumat muveffeqiyyetle daxil edildi');
+									 $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
 									 $("#modalInsertSuccess").modal('show');
 									 $("#educationInsert").modal('hide');
 							
@@ -767,7 +785,7 @@ $('#cert_table').DataTable().clear().destroy();
     buttons: [
 					{
 						
-                   text: 'Add New <i class="fa fa-plus"></i>',
+                   text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
                     $("#certificationModalInsert").modal();
                 }
@@ -789,8 +807,18 @@ $('#cert_table').DataTable().clear().destroy();
                         exportOptions: {
                             columns: ':visible'
                         }
-                    }  ,'copy','print',
-                    'colvis',
+                    }  ,
+					{
+						extend: 'copy',
+						text:'Kopyala'
+					},
+					{
+						extend: 'print',
+						text:'Çap et'
+					},{
+						extend: 'colvis',
+						text:'Sütunu gizlət'
+					},
 					
                 ],
 				
@@ -886,7 +914,7 @@ $('#cert_table').DataTable().clear().destroy();
 								 }
 								 else if (strMessage==='success')
 								 {
-									 $("#successp").text('Melumat muveffeqiyyetle daxil edildi');
+									 $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
 									 $("#modalInsertSuccess").modal('show');
 									 $("#certificationModalInsert").modal('hide');
 							
@@ -1061,7 +1089,7 @@ $('#skills_table').DataTable().clear().destroy();
     buttons: [
 					{
 						
-                   text: 'Add New <i class="fa fa-plus"></i>',
+                   text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
                     $("#skillsInsertModal").modal();
                 }
@@ -1083,8 +1111,18 @@ $('#skills_table').DataTable().clear().destroy();
                         exportOptions: {
                             columns: ':visible'
                         }
-                    }  ,'copy','print',
-                    'colvis',
+                    }  ,
+					{
+						extend: 'copy',
+						text:'Kopyala'
+					},
+					{
+						extend: 'print',
+						text:'Çap et'
+					},{
+						extend: 'colvis',
+						text:'Sütunu gizlət'
+					},
 					
                 ],
 				
@@ -1321,7 +1359,7 @@ var lang_knowledge_table ;
     buttons: [
 					{
 						
-                   text: 'Add New <i class="fa fa-plus"></i>',
+                   text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
                     $("#langInsertModal").modal();
                 }
@@ -1343,8 +1381,18 @@ var lang_knowledge_table ;
                         exportOptions: {
                             columns: ':visible'
                         }
-                    }  ,'copy','print',
-                    'colvis',
+                    }  ,
+					{
+						extend: 'copy',
+						text:'Kopyala'
+					},
+					{
+						extend: 'print',
+						text:'Çap et'
+					},{
+						extend: 'colvis',
+						text:'Sütunu gizlət'
+					},
 					
                 ],
 				
@@ -1580,7 +1628,7 @@ var faminfo_table ;
     buttons: [
 					{
 						
-                   text: 'Add New <i class="fa fa-plus"></i>',
+                   text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
                     $("#famInfoInsertModal").modal();
                 }
@@ -1602,8 +1650,18 @@ var faminfo_table ;
                         exportOptions: {
                             columns: ':visible'
                         }
-                    }  ,'copy','print',
-                    'colvis',
+                    }  ,
+					{
+						extend: 'copy',
+						text:'Kopyala'
+					},
+					{
+						extend: 'print',
+						text:'Çap et'
+					},{
+						extend: 'colvis',
+						text:'Sütunu gizlət'
+					},
 					
                 ],
 				
@@ -1849,7 +1907,7 @@ $("#familiyInfoUpdate").submit(function(e)
 			buttons: [
 				{
 
-					text: 'Add New <i class="fa fa-plus"></i>',
+					text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 					action: function ( e, dt, node, config ) {
 						console.log('militaryInfoInsertModal')
 
@@ -1873,8 +1931,18 @@ $("#familiyInfoUpdate").submit(function(e)
 					exportOptions: {
 						columns: ':visible'
 					}
-				}  ,'copy','print',
-				'colvis',
+				}  ,
+				{
+					extend: 'copy',
+					text:'Kopyala'
+				},
+				{
+					extend: 'print',
+					text:'Çap et'
+				},{
+					extend: 'colvis',
+					text:'Sütunu gizlət'
+				},
 
 			],
 
@@ -2157,7 +2225,7 @@ $("#familiyInfoUpdate").submit(function(e)
 	// 		buttons: [
 	// 			{
 	//
-	// 				text: 'Add New <i class="fa fa-plus"></i>',
+	// 				text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 	// 				action: function ( e, dt, node, config ) {
 	// 					console.log('paymentSalaryInsertModal')
 	//
@@ -2463,7 +2531,7 @@ $("#familiyInfoUpdate").submit(function(e)
 			buttons: [
 				{
 
-					text: 'Add New <i class="fa fa-plus"></i>',
+					text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 					action: function ( e, dt, node, config ) {
 						console.log('drivingLicenseInfoInsertModal')
 
@@ -2487,8 +2555,18 @@ $("#familiyInfoUpdate").submit(function(e)
 					exportOptions: {
 						columns: ':visible'
 					}
-				}  ,'copy','print',
-				'colvis',
+				}  ,
+				{
+					extend: 'copy',
+					text:'Kopyala'
+				},
+				{
+					extend: 'print',
+					text:'Çap et'
+				},{
+					extend: 'colvis',
+					text:'Sütunu gizlət'
+				},
 
 			],
 
@@ -2738,7 +2816,7 @@ $("#familiyInfoUpdate").submit(function(e)
             buttons: [
                 {
 
-                    text: 'Add New <i class="fa fa-plus"></i>',
+                    text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function ( e, dt, node, config ) {
                         console.log('medicalInfoInsertModal')
 
@@ -2762,9 +2840,19 @@ $("#familiyInfoUpdate").submit(function(e)
                     exportOptions: {
                         columns: ':visible'
                     }
-                }  ,'copy','print',
-                'colvis',
-
+                }  ,
+				{
+					extend: 'copy',
+					text:'Kopyala'
+				},
+				{
+					extend: 'print',
+					text:'Çap et'
+				},{
+					extend: 'colvis',
+					text:'Sütunu gizlət'
+				},
+ 
             ],
 
             "lengthMenu": [
@@ -2858,7 +2946,7 @@ $("#familiyInfoUpdate").submit(function(e)
                 }
             }
         });
-        medical_info_table.ajax.reload();
+		medical_info_table.ajax.reload();
         $( "#medicalInfoInsertForm" ).get(0).reset();
         /*}*/
     });
@@ -3020,7 +3108,7 @@ $("#familiyInfoUpdate").submit(function(e)
             buttons: [
                 {
 
-                    text: 'Add New <i class="fa fa-plus"></i>',
+                    text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function ( e, dt, node, config ) {
                         console.log('previousPositionsInsertModal')
 
@@ -3044,8 +3132,17 @@ $("#familiyInfoUpdate").submit(function(e)
                     exportOptions: {
                         columns: ':visible'
                     }
-                }  ,'copy','print',
-                'colvis',
+                }  ,{
+					extend: 'copy',
+					text:'Kopyala'
+				},
+				{
+					extend: 'print',
+					text:'Çap et'
+				},{
+					extend: 'colvis',
+					text:'Sütunu gizlət'
+				},
 
             ],
 
@@ -3290,7 +3387,7 @@ $("#familiyInfoUpdate").submit(function(e)
 			buttons: [
 				{
 
-					text: 'Add New <i class="fa fa-plus"></i>',
+					text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 					action: function ( e, dt, node, config ) {
 						console.log('migrationInfoInsertModal')
 
@@ -3314,8 +3411,17 @@ $("#familiyInfoUpdate").submit(function(e)
 					exportOptions: {
 						columns: ':visible'
 					}
-				}  ,'copy','print',
-				'colvis',
+				}  ,{
+					extend: 'copy',
+					text:'Kopyala'
+				},
+				{
+					extend: 'print',
+					text:'Çap et'
+				},{
+					extend: 'colvis',
+					text:'Sütunu gizlət'
+				},
 
 			],
 

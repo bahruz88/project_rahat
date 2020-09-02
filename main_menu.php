@@ -69,18 +69,18 @@
                   <p><?php echo $dil["employee_list"];?></p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  
-                  <p>Təlim, tədris və sertifikatlar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  
-                  <p>Bacarıqlar</p>
-                </a>
-              </li>
+<!--              <li class="nav-item">-->
+<!--                <a href="pages/charts/flot.html" class="nav-link">-->
+<!--                  -->
+<!--                  <p>Təlim, tədris və sertifikatlar</p>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a href="pages/charts/inline.html" class="nav-link">-->
+<!--                  -->
+<!--                  <p>Bacarıqlar</p>-->
+<!--                </a>-->
+<!--              </li>-->
             </ul>
           </li>
 		  
@@ -183,30 +183,30 @@
 		  
 		  
 		  
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-			   Digər məlumatlar
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  
-                  <p>Sürücülük vəsiqəsi</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  
-                  <p>Miqrasiya Məlumatları</p>
-                </a>
-              </li>
-              <li class="nav-item">        
-            </ul>
-          </li>
+<!--          <li class="nav-item has-treeview">-->
+<!--            <a href="#" class="nav-link">-->
+<!--              <i class="nav-icon fas fa-edit"></i>-->
+<!--              <p>-->
+<!--			   Digər məlumatlar-->
+<!--                <i class="right fas fa-angle-left"></i>-->
+<!--              </p>-->
+<!--            </a>-->
+<!--            <ul class="nav nav-treeview">-->
+<!--              <li class="nav-item">-->
+<!--                <a href="pages/charts/chartjs.html" class="nav-link">-->
+<!--                  -->
+<!--                  <p>Sürücülük vəsiqəsi</p>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a href="pages/charts/flot.html" class="nav-link">-->
+<!--                  -->
+<!--                  <p>Miqrasiya Məlumatları</p>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">        -->
+<!--            </ul>-->
+<!--          </li>-->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="fas fa-sitemap"></i>
