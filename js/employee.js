@@ -3602,9 +3602,22 @@ $(document).ready(function (e) {
 		 $("#addImage").trigger("click");
 		console.log('on change');
 	})
-
-
-
+	$(document).on('change', '#medical_physical_deficiency', function () {
+		console.log('medical_physical_deficiency='+$(this).val());
+		if($('#medical_physical_deficiency option:selected').val()=='1'){
+			$('#medical_deficiency_descDiv').css('display','flex')
+		}else{
+			$('#medical_deficiency_descDiv').css('display','none')
+		}
+	})
+	$(document).on('change', '#update_physical_deficiency', function () {
+		console.log('update_physical_deficiency='+$(this).val());
+		if($('#update_physical_deficiency option:selected').val()=='1'){
+			$('#update_deficiency_descDiv').css('display','flex')
+		}else{
+			$('#update_deficiency_descDiv').css('display','none')
+		}
+	})
 });
 function addImage(){
 	$("#addImage").on('click',(function(e) {

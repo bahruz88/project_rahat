@@ -76,7 +76,7 @@
 							</div> 
 
 
-							<div class="form-group row">
+							<div class="form-group row"   >
 								<label class="col-sm-4 col-form-label" for="view_deficiency_desc"><?php echo $dil["medical_deficiency_desc"];?></label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" id="view_deficiency_desc" name="view_deficiency_desc" placeholder="<?php echo $dil["medical_deficiency_desc"];?>" readonly />
@@ -191,7 +191,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" id="medical_deficiency_descDiv" style="display:none;">
                             <label class="col-sm-4 col-form-label" for="medical_deficiency_desc"><?php echo $dil["medical_deficiency_desc"];?></label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="medical_deficiency_desc" name="medical_deficiency_desc" placeholder="<?php echo $dil["medical_deficiency_desc"];?>" />
@@ -288,7 +288,7 @@
                                     </div>
                                 </div>
     
-                                <div class="form-group row">
+                                <div class="form-group row" >
                                     <label class="col-sm-4 col-form-label" for="update_physical_deficiency"><?php echo $dil["medical_physical_deficiency"];?></label>
                                     <div class="col-sm-6">
                                         <select data-live-search="true"  name="update_physical_deficiency"  id="update_physical_deficiency" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["medical_physical_deficiency"];?>">
@@ -306,7 +306,7 @@
                                     </div>
                                 </div>
     
-                                <div class="form-group row">
+                                <div class="form-group row"id="update_deficiency_descDiv" style="display: none;">
                                 <label class="col-sm-4 col-form-label" for="update_deficiency_desc"><?php echo $dil["medical_deficiency_desc"];?></label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" id="update_deficiency_desc" name="update_deficiency_desc" placeholder="<?php echo $dil["medical_deficiency_desc"];?>" />
