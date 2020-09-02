@@ -1,7 +1,7 @@
 <?php
 
 
-include('session.php') ;
+include('../session.php');
 
 //Create variables
 $c=0;
@@ -78,5 +78,5 @@ else {
 //Close connection
 //mysqli_close($db);
 //
-include ('st_selectWithComp.php');
+include('st_selectWithComp.php');
 ?>

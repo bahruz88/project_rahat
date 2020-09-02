@@ -1,5 +1,5 @@
 <?php
-include('session.php') ;
+include('../session.php');
  $role_id                 =$_POST['role_id'];
  $company_id              =$_POST['company_id'];
 $data=array();

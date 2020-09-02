@@ -156,7 +156,7 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     console.log('company_id=='+company_id)
     console.log('$pId=='+PID)
     $.ajax({
-        url: 'st_insert.php',
+        url: 'structure/st_insert.php',
         type: "POST",
         data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date,company_id:company_id,company_ids:company_ids,st:"st"},
         success: function (data) {
@@ -226,7 +226,7 @@ function sagClick(number){
         console.log('companyid[[[[[[[[[[[[='+$(this).closest('tr').attr('data-companyid'))
         var company_id=$(this).closest('tr').attr('data-companyid')
         $.ajax({
-            url: 'st_emp_select.php',
+            url: 'structure/st_emp_select.php',
             type: "POST",
             data: { company_id:company_id},
             success: function (data) {
@@ -328,7 +328,7 @@ function sagClick(number){
         // var company_id=$('#company_id').val()
 
         $.ajax({
-            url: 'st_update.php',
+            url: 'structure/st_update.php',
             type: "POST",
             data: { id:number, name:thisVal,change:thisName,company_id:company_id},
             success: function (data) {
@@ -356,7 +356,7 @@ function sagClick(number){
         // var company_id=$('#company_id').val()
         var company_id=$(this).closest('tr').attr('data-companyId');
         $.ajax({
-            url: 'st_update.php',
+            url: 'structure/st_update.php',
             type: "POST",
             data: { id:number, name:thisVal,change:thisName,company_id:company_id},
             success: function (data) {
@@ -382,7 +382,7 @@ function sagClick(number){
         var company_id=$(this).closest('tr').attr('data-companyId')
         // if(validate(createDate)) {
         $.ajax({
-            url: 'st_update.php',
+            url: 'structure/st_update.php',
             type: "POST",
             data: {id: number, createDate: createDate, endDate: endDate,company_id:company_id},
             success: function (data) {
@@ -450,7 +450,7 @@ function treeClick(trList){
         console.log('treeClick company_id='+company_id)
         // var company_id=$('#company_id').val()
         $.ajax({
-            url: 'st_selectRoles.php',
+            url: 'structure/st_selectRoles.php',
             type: "POST",
             async:false,
             data: {id: stId},
@@ -460,7 +460,7 @@ function treeClick(trList){
             },
         });
         $.ajax({
-            url: 'st_selectEmpCompany.php',
+            url: 'structure/st_selectEmpCompany.php',
             type: "POST",
             async:false,
             data: {company_id: company_id},
@@ -488,7 +488,7 @@ function treeClick(trList){
             }
         })
         $.ajax({
-            url: 'st_selectStPosition.php',
+            url: 'structure/st_selectStPosition.php',
             type: "POST",
             async:false,
             data: { id:stId},
@@ -523,7 +523,7 @@ function myTextClick(){
             if(tb.val()<=100) {
                 div.text(tb.val());//remove text box & put its current value as text to the div
                 $.ajax({
-                    url: 'st_insertRole.php',
+                    url: 'structure/st_insertRole.php',
                     type: "POST",
                     data: {
                         posit_code: positcode,
@@ -625,7 +625,7 @@ $(function () {
         // });
         company_id='0,'+company_id;
         $.ajax({
-            url: 'st_selectWithCompany.php',
+            url: 'structure/st_selectWithCompany.php',
             type: "POST",
             data: {company_id: company_id,st:"st"},
             success: function (data) {
@@ -659,7 +659,7 @@ $("#confirmRole").click(function() {
         console.log('confirmRole change stId='+stId);
         console.log('confirmRole change company_id='+company_id);
     $.ajax({
-        url: 'st_selectValidateRole.php',
+        url: 'structure/st_selectValidateRole.php',
         type: "POST",
         data: { role_id:role_id,company_id:company_id},
         success: function (data) {
@@ -679,7 +679,7 @@ $("#confirmRole").click(function() {
             }
             function insertRole(){
                 $.ajax({
-                    url: 'st_insertRole.php',
+                    url: 'structure/st_insertRole.php',
                     type: "POST",
                     data: { company_id:company_id,role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
                     success: function (data) {
@@ -793,7 +793,7 @@ function fillStTable(data,stId){
         console.log("deleteStRole")
         var id= $(this).closest('tr').attr('data-id');
         $.ajax({
-            url: 'st_deleteStRole.php',
+            url: 'structure/st_deleteStRole.php',
             type: "POST",
             data: {id:id,stId:stId},
             success: function (data) {

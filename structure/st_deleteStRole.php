@@ -1,7 +1,7 @@
 <?php
 
 
-include('session.php');
+include('../session.php');
 
 //Create variables
 
@@ -29,5 +29,5 @@ if ($aff_row_count > 0) {
 //mysqli_close($db);
 
 //include ('st_select.php');
-include ('st_selectRole.php');
+include('st_selectRole.php');
 ?>

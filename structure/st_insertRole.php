@@ -1,7 +1,7 @@
 <?php
 
 
-include('session.php') ;
+include('../session.php');
 
 
 ////$id                 =$_POST['id'];
@@ -65,5 +65,5 @@ else {
 //Close connection
 //mysqli_close($db);
 //
-include ('st_selectRole.php');
+include('st_selectRole.php');
 ?>

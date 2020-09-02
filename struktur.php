@@ -879,7 +879,7 @@ $sql_position= "select * from $tbl_employee_category";
                                     console.log('pozisya clickc dataArray=',dataArray)
 
                                     $.ajax({
-                                        url: 'st_emp_select.php',
+                                        url: 'structure/st_emp_select.php',
                                         type: "POST",
                                         data: { company_id:companyId},
                                         success: function (data) {
@@ -1138,7 +1138,7 @@ $sql_position= "select * from $tbl_employee_category";
                             console.log('title=='+title);
 
                             $.ajax({
-                                url: 'st_update.php',
+                                url: 'structure/st_update.php',
                                 type: "POST",
                                 data: { id:ID, name:title,change:'category'},
                                 success: function (data) {
@@ -1168,7 +1168,7 @@ $sql_position= "select * from $tbl_employee_category";
                            var  company_ids='0,'+$('#company_id').val();
                             console.log('delet company_ids=='+company_ids);
                             $.ajax({
-                                url: 'st_delete.php',
+                                url: 'structure/st_delete.php',
                                 type: "POST",
                                 data: {id:ID,delet:delet,company_id:company_id,company_ids:company_ids,st:"st"},
                                 success: function (data) {

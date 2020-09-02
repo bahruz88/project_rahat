@@ -227,10 +227,10 @@
                 var chart = new OrgChart(document.getElementById("tree"), {
                     enableDragDrop: false,
                     enableSearch: false,
-                    // showYScroll: false,
-                    //showXScroll: false,
-                    mouseScrool: false,
-                    nodeMouseClick: false,
+                    //  showYScroll: true,
+                    // showXScroll: true,
+                    // mouseScrool: true,
+                     nodeMouseClick: false,
                     nodeBinding: {
                         field_0: "name",
                         field_1: "title"

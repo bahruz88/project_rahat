@@ -1,7 +1,7 @@
 <?php
 
 
-include('session.php') ;
+include('../session.php');
 
 //Create variables
 
@@ -47,5 +47,5 @@ else  {
 }
 
 //include ('st_select.php');
-include ('st_selectWithComp.php');
+include('st_selectWithComp.php');
 ?>
