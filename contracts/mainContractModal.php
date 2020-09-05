@@ -95,7 +95,7 @@ Mandatory in IE 6, 7, 8 and 9.
                                 <fieldset >
                                     <input type="radio" value="1" name="commandDate">&nbsp; <label for="">Nömrələnmiş</label><br/>
                                     <input type="radio" value="2" name="commandDate">&nbsp;<label for="">Nömrələnməmiş</label><br/>
-                                    <input type="radio" value="3" name="commandDate">&nbsp;<label for="">Hamsı</label>
+                                    <input type="radio" value="3" name="commandDate">&nbsp;<label for="">Hamısı</label>
                                 </fieldset>
                             </div>
 

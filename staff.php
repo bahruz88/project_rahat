@@ -316,7 +316,7 @@ $result_employee_category = $db->query($employee_category);
         var company_id=$(this).find('option:selected').val();
         $.ajax({
             // url: 'st_selectStaff.php',
-            url: 'st_selectWithCompany.php',
+            url: 'structure/st_selectWithCompany2.php',
             type: "POST",
             data: { company_id:company_id},
             success: function (data) {
@@ -406,13 +406,6 @@ $result_employee_category = $db->query($employee_category);
                     console.log('dataaaaaaa111 value=' , value)
                     if(key!="company_tel" && key!="company_address" && key!="company" && key!="enterprise_head_fullname"&& key!="enterprise_head_position" )
                     {
-                        // table+='<tr class="typeOfDocument" >' +
-                        //     '<td>'+value.id+'</td>'+
-                        //     '<td>'+value.structure+'</td>'+
-                        //     '<td>'+1+'</td>'+
-                        //     '<td>'+1000+'</td>'+
-                        //     '<td>'+1000+'</td>'+
-                        //     '<td>'+1000+'</td>';
                         arrayData2.push({"id":value.id,"category":value.category})
                     }
 
@@ -521,6 +514,7 @@ $result_employee_category = $db->query($employee_category);
     $(function() {
         //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
         var subArray =  [];
+        var validateArray =  [];
         //idArray =  <?php //echo json_encode($idArray); ?>//;
         idArray =  [];
         console.log('subArray $idArray=',idArray);
@@ -575,29 +569,63 @@ $result_employee_category = $db->query($employee_category);
                         }
                     },
                     renderColumns: function(event, data) {
-                        // console.log('renderColumns',data)
+
                         var node = data.node,
                             $tdList = $(node.tr).find(">td");
                         trList = $(node.tr);
+                        console.log('renderColumns node.data=',data.node);
+                        console.log('renderColumns node.data[1]=',node.data[1]);
+                        var staffCount=1;
 
                         $tdList.eq(0).text('');
                         if (node.isFolder()==false) {
                             count_pozisya++;
                             // $tdList.eq(1).text(node.data.id);
                             $tdList.eq(1).text(count_pozisya);
+                            if(jQuery.inArray( node.data[1], validateArray )==-1){
+                                validateArray.push(node.data[1]);
+                                $(node.tr).attr('id',node.data[1]);
+                            }else{
+                                var trCount=jQuery.inArray( node.data[1], validateArray );
+
+                                staffCount++;
+                                $.each($('#stafftree').find('tr'), function(index, v){
+                                    console.log('$(this).id='+$(this).attr('id'))
+                                    console.log('node.data[1]='+node.data[1])
+                                    if(node.data[1]){
+                                        var trId=node.data[1];
+                                        if($(this).attr('id')===trId){
+                                            console.log('tapdimmmmmm='+$(this).html());
+                                            $(this).css('display','none');
+                                        }
+
+                                    }else if(node.data.title){
+                                        var trId=node.data.title;
+                                        if($(this).attr('id')===trId){
+                                            console.log('tapdimmmmmmv title='+$(this).html());
+                                            $(this).find(">td").eq(3)
+                                                .text(staffCount);
+                                            $(this).css('display','none');
+                                            // $(this).remove();
+                                        }
+                                    }
+
+
+
+                                })
+                            }
                         }else{
                             count_pozisya=0;
                             // $tdList.eq(1).text(node.data.id);
                             $tdList.eq(1).text('');
+
                         }
-
-
                         $(node.tr).attr('data-id',node.data.id);
                         $(node.tr).attr('data-companyId',node.data.company_id);
                         //*men
                         $tdList
                             .eq(3)
-                            .text(1);
+                            .text(staffCount);
                         //iconu gizledir
                         $tdList
                             .find('.fancytree-icon')
@@ -616,14 +644,10 @@ $result_employee_category = $db->query($employee_category);
                             .find('span')
                             // .text(node.data.full_name);
                             .text('-');
-
-
                         $tdList
                             .eq(6)
                             .find('span')
                             .text(10000);
-
-
                         $tdList
                             .eq(7)
                             .find('span')

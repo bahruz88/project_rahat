@@ -1,4 +1,4 @@
-<?php
+<?php //header("Content-Type: text/html; charset=utf-8");
 include('session.php');
 $site_lang=$_SESSION['dil'] ;
 
@@ -87,7 +87,8 @@ $sql_position= "select * from $tbl_employee_category";
             position: absolute;
             border: 1px solid #5d6974;
             border-radius: 3px;
-            width: 200px;
+            width: 120px;
+            height:30px;
             background: white;
             /*box-shadow: 10px 10px 5px #5d6974;*/
             font-size: 12px;
@@ -478,7 +479,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                 while($row_structure= $result_structure_view->fetch_assoc()) {
 
                                                     ?>
-                                                    <option  value="<?php echo $row_structure['id']; ?>" ><?php echo utf8_encode($row_structure['title']);  ?></option>
+                                                    <option  value="<?php echo $row_structure['id']; ?>" ><?php echo ($row_structure['title']);  ?></option>
 
                                                 <?php } }?>
                                         </select>
@@ -493,7 +494,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                 while($row_position= $result_position_view->fetch_assoc()) {
 
                                                     ?>
-                                                    <option  value="<?php echo $row_position['id']; ?>"  data-icon="<?php echo $row_position['posit_icon']; ?>"><?php echo utf8_encode($row_position['title']);  ?></option>
+                                                    <option  value="<?php echo $row_position['id']; ?>"  data-icon="<?php echo $row_position['posit_icon']; ?>"><?php echo ($row_position['title']);  ?></option>
 
                                                 <?php } }?>
                                         </select>
@@ -640,7 +641,7 @@ $sql_position= "select * from $tbl_employee_category";
                                                 <table class="table table-striped" id="tableStructureRoles">
                                                     <thead>
                                                     <tr>
-                                                        <th><strong><?php echo $dil["icon"];?></strong></th>
+<!--                                                        <th><strong>--><?php //echo $dil["icon"];?><!--</strong></th>-->
                                                         <th><strong><?php echo $dil["role"];?></strong></th>
                                                         <th><strong><?php echo $dil["position"];?></strong></th>
 

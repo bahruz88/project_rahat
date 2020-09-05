@@ -242,11 +242,6 @@ function sagClick(number){
 
                 });
                 option+=' </select>';
-                // console.log('select #this td='+ $('#'+id).closest('td').html())
-                // console.log('select #this tr='+ $('#'+id).closest('td').find('select').html())
-                // console.log('select #employee option='+option)
-                // option += '</select>';
-                // $('#employees').html(option);
                 $('#'+id).closest('td').find('select').html(option);
                 // $('.employeesTree').html(option);
                 $(".selectpicker").selectpicker();
@@ -293,6 +288,7 @@ function sagClick(number){
 
     // Clicked context-menu item
     $('#contentEdit').click(function(){
+
         var idCont = $('#txt_id').val();
         if(idCont){
             console.log('idCont='+idCont)
@@ -302,10 +298,28 @@ function sagClick(number){
             $('#'+idCont).find('button').css('display','block')
 
         }
+        $('#'+idCont).off('click')
+        $('table').click(function() {
+            console.log('body click'+$(this).attr('class'))
+
+            $('#'+idCont).find('span').css('display','block')
+            $('#'+idCont).find('select').css('display','none')
+            $('#'+idCont).find('input').css('display','none')
+            $('#'+idCont).find('button').css('display','none')
+
+
+
+
+        });
+        $('table div,table select,table input,table button').click(function(e){
+            e.stopPropagation();
+        });
 
     });
     // Clicked context-menu item
-    $("#idst"+number).find('select').change(function(){
+
+    $("#idst"+number).find('select').change(function(e){
+        // e.stopPropagation();
         console.log('contentEdit change'+$(this).attr('name'));
         if($(this).find('option:selected').val()!='0'){
             $(this).closest('td').find('span').text($(this).find('option:selected').text())
@@ -402,12 +416,14 @@ function sagClick(number){
     $("#idcreateInput"+number).datepicker({
         todayHighlight: true,
         format: 'dd/mm/yyyy',
+        autoclose: true
         // startDate: new Date()
         // });
     })
     $("#idendInput"+number).datepicker({
         todayHighlight: true,
         format: 'dd/mm/yyyy',
+        autoclose: true
         // startDate: new Date()
         // });
     })
@@ -672,12 +688,15 @@ $("#confirmRole").click(function() {
                     console.log('datamodal='+data)
                     // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
                     $('#changeRole').modal('hide'); // now close modal
-                    insertRole()
+                    insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
                 })
             }else{
-                insertRole()
+                insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
             }
-            function insertRole(){
+            function insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date){
+                console.log('company_id=' , company_id);
+                console.log('posit_code=' , posit_code);
+                console.log('stId=' , stId);
                 $.ajax({
                     url: 'structure/st_insertRole.php',
                     type: "POST",
@@ -685,8 +704,7 @@ $("#confirmRole").click(function() {
                     success: function (data) {
                         console.log('dataaaaas=' , data);
                         $('#roles').find('option[value="0"]').prop('selected', true);
-                        console.log('confirmRolffffffffffe roles='+$('#roles').html());
-                        $('#positionList').find('option[value="0"]').prop('selected', true);
+                         $('#positionList').find('option[value="0"]').prop('selected', true);
                         $('#role_start_date').val('')
                         $('#role_end_date').val('')
                         $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
@@ -775,7 +793,7 @@ function fillStTable(data,stId){
         }
 
         row +='<tr data-id="'+v[11]+'" data-positcode="'+v[2]+'" data-empid="'+v[10]+'"> '  +
-            ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
+            // ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
             ' <td>'+fRole+'</td>  '  +
             ' <td>'+v[2]+'</td>  '  +
             ' <td>'+fName+'</td>  '  +
@@ -810,4 +828,5 @@ function fillStTable(data,stId){
     // myTextClick()
 
 }
+
 
