@@ -515,6 +515,7 @@ $result_employee_category = $db->query($employee_category);
         //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
         var subArray =  [];
         var validateArray =  [];
+        var allArray =  [];
         //idArray =  <?php //echo json_encode($idArray); ?>//;
         idArray =  [];
         console.log('subArray $idArray=',idArray);
@@ -577,55 +578,30 @@ $result_employee_category = $db->query($employee_category);
                         console.log('renderColumns node.data[1]=',node.data[1]);
                         var staffCount=1;
 
+
                         $tdList.eq(0).text('');
                         if (node.isFolder()==false) {
                             count_pozisya++;
-                            // $tdList.eq(1).text(node.data.id);
-                            $tdList.eq(1).text(count_pozisya);
-                            if(jQuery.inArray( node.data[1], validateArray )==-1){
-                                validateArray.push(node.data[1]);
-                                $(node.tr).attr('id',node.data[1]);
-                            }else{
-                                var trCount=jQuery.inArray( node.data[1], validateArray );
 
-                                staffCount++;
-                                $.each($('#stafftree').find('tr'), function(index, v){
-                                    console.log('$(this).id='+$(this).attr('id'))
-                                    console.log('node.data[1]='+node.data[1])
-                                    if(node.data[1]){
-                                        var trId=node.data[1];
-                                        if($(this).attr('id')===trId){
-                                            console.log('tapdimmmmmm='+$(this).html());
-                                            $(this).css('display','none');
-                                        }
+                            console.log('count_pozisya='+count_pozisya)
 
-                                    }else if(node.data.title){
-                                        var trId=node.data.title;
-                                        if($(this).attr('id')===trId){
-                                            console.log('tapdimmmmmmv title='+$(this).html());
-                                            $(this).find(">td").eq(3)
-                                                .text(staffCount);
-                                            $(this).css('display','none');
-                                            // $(this).remove();
-                                        }
-                                    }
+                                $tdList.eq(1).text(count_pozisya);
 
 
 
-                                })
-                            }
+
                         }else{
                             count_pozisya=0;
                             // $tdList.eq(1).text(node.data.id);
                             $tdList.eq(1).text('');
-
                         }
+
                         $(node.tr).attr('data-id',node.data.id);
                         $(node.tr).attr('data-companyId',node.data.company_id);
-                        //*men
+                        //*mayya
                         $tdList
                             .eq(3)
-                            .text(staffCount);
+                            .text(node.data.countCategory);
                         //iconu gizledir
                         $tdList
                             .find('.fancytree-icon')
