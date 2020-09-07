@@ -142,7 +142,7 @@ $result_employee_category = $db->query($employee_category);
         </div>
         <div class="row">
             <div class="col-md-4">Ştat vahidi     </div>
-            <div class="col-md-1">5</div>
+            <div class="col-md-1"><span id="countStaff"></span></div>
             <div class="col-md-6">nefer</div>
         </div>
         <div class="row">
@@ -514,8 +514,7 @@ $result_employee_category = $db->query($employee_category);
     $(function() {
         //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
         var subArray =  [];
-        var validateArray =  [];
-        var allArray =  [];
+        var countStaff=0;
         //idArray =  <?php //echo json_encode($idArray); ?>//;
         idArray =  [];
         console.log('subArray $idArray=',idArray);
@@ -579,22 +578,19 @@ $result_employee_category = $db->query($employee_category);
                         var staffCount=1;
 
 
+
                         $tdList.eq(0).text('');
                         if (node.isFolder()==false) {
                             count_pozisya++;
-
                             console.log('count_pozisya='+count_pozisya)
-
-                                $tdList.eq(1).text(count_pozisya);
-
-
-
-
+                            $tdList.eq(1).text(count_pozisya);
                         }else{
                             count_pozisya=0;
                             // $tdList.eq(1).text(node.data.id);
                             $tdList.eq(1).text('');
                         }
+                        countStaff+=parseInt(node.data.countCategory)
+                        $('#countStaff').text(countStaff)
 
                         $(node.tr).attr('data-id',node.data.id);
                         $(node.tr).attr('data-companyId',node.data.company_id);
