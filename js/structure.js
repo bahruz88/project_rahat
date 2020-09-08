@@ -63,6 +63,8 @@ function confirmClick(companyId){
 //             $('select[name=selValue]').val(1);
             $('#position_level').find('option[value="0"]').prop('selected', true);
             $('#employee').find('option[value="0"]').prop('selected', true);
+            $('.filter-option-inner-inner').text('Seçin...');
+            $(".selectpicker").selectpicker();
             var icon=$('#icon').val();
 
             var company_id=$('#companyId').val();
@@ -77,6 +79,7 @@ function confirmClick(companyId){
                 createNew('yeni', 0, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id,company_ids);
 
             }
+
             $('#st_create_date').val('')
             $('#st_end_date').val('')
             $('.close').trigger('click');
