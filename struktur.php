@@ -298,7 +298,7 @@ $sql_position= "select * from $tbl_employee_category";
                                     <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
                                     <div class="col-sm-8">
 
-                                        <select data-live-search="true"  name="company" id='company'   multiple="multiple" style="display: none;" title="<?php echo $dil["selectone"];?>" class="form-control"  placeholder="<?php echo $dil["company"];?>"   >
+                                        <select data-live-search="true"   name="company" id='company'   multiple="" style="display: none;" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"   >
 
                                             <?php
                                             $result_company = $db->query($sql_employee_company);
@@ -1437,9 +1437,9 @@ $sql_position= "select * from $tbl_employee_category";
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <script src="js/BsMultiSelect.js"></script>
 <script>
-    $("#company").bsMultiSelect({cssPatch : {
-            choices: {columnCount:'1' },
-        }});
+    // $("#company").bsMultiSelect({cssPatch : {
+    //         choices: {columnCount:'1' },
+    //     }});
 </script>
 
 </body>
