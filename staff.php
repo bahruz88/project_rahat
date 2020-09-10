@@ -121,6 +121,20 @@ $result_employee_category = $db->query($employee_category);
             </select>
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="staffSelect"><?php echo $dil["choose"];?></label>
+        <div class="col-sm-6">
+            <fieldset >
+                <input type="radio" value="1" name="staffSelect">&nbsp; <label for="">Ştat cədvəli</label> &nbsp;
+                <input type="radio" value="2" name="staffSelect">&nbsp;<label for="">Ştat Əmri</label>
+            </fieldset>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-11 text-right">
+        <button type="button" class="btn btn-primary" id="staffSearch">Axtar</button>
+    </div>
+    </div>
 	<div class="tab-pane active" id="staff" style="display: none;width:800px;margin:auto;">
         <div class="staffText">
         <div class="container text-center"><span class="company"></span></div>
@@ -202,6 +216,97 @@ $result_employee_category = $db->query($employee_category);
 
 	</div>
         <div class="row staffText2" >
+            <div class="col-md-9  text-right">      <span class="enterprise_head_position"></span>   </div>
+            <div class="col-md-3  text-left">       <span class="enterprise_head_fullname"></span></div>
+        </div>
+
+	</div>
+	<div class="tab-pane active" id="statt" style="display: none;width:800px;margin:auto;">
+        <div class="stattText">
+        <div class="container text-center"><strong><span class="company"></span></strong></div>
+        <div class="container text-center"><strong><span class="company_adress"></span><span class="company_tel"></span></strong></div>
+        <br/>
+        <div class="row">
+            <div class="col-md-8">Cəmiyyətin ştat cədvəlində aşağıdaki dəyişiklik edilmişdir.</div>
+            <div class="col-md-4"><span class="day"></span> <span class="month"></span> <span class="year"></span></div>
+        </div>
+
+        <br/>
+        <div class="row">
+            <div class="col-md-3  text-left">      Dəyişiklik tarixi:   </div>
+            <div class="col-md-9  text-left">       <span class="update_date"></span></div>
+        </div>
+
+        </div>
+        <div id="stattTab" style="margin-top:20px;" >
+            <table id="statttree">
+
+                <thead>
+                <tr class="text-center" style="font-size:12px;">
+                    <th style="width:15px;" rowspan="2"></th>
+                    <th style="width:15px;border:1px solid grey;" rowspan="2">No</th>
+                    <th style="width:100px;border:1px solid grey;" rowspan="2">Struktur bölmələrin adı və vəzifələr</th>
+                    <th style="width:80px;border:1px solid grey;" colspan="4"  >Mövcud vəziyyət</th>
+                    <th style="width:80px;border:1px solid grey;" colspan="4"  >Yeni vəziyyət</th>
+
+
+
+                </tr>
+                <tr  style="font-size:12px;">
+
+                    <td style="width:50px;border:1px solid grey;">Ştat sayı (vahid)</td>
+                    <td style="width:80px;border:1px solid grey;">Vəzifə  maaşı (manatla)</td>
+                    <td style="width:80px;border:1px solid grey;">Vəzifə maaşına əlavə</td>
+                    <td style="width:80px;border:1px solid grey;"> Aylıq əmək haqqı fondu</td>
+
+                    <td style="width:50px;border:1px solid grey;">Ştat sayı (vahid)</td>
+                    <td style="width:80px;border:1px solid grey;">Vəzifə  maaşı (manatla)</td>
+                    <td style="width:80px;border:1px solid grey;">Vəzifə maaşına əlavə</td>
+                    <td style="width:80px;border:1px solid grey;"> Aylıq əmək haqqı fondu</td>
+
+
+                </tr>
+                </thead>
+                <tbody id="fancyBody">
+                <!-- Define a row template for all invariant markup: -->
+                <tr>
+                    <td class="alignCenter"></td>
+                    <td></td>
+                    <td></td>
+                    <td> </td>
+                    <td>
+                        <span></span>
+                    </td>
+                    <td>
+                        <span></span>
+
+                    </td>
+                    <td>
+                        <span></span>
+
+                    </td>
+                    <td> </td>
+                    <td>
+                        <span></span>
+                    </td>
+                    <td>
+                        <span></span>
+
+                    </td>
+                    <td>
+                        <span></span>
+
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+	</div>
+        <div class="row stattText2" >
+            <div class="col-md-12  text-center">   Cəmiyyətin müvafiq strukturları əmrin icrasından irəli gələn digər məsələləri həll etsinlər.</div>
+        </div>
+        <div class="row stattText2" >
             <div class="col-md-9  text-right">      <span class="enterprise_head_position"></span>   </div>
             <div class="col-md-3  text-left">       <span class="enterprise_head_fullname"></span></div>
         </div>
@@ -311,9 +416,142 @@ $result_employee_category = $db->query($employee_category);
     var arrayData=[];
     var getCanvas;
 
-    $("#enterprise_name").change(function(){
-        console.log('enterprise_name change'+$(this).attr('name'));
-        var company_id=$(this).find('option:selected').val();
+    // $("#enterprise_name").change(function(){
+    //     console.log('enterprise_name change'+$(this).attr('name'));
+    //     var company_id=$(this).find('option:selected').val();
+    //     $.ajax({
+    //         // url: 'st_selectStaff.php',
+    //         url: 'structure/st_selectWithCompany2.php',
+    //         type: "POST",
+    //         data: { company_id:company_id},
+    //         success: function (data) {
+    //             console.log('dataaaaaaa=' + data)
+    //             var data1=$.parseJSON(data);
+    //             // data1.remove("icon");
+    //
+    //
+    //
+    //             $('#companyDate').text($('#date_completion').val())
+    //             var table='';
+    //             // console.log('day='+$('#date_completion').val().substr(0, 2))
+    //             // console.log('month='+$('#date_completion').val().substr(3, 2))
+    //             var year=$('#date_completion').val().substr(6, 4);
+    //             var month=$('#date_completion').val().substr(3, 2);
+    //             switch ($('#date_completion').val().substr(3, 2)) {
+    //                 case "01":
+    //                     month = "Yanvar";
+    //                     break;
+    //                 case "02":
+    //                     month = "Fevral";
+    //                     break;
+    //                 case "03":
+    //                     month = "Mart";
+    //                     break;
+    //                 case "04":
+    //                     month = "Aprel";
+    //                     break;
+    //                 case "05":
+    //                     month = "May";
+    //                     break;
+    //                 case "06":
+    //                     month = "İyun";
+    //                     break;
+    //                 case "07":
+    //                     month = "İyul";
+    //                     break;
+    //                 case "08":
+    //                     month = "Avqust";
+    //                     break;
+    //                 case "09":
+    //                     month = "Sentyabr";
+    //                     break;
+    //                 case "10":
+    //                     month = "Oktyabr";
+    //                     break;
+    //                 case "11":
+    //                     month = "Noyabr";
+    //                     break;
+    //                 case "12":
+    //                     month = "Dekabr";
+    //                     break;
+    //             }
+    //             var day=$('#date_completion').val().substr(0, 2);
+    //
+    //             $('#year').val(year)
+    //             $('#month').val(month)
+    //             $('#day').val(day)
+    //
+    //             $('.year').text(year)
+    //             $('.month').text(month)
+    //             $('.day').text(day)
+    //             $('.enterprise_head_fullname').text(data1["enterprise_head_fullname"])
+    //             $('.enterprise_head_position').text(data1["enterprise_head_position"])
+    //             $('#companyName').text('"'+data1["company"]+'"')
+    //             $('.company_address').text(data1["company_address"])
+    //             $('.company_tel').text(data1["company_tel"])
+    //
+    //                 $('#enterprise_head_fullname').val(data1["enterprise_head_fullname"])
+    //                 $('#enterprise_head_position').val(data1["enterprise_head_position"])
+    //                 $('#company').val(data1["company"])
+    //                 $('#company_address').val(data1["company_address"])
+    //                 $('#company_tel').val(data1["company_tel"])
+    //
+    //
+    //             // $("table#staff_table tbody").html('');
+    //             console.log('dataaaaaaa111=', data1)
+    //             $.each(data1, function (key, value) {
+    //                 $.each(value, function (k, v) {
+    //                     console.log('key=' + k + ' val=' + v);
+    //
+    //
+    //                 $('#'+k).val(v)
+    //                 $('#'+k).text(v)
+    //                 $('.'+k).text(v)
+    //                 })
+    //                 console.log('dataaaaaaa111 value=' , value)
+    //                 if(key!="company_tel" && key!="company_address" && key!="company" && key!="enterprise_head_fullname"&& key!="enterprise_head_position" )
+    //                 {
+    //                     arrayData2.push({"id":value.id,"category":value.category})
+    //                 }
+    //
+    //             });
+    //             console.log('arrayData2=',JSON.stringify(arrayData2))
+    //             arrayData=JSON.stringify(arrayData2);
+    //
+    //             // $("table#staff_table tbody").append(table);
+    //
+    //             tree = $('#stafftree').fancytree('getTree');
+    //             tree.reload($.parseJSON(data));
+    //
+    //             $("#staff").css("display","block");
+    //             $("#download").css("display","block");
+    //             $("#print").css("display","block");
+    //             // $("#tableStaff").val( $("table#staff_table").html());
+    //             $("#tableStaff").val( $("table#stafftree").html());
+    //             var element = $("#staff"); // global variable
+    //
+    //
+    //             html2canvas(element, {
+    //                 onrendered: function (canvas) {
+    //                     $("#previewImage").append(canvas);
+    //                     getCanvas = canvas;
+    //
+    //                 }
+    //             });
+    //             $(".staffText").css("display","none");
+    //             $(".staffText2").css("display","none");
+    //
+    //
+    //         },
+    //     });
+    // })
+    $("#staffSearch").click(function(){
+        console.log('enterprise_name change'+$('#enterprise_name').attr('name'));
+        var company_id=$('#enterprise_name').find('option:selected').val();
+        // var staffSelect=$('#staffSelect').val();
+        var staffSelect=$("input[name='staffSelect']:checked").val();
+        console.log('staffSelect='+staffSelect);
+
         $.ajax({
             // url: 'st_selectStaff.php',
             url: 'structure/st_selectWithCompany2.php',
@@ -323,9 +561,6 @@ $result_employee_category = $db->query($employee_category);
                 console.log('dataaaaaaa=' + data)
                 var data1=$.parseJSON(data);
                 // data1.remove("icon");
-
-
-
                 $('#companyDate').text($('#date_completion').val())
                 var table='';
                 // console.log('day='+$('#date_completion').val().substr(0, 2))
@@ -418,12 +653,25 @@ $result_employee_category = $db->query($employee_category);
                 tree = $('#stafftree').fancytree('getTree');
                 tree.reload($.parseJSON(data));
 
-                $("#staff").css("display","block");
+                tree = $('#statttree').fancytree('getTree');
+                tree.reload($.parseJSON(data));
+
+                if(staffSelect=='1'){
+                    $("#staff").css("display","block");
+                    $("#statt").css("display","none");
+                    var element = $("#staff");
+                }else{
+                    $("#staff").css("display","none");
+                    $("#statt").css("display","block");
+                    var element = $("#statt");
+                }
+
                 $("#download").css("display","block");
                 $("#print").css("display","block");
                 // $("#tableStaff").val( $("table#staff_table").html());
                 $("#tableStaff").val( $("table#stafftree").html());
-                var element = $("#staff"); // global variable
+
+               // global variable
 
 
                 html2canvas(element, {
@@ -434,6 +682,8 @@ $result_employee_category = $db->query($employee_category);
                     }
                 });
                 $(".staffText").css("display","none");
+                $(".stattText").css("display","none");
+                $(".stattText2").css("display","none");
                 $(".staffText2").css("display","none");
 
 
@@ -442,8 +692,21 @@ $result_employee_category = $db->query($employee_category);
     })
     function printDiv(divId,
                       title) {
-        $(".staffText").css("display","block");
-        $(".staffText2").css("display","block");
+        var staffchoose=$("input[name='staffSelect']:checked").val();
+        if(staffchoose=='1'){
+            divId="staff";
+            $(".staffText").css("display","block");
+            $(".staffText2").css("display","block");
+            $(".stattText").css("display","none");
+            $(".stattText2").css("display","none");
+        }else{
+            divId="statt";
+            $(".staffText").css("display","none");
+            $(".staffText2").css("display","none");
+            $(".stattText").css("display","block");
+            $(".stattText2").css("display","block");
+        }
+
 
         let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
 
@@ -474,6 +737,8 @@ $result_employee_category = $db->query($employee_category);
         mywindow.print();
         $(".staffText").css("display","none");
         $(".staffText2").css("display","none");
+        $(".stattText").css("display","none");
+        $(".stattText2").css("display","none");
 
         setTimeout(function () {
             mywindow.close();
@@ -649,11 +914,138 @@ $result_employee_category = $db->query($employee_category);
 
 
                 })
+            $("#statttree")
+                .fancytree({
+                    checkbox: true,
+                    checkboxAutoHide: true,
+                    titlesTabbable: true, // Add all node titles to TAB chain
+                    quicksearch: true, // Jump to nodes when pressing first character
+                    source: subArray,
+                    extensions: [ "table"],
+                    table: {
+                        indentation: 20,
+                        nodeColumnIdx: 2,
+                        checkboxColumnIdx: 0,
+                    },
+
+                    createNode: function(event, data) {
+                        if(data.node.data.id){
+                            $('#butModal').css('display','none');
+                            $(document).off('click', '#struktur');
+                            $(document).off('click', '#pozisya');
+                            $('#query').css('display','block')
+                            $('#employeesQuery').css('display','none')
+                        }
+                        var node = data.node,
+                            $tdList = $(node.tr).find(">td");
+                        trList = $(node.tr);
+                        // console.log('createNode node=',node)
+
+                        // Span the remaining columns if it's a folder.
+                        // We can do this in createNode instead of renderColumns, because
+                        // the `isFolder` status is unlikely to change later
+                        if (node.isFolder()) {
+                            count_pozisya=0;
+                            $tdList
+                                .eq(2)
+                                .prop("colspan", 9)
+                                .nextAll()
+                                .remove();
+                            $tdList
+                                .css("background-color",'rgb(206 200 200)');
+                            $tdList
+                                .css("border",'1px solid #9a9797');
+                            $tdList
+                                .css("cursor","default");
+                        }
+                    },
+                    renderColumns: function(event, data) {
+
+                        var node = data.node,
+                            $tdList = $(node.tr).find(">td");
+                        trList = $(node.tr);
+                        console.log('renderColumns node.data=',data.node);
+                        console.log('renderColumns node.data[1]=',node.data[1]);
+                        var staffCount=1;
+
+
+
+                        $tdList.eq(0).text('');
+                        if (node.isFolder()==false) {
+                            count_pozisya++;
+                            console.log('count_pozisya='+count_pozisya)
+                            $tdList.eq(1).text(count_pozisya);
+                        }else{
+                            count_pozisya=0;
+                            // $tdList.eq(1).text(node.data.id);
+                            $tdList.eq(1).text('');
+                        }
+                        countStaff+=parseInt(node.data.countCategory)
+                        $('#countStaff').text(countStaff)
+
+                        $(node.tr).attr('data-id',node.data.id);
+                        $(node.tr).attr('data-companyId',node.data.company_id);
+                        //*mayya
+                        $tdList
+                            .eq(3)
+                            .text(node.data.countCategory);
+                        //iconu gizledir
+                        $tdList
+                            .find('.fancytree-icon')
+                            .css('display','none');
+                        //ox isaresini gizledir
+                        $tdList
+                            .find('.fancytree-expander')
+                            .css('display','none');
+
+                        $tdList
+                            .eq(4)
+                            .find('span')
+                            .text(1000);
+                        $tdList
+                            .eq(5)
+                            .find('span')
+                            // .text(node.data.full_name);
+                            .text('-');
+                        $tdList
+                            .eq(6)
+                            .find('span')
+                            .text(10000);
+                        $tdList
+                            .eq(7)
+                            .find('span')
+                            .text(node.data.company);
+                        $tdList
+                            .find('.fancytree-node')
+                            .css('padding-left','5px');
+
+                        $('.fancytree-title').off('click')
+                        $('.fancytree-node').off('click')
+                        // .find("input")
+                        // .val(node.data.foo);
+                        // $tdList
+                        // 	.eq(5)
+                        // 	.find("input")
+                        // 	.val(node.data.children);
+                        // console.log('$tdList=',$tdList)
+
+                        // Static markup (more efficiently defined as html row template):
+                        // $tdList.eq(3).html("<input type='input' value='"  "" + "'>");
+                        // ...
+                        // sagClick(node.data.id);
+                        // treeClick(trList)
+
+                    },
+
+
+
+                })
 
 
         }
 
          $("#stafftree").unbind();
+         $("#statttree").unbind();
 
     $('#date_completion').datepicker({
         todayHighlight: true,

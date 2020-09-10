@@ -261,6 +261,7 @@ $dil = array(
 	"filter_by_company" 	    =>"Şirkət üzrə Filter",
 
 	"operation"   =>"Əməliyyat",
+	"choose"   =>"Seçim edin",
 	//structure
 
 	"create_end_date"   =>"Yaranma - bitmə tarixi",
