@@ -1,9 +1,9 @@
 <?php
 
-
+$site_lang=$_SESSION['dil'] ;
 $users= "select tsp.*,tsr.role  
-from $tbl_structure_positions tsp
- LEFT join $tbl_structure_roles tsr on tsr.id=tsp.role_id 
+from $tbl_structure_positions tsp on tsp.lang='$site_lang'
+ LEFT join $tbl_structure_roles tsr on tsr.id=tsp.role_id and tsr.lang='$site_lang'
  WHERE tsp.role_id != 0";
 $result_users = $db->query($users);
 $data=array();

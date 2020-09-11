@@ -5,13 +5,13 @@ $site_lang=$_SESSION['dil'] ;
 
 
 $sql_employees= "select * from $tbl_employees where  emp_status=1   ";
-$sql_additions_salary= "select * from $tbl_additions_salary";
+$sql_additions_salary= "select * from $tbl_additions_salary and lang='$site_lang'";
 
 
-$sql_position_status= "select * from $tbl_position_status";
-$sql_additions_salary= "select * from $tbl_additions_salary";
-$sql_place_expenditure= "select * from $tbl_place_expenditure";
-$sql_reward_period= "select * from $tbl_reward_period";
+$sql_position_status= "select * from $tbl_position_status and lang='$site_lang'";
+$sql_additions_salary= "select * from $tbl_additions_salary and lang='$site_lang'";
+$sql_place_expenditure= "select * from $tbl_place_expenditure and lang='$site_lang'";
+$sql_reward_period= "select * from $tbl_reward_period and lang='$site_lang'";
 ?>
 <!DOCTYPE html>
 <html>

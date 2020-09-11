@@ -1,5 +1,6 @@
 <?php
 //include('session.php') ;
+$site_lang=$_SESSION['dil'] ;
 if(isset($_POST['company_ids'])){
     $company_id= $_POST['company_ids'];
 }else{
@@ -41,8 +42,8 @@ $users= "select tec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) ful
 from $tbl_employee_category tec
 LEFT join $tbl_employees te on te.id=tec.emp_id 
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
-LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
-LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level
+LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level and tsl.lang='$site_lang'
+LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lang='$site_lang'
 where $company_idWhere ORDER BY tec.id DESC ";
 //echo $users;
 $result_users = $db->query($users);

@@ -1,5 +1,6 @@
 <?php
 include('../session.php');
+$site_lang=$_SESSION['dil'] ;
 $id                 =$_POST['id'];
 $data=array();
 $posit_code='';
@@ -23,8 +24,8 @@ if($result_position){
 
    $structure_positions = "select tsp.*,tsr.id role_id,tsr.role  
 from $tbl_structure_positions tsp
- LEFT join $tbl_structure_roles tsr on tsr.id=tsp.role_id 
- WHERE tsp.posit_code = '$code'";
+ LEFT join $tbl_structure_roles tsr on tsr.id=tsp.role_id  and tsr.lang='$site_lang'
+ WHERE tsp.posit_code = '$code' and tsp.lang='$site_lang'";
                  $result_structure_positions = $db->query($structure_positions);
                 if ($result_structure_positions->num_rows > 0) {
                     while ($row_structure_positions = $result_structure_positions->fetch_assoc()) {

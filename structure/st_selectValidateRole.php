@@ -7,7 +7,7 @@ $data=array();
 
 
             $structure_positions= "select  *   from $tbl_structure_positions  
-  WHERE role_id = '$role_id' and company_id = '$company_id'";
+  WHERE role_id = '$role_id' and company_id = '$company_id' and lang='$site_lang'";
 //            echo $structure_positions;
             $result_structure_positions = $db->query($structure_positions);
             if($result_structure_positions->num_rows > 0) {

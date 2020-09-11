@@ -8,10 +8,10 @@ $sql_driving_category= "select * from $tbl_driver_lic_cat  where lang='$site_lan
 
 $sql_lang_level= "select * from $tbl_lang_level  where lang_short_name='$site_lang' ";
 
-$sql_position_level= "select * from $tbl_position_level";
+$sql_position_level= "select * from $tbl_position_level lang='$site_lang'";
 $sql_employee= "select * from $tbl_employees where  emp_status=1";
 
-$commands= "select * from tbl_commands";
+$commands= "select * from $tbl_commands where lang='$site_lang'";
 $result_commands = $db->query($commands);
 //$sql_employees= "select * from $tbl_employees where  emp_status=1 ";
 ?>

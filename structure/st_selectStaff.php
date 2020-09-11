@@ -1,5 +1,6 @@
 <?php
 include('../session.php');
+$site_lang=$_SESSION['dil'] ;
 $company_id                 =$_POST['company_id'];
 $data=array();
 $category_company= "select tc.*,tec.*,tec.enterprise_head_fullname,tec.company_name,tec.address company_address,tec.tel company_tel 

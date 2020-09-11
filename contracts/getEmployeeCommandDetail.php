@@ -1,5 +1,6 @@
 <?php
- include('../session.php');  
+ include('../session.php');
+$site_lang=$_SESSION['dil'] ;
  $empid = $_POST['empid'];
 $order = $_POST['order'];
 
@@ -94,7 +95,7 @@ if ($result_emp_contracts->num_rows > 0 && $contractDate!='2')
 
         $sql_member_types ="select tefi.*,tefi.id famId,tfmt.type_desc memberType
      from $tbl_employee_family_info tefi     
-    LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type     
+    LEFT join $tbl_family_member_types tfmt on tfmt.id=tefi.member_type  and tfmt.lang='$site_lang'    
     where  tefi.emp_id='$emp_id' ";
 //    echo $sql_member_types;
         $result_member_types = $db->query($sql_member_types);

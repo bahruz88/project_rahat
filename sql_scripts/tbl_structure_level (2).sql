@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2020 at 01:59 PM
+-- Generation Time: Sep 11, 2020 at 03:47 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -25,34 +25,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_structure_roles`
+-- Table structure for table `tbl_structure_level`
 --
 
-CREATE TABLE `tbl_structure_roles` (
+CREATE TABLE `tbl_structure_level` (
   `id` int(11) NOT NULL,
-  `role` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `struc_id` int(11) NOT NULL,
+  `title` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang` varchar(11) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `tbl_structure_roles`
+-- Dumping data for table `tbl_structure_level`
 --
 
-INSERT INTO `tbl_structure_roles` (`id`, `role`, `struc_id`, `lang`) VALUES
-(1, 'İnsan resursları təmsilçisi', 1, 'az'),
-(2, 'Baş mühasib', 2, 'az'),
-(3, 'Birbaşa rəhbər', 3, 'az'),
-(4, 'İkinci rəhbər', 4, 'az');
+INSERT INTO `tbl_structure_level` (`id`, `struc_id`, `title`, `lang`) VALUES
+(1, 1, 'Müəssisə', 'az'),
+(2, 2, 'Direktorluq', 'az'),
+(3, 3, 'Departament', 'az'),
+(4, 4, 'Şöbə', 'az'),
+(5, 5, 'Sahə / Bölmə', 'az');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tbl_structure_roles`
+-- Indexes for table `tbl_structure_level`
 --
-ALTER TABLE `tbl_structure_roles`
+ALTER TABLE `tbl_structure_level`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -60,10 +61,10 @@ ALTER TABLE `tbl_structure_roles`
 --
 
 --
--- AUTO_INCREMENT for table `tbl_structure_roles`
+-- AUTO_INCREMENT for table `tbl_structure_level`
 --
-ALTER TABLE `tbl_structure_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `tbl_structure_level`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,15 +3,15 @@ include('session.php');
 $site_lang=$_SESSION['dil'] ;
 
 $sql_employees= "select * from $tbl_employees where  emp_status=1";
-$sql_position_level= "select * from $tbl_position_level";
-$sql_structure_level= "select * from $tbl_structure_level";
+$sql_position_level= "select * from $tbl_position_level where lang='$site_lang'";
+$sql_structure_level= "select * from $tbl_structure_level where lang='$site_lang'";
 
 
 
 //roles
-$sql_structure_roles= "select * from $tbl_structure_roles";
+$sql_structure_roles= "select * from $tbl_structure_roles where lang='$site_lang'";
 $sql_position= "select * from $tbl_employee_category";
-
+//echo $sql_structure_level;
 ?>
 <input type="hidden" id="user_id_edit" name="user_id_edit" value="">
 <input type="hidden" id="user_name" name="user_name" value="">

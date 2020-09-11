@@ -2,6 +2,7 @@
 
 
 include('../session.php');
+$site_lang=$_SESSION['dil'] ;
 
 //Create variables
 
