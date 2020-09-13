@@ -153,6 +153,7 @@
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="placeExpenditure"><?php echo $dil["placeExpenditure"];?></label>
+
                             <div class="col-sm-8">
                                 <select data-live-search="true"  name="placeExpenditure"  id="placeExpenditure" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["rewardPeriod"];?>">
 
