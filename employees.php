@@ -238,6 +238,7 @@
   include  ('certification/certificationModal.php');
   include  ('skills/skillsModal.php');
   include  ('military_info/militaryInfoModal.php');
+  include  ('emp_contract/empContractModal.php');
   ?>
   
   
@@ -271,6 +272,8 @@
 	  <a class="dropdown-item" href="#previousPositions"    id="previousPositionstab" data-toggle="tab">Əvvəlki iş yerləri</a>
     </div>
   </li>
+    <li Class="nav-item"><a href="#termsEmploymentContract"   id="empContractInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Əmək müqaviləsinin şərtləri  </a></li>
+
 </ul>
 </li>
 
@@ -490,6 +493,31 @@
             <th><?php echo $dil["date_range"];?></th>
             <th><?php echo $dil["leave_reason"];?></th>
             <th><?php echo $dil["sector"];?></th>
+            <th><?php echo $dil["operation"];?></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div class="tab-pane" id="termsEmploymentContract">
+    <table id="terms_employment_contract_table" class="table table-striped  table-bordered table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">id</th>
+            <th><?php echo $dil["fio"];?></th>
+            <th><?php echo $dil["employment_contract_indefinite"];?></th>
+            <th><?php echo $dil["reasons_contract"];?></th>
+            <th><?php echo $dil["date_employment_contract"];?></th>
+            <th><?php echo $dil["probation"];?></th>
+            <th><?php echo $dil["trial_expiration_date"];?></th>
+            <th><?php echo $dil["employee_start_date"];?></th>
+            <th><?php echo $dil["date_conclusion_employment_contract"];?></th>
+            <th><?php echo $dil["regulation_property_relations"];?></th>
+            <th><?php echo $dil["termination_cases"];?></th>
+            <th><?php echo $dil["other_conditions_wages"];?></th>
+            <th><?php echo $dil["workplace_status"];?></th>
+            <th><?php echo $dil["working_conditions"];?></th>
+            <th><?php echo $dil["job_descriptions"];?></th>
+            <th><?php echo $dil["kvota"];?></th>
             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>

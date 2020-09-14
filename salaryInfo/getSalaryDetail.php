@@ -1,7 +1,7 @@
 <?php
  include('../session.php');
 $id = $_POST['id'];
- $sql_emp = "select e.* ,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name ,tpe.title place_expenditure,tps.title position_status,trp.title reward_periodtext,tc.title wage_currencytext,tc2.title prize_amount_currencytext,tec.company_name
+ $sql_emp = "select e.* ,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name ,tpe.title place_expenditure,tps.title position_status,trp.title reward_periodtext,tc.title wage_currencyText,tc2.title prize_amount_currencytext,tec.company_name
 from $tbl_salary_info e
   LEFT join $tbl_employees te on te.id=e.emp_id
   LEFT join $tbl_employee_company tec on tec.id=e.company_id

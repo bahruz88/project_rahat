@@ -387,3 +387,74 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
  
 </body>
 </html>
+<script>
+    $('#myModal').on( 'change','#company_id',  function () {
+
+        console.log('company='+$(this).attr('id'));
+        // $('#whichContracts').modal('show');
+        company_id=$(this).find('option:selected').val();
+        $.ajax({
+            url: "contracts/get_employees.php",
+            type: "POST",
+            data: { company_id:company_id},
+            success: function (data) {
+                console.log('data=',data)
+                console.log('$.parseJSON(data)=',$.parseJSON(data))
+                var option='<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                option += '<option value="">Seçin..</option>';
+
+                 $.each($.parseJSON(data), function(k,v) {
+                    console.log('v=',v[1])
+                    option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
+
+                });
+                option+=' </select>';
+                console.log('option='+option)
+                // option += '</select>';
+
+                    $('#emp').html(option);
+                    console.log('emp=' )
+
+
+                $(".selectpicker").selectpicker();
+
+            }
+        })
+    });
+
+
+    $('#modalEdit').on( 'change','#update_company_id',  function () {
+
+        console.log('company='+$(this).attr('id'));
+        // $('#whichContracts').modal('show');
+        company_id=$(this).find('option:selected').val();
+        $.ajax({
+            url: "contracts/get_employees.php",
+            type: "POST",
+            data: { company_id:company_id},
+            success: function (data) {
+                console.log('data=',data)
+                console.log('$.parseJSON(data)=',$.parseJSON(data))
+                var option='<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                option += '<option value="">Seçin..</option>';
+
+                 $.each($.parseJSON(data), function(k,v) {
+                    console.log('v=',v[1])
+                    option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
+
+                });
+                option+=' </select>';
+                console.log('option='+option)
+                // option += '</select>';
+
+                    $('#update_emp').html(option);
+                    console.log('update_emp=' )
+
+
+                $(".selectpicker").selectpicker();
+
+            }
+        })
+    });
+
+</script>

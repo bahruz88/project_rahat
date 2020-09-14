@@ -158,9 +158,9 @@ $(function () {
 					$("#view_salaryemp").val(employee.full_name);
 					$("#view_tariff_rate").val(employee.tariff_rate);
 					$("#view_position_status_id").val(employee.position_status_id);
-					$("#view_wage").val(employee.wage + ' ' + wage_currencytext);
+					$("#view_wage").val(employee.wage + ' ' + employee.wage_currencyText);
 					$('#view_total_monthly_salary').val(employee.total_monthly_salary);
-					$('#view_prize_amount').val(employee.prize_amount + ' ' + prize_amount_currencytext);
+					$('#view_prize_amount').val(employee.prize_amount + ' ' + employee.prize_amount_currencytext);
 					$("#view_reward_period").val(employee.reward_period);
 					$("#view_place_expenditure_id").val(employee.place_expenditure_id);
 					$("#view_salary_change_reason").val(employee.salary_change_reason);
