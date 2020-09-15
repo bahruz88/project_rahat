@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8" id="emp">
                                 <select data-live-search="true"  name="emplo" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
                                     <?php
                                     $result_employees_view = $db->query($sql_employees);
@@ -230,7 +230,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="update_employee"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8" id="update_emp">
                                 <select data-live-search="true"  name="update_emplo" id="update_employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
                                     <?php
                                     $result_employees_view = $db->query($sql_employees);
