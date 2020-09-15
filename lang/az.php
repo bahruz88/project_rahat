@@ -299,6 +299,7 @@ $dil = array(
     "otherConditions"   =>"Tərəflərin əmək haqqının ödənilməsi barədə razılığa gəldikləri digər şərtlər",
     "modal_title_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavə və kəsintilər",
     "modal_title_view_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavəyə və kəsintilərinə baxış",
-    "modal_title_edit_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavənin və kəsintilərinin redaktəsi"
+    "modal_title_edit_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavənin və kəsintilərinin redaktəsi",
+	"ovr_input_title"   =>"Əlavə iş vaxtının sazlanması"
 );
 ?>
