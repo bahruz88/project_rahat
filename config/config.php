@@ -73,6 +73,8 @@ if(!isset($_SESSION['login_user'])){
 }
 
 $sql_yesno= "select * from $tbl_yesno where lang='$site_lang' ";
+$sql_workplace_status= "select * from $tbl_workplace_status where lang='$site_lang' ";
+$sql_working_conditions= "select * from $tbl_working_conditions where lang='$site_lang' ";
 $sql_exist_not_exist= "select * from $tbl_exist_not_exist where lang='$site_lang'";
 
 $sql_employees= "select * from $tbl_employees where  emp_status=1 ";

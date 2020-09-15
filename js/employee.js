@@ -3835,22 +3835,41 @@ $("#familiyInfoUpdate").submit(function(e)
 				console.log('empcontractdata=',empcontractdata)
 				if  (optype=='update') {
 					$("#update_empcontractid").val(empcontractdata.id).change();
-					$("#update_empContractempid").val(empcontractdata.teId).change();
-					$("#update_empContract_app").val(empcontractdata.exist_id).change();
-					$("#update_renew_interval").val(empcontractdata.renew_interval).change();
-					$("#update_last_renew_date").val(empcontractdata.last_renew_date);
-					$("#update_physical_deficiency").val(empcontractdata.chois_id).change();
-					$("#update_deficiency_desc").val(empcontractdata.deficiency_desc);
+					$("#update_employee").val(empcontractdata.emp_id).change();
+					$("#update_employment_contract_indefinite").val(empcontractdata.chois_id).change();
+					$("#update_reasons_contract").val(empcontractdata.reasons_temporary_closure)
+					$("#update_date_employment_contract").val(empcontractdata.date_contract)
+					$("#update_probation").val(empcontractdata.probation);
+					$("#update_trial_expiration_date").val(empcontractdata.trial_expiration_date)
+					$("#update_employee_start_date").val(empcontractdata.employee_start_date);
+					$("#update_date_conclusion_employment_contract").val(empcontractdata.date_conclusion_contract);
+					$("#update_regulation_property_relations").val(empcontractdata.regulation_property_relations);
+					$("#update_termination_cases").val(empcontractdata.termination_cases);
+					$("#update_other_conditions_wages").val(empcontractdata.other_condition_wages);
+					$("#update_workplace_status").val(empcontractdata.work_status_id).change();
+					$("#update_working_conditions").val(empcontractdata.working_cond_id).change();
+					$("#update_job_descriptions").val(empcontractdata.job_description);
+					$("#update_kvota").val(empcontractdata.kvota);
 					$('#modalEditEmpContract').modal('show');
 				}
 				else {
-					$("#view_empContractemp").val(empcontractdata.full_name);
-					$("#view_empContract_app").val(empcontractdata.exist_desc);
-					$("#view_renew_interval").val(empcontractdata.renew_interval+' Ay');
-					$("#view_last_renew_date").val(empcontractdata.last_renew_date);
-					$("#view_physical_deficiency").val(empcontractdata.chois_desc);
-					$("#view_deficiency_desc").val(empcontractdata.deficiency_desc);
-					$('#modalViewempContract').modal('show');
+					$("#view_empcontractid").val(empcontractdata.id);
+					$("#view_employee").val(empcontractdata.full_name);
+					$("#view_employment_contract_indefinite").val(empcontractdata.indefinite);
+					$("#view_reasons_contract").val(empcontractdata.reasons_temporary_closure)
+					$("#view_date_employment_contract").val(empcontractdata.date_contract)
+					$("#view_probation").val(empcontractdata.probation);
+					$("#view_trial_expiration_date").val(empcontractdata.trial_expiration_date)
+					$("#view_employee_start_date").val(empcontractdata.employee_start_date);
+					$("#view_date_conclusion_employment_contract").val(empcontractdata.date_conclusion_contract);
+					$("#view_regulation_property_relations").val(empcontractdata.regulation_property_relations);
+					$("#view_termination_cases").val(empcontractdata.termination_cases);
+					$("#view_other_conditions_wages").val(empcontractdata.other_condition_wages);
+					$("#view_workplace_status").val(empcontractdata.workplace_status);
+					$("#view_working_conditions").val(empcontractdata.working_conditions);
+					$("#view_job_descriptions").val(empcontractdata.job_description);
+					$("#view_kvota").val(empcontractdata.kvota);
+					$('#modalViewEmpContract').modal('show');
 				}
 			}
 		);
@@ -3988,6 +4007,17 @@ $('#drivinglic_issue_date').datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#prp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
  	$("#wp_permit_date").datetimepicker({ format: 'DD/MM/YYYY'  });
 	$("#wp_valid_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+
+
+	$("#date_employment_contract").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#trial_expiration_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#employee_start_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#date_conclusion_employment_contract").datetimepicker({ format: 'DD/MM/YYYY'  });
+
+	$("#update_date_employment_contract").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#update_trial_expiration_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#update_employee_start_date").datetimepicker({ format: 'DD/MM/YYYY'  });
+	$("#update_date_conclusion_employment_contract").datetimepicker({ format: 'DD/MM/YYYY'  });
 
 });
 $(document).ready(function (e) {

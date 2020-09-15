@@ -300,6 +300,22 @@ $dil = array(
     "modal_title_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavə və kəsintilər",
     "modal_title_view_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavəyə və kəsintilərinə baxış",
     "modal_title_edit_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavənin və kəsintilərinin redaktəsi",
-	"ovr_input_title"   =>"Əlavə iş vaxtının sazlanması"
+	"ovr_input_title"   =>"Əlavə iş vaxtının sazlanması",
+"modal_title_edit_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavənin və kəsintilərinin redaktəsi",
+
+    "employment_contract_indefinite"   =>"Əmək müqaviləsi müddətsizdirmi",
+    "reasons_contract"   =>"Əmək müqaviləsinin müddətli bağlanma səbəbləri",
+    "date_employment_contract"   =>"Müddətli əmək müqaviləsinin bağlanma tarixləri",
+    "probation"   =>"Sınaq müddəti",
+    "trial_expiration_date"   =>"Sınaq müddətinin bitmə tarixi",
+    "employee_start_date"   =>"İşçinin işə başlama tarixi",
+    "date_conclusion_employment_contract"   =>"Əmək müqaviləsinin bağlanma tarixi",
+    "regulation_property_relations"   =>"Mülkiyyət münasibətlərinin tənzimlənməsi",
+    "termination_cases"   =>"Əmək müqaviləsinə xitam verilməsi barədə tərəflərin müəyyən etdiyi hallar",
+    "other_conditions_wages"   =>"Tərəflərin əmək haqqının ödənilməsi barədə razılığa gəldikləri digər şərtlər",
+    "workplace_status"   =>"İş yerinin statusu",
+    "working_conditions"   =>"Əmək şaraiti",
+    "job_descriptions"   =>"Vəzifə təlimatı",
+    "kvota"   =>"Kvota",
 );
 ?>
