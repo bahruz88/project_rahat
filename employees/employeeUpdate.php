@@ -53,7 +53,7 @@ include('../session.php') ;
 		home_tel='$home_tel',
 		mob_tel='$mob_tel',	
 		emr_contact='$emr_contact',
-		image_name='$empimg'
+		image_name='$empimg' 
 		WHERE id = '$empid' ";
  
 
