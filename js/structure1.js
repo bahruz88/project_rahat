@@ -4,13 +4,13 @@
 **********************************************************************************************************************
 */
 
-var terms_employment_contract_table ;
-$('#empContractInfotab').click(function() {
-    console.log('Tab clikc empContractInfotab');
-    // $('#qual2').text( tabtext2+' / '+$('#empContractInfotab').text());
+var work_experiencetab_tab ;
+$('#workExperiencetab').click(function() {
+    console.log('Tab clikc work_experiencetab_table');
+    // $('#qual2').text( tabtext2+' / '+$('#workExperienceInfotab').text());
 
-    $('#terms_employment_contract_table').DataTable().clear().destroy();
-    terms_employment_contract_table = $("#terms_employment_contract_table").DataTable({
+    $('#work_experiencetab_table').DataTable().clear().destroy();
+    work_experiencetab_tab = $("#work_experiencetab_table").DataTable({
         "scrollX": true,
         "paging": true,
         "lengthChange": false,
@@ -30,15 +30,15 @@ $('#empContractInfotab').click(function() {
             }
         },
         "ajax": {
-            url: "emp_contract/get_empContractInfo.php",
+            url: "work_experience/get_workExperience.php",
             type: "POST"
         },"columnDefs": [ {
             "width": "8%",
             "targets": -1,
             "data": null,
-            "defaultContent": "<img  id='empContract_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
-                "<img  id='empContract_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
-                "<img  id='empContract_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+            "defaultContent": "<img  id='workExperience_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
+                "<img  id='workExperience_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
+                "<img  id='workExperience_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
         } ],
         dom: 'lBfrtip',
 
@@ -47,9 +47,9 @@ $('#empContractInfotab').click(function() {
 
                 text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
-                    console.log('empContractInsertModal')
+                    console.log('workExperienceInsertModal')
 
-                    $("#empContractInsertModal").modal();
+                    $("#workExperienceInsertModal").modal();
                 }
             },
             {
@@ -91,17 +91,17 @@ $('#empContractInfotab').click(function() {
 
     });
 
-    console.log('Tab clikc oldu',terms_employment_contract_table);
+    console.log('Tab clikc oldu',work_experiencetab_tab);
 });
 
 /*Emek muqavilesinin sertleri MELUMATALRİ SİLİNİR */
-$("#empContractDelete").submit(function(e) {
+$("#workExperienceDelete").submit(function(e) {
 
     e.preventDefault();
     $.ajax( {
-        url: "emp_contract/empContractDelete.php",
+        url: "work_experience/workExperienceDelete.php",
         method: "post",
-        data: $("#empContractDelete").serialize(),
+        data: $("#workExperienceDelete").serialize(),
         dataType: "text",
         success: function(strMessage)
         {
@@ -112,9 +112,9 @@ $("#empContractDelete").submit(function(e) {
             }
             else if (strMessage==='success')
             {
-                $('#modalEmpContractDelete').modal('hide');
+                $('#modalworkExperienceDelete').modal('hide');
                 $('#modalDeleteSuccess').modal('show');
-                terms_employment_contract_table.ajax.reload();
+                work_experiencetab_tab.ajax.reload();
             }
             else  {
                 console.log(strMessage);
@@ -122,34 +122,34 @@ $("#empContractDelete").submit(function(e) {
             }
         }
     });
-    terms_employment_contract_table.ajax.reload();
+    work_experiencetab_tab.ajax.reload();
 
 
 });
 
-// /*empContract Info  table delete click*/
-// $('#terms_employment_contract_table').on( 'click', '#migration_empContract_information', function ()
+// /*workExperience Info  table delete click*/
+// $('#work_experiencetab_table').on( 'click', '#migration_workExperience_information', function ()
 // {
-//     var data = terms_employment_contract_table.row( $(this).parents('tr') ).data();
+//     var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
 //     console.log('data[0]='+data[0])
-//     document.getElementById("empcontractid").value = data[0];
-//     $('#modalempContractDelete').modal('show');
+//     document.getElementById("workExperienceid").value = data[0];
+//     $('#modalworkExperienceDelete').modal('show');
 // } );
 
-$("#empContractInsertForm").submit(function(e)
+$("#workExperienceInsertForm").submit(function(e)
 {
     console.log('salam insert')
     e.preventDefault();
     /*	if($("#langInsertForm").valid())
 { */
     $.ajax( {
-        url: "emp_contract/empContractInsert.php",
+        url: "work_experience/workExperienceInsert.php",
         method: "post",
-        data: $("#empContractInsertForm").serialize(),
+        data: $("#workExperienceInsertForm").serialize(),
         dataType: "text",
         success: function(strMessage)
         {
-            console.log('strMessage='+$("#empContractInsertForm").serialize());
+            console.log('strMessage='+$("#workExperienceInsertForm").serialize());
             console.log('strMessage='+strMessage);
             $("#badge_success").text('');
             $("#badge_danger").text('');
@@ -158,82 +158,101 @@ $("#empContractInsertForm").submit(function(e)
 
                 $("#errorp").text(strMessage);
                 $("#modalInsertError").modal('show');
-                $("#empContractInsertModal").modal('hide');
+                $("#workExperienceInsertModal").modal('hide');
             }
             else if (strMessage==='success')
             {
                 $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
                 $("#modalInsertSuccess").modal('show');
-                $("#empContractInsertModal").modal('hide');
+                $("#workExperienceInsertModal").modal('hide');
 
             }
             else  {
                 $("#errorp").text(strMessage);
                 $("#modalInsertError").modal('show');
-                $("#empContractInsertModal").modal('hide');
+                $("#workExperienceInsertModal").modal('hide');
 
             }
         }
     });
-    terms_employment_contract_table.ajax.reload();
-    $( "#empContractInsertForm" ).get(0).reset();
+    work_experiencetab_tab.ajax.reload();
+    $( "#workExperienceInsertForm" ).get(0).reset();
     /*}*/
 });
 
 
-/*GetEmpContractDetails  */
-function GetEmpContractDetails(empcontractid,optype)
+/*GetworkExperienceDetails  */
+function GetworkExperienceDetails(workExperienceid,optype)
 {
-    console.log('$empcontractid='+empcontractid)
-    $.post("emp_contract/getEmpContractDetail.php",
+    console.log('$workExperienceid='+workExperienceid)
+    $.post("work_experience/getworkExperienceDetail.php",
         {
-            empcontractid: empcontractid
+            workExperienceid: workExperienceid
         },
-        function (empcontract_data, status)
+        function (workExperience_data, status)
         {
-            console.log('empcontractdata1=',empcontract_data)
+            console.log('workExperiencedata1=',workExperience_data)
             // PARSE json data
-            var empcontractdata = JSON.parse(empcontract_data);
-            console.log('empcontractdata=',empcontractdata)
+            var workExperiencedata = JSON.parse(workExperience_data);
+            console.log('workExperiencedata=',workExperiencedata)
             if  (optype=='update') {
-                $("#update_empcontractid").val(empcontractdata.id).change();
-                $("#update_empContractempid").val(empcontractdata.teId).change();
-                $("#update_empContract_app").val(empcontractdata.exist_id).change();
-                $("#update_renew_interval").val(empcontractdata.renew_interval).change();
-                $("#update_last_renew_date").val(empcontractdata.last_renew_date);
-                $("#update_physical_deficiency").val(empcontractdata.chois_id).change();
-                $("#update_deficiency_desc").val(empcontractdata.deficiency_desc);
-                $('#modalEditEmpContract').modal('show');
+                $("#update_workExperienceid").val(workExperiencedata.id).change();
+                $("#update_employee").val(workExperiencedata.emp_id).change();
+                $("#update_employment_contract_indefinite").val(workExperiencedata.chois_id).change();
+                $("#update_reasons_contract").val(workExperiencedata.reasons_temporary_closure)
+                $("#update_date_employment_contract").val(workExperiencedata.date_contract)
+                $("#update_probation").val(workExperiencedata.probation);
+                $("#update_trial_expiration_date").val(workExperiencedata.trial_expiration_date)
+                $("#update_employee_start_date").val(workExperiencedata.employee_start_date);
+                $("#update_date_conclusion_employment_contract").val(workExperiencedata.date_conclusion_contract);
+                $("#update_regulation_property_relations").val(workExperiencedata.regulation_property_relations);
+                $("#update_termination_cases").val(workExperiencedata.termination_cases);
+                $("#update_other_conditions_wages").val(workExperiencedata.other_condition_wages);
+                $("#update_workplace_status").val(workExperiencedata.work_status_id).change();
+                $("#update_working_conditions").val(workExperiencedata.working_cond_id).change();
+                $("#update_job_descriptions").val(workExperiencedata.job_description);
+                $("#update_kvota").val(workExperiencedata.kvota);
+                $('#modalEditworkExperience').modal('show');
             }
             else {
-                $("#view_empContractemp").val(empcontractdata.full_name);
-                $("#view_empContract_app").val(empcontractdata.exist_desc);
-                $("#view_renew_interval").val(empcontractdata.renew_interval+' Ay');
-                $("#view_last_renew_date").val(empcontractdata.last_renew_date);
-                $("#view_physical_deficiency").val(empcontractdata.chois_desc);
-                $("#view_deficiency_desc").val(empcontractdata.deficiency_desc);
-                $('#modalViewempContract').modal('show');
+                $("#view_workExperienceid").val(workExperiencedata.id);
+                $("#view_employee").val(workExperiencedata.full_name);
+                $("#view_employment_contract_indefinite").val(workExperiencedata.indefinite);
+                $("#view_reasons_contract").val(workExperiencedata.reasons_temporary_closure)
+                $("#view_date_employment_contract").val(workExperiencedata.date_contract)
+                $("#view_probation").val(workExperiencedata.probation);
+                $("#view_trial_expiration_date").val(workExperiencedata.trial_expiration_date)
+                $("#view_employee_start_date").val(workExperiencedata.employee_start_date);
+                $("#view_date_conclusion_employment_contract").val(workExperiencedata.date_conclusion_contract);
+                $("#view_regulation_property_relations").val(workExperiencedata.regulation_property_relations);
+                $("#view_termination_cases").val(workExperiencedata.termination_cases);
+                $("#view_other_conditions_wages").val(workExperiencedata.other_condition_wages);
+                $("#view_workplace_status").val(workExperiencedata.workplace_status);
+                $("#view_working_conditions").val(workExperiencedata.working_conditions);
+                $("#view_job_descriptions").val(workExperiencedata.job_description);
+                $("#view_kvota").val(workExperiencedata.kvota);
+                $('#modalViewworkExperience').modal('show');
             }
         }
     );
 
 }
 
-/*empContract Update */
-$("#empContractUpdate").submit(function(e)
+/*workExperience Update */
+$("#workExperienceUpdate").submit(function(e)
 {
     e.preventDefault();
     /*if($("#educationUpdate").valid())
     { */
 
     $.ajax( {
-        url: "emp_contract/empContractUpdate.php",
+        url: "work_experience/workExperienceUpdate.php",
         method: "post",
-        data: $("#empContractUpdate").serialize(),
+        data: $("#workExperienceUpdate").serialize(),
         dataType: "text",
         success: function(strMessage)
         {
-            //console.log('serialize='+$("#empContractUpdate").serialize());
+            //console.log('serialize='+$("#workExperienceUpdate").serialize());
             console.log('strMessage='+strMessage);
             $("#badge_danger_update").text("");
             if (strMessage.substr(1, 4)==='error')
@@ -242,9 +261,9 @@ $("#empContractUpdate").submit(function(e)
             }
             else if (strMessage==='success')
             {
-                $('#modalEditEmpContract').modal('hide');
+                $('#modalEditworkExperience').modal('hide');
                 $('#modalUpdateSuccess').modal('show');
-                terms_employment_contract_table.ajax.reload();
+                work_experiencetab_tab.ajax.reload();
             }
 
             else  {
@@ -252,38 +271,38 @@ $("#empContractUpdate").submit(function(e)
             }
         }
     });
-    terms_employment_contract_table.ajax.reload();
+    work_experiencetab_tab.ajax.reload();
     /*}
     else {
              alert('not valid') ;
          }*/
 });
 
-/*empContract table delete click*/
-$('#terms_employment_contract_table').on( 'click', '#empContract_delete', function ()
+/*workExperience table delete click*/
+$('#work_experiencetab_table').on( 'click', '#workExperience_delete', function ()
 {
-    var data = terms_employment_contract_table.row( $(this).parents('tr') ).data();
+    var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
 
-    document.getElementById("empcontractid").value = data[0];
+    document.getElementById("workExperienceid").value = data[0];
 
-    $('#modalEmpContractDelete').modal('show');
+    $('#modalworkExperienceDelete').modal('show');
 } );
 
-/*empContract table view click  */
-$('#terms_employment_contract_table').on( 'click', '#empContract_view', function ()
+/*workExperience table view click  */
+$('#work_experiencetab_table').on( 'click', '#workExperience_view', function ()
 {
-    var data = terms_employment_contract_table.row( $(this).parents('tr') ).data();
-    GetEmpContractDetails(data[0],'view');
+    var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
+    GetworkExperienceDetails(data[0],'view');
     console.log(data[0]);
 } );
-/*empContract table view click  */
-$('#terms_employment_contract_table').on( 'click', '#empContract_edit', function ()
+/*workExperience table view click  */
+$('#work_experiencetab_table').on( 'click', '#workExperience_edit', function ()
 {
     console.log('salam')
 
-    var data = terms_employment_contract_table.row( $(this).parents('tr') ).data();
+    var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
     console.log('data='+data[0])
-    GetEmpContractDetails(data[0],'update');
+    GetworkExperienceDetails(data[0],'update');
     document.getElementById("updateempcontid").value = data[0];
     console.log(data[0]);
 

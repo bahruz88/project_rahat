@@ -419,7 +419,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
             success:function(response){
                 console.log('response=',response)
                 $("#employee").empty();
-                var option='<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                var option='<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                      option += '<option value="">Seçin..</option>';
                     $.each(response, function(k,v) {
                         console.log('v=',v[1])

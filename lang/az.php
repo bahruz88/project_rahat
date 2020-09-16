@@ -317,5 +317,20 @@ $dil = array(
     "working_conditions"   =>"Əmək şaraiti",
     "job_descriptions"   =>"Vəzifə təlimatı",
     "kvota"   =>"Kvota",
+    "employment_contract_edit_title"   =>"Əmək müqaviləsinin şərtlərinin redaktəsi",
+    "employment_contract_view_title"   =>"Əmək müqaviləsinin şərtlərinə baxış",
+    "employment_contract_title"   =>"Əmək müqaviləsinin şərtləri ",
+
+    "workExperience"   =>"İş stajı",
+    "workExperienceBeforeEnterprise"   =>"Müəssisəyə qədər iş stajı",
+    "workExperienceEnterprise"   =>"Müəssisədəki iş stajı",
+    "generalWorkExperience"   =>"Ümumi iş stajı",
+
+    "workExperience_edit_title"   =>"İş stajı məlumatlarının redaktəsi",
+    "workExperience_view_title"   =>"İş stajı məlumatlarına baxış",
+    "year"   =>"il",
+    "month"   =>"ay",
+    "day"   =>"gün",
+
 );
 ?>

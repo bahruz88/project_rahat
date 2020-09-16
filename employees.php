@@ -239,6 +239,7 @@
   include  ('skills/skillsModal.php');
   include  ('military_info/militaryInfoModal.php');
   include  ('emp_contract/empContractModal.php');
+  include  ('work_experience/workExperienceModal.php');
   ?>
   
   
@@ -273,6 +274,7 @@
     </div>
   </li>
     <li Class="nav-item"><a href="#termsEmploymentContract"   id="empContractInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Əmək müqaviləsinin şərtləri  </a></li>
+    <li Class="nav-item"><a href="#workExperience"   id="workExperiencetab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > <?php echo $dil["workExperience"];?> </a></li>
 
 </ul>
 </li>
@@ -524,6 +526,21 @@
     </table>
 </div>
 
+<div class="tab-pane" id="workExperience">
+    <table id="work_experiencetab_table" class="table table-striped  table-bordered table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">id</th>
+            <th><?php echo $dil["fio"];?></th>
+            <th><?php echo $dil["workExperienceBeforeEnterprise"];?></th>
+            <th><?php echo $dil["workExperienceEnterprise"];?></th>
+            <th><?php echo $dil["generalWorkExperience"];?></th>
+            <th><?php echo $dil["operation"];?></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
   <div class="tab-pane" id="bootstab">Bootstrap Content here
   <ul>
   <li>Bootstrap forms</li>
@@ -587,6 +604,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
  <script type="text/javascript" src="js/employee.js"></script>
- 
+<script>
+
+</script>
 </body>
 </html>
