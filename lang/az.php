@@ -332,5 +332,19 @@ $dil = array(
     "month"   =>"ay",
     "day"   =>"gün",
 
+    "workplace_information"   =>"İş yeri barədə məlumat",
+    "directorate"   =>"Direktorluq",
+    "department"   =>"Departament",
+    "depart"   =>"Şöbə",
+    "area_section"   =>"Sahə / Bölmə",
+    "position"   =>"Vəzifəsi",
+    "status"   =>"Statusu",
+    "direct_guide"   =>"Birbaşa rəhbər",
+    "second_leader"   =>"İkinci rəhbər",
+    "workplace_information_edit_title"   =>"İş yeri barədə məlumatlarının redaktəsi",
+    "workplace_information_view_title"   =>"İş yeri barədə  məlumatlarına baxış",
+
+
+
 );
 ?>

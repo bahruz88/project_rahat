@@ -449,18 +449,7 @@ $(document).on('click', '#menyu_addChild', function(e) {
     addNew=0;
     $("#tree").trigger("nodeCommand", { cmd: 'addChild' });
 })
-function alertFunc(extOptions){
-    var options = {
-        title:'',
-        content:'',
-        text: '',
-        type:'info',//info,warning
-        showCancelButton: false,
-        buttonText: 'Bağla',
-        redirectUrl:'',
-    };
 
-};
 function treeClick(trList){
     trList.on('click',function(){
         console.log('tree event',$(this).attr('data-id'))
@@ -579,6 +568,7 @@ function myTextClick(){
 
     });
 }
+
 function positionList(){
     $("#positionList").change(function(){
         console.log('positionList change'+$(this).attr('name'));
@@ -637,11 +627,7 @@ $(function () {
         $('#company_id').val(company_id);
 
         $('#company_name').val(company_text);
-        // var companyIdArray = company_id.split(',');
-        // var companyIdArray = $.parseJSON("[" + company_id + "]");
-        // $.each(companyIdArray, function(index, value) {
-        //     console.log(index + ': ' + value);   // alerts 0:[1 ,  and  1:2]
-        // });
+
         company_id='0,'+company_id;
         $.ajax({
             url: 'structure/st_selectWithCompany.php',

@@ -197,7 +197,7 @@
       </div>
 
     </div>
-  </div>
+
   <!--EMPLOYEE EDİT MODAL -->
    <div class="modal fade" id="modalEdit" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
@@ -383,7 +383,7 @@
       </div>
 
     </div>
-  </div>
+
 
 
 <!--EMPLOYEE VIEw MODAL -->
@@ -489,7 +489,6 @@
     </div>
 </div>
 
-  </div>
 
 
   <!-- Nav tabs -->

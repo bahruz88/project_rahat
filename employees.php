@@ -275,6 +275,7 @@
   </li>
     <li Class="nav-item"><a href="#termsEmploymentContract"   id="empContractInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Əmək müqaviləsinin şərtləri  </a></li>
     <li Class="nav-item"><a href="#workExperience"   id="workExperiencetab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > <?php echo $dil["workExperience"];?> </a></li>
+    <li Class="nav-item"><a href="#workplaceInformation"   id="workplaceInformationtab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > <?php echo $dil["workplace_information"];?> </a></li>
 
 </ul>
 </li>
@@ -538,6 +539,27 @@
             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>
+    </table>
+</div>
+
+    <div class="tab-pane" id="workplaceInformation">
+    <table id="workplace_table" class="table table-striped  table-bordered table-hover">
+        <thead>
+        <tr>
+            <th style="width:15px;">id</th>
+            <th><?php echo $dil["fio"];?></th>
+            <th><?php echo $dil["directorate"];?></th>
+            <th><?php echo $dil["department"];?></th>
+            <th><?php echo $dil["depart"];?></th>
+            <th><?php echo $dil["area_section"];?></th>
+            <th><?php echo $dil["position"];?></th>
+            <th><?php echo $dil["status"];?></th>
+            <th><?php echo $dil["direct_guide"];?></th>
+            <th><?php echo $dil["second_leader"];?></th>
+            <th><?php echo $dil["operation"];?></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
     </table>
 </div>
 

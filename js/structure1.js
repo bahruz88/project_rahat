@@ -1,16 +1,16 @@
 /*
 **********************************************************************************************************************
-************************************** Emek muqavilesinin sertleri INFO BILIKLERI ************************************************************
+************************************** is yeri INFO BILIKLERI ************************************************************
 **********************************************************************************************************************
 */
 
-var work_experiencetab_tab ;
-$('#workExperiencetab').click(function() {
-    console.log('Tab clikc work_experiencetab_table');
-    // $('#qual2').text( tabtext2+' / '+$('#workExperienceInfotab').text());
+var workplace_tab ;
+$('#workplaceInformationtab').click(function() {
+    console.log('Tab clikc workplace_table');
+    // $('#qual2').text( tabtext2+' / '+$('#workplaceInfoInfotab').text());
 
-    $('#work_experiencetab_table').DataTable().clear().destroy();
-    work_experiencetab_tab = $("#work_experiencetab_table").DataTable({
+    $('#workplace_table').DataTable().clear().destroy();
+    workplace_tab = $("#workplace_table").DataTable({
         "scrollX": true,
         "paging": true,
         "lengthChange": false,
@@ -30,15 +30,15 @@ $('#workExperiencetab').click(function() {
             }
         },
         "ajax": {
-            url: "work_experience/get_workExperience.php",
+            url: "workplace_info/get_workplaceInfo.php",
             type: "POST"
         },"columnDefs": [ {
             "width": "8%",
             "targets": -1,
             "data": null,
-            "defaultContent": "<img  id='workExperience_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
-                "<img  id='workExperience_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
-                "<img  id='workExperience_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+            "defaultContent": "<img  id='workplaceInfo_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>"+
+                "<img  id='workplaceInfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
+                "<img  id='workplaceInfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
         } ],
         dom: 'lBfrtip',
 
@@ -47,9 +47,9 @@ $('#workExperiencetab').click(function() {
 
                 text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                 action: function ( e, dt, node, config ) {
-                    console.log('workExperienceInsertModal')
+                    console.log('workplaceInfoInsertModal')
 
-                    $("#workExperienceInsertModal").modal();
+                    $("#workplaceInfoInsertModal").modal();
                 }
             },
             {
@@ -91,17 +91,17 @@ $('#workExperiencetab').click(function() {
 
     });
 
-    console.log('Tab clikc oldu',work_experiencetab_tab);
+    console.log('Tab clikc oldu',workplace_tab);
 });
 
 /*Emek muqavilesinin sertleri MELUMATALRİ SİLİNİR */
-$("#workExperienceDelete").submit(function(e) {
+$("#workplaceInfoDelete").submit(function(e) {
 
     e.preventDefault();
     $.ajax( {
-        url: "work_experience/workExperienceDelete.php",
+        url: "workplace_info/workplaceInfoDelete.php",
         method: "post",
-        data: $("#workExperienceDelete").serialize(),
+        data: $("#workplaceInfoDelete").serialize(),
         dataType: "text",
         success: function(strMessage)
         {
@@ -112,9 +112,9 @@ $("#workExperienceDelete").submit(function(e) {
             }
             else if (strMessage==='success')
             {
-                $('#modalworkExperienceDelete').modal('hide');
+                $('#modalworkplaceInfoDelete').modal('hide');
                 $('#modalDeleteSuccess').modal('show');
-                work_experiencetab_tab.ajax.reload();
+                workplace_tab.ajax.reload();
             }
             else  {
                 console.log(strMessage);
@@ -122,34 +122,33 @@ $("#workExperienceDelete").submit(function(e) {
             }
         }
     });
-    work_experiencetab_tab.ajax.reload();
-
+    workplace_tab.ajax.reload();
 
 });
 
-// /*workExperience Info  table delete click*/
-// $('#work_experiencetab_table').on( 'click', '#migration_workExperience_information', function ()
+// /*workplaceInfo Info  table delete click*/
+// $('#workplace_table').on( 'click', '#migration_workplaceInfo_information', function ()
 // {
-//     var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
+//     var data = workplace_tab.row( $(this).parents('tr') ).data();
 //     console.log('data[0]='+data[0])
-//     document.getElementById("workExperienceid").value = data[0];
-//     $('#modalworkExperienceDelete').modal('show');
+//     document.getElementById("workplaceInfoid").value = data[0];
+//     $('#modalworkplaceInfoDelete').modal('show');
 // } );
 
-$("#workExperienceInsertForm").submit(function(e)
+$("#workplaceInfoInsertForm").submit(function(e)
 {
     console.log('salam insert')
     e.preventDefault();
     /*	if($("#langInsertForm").valid())
 { */
     $.ajax( {
-        url: "work_experience/workExperienceInsert.php",
+        url: "workplace_info/workplaceInfoInsert.php",
         method: "post",
-        data: $("#workExperienceInsertForm").serialize(),
+        data: $("#workplaceInfoInsertForm").serialize(),
         dataType: "text",
         success: function(strMessage)
         {
-            console.log('strMessage='+$("#workExperienceInsertForm").serialize());
+            console.log('strMessage='+$("#workplaceInfoInsertForm").serialize());
             console.log('strMessage='+strMessage);
             $("#badge_success").text('');
             $("#badge_danger").text('');
@@ -158,101 +157,100 @@ $("#workExperienceInsertForm").submit(function(e)
 
                 $("#errorp").text(strMessage);
                 $("#modalInsertError").modal('show');
-                $("#workExperienceInsertModal").modal('hide');
+                $("#workplaceInfoInsertModal").modal('hide');
             }
             else if (strMessage==='success')
             {
                 $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
                 $("#modalInsertSuccess").modal('show');
-                $("#workExperienceInsertModal").modal('hide');
+                $("#workplaceInfoInsertModal").modal('hide');
 
             }
             else  {
                 $("#errorp").text(strMessage);
                 $("#modalInsertError").modal('show');
-                $("#workExperienceInsertModal").modal('hide');
+                $("#workplaceInfoInsertModal").modal('hide');
 
             }
         }
     });
-    work_experiencetab_tab.ajax.reload();
-    $( "#workExperienceInsertForm" ).get(0).reset();
+    workplace_tab.ajax.reload();
+    $( "#workplaceInfoInsertForm" ).get(0).reset();
     /*}*/
 });
 
 
-/*GetworkExperienceDetails  */
-function GetworkExperienceDetails(workExperienceid,optype)
+/*GetworkplaceInfoDetails  */
+function GetworkplaceInfoDetails(workplaceInfoid,optype)
 {
-    console.log('$workExperienceid='+workExperienceid)
-    $.post("work_experience/getworkExperienceDetail.php",
+    console.log('$workplaceInfoid='+workplaceInfoid)
+    $.post("workplace_info/getworkplaceInfoDetail.php",
         {
-            workExperienceid: workExperienceid
+            workplaceInfoid: workplaceInfoid
         },
-        function (workExperience_data, status)
+        function (workplaceInfo_data, status)
         {
-            console.log('workExperiencedata1=',workExperience_data)
+            console.log('workplaceInfodata1=',workplaceInfo_data)
             // PARSE json data
-            var workExperiencedata = JSON.parse(workExperience_data);
-            console.log('workExperiencedata=',workExperiencedata)
+            var workplaceInfodata = JSON.parse(workplaceInfo_data);
+            console.log('workplaceInfodata=',workplaceInfodata)
+            console.log('workplaceInfodata.emp_id=',workplaceInfodata.emp_id)
+            var result = workplaceInfodata.work_experience_before_enterprise.split(',');
+            var result2 = workplaceInfodata.work_experience_enterprise.split(',');
+            var result3 = workplaceInfodata.general_work_experience.split(',');
             if  (optype=='update') {
-                $("#update_workExperienceid").val(workExperiencedata.id).change();
-                $("#update_employee").val(workExperiencedata.emp_id).change();
-                $("#update_employment_contract_indefinite").val(workExperiencedata.chois_id).change();
-                $("#update_reasons_contract").val(workExperiencedata.reasons_temporary_closure)
-                $("#update_date_employment_contract").val(workExperiencedata.date_contract)
-                $("#update_probation").val(workExperiencedata.probation);
-                $("#update_trial_expiration_date").val(workExperiencedata.trial_expiration_date)
-                $("#update_employee_start_date").val(workExperiencedata.employee_start_date);
-                $("#update_date_conclusion_employment_contract").val(workExperiencedata.date_conclusion_contract);
-                $("#update_regulation_property_relations").val(workExperiencedata.regulation_property_relations);
-                $("#update_termination_cases").val(workExperiencedata.termination_cases);
-                $("#update_other_conditions_wages").val(workExperiencedata.other_condition_wages);
-                $("#update_workplace_status").val(workExperiencedata.work_status_id).change();
-                $("#update_working_conditions").val(workExperiencedata.working_cond_id).change();
-                $("#update_job_descriptions").val(workExperiencedata.job_description);
-                $("#update_kvota").val(workExperiencedata.kvota);
-                $('#modalEditworkExperience').modal('show');
+                $("#update_workplaceInfoid").val(workplaceInfodata.id).change();
+                $("#update_employe").val(workplaceInfodata.emp_id).change();
+                $("#update_work_experience_before_enterprise_year").val(result[0]);
+                $("#update_work_experience_before_enterprise_month").val(result[1])
+                $("#update_work_experience_before_enterprise_day").val(result[2]);
+
+                $("#update_work_experience_enterprise_year").val(result2[0]);
+                $("#update_work_experience_enterprise_month").val(result2[1])
+                $("#update_work_experience_enterprise_day").val(result2[2]);
+
+                $("#update_general_work_experience_year").val(result3[0]);
+                $("#update_general_work_experience_month").val(result3[1])
+                $("#update_general_work_experience_day").val(result3[2]);
+
+                $('#modalEditworkplaceInfo').modal('show');
             }
             else {
-                $("#view_workExperienceid").val(workExperiencedata.id);
-                $("#view_employee").val(workExperiencedata.full_name);
-                $("#view_employment_contract_indefinite").val(workExperiencedata.indefinite);
-                $("#view_reasons_contract").val(workExperiencedata.reasons_temporary_closure)
-                $("#view_date_employment_contract").val(workExperiencedata.date_contract)
-                $("#view_probation").val(workExperiencedata.probation);
-                $("#view_trial_expiration_date").val(workExperiencedata.trial_expiration_date)
-                $("#view_employee_start_date").val(workExperiencedata.employee_start_date);
-                $("#view_date_conclusion_employment_contract").val(workExperiencedata.date_conclusion_contract);
-                $("#view_regulation_property_relations").val(workExperiencedata.regulation_property_relations);
-                $("#view_termination_cases").val(workExperiencedata.termination_cases);
-                $("#view_other_conditions_wages").val(workExperiencedata.other_condition_wages);
-                $("#view_workplace_status").val(workExperiencedata.workplace_status);
-                $("#view_working_conditions").val(workExperiencedata.working_conditions);
-                $("#view_job_descriptions").val(workExperiencedata.job_description);
-                $("#view_kvota").val(workExperiencedata.kvota);
-                $('#modalViewworkExperience').modal('show');
+                $("#view_workplaceInfoid").val(workplaceInfodata.id);
+                $("#view_employe").val(workplaceInfodata.full_name);
+                $("#view_work_experience_before_enterprise_year").val(result[0]);
+                $("#view_work_experience_before_enterprise_month").val(result[1])
+                $("#view_work_experience_before_enterprise_day").val(result[2]);
+
+                $("#view_work_experience_enterprise_year").val(result2[0]);
+                $("#view_work_experience_enterprise_month").val(result2[1])
+                $("#view_work_experience_enterprise_day").val(result2[2]);
+
+                $("#view_general_work_experience_year").val(result3[0]);
+                $("#view_general_work_experience_month").val(result3[1])
+                $("#view_general_work_experience_day").val(result3[2]);
+                $('#modalViewworkplaceInfo').modal('show');
             }
         }
     );
 
 }
 
-/*workExperience Update */
-$("#workExperienceUpdate").submit(function(e)
+/*workplaceInfo Update */
+$("#workplaceInfoUpdate").submit(function(e)
 {
     e.preventDefault();
     /*if($("#educationUpdate").valid())
     { */
 
     $.ajax( {
-        url: "work_experience/workExperienceUpdate.php",
+        url: "workplace_info/workplaceInfoUpdate.php",
         method: "post",
-        data: $("#workExperienceUpdate").serialize(),
+        data: $("#workplaceInfoUpdate").serialize(),
         dataType: "text",
         success: function(strMessage)
         {
-            //console.log('serialize='+$("#workExperienceUpdate").serialize());
+            //console.log('serialize='+$("#workplaceInfoUpdate").serialize());
             console.log('strMessage='+strMessage);
             $("#badge_danger_update").text("");
             if (strMessage.substr(1, 4)==='error')
@@ -261,9 +259,9 @@ $("#workExperienceUpdate").submit(function(e)
             }
             else if (strMessage==='success')
             {
-                $('#modalEditworkExperience').modal('hide');
+                $('#modalEditworkplaceInfo').modal('hide');
                 $('#modalUpdateSuccess').modal('show');
-                work_experiencetab_tab.ajax.reload();
+                workplace_tab.ajax.reload();
             }
 
             else  {
@@ -271,39 +269,39 @@ $("#workExperienceUpdate").submit(function(e)
             }
         }
     });
-    work_experiencetab_tab.ajax.reload();
+    workplace_tab.ajax.reload();
     /*}
     else {
              alert('not valid') ;
          }*/
 });
 
-/*workExperience table delete click*/
-$('#work_experiencetab_table').on( 'click', '#workExperience_delete', function ()
+/*workplaceInfo table delete click*/
+$('#workplace_table').on( 'click', '#workplaceInfo_delete', function ()
 {
-    var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
+    var data = workplace_tab.row( $(this).parents('tr') ).data();
 
-    document.getElementById("workExperienceid").value = data[0];
+    document.getElementById("workplaceInfoid").value = data[0];
 
-    $('#modalworkExperienceDelete').modal('show');
+    $('#modalworkplaceInfoDelete').modal('show');
 } );
 
-/*workExperience table view click  */
-$('#work_experiencetab_table').on( 'click', '#workExperience_view', function ()
+/*workplaceInfo table view click  */
+$('#workplace_table').on( 'click', '#workplaceInfo_view', function ()
 {
-    var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
-    GetworkExperienceDetails(data[0],'view');
+    var data = workplace_tab.row( $(this).parents('tr') ).data();
+    GetworkplaceInfoDetails(data[0],'view');
     console.log(data[0]);
 } );
-/*workExperience table view click  */
-$('#work_experiencetab_table').on( 'click', '#workExperience_edit', function ()
+/*workplaceInfo table view click  */
+$('#workplace_table').on( 'click', '#workplaceInfo_edit', function ()
 {
     console.log('salam')
 
-    var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
+    var data = workplace_tab.row( $(this).parents('tr') ).data();
     console.log('data='+data[0])
-    GetworkExperienceDetails(data[0],'update');
-    document.getElementById("updateempcontid").value = data[0];
+    GetworkplaceInfoDetails(data[0],'update');
+    document.getElementById("updateworkexpid").value = data[0];
     console.log(data[0]);
 
 } );
