@@ -559,7 +559,7 @@
             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>
-        <tbody></tbody>
+
     </table>
 </div>
 

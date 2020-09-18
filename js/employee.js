@@ -4287,32 +4287,7 @@ $("#familiyInfoUpdate").submit(function(e)
 			"ajax": {
 				url: "workplace_info/get_workplaceInfo.php",
 				type: "POST",
-                success:function(data){
-                    console.log('data=',data);
-                    // $('#tableStructureRoles').find('tbody').html('');
-                    var row=''
-                    $.each(data.data, function(k,v){
-                        console.log('k=',k);
-                        console.log('v=',v);
-                        console.log('v=',v[0].category);
-                        row +='<tr> '  +
-                             ' <td>'+v[0].category+'</td>  '  +
-                            ' <td>'+(v[1].structure_level1) ? v[1].structure_level1 : ''+'</td>  '  +
-                            ' <td>'+(v[1].structure_level2) ? v[1].structure_level2 : ''+'</td>  '  +
-                            ' <td>'+(v[1].structure_level3) ? v[1].structure_level3 : ''+'</td>  '  +
-                            ' <td>'+(v[1].structure_level4) ? v[1].structure_level4 : ''+'</td>  '  +
-                            ' <td>'+(v[1].structure_level5) ? v[1].structure_level5 : ''+'</td>  '  +
-                            ' <td>'+''+'</td>  '  +
-                            ' <td>'+''+'</td>  '  +
-                            ' <td>'+''+'</td>  '  +
-                            ' <td><img  id=\'workplaceInfo_view\' style=\'cursor:pointer\' src=\'dist/img/icons/view-file.png\' width=\'22\' height=\'22\'>' +
-                            '<img  id=\'workplaceInfo_delete\' style=\'cursor:pointer\' src=\'dist/img/icons/delete-file.png\' width=\'22\' height=\'22\'>' +
-                            '<img  id=\'workplaceInfo_edit\' style=\'cursor:pointer\' src=\'dist/img/icons/edit-file.png\' width=\'22\' height=\'22\'></td>  '  +
-                            '</tr>';
 
-                    })
-                    $('#workplace_table').find('tbody').html(row);
-                }
 			},"columnDefs": [ {
 				"width": "8%",
 				"targets": -1,
