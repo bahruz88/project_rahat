@@ -1,11 +1,13 @@
 <?php
 include('../session.php');
+$site_lang=$_SESSION['dil'] ;
+$par='';
 
-
-    $sql_parent="select tec.*, concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name, tc.enterprise_head_fullname
+    $sql_parent="select tec.*, concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name, tc.enterprise_head_fullname,tws.title work_status
 from  $tbl_employee_category tec
 INNER join $tbl_employees te on tec.emp_id=te.id
 INNER join $tbl_employee_company tc on tec.company_id=tc.id
+INNER join $tbl_work_status tws on tws.level_id=tec.work_status and tws.lang='$site_lang'
  WHERE tec.emp_id != 0";
 $data2 = array();
 //   echo $sql_parents;
@@ -16,21 +18,14 @@ $data2 = array();
                 $parent =$row_parent["parent"];
                 $i=1;
                 $k=5;
+                $par=$parent;
                 $sub_array   = array();
-//                $sub_array['id'] = $row_parent['id'];
-//                $sub_array['emp_id'] = $row_parent['emp_id'];
-//                $sub_array['s'] = $row_parent['id'];
-//                $sub_array['ss'] = $row_parent['emp_id'];
-//                $sub_array['sss'] = $row_parent['id'];
                 $sub_array[] = $row_parent['id'];
                 $sub_array[] = $row_parent['full_name'];
-
                  for($j=2;$j<=5;$j++){
-//                    $sub_array['structure_level'.$j] = '';
-//                    $sub_array['category'.$j] = '';
-                    $sub_array[] = '0';
+                    $sub_array[] = '';
                 }
-                while($parent!=''){
+                while($parent!='' && $parent!=null){
                     $sql_parents="select tec.*, tsl.title structure from $tbl_employee_category  tec
                     LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
                      WHERE tec.id = '$parent'";
@@ -45,6 +40,10 @@ $data2 = array();
                                     $data['category'.$i]  = $row_parents["category"];
 //                                    $sub_array['structure_level'.$i] = $data['structure_level'.$i];
                                     $sub_array[$k] = $row_parents["category"];
+                                    if($row_parents["parent"]!="" && $row_parents["parent"]!=null){
+                                        $par = $row_parents["parent"];
+                                    }
+
                                 }
                                 $i++;
                                 $k--;
@@ -55,16 +54,14 @@ $data2 = array();
                     }
                 }
                 $sub_array[] = $row_parent['category'];
-                $sub_array[] = '';
+                $sub_array[] = $row_parent['work_status'];
                 $sub_array[] = $row_parent['enterprise_head_fullname'];
                 $sub_array[] = '';
+                $sub_array[] = $par;
                 $data2[]     = $sub_array;
-
             }
-
         }
     }
-
 
 $row_count=$result_parent->num_rows ;
 
