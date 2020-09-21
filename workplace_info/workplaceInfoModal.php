@@ -185,31 +185,27 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="directorate"><?php echo $dil["directorate"]; ?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="directorate" name="directorate" placeholder="<?php echo $dil["directorate"]; ?>"/>
+                                <div class="col-sm-6 up_directorate">
 
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="department"><?php echo $dil["department"]; ?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="department" name="department" placeholder="<?php echo $dil["department"]; ?>"/>
-                                </div>
+                                <div class="col-sm-6 up_department">
+                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="department"><?php echo $dil["depart"]; ?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="depart" name="depart" placeholder="<?php echo $dil["depart"]; ?>"/>
-                                </div>
+                                <div class="col-sm-6 up_depart">
+                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
-                                       for="department"><?php echo $dil["area_section"]; ?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="area_section" name="area_section" placeholder="<?php echo $dil["area_section"]; ?>"/>
-                                </div>
+                                       for="area_section"><?php echo $dil["area_section"]; ?></label>
+                                <div class="col-sm-6 up_area_section">
+                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
@@ -241,15 +237,15 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="department"><?php echo $dil["direct_guide"]; ?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="direct_guide" name="direct_guide" placeholder="<?php echo $dil["direct_guide"]; ?>"/>
+                                <div class="col-sm-6 up_direct_guide">
+<!--                                    <input type="text" class="form-control" id="direct_guide" name="direct_guide" placeholder="--><?php //echo $dil["direct_guide"]; ?><!--"/>-->
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="department"><?php echo $dil["second_leader"]; ?></label>
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 up_second_leader">
                                     <input type="text" class="form-control" id="second_leader" name="second_leader" placeholder="<?php echo $dil["second_leader"]; ?>"/>
                                 </div>
                             </div>
@@ -314,46 +310,25 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_directorate"><?php echo $dil["directorate"]; ?></label>
-                                <div class="col-sm-6" id="up_directorate">
+                                <div class="col-sm-6 up_directorate"  >
                                  </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_department"><?php echo $dil["department"]; ?></label>
-                                <div class="col-sm-6" id="up_department">
-<!--                                    <select data-live-search="true" name="update_department" id="update_department"-->
-<!--                                            title="--><?php //echo $dil["selectone"]; ?><!--" class="form-control selectpicker"-->
-<!--                                            placeholder="--><?php //echo $dil["department"]; ?><!--">-->
-<!--                                    </select>-->
-<!--                                    <input type="text" class="form-control" id="update_department" name="update_department" placeholder="--><?php //echo $dil["department"]; ?><!--"/>-->
-<!--                                    <input type="hidden" class="form-control" id="update_id3" name="update_id3"/>-->
-
+                                <div class="col-sm-6 up_department">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_department"><?php echo $dil["depart"]; ?></label>
-                                <div class="col-sm-6" id="up_depart">
-<!--                                    <select data-live-search="true" name="update_depart" id="update_depart"-->
-<!--                                            title="--><?php //echo $dil["selectone"]; ?><!--" class="form-control selectpicker"-->
-<!--                                            placeholder="--><?php //echo $dil["depart"]; ?><!--">-->
-<!--                                    </select>-->
-<!--                                    <input type="text" class="form-control" id="update_depart" name="update_depart" placeholder="--><?php //echo $dil["depart"]; ?><!--"/>-->
-<!--                                    <input type="hidden" class="form-control" id="update_id2" name="update_id2"/>-->
-
+                                <div class="col-sm-6 up_depart"  >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_department"><?php echo $dil["area_section"]; ?></label>
-                                <div class="col-sm-6" id="up_area_section">
-<!--                                    <select data-live-search="true" name="update_area_section" id="update_area_section"-->
-<!--                                            title="--><?php //echo $dil["selectone"]; ?><!--" class="form-control selectpicker"-->
-<!--                                            placeholder="--><?php //echo $dil["area_section"]; ?><!--">-->
-<!--                                    </select>-->
-<!--                                    <input type="text" class="form-control" id="update_area_section" name="update_area_section" placeholder="--><?php //echo $dil["area_section"]; ?><!--"/>-->
-<!--                                    <input type="hidden" class="form-control" id="update_id1" name="update_id1"/>-->
-
+                                <div class="col-sm-6 up_area_section" >
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -386,8 +361,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_direct_guide"><?php echo $dil["direct_guide"]; ?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_direct_guide" readonly name="update_direct_guide" placeholder="<?php echo $dil["direct_guide"]; ?>"/>
+                                <div class="col-sm-6 up_direct_guide">
+<!--                                    <input type="text" class="form-control" id="update_direct_guide" readonly name="update_direct_guide" placeholder="--><?php //echo $dil["direct_guide"]; ?><!--"/>-->
                                 </div>
                             </div>
 

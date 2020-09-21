@@ -3939,6 +3939,7 @@ $(function () {
                 url: "workplace_info/get_workplaceInfo.php",
                 type: "POST",
 
+
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -3955,6 +3956,7 @@ $(function () {
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
                         console.log('workplaceInfoInsertModal')
+
 
                         $("#workplaceInfoInsertModal").modal();
                     }
@@ -4080,27 +4082,29 @@ $(function () {
                 // PARSE json data
                 var workplaceInfodata = JSON.parse(workplaceInfo_data);
                 var structure_level = workplaceInfodata.structure_level
+                var position_level = workplaceInfodata.position_level
                 var structures = workplaceInfodata.structures;
                 console.log('workplaceInfodata=', workplaceInfodata)
                 console.log('structure_level=', structure_level);
-                fillSelect(structures,'');
+                console.log('structure_level.id2=', structure_level.id2);
+                fillSelect(structures,'','update_');
 
 
                 if (optype == 'update') {
                     $("#update_workplaceInfoid").val(workplaceInfodata.id).change();
                     $("#update_employee_place").val(workplaceInfodata.emp_id).change();
-                    $("#update_directorate").val(structure_level.id4).change();
+                    $("#update_directorate").val(structure_level.id2).change();
                     // $("#update_id4").val(structure_level.id4);
                     $("#update_department").val(structure_level.id3).change();
                     // $("#update_id3").val(structure_level.id3);
-                    $("#update_depart").val(structure_level.id2).change();
+                    $("#update_depart").val(structure_level.id4).change();
                     // $("#update_id2").val(structure_level.id2);
-                    $("#update_area_section").val(structure_level.id1).change();
+                    $("#update_area_section").val(structure_level.id5).change();
                     // $("#update_id1").val(structure_level.id1);
                     $("#update_position").val(workplaceInfodata.category);
                     $("#update_status").val(workplaceInfodata.work_status_id).change();
-                    $("#update_direct_guide").val(workplaceInfodata.enterprise_head_fullname);
-                    $("#update_second_leader").val(workplaceInfodata.second_leader);
+                    $("#update_direct_guide").val(position_level.position_id1).change();
+                    $("#update_second_leader").val(position_level.position_id2).change();
 
 
                     $('#modalEditWorkPlaceInfo').modal('show');
@@ -4337,6 +4341,19 @@ $(".company_id").change(function () {
 
         }
     });
+    $.ajax({
+        url: 'workplace_info/getStructureInsert.php',
+        type: 'post',
+        async:false,
+        data: {company_id: deptid},
+        dataType: 'json',
+        success: function (response) {
+            console.log('response insert=',response)
+            if(response){
+                fillSelect(response.structures,'','')
+            }
+        }
+    });
 });
 $(".update_company_id").change(function () {
     var deptid = $(this).val();
@@ -4363,23 +4380,27 @@ $(".update_company_id").change(function () {
     });
 });
 
- function fillSelect(structures,stLevelid){
-     var option_directorate  = '<select data-live-search="true" name="update_directorate" id="update_directorate"\n' +
+ function fillSelect(structures,stLevelid,optype){
+     var option_directorate  = '<select data-live-search="true" name="'+optype+'directorate" id="'+optype+'directorate"\n' +
          '                                            title="" class="form-control selectpicker stlevel">';
      option_directorate  += '<option value="">Seçin..</option>';
-     var option_department  = '<select data-live-search="true" name="update_department" id="update_department"\n' +
+     var option_department  = '<select data-live-search="true" name="'+optype+'department" id="'+optype+'department"\n' +
          '                                            title="" class="form-control selectpicker stlevel">';
      option_department  += '<option value="">Seçin..</option>';
-     var option_depart  = '<select data-live-search="true" name="update_depart" id="update_depart"\n' +
+     var option_depart  = '<select data-live-search="true" name="'+optype+'depart" id="'+optype+'depart"\n' +
          '                                            title="" class="form-control selectpicker stlevel">';
      option_depart  += '<option value="">Seçin..</option>';
-     var option_area_section  = '<select data-live-search="true" name="update_area_section" id="update_area_section"\n' +
+     var option_area_section  = '<select data-live-search="true" name="'+optype+'area_section" id="'+optype+'area_section"\n' +
          '                                            title="" class="form-control selectpicker">';
      option_area_section  += '<option value="">Seçin..</option>';
+     var option_direct_guide  = '<select data-live-search="true" name="'+optype+'direct_guide" id="'+optype+'direct_guide"\n' +
+         '                                            title="" class="form-control selectpicker">';
+     option_direct_guide  += '<option value="">Seçin..</option>';
+     var option_second_leader  = '<select data-live-search="true" name="'+optype+'second_leader" id="'+optype+'second_leader"\n' +
+         '                                            title="" class="form-control selectpicker">';
+     option_second_leader  += '<option value="">Seçin..</option>';
      $.each(structures, function(k,v){
-         console.log('structures=', v);
-         console.log('v.structure_level=', v.structure_level);
-         if(v.structure_level==='2'){
+          if(v.structure_level==='2'){
              option_directorate += '<option value="' + v.id + '" data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
          }
          if(v.structure_level==='3') {
@@ -4391,46 +4412,53 @@ $(".update_company_id").change(function () {
          if(v.structure_level==='5') {
              option_area_section += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
          }
+         if(v.position_level==='2') {
+             option_direct_guide += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
+         }
+         if(v.position_level==='2') {
+             option_second_leader += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
+         }
      });
      option_directorate+=' </select>';
      option_department+=' </select>';
      option_depart+=' </select>';
      option_area_section+=' </select>';
-
-
+     option_direct_guide+=' </select>';
+     option_second_leader+=' </select>';
      if(stLevelid===''){
-         console.log('option_directorate='+option_directorate);
-         console.log('stLevelid='+stLevelid);
-         $('#up_directorate').html(option_directorate);
-         $('#up_department').html(option_department);
-         $('#up_depart').html(option_depart);
-         $('#up_area_section').html(option_area_section);
+          $('.up_directorate').html(option_directorate);
+         $('.up_department').html(option_department);
+         $('.up_depart').html(option_depart);
+         $('.up_area_section').html(option_area_section);
+         $('.up_direct_guide').html(option_direct_guide);
+         $('.up_second_leader').html(option_second_leader);
      } else  if(stLevelid==='2'){
-         console.log('option_department='+option_department);
-          $('#up_department').html(option_department);
-         $('#up_depart').html(option_depart);
-         $('#up_area_section').html(option_area_section);
+           $('.up_department').html(option_department);
+         $('.up_depart').html(option_depart);
+         $('.up_area_section').html(option_area_section);
+         $('.up_direct_guide').html(option_direct_guide);
+         $('.up_second_leader').html(option_second_leader);
      } else  if(stLevelid==='3'){
-         console.log('option_depart='+option_depart);
-         $('#up_depart').html(option_depart);
-         $('#up_area_section').html(option_area_section);
+          $('.up_depart').html(option_depart);
+         $('.up_area_section').html(option_area_section);
+         $('.up_direct_guide').html(option_direct_guide);
+         $('.up_second_leader').html(option_second_leader);
      }
      else  if(stLevelid==='4'){
-         console.log('option_area_section='+option_area_section);
-         $('#up_area_section').html(option_area_section);
+          $('.up_area_section').html(option_area_section);
+         $('.up_direct_guide').html(option_direct_guide);
+         $('.up_second_leader').html(option_second_leader);
      }
-     stlevel()
+
      $('.selectpicker').selectpicker('refresh');
-
-
+     stlevel(optype)
  }
- function stlevel(){
+ function stlevel(optype){
      $(".stlevel").change(function () {
          var stid = $(this).val();
          var stLevelid = $(this).find('option:selected').attr('data-stLevel');
          console.log("stid=" + stid);
-         console.log("stLevelidstLevelid=" + stLevelid);
-         if(stid!=''){
+          if(stid!=''){
              $.ajax({
                  url: 'workplace_info/getStructure.php',
                  type: 'post',
@@ -4440,7 +4468,7 @@ $(".update_company_id").change(function () {
                  success: function (response) {
                      console.log('response=',response)
                      if(response){
-                         fillSelect(response.structures,stLevelid)
+                         fillSelect(response.structures,stLevelid,optype)
                      }
                  }
              });

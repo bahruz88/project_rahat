@@ -36,14 +36,32 @@ $data2 = array();
                             while($row_parents = $result_parents->fetch_assoc()) {
                                 $parent = $row_parents["parent"];
                                 if($row_parents["structure_level"]!=1){
-                                    $data['structure_level'.$i]  = $row_parents["structure"];
-                                    $data['category'.$i]  = $row_parents["category"];
+                                    if($row_parents["structure_level"]==2) {
+                                        $data['category2'] = $row_parents["category"];
+                                        $data['id2'] = $row_parents["id"];
+                                        $sub_array[2] = $row_parents["category"];
+
+                                    }
+                                    if($row_parents["structure_level"]==3) {
+                                        $data['category3'] = $row_parents["category"];
+                                        $data['id3'] = $row_parents["id"];
+                                        $sub_array[3] = $row_parents["category"];
+                                    }
+                                    if($row_parents["structure_level"]==4) {
+                                        $data['category4'] = $row_parents["category"];
+                                        $data['id4'] = $row_parents["id"];
+                                        $sub_array[4] = $row_parents["category"];
+                                    }
+                                    if($row_parents["structure_level"]==5) {
+                                        $data['category5'] = $row_parents["category"];
+                                        $data['id5'] = $row_parents["id"];
+                                        $sub_array[5] = $row_parents["category"];
+                                    }
 //                                    $sub_array['structure_level'.$i] = $data['structure_level'.$i];
-                                    $sub_array[$k] = $row_parents["category"];
+//                                    $sub_array[$k] = $row_parents["category"];
                                     if($row_parents["parent"]!="" && $row_parents["parent"]!=null){
                                         $par = $row_parents["parent"];
                                     }
-
                                 }
                                 $i++;
                                 $k--;
@@ -62,6 +80,7 @@ $data2 = array();
             }
         }
     }
+
 
 $row_count=$result_parent->num_rows ;
 

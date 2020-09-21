@@ -1,12 +1,10 @@
 <?php
 include('../session.php');
 $site_lang=$_SESSION['dil'] ;
-$stid = $_POST['stid'];
-$st_array   = array();
+$company_id=$_POST['company_id'];
+ $st_array   = array();
 
-$sql_positions="select id,structure_level,position_level, category,code,create_date,end_date, parent,icon,emp_id from
-(select * from tbl_category order by parent, id) folders_sorted, (select @pv := $stid) initialisation
- where find_in_set(parent, @pv) > 0 and @pv := concat(@pv, ',', id)";
+$sql_positions="SELECT * FROM `tbl_category` WHERE structure_level='2' and company_id='$company_id'";
 $data2 = array();
 // echo $sql_positions;
 $result_position = $db->query($sql_positions);
