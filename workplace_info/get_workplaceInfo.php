@@ -18,6 +18,7 @@ $data2 = array();
                 $parent =$row_parent["parent"];
                 $i=1;
                 $k=5;
+                $p = 1;
                 $par=$parent;
                 $sub_array   = array();
                 $sub_array[] = $row_parent['id'];
@@ -25,6 +26,8 @@ $data2 = array();
                  for($j=2;$j<=5;$j++){
                     $sub_array[] = '';
                 }
+                $sub_array[6] = $row_parent['category'];
+                $sub_array[7] = $row_parent['work_status'];
                 while($parent!='' && $parent!=null){
                     $sql_parents="select tec.*, tsl.title structure from $tbl_employee_category  tec
                     LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
@@ -70,12 +73,43 @@ $data2 = array();
                         }
 
                     }
+
+                    $sql_posparents = "select tec.*, tsl.title position from $tbl_employee_category  tec
+                    LEFT join $tbl_position_level tsl on tsl.posit_id=tec.position_level
+                     WHERE tec.parent = '$parent'";
+//                  echo $sql_parents;
+                    $result_posparents = $db->query($sql_posparents);
+                    if ($result_posparents) {
+                        if ($result_posparents->num_rows > 0) {
+//                        $data=array();
+                            while ($row_posparents = $result_posparents->fetch_assoc()) {
+                                $parent = $row_posparents["parent"];
+                                if ($row_posparents["position_level"] == 2) {
+                                    $data3['position'.$p] = $row_posparents["category"];
+                                    $data3['position_id'.$p] = $row_posparents["id"];
+                                    if($p==1){
+                                        $sub_array[8] = $row_posparents["category"];
+                                    }
+                                    if($p==2){
+                                        $sub_array[9] = $row_posparents["category"];
+                                    }
+
+                                    $p++;
+                                }
+
+//                           $data3[]  = $data;
+
+
+                                $sub_array['position_level'] = $data3;
+
+//                          $data[] =$row_parents["structure_level"];
+                            }
+                        }
+
+                    }
                 }
-                $sub_array[] = $row_parent['category'];
-                $sub_array[] = $row_parent['work_status'];
-                $sub_array[] = $row_parent['enterprise_head_fullname'];
-                $sub_array[] = '';
-                $sub_array[] = $par;
+
+                $sub_array[10] = $par;
                 $data2[]     = $sub_array;
             }
         }

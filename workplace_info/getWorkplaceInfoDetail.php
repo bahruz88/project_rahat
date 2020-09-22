@@ -67,24 +67,11 @@ if ($result_parent) {
                                     $par = $row_parents["parent"];
                                 }
                             }
-
-//                            if ($row_parents["position_level"] == 2) {
-//                                $data['position'.$i] = $row_parents["category"];
-//                                $data['position_id'.$i] = $row_parents["id"];
-//                            }
-
-//                           $data3[]  = $data;
-
-
                             $sub_array['structure_level'] = $data;
                             $i++;
-
-//                              $data[] =$row_parents["structure_level"];
                         }
                     }
-
                 }
-
 
                 $sql_posparents = "select tec.*, tsl.title position from $tbl_employee_category  tec
                     LEFT join $tbl_position_level tsl on tsl.posit_id=tec.position_level
