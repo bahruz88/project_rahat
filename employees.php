@@ -5,6 +5,7 @@
  $sql_military_rank= "select * from $tbl_military_rank  where lang='$site_lang' ";
  $sql_military_staff= "select * from $tbl_military_staff  where lang='$site_lang' ";
  $sql_driving_category= "select * from $tbl_driver_lic_cat  where lang='$site_lang' ";
+$sql_work_status= "select * from $tbl_work_status where lang='$site_lang' ";
 
  $sql_lang_level= "select * from $tbl_lang_level  where lang_short_name='$site_lang' ";
  $result_qua_dic_view = $db->query($sql_qua_dic);
@@ -240,6 +241,7 @@
   include  ('military_info/militaryInfoModal.php');
   include  ('emp_contract/empContractModal.php');
   include  ('work_experience/workExperienceModal.php');
+  include  ('workplace_info/workplaceInfoModal.php');
   ?>
   
   
@@ -556,7 +558,7 @@
             <th><?php echo $dil["status"];?></th>
             <th><?php echo $dil["direct_guide"];?></th>
             <th><?php echo $dil["second_leader"];?></th>
-            <th><?php echo $dil["operation"];?></th>
+             <th><?php echo $dil["operation"];?></th>
         </tr>
         </thead>
 
