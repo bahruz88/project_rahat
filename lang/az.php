@@ -301,8 +301,11 @@ $dil = array(
     "modal_title_view_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavəyə və kəsintilərinə baxış",
     "modal_title_edit_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavənin və kəsintilərinin redaktəsi",
 	"ovr_input_title"   =>"Əlavə iş vaxtının sazlanması",
-"modal_title_edit_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavənin və kəsintilərinin redaktəsi",
-
+	"overtime_calc_status"   =>"Əlavə iş vaxtı Hesablanma  statusu",
+	"overtime_period"   =>"Əlavə iş vaxtı Hesablanma müddəti",
+	
+	
+	"modal_title_edit_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavənin və kəsintilərinin redaktəsi",
     "employment_contract_indefinite"   =>"Əmək müqaviləsi müddətsizdirmi",
     "reasons_contract"   =>"Əmək müqaviləsinin müddətli bağlanma səbəbləri",
     "date_employment_contract"   =>"Müddətli əmək müqaviləsinin bağlanma tarixləri",
