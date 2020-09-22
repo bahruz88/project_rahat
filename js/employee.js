@@ -4078,22 +4078,29 @@ $(function () {
                 workplaceInfoid: workplaceInfoid
             },
             function (workplaceInfo_data, status) {
-                console.log('workplaceInfodata1=', workplaceInfo_data)
+                // console.log('workplaceInfodata1=', workplaceInfo_data)
                 // PARSE json data
                 var workplaceInfodata = JSON.parse(workplaceInfo_data);
                 var structure_level = workplaceInfodata.structure_level
                 var position_level = workplaceInfodata.position_level
                 var structures = workplaceInfodata.structures;
                 console.log('workplaceInfodata=', workplaceInfodata)
-                console.log('structure_level=', structure_level);
-                console.log('structure_level.id2=', structure_level.id2);
-                fillSelect(structures,'','update_');
+                console.log('structures=', structures);
+                // console.log('structure_level.id2=', structure_level.id2);
+                fillSelect(structures,'');
+                stlevel()
+                $('.selectpicker').selectpicker('refresh');
 
 
                 if (optype == 'update') {
+                    console.log('update kecdim')
+
+                    // stlevel('update_')
                     $("#update_workplaceInfoid").val(workplaceInfodata.id).change();
                     $("#update_employee_place").val(workplaceInfodata.emp_id).change();
                     $("#update_directorate").val(structure_level.id2).change();
+
+                    // $("#update_directorate").find("option[value='"+structure_level.id2+"']").attr('selected','selected');
                     // $("#update_id4").val(structure_level.id4);
                     $("#update_department").val(structure_level.id3).change();
                     // $("#update_id3").val(structure_level.id3);
@@ -4105,7 +4112,11 @@ $(function () {
                     $("#update_status").val(workplaceInfodata.work_status_id).change();
                     $("#update_direct_guide").val(position_level.position_id1).change();
                     $("#update_second_leader").val(position_level.position_id2).change();
+                    console.log('---------------structure_level.id2='+structure_level.id2)
+                    console.log('---------------update_directorate.id2='+$("#update_directorate").val())
+                    console.log('---------------update_directorate option.id2='+$("#update_directorate").find('option:selected').val())
 
+                    $('.selectpicker').selectpicker('refresh');
 
                     $('#modalEditWorkPlaceInfo').modal('show');
                 } else {
@@ -4350,7 +4361,7 @@ $(".company_id").change(function () {
         success: function (response) {
             console.log('response insert=',response)
             if(response){
-                fillSelect(response.structures,'','')
+                // fillSelect(response.structures,'','update_')
             }
         }
     });
@@ -4380,28 +4391,19 @@ $(".update_company_id").change(function () {
     });
 });
 
- function fillSelect(structures,stLevelid,optype){
-     var option_directorate  = '<select data-live-search="true" name="'+optype+'directorate" id="'+optype+'directorate"\n' +
-         '                                            title="" class="form-control selectpicker stlevel">';
-     option_directorate  += '<option value="">Seçin..</option>';
-     var option_department  = '<select data-live-search="true" name="'+optype+'department" id="'+optype+'department"\n' +
-         '                                            title="" class="form-control selectpicker stlevel">';
-     option_department  += '<option value="">Seçin..</option>';
-     var option_depart  = '<select data-live-search="true" name="'+optype+'depart" id="'+optype+'depart"\n' +
-         '                                            title="" class="form-control selectpicker stlevel">';
-     option_depart  += '<option value="">Seçin..</option>';
-     var option_area_section  = '<select data-live-search="true" name="'+optype+'area_section" id="'+optype+'area_section"\n' +
-         '                                            title="" class="form-control selectpicker">';
-     option_area_section  += '<option value="">Seçin..</option>';
-     var option_direct_guide  = '<select data-live-search="true" name="'+optype+'direct_guide" id="'+optype+'direct_guide"\n' +
-         '                                            title="" class="form-control selectpicker">';
-     option_direct_guide  += '<option value="">Seçin..</option>';
-     var option_second_leader  = '<select data-live-search="true" name="'+optype+'second_leader" id="'+optype+'second_leader"\n' +
-         '                                            title="" class="form-control selectpicker">';
-     option_second_leader  += '<option value="">Seçin..</option>';
+ function fillSelect(structures,stLevelid){
+      console.log('------------------------ stLevelid='+stLevelid)
+      console.log('fillSelect structures=',structures)
+     var  option_directorate  = '<option value="">Seçin..</option>';
+     var  option_department  = '<option value="">Seçin..</option>';
+     var  option_depart  = '<option value="">Seçin..</option>';
+     var  option_area_section  = '<option value="">Seçin..</option>';
+     var  option_direct_guide  = '<option value="">Seçin..</option>';
+     var  option_second_leader  = '<option value="">Seçin..</option>';
+
      $.each(structures, function(k,v){
-          if(v.structure_level==='2'){
-             option_directorate += '<option value="' + v.id + '" data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+         if(v.structure_level==='2'){
+             option_directorate += '<option   value="' + v.id + '" data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
          }
          if(v.structure_level==='3') {
              option_department += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
@@ -4419,42 +4421,53 @@ $(".update_company_id").change(function () {
              option_second_leader += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
          }
      });
-     option_directorate+=' </select>';
-     option_department+=' </select>';
-     option_depart+=' </select>';
-     option_area_section+=' </select>';
-     option_direct_guide+=' </select>';
-     option_second_leader+=' </select>';
+     console.log('option_directorate='+option_directorate)
+     console.log('option_department='+option_department)
+     console.log('option_depart='+option_depart)
+     console.log('option_area_section='+option_area_section)
+     console.log('option_direct_guide='+option_direct_guide)
+     console.log('option_second_leader='+option_second_leader)
      if(stLevelid===''){
-          $('.up_directorate').html(option_directorate);
-         $('.up_department').html(option_department);
-         $('.up_depart').html(option_depart);
-         $('.up_area_section').html(option_area_section);
-         $('.up_direct_guide').html(option_direct_guide);
-         $('.up_second_leader').html(option_second_leader);
+         console.log('stLevelid =bos isledi')
+         $('.up_directorate').find('select').html(option_directorate);
+         $('.up_department').find('select').html(option_department);
+         $('.up_depart').find('select').html(option_depart);
+         $('.up_area_section').find('select').html(option_area_section);
+         $('.up_direct_guide').find('select').html(option_direct_guide);
+         $('.up_second_leader').find('select').html(option_second_leader);
      } else  if(stLevelid==='2'){
-           $('.up_department').html(option_department);
-         $('.up_depart').html(option_depart);
-         $('.up_area_section').html(option_area_section);
-         $('.up_direct_guide').html(option_direct_guide);
-         $('.up_second_leader').html(option_second_leader);
+         console.log('stLevelid =2 isledi')
+         $('.up_department').find('select').html(option_department);
+         $('.up_depart').find('select').html(option_depart);
+         $('.up_area_section').find('select').html(option_area_section);
+         $('.up_direct_guide').find('select').html(option_direct_guide);
+         $('.up_second_leader').find('select').html(option_second_leader);
      } else  if(stLevelid==='3'){
-          $('.up_depart').html(option_depart);
-         $('.up_area_section').html(option_area_section);
-         $('.up_direct_guide').html(option_direct_guide);
-         $('.up_second_leader').html(option_second_leader);
+         console.log('stLevelid =3 isledi')
+         $('.up_depart').find('select').html(option_depart);
+         $('.up_area_section').find('select').html(option_area_section);
+         $('.up_direct_guide').find('select').html(option_direct_guide);
+         $('.up_second_leader').find('select').html(option_second_leader);
      }
      else  if(stLevelid==='4'){
-          $('.up_area_section').html(option_area_section);
-         $('.up_direct_guide').html(option_direct_guide);
-         $('.up_second_leader').html(option_second_leader);
+         console.log('stLevelid =4 isledi')
+         $('.up_area_section').find('select').html(option_area_section);
+         $('.up_direct_guide').find('select').html(option_direct_guide);
+         $('.up_second_leader').find('select').html(option_second_leader);
+     }else{
+         console.log('stLevelid =5 isledi='+ $('.up_area_section').find('select').html())
      }
+    // $("#update_directorate").val("274").change();
+     //$("#update_directorate").find("option[value='274']").prop('selected');
+
 
      $('.selectpicker').selectpicker('refresh');
-     stlevel(optype)
+
  }
- function stlevel(optype){
+ function stlevel(){
+
      $(".stlevel").change(function () {
+
          var stid = $(this).val();
          var stLevelid = $(this).find('option:selected').attr('data-stLevel');
          console.log("stid=" + stid);
@@ -4468,7 +4481,8 @@ $(".update_company_id").change(function () {
                  success: function (response) {
                      console.log('response=',response)
                      if(response){
-                         fillSelect(response.structures,stLevelid,optype)
+                         // console.log('fillSelect stlevel optype='+optype)
+                         fillSelect(response.structures,stLevelid)
                      }
                  }
              });

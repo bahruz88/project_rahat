@@ -311,24 +311,32 @@
                                 <label class="col-sm-6 col-form-label"
                                        for="update_directorate"><?php echo $dil["directorate"]; ?></label>
                                 <div class="col-sm-6 up_directorate"  >
+                                    <select data-live-search="true" name="update_directorate" id="update_directorate" title="" class="form-control selectpicker stlevel">
+                                    </select>
                                  </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_department"><?php echo $dil["department"]; ?></label>
                                 <div class="col-sm-6 up_department">
+                                    <select data-live-search="true" name="update_department" id="update_department" title="" class="form-control selectpicker stlevel">
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_department"><?php echo $dil["depart"]; ?></label>
                                 <div class="col-sm-6 up_depart"  >
+                                    <select data-live-search="true" name="update_depart" id="update_depart" title="" class="form-control selectpicker stlevel">
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_department"><?php echo $dil["area_section"]; ?></label>
                                 <div class="col-sm-6 up_area_section" >
+                                    <select data-live-search="true" name="update_area_section" id="update_area_section" title="" class="form-control selectpicker stlevel">
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -362,6 +370,8 @@
                                 <label class="col-sm-6 col-form-label"
                                        for="update_direct_guide"><?php echo $dil["direct_guide"]; ?></label>
                                 <div class="col-sm-6 up_direct_guide">
+                                    <select data-live-search="true" name="update_direct_guide" id="update_direct_guide" title="" class="form-control selectpicker">
+                                    </select>
 <!--                                    <input type="text" class="form-control" id="update_direct_guide" readonly name="update_direct_guide" placeholder="--><?php //echo $dil["direct_guide"]; ?><!--"/>-->
                                 </div>
                             </div>
@@ -369,8 +379,10 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="update_second_leader"><?php echo $dil["second_leader"]; ?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_second_leader" readonly name="update_second_leader" placeholder="<?php echo $dil["second_leader"]; ?>"/>
+                                <div class="col-sm-6 up_second_leader">
+                                    <select data-live-search="true" name="update_second_leader" id="update_second_leader" title="" class="form-control selectpicker">
+                                    </select>
+<!--                                    <input type="text" class="form-control" id="update_second_leader" readonly name="update_second_leader" placeholder="--><?php //echo $dil["second_leader"]; ?><!--"/>-->
                                 </div>
                             </div>
 

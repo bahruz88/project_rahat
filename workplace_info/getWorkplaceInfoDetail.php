@@ -132,7 +132,7 @@ if ($result_parent) {
 // from (select * from $tbl_employee_category  order by parent, id) folders_sorted,
 //  (select @pv := $par) initialisation where find_in_set(parent, @pv) > 0 and @pv := concat(@pv, ',', id)";
 
-$sql_positions = "select id,structure_level, category,code,create_date,end_date, parent,icon,emp_id from
+$sql_positions = "select id,structure_level,position_level, category,code,create_date,end_date, parent,icon,emp_id from
 (select * from tbl_category order by parent, id) folders_sorted, (select @pv := $par) initialisation
  where find_in_set(parent, @pv) > 0 and @pv := concat(@pv, ',', id)";
 
