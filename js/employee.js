@@ -4394,75 +4394,75 @@ $(".update_company_id").change(function () {
     });
 });
 
- function fillSelect(structures,stLevelid){
-      console.log('------------------------ stLevelid='+stLevelid)
-      console.log('fillSelect structures=',structures)
-     var  option_directorate  = '<option value="">Seçin..</option>';
-     var  option_department  = '<option value="">Seçin..</option>';
-     var  option_depart  = '<option value="">Seçin..</option>';
-     var  option_area_section  = '<option value="">Seçin..</option>';
-     var  option_direct_guide  = '<option value="">Seçin..</option>';
-     var  option_second_leader  = '<option value="">Seçin..</option>';
+function fillSelect(structures,stLevelid){
+    console.log('------------------------ stLevelid='+stLevelid)
+    console.log('fillSelect structures=',structures)
+    var  option_directorate  = '<option value="">Seçin..</option>';
+    var  option_department  = '<option value="">Seçin..</option>';
+    var  option_depart  = '<option value="">Seçin..</option>';
+    var  option_area_section  = '<option value="">Seçin..</option>';
+    var  option_direct_guide  = '<option value="">Seçin..</option>';
+    var  option_second_leader  = '<option value="">Seçin..</option>';
 
-     $.each(structures, function(k,v){
-         if(v.structure_level==='2'){
-             option_directorate += '<option   value="' + v.id + '" data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
-         }
-         if(v.structure_level==='3') {
-             option_department += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
-         }
-         if(v.structure_level==='4') {
-             option_depart += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
-         }
-         if(v.structure_level==='5') {
-             option_area_section += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
-         }
-         if(v.position_level==='2') {
-             option_direct_guide += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
-         }
-         if(v.position_level==='2') {
-             option_second_leader += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
-         }
-     });
-     console.log('option_direct_guide'+option_direct_guide)
-      console.log('option_second_leader'+option_second_leader)
-     if(stLevelid===''){
+    $.each(structures, function(k,v){
+        if(v.structure_level==='2'){
+            option_directorate += '<option   value="' + v.id + '" data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+        }
+        if(v.structure_level==='3') {
+            option_department += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+        }
+        if(v.structure_level==='4') {
+            option_depart += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+        }
+        if(v.structure_level==='5') {
+            option_area_section += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+        }
+        if(v.position_level==='2') {
+            option_direct_guide += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
+        }
+        if(v.position_level==='2') {
+            option_second_leader += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
+        }
+    });
+    console.log('option_direct_guide'+option_direct_guide)
+    console.log('option_second_leader'+option_second_leader)
+    if(stLevelid===''){
 
-         console.log('stLevelid =bos isledi')
-         $('.up_directorate').find('select').html(option_directorate);
-         $('.up_department').find('select').html(option_department);
-         $('.up_depart').find('select').html(option_depart);
-         $('.up_area_section').find('select').html(option_area_section);
-         $('.up_direct_guide').find('select').html(option_direct_guide);
-         $('.up_second_leader').find('select').html(option_second_leader);
-     } else  if(stLevelid==='2'){
-         console.log('stLevelid =2 isledi')
-         $('.up_department').find('select').html(option_department);
-         $('.up_depart').find('select').html(option_depart);
-         $('.up_area_section').find('select').html(option_area_section);
-         $('.up_direct_guide').find('select').html(option_direct_guide);
-         $('.up_second_leader').find('select').html(option_second_leader);
-     } else  if(stLevelid==='3'){
-         console.log('stLevelid =3 isledi')
-         $('.up_depart').find('select').html(option_depart);
-         $('.up_area_section').find('select').html(option_area_section);
-         $('.up_direct_guide').find('select').html(option_direct_guide);
-         $('.up_second_leader').find('select').html(option_second_leader);
-     }
-     else  if(stLevelid==='4'){
-         console.log('stLevelid =4 isledi')
-         $('.up_area_section').find('select').html(option_area_section);
-         $('.up_direct_guide').find('select').html(option_direct_guide);
-         $('.up_second_leader').find('select').html(option_second_leader);
-     }else{
-         console.log('stLevelid =5 isledi='+ $('.up_area_section').find('select').html())
-     }
+        console.log('stLevelid =bos isledi')
+        $('.up_directorate').find('select').html(option_directorate);
+        $('.up_department').find('select').html(option_department);
+        $('.up_depart').find('select').html(option_depart);
+        $('.up_area_section').find('select').html(option_area_section);
+        $('.up_direct_guide').find('select').html(option_direct_guide);
+        $('.up_second_leader').find('select').html(option_second_leader);
+    } else  if(stLevelid==='2'){
+        console.log('stLevelid =2 isledi')
+        $('.up_department').find('select').html(option_department);
+        $('.up_depart').find('select').html(option_depart);
+        $('.up_area_section').find('select').html(option_area_section);
+        $('.up_direct_guide').find('select').html(option_direct_guide);
+        $('.up_second_leader').find('select').html(option_second_leader);
+    } else  if(stLevelid==='3'){
+        console.log('stLevelid =3 isledi')
+        $('.up_depart').find('select').html(option_depart);
+        $('.up_area_section').find('select').html(option_area_section);
+        $('.up_direct_guide').find('select').html(option_direct_guide);
+        $('.up_second_leader').find('select').html(option_second_leader);
+    }
+    else  if(stLevelid==='4'){
+        console.log('stLevelid =4 isledi')
+        $('.up_area_section').find('select').html(option_area_section);
+        $('.up_direct_guide').find('select').html(option_direct_guide);
+        $('.up_second_leader').find('select').html(option_second_leader);
+    }else{
+        console.log('stLevelid =5 isledi='+ $('.up_area_section').find('select').html())
+    }
 
 
-     $('.selectpicker').selectpicker('refresh');
-     // stlevel()
+    $('.selectpicker').selectpicker('refresh');
+    // stlevel()
 
- }
+}
 $(".stlevel").change(function () {
 
     var stid = $(this).val();

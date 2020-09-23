@@ -62,6 +62,7 @@ $tbl_additions_deductions_salary='tbl_additions_deductions_salary';
 $tbl_work_experience='tbl_work_experience';
 $tbl_overtime_calc_status='tbl_overtime_calc_status';
 $tbl_periods='tbl_periods';
+$tbl_work_status='tbl_work_status';
 $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
 $sql_roles = "select * from $tbl_roles where status=1 order  by position";
 $sql_qua_dic = "select * from $tbl_qualification_dic ";
