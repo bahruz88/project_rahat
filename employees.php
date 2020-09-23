@@ -32,6 +32,8 @@ $sql_work_status= "select * from $tbl_work_status where lang='$site_lang' ";
  $result_driving_category_view = $db->query($sql_driving_category);
  $result_driving_category_edit = $db->query($sql_driving_category);
 
+$sql_position_level= "select * from $tbl_position_level where lang='$site_lang'";
+
 ?>
 <!DOCTYPE html>
 <html>

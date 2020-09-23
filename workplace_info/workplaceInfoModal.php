@@ -127,7 +127,7 @@
 <!--medical İNSERT MODAL -->
 <div class="modal fade" id="workplaceInfoInsertModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg">
-        <form id="workplaceInfoInsertForm" method="post" class="form-horizontal" action="">
+        <form id="workplaceInfoInsertForm_m" method="post" class="form-horizontal" action="">
 
             <!-- Modal content-->
             <div class="modal-content">
@@ -182,45 +182,72 @@
                                 </div>
                             </div>
 
+
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="directorate"><?php echo $dil["directorate"]; ?></label>
-                                <div class="col-sm-6 up_directorate">
-
+                                <div class="col-sm-6 up_directorate"  >
+                                    <select data-live-search="true" name="directorate" id="directorate" title="" class="form-control selectpicker stlevel">
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="department"><?php echo $dil["department"]; ?></label>
                                 <div class="col-sm-6 up_department">
-                                 </div>
+                                    <select data-live-search="true" name="department" id="department" title="" class="form-control selectpicker stlevel">
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="department"><?php echo $dil["depart"]; ?></label>
-                                <div class="col-sm-6 up_depart">
-                                 </div>
+                                <div class="col-sm-6 up_depart"  >
+                                    <select data-live-search="true" name="depart" id="depart" title="" class="form-control selectpicker stlevel">
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
-                                       for="area_section"><?php echo $dil["area_section"]; ?></label>
-                                <div class="col-sm-6 up_area_section">
-                                 </div>
+                                       for="department"><?php echo $dil["area_section"]; ?></label>
+                                <div class="col-sm-6 up_area_section" >
+                                    <select data-live-search="true" name="area_section" id="area_section" title="" class="form-control selectpicker stlevel">
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
-                                       for="department"><?php echo $dil["position"]; ?></label>
+                                       for="position"><?php echo $dil["position"]; ?></label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" id="position" name="position" placeholder="<?php echo $dil["position"]; ?>"/>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
-                                       for="department"><?php echo $dil["status"]; ?></label>
+                                       for="position_level"><?php echo $dil["position_level"]; ?></label>
+                                <div class="col-sm-6">
+                                    <select data-live-search="true" name="position_level" id='position_level'
+                                            title="<?php echo $dil["selectone"]; ?>"
+                                            class="form-control selectpicker "
+                                            placeholder="<?php echo $dil["position_level"]; ?>">
+                                        <?php
+                                        $result_position_level = $db->query($sql_position_level);
+                                        if ($result_position_level->num_rows > 0) {
+                                            while ($row_position_level = $result_position_level->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row_position_level['posit_id']; ?>"><?php echo $row_position_level['title']; ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
+                                 </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6 col-form-label"
+                                       for="status"><?php echo $dil["status"]; ?></label>
                                 <div class="col-sm-6">
                                     <select data-live-search="true" name="status" id='status'
                                             title="<?php echo $dil["selectone"]; ?>"
-                                            class="form-control selectpicker company_id"
+                                            class="form-control selectpicker "
                                             placeholder="<?php echo $dil["status"]; ?>">
                                         <?php
                                         $result_work_status = $db->query($sql_work_status);
@@ -231,24 +258,26 @@
                                             <?php }
                                         } ?>
                                     </select>
-                                 </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-6 col-form-label"
-                                       for="department"><?php echo $dil["direct_guide"]; ?></label>
-                                <div class="col-sm-6 up_direct_guide">
-<!--                                    <input type="text" class="form-control" id="direct_guide" name="direct_guide" placeholder="--><?php //echo $dil["direct_guide"]; ?><!--"/>-->
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-6 col-form-label"
-                                       for="department"><?php echo $dil["second_leader"]; ?></label>
-                                <div class="col-sm-6 up_second_leader">
-                                    <input type="text" class="form-control" id="second_leader" name="second_leader" placeholder="<?php echo $dil["second_leader"]; ?>"/>
-                                </div>
-                            </div>
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-sm-6 col-form-label"-->
+<!--                                       for="direct_guide">--><?php //echo $dil["direct_guide"]; ?><!--</label>-->
+<!--                                <div class="col-sm-6 up_direct_guide">-->
+<!--                                    <select data-live-search="true" name="direct_guide" id="direct_guide" title="" class="form-control selectpicker">-->
+<!--                                    </select>-->
+ <!--                                </div>-->
+<!--                            </div>-->
+<!---->
+<!--                            <div class="form-group row">-->
+<!--                                <label class="col-sm-6 col-form-label"-->
+<!--                                       for="second_leader">--><?php //echo $dil["second_leader"]; ?><!--</label>-->
+<!--                                <div class="col-sm-6 up_second_leader">-->
+<!--                                    <select data-live-search="true" name="second_leader" id="second_leader" title="" class="form-control selectpicker">-->
+<!--                                    </select>-->
+ <!--                                </div>-->
+<!--                            </div>-->
 
 
                         </div>
@@ -348,11 +377,30 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
+                                       for="update_position_level"><?php echo $dil["position_level"]; ?></label>
+                                <div class="col-sm-6">
+                                    <select data-live-search="true" name="update_position_level" id='update_position_level'
+                                            title="<?php echo $dil["selectone"]; ?>"
+                                            class="form-control selectpicker "
+                                            placeholder="<?php echo $dil["position_level"]; ?>">
+                                        <?php
+                                        $result_position_level = $db->query($sql_position_level);
+                                        if ($result_position_level->num_rows > 0) {
+                                            while ($row_position_level = $result_position_level->fetch_assoc()) {
+                                                ?>
+                                                <option value="<?php echo $row_position_level['posit_id']; ?>"><?php echo $row_position_level['title']; ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6 col-form-label"
                                        for="update_department"><?php echo $dil["status"]; ?></label>
                                 <div class="col-sm-6">
                                     <select data-live-search="true" name="update_status" id='update_status'
                                             title="<?php echo $dil["selectone"]; ?>"
-                                            class="form-control selectpicker company_id"
+                                            class="form-control selectpicker"
                                             placeholder="<?php echo $dil["status"]; ?>">
                                         <?php
                                         $result_work_status = $db->query($sql_work_status);

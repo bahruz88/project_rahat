@@ -106,7 +106,7 @@ if ($result_parent) {
             $sub_array['work_status'] = $row_parent['work_status'];
             $sub_array['work_status_id'] = $row_parent['work_status_id'];
             $sub_array['company_id'] = $row_parent['company_id'];
-            $sub_array['enterprise_head_fullname'] = $row_parent['enterprise_head_fullname'];
+            $sub_array['posit_level'] = $row_parent['position_level'];
             $sub_array['second_leader'] = '';
             $sub_array['parent'] = $par;
 //            $data2[]     = $sub_array;

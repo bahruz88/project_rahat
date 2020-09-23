@@ -4017,7 +4017,7 @@ $(function () {
                 if (strMessage.substr(1, 4) === 'error') {
                     console.log(strMessage);
                 } else if (strMessage === 'success') {
-                    $('#modalworkplaceInfoDelete').modal('hide');
+                    $('#modalWorkplaceInfoDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     workplace_tab.ajax.reload();
                 } else {
@@ -4031,7 +4031,7 @@ $(function () {
     });
 
 
-    $("#workplaceInfoInsertForm").submit(function (e) {
+    $("#workplaceInfoInsertForm_m").submit(function (e) {
         console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
@@ -4039,10 +4039,11 @@ $(function () {
         $.ajax({
             url: "workplace_info/workplaceInfoInsert.php",
             method: "post",
-            data: $("#workplaceInfoInsertForm").serialize(),
+            data: $("#workplaceInfoInsertForm_m").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + $("#workplaceInfoInsertForm").serialize());
+                console.log('workplaceInfoInsertForm =' + $("#workplaceInfoInsertForm_m").html());
+                console.log('strMessage=' + $("#workplaceInfoInsertForm_m").serialize());
                 console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
@@ -4065,7 +4066,7 @@ $(function () {
             }
         });
         workplace_tab.ajax.reload();
-        $("#workplaceInfoInsertForm").get(0).reset();
+        $("#workplaceInfoInsertForm_m").get(0).reset();
         /*}*/
     });
 
@@ -4088,7 +4089,7 @@ $(function () {
                 console.log('structures=', structures);
                 // console.log('structure_level.id2=', structure_level.id2);
                 fillSelect(structures,'');
-                stlevel()
+
                 $('.selectpicker').selectpicker('refresh');
 
 
@@ -4112,6 +4113,8 @@ $(function () {
                     $("#update_status").val(workplaceInfodata.work_status_id).change();
                     $("#update_direct_guide").val(position_level.position_id1).change();
                     $("#update_second_leader").val(position_level.position_id2).change();
+                    $("#update_position_level").val(workplaceInfodata.posit_level).change();
+
                     console.log('---------------structure_level.id2='+structure_level.id2)
                     console.log('---------------update_directorate.id2='+$("#update_directorate").val())
                     console.log('---------------update_directorate option.id2='+$("#update_directorate").find('option:selected').val())
@@ -4179,7 +4182,7 @@ $(function () {
 
         document.getElementById("workplaceInfoid").value = data[0];
 
-        $('#modalworkplaceInfoDelete').modal('show');
+        $('#modalWorkplaceInfoDelete').modal('show');
     });
 
     /*workplaceInfo table view click  */
@@ -4343,13 +4346,12 @@ $(".company_id").change(function () {
             var option = '<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
             option += '<option value="">Seçin..</option>';
             $.each(response, function (k, v) {
-                console.log('v=', v[1])
+                console.log('v=', v[1]);
                 option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
             });
             option += '</select>';
             $(".emp").html(option);
             $(".selectpicker").selectpicker();
-
         }
     });
     $.ajax({
@@ -4361,7 +4363,8 @@ $(".company_id").change(function () {
         success: function (response) {
             console.log('response insert=',response)
             if(response){
-                // fillSelect(response.structures,'','update_')
+                fillSelect(response.structures,'')
+                stlevel()
             }
         }
     });
@@ -4421,13 +4424,10 @@ $(".update_company_id").change(function () {
              option_second_leader += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
          }
      });
-     console.log('option_directorate='+option_directorate)
-     console.log('option_department='+option_department)
-     console.log('option_depart='+option_depart)
-     console.log('option_area_section='+option_area_section)
-     console.log('option_direct_guide='+option_direct_guide)
-     console.log('option_second_leader='+option_second_leader)
+     console.log('option_direct_guide'+option_direct_guide)
+      console.log('option_second_leader'+option_second_leader)
      if(stLevelid===''){
+
          console.log('stLevelid =bos isledi')
          $('.up_directorate').find('select').html(option_directorate);
          $('.up_department').find('select').html(option_department);
@@ -4457,36 +4457,32 @@ $(".update_company_id").change(function () {
      }else{
          console.log('stLevelid =5 isledi='+ $('.up_area_section').find('select').html())
      }
-    // $("#update_directorate").val("274").change();
-     //$("#update_directorate").find("option[value='274']").prop('selected');
 
 
      $('.selectpicker').selectpicker('refresh');
+     // stlevel()
 
  }
- function stlevel(){
+$(".stlevel").change(function () {
 
-     $(".stlevel").change(function () {
+    var stid = $(this).val();
+    var stLevelid = $(this).find('option:selected').attr('data-stLevel');
+    console.log("stid="+$(this).html()+"=" + stid);
+    if(stid!=''){
+        $.ajax({
+            url: 'workplace_info/getStructure.php',
+            type: 'post',
+            async:false,
+            data: {stid: stid},
+            dataType: 'json',
+            success: function (response) {
+                console.log('response=',response)
+                if(response){
+                    // console.log('fillSelect stlevel optype='+optype)
+                    fillSelect(response.structures,stLevelid)
+                }
+            }
+        });
+    }
 
-         var stid = $(this).val();
-         var stLevelid = $(this).find('option:selected').attr('data-stLevel');
-         console.log("stid=" + stid);
-          if(stid!=''){
-             $.ajax({
-                 url: 'workplace_info/getStructure.php',
-                 type: 'post',
-                 async:false,
-                 data: {stid: stid},
-                 dataType: 'json',
-                 success: function (response) {
-                     console.log('response=',response)
-                     if(response){
-                         // console.log('fillSelect stlevel optype='+optype)
-                         fillSelect(response.structures,stLevelid)
-                     }
-                 }
-             });
-         }
-
-     });
- }
+});
