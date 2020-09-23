@@ -60,13 +60,12 @@ $tbl_workplace_status='tbl_workplace_status';
 $tbl_working_conditions='tbl_working_conditions';
 $tbl_additions_deductions_salary='tbl_additions_deductions_salary';
 $tbl_work_experience='tbl_work_experience';
-$tbl_work_status='tbl_work_status';
-
+$tbl_overtime_calc_status='tbl_overtime_calc_status';
+$tbl_periods='tbl_periods';
 $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
 $sql_roles = "select * from $tbl_roles where status=1 order  by position";
 $sql_qua_dic = "select * from $tbl_qualification_dic ";
 $sql_university= "select * from $tbl_universities where status=1 ";
-
 $sql_emp_lang= "select * from $tbl_emp_lang ";
 if(!isset($_SESSION['login_user'])){
     $site_lang='az' ;
