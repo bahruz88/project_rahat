@@ -43,7 +43,6 @@ from $tbl_employee_commands tc
 LEFT join $tbl_employees te on te.id=tc.emp_id   
    where  tc.emp_id='$empid' and tc.command_id='$command_id'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_no!=''";
 }else if( $contractDate=='2'){
-
     $sql_emp_contracts = "select tc.*,te.*,tc.id id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_employee_commands tc
 LEFT join $tbl_employees te on te.id=tc.emp_id
@@ -73,12 +72,11 @@ else if( $contractDate=='3'){
     $sql_emp_contracts ="select tc.*,te.*,tc.id id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
  from $tbl_employee_commands tc
 LEFT join $tbl_employees te on te.id=tc.emp_id 
-   where  tc.emp_id='$empid'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_id='$command_id' ";
+   where  tc.emp_id='$empid' and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_id='$command_id' ";
 //    echo $sql_emp_contracts;
 }
 //echo $sql_emp_contracts;
-$result_emp_contracts = $db->query($sql_emp_contracts);
-//eger tbl_contract cedvelinde verilen varsa ordan serte uygun secir
+ //eger tbl_contract cedvelinde verilen varsa ordan serte uygun secir
 //if ($result_emp_contracts->num_rows > 0)
 //{
 //    $row_emp_contracts = $result_emp_contracts->fetch_assoc();
@@ -89,7 +87,6 @@ $result_emp_contracts = $db->query($sql_emp_contracts);
 if ($result_emp_contracts->num_rows > 0 && $contractDate!='2')
 {
     while ($row_emp_contracts = $result_emp_contracts->fetch_assoc()) {
-
         $data[] = $row_emp_contracts;
         $emp_id=$row_emp_contracts['emp_id'];
 

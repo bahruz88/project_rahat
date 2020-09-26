@@ -110,6 +110,7 @@ $data2 = array();
                 }
 
                 $sub_array[10] = $par;
+                $sub_array[11] = $row_parent['emp_id'];
                 $data2[]     = $sub_array;
             }
         }

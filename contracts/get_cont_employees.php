@@ -8,7 +8,7 @@ $empid = '';
 $sql= "";
 if($_POST['company_id']!=''){
     $company_id = $_POST['company_id'];
-    $sql.= " tec.company_id='$company_id'";
+    $sql.= " te.company_id='$company_id'";
 }
 if($_POST['code']!=''){
     $code = $_POST['code'];
@@ -29,7 +29,7 @@ if($_POST['empid']!=''){
     if($sql!=""){
         $sql.= " and ";
     }
-    $sql.= " tec.emp_id='$empid'";
+    $sql.= " te.emp_id='$empid'";
 
 }
 
@@ -37,18 +37,25 @@ if($_POST['empid']!=''){
 //from $tbl_employees  where emp_status=1 and company_id='$company_id'";
 
 
-$sql_employees = "select tec.*,te.lastname, te.firstname , te.surname,te.id emp_id ,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon
-from $tbl_employee_category tec
-LEFT join $tbl_employees te on te.id=tec.emp_id
-LEFT join $tbl_employee_company teco on tec.company_id=teco.id
- LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lang='$site_lang'
-  where ".$sql." and tec.emp_id!=0";
+//$sql_employees = "select tec.*,te.lastname, te.firstname , te.surname,te.id emp_id ,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon
+//from $tbl_employee_category tec
+//LEFT join $tbl_employees te on te.id=tec.emp_id
+//LEFT join $tbl_employee_company teco on tec.company_id=teco.id
+// LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lang='$site_lang'
+//  where ".$sql." and tec.emp_id!=0";
 
-//$sql_employees = "select tec.* ".$sql0." from $tbl_employee_category tec ".$sql1."
-// LEFT join $tbl_employees te on te.id=tec.emp_id
-// LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level
-//where ".$sql;
- //echo $sql_employees;
+//$sql_employees = "select te.*,tec.*,te.lastname, te.firstname , te.surname,te.id emp_id ,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon
+//from $tbl_employees te
+//LEFT join $tbl_employee_category tec on te.id=tec.emp_id
+//LEFT join $tbl_employee_company teco on tec.company_id=teco.id
+// LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lang='$site_lang'
+//  where ".$sql." and te.emp_status=1";
+
+$sql_employees = "select te.*,te.id emp_id
+from $tbl_employees te
+  where ".$sql." and te.emp_status=1";
+
+//echo $sql_employees;
 
 
 					$result_employees  = $db->query($sql_employees);

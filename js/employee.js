@@ -291,11 +291,12 @@ $(function () {
     /*ISCHI MELUMATLARI  DAXIL  EDILIR  */
     $("#employeeInsert").submit(function (e) {
         e.preventDefault();
+        // console.log('$("#employeeInsert").serialize()='+$("#employeeInsert").serialize())
         if ($("#employeeInsert").valid()) {
             $.ajax({
                 url: "employees/employeeInsert.php",
                 method: "post",
-                data: $("form").serialize(),
+                data: $("#employeeInsert").serialize(),
                 dataType: "text",
                 success: function (strMessage) {
                     $("#badge_success").text('');
@@ -3909,7 +3910,7 @@ $(function () {
 ************************************** is yeri INFO BILIKLERI ************************************************************
 **********************************************************************************************************************
 */
-
+var empArray=[];
     var workplace_tab;
     $('#workplaceInformationtab').click(function () {
         console.log('Tab clikc workplace_table');
@@ -3938,6 +3939,15 @@ $(function () {
             "ajax": {
                 url: "workplace_info/get_workplaceInfo.php",
                 type: "POST",
+                // success:function(data){
+                //     console.log('data====',data)
+                //
+                //     $.each(data.data, function(k,v) {
+                //         console.log('v11===='+v[11])
+                //         empArray.push(v[11]);
+                //         console.log('empArray====', empArray)
+                //     })
+                // }
 
 
             }, "columnDefs": [{
