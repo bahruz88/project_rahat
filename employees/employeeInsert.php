@@ -121,8 +121,6 @@ if ($result_company ->num_rows > 0) {
 
 
 //insert Command table
-$sqlCommand = "INSERT INTO $tbl_employee_commands (id,command_id, emp_id, command_no, company_id, enterprise_head_position, company_name, company_address, company_tel, voen, sun, enterprise_head_fullname) 
- VALUES ('Null','5','$emp_id','$command_no','$company_id','$enterprise_head_position','$company_name','$company_address','$company_tel','$voen','$sun','$enterprise_head_fullname')";
 
 $sqlCommand = "INSERT INTO $tbl_employee_commands (id,command_id, emp_id,  company_id, enterprise_head_position, company_name, company_address, company_tel, voen, sun, enterprise_head_fullname) 
  VALUES ('Null','5','$emp_id','$company_id','$enterprise_head_position','$company_name','$company_address','$company_tel','$voen','$sun','$enterprise_head_fullname')";

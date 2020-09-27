@@ -142,11 +142,11 @@
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
-                                       for="company_id"><?php echo $dil["company"]; ?></label>
+                                       for="work_company_id"><?php echo $dil["company"]; ?></label>
                                 <div class="col-sm-6">
-                                    <select data-live-search="true" name="company_id" id='company_id'
+                                    <select data-live-search="true" name="company_id" id='work_company_id'
                                             title="<?php echo $dil["selectone"]; ?>"
-                                            class="form-control selectpicker company_id"
+                                            class="form-control selectpicker work_company_id"
                                             placeholder="<?php echo $dil["company"]; ?>">
                                         <?php
                                         $result_company = $db->query($sql_employee_company);

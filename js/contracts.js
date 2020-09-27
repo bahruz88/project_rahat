@@ -384,16 +384,22 @@ $('#employees').on( 'change','#company,#code,#empid,#position_level',  function 
 			$("table#emp_table tbody").html('');
 			// $('#tablePositions').find('tbody').html('');
 			$.each($.parseJSON(data), function(k,value) {
-
-
+				var code="";
+				var posit="";
+				if(value.code){
+					code=value.code;
+				}
+				if(value.posit){
+					posit=value.posit;
+				}
 
 				table+='<tr class="typeOfDocument" >' +
 					'<td><a href="#" class="contractShow" data-id="'+value.id+'" data-empid="'+value.emp_id+'">Senede bax</a></td>'+
-					'<td>'+value.code+'</td>'+
+					'<td>'+code  +'</td>'+
 					'<td>'+value.firstname+'</td>'+
 					'<td>'+value.lastname+'</td>'+
 					'<td>'+value.surname+'</td>'+
-					'<td>'+value.posit+'</td>';
+					'<td>'+posit+'</td>';
 
 
 

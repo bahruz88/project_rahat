@@ -3910,7 +3910,7 @@ $(function () {
 ************************************** is yeri INFO BILIKLERI ************************************************************
 **********************************************************************************************************************
 */
-var empArray=[];
+    var empArray = [];
     var workplace_tab;
     $('#workplaceInformationtab').click(function () {
         console.log('Tab clikc workplace_table');
@@ -4097,8 +4097,8 @@ var empArray=[];
                 var structures = workplaceInfodata.structures;
                 console.log('workplaceInfodata=', workplaceInfodata)
                 console.log('structures=', structures);
-                // console.log('structure_level.id2=', structure_level.id2);
-                fillSelect(structures,'');
+                console.log('structure_level=', structure_level);
+                fillSelect(structures, '');
 
                 $('.selectpicker').selectpicker('refresh');
 
@@ -4109,25 +4109,20 @@ var empArray=[];
                     // stlevel('update_')
                     $("#update_workplaceInfoid").val(workplaceInfodata.id).change();
                     $("#update_employee_place").val(workplaceInfodata.emp_id).change();
-                    $("#update_directorate").val(structure_level.id2).change();
-
-                    // $("#update_directorate").find("option[value='"+structure_level.id2+"']").attr('selected','selected');
-                    // $("#update_id4").val(structure_level.id4);
-                    $("#update_department").val(structure_level.id3).change();
-                    // $("#update_id3").val(structure_level.id3);
-                    $("#update_depart").val(structure_level.id4).change();
-                    // $("#update_id2").val(structure_level.id2);
-                    $("#update_area_section").val(structure_level.id5).change();
-                    // $("#update_id1").val(structure_level.id1);
+                    if(structure_level){
+                        $("#update_directorate").val(structure_level.id2).change();
+                        $("#update_department").val(structure_level.id3).change();
+                        $("#update_depart").val(structure_level.id4).change();
+                        $("#update_area_section").val(structure_level.id5).change();
+                    }
                     $("#update_position").val(workplaceInfodata.category);
                     $("#update_status").val(workplaceInfodata.work_status_id).change();
-                    $("#update_direct_guide").val(position_level.position_id1).change();
-                    $("#update_second_leader").val(position_level.position_id2).change();
+                    if(position_level){
+                        $("#update_direct_guide").val(position_level.position_id1).change();
+                        $("#update_second_leader").val(position_level.position_id2).change();
+                    }
                     $("#update_position_level").val(workplaceInfodata.posit_level).change();
 
-                    console.log('---------------structure_level.id2='+structure_level.id2)
-                    console.log('---------------update_directorate.id2='+$("#update_directorate").val())
-                    console.log('---------------update_directorate option.id2='+$("#update_directorate").find('option:selected').val())
 
                     $('.selectpicker').selectpicker('refresh');
 
@@ -4364,21 +4359,77 @@ $(".company_id").change(function () {
             $(".selectpicker").selectpicker();
         }
     });
+
+});
+$(".work_company_id").change(function () {
+    var deptid = $(this).val();
+    var empArray = [];
+    var catArray = [];
+    console.log("deptid work_company_id=" + deptid);
     $.ajax({
-        url: 'workplace_info/getStructureInsert.php',
+        url: 'employees/getEmployee.php',
         type: 'post',
-        async:false,
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            console.log('response insert=',response)
-            if(response){
-                fillSelect(response.structures,'')
-                stlevel()
+            console.log('response =', response)
+            empArray = response;
+        }
+    });
+    $.ajax({
+        url: 'workplace_info/get_employeesWork.php',
+        type: 'post',
+        data: {company_id: deptid},
+        dataType: 'json',
+        success: function (response) {
+            console.log('response=', response);
+            catArray = response;
+
+            $.each(response, function (k, v) {
+                empArray = jQuery.grep(empArray, function (value) {
+                    return value[0] != v;
+                });
+                console.log('empArray=', empArray)
+
+            })
+
+            $("#employee").empty();
+            var option = '<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+            option += '<option value="">Seçin..</option>';
+            $.each(empArray, function (k, v) {
+                console.log('v=', v[1]);
+                option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
+            });
+            option += '</select>';
+            $(".emp").html(option);
+            $(".selectpicker").selectpicker();
+            console.log('difff', diff(empArray, catArray))
+        }
+    });
+
+
+    $.ajax({
+        url: 'workplace_info/getStructureInsert.php',
+        type: 'post',
+        async: false,
+        data: {company_id: deptid},
+        dataType: 'json',
+        success: function (response) {
+            console.log('response insert=', response)
+            if (response) {
+                fillSelect(response.structures, '')
+                // stlevel()
             }
         }
     });
 });
+
+function diff(a1, a2) {
+    return a1.concat(a2).filter(function (val, index, arr) {
+        return arr.indexOf(val) === arr.lastIndexOf(val);
+    });
+}
+
 $(".update_company_id").change(function () {
     var deptid = $(this).val();
     console.log("deptid=" + deptid);
@@ -4404,39 +4455,39 @@ $(".update_company_id").change(function () {
     });
 });
 
-function fillSelect(structures,stLevelid){
-    console.log('------------------------ stLevelid='+stLevelid)
-    console.log('fillSelect structures=',structures)
-    var  option_directorate  = '<option value="">Seçin..</option>';
-    var  option_department  = '<option value="">Seçin..</option>';
-    var  option_depart  = '<option value="">Seçin..</option>';
-    var  option_area_section  = '<option value="">Seçin..</option>';
-    var  option_direct_guide  = '<option value="">Seçin..</option>';
-    var  option_second_leader  = '<option value="">Seçin..</option>';
+function fillSelect(structures, stLevelid) {
+    console.log('------------------------ stLevelid=' + stLevelid)
+    console.log('fillSelect structures=', structures)
+    var option_directorate = '<option value="">Seçin..</option>';
+    var option_department = '<option value="">Seçin..</option>';
+    var option_depart = '<option value="">Seçin..</option>';
+    var option_area_section = '<option value="">Seçin..</option>';
+    var option_direct_guide = '<option value="">Seçin..</option>';
+    var option_second_leader = '<option value="">Seçin..</option>';
 
-    $.each(structures, function(k,v){
-        if(v.structure_level==='2'){
-            option_directorate += '<option   value="' + v.id + '" data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+    $.each(structures, function (k, v) {
+        if (v.structure_level === '2') {
+            option_directorate += '<option   value="' + v.id + '" data-stLevel="' + v.structure_level + '">' + v.category + '</option>';
         }
-        if(v.structure_level==='3') {
-            option_department += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+        if (v.structure_level === '3') {
+            option_department += '<option value="' + v.id + '"  data-stLevel="' + v.structure_level + '">' + v.category + '</option>';
         }
-        if(v.structure_level==='4') {
-            option_depart += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+        if (v.structure_level === '4') {
+            option_depart += '<option value="' + v.id + '"  data-stLevel="' + v.structure_level + '">' + v.category + '</option>';
         }
-        if(v.structure_level==='5') {
-            option_area_section += '<option value="' + v.id + '"  data-stLevel="'+v.structure_level+'">' + v.category + '</option>';
+        if (v.structure_level === '5') {
+            option_area_section += '<option value="' + v.id + '"  data-stLevel="' + v.structure_level + '">' + v.category + '</option>';
         }
-        if(v.position_level==='2') {
-            option_direct_guide += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
+        if (v.position_level === '2') {
+            option_direct_guide += '<option value="' + v.id + '"  data-stLevel="' + v.position_level + '">' + v.category + '</option>';
         }
-        if(v.position_level==='2') {
-            option_second_leader += '<option value="' + v.id + '"  data-stLevel="'+v.position_level+'">' + v.category + '</option>';
+        if (v.position_level === '2') {
+            option_second_leader += '<option value="' + v.id + '"  data-stLevel="' + v.position_level + '">' + v.category + '</option>';
         }
     });
-    console.log('option_direct_guide'+option_direct_guide)
-    console.log('option_second_leader'+option_second_leader)
-    if(stLevelid===''){
+    console.log('option_direct_guide' + option_direct_guide)
+    console.log('option_second_leader' + option_second_leader)
+    if (stLevelid === '') {
 
         console.log('stLevelid =bos isledi')
         $('.up_directorate').find('select').html(option_directorate);
@@ -4445,27 +4496,26 @@ function fillSelect(structures,stLevelid){
         $('.up_area_section').find('select').html(option_area_section);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
-    } else  if(stLevelid==='2'){
+    } else if (stLevelid === '2') {
         console.log('stLevelid =2 isledi')
         $('.up_department').find('select').html(option_department);
         $('.up_depart').find('select').html(option_depart);
         $('.up_area_section').find('select').html(option_area_section);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
-    } else  if(stLevelid==='3'){
+    } else if (stLevelid === '3') {
         console.log('stLevelid =3 isledi')
         $('.up_depart').find('select').html(option_depart);
         $('.up_area_section').find('select').html(option_area_section);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
-    }
-    else  if(stLevelid==='4'){
+    } else if (stLevelid === '4') {
         console.log('stLevelid =4 isledi')
         $('.up_area_section').find('select').html(option_area_section);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
-    }else{
-        console.log('stLevelid =5 isledi='+ $('.up_area_section').find('select').html())
+    } else {
+        console.log('stLevelid =5 isledi=' + $('.up_area_section').find('select').html())
     }
 
 
@@ -4473,23 +4523,24 @@ function fillSelect(structures,stLevelid){
     // stlevel()
 
 }
+
 $(".stlevel").change(function () {
 
     var stid = $(this).val();
     var stLevelid = $(this).find('option:selected').attr('data-stLevel');
-    console.log("stid="+$(this).html()+"=" + stid);
-    if(stid!=''){
+    console.log("stid=" + $(this).html() + "=" + stid);
+    if (stid != '') {
         $.ajax({
             url: 'workplace_info/getStructure.php',
             type: 'post',
-            async:false,
+            async: false,
             data: {stid: stid},
             dataType: 'json',
             success: function (response) {
-                console.log('response=',response)
-                if(response){
+                console.log('response=', response)
+                if (response) {
                     // console.log('fillSelect stlevel optype='+optype)
-                    fillSelect(response.structures,stLevelid)
+                    fillSelect(response.structures, stLevelid)
                 }
             }
         });
