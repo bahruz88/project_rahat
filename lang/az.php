@@ -346,6 +346,7 @@ $dil = array(
     "second_leader"   =>"İkinci rəhbər",
     "workplace_information_edit_title"   =>"İş yeri barədə məlumatlarının redaktəsi",
     "workplace_information_view_title"   =>"İş yeri barədə  məlumatlarına baxış",
+    "service"   =>"Servis xidməti",
 
 
 

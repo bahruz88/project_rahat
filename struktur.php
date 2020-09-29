@@ -291,8 +291,7 @@ $sql_position= "select * from $tbl_employee_category";
                                     <li class="nav-item active">
                                         <a class="nav-link" href="#" id="menyu_addChild"> New child</a>
                                     </li>
-                                    <li class="nav-item">
-                                                                          </li>
+                                    <li class="nav-item "></li>
                                 </ul>
                                 <div id="companyDiv" class="row" style="width:350px;">
                                     <label class="col-sm-4 col-form-label" for="company"><?php echo $dil["company"];?></label>
@@ -380,22 +379,6 @@ $sql_position= "select * from $tbl_employee_category";
                                                 </div>
                                             </div>
                                             <div class="form-group row" id="structureQuery">
-<!--                                                <div id="companyDiv">-->
-<!--                                                    <label class="col-sm-4 col-form-label" for="company">--><?php //echo $dil["company"];?><!--</label>-->
-<!--                                                    <div class="col-sm-6">-->
-<!--                                                        <select data-live-search="true"  name="company" id='company' title="--><?php //echo $dil["selectone"];?><!--" class="form-control selectpicker"  placeholder="--><?php //echo $dil["company"];?><!--"   >-->
-<!--                                                            <option  value="" >Seçin...</option>-->
-<!---->
-<!--                                                            --><?php
-//                                                            $result_company = $db->query($sql_employee_company);
-//                                                            if ($result_company->num_rows > 0) {
-//                                                                while($row_company= $result_company->fetch_assoc()) {
-//                                                                    ?>
-<!--                                                                    <option  value="--><?php //echo $row_company['id']; ?><!--" >--><?php //echo $row_company['company_name'];  ?><!--</option>-->
-<!--                                                                --><?php //} }?>
-<!--                                                        </select>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
                                                 <label class="col-sm-12 col-form-label" for="structure_level"><?php echo $dil["structure_level"];?></label>
                                                 <div class="col-sm-12">
                                                     <select data-live-search="true"  name="structure_level" id="structure_level"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["structure_level"];?>" >
@@ -404,7 +387,6 @@ $sql_position= "select * from $tbl_employee_category";
                                                         $result_structure_view = $db->query($sql_structure_level);
                                                         if ($result_structure_view->num_rows > 0) {
                                                             while($row_structure= $result_structure_view->fetch_assoc()) {
-
                                                                 ?>
                                                                 <option  value="<?php echo $row_structure['id']; ?>" ><?php echo $row_structure['title'];  ?></option>
 
@@ -1432,9 +1414,8 @@ $sql_position= "select * from $tbl_employee_category";
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 
-<!--<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>-->
 <script src="js/BsMultiSelect.js"></script>
 <script>
     // $("#company").bsMultiSelect({cssPatch : {
