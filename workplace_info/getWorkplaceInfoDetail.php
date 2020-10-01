@@ -72,7 +72,6 @@ if ($result_parent) {
                         }
                     }
                 }
-
                 $sql_posparents = "select tec.*, tsl.title position from $tbl_employee_category  tec
                     LEFT join $tbl_position_level tsl on tsl.posit_id=tec.position_level
                      WHERE tec.parent = '$parent'";
@@ -83,8 +82,6 @@ if ($result_parent) {
 //                        $data=array();
                         while ($row_posparents = $result_posparents->fetch_assoc()) {
                             $parent = $row_posparents["parent"];
-
-
                             if ($row_posparents["position_level"] == 2) {
                                 $data3['position'.$p] = $row_posparents["category"];
                                 $data3['position_id'.$p] = $row_posparents["id"];

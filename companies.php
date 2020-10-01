@@ -416,7 +416,20 @@ $result_roles_view = $db->query($sql_roles);
                             </div>
                         </div>
 
-
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="service"><?php echo $dil["service"];?></label>
+                            <div class="col-sm-6">
+                                <select data-live-search="true"  name="service" id='service' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["service"];?>"  >
+                                    <?php
+                                    $result_exist_not_exist = $db->query($sql_exist_not_exist);
+                                    if ($result_exist_not_exist->num_rows > 0) {
+                                        while($row_exist_not_exist= $result_exist_not_exist->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_exist_not_exist['exist_id']; ?>" ><?php echo $row_exist_not_exist['exist_desc']; ?></option>
+                                    <?php } }?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 				</div>
    
@@ -614,6 +627,21 @@ $result_roles_view = $db->query($sql_roles);
 									<input type="text" class="form-control" id="update_founder" name="update_founder" placeholder="<?php echo $dil["founder"];?>" />
 								</div>
 							</div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="update_service"><?php echo $dil["service"];?></label>
+                            <div class="col-sm-6">
+                                <select data-live-search="true"  name="update_service" id='update_service' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["service"];?>"  >
+                                    <?php
+                                    $result_exist_not_exist = $db->query($sql_exist_not_exist);
+                                    if ($result_exist_not_exist->num_rows > 0) {
+                                        while($row_exist_not_exist= $result_exist_not_exist->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_exist_not_exist['exist_id']; ?>" ><?php echo $row_exist_not_exist['exist_desc']; ?></option>
+                                        <?php } }?>
+                                    </select>
+                            </div>
+                        </div>
 					</div>
 				</div>
    
@@ -811,6 +839,14 @@ $result_roles_view = $db->query($sql_roles);
                                 <input type="text" class="form-control" id="view_founder" name="view_founder" placeholder="<?php echo $dil["founder"];?>" readonly/>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="view_service"><?php echo $dil["service"];?></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="view_service" name="view_service" placeholder="<?php echo $dil["founder"];?>" readonly/>
+
+                            </div>
+                        </div>
  
 					</div>
 				</div>
@@ -854,6 +890,8 @@ $result_roles_view = $db->query($sql_roles);
                         <th><?php echo $dil["enterprise_head_fullname"];?></th>
                         <th><?php echo $dil["enterprise_head_position"];?></th>
                         <th><?php echo $dil["founder"];?></th>
+                        <th><?php echo $dil["service"];?></th>
+                        <th><?php echo $dil["operation"];?></th>
 
 
                    </tr>
@@ -1160,6 +1198,7 @@ $('#company_table tbody').on( 'click', '#view', function () {
 					$("#update_enterprise_head_fullname").val(company.enterprise_head_fullname);
 					$("#update_enterprise_head_position").val(company.enterprise_head_position);
 					$("#update_founder").val(company.founder);
+					$("#update_service").val(company.service).change();
 
 					$('#modalEdit').modal('show');
 					}
@@ -1185,6 +1224,7 @@ $('#company_table tbody').on( 'click', '#view', function () {
                         $("#view_enterprise_head_fullname").val(company.enterprise_head_fullname);
                         $("#view_enterprise_head_position").val(company.enterprise_head_position);
                         $("#view_founder").val(company.founder);
+                        $("#view_service").val(company.serviceText);
 						$('#modalView').modal('show');						
 					}
 				}

@@ -202,11 +202,6 @@ function sagClick(number){
             left: left + "px"
 
         });
-
-
-
-
-
         // Disable default menu
         return false;
     });
@@ -591,62 +586,69 @@ function positionList(){
     });
 }
 $(function () {
+    $(".selectpicker").selectpicker();
     $('#st_create_date').datepicker({
         todayHighlight: true,
         format: 'dd/mm/yyyy',
+        autoclose: true,
         // startDate: new Date()
     });
     $('#st_end_date').datepicker({
         todayHighlight: true,
         format: 'dd/mm/yyyy',
+        autoclose: true,
         // startDate: new Date()
     }); $('#st_end_date').datepicker({
         todayHighlight: true,
         format: 'dd/mm/yyyy',
+        autoclose: true,
         // startDate: new Date()
     });
     $('#role_start_date').datepicker({
         todayHighlight: true,
         format: 'dd/mm/yyyy',
+        autoclose: true,
         // startDate: new Date()
     });
     $('#role_end_date').datepicker({
         todayHighlight: true,
         format: 'dd/mm/yyyy',
+        autoclose: true,
         // startDate: new Date()
     });
 
-    $('#companyDiv').on( 'change','#company',  function () {
-        console.log("change company="+$(this).val());
-        var company_id=$(this).val();
-        var company_text=$(this).find('option:selected').text();
-        $('#companyId').val(company_id);
-        console.log("company_id="+company_id);
-        console.log("$('#companyId').val()="+$('#companyId').val());
+        $('#companyDiv').on( 'change','#company',  function () {
+            console.log("change company="+$(this).val());
+            var company_id=$(this).val();
+            var company_text=$(this).find('option:selected').text();
+            $('#companyId').val(company_id);
+            console.log("company_id="+company_id);
+            console.log("$('#companyId').val()="+$('#companyId').val());
 
-        $('#company_id').val(company_id);
+            $('#company_id').val(company_id);
 
-        $('#company_name').val(company_text);
+            $('#company_name').val(company_text);
 
-        company_id='0,'+company_id;
-        $.ajax({
-            url: 'structure/st_selectWithCompany.php',
-            type: "POST",
-            data: {company_id: company_id,st:"st"},
-            success: function (data) {
-                console.log('companyDiv DATA=',data)
-                var tree = $('#tree').fancytree('getTree');
-                if(data!=''){
-                    tree.reload($.parseJSON(data));
-                }else{
-                    tree.reload([]);
+            company_id='0,'+company_id;
+            $.ajax({
+                url: 'structure/st_selectWithCompany.php',
+                type: "POST",
+                data: {company_id: company_id,st:"st"},
+                success: function (data) {
+                    // console.log('companyDiv DATA=',data)
+                    var tree = $('#tree').fancytree('getTree');
+                    if(data!=''){
+                        tree.reload($.parseJSON(data));
+                    }else{
+                        tree.reload([]);
+                    }
+
+
                 }
+            })
 
-
-            }
         })
 
-    })
 
 $("#confirmRole").click(function() {
         console.log('confirmRole change');
@@ -657,12 +659,8 @@ $("#confirmRole").click(function() {
         var company_id=$('#positionList option:selected').attr('data-companyId')
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
-        console.log('confirmRole change role_id='+role_id);
-        console.log('confirmRole change start_date='+start_date);
-        console.log('confirmRole change end_date='+end_date);
-        console.log('confirmRole change posit_code='+posit_code);
-        console.log('confirmRole change stId='+stId);
-        console.log('confirmRole change company_id='+company_id);
+    console.log('role_id='+role_id)
+    console.log('role='+$('#roles option:selected').text())
     $.ajax({
         url: 'structure/st_selectValidateRole.php',
         type: "POST",

@@ -4,8 +4,10 @@
 //$sql_company = "select tec.* ,e.lastname,e.firstname,e.surname
 //from $tbl_employee_company tec inner  join
 //$tbl_employees e on e.id=tec.emp_id where status=1";
-$sql_company = "select tec.*  
-from $tbl_employee_company tec   where status=1";
+$sql_company = "select tec.* , ten.exist_id service,ten.exist_desc serviceText
+from $tbl_employee_company tec
+    LEFT JOIN $tbl_exist_not_exist ten on ten.id=tec.service and ten.lang='$site_lang'
+    where status=1";
 
 if (isset($_POST['search']['value'])) {
     $sql_company .= '
@@ -32,6 +34,7 @@ if (isset($_POST['search']['value'])) {
 						   $sub_array[] = $row_company['id'];
 //						   $sub_array[] = $row_company['lastname'].' ' .$row_company['firstname'].' ' .$row_company['surname'];
                            $sub_array[] = $row_company['company_name'];
+						   $sub_array[] = $row_company['kod'];
 						   $sub_array[] = $row_company['voen'];
 						   $sub_array[] = $row_company['sun'];
 						   $sub_array[] = $row_company['bank_name'];
@@ -50,6 +53,7 @@ if (isset($_POST['search']['value'])) {
 						   $sub_array[] = $row_company['enterprise_head_fullname'];
 						   $sub_array[] = $row_company['enterprise_head_position'];
 						   $sub_array[] = $row_company['founder'];
+						   $sub_array[] = $row_company['serviceText'];
 						   $data[]     = $sub_array;
 					}
 					}

@@ -554,7 +554,7 @@ $result_employee_category = $db->query($employee_category);
 
         $.ajax({
             // url: 'st_selectStaff.php',
-            url: 'structure/st_selectWithCompany2.php',
+            url: 'structure/st_selectWithCompanyPage.php',
             type: "POST",
             data: { company_id:company_id},
             success: function (data) {
@@ -1050,6 +1050,7 @@ $result_employee_category = $db->query($employee_category);
     $('#date_completion').datepicker({
         todayHighlight: true,
         format: 'dd/mm/yyyy',
+        autoclose: true
     });
   });
 </script>

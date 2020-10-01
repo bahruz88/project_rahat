@@ -25,6 +25,7 @@ include('../session.php') ;
 	$update_enterprise_head_fullname=$_POST['update_enterprise_head_fullname'];
 	$update_enterprise_head_position=$_POST['update_enterprise_head_position'];
 	$update_founder=$_POST['update_founder'];
+	$update_service=$_POST['update_service'];
 
 //	$query = mysqli_query($db,"SELECT * FROM $tbl_users WHERE username='$username' OR reg_mail='$email'");
 //	$row_user = mysqli_fetch_array($query ,MYSQLI_ASSOC);
@@ -54,6 +55,7 @@ include('../session.php') ;
 	tel ='$update_tel',
 	enterprise_head_fullname ='$update_enterprise_head_fullname',
 	enterprise_head_position ='$update_enterprise_head_position',
+	service ='$update_service',
 	founder ='$update_founder'
 	WHERE id = '$companyid'
 	";

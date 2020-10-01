@@ -26,7 +26,7 @@ $end_date = strtr( $end_date , '/', '-');
 $end_date= date('Y-m-d', strtotime($end_date));
 
 //$users= "select * from $tbl_structure_positions WHERE posit_code = '$posit_code'";
-$users= "select * from $tbl_structure_positions WHERE role_id = '$role_id' and company_id = '$company_id' ";
+$users= "select * from $tbl_structure_positions WHERE role_id = '$role_id' and company_id = '$company_id'";
 //    echo $users;
 $result_users = $db->query($users);
 if($result_users->num_rows > 0) {

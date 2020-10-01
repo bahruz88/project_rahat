@@ -22,11 +22,12 @@ $tel=$_POST['tel'];
 $enterprise_head_fullname=$_POST['enterprise_head_fullname'];
 $enterprise_head_position=$_POST['enterprise_head_position'];
 $founder=$_POST['founder'];
+$service=$_POST['service'];
 
 //	$query = mysqli_query($db,"SELECT * FROM $tbl_users WHERE username='$username' OR reg_mail='$email'");
 //	$upass=md5('qwerty'/*rand()*/) ;
-    $sql = "INSERT INTO $tbl_employee_company (id,company_name,voen,sun,bank_name, kod,bank_filial,bank_voen,cor_account,swift,azn_account,usd_account,eur_account,country,city,address,poct_index,tel,enterprise_head_fullname,enterprise_head_position,founder) 
-    VALUES ('Null','$company_name','$voen','$sun','$bank_name', '$code','$bank_filial','$bank_voen','$cor_account','$swift','$azn_account','$usd_account','$eur_account','$country','$city','$address','$poct_index','$tel','$enterprise_head_fullname','$enterprise_head_position','$founder')";
+    $sql = "INSERT INTO $tbl_employee_company (id,company_name,voen,sun,bank_name, kod,bank_filial,bank_voen,cor_account,swift,azn_account,usd_account,eur_account,country,city,address,poct_index,tel,enterprise_head_fullname,enterprise_head_position,founder,service) 
+    VALUES ('Null','$company_name','$voen','$sun','$bank_name', '$code','$bank_filial','$bank_voen','$cor_account','$swift','$azn_account','$usd_account','$eur_account','$country','$city','$address','$poct_index','$tel','$enterprise_head_fullname','$enterprise_head_position','$founder','$service')";
 
  //Make sure name is valid
 //    if(!preg_match("/^[a-zA-Z'-]+$/",$username)) {
