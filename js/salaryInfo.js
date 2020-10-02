@@ -495,6 +495,7 @@ $(function () {
 					text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 					action: function (e, dt, node, config) {
 						$("#myAdditionModal").modal();
+						console.log('myAdditionModal')
 
 					}
 				},
