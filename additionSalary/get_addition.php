@@ -6,7 +6,7 @@ $sql_salary_info = "select  tads.*,concat(te.lastname,' ', te.firstname ,' ', te
  from $tbl_additions_deductions_salary tads
 INNER join $tbl_employees te on te.id=tads.emp_id
 INNER join $tbl_employee_company tec on tec.id=tads.company_id
-INNER join $tbl_additions_salary tas on tas.id=tads.add_salary_id and tas.lang='$site_lang'
+LEFT join $tbl_additions_salary tas on tas.code=tads.add_salary_id and tas.lang='$site_lang'
 LEFT join $tbl_currency tc on tc.id=tads.additions_currency 
 where tads.status='1'
 ";

@@ -388,7 +388,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
 </body>
 </html>
 <script>
-     $('#update_company_id').change(function(){
+    $('.update_company_id').change(function(){
 
         var deptid =$(this).find('option:selected').val();
         $.ajax({
@@ -397,18 +397,22 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
             data: {company_id:deptid},
             dataType: 'json',
             success: function (data) {
-                 var option='<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                var option='<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value="">Seçin..</option>';
-                 $.each(data, function(k,v) {
+                $.each(data, function(k,v) {
                     option += '<option value="' + v[0] + '" >' + v[1]  + '</option>';
                 });
                 option+=' </select>';
                 $('#update_emp').html(option);
                 $(".selectpicker").selectpicker();
+                console.log('update_company_id bitdi')
+                if(up_emp!=''){
+                    $("#update_employee").val(up_emp).change();
+                }
             }
         })
     });
-    $("#company_id").change(function(){
+    $(".company_id").change(function(){
         var deptid = $(this).val();
         console.log("deptid="+deptid) ;
         $.ajax({
@@ -420,16 +424,19 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
                 console.log('response=',response)
                 $("#employee").empty();
                 var option='<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-                     option += '<option value="">Seçin..</option>';
-                    $.each(response, function(k,v) {
-                        console.log('v=',v[1])
-                       option += '<option value="' + v[0] + '" >' + v[1] +'</option>';
-                    });
+                option += '<option value="">Seçin..</option>';
+                $.each(response, function(k,v) {
+                    console.log('v=',v[1])
+                    option += '<option value="' + v[0] + '" >' + v[1] +'</option>';
+                });
                 option += '</select>';
-                 $("#emp").html(option);
-                $(".selectpicker").selectpicker();
+                console.log('emp='+option)
+                $(".emp").html(option);
 
-             }
+                $(".selectpicker").selectpicker();
+                console.log('emp hrml='+$("#emp").html())
+
+            }
         });
     });
 </script>

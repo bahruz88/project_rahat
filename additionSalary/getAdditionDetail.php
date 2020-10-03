@@ -5,7 +5,7 @@ $id = $_POST['id'];
  $sql_emp = "select e.* ,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name ,tas.title add_salary,tc.title additions_currency_text,tec.company_name
 from $tbl_additions_deductions_salary e
 INNER join $tbl_employees te on te.id=e.emp_id
-INNER join $tbl_additions_salary tas on tas.id=e.add_salary_id and tas.lang='$site_lang'
+LEFT join $tbl_additions_salary tas on tas.code=e.add_salary_id and tas.lang='$site_lang'
 INNER join $tbl_employee_company tec on tec.id=e.company_id
 LEFT join $tbl_currency tc on tc.id=e.additions_currency
    where  e.id='$id' and e.status='1'";

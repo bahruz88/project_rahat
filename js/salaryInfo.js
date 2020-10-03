@@ -1,5 +1,5 @@
- 
 
+var up_emp;
 $(function () {
 
 	$('#nav-tabs').on('shown.bs.tab', 'a', function (e) {
@@ -125,11 +125,13 @@ $(function () {
 				var employee = JSON.parse(emp_data);
 				// Assing existing values to the modal popup fields
 				console.log('employee=', employee)
-
+				console.log('employee.emp_id='+employee.emp_id)
+up_emp=employee.emp_id;
 				if (optype == 'update') {
-
+					$("#update_company_id").val(employee.company_id).change();
 					$("#update_employee").val(employee.emp_id).change();
-					 $("#update_company_id").val(employee.company_id).change();
+
+
 					$("#update_tariffRate").val(employee.tariff_rate).change();
 					$("#update_positionStatus").val(employee.position_status_id).change();
 					$("#update_wage").val(employee.wage);
@@ -146,6 +148,8 @@ $(function () {
 					$("#update_otherCondition3").val(employee.other_conditions3);
 
 					$('#modalEdit').modal('show');
+					console.log(' update_employee val ='+$("#update_employee").find('option:selected').val())
+
 				} else {
 					var wage_currency = '';
 					if (employee.wage_currency) {
@@ -582,6 +586,7 @@ $(function () {
 						}
 						// $("#uid").val(emp_id)
 						// $("#update_company_id").val(employee.company_id).change();
+						console.log('employee.emp_id='+employee.emp_id)
 						$("#modalAdditionEdit #update_company_id").val(employee.company_id).change();
 						$("#modalAdditionEdit #update_employee").val(employee.emp_id).change();
 						$("#update_additionsDeductionsSalary").val(employee.add_salary_id).change();

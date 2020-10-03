@@ -28,7 +28,7 @@
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
                             <div class="col-sm-6">
-                                <select data-live-search="true"  name="company_id" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                <select data-live-search="true"  name="company_id" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker company_id"  placeholder="<?php echo $dil["company"];?>"  >
                                     <?php
                                     $result_company = $db->query($sql_employee_company);
                                     if ($result_company->num_rows > 0) {
@@ -41,17 +41,17 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 emp">
                                 <select data-live-search="true"  name="emplo" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-                                    <?php
-                                    $result_employees_view = $db->query($sql_employees);
-                                    if ($result_employees_view->num_rows > 0) {
-                                        while($row_employees= $result_employees_view->fetch_assoc()) {
-
-                                            ?>
-                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['firstname']." " .$row_employees['lastname'];  ?></option>
-
-                                        <?php } }?>
+<!--                                    --><?php
+//                                    $result_employees_view = $db->query($sql_employees);
+//                                    if ($result_employees_view->num_rows > 0) {
+//                                        while($row_employees= $result_employees_view->fetch_assoc()) {
+//
+//                                            ?>
+<!--                                            <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'];  ?><!--</option>-->
+<!---->
+<!--                                        --><?php //} }?>
                                 </select>
                             </div>
                         </div>
@@ -64,10 +64,8 @@
                                     $result_additions_salary = $db->query($sql_additions_salary);
                                     if ($result_additions_salary->num_rows > 0) {
                                         while($row_additions_salary= $result_additions_salary->fetch_assoc()) {
-
                                             ?>
-                                            <option  value="<?php echo $row_additions_salary['id']; ?>" data-code="<?php echo $row_additions_salary['code']; ?>" ><?php echo $row_additions_salary['title'];  ?></option>
-
+                                            <option  value="<?php echo $row_additions_salary['code']; ?>" ><?php echo $row_additions_salary['title'];  ?></option>
                                         <?php } }?>
                                 </select>
                             </div>
@@ -142,7 +140,7 @@
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label" for="update_company_id"><?php echo $dil["company"];?></label>
                             <div class="col-sm-6">
-                                <select data-live-search="true"  name="update_company_id" id='update_company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                <select data-live-search="true"  name="update_company_id" id='update_company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker update_company_id"  placeholder="<?php echo $dil["company"];?>"  >
                                     <?php
                                     $result_company = $db->query($sql_employee_company);
                                     if ($result_company->num_rows > 0) {
