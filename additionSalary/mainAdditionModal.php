@@ -178,7 +178,7 @@
                                         while($row_additions_salary= $result_additions_salary->fetch_assoc()) {
 
                                             ?>
-                                            <option  value="<?php echo $row_additions_salary['id']; ?>" data-code="<?php echo $row_additions_salary['code']; ?>" ><?php echo $row_additions_salary['title'];  ?></option>
+                                            <option  value="<?php echo $row_additions_salary['code']; ?>" data-code="<?php echo $row_additions_salary['code']; ?>" ><?php echo $row_additions_salary['title'];  ?></option>
 
                                         <?php } }?>
                                 </select>
