@@ -303,6 +303,8 @@ $dil = array(
 	"ovr_input_title"   =>"Əlavə iş vaxtının sazlanması",
 	"overtime_calc_status"   =>"Əlavə iş vaxtı Hesablanma  statusu",
 	"overtime_period"   =>"Əlavə iş vaxtı Hesablanma müddəti",
+	"overtime_status"   =>"Əlavə iş vaxtı statusu",
+	
 	
 	
 	"modal_title_edit_additionsDeductionsSalary"   =>"Vəzifə maaşına əlavənin və kəsintilərinin redaktəsi",
