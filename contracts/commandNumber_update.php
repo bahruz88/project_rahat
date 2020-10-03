@@ -20,7 +20,7 @@ function generateRandomString($length,$head) {
 WHILE ($c > 0){
     $rs = generateRandomString($number,$head);
 
-    $users= "select * from $tbl_employee_commands WHERE command_id='$command_id'and company_id='$company_id' and command_no = '$rs'";
+    $users= "select * from $tbl_employee_commands WHERE command_id='$command_id' and company_id='$company_id' and command_no = '$rs'";
     $result_users = $db->query($users);
     if($result_users->num_rows > 0) {
         $c = 1;
