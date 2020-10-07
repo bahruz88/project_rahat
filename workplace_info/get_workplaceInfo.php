@@ -10,6 +10,7 @@ INNER join $tbl_employee_company tc on tec.company_id=tc.id
 INNER join $tbl_work_status tws on tws.level_id=tec.work_status and tws.lang='$site_lang'
  WHERE tec.emp_id != 0";
 $data2 = array();
+$data3 = array();
 //   echo $sql_parents;
     $result_parent = $db->query($sql_parent);
     if($result_parent){
