@@ -56,6 +56,7 @@ $tbl_salary_info='tbl_salary_info';
 $tbl_reward_period='tbl_reward_period';
 $tbl_currency='tbl_currency';
 $tbl_terms_employment_contract='tbl_terms_employment_contract';
+$tbl_dates='tbl_dates';
 $tbl_workplace_status='tbl_workplace_status';
 $tbl_working_conditions='tbl_working_conditions';
 $tbl_additions_deductions_salary='tbl_additions_deductions_salary';
@@ -78,6 +79,7 @@ if(!isset($_SESSION['login_user'])){
 }
 
 $sql_yesno= "select * from $tbl_yesno where lang='$site_lang' ";
+$sql_dates= "select * from $tbl_dates where lang='$site_lang' ";
 $sql_workplace_status= "select * from $tbl_workplace_status where lang='$site_lang' ";
 $sql_working_conditions= "select * from $tbl_working_conditions where lang='$site_lang' ";
 $sql_exist_not_exist= "select * from $tbl_exist_not_exist where lang='$site_lang'";

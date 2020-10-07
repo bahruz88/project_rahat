@@ -67,8 +67,11 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label" for="view_probation"><?php echo $dil["probation"];?></label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" id="view_probation" name="view_probation" placeholder="<?php echo $dil["probation"];?>" readonly/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="view_dates" name="view_dates" placeholder="<?php echo $dil["probation"];?>" readonly/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -184,7 +187,7 @@
  						 <div class="form-group row">
                                     <label class="col-sm-6 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
                                     <div class="col-sm-6 emp" id="emp">
-                                        <select data-live-search="true"  name="employee" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                        <select data-live-search="true"  name="emplo" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
 <!--                                        --><?php
 //                                         $result_employees_view = $db->query($sql_employees);
 //                                            if ($result_employees_view->num_rows > 0) {
@@ -228,9 +231,20 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label" for="probation"><?php echo $dil["probation"];?></label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="probation" name="probation" placeholder="<?php echo $dil["probation"];?>" />
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control" id="probation" name="probation" placeholder="<?php echo $dil["probation"];?>" />
                             </div>
+                            <div class="col-sm-3">
+                                <select data-live-search="true"  name="dates"  id="dates" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker" >
+                                    <?php
+                                    $result_dates = $db->query($sql_dates);
+                                    if ($result_dates->num_rows > 0) {
+                                        while($row_dates= $result_dates->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_dates['level_id']; ?>" ><?php echo $row_dates['title'];  ?></option>
+                                        <?php } }?>
+                                </select>
+                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label" for="trial_expiration_date"><?php echo $dil["trial_expiration_date"];?></label>
@@ -395,8 +409,20 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label" for="update_probation"><?php echo $dil["probation"];?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_probation" name="update_probation" placeholder="<?php echo $dil["probation"];?>" />
+
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control" id="update_probation" name="update_probation" placeholder="<?php echo $dil["probation"];?>" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <select data-live-search="true"  name="update_dates"  id="update_dates" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker" >
+                                        <?php
+                                        $result_dates = $db->query($sql_dates);
+                                        if ($result_dates->num_rows > 0) {
+                                            while($row_dates= $result_dates->fetch_assoc()) {
+                                                ?>
+                                                <option  value="<?php echo $row_dates['level_id']; ?>" ><?php echo $row_dates['title'];  ?></option>
+                                            <?php } }?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">

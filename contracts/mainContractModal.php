@@ -159,7 +159,23 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="military_additional_information" name="military_additional_information"   />
                         <input type="hidden" class="form-control" id="military_date_completion" name="military_date_completion"   />
 
-<!--                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />-->
+                        <input type="hidden" class="form-control" id="indefinite" name="indefinite"   />
+                        <input type="hidden" class="form-control" id="reasons_temporary_closure" name="reasons_temporary_closure"   />
+                        <input type="hidden" class="form-control" id="date_contract" name="date_contract"   />
+                        <input type="hidden" class="form-control" id="probation" name="probation"   />
+                        <input type="hidden" class="form-control" id="dates" name="dates"   />
+                        <input type="hidden" class="form-control" id="trial_expiration_date" name="trial_expiration_date"   />
+                        <input type="hidden" class="form-control" id="employee_start_date" name="employee_start_date"   />
+                        <input type="hidden" class="form-control" id="date_conclusion_contract" name="date_conclusion_contract"   />
+                        <input type="hidden" class="form-control" id="regulation_property_relations" name="regulation_property_relations"   />
+                        <input type="hidden" class="form-control" id="termination_cases" name="termination_cases"   />
+                        <input type="hidden" class="form-control" id="other_condition_wages" name="other_condition_wages"   />
+                        <input type="hidden" class="form-control" id="workplace_status" name="workplace_status"   />
+                        <input type="hidden" class="form-control" id="working_conditions" name="working_conditions"   />
+                        <input type="hidden" class="form-control" id="job_description" name="job_description"   />
+                        <input type="hidden" class="form-control" id="kvota" name="kvota"   />
+
+                        <!--                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />-->
 <!--                        <input type="hidden" class="form-control" id="m_firstname" name="m_firstname"   />-->
 <!--                        <input type="hidden" class="form-control" id="m_lastname" name="m_lastname"   />-->
 <!--                        <input type="hidden" class="form-control" id="m_surname" name="m_surname"   />-->
@@ -308,6 +324,7 @@ Mandatory in IE 6, 7, 8 and 9.
 
             var zip = new PizZip(content);
             var doc;
+
             var mem_father='';
             var mem_mother='';
             var mem_boy='';
@@ -417,20 +434,32 @@ Mandatory in IE 6, 7, 8 and 9.
                 mem_girl: mem_girl,
                 mem_husband: mem_husband,
                 mem_wife: mem_wife,
+                indefinite: $('#indefinite').val(),
+                reasons_temporary_closure: $('#reasons_temporary_closure').val(),
+                date_contract: $('#date_contract').val(),
+                probation: $('#probation').val(),
+                dates: $('#dates').val(),
+                trial_expiration_date: $('#trial_expiration_date').val(),
+                employee_start_date: $('#employee_start_date').val(),
+                date_conclusion_contract: $('#date_conclusion_contract').val(),
+                regulation_property_relations: $('#regulation_property_relations').val(),
+                termination_cases: $('#termination_cases').val(),
+                other_condition_wages: $('#other_condition_wages').val(),
+                workplace_status: $('#workplace_status').val(),
+                working_conditions: $('#working_conditions').val(),
+                job_description: $('#job_description').val(),
+                kvota: $('#kvota').val(),
             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
                 doc.render();
                 $('#contracts').find('option[value="0"]').prop('selected', true);
                 $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
-
-
             }
             catch (error) {
                 // Catch rendering errors (errors relating to the rendering of the template : angularParser throws an error)
                 errorHandler(error);
             }
-
             var out=doc.getZip().generate({
                 type:"blob",
                 mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",

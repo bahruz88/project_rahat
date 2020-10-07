@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2020 at 07:42 AM
+-- Generation Time: Oct 07, 2020 at 07:33 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -35,7 +35,8 @@ CREATE TABLE `tbl_terms_employment_contract` (
   `indefinite` int(11) NOT NULL,
   `reasons_temporary_closure` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `date_contract` date NOT NULL,
-  `probation` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `probation` int(11) NOT NULL,
+  `probation_dates` int(11) NOT NULL,
   `trial_expiration_date` date NOT NULL,
   `employee_start_date` date NOT NULL,
   `date_conclusion_contract` date NOT NULL,
@@ -56,10 +57,13 @@ CREATE TABLE `tbl_terms_employment_contract` (
 -- Dumping data for table `tbl_terms_employment_contract`
 --
 
-INSERT INTO `tbl_terms_employment_contract` (`id`, `emp_id`, `company_id`, `indefinite`, `reasons_temporary_closure`, `date_contract`, `probation`, `trial_expiration_date`, `employee_start_date`, `date_conclusion_contract`, `regulation_property_relations`, `termination_cases`, `other_condition_wages`, `workplace_status`, `working_conditions`, `job_description`, `kvota`, `status`, `lang`, `insert_date`, `update_date`) VALUES
-(1, 46, 0, 1, 'aa', '2020-09-01', 'bb', '2020-09-02', '2020-09-03', '2020-09-04', 'cc', 'dd', 'ee', 1, 2, 'rrr', 'ttt', 1, 'az', '2020-09-14', '2020-09-15'),
-(2, 39, 0, 0, '', '1970-01-01', '1ay', '2020-09-02', '2020-09-23', '1970-01-01', 'dfsdf', 'dsfsdfsdf', '', 1, 1, '', 'gdfgdfgdf', 1, '', '2020-09-15', '0000-00-00'),
-(3, 39, 0, 2, 'aAas', '2020-09-08', '1ay', '2020-09-15', '2020-09-15', '2020-09-15', 'dfsdf', 'dsfsdfsdf', 'dfdsfsdfs', 1, 1, 'fdf', 'gdfgdfgdf', 1, '', '2020-09-15', '0000-00-00');
+INSERT INTO `tbl_terms_employment_contract` (`id`, `emp_id`, `company_id`, `indefinite`, `reasons_temporary_closure`, `date_contract`, `probation`, `probation_dates`, `trial_expiration_date`, `employee_start_date`, `date_conclusion_contract`, `regulation_property_relations`, `termination_cases`, `other_condition_wages`, `workplace_status`, `working_conditions`, `job_description`, `kvota`, `status`, `lang`, `insert_date`, `update_date`) VALUES
+(1, 46, 0, 1, 'aa', '2020-09-01', 0, 0, '2020-09-02', '2020-09-03', '2020-09-04', 'cc', 'dd', 'ee', 1, 2, 'rrr', 'ttt', 1, 'az', '2020-09-14', '2020-09-15'),
+(2, 39, 0, 0, '', '1970-01-01', 1, 0, '2020-09-02', '2020-09-23', '1970-01-01', 'dfsdf', 'dsfsdfsdf', '', 1, 1, '', 'gdfgdfgdf', 1, '', '2020-09-15', '0000-00-00'),
+(3, 39, 0, 2, 'aAas', '2020-09-08', 1, 0, '2020-09-15', '2020-09-15', '2020-09-15', 'dfsdf', 'dsfsdfsdf', 'dfdsfsdfs', 1, 1, 'fdf', 'gdfgdfgdf', 1, '', '2020-09-15', '0000-00-00'),
+(5, 74, 0, 2, 'aAas', '2020-10-08', 1, 0, '2020-09-28', '2020-09-27', '2020-10-30', 'dfsdf', 'dsfsdfsdf', 'dfdsfsdfs', 2, 2, 'fdf', 'gdfgdfgdf', 1, '', '2020-10-07', '0000-00-00'),
+(6, 38, 2, 1, 'aAas', '1970-01-01', 0, 0, '1970-01-01', '1970-01-01', '1970-01-01', '', '', '', 0, 0, '', '', 1, '', '2020-10-07', '0000-00-00'),
+(7, 46, 1, 1, 'sss', '2020-09-27', 3, 0, '2020-10-08', '2020-10-02', '2020-10-29', 'wwww', 'eeeee', 'tttt', 1, 1, 'yyyy', 'uuuuuu', 1, '', '2020-10-07', '0000-00-00');
 
 --
 -- Indexes for dumped tables
@@ -79,7 +83,7 @@ ALTER TABLE `tbl_terms_employment_contract`
 -- AUTO_INCREMENT for table `tbl_terms_employment_contract`
 --
 ALTER TABLE `tbl_terms_employment_contract`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

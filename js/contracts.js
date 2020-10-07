@@ -541,6 +541,21 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#military_no_official").val(value.military_no_official);
 				$("#military_additional_information").val(value.military_additional_information);
 				$("#military_date_completion").val(value.military_date_completion);
+				$("#indefinite").val(value.indefinite);
+				$("#reasons_temporary_closure").val(value.reasons_temporary_closure);
+				$("#date_contract").val(value.date_contract);
+				$("#probation").val(value.probation);
+				$("#dates").val(value.dates);
+				$("#trial_expiration_date").val(value.trial_expiration_date);
+				$("#employee_start_date").val(value.employee_start_date);
+				$("#date_conclusion_contract").val(value.date_conclusion_contract);
+				$("#regulation_property_relations").val(value.regulation_property_relations);
+				$("#termination_cases").val(value.termination_cases);
+				$("#other_condition_wages").val(value.other_condition_wages);
+				$("#workplace_status").val(value.workplace_status);
+				$("#working_conditions").val(value.working_conditions);
+				$("#job_description").val(value.job_description);
+				$("#kvota").val(value.kvota);
 
 			}
 			else{
@@ -561,7 +576,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		}
 	});
 	if(contract=='1'){
-		generate("emek2")
+		generate("emek_mu")
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
 		generate("emekElave")

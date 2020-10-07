@@ -3527,6 +3527,7 @@ $(function () {
                     $("#update_reasons_contract").val(empcontractdata.reasons_temporary_closure)
                     $("#update_date_employment_contract").val(empcontractdata.date_contract)
                     $("#update_probation").val(empcontractdata.probation);
+                    $("#update_dates").val(empcontractdata.probation_dates).change();
                     $("#update_trial_expiration_date").val(empcontractdata.trial_expiration_date)
                     $("#update_employee_start_date").val(empcontractdata.employee_start_date);
                     $("#update_date_conclusion_employment_contract").val(empcontractdata.date_conclusion_contract);
@@ -3545,6 +3546,7 @@ $(function () {
                     $("#view_reasons_contract").val(empcontractdata.reasons_temporary_closure)
                     $("#view_date_employment_contract").val(empcontractdata.date_contract)
                     $("#view_probation").val(empcontractdata.probation);
+                    $("#view_dates").val(empcontractdata.dates);
                     $("#view_trial_expiration_date").val(empcontractdata.trial_expiration_date)
                     $("#view_employee_start_date").val(empcontractdata.employee_start_date);
                     $("#view_date_conclusion_employment_contract").val(empcontractdata.date_conclusion_contract);
