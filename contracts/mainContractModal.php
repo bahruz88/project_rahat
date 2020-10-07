@@ -331,6 +331,33 @@ Mandatory in IE 6, 7, 8 and 9.
             var mem_girl='';
             var mem_husband='';
             var mem_wife='';
+            var date1=$('#date_contract').val()
+            var date2=$('#trial_expiration_date').val()
+            // const diffTime = Math.abs(date2 - date1);
+            // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            var a = moment(date1,'D/M/YYYY');
+            var b = moment(date2,'D/M/YYYY');
+            var diffDays = b.diff(a, 'days');
+             var months = Math.floor(diffDays/31);
+            var years = Math.floor(months/12);
+
+            var messageDays = '';
+
+            if(years>0){
+                messageDays += years + " il";
+            }
+            if(months>0) {
+                messageDays += months + " ay ";
+            }
+            if(diffDays>0){
+                messageDays += diffDays + " gun ";
+            }
+            var probation_dates = '';
+            if($('#dates').val()=="Ay"){
+                probation_dates+=$('#dates').val()+"-ı ";
+            }else{
+                probation_dates+=$('#dates').val()+"-si ";
+            }
             try {
                 doc=new window.docxtemplater(zip);
                 if($('#member').find('.m1').length >0){
@@ -438,7 +465,7 @@ Mandatory in IE 6, 7, 8 and 9.
                 reasons_temporary_closure: $('#reasons_temporary_closure').val(),
                 date_contract: $('#date_contract').val(),
                 probation: $('#probation').val(),
-                dates: $('#dates').val(),
+                dates:probation_dates,
                 trial_expiration_date: $('#trial_expiration_date').val(),
                 employee_start_date: $('#employee_start_date').val(),
                 date_conclusion_contract: $('#date_conclusion_contract').val(),
@@ -449,6 +476,7 @@ Mandatory in IE 6, 7, 8 and 9.
                 working_conditions: $('#working_conditions').val(),
                 job_description: $('#job_description').val(),
                 kvota: $('#kvota').val(),
+                messageDays: messageDays,
             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)

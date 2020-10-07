@@ -32,7 +32,12 @@ $structure5_2= '';
 $data = array();
 $data2 = array();
 if($order=="" && $contractDate==''){
-    $sql_emp_contracts = "select tc.*,te.*,ttec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,ttec.id term_id,
+    $sql_emp_contracts = "select tc.*,te.*,ttec.*,
+DATE_FORMAT(ttec.date_contract,'%d/%m/%Y') date_contract,
+DATE_FORMAT(ttec.trial_expiration_date,'%d/%m/%Y') trial_expiration_date,
+ DATE_FORMAT(ttec.employee_start_date,'%d/%m/%Y') employee_start_date,
+ DATE_FORMAT(ttec.date_conclusion_contract,'%d/%m/%Y') date_conclusion_contract,
+concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,ttec.id term_id,
 tws.title workplace_status,tws.work_status_id work_status_id,twc.title working_conditions,  twc.cond_id working_cond_id,  
   tYN.chois_desc indefinite,tYN.chois_id ,td.title dates
 from $tbl_contracts tc
@@ -46,7 +51,12 @@ INNER join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_
   where  tc.emp_id='$empid' ";
 }else
 if($order!="" && $contractDate=='1'){
-    $sql_emp_contracts = "select tc.*,te.*,ttec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,ttec.id term_id,
+    $sql_emp_contracts = "select tc.*,te.*,ttec.*,
+DATE_FORMAT(ttec.date_contract,'%d/%m/%Y') date_contract,
+DATE_FORMAT(ttec.trial_expiration_date,'%d/%m/%Y') trial_expiration_date,
+ DATE_FORMAT(ttec.employee_start_date,'%d/%m/%Y') employee_start_date,
+ DATE_FORMAT(ttec.date_conclusion_contract,'%d/%m/%Y') date_conclusion_contract,
+concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,ttec.id term_id,
 tws.title workplace_status,tws.work_status_id work_status_id,twc.title working_conditions,  twc.cond_id working_cond_id,  
   tYN.chois_desc indefinite,tYN.chois_id,td.title dates
 from $tbl_contracts tc
@@ -59,7 +69,12 @@ INNER join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_
 
   where  tc.emp_id='$empid' $order";
 }else if($order!="" && $contractDate=='2'){
-    $sql_emp_contracts = "select tc.*,te.*,ttec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,ttec.id term_id,
+    $sql_emp_contracts = "select tc.*,te.*,ttec.*,
+DATE_FORMAT(ttec.date_contract,'%d/%m/%Y') date_contract,
+DATE_FORMAT(ttec.trial_expiration_date,'%d/%m/%Y') trial_expiration_date,
+ DATE_FORMAT(ttec.employee_start_date,'%d/%m/%Y') employee_start_date,
+ DATE_FORMAT(ttec.date_conclusion_contract,'%d/%m/%Y') date_conclusion_contract,
+ concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,ttec.id term_id,
 tws.title workplace_status,tws.work_status_id work_status_id,twc.title working_conditions,  twc.cond_id working_cond_id,  
   tYN.chois_desc indefinite,tYN.chois_id,td.title dates
 from $tbl_contracts tc
@@ -117,7 +132,12 @@ else{
         }
     }
 if($id1==0 || $id2==0){
-    $sql_emp_contracts ="select tc.*,te.*,ttec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,ttec.id term_id,
+    $sql_emp_contracts ="select tc.*,te.*,ttec.*,
+DATE_FORMAT(ttec.date_contract,'%d/%m/%Y') date_contract,
+DATE_FORMAT(ttec.trial_expiration_date,'%d/%m/%Y') trial_expiration_date,
+ DATE_FORMAT(ttec.employee_start_date,'%d/%m/%Y') employee_start_date,
+ DATE_FORMAT(ttec.date_conclusion_contract,'%d/%m/%Y') date_conclusion_contract,
+ concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,ttec.id term_id,
 tws.title workplace_status,tws.work_status_id work_status_id,twc.title working_conditions,  twc.cond_id working_cond_id,  
   tYN.chois_desc indefinite,tYN.chois_id,td.title dates
  from $tbl_contracts tc
@@ -130,7 +150,12 @@ INNER join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_
  
   where  tc.emp_id='$empid'";
 }else{
-    $sql_emp_contracts ="select tc.*,te.*,ttec.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,ttec.id term_id,
+    $sql_emp_contracts ="select tc.*,te.*,ttec.*,
+DATE_FORMAT(ttec.date_contract,'%d/%m/%Y') date_contract,
+DATE_FORMAT(ttec.trial_expiration_date,'%d/%m/%Y') trial_expiration_date,
+ DATE_FORMAT(ttec.employee_start_date,'%d/%m/%Y') employee_start_date,
+ DATE_FORMAT(ttec.date_conclusion_contract,'%d/%m/%Y') date_conclusion_contract,
+ concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,ttec.id term_id,
 tws.title workplace_status,tws.work_status_id work_status_id,twc.title working_conditions,  twc.cond_id working_cond_id,  
   tYN.chois_desc indefinite,tYN.chois_id,td.title dates
  from $tbl_contracts tc

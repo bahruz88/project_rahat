@@ -576,7 +576,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		}
 	});
 	if(contract=='1'){
-		generate("emek_mu")
+		generate("emek_muqa")
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
 		generate("emekElave")
