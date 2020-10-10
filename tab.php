@@ -345,7 +345,7 @@ $result_commands = $db->query($commands);
                 // $('#tablePositions').find('tbody').html('');
                 $.each($.parseJSON(data), function(k,value) {
                     table+='<tr class="typeOfDocument" >' +
-                        '<td>No</td>'+
+                        '<td>'+(k+1)+'</td>'+
                         '<td>'+value.lastname+' '+value.firstname+' '+value.surname+'</td>'+
                         '<td>'+value.category+'</td>' +
                         '<td></td>';
