@@ -65,11 +65,13 @@ $tbl_overtime_calc_status='tbl_overtime_calc_status';
 $tbl_employee_overtimes='tbl_employee_overtimes';
 $tbl_periods='tbl_periods';
 $tbl_work_status='tbl_work_status';
+$tbl_month='tbl_month';
 $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
 $sql_roles = "select * from $tbl_roles where status=1 order  by position";
 $sql_qua_dic = "select * from $tbl_qualification_dic ";
 $sql_university= "select * from $tbl_universities where status=1 ";
 $sql_emp_lang= "select * from $tbl_emp_lang ";
+
 if(!isset($_SESSION['login_user'])){
     $site_lang='az' ;
 }else

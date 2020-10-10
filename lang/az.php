@@ -350,6 +350,26 @@ $dil = array(
     "workplace_information_view_title"   =>"İş yeri barədə  məlumatlarına baxış",
     "service"   =>"Servis xidməti",
 
+    "tab"   =>"Tabel",
+    "position_n"   =>"Vəzifə",
+    "queue"   =>"Növbə",
+    "norm_schedule"   =>"Qrafik üzrə norma",
+    "total_processed"   =>"Cəmi işlənilmiş",
+    "weekend"   =>"Həftə tətili",
+    "addition_working_hours"   =>"İş vaxtından əlavə",
+    "holidays_weekends"   =>"Bayram və istirahət günləri",
+    "evening_time"   =>"Axşam saatı",
+    "night_time"   =>"Gecə saatı",
+    "vacation"   =>"Əmək məzuniyyəti",
+    "social_leave"   =>"Sosial məzuniyyət",
+    "free_vacation_time"   =>"Ödənişsiz məzuniyyət saatı",
+    "illness"   =>"Xəstəlik",
+    "business_trip"   =>"Ezamiyyət",
+    "missing_watch"   =>"Əskik işlənilən saat",
+    "other_types_permissions"   =>"Digər növ icazələr",
+    "monthly_norm"   =>"Aylıq norma",
+    "dates"   =>"Tarix",
+
 
 
 );

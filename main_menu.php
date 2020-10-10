@@ -136,8 +136,14 @@
 			  
 			  
 			  <li class="nav-item">
+                  <a href="tab.php" class="nav-link">
+
+                      <p><?php echo $dil["tab"];?></p>
+                  </a>
+              </li>
+                <li class="nav-item">
                 <a href="pages/charts/inline.html" class="nav-link">
-                  
+
                   <p>Bacarıqlar</p>
                 </a>
               </li>

@@ -178,14 +178,6 @@ $('#myContracts').on( 'change', '#contracts', function () {
 })
 
 
-
-// $('#myContracts').on( 'click', '#confirmContract', function () {
-// $('#myContracts').on( 'change', '#confirmContract,input[name=contractDate], #sinceBeginDate,#sinceEndDate', function () {
-// $('#myContracts').on( 'click', 'input[name=contractDate]', function () {
-// 	$('input:radio[name=contractDate]:checked').change(function () {
-// 	$('input:radio[name=commandDate]:checked').change(function () {
-// 	changeAttr()
-// })
 $('input:radio[name=commandDate],input:radio[name=contractDate],#confirmContract, #sinceBeginDate, #sinceEndDate, #commands').on('change', function() {
 	console.log('change'+$(this).attr('name'))
 	changeAttr()
