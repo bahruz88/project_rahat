@@ -369,6 +369,8 @@ $dil = array(
     "other_types_permissions"   =>"Digər növ icazələr",
     "monthly_norm"   =>"Aylıq norma",
     "dates"   =>"Tarix",
+    "day"   =>"Gün",
+    "hour"   =>"Saat",
 
 
 

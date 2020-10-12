@@ -209,8 +209,8 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
 
   <?php 
   include  ('salaryInfo/mainSalaryModal.php');
-  include  ('additionSalary/mainAdditionModal.php');
-  include  ('payment_salary/paymentSalaryModal.php');
+ include  ('additionSalary/mainAdditionModal.php');
+//  include  ('payment_salary/paymentSalaryModal.php');
             ?>
   
   

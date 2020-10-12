@@ -622,16 +622,19 @@ $(function () {
 	$('#selectDate').datepicker({
 		todayHighlight: true,
 		format: 'dd/mm/yyyy',
+		autoclose: true
 		// startDate: new Date()
 	});
 	$('#sinceBeginDate').datepicker({
 		todayHighlight: true,
 		format: 'dd/mm/yyyy',
+		autoclose: true
 		// startDate: new Date()
 	});
 	$('#sinceEndDate').datepicker({
 		todayHighlight: true,
 		format: 'dd/mm/yyyy',
+		autoclose: true
 		// startDate: new Date()
 	});
 });

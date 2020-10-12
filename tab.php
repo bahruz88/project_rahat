@@ -59,22 +59,22 @@ $result_commands = $db->query($commands);
         .ui-datepicker-calendar {
             display: none;
         }
-        .datesFirst span{
+        .arrow{
             color:blue;
             font-size:28px;
             cursor: pointer;
         }
-        /*.datesFirst span{*/
-        /*    display: inline-block;*/
-        /*    margin-left: .255em;*/
-        /*    vertical-align: .255em;*/
-        /*    content: "";*/
-        /*    border-top: .3em solid;*/
-        /*    border-right: .3em solid transparent;*/
-        /*    border-bottom: 0;*/
-        /*    border-left: .3em solid transparent;*/
-        /*    ↔*/
-        /*}*/
+
+        .tableFixHead          { overflow-y: auto; height: 500px;width: 100%;  }
+        .tableFixHead .fix { background:#eee;position: sticky; left: 0; }
+
+        .tableFixHead thead th { position: sticky; top: 0;z-index: 100; }
+        .tableFixHead thead td {background:#eee;position: sticky; top: 45px; }
+
+        /* Just common table stuff. Really. */
+        table  { border-collapse: collapse; width: 100%; }
+        th, td { padding: 8px 16px; }
+        th     { background:#eee; }
     </style>
 </head>
 
@@ -182,9 +182,10 @@ $result_commands = $db->query($commands);
                     </div>
                     <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
                         <div class="tab-pane active" id="employee" style="padding: 10px;display: none;overflow-x: auto;overflow-y: auto;">
-                            <h1 style="font-weight: bold;font-size: 24px;" class="text-center">"<span class="company_name"></span>"-nin 2020-ci ilin avqust ayı üçün iş vaxtının istifadəsi cədvəlinin hesabatı</h1>
+                            <h1 style="font-weight: bold;font-size: 24px;" class="text-center">"<span class="company_name"></span>"-nin <span class="yearSelect"></span>-ci ilin <span class="monthSelect"></span> ayı üçün iş vaxtının istifadəsi cədvəlinin hesabatı</h1>
                             <h1 style="font-weight: bold;font-size: 26px;margin-top:60px;" class="text-center">TƏSDİQ EDİRƏM</h1>
-                            <h1 style="font-weight: bold;font-size: 20px;margin-top:30px;margin-right:60px;" class="text-right">_____________________Rəsulov Hamlet Rəsul  / Tarix <span class="currentDate"></span></h1>
+                            <h1 style="font-weight: bold;font-size: 20px;margin-top:30px;margin-right:60px;" class="text-right">_____________________ <span class="head_name"></span>  / Tarix <span class="currentDate"></span></h1>
+                            <div class="tableFixHead">
                             <table id="emp_table" class="table table-striped  table-bordered table-hover">
 
                                 <thead>
@@ -199,6 +200,7 @@ $result_commands = $db->query($commands);
                             </table
 
 
+                            </div>
                         </div>
 
 
@@ -262,66 +264,56 @@ $result_commands = $db->query($commands);
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 <script>
-    $(document).ready(function(){
-        $('#employee').on(
-            'click',
-            '#emp_table .datesFirst',function(){
-            $(".dates").toggle();
 
-        });
-    });
     function daysInMonth (month, year) {
         return new Date(year, month, 0).getDate();
     }
 
     $('#employees').on( 'click','#searchTabel',  function () {
         // searchPerson();
-        console.log('company');
-        // $('#whichContracts').modal('show');
+         // $('#whichContracts').modal('show');
         var month=$('#month').find('option:selected').val();
+        var monthSelect=$('#month').find('option:selected').text();
         var year=$('#year').find('option:selected').val();
-        console.log('month='+month);
-        console.log('daysInMonth='+daysInMonth(month,year))
+
         var months=daysInMonth(month,year)
         var company_id=$('#company').find('option:selected').val();
        var company_name=$('#company').find('option:selected').text();
-         $.ajax({
+          $.ajax({
             url: "tab/get_tab_employees.php",
             type: "POST",
             data: { company_id:company_id},
             success: function (data) {
-                // console.log('data=',data);
-                // console.log('dataparseJSON=',$.parseJSON(data));
-                // console.log('company_name='+company_name);
-                var d = new Date();
+                  var d = new Date();
                 var currentDate=d.getDate() + "." + (d.getMonth()+1) + "." +d.getFullYear() ;
-                console.log('currentDate='+currentDate);
 
                 $('.company_name').text(company_name);
+                $('.yearSelect').text(year);
+                $('.monthSelect').text(monthSelect);
                 $('.currentDate').text(currentDate);
                 var table = '';
                 $("table#emp_table thead").html('');
                 $("table#emp_table tbody").html('');
                 var row='<tr class="text-center">\n' +
                     '                                <th style="width:15px;" rowspan="2">No</th>\n' +
-                    '                                <th style="width:15px;" rowspan="2"><?php echo $dil["fio"];?></th>\n' +
+                    '                                <th style="width:15px;" rowspan="2" class="fix"><?php echo $dil["fio"];?></th>\n' +
                     '                                <th style="width:150px;" rowspan="2"><?php echo $dil["position_n"];?></th>\n' +
                     '                                <th style="width:80px;" rowspan="2"><?php echo $dil["queue"];?></th>\n';
 
-                row+='<th style="width:80px;" rowspan="2" class="datesFirst">1 <span>↔</span></th>';
+                row+='<th style="width:80px;" rowspan="2" class="dates1">1 <span class="arrow">↔</span></th>';
 
                     for(var i=2;i<=months;i++){
-                        row+='<th style="width:80px;" rowspan="2" class="dates">'+i+'</th>';
+                        row+='<th style="width:80px;" rowspan="2" class="dates'+i+'">'+i+' <span class="arrow">↔</span></th>';
                     }
 
 
 
-                row+= '                                <th style="width:150px;"><?php echo $dil["norm_schedule"];?></th>\n' +
-                    '                                <th style="width:150px;"><?php echo $dil["total_processed"];?></th>\n' +
-                    '                                <th style="width:150px;"><?php echo $dil["weekend"];?></th>\n' +
-                    '                                <th style="width:150px;"><?php echo $dil["addition_working_hours"];?></th>\n' +
-                    '                                <th style="width:150px;"><?php echo $dil["holidays_weekends"];?></th>\n' +
-                    '                                <th style="width:150px;"><?php echo $dil["evening_time"];?></th>\n' +
+                row+= '                                <th style="width:150px;" colspan="2"><?php echo $dil["norm_schedule"];?></th>\n' +
+                    '                                <th style="width:150px;" colspan="2"><?php echo $dil["total_processed"];?></th>\n' +
+                    '                                <th style="width:150px;" colspan="2"><?php echo $dil["weekend"];?></th>\n' +
+                    '                                <th style="width:150px;"  rowspan="2"><?php echo $dil["addition_working_hours"];?></th>\n' +
+                    '                                <th style="width:150px;"  rowspan="2"><?php echo $dil["holidays_weekends"];?></th>\n' +
+                    '                                <th style="width:150px;"  rowspan="2"><?php echo $dil["evening_time"];?></th>\n' +
                     '                                <th style="width:150px;"  rowspan="2"><?php echo $dil["night_time"];?></th>\n' +
                     '                                <th style="width:150px;"  rowspan="2"><?php echo $dil["vacation"];?></th>\n' +
                     '                                <th style="width:150px;" rowspan="2"><?php echo $dil["social_leave"];?></th>\n' +
@@ -333,53 +325,88 @@ $result_commands = $db->query($commands);
                     '                                <th style="width:150px;" rowspan="2"><?php echo $dil["monthly_norm"];?></th>\n' +
                     '                                </tr>\n' +
                     '                                <tr  style="font-size:12px;">\n' +
-                    '                                    <td style="width:50px;border:1px solid grey;">gun</td>\n' +
-                    '                                    <td style="width:80px;border:1px solid grey;">saat</td>\n' +
-                    '                                    <td style="width:50px;border:1px solid grey;">gun</td>\n' +
-                    '                                    <td style="width:80px;border:1px solid grey;">saat</td>\n' +
-                    '                                    <td style="width:50px;border:1px solid grey;">gun</td>\n' +
-                    '                                    <td style="width:80px;border:1px solid grey;">saat</td>\n' +
+                    '                                    <td style="width:50px;border:1px solid grey;"><?php echo $dil["day"];?></td>\n' +
+                    '                                    <td style="width:80px;border:1px solid grey;"><?php echo $dil["hour"];?></td>\n' +
+                    '                                    <td style="width:50px;border:1px solid grey;"><?php echo $dil["day"];?></td>\n' +
+                    '                                    <td style="width:80px;border:1px solid grey;"><?php echo $dil["hour"];?></td>\n' +
+                    '                                    <td style="width:50px;border:1px solid grey;"><?php echo $dil["day"];?></td>\n' +
+                    '                                    <td style="width:80px;border:1px solid grey;"><?php echo $dil["hour"];?></td>\n' +
                     '                                </tr>'
                 $("table#emp_table thead").html(row);
                 $("#employee").css('display', 'block');
-                // $('#tablePositions').find('tbody').html('');
+                $('.head_name').text('')
                 $.each($.parseJSON(data), function(k,value) {
-                    table+='<tr class="typeOfDocument" >' +
-                        '<td>'+(k+1)+'</td>'+
-                        '<td>'+value.lastname+' '+value.firstname+' '+value.surname+'</td>'+
-                        '<td>'+value.category+'</td>' +
-                        '<td></td>';
-                    table+='<td class="datesFirst">8.0</th>';
+
+                    if(k==='head_name') {
+                        $('.head_name').text(value);
+                    }else
+                    if(k!=='head_name'){
+                        table+='<tr class="typeOfDocument" >' +
+                            '<td>'+(k+1)+'</td>'+
+                            '<td  class="fix">'+value.lastname+' '+value.firstname+' '+value.surname+'</td>'+
+                            '<td>'+value.category+'</td>' +
+                            '<td></td>';
+                        table+='<td class="dates1">8.0</th>';
                         for(var i=2;i<=months;i++){
-                            table+='<td class="dates">8.0</th>';
+                            table+='<td class="dates'+i+'">8.0</th>';
                         }
 
-                    table+= '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>'+
-                        '<td></td>';
-
-
-
+                        table+= '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>';
+                    }
                 });
                 $("table#emp_table tbody").append(table);
+                for(var i=1;i<=months;i++) {
+                    $('#employee').on(
+                        'click',
+                        '#emp_table .dates'+i, function () {
+                            var countt=$(this).attr("class").substring($(this).attr("class").length - 1, $(this).attr("class").length)
+                             for(var j=1;j<=months;j++) {
+                                if(parseInt(countt)!==j){
+                                     $(".dates"+j).toggle();
+                                }
+                            }
+
+                        });
+                }
 
 
             }
         })
     });
-
+    // $(document).ready(function(){
+    //     // var month=$('#month').find('option:selected').val();
+    //     for(var i=1;i<=months;i++) {
+    //         $('#employee').on(
+    //             'click',
+    //             '#emp_table .dates'+i, function () {
+    //                 console.log('ddd')
+    //                 // $(this).removeClass('dates');
+    //                 // $(this).closest('tr').find('td').toggleClass("dates");
+    //                 // $(this).toggleClass("dates");
+    //                 for(var j=1;j<=months;j++) {
+    //                     if(i!==j){
+    //                         $(".dates"+j).toggle();
+    //                     }
+    //
+    //                 }
+    //
+    //             });
+    //     }
+    // });
 </script>
 </body>
 </html>

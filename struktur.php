@@ -237,6 +237,7 @@ $sql_position= "select * from $tbl_employee_category";
         .dropdown-toggle{
             height:40px !important;
         }
+        .treeStruk .navbar  { position: sticky; top: 0;z-index: 100; }
     </style>
 </head>
 

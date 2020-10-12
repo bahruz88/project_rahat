@@ -253,7 +253,8 @@
           </li>
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
-                    <i class="fas fa-sitemap"></i>
+                    <i class="fas fa-money-bill-alt"></i>
+                    <!--                    <i class="fas fa-sitemap"></i>-->
                     <p>
                         Payroll
                         <i class="right fas fa-angle-left"></i>
@@ -291,8 +292,8 @@
             </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
+                <i class="far fa-file"></i>
+                <p>
                 Sənədlər
                 <i class="fas fa-angle-left right"></i>
               </p>
