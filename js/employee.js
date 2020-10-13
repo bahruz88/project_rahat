@@ -165,6 +165,13 @@ $(function () {
                 }
             },
             {
+                text: 'İşdən çıxart <i class="fa fa-minus"></i>',
+                action: function (e, dt, node, config) {
+                    $("#myModalExit").modal();
+                    // addImage();
+                }
+            },
+            {
                 extend: 'excelHtml5',
                 exportOptions: {
                     columns: ':visible'
@@ -4282,6 +4289,8 @@ $(function () {
     $("#update_employee_start_date").datetimepicker({format: 'DD/MM/YYYY'});
     $("#update_date_conclusion_employment_contract").datetimepicker({format: 'DD/MM/YYYY'});
 
+    $("#exitDate").datetimepicker({format: 'DD/MM/YYYY'});
+
 });
 $(document).ready(function (e) {
     $(document).on('change', '#files', function () {
@@ -4549,3 +4558,53 @@ $(".stlevel").change(function () {
     }
 
 });
+$("#type_dismissal").change(function () {
+    var type_dismissal_id = $(this).val();
+    console.log("type_dismissal_id=" + type_dismissal_id);
+    $.ajax({
+        url: 'employees/getTerminationClause.php',
+        type: 'post',
+        data: {type_dismissal_id: type_dismissal_id},
+         dataType: 'json',
+        success: function (response) {
+            console.log('response=', response)
+            $(".termination_clause").empty();
+            var option = '<select data-live-search="true"  name="termination_clause" id="termination_clause"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+             $.each(response, function (k, v) {
+                console.log('v=', v[1]);
+                option += '<option value="' + v.level_id + '" >' + v.title + '</option>';
+            });
+            option += '</select>';
+            $(".termination_clause").html(option);
+            $(".selectpicker").selectpicker();
+
+            $("#termination_clause").change(function () {
+                var termination_id = $(this).val();
+                console.log("termination_id=" + termination_id);
+                $.ajax({
+                    url: 'employees/getNotes.php',
+                    type: 'post',
+                    data: {termination_id: termination_id},
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log('data=', data)
+                        $(".note").empty();
+                        // var options = '<select data-live-search="true"  name="notes" id="notes"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                        var options = '<div class="custom-select" style="width:350px;background-color: #99999912;">\n' +
+                            '<select >';
+                        $.each(data, function (key, val) {
+                            options += '<option value="' + val.level_id + '" >' + val.title + '</option>';
+                        });
+                        options += '</select></div>';
+                        console.log('options='+options)
+                        $(".note").html(options);
+                        $(".selectpicker").selectpicker();
+                    }
+                });
+
+            });
+        }
+    });
+
+});
+

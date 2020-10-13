@@ -8,7 +8,214 @@
         width:100px;
         height:100px;
     }
+
 </style>
+<style>
+    /*the container must be positioned relative:*/
+    .custom-select {
+        position: relative;
+        font-family: Arial;
+    }
+    .custom-select select {
+        display: none; /*hide original SELECT element:*/
+
+    }
+    .select-selected {
+        /*background-color: #fff;*/
+
+
+    }
+    /*style the arrow inside the select element:*/
+    .select-selected:after {
+        position: absolute;
+        content: "";
+        top: 14px;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #fff transparent transparent transparent;
+    }
+    /*point the arrow upwards when the select box is open (active):*/
+    .select-selected.select-arrow-active:after {
+        border-color: transparent transparent #000 transparent;
+        top: 7px;
+
+        /*color: #1f2d3d94;*/
+        color: #999;
+        font-size: 14px;
+    }
+    /*style the items (options), including the selected item:*/
+    .select-items div,.select-selected {
+        padding: 2px 6px;
+        /*border: 1px solid transparent;*/
+        /*border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;*/
+        cursor: pointer;
+        user-select: none;
+        font-size: 14px;
+    }
+    /*style items (options):*/
+    .select-items {
+        /*color: #1f2d3d94;*/
+        position: absolute;
+        background-color: #fff;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        height:200px;
+        overflow-y: auto;
+        /*border:1px solid grey;*/
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    }
+    /*hide the items when the select box is closed:*/
+    .select-hide {
+        display: none;
+    }
+    .select-items div:hover, .same-as-selected {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #212529;
+    }
+</style>
+
+<!--EMPLOYEE Exit MODAL -->
+<div class="modal fade" id="myModalExit" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" >
+        <form id="employeeInsert" method="post" class="form-horizontal" action="">
+
+            <!-- Modal content-->
+            <div class="modal-content" >
+
+                <div class="modal-body">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h4 class="card-title"><?php echo $dil["main_information"];?></h4>
+                            <span  id="badge_success" class="badge badge-success"></span>
+                            <span  id="badge_danger" class="badge badge-danger"></span>
+                        </div>
+                        <div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
+                                <div class="col-sm-6">
+                                    <select data-live-search="true"  name="company_id" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker company_id"  placeholder="<?php echo $dil["company"];?>"  >
+                                        <?php
+                                        $result_company = $db->query($sql_employee_company);
+                                        if ($result_company->num_rows > 0) {
+                                            while($row_company= $result_company->fetch_assoc()) {
+                                                ?>
+                                                <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                            <?php } }?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
+                                <div class="col-sm-6 emp">
+                                    <select data-live-search="true"  name="emplo" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                        <!--                                    --><?php
+                                        //                                    $result_employees_view = $db->query($sql_employees);
+                                        //                                    if ($result_employees_view->num_rows > 0) {
+                                        //                                        while($row_employees= $result_employees_view->fetch_assoc()) {
+                                        //
+                                        //                                            ?>
+                                        <!--                                            <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'];  ?><!--</option>-->
+                                        <!---->
+                                        <!--                                        --><?php //} }?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="exitDate"><?php echo $dil["exitDate"];?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="exitDate" name="exitDate" placeholder="00.00.0000" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="type_dismissal"><?php echo $dil["type_dismissal"];?></label>
+                                <div class="col-sm-6">
+                                    <select data-live-search="true"  name="type_dismissal" id='type_dismissal' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["type_dismissal"];?>"  >
+                                        <?php
+//                                        echo $sql_type_dismissal;
+                                        $result_type_dismissal = $db->query($sql_type_dismissal);
+                                        if ($result_type_dismissal->num_rows > 0) {
+                                            while($row_type_dismissal= $result_type_dismissal->fetch_assoc()) {
+                                                ?>
+                                                <option  value="<?php echo $row_type_dismissal['level_id']; ?>" ><?php echo $row_type_dismissal['title'];  ?></option>
+                                            <?php } }?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="termination_clause"><?php echo $dil["termination_clause"];?></label>
+                                <div class="col-sm-6 termination_clause">
+                                    <select data-live-search="true"  name="termination_clause" id='termination_clause' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["termination_clause"];?>"  >
+<!--                                        --><?php
+//                                        $result_type_dismissal = $db->query($sql_type_dismissal);
+//                                        if ($result_type_dismissal->num_rows > 0) {
+//                                            while($row_type_dismissal= $result_type_dismissal->fetch_assoc()) {
+//                                                ?>
+<!--                                                <option  value="--><?php //echo $row_type_dismissal['level_id']; ?><!--" >--><?php //echo $row_type_dismissal['title'];  ?><!--</option>-->
+<!--                                            --><?php //} }?>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="note"><?php echo $dil["note"];?></label>
+                                <div class="col-sm-6 note">
+                                    <div class="custom-select" style="width:350px;background-color: #99999912;">
+                                        <select >
+                                            <option value="0" >Birini seçin</option>
+                                            <option value="1" >a) bəndinə əsasən (müəssisə ləğv edildikdə)</option>
+                                            <option value="2" >b) bəndinə əsasən (işçilərin sayı və ya ştatları ixtisar edildikdə)</option>
+                                            <option value="3" >a) bəndinə əsasən (müəssisə ləğv edildikdə)</option>
+                                            <option value="4" >b) bəndinə əsasən (işçilərin sayı və ya ştatları ixtisar edildikdə)</option>
+                                            <option value="5" >c) bəndinə əsasən (peşəkarlıq səviyyəsinin, ixtisasının (peşəsinin) kifayət dərəcədə olmadığına görə işçinin tutduğu vəzifəyə uyğun gəlmədiyi barədə səlahiyyətli orqan tərəfindən müvafiq qərar qəbul edildikdə)</option>
+                                            <option value="6" >ç) bəndinə əsasən ( işçi özünün əmək funksiyasını və ya əmək müqaviləsi üzrə öhdəliklərini yerinə yetirmədikdə)</option>
+                                            <option value="7" >ç) bəndinə əsasən ( AR - nin ƏM  - nin 72-ci maddəsində sadalanan hallarda əmək vəzifələrini kobud şəkildə pozduqda)</option>
+                                            <option value="8" >d) bəndinə əsasən ( sınaq müddəti ərzində işçi özünü doğrultmadıqda)</option>
+                                        </select>
+                                    </div>
+<!--                                    <select data-live-search="true"   name="notes" id="notes"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >-->
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="main"><?php echo $dil["main"];?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="main" name="main" placeholder="<?php echo $dil["main"];?>" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="guarantees_termination_contract"><?php echo $dil["guarantees_termination_contract"];?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="guarantees_termination_contract" name="guarantees_termination_contract" placeholder="<?php echo $dil["guarantees_termination_contract"];?>" />
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
+
+                </div>
+        </form>
+    </div>
+
+</div>
+</div>
+
 <!--EMPLOYEE İNSERT MODAL -->
   <div class="modal fade" id="myModal" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" >
@@ -482,3 +689,77 @@
 </div>
 
   <!-- Nav tabs -->
+<script>
+    var x, i, j, selElmnt, a, b, c;
+    /*look for any elements with the class "custom-select":*/
+    x = document.getElementsByClassName("custom-select");
+    for (i = 0; i < x.length; i++) {
+        selElmnt = x[i].getElementsByTagName("select")[0];
+        /*for each element, create a new DIV that will act as the selected item:*/
+        a = document.createElement("DIV");
+        a.setAttribute("class", "select-selected");
+        a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+        x[i].appendChild(a);
+        /*for each element, create a new DIV that will contain the option list:*/
+        b = document.createElement("DIV");
+        b.setAttribute("class", "select-items select-hide");
+        for (j = 0; j < selElmnt.length; j++) {
+            /*for each option in the original select element,
+            create a new DIV that will act as an option item:*/
+            c = document.createElement("DIV");
+            c.innerHTML = selElmnt.options[j].innerHTML;
+            c.addEventListener("click", function(e) {
+                /*when an item is clicked, update the original select box,
+                and the selected item:*/
+                var y, i, k, s, h;
+                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                h = this.parentNode.previousSibling;
+                for (i = 0; i < s.length; i++) {
+                    if (s.options[i].innerHTML == this.innerHTML) {
+                        s.selectedIndex = i;
+                        h.innerHTML = this.innerHTML;
+                        y = this.parentNode.getElementsByClassName("same-as-selected");
+                        for (k = 0; k < y.length; k++) {
+                            y[k].removeAttribute("class");
+                        }
+                        this.setAttribute("class", "same-as-selected");
+                        break;
+                    }
+                }
+                h.click();
+            });
+            b.appendChild(c);
+        }
+        x[i].appendChild(b);
+        a.addEventListener("click", function(e) {
+            /*when the select box is clicked, close any other select boxes,
+            and open/close the current select box:*/
+            e.stopPropagation();
+            closeAllSelect(this);
+            this.nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+        });
+    }
+    function closeAllSelect(elmnt) {
+        /*a function that will close all select boxes in the document,
+        except the current select box:*/
+        var x, y, i, arrNo = [];
+        x = document.getElementsByClassName("select-items");
+        y = document.getElementsByClassName("select-selected");
+        for (i = 0; i < y.length; i++) {
+            if (elmnt == y[i]) {
+                arrNo.push(i)
+            } else {
+                y[i].classList.remove("select-arrow-active");
+            }
+        }
+        for (i = 0; i < x.length; i++) {
+            if (arrNo.indexOf(i)) {
+                x[i].classList.add("select-hide");
+            }
+        }
+    }
+    /*if the user clicks anywhere outside the select box,
+    then close all select boxes:*/
+    document.addEventListener("click", closeAllSelect);
+</script>

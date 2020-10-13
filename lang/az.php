@@ -371,6 +371,12 @@ $dil = array(
     "dates"   =>"Tarix",
     "day"   =>"Gün",
     "hour"   =>"Saat",
+    "exitDate"   =>"İşdən cıxış tarixi",
+    "type_dismissal"   =>"İşdən çıxış növü",
+    "termination_clause"   =>"Xitam maddəsi",
+    "note"   =>"Qeyd",
+    "main"   =>"Əsas",
+    "guarantees_termination_contract"   =>"Əmək müqaviləsinə xitam verilərkən işçilərin təminatları",
 
 
 

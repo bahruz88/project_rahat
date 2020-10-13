@@ -66,6 +66,9 @@ $tbl_employee_overtimes='tbl_employee_overtimes';
 $tbl_periods='tbl_periods';
 $tbl_work_status='tbl_work_status';
 $tbl_month='tbl_month';
+$tbl_type_dismissal='tbl_type_dismissal';
+$tbl_termination_clause='tbl_termination_clause';
+$tbl_notes='tbl_notes';
 $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
 $sql_roles = "select * from $tbl_roles where status=1 order  by position";
 $sql_qua_dic = "select * from $tbl_qualification_dic ";
@@ -89,6 +92,8 @@ $sql_exist_not_exist= "select * from $tbl_exist_not_exist where lang='$site_lang
 $sql_employees= "select * from $tbl_employees where  emp_status=1 ";
 
 $sql_employee_company= "select * from $tbl_employee_company where  status=1 ";
+$sql_type_dismissal= "select * from $tbl_type_dismissal where  lang='$site_lang' ";
+$sql_termination_clause= "select * from $tbl_termination_clause where  lang='$site_lang' ";
 
 $sql_employees_asc= "select * from $tbl_employees where  emp_status=1 ORDER BY id DESC LIMIT 1";
 
