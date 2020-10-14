@@ -333,6 +333,43 @@ $(function () {
         }
         table.ajax.reload();
     });
+    /*ISCHI ISDEN CIXARILIR  */
+    $("#employeeExit").submit(function (e) {
+        e.preventDefault();
+         if ($("#employeeExit").valid()) {
+            $.ajax({
+                url: "employees/employeeExit.php",
+                method: "post",
+                data: $("#employeeExit").serialize(),
+                dataType: "text",
+                success: function (strMessage) {
+                    $("#badge_success").text('');
+                    $("#badge_danger").text('');
+                    if (strMessage.substr(1, 4) === 'error') {
+
+
+                        $("#errorp").text(strMessage);
+
+                        $("#modalInsertError").modal('show');
+                        $("#myModalExit").modal('hide');
+                    } else if (strMessage === 'success') {
+                        $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                        $("#modalInsertSuccess").modal('show');
+                        $("#myModalExit").modal('hide');
+
+                    } else {
+                        $("#errorp").text(strMessage);
+                        $("#modalInsertError").modal('show');
+                        $("#myModalExit").modal('hide');
+
+                    }
+                }
+            });
+            table.ajax.reload();
+            //	$( "#employeeInsert" ).get(0).reset();
+        }
+        table.ajax.reload();
+    });
 
     /*İSCHİ  MELUMATALRİ SİLİNİR */
     $("#employeeDelete").submit(function (e) {
@@ -4589,16 +4626,43 @@ $("#type_dismissal").change(function () {
                     success: function (data) {
                         console.log('data=', data)
                         $(".note").empty();
-                        // var options = '<select data-live-search="true"  name="notes" id="notes"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-                        var options = '<div class="custom-select" style="width:350px;background-color: #99999912;">\n' +
-                            '<select >';
+                         var options = '<select data-width="100%" data-live-search="true" style="min-width:500px;"  name="notes" id="notes"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+
                         $.each(data, function (key, val) {
                             options += '<option value="' + val.level_id + '" >' + val.title + '</option>';
                         });
-                        options += '</select></div>';
+                        // options += '</select></div>';
+                        options += '</select>';
                         console.log('options='+options)
                         $(".note").html(options);
-                        $(".selectpicker").selectpicker();
+                        $('.selectpicker').selectpicker();
+                        $("#notes").change(function () {
+                            var notes_id = $(this).val();
+                            console.log("notes_id=" + notes_id);
+                            if(notes_id=='6' && termination_id=='1'){
+                                $('#main').val("Əmək müqaviləsi");
+                            }else
+                            if(termination_id=='2'){
+                                $('#main').val("İşçinin ərizəsi");
+                            }else
+                            if(termination_id=='4'){
+                                $('#main').val("Əmək müqaviləsi");
+                            }else
+                            if(notes_id=='1' && termination_id=='9'){
+                                $('#main').val("Çağırış vərəqəsi");
+                            }else
+                            if(notes_id=='6' && termination_id=='9'){
+                                $('#main').val("Ölüm haqqında şəhadətnamə");
+                            }else
+                            if(termination_id=='10'||termination_id=='11'){
+                                $('#main').val("Əmək müqaviləsi");
+                            }else
+                                {
+                                $('#main').val('');
+                            }
+
+
+                        });
                     }
                 });
 

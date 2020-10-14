@@ -377,6 +377,7 @@ $dil = array(
     "note"   =>"Qeyd",
     "main"   =>"Əsas",
     "guarantees_termination_contract"   =>"Əmək müqaviləsinə xitam verilərkən işçilərin təminatları",
+    "labor_contract"   =>"Əmək müqaviləsi",
 
 
 

@@ -69,6 +69,7 @@ $tbl_month='tbl_month';
 $tbl_type_dismissal='tbl_type_dismissal';
 $tbl_termination_clause='tbl_termination_clause';
 $tbl_notes='tbl_notes';
+$tbl_employee_exit='tbl_employee_exit';
 $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
 $sql_roles = "select * from $tbl_roles where status=1 order  by position";
 $sql_qua_dic = "select * from $tbl_qualification_dic ";
