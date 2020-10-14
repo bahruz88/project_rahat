@@ -336,6 +336,10 @@ $result_commands = $db->query($commands);
                 $("#employee").css('display', 'block');
                 $('.head_name').text('')
                 $.each($.parseJSON(data), function(k,value) {
+                    var cat='';
+                    if(value.category){
+                        cat=value.category;
+                    }
 
                     if(k==='head_name') {
                         $('.head_name').text(value);
@@ -344,7 +348,7 @@ $result_commands = $db->query($commands);
                         table+='<tr class="typeOfDocument" >' +
                             '<td>'+(k+1)+'</td>'+
                             '<td  class="fix">'+value.lastname+' '+value.firstname+' '+value.surname+'</td>'+
-                            '<td>'+value.category+'</td>' +
+                            '<td>'+cat+'</td>' +
                             '<td></td>';
                         table+='<td class="dates1">8.0</th>';
                         for(var i=2;i<=months;i++){
@@ -352,6 +356,9 @@ $result_commands = $db->query($commands);
                         }
 
                         table+= '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
+                            '<td></td>'+
                             '<td></td>'+
                             '<td></td>'+
                             '<td></td>'+
