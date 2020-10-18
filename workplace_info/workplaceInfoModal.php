@@ -319,7 +319,7 @@
                                 <label class="col-sm-6 col-form-label"
                                        for="update_employee_place"><?php echo $dil["employee"]; ?></label>
                                 <div class="col-sm-6 ">
-                                    <select data-live-search="true" name="update_employee" id="update_employee_place"
+                                    <select data-live-search="true" name="update_employee_place" id="update_employee_place"
                                             title="<?php echo $dil["selectone"]; ?>" class="form-control selectpicker"
                                             placeholder="<?php echo $dil["employee"]; ?>" disabled="true">
                                         <?php
@@ -373,6 +373,13 @@
                                        for="update_position"><?php echo $dil["position"]; ?></label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" id="update_position" name="update_position" placeholder="<?php echo $dil["position"]; ?>"/>
+                                    <input type="hidden" class="form-control" id="update_position_old" name="update_position_old" />
+                                    <input type="hidden" class="form-control" id="command_code" name="command_code" value="18"/>
+                                    <input type="hidden" class="form-control" id="update_company_Id" name="update_company_Id"/>
+                                    <input type="hidden" class="form-control" id="update_emplo" name="update_emplo"/>
+<!--                                    <input type="hidden" class="form-control" id="update_departmentT" name="update_departmentT"/>-->
+<!--                                    <input type="hidden" class="form-control" id="update_departT" name="update_departT"/>-->
+<!--                                    <input type="hidden" class="form-control" id="update_area_sectionT" name="update_area_sectionT"/>-->
                                 </div>
                             </div>
                             <div class="form-group row">

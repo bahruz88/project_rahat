@@ -4142,6 +4142,7 @@ $(function () {
                 var position_level = workplaceInfodata.position_level
                 var structures = workplaceInfodata.structures;
                 console.log('workplaceInfodata=', workplaceInfodata)
+                console.log('workplaceInfodata.emp_id='+workplaceInfodata.emp_id)
                 console.log('structures=', structures);
                 console.log('structure_level=', structure_level);
                 fillSelect(structures, '');
@@ -4151,10 +4152,10 @@ $(function () {
 
                 if (optype == 'update') {
                     console.log('update kecdim')
-
                     // stlevel('update_')
-                    $("#update_workplaceInfoid").val(workplaceInfodata.id).change();
+                     $("#update_workplaceInfoid").val(workplaceInfodata.id).change();
                     $("#update_employee_place").val(workplaceInfodata.emp_id).change();
+                    $("#update_emplo").val(workplaceInfodata.emp_id);
                     if(structure_level){
                         $("#update_directorate").val(structure_level.id2).change();
                         $("#update_department").val(structure_level.id3).change();
@@ -4162,6 +4163,8 @@ $(function () {
                         $("#update_area_section").val(structure_level.id5).change();
                     }
                     $("#update_position").val(workplaceInfodata.category);
+                    $("#update_position_old").val(workplaceInfodata.category);
+                    $("#update_company_Id").val(workplaceInfodata.company_id);
                     $("#update_status").val(workplaceInfodata.work_status_id).change();
                     if(position_level){
                         $("#update_direct_guide").val(position_level.position_id1).change();

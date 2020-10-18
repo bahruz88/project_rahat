@@ -75,6 +75,7 @@ $result_commands = $db->query($commands);
         table  { border-collapse: collapse; width: 100%; }
         th, td { padding: 8px 16px; }
         th     { background:#eee; }
+
     </style>
 </head>
 
@@ -175,18 +176,26 @@ $result_commands = $db->query($commands);
                             </div>
 
                             <button id="searchTabel">Axtar</button>
+<!--                            <button  class="exportToExcel">Exel</button>-->
 
                         </div>
 
 
                     </div>
                     <div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
-                        <div class="tab-pane active" id="employee" style="padding: 10px;display: none;overflow-x: auto;overflow-y: auto;">
-                            <h1 style="font-weight: bold;font-size: 24px;" class="text-center">"<span class="company_name"></span>"-nin <span class="yearSelect"></span>-ci ilin <span class="monthSelect"></span> ayı üçün iş vaxtının istifadəsi cədvəlinin hesabatı</h1>
-                            <h1 style="font-weight: bold;font-size: 26px;margin-top:60px;" class="text-center">TƏSDİQ EDİRƏM</h1>
-                            <h1 style="font-weight: bold;font-size: 20px;margin-top:30px;margin-right:60px;" class="text-right">_____________________ <span class="head_name"></span>  / Tarix <span class="currentDate"></span></h1>
+
+
+
+                        <div class="tab-pane active table2excel" id="employee" style="padding: 10px;display: none;overflow-x: auto;overflow-y: auto;">
+                            <div class="textTab">
+                                <h1 style="font-weight: bold;font-size: 24px;text-align: center;" class="text-center">"<span class="company_name"></span>"-nin <span class="yearSelect"></span>-ci ilin <span class="monthSelect"></span> ayı üçün iş vaxtının istifadəsi cədvəlinin hesabatı</h1>
+                                <h1 style="font-weight: bold;font-size: 26px;margin-top:60px;text-align: center;" class="text-center">TƏSDİQ EDİRƏM</h1>
+                                <h1 style="font-weight: bold;font-size: 20px;margin-top:30px;margin-right:60px;text-align: right;" class="text-right">_____________________ <span class="head_name"></span>  / Tarix <span class="currentDate"></span></h1>
+
+                            </div>
                             <div class="tableFixHead">
-                            <table id="emp_table" class="table table-striped  table-bordered table-hover">
+
+                                <table id="emp_table" class="table table-striped   table-bordered table-hover">
 
                                 <thead>
 
@@ -194,15 +203,14 @@ $result_commands = $db->query($commands);
                                 <tbody>
 
                                 </tbody>
-
-
-
-                            </table
+                            </table>
 
 
                             </div>
+
                         </div>
 
+                        <button id="exportToExcel"> EXEL</button>
 
                     </div>
                 </div>
@@ -262,9 +270,17 @@ $result_commands = $db->query($commands);
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!--<script src="js/jquery.table2excel.js"></script>-->
 
 <script>
+    $(function() {
+        $("[id$=exportToExcel]").click(function(e) {
+            window.open('data:application/vnd.ms-excel,' + encodeURIComponent( $('div[id$=employee]').html()));
+            e.preventDefault();
+        });
 
+
+    });
     function daysInMonth (month, year) {
         return new Date(year, month, 0).getDate();
     }
@@ -295,15 +311,15 @@ $result_commands = $db->query($commands);
                 $("table#emp_table thead").html('');
                 $("table#emp_table tbody").html('');
                 var row='<tr class="text-center">\n' +
-                    '                                <th style="width:15px;" rowspan="2">No</th>\n' +
-                    '                                <th style="width:15px;" rowspan="2" class="fix"><?php echo $dil["fio"];?></th>\n' +
-                    '                                <th style="width:150px;" rowspan="2"><?php echo $dil["position_n"];?></th>\n' +
-                    '                                <th style="width:80px;" rowspan="2"><?php echo $dil["queue"];?></th>\n';
+                    '                                <th style="width:30px;" rowspan="2">No</th>\n' +
+                    '                                <th style="width:150x;" rowspan="2" class="fix"><?php echo $dil["fio"];?></th>\n' +
+                    '                                <th style="width:100px;" rowspan="2"><?php echo $dil["position_n"];?></th>\n' +
+                    '                                <th style="width:70px;" rowspan="2"><?php echo $dil["queue"];?></th>\n';
 
-                row+='<th style="width:80px;" rowspan="2" class="dates1">1 <span class="arrow">↔</span></th>';
+                row+='<th style="width:40px;" rowspan="2" class="dates1">1 <span class="arrow">↔</span></th>';
 
                     for(var i=2;i<=months;i++){
-                        row+='<th style="width:80px;" rowspan="2" class="dates'+i+'">'+i+' <span class="arrow">↔</span></th>';
+                        row+='<th style="width:40px;" rowspan="2" class="dates'+i+'">'+i+' <span class="arrow">↔</span></th>';
                     }
 
 
@@ -380,40 +396,18 @@ $result_commands = $db->query($commands);
                     $('#employee').on(
                         'click',
                         '#emp_table .dates'+i, function () {
-                            var countt=$(this).attr("class").substring($(this).attr("class").length - 1, $(this).attr("class").length)
-                             for(var j=1;j<=months;j++) {
-                                if(parseInt(countt)!==j){
+                            var countt=$(this).attr("class").substring(5);
+                            console.log('countt='+countt)
+                             for(var j=parseInt(countt)+1;j<=months;j++) {
                                      $(".dates"+j).toggle();
-                                }
                             }
-
                         });
                 }
-
 
             }
         })
     });
-    // $(document).ready(function(){
-    //     // var month=$('#month').find('option:selected').val();
-    //     for(var i=1;i<=months;i++) {
-    //         $('#employee').on(
-    //             'click',
-    //             '#emp_table .dates'+i, function () {
-    //                 console.log('ddd')
-    //                 // $(this).removeClass('dates');
-    //                 // $(this).closest('tr').find('td').toggleClass("dates");
-    //                 // $(this).toggleClass("dates");
-    //                 for(var j=1;j<=months;j++) {
-    //                     if(i!==j){
-    //                         $(".dates"+j).toggle();
-    //                     }
-    //
-    //                 }
-    //
-    //             });
-    //     }
-    // });
+
 </script>
 </body>
 </html>

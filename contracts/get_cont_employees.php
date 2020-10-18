@@ -49,7 +49,7 @@ from $tbl_employees te
 LEFT join $tbl_employee_category tec on te.id=tec.emp_id
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
  LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lang='$site_lang'
-  where ".$sql." and te.emp_status=1";
+  where ".$sql." ";
 
 //$sql_employees = "select te.*,te.id emp_id
 //from $tbl_employees te

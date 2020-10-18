@@ -181,7 +181,6 @@ function sagClick(number){
         $(".context-menu").hide();
         $("#txt_id").val("");
         $("#number_id").val("");
-
     });
 
     // disable right click and show custom context menu
@@ -299,15 +298,10 @@ function sagClick(number){
         $('#'+idCont).off('click')
         $('table').click(function() {
             console.log('body click'+$(this).attr('class'))
-
             $('#'+idCont).find('span').css('display','block')
             $('#'+idCont).find('select').css('display','none')
             $('#'+idCont).find('input').css('display','none')
             $('#'+idCont).find('button').css('display','none')
-
-
-
-
         });
         $('table div,table select,table input,table button').click(function(e){
             e.stopPropagation();

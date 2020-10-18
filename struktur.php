@@ -775,6 +775,7 @@ $sql_position= "select * from $tbl_employee_category";
     var tree_e=[];
     var addNew=0;
     var tree=[];
+    var command_code='';
     var trList;var companyId;
     $(function() {
         //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
@@ -1115,16 +1116,21 @@ $sql_position= "select * from $tbl_employee_category";
                             console.log('data.cmd==',data.cmd)
                             var ID;
                             var title;
+                            var company_id;
+                            var emp_id;
 
                             ID=data.childNode.data.id;
                             title=data.childNode.title;
+                            company_id=data.childNode.data.company_id;
+                            emp_id=data.childNode.data.emp_id;
                             console.log('ID=='+ID);
                             console.log('title=='+title);
+                            console.log('company_id=='+company_id);
 
                             $.ajax({
                                 url: 'structure/st_update.php',
                                 type: "POST",
-                                data: { id:ID, name:title,change:'category'},
+                                data: { id:ID, name:title,change:'category',command_code:command_code,company_id:company_id,emp_id:emp_id},
                                 success: function (data) {
                                     console.log('data=' + data)
                                     // members=$.parseJSON(data)
@@ -1199,6 +1205,9 @@ $sql_position= "select * from $tbl_employee_category";
                             event_t=data.cmd;
                             console.log('-----------------= html=',silArray)
                             console.log('-----------------= node=',node)
+                            if(data.cmd=="rename"){
+                               command_code=18;//vezife desyisikliyi emrinin kodu
+                            }
                             if(addNew==1){
                                 $('#butModal').trigger('click');
 
@@ -1224,15 +1233,10 @@ $sql_position= "select * from $tbl_employee_category";
                                     }else{
                                         // $('#structureQuery').find('#companyDiv').css('display','none')
                                         tree.applyCommand(data.cmd, node);
-
-
                                     }
 
                                 }
-
                             }
-
-
                             break;
                         case "cut":
                             CLIPBOARD = { mode: data.cmd, data: node };
@@ -1411,18 +1415,14 @@ $sql_position= "select * from $tbl_employee_category";
 <script src="js/structure.js"></script>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>-->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>-->
 <script src="js/BsMultiSelect.js"></script>
-<script>
-    // $("#company").bsMultiSelect({cssPatch : {
-    //         choices: {columnCount:'1' },
-    //     }});
-</script>
+
 
 </body>
 </html>

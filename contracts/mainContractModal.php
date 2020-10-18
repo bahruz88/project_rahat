@@ -174,6 +174,20 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="working_conditions" name="working_conditions"   />
                         <input type="hidden" class="form-control" id="job_description" name="job_description"   />
                         <input type="hidden" class="form-control" id="kvota" name="kvota"   />
+                        <input type="hidden" class="form-control" id="insert_date" name="insert_date"   />
+
+                        <input type="hidden" class="form-control" id="vezife" name="vezife"   />
+                        <input type="hidden" class="form-control" id="directorate" name="directorate"   />
+                        <input type="hidden" class="form-control" id="department" name="department"   />
+                        <input type="hidden" class="form-control" id="depart" name="depart"   />
+                        <input type="hidden" class="form-control" id="area_section" name="area_section"   />
+
+                        <input type="hidden" class="form-control" id="exit_date" name="exit_date"   />
+                        <input type="hidden" class="form-control" id="main" name="main"   />
+                        <input type="hidden" class="form-control" id="guarantees_termination_contract" name="guarantees_termination_contract"   />
+                        <input type="hidden" class="form-control" id="type_dismissal" name="type_dismissal"   />
+                        <input type="hidden" class="form-control" id="termination_clause" name="termination_clause"   />
+                        <input type="hidden" class="form-control" id="note" name="note"   />
 
                         <!--                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />-->
 <!--                        <input type="hidden" class="form-control" id="m_firstname" name="m_firstname"   />-->
@@ -477,6 +491,19 @@ Mandatory in IE 6, 7, 8 and 9.
                 job_description: $('#job_description').val(),
                 kvota: $('#kvota').val(),
                 messageDays: messageDays,
+
+                insert_date: $('#insert_date').val(),
+                vezife: $('#vezife').val(),
+                directorate: $('#directorate').val(),
+                department: $('#department').val(),
+                depart: $('#depart').val(),
+                area_section: $('#area_section').val(),
+                exit_date: $('#exit_date').val(),
+                main: $('#main').val(),
+                guarantees_termination_contract: $('#guarantees_termination_contract').val(),
+                type_dismissal: $('#type_dismissal').val(),
+                termination_clause: $('#termination_clause').val(),
+                note: $('#note').val(),
             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)

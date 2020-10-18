@@ -166,7 +166,15 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="note"><?php echo $dil["note"];?></label>
                                 <div class="col-sm-6 note"   style="width: 300px;">
-
+                                    <select data-live-search="true"  name="notes" id='notes' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["note"];?>"  >
+                                        <!--                                        --><?php
+                                        //                                        $result_type_dismissal = $db->query($sql_type_dismissal);
+                                        //                                        if ($result_type_dismissal->num_rows > 0) {
+                                        //                                            while($row_type_dismissal= $result_type_dismissal->fetch_assoc()) {
+                                        //                                                ?>
+                                        <!--                                                <option  value="--><?php //echo $row_type_dismissal['level_id']; ?><!--" >--><?php //echo $row_type_dismissal['title'];  ?><!--</option>-->
+                                        <!--                                            --><?php //} }?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">

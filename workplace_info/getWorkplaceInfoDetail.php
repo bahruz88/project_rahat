@@ -31,9 +31,8 @@ if ($result_parent) {
             $sub_array['id'] = $row_parent['id'];
             $sub_array['emp'] = $row_parent['full_name'];
             $sub_array['emp_id'] = $row_parent['emp_id'];
-//            for($j=2;$j<=5;$j++){
-//                $sub_array['category'.$j] = '';
-//            }
+
+
             while ($parent != '' && $parent != null) {
                 $sql_parents = "select tec.*, tsl.title structure from $tbl_employee_category  tec
                     LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
@@ -87,13 +86,8 @@ if ($result_parent) {
                                 $data3['position_id'.$p] = $row_posparents["id"];
                                 $p++;
                             }
-
-//                           $data3[]  = $data;
-
-
                             $sub_array['position_level'] = $data3;
 
-//                          $data[] =$row_parents["structure_level"];
                         }
                     }
 

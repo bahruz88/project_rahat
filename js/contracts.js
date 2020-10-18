@@ -239,6 +239,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 	console.log('contractDate='+contractDate)
 	console.log('command_id='+contract)
 	console.log('contName='+contName)
+	console.log('empid='+empid)
 	console.log('sinceBeginDate='+sinceBeginDate)
 	var url="";
 	if(contName=="contracts"){
@@ -253,6 +254,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 		var d = new Date();
 		sinceEndDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 	}
+	console.log(	"command_id:=="+ contract.substr(1))
 	$.post(url,
 		{
 			empid: empid,
@@ -260,7 +262,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 			contractDate:contractDate,
 			sinceBeginDate:sinceBeginDate,
 			sinceEndDate:sinceEndDate,
-			command_id: contract.substr(1, 1),
+			command_id: contract.substr(1),
 			contractDate:contractDate
 		},
 		function (emp_data, status)
@@ -308,12 +310,6 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 			}else{
 				$(".cno").css("display", "table-cell");
 			}
-
-
-
-
-
-
 		}
 	);
 
@@ -323,32 +319,32 @@ $('#employees').on( 'change','#company',  function () {
 
 	console.log('company');
 	// $('#whichContracts').modal('show');
-	company_id=$(this).find('option:selected').val();
-	$.ajax({
-		url: "contracts/get_employees.php",
-		type: "POST",
-		data: { company_id:company_id},
-		success: function (data) {
-			console.log('data=',data)
-			console.log('$.parseJSON(data)=',$.parseJSON(data))
-			var option='<select data-live-search="true"  name="empid" id="empid"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-			option += '<option value="">Seçin..</option>';
-
-			var row = '';
-			// $('#tablePositions').find('tbody').html('');
-			$.each($.parseJSON(data), function(k,v) {
-				console.log('v=',v[1])
-				option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
-
-			});
-			option+=' </select>';
-			console.log('option='+option)
-			// option += '</select>';
-			$('#contract_emp').html(option);
-			$(".selectpicker").selectpicker();
-
-		}
-	})
+	// company_id=$(this).find('option:selected').val();
+	// $.ajax({
+	// 	url: "contracts/get_employees.php",
+	// 	type: "POST",
+	// 	data: { company_id:company_id},
+	// 	success: function (data) {
+	// 		console.log('data=',data)
+	// 		console.log('$.parseJSON(data)=',$.parseJSON(data))
+	// 		var option='<select data-live-search="true"  name="empid" id="empid"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+	// 		option += '<option value="">Seçin..</option>';
+	//
+	// 		var row = '';
+	// 		// $('#tablePositions').find('tbody').html('');
+	// 		$.each($.parseJSON(data), function(k,v) {
+	// 			console.log('v=',v[1])
+	// 			option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
+	//
+	// 		});
+	// 		option+=' </select>';
+	// 		console.log('option='+option)
+	// 		// option += '</select>';
+	// 		$('#contract_emp').html(option);
+	// 		$(".selectpicker").selectpicker();
+	//
+	// 	}
+	// })
 });
 var company_id='';
 var code='';
@@ -455,7 +451,6 @@ $('#command_table').on( 'click','.create_commmand_no',  function () {
 
 $('#whichDate').on( 'click','#confirmDate',  function () {
 
-
 	var employee = JSON.parse(commandArray);
 	console.log('download employee=',employee);
 	$('#member').html('');
@@ -464,8 +459,12 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		var contract=contractDownload;
 		var strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 		console.log('employee[0]',value)
+		console.log('value.emp_id='+value.emp_id)
+		console.log('idDownload='+idDownload)
+
 		if(value.emp_id==idDownload){
 			if(k==0){
+				console.log('value.pos='+value.pos)
 				$("#structure1").val(value.structure1);
 				$("#structure2").val(value.structure2);
 				$("#structure3").val(value.structure3);
@@ -548,6 +547,20 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#working_conditions").val(value.working_conditions);
 				$("#job_description").val(value.job_description);
 				$("#kvota").val(value.kvota);
+				$("#insert_date").val(value.insert_date);
+
+				$("#vezife").val(value.pos);
+				$("#directorate").val(value.directorate);
+				$("#department").val(value.department);
+				$("#depart").val(value.depart);
+				$("#area_section").val(value.area_section);
+
+				$("#exit_date").val(value.exit_date);
+				$("#main").val(value.main);
+				$("#guarantees_termination_contract").val(value.guarantees_termination_contract);
+				$("#type_dismissal").val(value.type_dismissal);
+				$("#termination_clause").val(value.termination_clause);
+				$("#note").val(value.note);
 
 			}
 			else{
@@ -609,9 +622,9 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	}else if(contract=='c17'){
 		generate("stat_emri_stat_cedvelinin_tesdiqi")
 	}else if(contract=='c18'){
-		generate("vezife_deyisikliyi_emri")
+		generate("vezife_deyisikliyi_")
 	}else if(contract=='c19'){
-		generate("xitam_emri")
+		generate("xitam_emri_")
 	}
 
 	$('#whichDate').modal('hide');
