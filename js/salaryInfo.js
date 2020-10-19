@@ -360,10 +360,10 @@ up_emp=employee.emp_id;
 			$.ajax({
 				url: "salaryInfo/salaryInsert.php",
 				method: "post",
-				data: $("form").serialize(),
+				data: $("#salaryInsert").serialize(),
 				dataType: "text",
 				success: function (strMessage) {
-					console.log('$("form").serialize()=' + $("#salaryInsert").serialize())
+					console.log('$("form").serialize()ddd=' + $("#salaryInsert").serialize())
 					$("#badge_success").text('');
 					$("#badge_danger").text('');
 					if (strMessage.substr(1, 4) === 'error') {
@@ -755,7 +755,7 @@ up_emp=employee.emp_id;
 					data: $("form").serialize(),
 					dataType: "text",
 					success: function (strMessage) {
-						console.log('$("form").serialize()=' + $("#additionInsert").serialize())
+						console.log('$("form").serialize() additionInsert=' + $("#additionInsert").serialize())
 						$("#badge_success").text('');
 						$("#badge_danger").text('');
 						if (strMessage.substr(1, 4) === 'error') {

@@ -69,30 +69,6 @@ $birth_date= date('Y-m-d', strtotime($birth_date));
         echo "success";
     }
 
-//$rs='';
-//$c = 1;
-//$number=1;
-//$head='/K';
-//function generateRandomStringInsert($length,$head) {
-//    $number = sprintf("%02d", $length);
-//    $p=$number.$head;
-//    return $p;
-//}
-//WHILE ($c > 0){
-//    $rs = generateRandomStringInsert($number,$head);
-//
-//    $users= "select * from $tbl_employee_commands WHERE command_no = '$rs'";
-//    $result_users = $db->query($users);
-//    if($result_users->num_rows > 0) {
-//        $c = 1;
-//        $number++;
-//    }else{
-//        $c=0;
-//        $number++;
-//    }
-//
-//}
-//$command_no=$rs;
 
 //$emp_id = "SELECT id FROM $tbl_employees ORDER BY id DESC LIMIT 1";
 $sql_emp_id = "SELECT * FROM $tbl_employees ORDER BY id DESC LIMIT 1";

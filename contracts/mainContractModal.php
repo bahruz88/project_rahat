@@ -188,6 +188,7 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="type_dismissal" name="type_dismissal"   />
                         <input type="hidden" class="form-control" id="termination_clause" name="termination_clause"   />
                         <input type="hidden" class="form-control" id="note" name="note"   />
+                        <input type="hidden" class="form-control" id="prize" name="prize"   />
 
                         <!--                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />-->
 <!--                        <input type="hidden" class="form-control" id="m_firstname" name="m_firstname"   />-->
@@ -504,6 +505,7 @@ Mandatory in IE 6, 7, 8 and 9.
                 type_dismissal: $('#type_dismissal').val(),
                 termination_clause: $('#termination_clause').val(),
                 note: $('#note').val(),
+                prize: $('#prize').val(),
             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)

@@ -245,7 +245,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 	if(contName=="contracts"){
 		url="contracts/getEmployeeContractDetail.php"
 	}else if(contName=="commands"){
-		url="contracts/getEmployeeCommandDetail.php"
+		url="contracts/getEmployeeCommandDetails.php"
 	}
 	if(sinceBeginDate==''){
 		sinceBeginDate = '1900-01-01';
@@ -273,7 +273,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 			commandArray = emp_data;
 			var employee = JSON.parse(emp_data);
 			var countEmp=employee.length;
-			var employeeMem=[]
+			var employeeMem=[];
 			console.log('count=',employee.length)
 			console.log('employee=',employee)
 			var table = '';
@@ -561,6 +561,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#type_dismissal").val(value.type_dismissal);
 				$("#termination_clause").val(value.termination_clause);
 				$("#note").val(value.note);
+				$("#prize").val(value.prize);
 
 			}
 			else{
@@ -596,9 +597,9 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	}else if(contract=='c4'){
 		generate("is_vaxtindan_artiq_is_emri")
 	}else if(contract=='c5'){
-		generate("ise_qebul_emr")
+		generate("ishe_qebul_emr")
 	}else if(contract=='c6'){
-		generate("maas_deyisikliyi_emri")
+		generate("maash_deyisikliyi_emri")
 	}else if(contract=='c7'){
 		generate("mezuniyyet_qismen_odenisli")
 	}else if(contract=='c8'){
@@ -608,7 +609,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	}else if(contract=='c10'){
 		generate("mezuniyyetden_geri_cagrilma_emri")
 	}else if(contract=='c11'){
-		generate("mukafat_emri")
+		generate("mukafat_emri_")
 	}else if(contract=='c12'){
 		generate("qisaldilmis_is_vaxti_emri")
 	}else if(contract=='c13'){
@@ -622,9 +623,9 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	}else if(contract=='c17'){
 		generate("stat_emri_stat_cedvelinin_tesdiqi")
 	}else if(contract=='c18'){
-		generate("vezife_deyisikliyi_")
+		generate("vezife_deyishikliyi")
 	}else if(contract=='c19'){
-		generate("xitam_emri_")
+		generate("xitam_emri")
 	}
 
 	$('#whichDate').modal('hide');
