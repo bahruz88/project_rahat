@@ -135,7 +135,9 @@ $result_employee_category = $db->query($employee_category);
         <button type="button" class="btn btn-primary" id="staffSearch">Axtar</button>
     </div>
     </div>
-	<div class="tab-pane active" id="staff" style="display: none;width:800px;margin:auto;">
+    <div class="tab-pane active" id="noStaff" style="width:800px;margin:auto;">
+    </div>
+    <div class="tab-pane active" id="staff" style="display: none;width:800px;margin:auto;">
         <div class="staffText">
         <div class="container text-center"><span class="company"></span></div>
         <div class="container text-center"><span class="company_adress"></span><span class="company_tel"></span></div>
@@ -559,66 +561,67 @@ $result_employee_category = $db->query($employee_category);
             data: { company_id:company_id},
             success: function (data) {
                 console.log('dataaaaaaa=' + data)
-                var data1=$.parseJSON(data);
-                // data1.remove("icon");
-                $('#companyDate').text($('#date_completion').val())
-                var table='';
-                // console.log('day='+$('#date_completion').val().substr(0, 2))
-                // console.log('month='+$('#date_completion').val().substr(3, 2))
-                var year=$('#date_completion').val().substr(6, 4);
-                var month=$('#date_completion').val().substr(3, 2);
-                switch ($('#date_completion').val().substr(3, 2)) {
-                    case "01":
-                        month = "Yanvar";
-                        break;
-                    case "02":
-                        month = "Fevral";
-                        break;
-                    case "03":
-                        month = "Mart";
-                        break;
-                    case "04":
-                        month = "Aprel";
-                        break;
-                    case "05":
-                        month = "May";
-                        break;
-                    case "06":
-                        month = "İyun";
-                        break;
-                    case "07":
-                        month = "İyul";
-                        break;
-                    case "08":
-                        month = "Avqust";
-                        break;
-                    case "09":
-                        month = "Sentyabr";
-                        break;
-                    case "10":
-                        month = "Oktyabr";
-                        break;
-                    case "11":
-                        month = "Noyabr";
-                        break;
-                    case "12":
-                        month = "Dekabr";
-                        break;
-                }
-                var day=$('#date_completion').val().substr(0, 2);
+                if(data){
+                    var data1=$.parseJSON(data);
+                    // data1.remove("icon");
+                    $('#companyDate').text($('#date_completion').val())
+                    var table='';
+                    // console.log('day='+$('#date_completion').val().substr(0, 2))
+                    // console.log('month='+$('#date_completion').val().substr(3, 2))
+                    var year=$('#date_completion').val().substr(6, 4);
+                    var month=$('#date_completion').val().substr(3, 2);
+                    switch ($('#date_completion').val().substr(3, 2)) {
+                        case "01":
+                            month = "Yanvar";
+                            break;
+                        case "02":
+                            month = "Fevral";
+                            break;
+                        case "03":
+                            month = "Mart";
+                            break;
+                        case "04":
+                            month = "Aprel";
+                            break;
+                        case "05":
+                            month = "May";
+                            break;
+                        case "06":
+                            month = "İyun";
+                            break;
+                        case "07":
+                            month = "İyul";
+                            break;
+                        case "08":
+                            month = "Avqust";
+                            break;
+                        case "09":
+                            month = "Sentyabr";
+                            break;
+                        case "10":
+                            month = "Oktyabr";
+                            break;
+                        case "11":
+                            month = "Noyabr";
+                            break;
+                        case "12":
+                            month = "Dekabr";
+                            break;
+                    }
+                    var day=$('#date_completion').val().substr(0, 2);
 
-                $('#year').val(year)
-                $('#month').val(month)
-                $('#day').val(day)
+                    $('#year').val(year)
+                    $('#month').val(month)
+                    $('#day').val(day)
 
-                $('.year').text(year)
-                $('.month').text(month)
-                $('.day').text(day)
-                $('.enterprise_head_fullname').text(data1["enterprise_head_fullname"])
-                $('.enterprise_head_position').text(data1["enterprise_head_position"])
-                $('#companyName').text('"'+data1["company"]+'"')
-                $('.company_address').text(data1["company_address"])
-                $('.company_tel').text(data1["company_tel"])
+                    $('.year').text(year)
+                    $('.month').text(month)
+                    $('.day').text(day)
+                    $('.enterprise_head_fullname').text(data1["enterprise_head_fullname"])
+                    $('.enterprise_head_position').text(data1["enterprise_head_position"])
+                    $('#companyName').text('"'+data1["company"]+'"')
+                    $('.company_address').text(data1["company_address"])
+                    $('.company_tel').text(data1["company_tel"])
 
                     $('#enterprise_head_fullname').val(data1["enterprise_head_fullname"])
                     $('#enterprise_head_position').val(data1["enterprise_head_position"])
@@ -627,64 +630,72 @@ $result_employee_category = $db->query($employee_category);
                     $('#company_tel').val(data1["company_tel"])
 
 
-                // $("table#staff_table tbody").html('');
-                console.log('dataaaaaaa111=', data1)
-                $.each(data1, function (key, value) {
-                    $.each(value, function (k, v) {
-                        console.log('key=' + k + ' val=' + v);
+                    // $("table#staff_table tbody").html('');
+                    console.log('dataaaaaaa111=', data1)
+                    $.each(data1, function (key, value) {
+                        $.each(value, function (k, v) {
+                            console.log('key=' + k + ' val=' + v);
 
 
-                    $('#'+k).val(v)
-                    $('#'+k).text(v)
-                    $('.'+k).text(v)
-                    })
-                    console.log('dataaaaaaa111 value=' , value)
-                    if(key!="company_tel" && key!="company_address" && key!="company" && key!="enterprise_head_fullname"&& key!="enterprise_head_position" )
-                    {
-                        arrayData2.push({"id":value.id,"category":value.category})
+                            $('#'+k).val(v)
+                            $('#'+k).text(v)
+                            $('.'+k).text(v)
+                        })
+                        console.log('dataaaaaaa111 value=' , value)
+                        if(key!="company_tel" && key!="company_address" && key!="company" && key!="enterprise_head_fullname"&& key!="enterprise_head_position" )
+                        {
+                            arrayData2.push({"id":value.id,"category":value.category})
+                        }
+
+                    });
+                    console.log('arrayData2=',JSON.stringify(arrayData2))
+                    arrayData=JSON.stringify(arrayData2);
+
+                    // $("table#staff_table tbody").append(table);
+
+                    tree = $('#stafftree').fancytree('getTree');
+                    tree.reload($.parseJSON(data));
+
+                    tree = $('#statttree').fancytree('getTree');
+                    tree.reload($.parseJSON(data));
+
+                    if(staffSelect=='1'){
+                        $("#staff").css("display","block");
+                        $("#statt").css("display","none");
+                        var element = $("#staff");
+                    }else{
+                        $("#staff").css("display","none");
+                        $("#statt").css("display","block");
+                        var element = $("#statt");
                     }
 
-                });
-                console.log('arrayData2=',JSON.stringify(arrayData2))
-                arrayData=JSON.stringify(arrayData2);
+                    $("#download").css("display","block");
+                    $("#print").css("display","block");
+                    // $("#tableStaff").val( $("table#staff_table").html());
+                    $("#tableStaff").val( $("table#stafftree").html());
 
-                // $("table#staff_table tbody").append(table);
+                    // global variable
 
-                tree = $('#stafftree').fancytree('getTree');
-                tree.reload($.parseJSON(data));
 
-                tree = $('#statttree').fancytree('getTree');
-                tree.reload($.parseJSON(data));
+                    html2canvas(element, {
+                        onrendered: function (canvas) {
+                            $("#previewImage").append(canvas);
+                            getCanvas = canvas;
 
-                if(staffSelect=='1'){
-                    $("#staff").css("display","block");
-                    $("#statt").css("display","none");
-                    var element = $("#staff");
+                        }
+                    });
+                    $("#noStaff").css("display","none");
                 }else{
-                    $("#staff").css("display","none");
-                    $("#statt").css("display","block");
-                    var element = $("#statt");
+
+                    $("#noStaff").html("<h3>Heç bir məlumat tapılmadı</h3>")
+                    // $(".staffTab").html("Heç bir məlumat tapılmadı")
                 }
 
-                $("#download").css("display","block");
-                $("#print").css("display","block");
-                // $("#tableStaff").val( $("table#staff_table").html());
-                $("#tableStaff").val( $("table#stafftree").html());
-
-               // global variable
-
-
-                html2canvas(element, {
-                    onrendered: function (canvas) {
-                        $("#previewImage").append(canvas);
-                        getCanvas = canvas;
-
-                    }
-                });
                 $(".staffText").css("display","none");
                 $(".stattText").css("display","none");
                 $(".stattText2").css("display","none");
                 $(".staffText2").css("display","none");
+
 
 
             },
