@@ -91,6 +91,7 @@ if($result_users){
 
 $flatArray=$data;
 //echo  json_encode($data);
+print_r($flatArray);
 unflattenArray($flatArray);
 function createArray($arrC){
     $arrChil=array();
@@ -170,35 +171,40 @@ function unflattenArray($flatArray)
         $arrrId[]=$flatArray[$j][0];
         $arrrPId[]=$flatArray[$j][2];
     }
-
+echo " arrrId=";
+    print_r($arrrId);
     //process all elements until nohting could be resolved.
     //then add remaining elements to the root one by one.
     while (count($flatArray) > 0) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
-            if(in_array($flatArray[$i][2],$arrrId)){
-                if ($flatArray[$i][2] == NULL) {
-                    //root element: set in result and ref!
-                    $result[$flatArray[$i][0]] = $flatArray[$i];
-                    $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
-                    unset($flatArray[$i]);
-                    $flatArray = array_values($flatArray);
-                } else if ($flatArray[$i][2] != NULL) {
-                    //no root element. Push to the referenced parent, and add to references as well.
-                    if (array_key_exists($flatArray[$i][2], $refs)) {
-                        //parent found
-                        $o = $flatArray[$i];
-                        $refs[$flatArray[$i][0]] = $o;
-                        $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
+            if(count($arrrId) > 0){
+                if(in_array($flatArray[$i][2],$arrrId)){
+                    echo " flatArray[$i][2]=".$flatArray[$i][2];
+                    if ($flatArray[$i][2] == NULL) {
+                        //root element: set in result and ref!
+                        $result[$flatArray[$i][0]] = $flatArray[$i];
+                        $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
                         unset($flatArray[$i]);
                         $flatArray = array_values($flatArray);
+                    } else if ($flatArray[$i][2] != NULL) {
+                        //no root element. Push to the referenced parent, and add to references as well.
+                        if (array_key_exists($flatArray[$i][2], $refs)) {
+                            //parent found
+                            $o = $flatArray[$i];
+                            $refs[$flatArray[$i][0]] = $o;
+                            $refs[$flatArray[$i][2]][5][] = &$refs[$flatArray[$i][0]];
+                            unset($flatArray[$i]);
+                            $flatArray = array_values($flatArray);
 
 
+                        }
                     }
+                }else {
+                    unset($flatArray[$i]);
+                    $flatArray = array_values($flatArray);
                 }
-            }else {
-                unset($flatArray[$i]);
-                $flatArray = array_values($flatArray);
             }
+
         }
     }
     if (count($result) > 0) {

@@ -563,6 +563,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#note").val(value.note);
 				$("#prize").val(value.prize);
 				$("#wage").val(value.wage);
+				$("#reward_period").val(value.reward_period);
 
 			}
 			else{
@@ -583,7 +584,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		}
 	});
 	if(contract=='1'){
-		generate("emek_muqa")
+		generate("emek_muqav")
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
 		generate("emekElave")
