@@ -37,9 +37,11 @@ $needle = ',';
  }
 
 
-$users= "select tec.*, COUNT(tec.category) countCategory,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,tec.company_id company_id,teco.company_name company,teco.enterprise_head_fullname,teco.enterprise_head_position,teco.address company_address,teco.tel company_tel,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
+$users= "select tec.*,concat(tsi.wage,' ', tcu.title) wage,tsi.wage wageN, COUNT(tec.category) countCategory,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id ,tec.company_id company_id,teco.company_name company,teco.enterprise_head_fullname,teco.enterprise_head_position,teco.address company_address,teco.tel company_tel,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
 from $tbl_employee_category tec 
 LEFT join $tbl_employees te on te.id=tec.emp_id 
+LEFT join $tbl_salary_info tsi on tsi.emp_id=tec.emp_id
+LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
 LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level and tsl.lang='$site_lang'
 LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lang='$site_lang'
@@ -83,6 +85,8 @@ if($result_users){
             $sub_array[] = $row_users['company_address'];
             $sub_array[] = $row_users['company_tel'];
             $sub_array[] = $row_users['countCategory'];
+            $sub_array[] = $row_users['wage'];
+            $sub_array[] = $row_users['wageN'];
             $data[]     = $sub_array;
         }
     }
@@ -119,6 +123,8 @@ function createArray($arrC){
         $arrCh['company_address'] = $arrCh[20];
         $arrCh['company_tel'] = $arrCh[21];
         $arrCh['countCategory'] = $arrCh[22];
+        $arrCh['wage'] = $arrCh[23];
+        $arrCh['wageN'] = $arrCh[24];
 //        $arrCh['children'] = $arrCh[5];
         $arrCh['expanded'] = true;
         if(substr($arrCh[6],0,1)=="P"){
@@ -153,6 +159,8 @@ function createArray($arrC){
             unset($arrCh[20]);
             unset($arrCh[21]);
             unset($arrCh[22]);
+            unset($arrCh[23]);
+            unset($arrCh[24]);
         }
         $arrChil[]=$arrCh;
     }

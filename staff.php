@@ -886,7 +886,7 @@ $result_employee_category = $db->query($employee_category);
                         $tdList
                                 .eq(4)
                                 .find('span')
-                                .text(1000);
+                                .text(node.data.wage)
                         $tdList
                             .eq(5)
                             .find('span')
@@ -895,7 +895,7 @@ $result_employee_category = $db->query($employee_category);
                         $tdList
                             .eq(6)
                             .find('span')
-                            .text(10000);
+                            .text(parseInt(node.data.wageN)*parseInt(node.data.countCategory));
                         $tdList
                             .eq(7)
                             .find('span')
