@@ -562,6 +562,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#termination_clause").val(value.termination_clause);
 				$("#note").val(value.note);
 				$("#prize").val(value.prize);
+				$("#wage").val(value.wage);
 
 			}
 			else{
@@ -599,7 +600,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	}else if(contract=='c5'){
 		generate("ishe_qebul_emr")
 	}else if(contract=='c6'){
-		generate("maash_deyisikliyi_emri")
+		generate("maash_deyisikliyi_emri_")
 	}else if(contract=='c7'){
 		generate("mezuniyyet_qismen_odenisli")
 	}else if(contract=='c8'){
