@@ -91,7 +91,7 @@ if($result_users){
 
 $flatArray=$data;
 //echo  json_encode($data);
-print_r($flatArray);
+//print_r($flatArray);
 unflattenArray($flatArray);
 function createArray($arrC){
     $arrChil=array();
@@ -171,15 +171,15 @@ function unflattenArray($flatArray)
         $arrrId[]=$flatArray[$j][0];
         $arrrPId[]=$flatArray[$j][2];
     }
-echo " arrrId=";
-    print_r($arrrId);
+//echo " arrrId=";
+//    print_r($arrrId);
     //process all elements until nohting could be resolved.
     //then add remaining elements to the root one by one.
     while (count($flatArray) > 0) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
             if(count($arrrId) > 0){
                 if(in_array($flatArray[$i][2],$arrrId)){
-                    echo " flatArray[$i][2]=".$flatArray[$i][2];
+//                    echo " flatArray[$i][2]=".$flatArray[$i][2];
                     if ($flatArray[$i][2] == NULL) {
                         //root element: set in result and ref!
                         $result[$flatArray[$i][0]] = $flatArray[$i];
