@@ -79,7 +79,7 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 //    echo $sql_emp_contracts;
 }
 //echo $sql_emp_contracts;
-
+$parent ='';
 $result_emp_contracts = $db->query($sql_emp_contracts);
 //eger tbl_contract cedvelinde verilen varsa ordan serte uygun secir
 if($result_emp_contracts){
