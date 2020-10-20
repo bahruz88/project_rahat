@@ -3985,15 +3985,7 @@ $(function () {
             "ajax": {
                 url: "workplace_info/get_workplaceInfo.php",
                 type: "POST",
-                // success:function(data){
-                //     console.log('data====',data)
-                //
-                //     $.each(data.data, function(k,v) {
-                //         console.log('v11===='+v[11])
-                //         empArray.push(v[11]);
-                //         console.log('empArray====', empArray)
-                //     })
-                // }
+
 
 
             }, "columnDefs": [{
@@ -4069,15 +4061,15 @@ $(function () {
             data: $("#workplaceInfoDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + strMessage);
+                // console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    // console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalWorkplaceInfoDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     workplace_tab.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    // console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -4088,7 +4080,7 @@ $(function () {
 
 
     $("#workplaceInfoInsertForm_m").submit(function (e) {
-        console.log('salam insert')
+        // console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -4098,9 +4090,9 @@ $(function () {
             data: $("#workplaceInfoInsertForm_m").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('workplaceInfoInsertForm =' + $("#workplaceInfoInsertForm_m").html());
-                console.log('strMessage=' + $("#workplaceInfoInsertForm_m").serialize());
-                console.log('strMessage=' + strMessage);
+                // console.log('workplaceInfoInsertForm =' + $("#workplaceInfoInsertForm_m").html());
+                // console.log('strMessage=' + $("#workplaceInfoInsertForm_m").serialize());
+                // console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -4129,7 +4121,7 @@ $(function () {
 
     /*GetworkplaceInfoDetails  */
     function GetworkplaceInfoDetails(workplaceInfoid, optype) {
-        console.log('$workplaceInfoid=' + workplaceInfoid)
+        // console.log('$workplaceInfoid=' + workplaceInfoid)
         $.post("workplace_info/getWorkplaceInfoDetail.php",
             {
                 workplaceInfoid: workplaceInfoid
@@ -4141,17 +4133,17 @@ $(function () {
                 var structure_level = workplaceInfodata.structure_level
                 var position_level = workplaceInfodata.position_level
                 var structures = workplaceInfodata.structures;
-                console.log('workplaceInfodata=', workplaceInfodata)
-                console.log('workplaceInfodata.emp_id='+workplaceInfodata.emp_id)
-                console.log('structures=', structures);
-                console.log('structure_level=', structure_level);
+                // console.log('workplaceInfodata=', workplaceInfodata)
+                // console.log('workplaceInfodata.emp_id='+workplaceInfodata.emp_id)
+                // console.log('structures=', structures);
+                // console.log('structure_level=', structure_level);
                 fillSelect(structures, '');
 
                 $('.selectpicker').selectpicker('refresh');
 
 
                 if (optype == 'update') {
-                    console.log('update kecdim')
+                    // console.log('update kecdim')
                     // stlevel('update_')
                      $("#update_workplaceInfoid").val(workplaceInfodata.id).change();
                     $("#update_employee_place").val(workplaceInfodata.emp_id).change();
@@ -4210,10 +4202,10 @@ $(function () {
             dataType: "text",
             success: function (strMessage) {
                 //console.log('serialize='+$("#workplaceInfoUpdate").serialize());
-                console.log('strMessage=' + strMessage);
+                // console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    // console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditWorkPlaceInfo').modal('hide');
                     $('#modalUpdateSuccess').modal('show');

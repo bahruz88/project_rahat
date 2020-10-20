@@ -32,7 +32,8 @@ $data3 = array();
                 $sub_array[8] = '';
                 $sub_array[9] = '';
                 while($parent!='' && $parent!=null){
-                    $sql_parents="select tec.*, tsl.title structure from $tbl_employee_category  tec
+                    $sql_parents="select tec.id,tec.category,tec.parent,tec.structure_level, tsl.title structure 
+                    from $tbl_employee_category  tec
                     LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
                      WHERE tec.id = '$parent'";
 //                    echo $sql_parents;
@@ -63,21 +64,18 @@ $data3 = array();
                                         $data['id5'] = $row_parents["id"];
                                         $sub_array[5] = $row_parents["category"];
                                     }
-//                                    $sub_array['structure_level'.$i] = $data['structure_level'.$i];
-//                                    $sub_array[$k] = $row_parents["category"];
                                     if($row_parents["parent"]!="" && $row_parents["parent"]!=null){
                                         $par = $row_parents["parent"];
                                     }
                                 }
                                 $i++;
                                 $k--;
-//                                $data[] =$row_parents["structure_level"];
-                            }
+                             }
                         }
 
                     }
 
-                    $sql_posparents = "select tec.*, tsl.title position from $tbl_employee_category  tec
+                    $sql_posparents = "select tec.*,tec.id,tec.category,tec.parent,tec.structure_level,tec.position_level, tsl.title position from $tbl_employee_category  tec
                     LEFT join $tbl_position_level tsl on tsl.posit_id=tec.position_level
                      WHERE tec.parent = '$parent'";
 //                  echo $sql_parents;
