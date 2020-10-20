@@ -29,6 +29,8 @@ $data3 = array();
                 }
                 $sub_array[6] = $row_parent['category'];
                 $sub_array[7] = $row_parent['work_status'];
+                $sub_array[8] = '';
+                $sub_array[9] = '';
                 while($parent!='' && $parent!=null){
                     $sql_parents="select tec.*, tsl.title structure from $tbl_employee_category  tec
                     LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
@@ -90,18 +92,18 @@ $data3 = array();
                                     $data3['position_id'.$p] = $row_posparents["id"];
                                     if($p==1){
                                         $sub_array[8] = $row_posparents["category"];
+                                    }else{
+                                        $sub_array[8] = '';
                                     }
                                     if($p==2){
                                         $sub_array[9] = $row_posparents["category"];
+                                    }else{
+                                        $sub_array[9] = '';
                                     }
 
                                     $p++;
                                 }
-
-//                           $data3[]  = $data;
-
-
-                                $sub_array['position_level'] = $data3;
+//                                $sub_array['position_level'] = $data3;
 
 //                          $data[] =$row_parents["structure_level"];
                             }
