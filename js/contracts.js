@@ -120,7 +120,7 @@ var contName='';
 
 
 $('#myContracts').on( 'click', 'input[name=contractSelect]', function () {
-	console.log('contractSelect'+$(this).val());
+	////console.log('contractSelect'+$(this).val());
 	// $('#myContracts').find("input[name='contractDate']:checked").removeAttr("checked");
 	$('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
 	$('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
@@ -169,7 +169,7 @@ $('#myContracts').on( 'click', '#closeContract', function () {
 })
 
 $('#myContracts').on( 'change', '#contracts', function () {
-	console.log("contracts CHANGE")
+	////console.log("contracts CHANGE")
 	if($(this).find('option:selected').val()!="1"){
 		$('#contractsDate').css("display",'none')
 	}else{
@@ -179,7 +179,7 @@ $('#myContracts').on( 'change', '#contracts', function () {
 
 
 $('input:radio[name=commandDate],input:radio[name=contractDate],#confirmContract, #sinceBeginDate, #sinceEndDate, #commands').on('change', function() {
-	console.log('change'+$(this).attr('name'))
+	////console.log('change'+$(this).attr('name'))
 	changeAttr()
 
 });
@@ -195,7 +195,7 @@ function changeAttr(){
 		contract=$('#myContracts').find('#contracts').find('option:selected').val();
 
 	}
-	console.log('contract='+contract);
+	////console.log('contract='+contract);
 
 	contractDate=$('#myContracts input[name=contractDate]:checked').val();
 	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
@@ -236,11 +236,11 @@ var commandArray =[];
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
 function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate)
 {
-	console.log('contractDate='+contractDate)
-	console.log('command_id='+contract)
-	console.log('contName='+contName)
-	console.log('empid='+empid)
-	console.log('sinceBeginDate='+sinceBeginDate)
+	////console.log('contractDate='+contractDate)
+	////console.log('command_id='+contract)
+	////console.log('contName='+contName)
+	////console.log('empid='+empid)
+	////console.log('sinceBeginDate='+sinceBeginDate)
 	var url="";
 	if(contName=="contracts"){
 		url="contracts/getEmployeeContractDetail.php"
@@ -254,7 +254,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 		var d = new Date();
 		sinceEndDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 	}
-	console.log(	"command_id:=="+ contract.substr(1))
+	////console.log(	"command_id:=="+ contract.substr(1))
 	$.post(url,
 		{
 			empid: empid,
@@ -268,18 +268,18 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 		function (emp_data, status)
 		{
 			// PARSE json data
-			console.log('emp_data=',emp_data)
-			// console.log('count=',emp_data.length)
+			////console.log('emp_data=',emp_data)
+			// ////console.log('count=',emp_data.length)
 			commandArray = emp_data;
 			var employee = JSON.parse(emp_data);
 			var countEmp=employee.length;
 			var employeeMem=[];
-			console.log('count=',employee.length)
-			console.log('employee=',employee)
+			////console.log('count=',employee.length)
+			////console.log('employee=',employee)
 			var table = '';
 			$.each(employee, function(k,value) {
-				console.log('value=',value)
-				console.log('value.command_no=',value.command_no)
+				////console.log('value=',value)
+				////console.log('value.command_no=',value.command_no)
 				if(k==0){
 					var dis="";
 					if(value.command_no!=''){
@@ -317,7 +317,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 
 $('#employees').on( 'change','#company',  function () {
 
-	console.log('company');
+	////console.log('company');
 	// $('#whichContracts').modal('show');
 	// company_id=$(this).find('option:selected').val();
 	// $.ajax({
@@ -325,20 +325,20 @@ $('#employees').on( 'change','#company',  function () {
 	// 	type: "POST",
 	// 	data: { company_id:company_id},
 	// 	success: function (data) {
-	// 		console.log('data=',data)
-	// 		console.log('$.parseJSON(data)=',$.parseJSON(data))
+	// 		////console.log('data=',data)
+	// 		////console.log('$.parseJSON(data)=',$.parseJSON(data))
 	// 		var option='<select data-live-search="true"  name="empid" id="empid"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
 	// 		option += '<option value="">Seçin..</option>';
 	//
 	// 		var row = '';
 	// 		// $('#tablePositions').find('tbody').html('');
 	// 		$.each($.parseJSON(data), function(k,v) {
-	// 			console.log('v=',v[1])
+	// 			////console.log('v=',v[1])
 	// 			option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
 	//
 	// 		});
 	// 		option+=' </select>';
-	// 		console.log('option='+option)
+	// 		////console.log('option='+option)
 	// 		// option += '</select>';
 	// 		$('#contract_emp').html(option);
 	// 		$(".selectpicker").selectpicker();
@@ -353,7 +353,7 @@ var empid='';
  // $('#employees').on( 'click','#searchContract',  function () {
 $('#employees').on( 'change','#company,#code,#empid,#position_level',  function () {
 	// searchPerson();
-	console.log('company');
+	////console.log('company');
 	// $('#whichContracts').modal('show');
 	company_id=$('#company').find('option:selected').val();
 	position=$('#position_level').find('option:selected').val();
@@ -365,8 +365,8 @@ $('#employees').on( 'change','#company,#code,#empid,#position_level',  function 
 		type: "POST",
 		data: { company_id:company_id,code:code,position:position,empid:empid},
 		success: function (data) {
-			console.log('data=',data)
-			console.log('dataparseJSON=',$.parseJSON(data))
+			////console.log('data=',data)
+			////console.log('dataparseJSON=',$.parseJSON(data))
 
 			var table = '';
 			$("table#emp_table tbody").html('');
@@ -407,7 +407,7 @@ $('#employees').on( 'change','#company,#code,#empid,#position_level',  function 
 
 var data;
 $('#emp_table').on( 'click','.contractShow',  function () {
-	console.log('contractShow');
+	////console.log('contractShow');
 	$('#myContracts').modal('show');
 	data =   $(this).attr("data-empid")
 	// data =   $('#empid').find('option:selected').val()
@@ -427,7 +427,7 @@ $('#command_table').on( 'click','.download',  function () {
 
 });
 $('#command_table').on( 'click','.create_commmand_no',  function () {
-	console.log("create_commmand_no");
+	////console.log("create_commmand_no");
 	var that=$(this);
 	var id=   $(this).attr("data-id");
 	var contract =   $(this).attr("data-contract");
@@ -438,11 +438,11 @@ $('#command_table').on( 'click','.create_commmand_no',  function () {
 		type: "POST",
 		data: {id: id, contract:  contract.substr(1, 1), empid: empid, company_id: company_id},
 		success: function (data) {
-			console.log('DATA=',data);
+			////console.log('DATA=',data);
 			$('#command_no').val(data)
 			that.closest('tr').find('.cno').html(data)
 			that.addClass('disabled');
-			console.log('cno='+that.closest('tr').find('.cno').html())
+			////console.log('cno='+that.closest('tr').find('.cno').html())
 		}
 	})
 
@@ -452,19 +452,19 @@ $('#command_table').on( 'click','.create_commmand_no',  function () {
 $('#whichDate').on( 'click','#confirmDate',  function () {
 
 	var employee = JSON.parse(commandArray);
-	console.log('download employee=',employee);
+	////console.log('download employee=',employee);
 	$('#member').html('');
 	$.each(employee, function(k,value) {
 		var d = new Date();
 		var contract=contractDownload;
 		var strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-		console.log('employee[0]',value)
-		console.log('value.emp_id='+value.emp_id)
-		console.log('idDownload='+idDownload)
+		////console.log('employee[0]',value)
+		////console.log('value.emp_id='+value.emp_id)
+		////console.log('idDownload='+idDownload)
 
 		if(value.emp_id==idDownload){
 			if(k==0){
-				console.log('value.pos='+value.pos)
+				////console.log('value.pos='+value.pos)
 				$("#structure1").val(value.structure1);
 				$("#structure2").val(value.structure2);
 				$("#structure3").val(value.structure3);
@@ -574,8 +574,8 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 						'                        <input type="hidden" class="form-control" id="m_firstname" value="'+value.m_firstname +'" name="m_firstname"   />\n' +
 						'                        <input type="hidden" class="form-control" id="m_lastname" value="'+value.m_lastname +'" name="m_lastname"   />\n' +
 						'</div>';
-					console.log('value.memberType='+value.memberType)
-					console.log('mem='+mem)
+					////console.log('value.memberType='+value.memberType)
+					////console.log('mem='+mem)
 					$('#member').append(mem);
 
 				}

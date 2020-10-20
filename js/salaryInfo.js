@@ -104,7 +104,7 @@ $(function () {
 	});
 
 	$('#salary_table tbody').on('click', '#view', function () {
-		console.log('$row_employees[\'image_name\']')
+		//console.log('$row_employees[\'image_name\']')
 		var data = table.row($(this).parents('tr')).data();
 		GetSalaryDetails(data[0], 'view');
 		document.getElementById("update_empid").value = data[0];
@@ -114,7 +114,7 @@ $(function () {
 
 	/*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
 	function GetSalaryDetails(id, optype) {
-		console.log('id=' + id)
+		//console.log('id=' + id)
 		// $('#modalEdit').modal('show');
 		$.post("salaryInfo/getSalaryDetail.php",
 			{
@@ -124,8 +124,8 @@ $(function () {
 				// PARSE json data
 				var employee = JSON.parse(emp_data);
 				// Assing existing values to the modal popup fields
-				console.log('employee=', employee)
-				console.log('employee.emp_id='+employee.emp_id)
+				//console.log('employee=', employee)
+				//console.log('employee.emp_id='+employee.emp_id)
 up_emp=employee.emp_id;
 				if (optype == 'update') {
 					$("#update_company_id").val(employee.company_id).change();
@@ -148,7 +148,7 @@ up_emp=employee.emp_id;
 					$("#update_otherCondition3").val(employee.other_conditions3);
 
 					$('#modalEdit').modal('show');
-					console.log(' update_employee val ='+$("#update_employee").find('option:selected').val())
+					//console.log(' update_employee val ='+$("#update_employee").find('option:selected').val())
 
 				} else {
 					var wage_currency = '';
@@ -241,7 +241,7 @@ up_emp=employee.emp_id;
 			$('#update_prizeAmount').addClass( "is-valid" ).removeClass( "is-invalid" );
 
 		}
-		console.log('$(\'#update_prizeCurrency\').val()='+$('#update_prizeCurrency').val())
+		//console.log('$(\'#update_prizeCurrency\').val()='+$('#update_prizeCurrency').val())
 		if(  $('#update_prizeCurrency').val()==''  ||$('#update_prizeCurrency').val()=='0'||$('#update_prizeCurrency').val()==null ){
 			$('#update_prizeCurrency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
@@ -363,7 +363,7 @@ up_emp=employee.emp_id;
 				data: $("#salaryInsert").serialize(),
 				dataType: "text",
 				success: function (strMessage) {
-					console.log('$("form").serialize()ddd=' + $("#salaryInsert").serialize())
+					//console.log('$("form").serialize()ddd=' + $("#salaryInsert").serialize())
 					$("#badge_success").text('');
 					$("#badge_danger").text('');
 					if (strMessage.substr(1, 4) === 'error') {
@@ -399,7 +399,7 @@ up_emp=employee.emp_id;
 			dataType: "text",
 			success: function (strMessage) {
 				if (strMessage.substr(1, 4) === 'error') {
-					console.log(strMessage);
+					//console.log(strMessage);
 				} else if (strMessage === 'success') {
 					$('#modalDelete').modal('hide');
 					$('#modalDeleteSuccess').modal('show');
@@ -425,10 +425,10 @@ up_emp=employee.emp_id;
 				data: $("#salaryUpdate").serialize(),
 				dataType: "text",
 				success: function (strMessage) {
-					console.log(strMessage);
+					//console.log(strMessage);
 					$("#badge_danger_update").text("");
 					if (strMessage.substr(1, 4) === 'error') {
-						console.log(strMessage);
+						//console.log(strMessage);
 					} else if (strMessage === 'success') {
 						$('#modalEdit').modal('hide');
 						$('#modalUpdateSuccess').modal('show');
@@ -499,7 +499,7 @@ up_emp=employee.emp_id;
 					text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 					action: function (e, dt, node, config) {
 						$("#myAdditionModal").modal();
-						console.log('myAdditionModal')
+						//console.log('myAdditionModal')
 
 					}
 				},
@@ -556,7 +556,7 @@ up_emp=employee.emp_id;
 		});
 
 		$('#addition_table tbody').on('click', '#view', function () {
-			console.log('$row_employees[\'image_name\']')
+			//console.log('$row_employees[\'image_name\']')
 			var data = addition_table.row($(this).parents('tr')).data();
 			GetAdditionDetails(data[0], 'view');
 			document.getElementById("update_id").value = data[0];
@@ -566,7 +566,7 @@ up_emp=employee.emp_id;
 
 		/*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
 		function GetAdditionDetails(id, optype) {
-			console.log('id=' + id)
+			//console.log('id=' + id)
 			// $('#modalEdit').modal('show');
 			$.post("additionSalary/getAdditionDetail.php",
 				{
@@ -576,17 +576,17 @@ up_emp=employee.emp_id;
 					// PARSE json data
 					var employee = JSON.parse(emp_data);
 					// Assing existing values to the modal popup fields
-					console.log('employee=', employee);
+					//console.log('employee=', employee);
 
 					if (optype == 'update') {
-						console.log('employee update=', employee);
+						//console.log('employee update=', employee);
 						var prize_amount_currency='';
 						if(employee.prize_amount_currency){
 							prize_amount_currency=employee.prize_amount_currency;
 						}
 						// $("#uid").val(emp_id)
 						// $("#update_company_id").val(employee.company_id).change();
-						console.log('employee.emp_id='+employee.emp_id)
+						//console.log('employee.emp_id='+employee.emp_id)
 						$("#modalAdditionEdit #update_company_id").val(employee.company_id).change();
 						$("#modalAdditionEdit #update_employee").val(employee.emp_id).change();
 						$("#update_additionsDeductionsSalary").val(employee.add_salary_id).change();
@@ -664,7 +664,7 @@ up_emp=employee.emp_id;
 			// 	$('#update_prizeCurrency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 			//
 			// }
-			console.log('$(\'#update_additions_currency\').val()='+$('#update_additions_currency').val())
+			//console.log('$(\'#update_additions_currency\').val()='+$('#update_additions_currency').val())
 			if(  $('#update_additions_currency').val()=='' ||$('#update_additions_currency').val()=='0' ){
 				$('#update_additions_currency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 				return false
@@ -690,7 +690,7 @@ up_emp=employee.emp_id;
 			return true
 		}
 		function validadditionInsert(){
-			console.log('sss='+$('#myAdditionModal  #company_id').val())
+			//console.log('sss='+$('#myAdditionModal  #company_id').val())
 			if($('#myAdditionModal #company_id').val()=='' ){
 
 				$('#myAdditionModal #company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
@@ -755,7 +755,7 @@ up_emp=employee.emp_id;
 					data: $("form").serialize(),
 					dataType: "text",
 					success: function (strMessage) {
-						console.log('$("form").serialize() additionInsert=' + $("#additionInsert").serialize())
+						//console.log('$("form").serialize() additionInsert=' + $("#additionInsert").serialize())
 						$("#badge_success").text('');
 						$("#badge_danger").text('');
 						if (strMessage.substr(1, 4) === 'error') {
@@ -791,7 +791,7 @@ up_emp=employee.emp_id;
 				dataType: "text",
 				success: function (strMessage) {
 					if (strMessage.substr(1, 4) === 'error') {
-						console.log(strMessage);
+						//console.log(strMessage);
 					} else if (strMessage === 'success') {
 						$('#modalAdditionDelete').modal('hide');
 						$('#modalDeleteSuccess').modal('show');
@@ -816,10 +816,10 @@ up_emp=employee.emp_id;
 					data: $("#additionUpdate").serialize(),
 					dataType: "text",
 					success: function (strMessage) {
-						console.log(strMessage);
+						//console.log(strMessage);
 						$("#badge_danger_update").text("");
 						if (strMessage.substr(1, 4) === 'error') {
-							console.log(strMessage);
+							//console.log(strMessage);
 						} else if (strMessage === 'success') {
 							$('#modalAdditionEdit').modal('hide');
 							$('#modalUpdateSuccess').modal('show');

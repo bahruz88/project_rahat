@@ -224,7 +224,7 @@ $(function () {
     });
 
     $('#employee_table tbody').on('click', '#view', function () {
-        console.log('$row_employees[\'image_name\']')
+        //console.log('$row_employees[\'image_name\']')
         var data = table.row($(this).parents('tr')).data();
         GetEmpDetails(data[0], 'view');
         document.getElementById("update_empid").value = data[0];
@@ -242,15 +242,15 @@ $(function () {
                 // PARSE json data
                 var employee = JSON.parse(emp_data);
                 // Assing existing values to the modal popup fields
-                console.log('employee=', employee)
+                //console.log('employee=', employee)
 
                 if (optype == 'update') {
-                    console.log('sss=' + $('#uploadDiv').html())
+                    //console.log('sss=' + $('#uploadDiv').html())
                     $('#imgUpdate').html($('#uploadDiv').html())
                     $('#imgAdd').html('')
                     $('#imgView').html('')
                     addImage();
-                    console.log('employee.image_name=' + employee.image_name)
+                    //console.log('employee.image_name=' + employee.image_name)
                     if (employee.image_name) {
                         $("#default").css('display', 'none')
 
@@ -298,7 +298,7 @@ $(function () {
     /*ISCHI MELUMATLARI  DAXIL  EDILIR  */
     $("#employeeInsert").submit(function (e) {
         e.preventDefault();
-        // console.log('$("#employeeInsert").serialize()='+$("#employeeInsert").serialize())
+        // //console.log('$("#employeeInsert").serialize()='+$("#employeeInsert").serialize())
         if ($("#employeeInsert").valid()) {
             $.ajax({
                 url: "employees/employeeInsert.php",
@@ -382,7 +382,7 @@ $(function () {
             dataType: "text",
             success: function (strMessage) {
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
@@ -407,10 +407,10 @@ $(function () {
                 data: $("#employeeUpdate").serialize(),
                 dataType: "text",
                 success: function (strMessage) {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger_update").text("");
                     if (strMessage.substr(1, 4) === 'error') {
-                        console.log(strMessage);
+                        //console.log(strMessage);
                     } else if (strMessage === 'success') {
                         $('#modalEdit').modal('hide');
                         $('#modalUpdateSuccess').modal('show');
@@ -554,7 +554,7 @@ $(function () {
     /********************* TEHSİL  İNSERT ***************************/
 
     $("#educationInsertForm").submit(function (e) {
-        console.log('AAAAAA');
+        //console.log('AAAAAA');
         e.preventDefault();
         if ($("#educationInsertForm").valid()) {
             $.ajax({
@@ -563,7 +563,7 @@ $(function () {
                 data: $("form").serialize(),
                 dataType: "text",
                 success: function (strMessage) {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_success").text('');
                     $("#badge_danger").text('');
                     if (strMessage.substr(1, 4) === 'error') {
@@ -603,7 +603,7 @@ $(function () {
             dataType: "text",
             success: function (strMessage) {
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEduDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
@@ -628,7 +628,7 @@ $(function () {
                 var edudata = JSON.parse(edu_data);
 
                 if (optype == 'update') {
-                    console.log('update tikla');
+                    //console.log('update tikla');
 
                     $('#update_eduempid').val(edudata.empid).change();
                     $('#update_qualification').val(edudata.qid).change();
@@ -667,10 +667,10 @@ $(function () {
             data: $("#educationUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditEducation').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -697,7 +697,7 @@ $(function () {
         var data = eduinfo_table.row($(this).parents('tr')).data();
         GetEduDetails(data[0], 'view');
         document.getElementById("update_eduid").value = data[0];
-        console.log('Tiklandi');
+        //console.log('Tiklandi');
     });
 
     /*Edu info  table edit click  */
@@ -705,7 +705,7 @@ $(function () {
         var data = eduinfo_table.row($(this).parents('tr')).data();
         GetEduDetails(data[0], 'update');
         document.getElementById("update_eduid").value = data[0];
-        console.log('Tiklandi');
+        //console.log('Tiklandi');
     });
 
 
@@ -821,7 +821,7 @@ $(function () {
             dataType: "text",
             success: function (strMessage) {
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalCertDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
@@ -867,7 +867,7 @@ $(function () {
                 data: $("#certificationInsertForm").serialize(),
                 dataType: "text",
                 success: function (strMessage) {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_success").text('');
                     $("#badge_danger").text('');
                     if (strMessage.substr(1, 4) === 'error') {
@@ -897,7 +897,7 @@ $(function () {
     $('#cert_table').on('click', '#cert_view', function () {
         var data = cert_table.row($(this).parents('tr')).data();
         GetCertDetails(data[0], 'view');
-        console.log('TiklandiCert');
+        //console.log('TiklandiCert');
     });
 
     /*Cert  table edit click  */
@@ -905,7 +905,7 @@ $(function () {
         var data = cert_table.row($(this).parents('tr')).data();
         GetCertDetails(data[0], 'update');
         document.getElementById("update_certid").value = data[0];
-        console.log('updateTiklandi');
+        //console.log('updateTiklandi');
     });
 
     /*cert table delete click*/
@@ -928,7 +928,7 @@ $(function () {
                 var certdata = JSON.parse(cert_data);
 
                 if (optype == 'update') {
-                    console.log('update tikla');
+                    //console.log('update tikla');
 
                     $("#update_certempid").val(certdata.empid).change();
                     $("#update_training_center").val(certdata.training_center_name);
@@ -966,10 +966,10 @@ $(function () {
             data: $("#certificationUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditCertification').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -1094,7 +1094,7 @@ $(function () {
             data: $("#skillsInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -1132,7 +1132,7 @@ $(function () {
             dataType: "text",
             success: function (strMessage) {
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalSkillDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
@@ -1159,10 +1159,10 @@ $(function () {
             data: $("#skillsUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditSkills').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -1190,7 +1190,7 @@ $(function () {
                 var skilldata = JSON.parse(skill_data);
 
                 if (optype == 'update') {
-                    console.log('update tikla');
+                    //console.log('update tikla');
 
                     $("#update_skillempid").val(skilldata.empid).change();
                     $("#update_skill_name").val(skilldata.skill_name);
@@ -1212,14 +1212,14 @@ $(function () {
     $('#skills_table').on('click', '#skill_view', function () {
         var data = skills_table.row($(this).parents('tr')).data();
         GetSkillDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
 
     $('#skills_table').on('click', '#skill_edit', function () {
         var data = skills_table.row($(this).parents('tr')).data();
         document.getElementById("update_skillid").value = data[0];
         GetSkillDetails(data[0], 'update');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
 
 
@@ -1333,15 +1333,15 @@ $(function () {
             data: $("#langDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalLangDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     lang_knowledge_table.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -1361,7 +1361,7 @@ $(function () {
             data: $("#langInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -1399,7 +1399,7 @@ $(function () {
                 var langdata = JSON.parse(lang_data);
 
                 if (optype == 'update') {
-                    console.log('update tikla');
+                    //console.log('update tikla');
 
                     $("#update_langempid").val(langdata.empid).change();
                     $("#update_reading").val(langdata.rid).change();
@@ -1434,10 +1434,10 @@ $(function () {
             data: $("#langUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditLang').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -1465,14 +1465,14 @@ $(function () {
     $('#lang_knowledge_table').on('click', '#lang_view', function () {
         var data = lang_knowledge_table.row($(this).parents('tr')).data();
         GetLangDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*lang table view click  */
     $('#lang_knowledge_table').on('click', '#lang_edit', function () {
         var data = lang_knowledge_table.row($(this).parents('tr')).data();
         GetLangDetails(data[0], 'update');
         document.getElementById("update_langid").value = data[0];
-        console.log(data[0]);
+        //console.log(data[0]);
     });
 
 
@@ -1484,7 +1484,7 @@ $(function () {
 
     var faminfo_table;
     $('#aileinfotab').click(function () {
-        console.log('Tab clikc');
+        //console.log('Tab clikc');
         $('#faminfo_table').DataTable().clear().destroy();
         faminfo_table = $("#faminfo_table").DataTable({
             "scrollX": true,
@@ -1578,7 +1578,7 @@ $(function () {
             data: $("#familyInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -1615,15 +1615,15 @@ $(function () {
             data: $("#famInfoDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalFamInfoDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     faminfo_table.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -1646,10 +1646,10 @@ $(function () {
             data: $("#familiyInfoUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log(strMessage);
+                //console.log(strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#famInfoEditModal').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -1677,7 +1677,7 @@ $(function () {
                 var faminfodata = JSON.parse(faminfo_data);
 
                 if (optype == 'update') {
-                    console.log('update tikla');
+                    //console.log('update tikla');
 
                     $("#edit_famemp_id").val(faminfodata.empid).change();
                     $("#edit_family_member_type_id").val(faminfodata.type_id).change();
@@ -1720,14 +1720,14 @@ $(function () {
     $('#faminfo_table').on('click', '#faminfo_view', function () {
         var data = faminfo_table.row($(this).parents('tr')).data();
         GetFamilyInfoDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*Family info view click  */
     $('#faminfo_table').on('click', '#faminfo_edit', function () {
         var data = faminfo_table.row($(this).parents('tr')).data();
         document.getElementById("update_faminfo_id").value = data[0];
         GetFamilyInfoDetails(data[0], 'update');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
 
 
@@ -1738,7 +1738,7 @@ $(function () {
 */
     var military_info_table;
     $('#militaryInfotab').click(function () {
-        console.log('Tab clikc militaryInfotab');
+        //console.log('Tab clikc militaryInfotab');
         $('#military_info_table').DataTable().clear().destroy();
         military_info_table = $("#military_info_table").DataTable({
             "scrollX": true,
@@ -1777,7 +1777,7 @@ $(function () {
 
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
-                        console.log('militaryInfoInsertModal')
+                        //console.log('militaryInfoInsertModal')
 
                         $("#militaryInfoInsertModal").modal();
                     }
@@ -1821,7 +1821,7 @@ $(function () {
 
         });
 
-        console.log('Tab clikc oldu', military_info_table);
+        //console.log('Tab clikc oldu', military_info_table);
     });
 
     /*Herbi MELUMATALRİ SİLİNİR */
@@ -1834,15 +1834,15 @@ $(function () {
             data: $("#militaryInfoDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalMilitaryInfoDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     military_info_table.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -1855,13 +1855,13 @@ $(function () {
     /*military Info  table delete click*/
     $('#military_info_table').on('click', '#militaryInfo_delete', function () {
         var data = military_info_table.row($(this).parents('tr')).data();
-        console.log('data[0]=' + data[0])
+        //console.log('data[0]=' + data[0])
         document.getElementById("militaryinfoid").value = data[0];
         $('#modalMilitaryInfoDelete').modal('show');
     });
 
     $("#militaryInfoInsertForm").submit(function (e) {
-        console.log('salam insert')
+        //console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -1871,8 +1871,8 @@ $(function () {
             data: $("#militaryInfoInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + $("#militaryInfoInsertForm").serialize());
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + $("#militaryInfoInsertForm").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -1901,7 +1901,7 @@ $(function () {
 
     /*GetMilitaryDetails  */
     function GetMilitaryDetails(militaryid, optype) {
-        console.log('$militaryid=' + militaryid)
+        //console.log('$militaryid=' + militaryid)
         $.post("military_info/getMilitaryDetail.php",
             {
                 militaryid: militaryid
@@ -1909,11 +1909,11 @@ $(function () {
             function (military_data, status) {
                 // PARSE json data
                 var militarydata = JSON.parse(military_data);
-                console.log('militarydata=', militarydata)
-                console.log('militarydata.military_specialty_acc=' + militarydata.military_specialty_acc)
+                //console.log('militarydata=', militarydata)
+                //console.log('militarydata.military_specialty_acc=' + militarydata.military_specialty_acc)
 
                 if (optype == 'update') {
-                    console.log('update=')
+                    //console.log('update=')
                     $("#update_militaryid").val(militarydata.id).change();
                     $("#update_militaryempid").val(militarydata.teId).change();
                     $("#update_military_reg_group").val(militarydata.military_reg_group).change();
@@ -1930,9 +1930,9 @@ $(function () {
                     $("#update_military_additional_information").val(militarydata.military_additional_information);
                     $("#update_military_date_completion").val(militarydata.military_date_comp);
                     $('#modalEditMilitaryInfo').modal('show');
-                    console.log('modalEditMilitaryInfo ac')
+                    //console.log('modalEditMilitaryInfo ac')
                 } else {
-                    console.log('view=')
+                    //console.log('view=')
                     var military_reg_category = '';
                     var military_reg_group = '';
                     if (militarydata.military_reg_category == 1) {
@@ -1960,7 +1960,7 @@ $(function () {
                     $("#view_military_additional_information").val(militarydata.military_additional_information);
                     $("#view_military_date_completion").val(militarydata.military_date_comp);
                     $('#modalViewMilitary').modal('show');
-                    console.log('modalEditMilitaryInfo ac')
+                    //console.log('modalEditMilitaryInfo ac')
                 }
             }
         );
@@ -1979,11 +1979,11 @@ $(function () {
             data: $("#militaryInfoUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                //console.log('serialize='+$("#militaryInfoUpdate").serialize());
-                console.log('strMessage=' + strMessage);
+                ////console.log('serialize='+$("#militaryInfoUpdate").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditMilitaryInfo').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -2013,7 +2013,7 @@ $(function () {
     $('#military_info_table').on('click', '#militaryInfo_view', function () {
         var data = military_info_table.row($(this).parents('tr')).data();
         GetMilitaryDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*military table view click  */
     $('#military_info_table').on('click', '#militaryInfo_edit', function () {
@@ -2021,7 +2021,7 @@ $(function () {
         var data = military_info_table.row($(this).parents('tr')).data();
         GetMilitaryDetails(data[0], 'update');
         document.getElementById("updatemilitaryid").value = data[0];
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*
     **********************************************************************************************************************
@@ -2031,7 +2031,7 @@ $(function () {
 
     // var payment_salary_table ;
     // $('#paymentSalarytab').click(function() {
-    // 	console.log('Tab clikc paymentSalarytab');
+    // 	//console.log('Tab clikc paymentSalarytab');
     // 	$('#payment_salary_table').DataTable().clear().destroy();
     // 	payment_salary_table = $("#payment_salary_table").DataTable({
     // 		"scrollX": true,
@@ -2070,7 +2070,7 @@ $(function () {
     //
     // 				text: 'Yenisini yarat <i class="fa fa-plus"></i>',
     // 				action: function ( e, dt, node, config ) {
-    // 					console.log('paymentSalaryInsertModal')
+    // 					//console.log('paymentSalaryInsertModal')
     //
     // 					$("#paymentSalaryInsertModal").modal();
     // 				}
@@ -2104,7 +2104,7 @@ $(function () {
     //
     // 	});
     //
-    // 	console.log('Tab clikc oldu',payment_salary_table);
+    // 	//console.log('Tab clikc oldu',payment_salary_table);
     // });
     //
     // /*Herbi MELUMATALRİ SİLİNİR */
@@ -2118,10 +2118,10 @@ $(function () {
     // 		dataType: "text",
     // 		success: function(strMessage)
     // 		{
-    // 			console.log('strMessage='+strMessage);
+    // 			//console.log('strMessage='+strMessage);
     // 			if (strMessage.substr(1, 4)==='error')
     // 			{
-    // 				console.log(strMessage);
+    // 				//console.log(strMessage);
     // 			}
     // 			else if (strMessage==='success')
     // 			{
@@ -2130,7 +2130,7 @@ $(function () {
     // 				payment_salary_table.ajax.reload();
     // 			}
     // 			else  {
-    // 				console.log(strMessage);
+    // 				//console.log(strMessage);
     // 				$("#badge_danger").text(strMessage);
     // 			}
     // 		}
@@ -2144,14 +2144,14 @@ $(function () {
     // $('#payment_salary_table').on( 'click', '#paymentSalary_delete', function ()
     // {
     // 	var data = payment_salary_table.row( $(this).parents('tr') ).data();
-    // 	console.log('data[0]='+data[0])
+    // 	//console.log('data[0]='+data[0])
     // 	document.getElementById("paymentSalaryid").value = data[0];
     // 	$('#modalPaymentSalaryDelete').modal('show');
     // } );
     //
     // $("#paymentSalaryInsertForm").submit(function(e)
     // {
-    // 	console.log('salam insert')
+    // 	//console.log('salam insert')
     // 	e.preventDefault();
     // 	/*	if($("#langInsertForm").valid())
     // { */
@@ -2162,8 +2162,8 @@ $(function () {
     // 		dataType: "text",
     // 		success: function(strMessage)
     // 		{
-    // 			console.log('strMessage='+$("#paymentSalaryInsertForm").serialize());
-    // 			console.log('strMessage='+strMessage);
+    // 			//console.log('strMessage='+$("#paymentSalaryInsertForm").serialize());
+    // 			//console.log('strMessage='+strMessage);
     // 			$("#badge_success").text('');
     // 			$("#badge_danger").text('');
     // 			if (strMessage.substr(1, 4)==='error')
@@ -2197,7 +2197,7 @@ $(function () {
     // /*getPaymentSalaryDetails  */
     // function getPaymentSalaryDetails(paymentsalaryid,optype)
     // {
-    // 	console.log('$paymentsalaryid='+paymentsalaryid)
+    // 	//console.log('$paymentsalaryid='+paymentsalaryid)
     // 	$.post("payment_salary/getPaymentSalaryDetail.php",
     // 		{
     // 			paymentsalaryid: paymentsalaryid
@@ -2206,7 +2206,7 @@ $(function () {
     // 		{
     // 			// PARSE json data
     // 			var paymentsalarydata = JSON.parse(paymentsalary_data);
-    // 			console.log('paymentsalarydata=',paymentsalarydata)
+    // 			//console.log('paymentsalarydata=',paymentsalarydata)
     //
     // 			if  (optype=='update') {
     // 				// $("#update_paymentsalaryid").val(paymentsalarydata.id).change();
@@ -2274,12 +2274,12 @@ $(function () {
     // 		dataType: "text",
     // 		success: function(strMessage)
     // 		{
-    // 			//console.log('serialize='+$("#paymentSalaryUpdate").serialize());
-    // 			console.log('strMessage='+strMessage);
+    // 			////console.log('serialize='+$("#paymentSalaryUpdate").serialize());
+    // 			//console.log('strMessage='+strMessage);
     // 			$("#badge_danger_update").text("");
     // 			if (strMessage.substr(1, 4)==='error')
     // 			{
-    // 				console.log(strMessage);
+    // 				//console.log(strMessage);
     // 			}
     // 			else if (strMessage==='success')
     // 			{
@@ -2315,7 +2315,7 @@ $(function () {
     // {
     // 	var data = payment_salary_table.row( $(this).parents('tr') ).data();
     // 	getPaymentSalaryDetails(data[0],'view');
-    // 	console.log(data[0]);
+    // 	//console.log(data[0]);
     // } );
     // /*payment Salary table view click  */
     // $('#payment_salary_table').on( 'click', '#paymentSalary_edit', function ()
@@ -2324,7 +2324,7 @@ $(function () {
     // 	var data = payment_salary_table.row( $(this).parents('tr') ).data();
     // 	getPaymentSalaryDetails(data[0],'update');
     // 	document.getElementById("updatepaymentsalaryid").value = data[0];
-    // 	console.log(data[0]);
+    // 	//console.log(data[0]);
     // } );
 
 
@@ -2337,7 +2337,7 @@ $(function () {
     var driver_license_table;
     $('#drivingLicensetab').click(function () {
         $('#qual2').text(tabtext2 + ' / ' + $('#drivingLicensetab').text());
-        console.log('Tab clikc drivingLicensetab');
+        //console.log('Tab clikc drivingLicensetab');
         $('#driving_info_table').DataTable().clear().destroy();
         driver_license_table = $("#driving_info_table").DataTable({
             "scrollX": true,
@@ -2376,7 +2376,7 @@ $(function () {
 
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
-                        console.log('drivingLicenseInfoInsertModal')
+                        //console.log('drivingLicenseInfoInsertModal')
 
                         $("#drivingLicenseInfoInsertModal").modal();
                     }
@@ -2420,7 +2420,7 @@ $(function () {
 
         });
 
-        console.log('Tab clikc oldu', driver_license_table);
+        //console.log('Tab clikc oldu', driver_license_table);
     });
 
     /*Suruculuk MELUMATALRİ SİLİNİR */
@@ -2433,15 +2433,15 @@ $(function () {
             data: $("#drivingLicenseInfoDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalDrivingLicenseInfoDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     driver_license_table.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -2454,13 +2454,13 @@ $(function () {
     /*Driving License Info  table delete click*/
     $('#driving_info_table').on('click', '#drivingLicenseInfo_delete', function () {
         var data = driver_license_table.row($(this).parents('tr')).data();
-        console.log('data[0]=' + data[0])
+        //console.log('data[0]=' + data[0])
         document.getElementById("drivinglicenseinfoid").value = data[0];
         $('#modalDrivingLicenseInfoDelete').modal('show');
     });
 
     $("#drivingLicenseInfoInsertForm").submit(function (e) {
-        console.log('salam insert')
+        //console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -2470,8 +2470,8 @@ $(function () {
             data: $("#drivingLicenseInfoInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + $("#drivingLicenseInfoInsertForm").serialize());
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + $("#drivingLicenseInfoInsertForm").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -2500,7 +2500,7 @@ $(function () {
 
     /*GetDrivingDetails  */
     function GetDrivingDetails(drivinglicenseid, optype) {
-        console.log('$drivinglicenseid=' + drivinglicenseid)
+        //console.log('$drivinglicenseid=' + drivinglicenseid)
         $.post("driver_license/getDrivingLicenseInfoDetail.php",
             {
                 drivinglicenseid: drivinglicenseid
@@ -2508,8 +2508,8 @@ $(function () {
             function (drivingLicense_data, status) {
                 // PARSE json data
                 var drivinglicensedata = JSON.parse(drivingLicense_data);
-                console.log('drivinglicensedata=', drivinglicensedata)
-                console.log('drivinglicensedata id=', drivinglicensedata.id)
+                //console.log('drivinglicensedata=', drivinglicensedata)
+                //console.log('drivinglicensedata id=', drivinglicensedata.id)
 
                 if (optype == 'update') {
                     $("#updatedrivinglicenseid").val(drivinglicensedata.id).change();
@@ -2550,11 +2550,11 @@ $(function () {
             data: $("#drivingLicenseInfoUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                //console.log('serialize='+$("#drivingLicenseInfoUpdate").serialize());
-                console.log('strMessage=' + strMessage);
+                ////console.log('serialize='+$("#drivingLicenseInfoUpdate").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditDrivingLicenseInfo').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -2576,7 +2576,7 @@ $(function () {
     $('#driving_info_table').on('click', '#drivingLicenseInfo_view', function () {
         var data = driver_license_table.row($(this).parents('tr')).data();
         GetDrivingDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*Driving License table edit click  */
     $('#driving_info_table').on('click', '#drivingLicenseInfo_edit', function () {
@@ -2584,7 +2584,7 @@ $(function () {
         var data = driver_license_table.row($(this).parents('tr')).data();
         GetDrivingDetails(data[0], 'update');
         document.getElementById("updatedrivinglicenseid").value = data[0];
-        console.log(data[0]);
+        //console.log(data[0]);
     });
 
     /*
@@ -2595,7 +2595,7 @@ $(function () {
 
     var medical_info_table;
     $('#medicalInfotab').click(function () {
-        console.log('Tab clikc medicalInfotab');
+        //console.log('Tab clikc medicalInfotab');
         $('#qual2').text(tabtext2 + ' / ' + $('#medicalInfotab').text());
 
         $('#medical_info_table').DataTable().clear().destroy();
@@ -2636,7 +2636,7 @@ $(function () {
 
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
-                        console.log('medicalInfoInsertModal')
+                        //console.log('medicalInfoInsertModal')
 
                         $("#medicalInfoInsertModal").modal();
                     }
@@ -2680,7 +2680,7 @@ $(function () {
 
         });
 
-        console.log('Tab clikc oldu', medical_info_table);
+        //console.log('Tab clikc oldu', medical_info_table);
     });
 
     /*Tibbi MELUMATALRİ SİLİNİR */
@@ -2693,15 +2693,15 @@ $(function () {
             data: $("#medicalInfoDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalMedicalInfoDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     medical_info_table.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -2715,13 +2715,13 @@ $(function () {
     // $('#medical_info_table').on( 'click', '#migration_medical_information', function ()
     // {
     //     var data = medical_info_table.row( $(this).parents('tr') ).data();
-    //     console.log('data[0]='+data[0])
+    //     //console.log('data[0]='+data[0])
     //     document.getElementById("medicalinfoid").value = data[0];
     //     $('#modalMedicalInfoDelete').modal('show');
     // } );
 
     $("#medicalInfoInsertForm").submit(function (e) {
-        console.log('salam insert')
+        //console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -2731,8 +2731,8 @@ $(function () {
             data: $("#medicalInfoInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + $("#medicalInfoInsertForm").serialize());
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + $("#medicalInfoInsertForm").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -2761,16 +2761,16 @@ $(function () {
 
     /*GetMedicalDetails  */
     function GetMedicalDetails(medicalid, optype) {
-        console.log('$medicalid=' + medicalid)
+        //console.log('$medicalid=' + medicalid)
         $.post("medical_info/getMedicalInfoDetail.php",
             {
                 medicalid: medicalid
             },
             function (medical_data, status) {
-                console.log('medicaldata1=', medical_data)
+                //console.log('medicaldata1=', medical_data)
                 // PARSE json data
                 var medicaldata = JSON.parse(medical_data);
-                console.log('medicaldata=', medicaldata)
+                //console.log('medicaldata=', medicaldata)
                 if (optype == 'update') {
                     $("#update_medicalid").val(medicaldata.id).change();
                     $("#update_medicalempid").val(medicaldata.teId).change();
@@ -2806,11 +2806,11 @@ $(function () {
             data: $("#medicalInfoUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                //console.log('serialize='+$("#medicalInfoUpdate").serialize());
-                console.log('strMessage=' + strMessage);
+                ////console.log('serialize='+$("#medicalInfoUpdate").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditMedicalInfo').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -2840,17 +2840,17 @@ $(function () {
     $('#medical_info_table').on('click', '#medicalInfo_view', function () {
         var data = medical_info_table.row($(this).parents('tr')).data();
         GetMedicalDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*medical table view click  */
     $('#medical_info_table').on('click', '#medicalInfo_edit', function () {
-        console.log('salam')
+        //console.log('salam')
 
         var data = medical_info_table.row($(this).parents('tr')).data();
-        console.log('data=' + data[0])
+        //console.log('data=' + data[0])
         GetMedicalDetails(data[0], 'update');
         document.getElementById("updatemedid").value = data[0];
-        console.log(data[0]);
+        //console.log(data[0]);
 
     });
 
@@ -2865,7 +2865,7 @@ $(function () {
     $('#previousPositionstab').click(function () {
         $('#qual2').text(tabtext2 + ' / ' + $('#previousPositionstab').text());
 
-        console.log('Tab clikc previousPositionstab');
+        //console.log('Tab clikc previousPositionstab');
         $('#previous_positions_table').DataTable().clear().destroy();
         previous_positions_table = $("#previous_positions_table").DataTable({
             "scrollX": true,
@@ -2904,7 +2904,7 @@ $(function () {
 
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
-                        console.log('previousPositionsInsertModal')
+                        //console.log('previousPositionsInsertModal')
 
                         $("#previousPositionsInsertModal").modal();
                     }
@@ -2947,7 +2947,7 @@ $(function () {
 
         });
 
-        console.log('Tab clikc oldu', previous_positions_table);
+        //console.log('Tab clikc oldu', previous_positions_table);
     });
 
     /*Herbi MELUMATALRİ SİLİNİR */
@@ -2960,15 +2960,15 @@ $(function () {
             data: $("#previousPositionsDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalPreviousPositionsDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     previous_positions_table.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -2981,13 +2981,13 @@ $(function () {
     /*previous Positions Info  table delete click*/
     $('#previous_positions_table').on('click', '#previousPositions_delete', function () {
         var data = previous_positions_table.row($(this).parents('tr')).data();
-        console.log('data[0]=' + data[0])
+        //console.log('data[0]=' + data[0])
         document.getElementById("positionsinfoid").value = data[0];
         $('#modalPreviousPositionsDelete').modal('show');
     });
 
     $("#previousPositionsInsertForm").submit(function (e) {
-        console.log('salam insert')
+        //console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -2997,8 +2997,8 @@ $(function () {
             data: $("#previousPositionsInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + $("#previousPositionsInsertForm").serialize());
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + $("#previousPositionsInsertForm").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -3027,7 +3027,7 @@ $(function () {
 
     /*GetPreviousPositionsDetails  */
     function GetPreviousPositionsDetails(positionid, optype) {
-        console.log('$previouspositionsid=' + positionid)
+        //console.log('$previouspositionsid=' + positionid)
         $.post("previous_positions/getPreviousPositionsDetail.php",
             {
                 positionid: positionid
@@ -3035,7 +3035,7 @@ $(function () {
             function (previous_positions, status) {
                 // PARSE json data
                 var previouspositions = JSON.parse(previous_positions);
-                console.log('previouspositions=', previouspositions);
+                //console.log('previouspositions=', previouspositions);
                 if (optype == 'update') {
                     $("#update_positionsid").val(previouspositions.id).change();
                     $("#update_positionsempid").val(previouspositions.teId).change();
@@ -3071,11 +3071,11 @@ $(function () {
             data: $("#previousPositionsUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                //console.log('serialize='+$("#previousPositionsUpdate").serialize());
-                console.log('strMessage=' + strMessage);
+                ////console.log('serialize='+$("#previousPositionsUpdate").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditPreviousPositions').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -3097,16 +3097,16 @@ $(function () {
     $('#previous_positions_table').on('click', '#previousPositions_view', function () {
         var data = previous_positions_table.row($(this).parents('tr')).data();
         GetPreviousPositionsDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*previous Positions table view click  */
     $('#previous_positions_table').on('click', '#previousPositions_edit', function () {
 
         var data = previous_positions_table.row($(this).parents('tr')).data();
-        console.log('data=', data);
+        //console.log('data=', data);
         GetPreviousPositionsDetails(data[0], 'update');
         document.getElementById("updatepositionsid").value = data[0];
-        console.log(data[0]);
+        //console.log(data[0]);
     });
 
     /*
@@ -3117,7 +3117,7 @@ $(function () {
 
     var migration_info_table;
     $('#migrationInfotab').click(function () {
-        console.log('Tab clikc migrationInfotab');
+        //console.log('Tab clikc migrationInfotab');
         $('#qual2').text(tabtext2 + ' / ' + $('#migrationInfotab').text());
 
         $('#migration_info_table').DataTable().clear().destroy();
@@ -3158,7 +3158,7 @@ $(function () {
 
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
-                        console.log('migrationInfoInsertModal')
+                        //console.log('migrationInfoInsertModal')
 
                         $("#migrationInfoInsertModal").modal();
                     }
@@ -3201,7 +3201,7 @@ $(function () {
 
         });
 
-        console.log('Tab clikc oldu', migration_info_table);
+        //console.log('Tab clikc oldu', migration_info_table);
     });
 
     /*migration MELUMATALRİ SİLİNİR */
@@ -3214,15 +3214,15 @@ $(function () {
             data: $("#migrationInfoDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalMigrationInfoDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     migration_info_table.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -3234,7 +3234,7 @@ $(function () {
 
 
     $("#migrationInfoInsertForm").submit(function (e) {
-        console.log('salam insert')
+        //console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -3244,8 +3244,8 @@ $(function () {
             data: $("#migrationInfoInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + $("#migrationInfoInsertForm").serialize());
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + $("#migrationInfoInsertForm").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -3274,16 +3274,16 @@ $(function () {
 
     /*GetMigrationDetails  */
     function GetMigrationDetails(migrationid, optype) {
-        console.log('$migrationid=' + migrationid)
+        //console.log('$migrationid=' + migrationid)
         $.post("migration_info/getMigrationInfoDetail.php",
             {
                 migrationid: migrationid
             },
             function (migration_data, status) {
-                console.log('migrationdata1=', migration_data)
+                //console.log('migrationdata1=', migration_data)
                 // PARSE json data
                 var migrationdata = JSON.parse(migration_data);
-                console.log('migrationdata=', migrationdata)
+                //console.log('migrationdata=', migrationdata)
                 if (optype == 'update') {
                     $("#updatemigid").val(migrationdata.id).change();
                     $("#update_migrationempid").val(migrationdata.teId).change();
@@ -3333,11 +3333,11 @@ $(function () {
             data: $("#migrationInfoUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                //console.log('serialize='+$("#migrationInfoUpdate").serialize());
-                console.log('strMessage=' + strMessage);
+                ////console.log('serialize='+$("#migrationInfoUpdate").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditMigrationInfo').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -3367,17 +3367,17 @@ $(function () {
     $('#migration_info_table').on('click', '#migrationInfo_view', function () {
         var data = migration_info_table.row($(this).parents('tr')).data();
         GetMigrationDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*migration table view click  */
     $('#migration_info_table').on('click', '#migrationInfo_edit', function () {
-        console.log('salam')
+        //console.log('salam')
 
         var data = migration_info_table.row($(this).parents('tr')).data();
-        console.log('data=' + data[0])
+        //console.log('data=' + data[0])
         GetMigrationDetails(data[0], 'update');
         document.getElementById("updatemigid").value = data[0];
-        console.log(data[0]);
+        //console.log(data[0]);
 
     });
     /*
@@ -3388,7 +3388,7 @@ $(function () {
 
     var terms_employment_contract_tab;
     $('#empContractInfotab').click(function () {
-        console.log('Tab clikc empContractInfotab');
+        //console.log('Tab clikc empContractInfotab');
         // $('#qual2').text( tabtext2+' / '+$('#empContractInfotab').text());
 
         $('#terms_employment_contract_table').DataTable().clear().destroy();
@@ -3429,7 +3429,7 @@ $(function () {
 
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
-                        console.log('empContractInsertModal')
+                        //console.log('empContractInsertModal')
 
                         $("#empContractInsertModal").modal();
                     }
@@ -3473,7 +3473,7 @@ $(function () {
 
         });
 
-        console.log('Tab clikc oldu', terms_employment_contract_tab);
+        //console.log('Tab clikc oldu', terms_employment_contract_tab);
     });
 
     /*Emek muqavilesinin sertleri MELUMATALRİ SİLİNİR */
@@ -3486,15 +3486,15 @@ $(function () {
             data: $("#empContractDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEmpContractDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     terms_employment_contract_tab.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -3508,13 +3508,13 @@ $(function () {
 // $('#terms_employment_contract_table').on( 'click', '#migration_empContract_information', function ()
 // {
 //     var data = terms_employment_contract_tab.row( $(this).parents('tr') ).data();
-//     console.log('data[0]='+data[0])
+//     //console.log('data[0]='+data[0])
 //     document.getElementById("empcontractid").value = data[0];
 //     $('#modalempContractDelete').modal('show');
 // } );
 
     $("#empContractInsertForm").submit(function (e) {
-        console.log('salam insert')
+        //console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -3524,8 +3524,8 @@ $(function () {
             data: $("#empContractInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + $("#empContractInsertForm").serialize());
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + $("#empContractInsertForm").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -3554,16 +3554,16 @@ $(function () {
 
     /*GetEmpContractDetails  */
     function GetEmpContractDetails(empcontractid, optype) {
-        console.log('$empcontractid=' + empcontractid)
+        //console.log('$empcontractid=' + empcontractid)
         $.post("emp_contract/getEmpContractDetail.php",
             {
                 empcontractid: empcontractid
             },
             function (empcontract_data, status) {
-                console.log('empcontractdata1=', empcontract_data)
+                //console.log('empcontractdata1=', empcontract_data)
                 // PARSE json data
                 var empcontractdata = JSON.parse(empcontract_data);
-                console.log('empcontractdata=', empcontractdata)
+                //console.log('empcontractdata=', empcontractdata)
                 if (optype == 'update') {
                     $("#update_empcontractid").val(empcontractdata.id).change();
                     $("#update_employee").val(empcontractdata.emp_id).change();
@@ -3620,11 +3620,11 @@ $(function () {
             data: $("#empContractUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                //console.log('serialize='+$("#empContractUpdate").serialize());
-                console.log('strMessage=' + strMessage);
+                ////console.log('serialize='+$("#empContractUpdate").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditEmpContract').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -3654,17 +3654,17 @@ $(function () {
     $('#terms_employment_contract_table').on('click', '#empContract_view', function () {
         var data = terms_employment_contract_tab.row($(this).parents('tr')).data();
         GetEmpContractDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*empContract table view click  */
     $('#terms_employment_contract_table').on('click', '#empContract_edit', function () {
-        console.log('salam')
+        //console.log('salam')
 
         var data = terms_employment_contract_tab.row($(this).parents('tr')).data();
-        console.log('data=' + data[0])
+        //console.log('data=' + data[0])
         GetEmpContractDetails(data[0], 'update');
         document.getElementById("updateempcontid").value = data[0];
-        console.log(data[0]);
+        //console.log(data[0]);
 
     });
 
@@ -3676,7 +3676,7 @@ $(function () {
 
     var work_experiencetab_tab;
     $('#workExperiencetab').click(function () {
-        console.log('Tab clikc work_experiencetab_table');
+        //console.log('Tab clikc work_experiencetab_table');
         // $('#qual2').text( tabtext2+' / '+$('#workExperienceInfotab').text());
 
         $('#work_experiencetab_table').DataTable().clear().destroy();
@@ -3717,7 +3717,7 @@ $(function () {
 
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
-                        console.log('workExperienceInsertModal')
+                        //console.log('workExperienceInsertModal')
 
                         $("#workExperienceInsertModal").modal();
                     }
@@ -3761,7 +3761,7 @@ $(function () {
 
         });
 
-        console.log('Tab clikc oldu', work_experiencetab_tab);
+        //console.log('Tab clikc oldu', work_experiencetab_tab);
     });
 
     /*Emek muqavilesinin sertleri MELUMATALRİ SİLİNİR */
@@ -3774,15 +3774,15 @@ $(function () {
             data: $("#workExperienceDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalWorkExperienceDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     work_experiencetab_tab.ajax.reload();
                 } else {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -3795,13 +3795,13 @@ $(function () {
 // $('#work_experiencetab_table').on( 'click', '#migration_workExperience_information', function ()
 // {
 //     var data = work_experiencetab_tab.row( $(this).parents('tr') ).data();
-//     console.log('data[0]='+data[0])
+//     //console.log('data[0]='+data[0])
 //     document.getElementById("workExperienceid").value = data[0];
 //     $('#modalworkExperienceDelete').modal('show');
 // } );
 
     $("#workExperienceInsertForm").submit(function (e) {
-        console.log('salam insert')
+        //console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -3811,8 +3811,8 @@ $(function () {
             data: $("#workExperienceInsertForm").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                console.log('strMessage=' + $("#workExperienceInsertForm").serialize());
-                console.log('strMessage=' + strMessage);
+                //console.log('strMessage=' + $("#workExperienceInsertForm").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -3841,17 +3841,17 @@ $(function () {
 
     /*GetworkExperienceDetails  */
     function GetworkExperienceDetails(workExperienceid, optype) {
-        console.log('$workExperienceid=' + workExperienceid)
+        //console.log('$workExperienceid=' + workExperienceid)
         $.post("work_experience/getworkExperienceDetail.php",
             {
                 workExperienceid: workExperienceid
             },
             function (workExperience_data, status) {
-                console.log('workExperiencedata1=', workExperience_data)
+                //console.log('workExperiencedata1=', workExperience_data)
                 // PARSE json data
                 var workExperiencedata = JSON.parse(workExperience_data);
-                console.log('workExperiencedata=', workExperiencedata)
-                console.log('workExperiencedata.emp_id=', workExperiencedata.emp_id)
+                //console.log('workExperiencedata=', workExperiencedata)
+                //console.log('workExperiencedata.emp_id=', workExperiencedata.emp_id)
                 var result = workExperiencedata.work_experience_before_enterprise.split(',');
                 var result2 = workExperiencedata.work_experience_enterprise.split(',');
                 var result3 = workExperiencedata.general_work_experience.split(',');
@@ -3904,11 +3904,11 @@ $(function () {
             data: $("#workExperienceUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                //console.log('serialize='+$("#workExperienceUpdate").serialize());
-                console.log('strMessage=' + strMessage);
+                ////console.log('serialize='+$("#workExperienceUpdate").serialize());
+                //console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    console.log(strMessage);
+                    //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditWorkExperience').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -3938,17 +3938,17 @@ $(function () {
     $('#work_experiencetab_table').on('click', '#workExperience_view', function () {
         var data = work_experiencetab_tab.row($(this).parents('tr')).data();
         GetworkExperienceDetails(data[0], 'view');
-        console.log(data[0]);
+        //console.log(data[0]);
     });
     /*workExperience table view click  */
     $('#work_experiencetab_table').on('click', '#workExperience_edit', function () {
-        console.log('salam')
+        //console.log('salam')
 
         var data = work_experiencetab_tab.row($(this).parents('tr')).data();
-        console.log('data=' + data[0])
+        //console.log('data=' + data[0])
         GetworkExperienceDetails(data[0], 'update');
         document.getElementById("updateworkexpid").value = data[0];
-        console.log(data[0]);
+        //console.log(data[0]);
 
     });
     /*
@@ -3959,7 +3959,7 @@ $(function () {
     var empArray = [];
     var workplace_tab;
     $('#workplaceInformationtab').click(function () {
-        console.log('Tab clikc workplace_table');
+        //console.log('Tab clikc workplace_table');
         // $('#qual2').text( tabtext2+' / '+$('#workplaceInfoInfotab').text());
 
         $('#workplace_table').DataTable().clear().destroy();
@@ -4003,7 +4003,7 @@ $(function () {
 
                     text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                     action: function (e, dt, node, config) {
-                        console.log('workplaceInfoInsertModal')
+                        //console.log('workplaceInfoInsertModal')
 
 
                         $("#workplaceInfoInsertModal").modal();
@@ -4048,7 +4048,7 @@ $(function () {
 
         });
 
-        console.log('Tab clikc oldu', workplace_tab);
+        //console.log('Tab clikc oldu', workplace_tab);
     });
 
     /*Emek muqavilesinin sertleri MELUMATALRİ SİLİNİR */
@@ -4061,15 +4061,15 @@ $(function () {
             data: $("#workplaceInfoDelete").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                // console.log('strMessage=' + strMessage);
+                // //console.log('strMessage=' + strMessage);
                 if (strMessage.substr(1, 4) === 'error') {
-                    // console.log(strMessage);
+                    // //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalWorkplaceInfoDelete').modal('hide');
                     $('#modalDeleteSuccess').modal('show');
                     workplace_tab.ajax.reload();
                 } else {
-                    // console.log(strMessage);
+                    // //console.log(strMessage);
                     $("#badge_danger").text(strMessage);
                 }
             }
@@ -4080,7 +4080,7 @@ $(function () {
 
 
     $("#workplaceInfoInsertForm_m").submit(function (e) {
-        // console.log('salam insert')
+        // //console.log('salam insert')
         e.preventDefault();
         /*	if($("#langInsertForm").valid())
     { */
@@ -4090,9 +4090,9 @@ $(function () {
             data: $("#workplaceInfoInsertForm_m").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                // console.log('workplaceInfoInsertForm =' + $("#workplaceInfoInsertForm_m").html());
-                // console.log('strMessage=' + $("#workplaceInfoInsertForm_m").serialize());
-                // console.log('strMessage=' + strMessage);
+                // //console.log('workplaceInfoInsertForm =' + $("#workplaceInfoInsertForm_m").html());
+                // //console.log('strMessage=' + $("#workplaceInfoInsertForm_m").serialize());
+                // //console.log('strMessage=' + strMessage);
                 $("#badge_success").text('');
                 $("#badge_danger").text('');
                 if (strMessage.substr(1, 4) === 'error') {
@@ -4121,29 +4121,29 @@ $(function () {
 
     /*GetworkplaceInfoDetails  */
     function GetworkplaceInfoDetails(workplaceInfoid, optype) {
-        // console.log('$workplaceInfoid=' + workplaceInfoid)
+        // //console.log('$workplaceInfoid=' + workplaceInfoid)
         $.post("workplace_info/getWorkplaceInfoDetail.php",
             {
                 workplaceInfoid: workplaceInfoid
             },
             function (workplaceInfo_data, status) {
-                // console.log('workplaceInfodata1=', workplaceInfo_data)
+                // //console.log('workplaceInfodata1=', workplaceInfo_data)
                 // PARSE json data
                 var workplaceInfodata = JSON.parse(workplaceInfo_data);
                 var structure_level = workplaceInfodata.structure_level
                 var position_level = workplaceInfodata.position_level
                 var structures = workplaceInfodata.structures;
-                // console.log('workplaceInfodata=', workplaceInfodata)
-                // console.log('workplaceInfodata.emp_id='+workplaceInfodata.emp_id)
-                // console.log('structures=', structures);
-                // console.log('structure_level=', structure_level);
+                // //console.log('workplaceInfodata=', workplaceInfodata)
+                // //console.log('workplaceInfodata.emp_id='+workplaceInfodata.emp_id)
+                // //console.log('structures=', structures);
+                // //console.log('structure_level=', structure_level);
                 fillSelect(structures, '');
 
                 $('.selectpicker').selectpicker('refresh');
 
 
                 if (optype == 'update') {
-                    // console.log('update kecdim')
+                    // //console.log('update kecdim')
                     // stlevel('update_')
                      $("#update_workplaceInfoid").val(workplaceInfodata.id).change();
                     $("#update_employee_place").val(workplaceInfodata.emp_id).change();
@@ -4201,11 +4201,11 @@ $(function () {
             data: $("#workplaceInfoUpdate").serialize(),
             dataType: "text",
             success: function (strMessage) {
-                //console.log('serialize='+$("#workplaceInfoUpdate").serialize());
-                // console.log('strMessage=' + strMessage);
+                ////console.log('serialize='+$("#workplaceInfoUpdate").serialize());
+                // //console.log('strMessage=' + strMessage);
                 $("#badge_danger_update").text("");
                 if (strMessage.substr(1, 4) === 'error') {
-                    // console.log(strMessage);
+                    // //console.log(strMessage);
                 } else if (strMessage === 'success') {
                     $('#modalEditWorkPlaceInfo').modal('hide');
                     $('#modalUpdateSuccess').modal('show');
@@ -4235,17 +4235,17 @@ $(function () {
     $('#workplace_table').on('click', '#workplaceInfo_view', function () {
         var data = workplace_tab.row($(this).parents('tr')).data();
         GetworkplaceInfoDetails(data[0], 'view');
-        console.log(data[0]);
+        // //console.log(data[0]);
     });
     /*workplaceInfo table view click  */
     $('#workplace_table').on('click', '#workplaceInfo_edit', function () {
-        console.log('salam')
+        //console.log('salam')
 
         var data = workplace_tab.row($(this).parents('tr')).data();
-        console.log('data=' + data[0])
+        // //console.log('data=' + data[0])
         GetworkplaceInfoDetails(data[0], 'update');
         document.getElementById("updateworkplaceid").value = data[0];
-        console.log(data[0]);
+        // //console.log(data[0]);
 
     });
     $('#birth_date_fam_info').datetimepicker({format: 'DD/MM/YYYY'});
@@ -4329,10 +4329,10 @@ $(document).ready(function (e) {
 
         // $("#uploadForm").submit();
         $("#addImage").trigger("click");
-        console.log('on change');
+        //console.log('on change');
     })
     $(document).on('change', '#medical_physical_deficiency', function () {
-        console.log('medical_physical_deficiency=' + $(this).val());
+        //console.log('medical_physical_deficiency=' + $(this).val());
         if ($('#medical_physical_deficiency option:selected').val() == '1') {
             $('#medical_deficiency_descDiv').css('display', 'flex')
         } else {
@@ -4340,7 +4340,7 @@ $(document).ready(function (e) {
         }
     })
     $(document).on('change', '#update_physical_deficiency', function () {
-        console.log('update_physical_deficiency=' + $(this).val());
+        //console.log('update_physical_deficiency=' + $(this).val());
         if ($('#update_physical_deficiency option:selected').val() == '1') {
             $('#update_deficiency_descDiv').css('display', 'flex')
         } else {
@@ -4352,7 +4352,7 @@ $(document).ready(function (e) {
 function addImage() {
     $("#addImage").on('click', (function (e) {
 
-        console.log('on submit')
+        //console.log('on submit')
         var formData = new FormData($('#uploadForm')[0]);
 
         formData.append('userImage', $('input[type=file]')[0].files[0]);
@@ -4382,19 +4382,19 @@ function addImage() {
 
 $(".company_id").change(function () {
     var deptid = $(this).val();
-    console.log("deptid=" + deptid);
+    //console.log("deptid=" + deptid);
     $.ajax({
         url: 'employees/getEmployee.php',
         type: 'post',
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            console.log('response=', response)
+            //console.log('response=', response)
             $("#employee").empty();
             var option = '<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
             option += '<option value="">Seçin..</option>';
             $.each(response, function (k, v) {
-                console.log('v=', v[1]);
+                //console.log('v=', v[1]);
                 option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
             });
             option += '</select>';
@@ -4408,14 +4408,14 @@ $(".work_company_id").change(function () {
     var deptid = $(this).val();
     var empArray = [];
     var catArray = [];
-    console.log("deptid work_company_id=" + deptid);
+    //console.log("deptid work_company_id=" + deptid);
     $.ajax({
         url: 'employees/getEmployee.php',
         type: 'post',
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            console.log('response =', response)
+            //console.log('response =', response)
             empArray = response;
         }
     });
@@ -4425,14 +4425,14 @@ $(".work_company_id").change(function () {
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            console.log('response=', response);
+            //console.log('response=', response);
             catArray = response;
 
             $.each(response, function (k, v) {
                 empArray = jQuery.grep(empArray, function (value) {
                     return value[0] != v;
                 });
-                console.log('empArray=', empArray)
+                //console.log('empArray=', empArray)
 
             })
 
@@ -4440,13 +4440,13 @@ $(".work_company_id").change(function () {
             var option = '<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
             option += '<option value="">Seçin..</option>';
             $.each(empArray, function (k, v) {
-                console.log('v=', v[1]);
+                //console.log('v=', v[1]);
                 option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
             });
             option += '</select>';
             $(".emp").html(option);
             $(".selectpicker").selectpicker();
-            console.log('difff', diff(empArray, catArray))
+            //console.log('difff', diff(empArray, catArray))
         }
     });
 
@@ -4458,7 +4458,7 @@ $(".work_company_id").change(function () {
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            console.log('response insert=', response)
+            //console.log('response insert=', response)
             if (response) {
                 fillSelect(response.structures, '')
                 // stlevel()
@@ -4475,19 +4475,19 @@ function diff(a1, a2) {
 
 $(".update_company_id").change(function () {
     var deptid = $(this).val();
-    console.log("deptid=" + deptid);
+    //console.log("deptid=" + deptid);
     $.ajax({
         url: 'employees/getEmployee.php',
         type: 'post',
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            console.log('response=', response)
+            //console.log('response=', response)
             $("#employee").empty();
             var option = '<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
             option += '<option value="">Seçin..</option>';
             $.each(response, function (k, v) {
-                console.log('v=', v[1])
+                //console.log('v=', v[1])
                 option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
             });
             option += '</select>';
@@ -4499,8 +4499,8 @@ $(".update_company_id").change(function () {
 });
 
 function fillSelect(structures, stLevelid) {
-    console.log('------------------------ stLevelid=' + stLevelid)
-    console.log('fillSelect structures=', structures)
+    //console.log('------------------------ stLevelid=' + stLevelid)
+    //console.log('fillSelect structures=', structures)
     var option_directorate = '<option value="">Seçin..</option>';
     var option_department = '<option value="">Seçin..</option>';
     var option_depart = '<option value="">Seçin..</option>';
@@ -4528,11 +4528,11 @@ function fillSelect(structures, stLevelid) {
             option_second_leader += '<option value="' + v.id + '"  data-stLevel="' + v.position_level + '">' + v.category + '</option>';
         }
     });
-    console.log('option_direct_guide' + option_direct_guide)
-    console.log('option_second_leader' + option_second_leader)
+    //console.log('option_direct_guide' + option_direct_guide)
+    //console.log('option_second_leader' + option_second_leader)
     if (stLevelid === '') {
 
-        console.log('stLevelid =bos isledi')
+        //console.log('stLevelid =bos isledi')
         $('.up_directorate').find('select').html(option_directorate);
         $('.up_department').find('select').html(option_department);
         $('.up_depart').find('select').html(option_depart);
@@ -4540,25 +4540,25 @@ function fillSelect(structures, stLevelid) {
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
     } else if (stLevelid === '2') {
-        console.log('stLevelid =2 isledi')
+        //console.log('stLevelid =2 isledi')
         $('.up_department').find('select').html(option_department);
         $('.up_depart').find('select').html(option_depart);
         $('.up_area_section').find('select').html(option_area_section);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
     } else if (stLevelid === '3') {
-        console.log('stLevelid =3 isledi')
+        //console.log('stLevelid =3 isledi')
         $('.up_depart').find('select').html(option_depart);
         $('.up_area_section').find('select').html(option_area_section);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
     } else if (stLevelid === '4') {
-        console.log('stLevelid =4 isledi')
+        //console.log('stLevelid =4 isledi')
         $('.up_area_section').find('select').html(option_area_section);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
     } else {
-        console.log('stLevelid =5 isledi=' + $('.up_area_section').find('select').html())
+        //console.log('stLevelid =5 isledi=' + $('.up_area_section').find('select').html())
     }
 
 
@@ -4571,7 +4571,7 @@ $(".stlevel").change(function () {
 
     var stid = $(this).val();
     var stLevelid = $(this).find('option:selected').attr('data-stLevel');
-    console.log("stid=" + $(this).html() + "=" + stid);
+    //console.log("stid=" + $(this).html() + "=" + stid);
     if (stid != '') {
         $.ajax({
             url: 'workplace_info/getStructure.php',
@@ -4580,9 +4580,9 @@ $(".stlevel").change(function () {
             data: {stid: stid},
             dataType: 'json',
             success: function (response) {
-                console.log('response=', response)
+                //console.log('response=', response)
                 if (response) {
-                    // console.log('fillSelect stlevel optype='+optype)
+                    // //console.log('fillSelect stlevel optype='+optype)
                     fillSelect(response.structures, stLevelid)
                 }
             }
@@ -4592,18 +4592,18 @@ $(".stlevel").change(function () {
 });
 $("#type_dismissal").change(function () {
     var type_dismissal_id = $(this).val();
-    console.log("type_dismissal_id=" + type_dismissal_id);
+    //console.log("type_dismissal_id=" + type_dismissal_id);
     $.ajax({
         url: 'employees/getTerminationClause.php',
         type: 'post',
         data: {type_dismissal_id: type_dismissal_id},
          dataType: 'json',
         success: function (response) {
-            console.log('response=', response)
+            //console.log('response=', response)
             $(".termination_clause").empty();
             var option = '<select data-live-search="true"  name="termination_clause" id="termination_clause"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
              $.each(response, function (k, v) {
-                console.log('v=', v[1]);
+                //console.log('v=', v[1]);
                 option += '<option value="' + v.level_id + '" >' + v.title + '</option>';
             });
             option += '</select>';
@@ -4612,14 +4612,14 @@ $("#type_dismissal").change(function () {
 
             $("#termination_clause").change(function () {
                 var termination_id = $(this).val();
-                console.log("termination_id=" + termination_id);
+                //console.log("termination_id=" + termination_id);
                 $.ajax({
                     url: 'employees/getNotes.php',
                     type: 'post',
                     data: {termination_id: termination_id},
                     dataType: 'json',
                     success: function (data) {
-                        console.log('data=', data)
+                        //console.log('data=', data)
                         $(".note").empty();
                          var options = '<select data-width="100%" data-live-search="true" style="min-width:500px;"  name="notes" id="notes"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
 
@@ -4628,12 +4628,12 @@ $("#type_dismissal").change(function () {
                         });
                         // options += '</select></div>';
                         options += '</select>';
-                        console.log('options='+options)
+                        //console.log('options='+options)
                         $(".note").html(options);
                         $('.selectpicker').selectpicker();
                         $("#notes").change(function () {
                             var notes_id = $(this).val();
-                            console.log("notes_id=" + notes_id);
+                            //console.log("notes_id=" + notes_id);
                             if(notes_id=='6' && termination_id=='1'){
                                 $('#main').val("Əmək müqaviləsi");
                             }else

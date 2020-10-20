@@ -1,7 +1,7 @@
 stClick();
 function stClick() {
     $(document).on('click', '#struktur', function (e) {
-        console.log('a2')
+        //console.log('a2')
         $('#query').css('display', 'none')
         $('#stQuery').css('display', 'block')
         $('#employeesQuery').css('display', 'none');
@@ -14,7 +14,7 @@ function stClick() {
         confirmClick();
     });
     $(document).on('click', '#pozisya', function (e) {
-        console.log('a3');
+        //console.log('a3');
         $('#query').css('display', 'none')
         $('#stQuery').css('display', 'block')
         $('#employeesQuery').css('display', 'block')
@@ -70,8 +70,8 @@ function confirmClick(companyId){
             var company_id=$('#companyId').val();
 
 
-            console.log('confirm col company_id='+company_id);
-            console.log('employee='+employee)
+            //console.log('confirm col company_id='+company_id);
+            //console.log('employee='+employee)
             if(eventArray){
                 createNew(eventArray, dataArray, employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id,company_ids);
 
@@ -95,19 +95,19 @@ function confirmClick(companyId){
 }
 function validate(st_create_date){
 
-    console.log('st_create_date='+st_create_date+'='+createDateParent)
-    // console.log('st_create_date='+date.toString('dd-MM-yy');+'='+createDateParent)
+    //console.log('st_create_date='+st_create_date+'='+createDateParent)
+    // //console.log('st_create_date='+date.toString('dd-MM-yy');+'='+createDateParent)
     var dateAr = createDateParent.split('-');
     dateAr = dateAr[1] + '/' + dateAr[2] + '/' + dateAr[0];
 
     var dateAr2 = st_create_date.split('/');
     dateAr2 = dateAr2[1] + '/' + dateAr2[0] + '/' + dateAr2[2];
 
-    console.log('dateAr2='+dateAr2+'='+dateAr)
-    console.log('st_create_date='+Date.parse(dateAr2)+'='+Date.parse(dateAr))
+    //console.log('dateAr2='+dateAr2+'='+dateAr)
+    //console.log('st_create_date='+Date.parse(dateAr2)+'='+Date.parse(dateAr))
 
     if(Date.parse(dateAr2)<Date.parse(dateAr)){
-        console.log('kicikdr');
+        //console.log('kicikdr');
         Swal.fire({
             icon: 'error',
             title: 'Xəbərdarlıq',
@@ -119,10 +119,10 @@ function validate(st_create_date){
     return true;
 }
 function createNew(event,data,employee,structure_level,position_level,st_create_date,st_end_date,icon,company_id,company_ids){
-    // console.log('data',createRequestNumber(8))
-    console.log('eventeventeventevent',event)
-    console.log('data.cmd==',data.cmd)
-    console.log('data ==',data)
+    // //console.log('data',createRequestNumber(8))
+    //console.log('eventeventeventevent',event)
+    //console.log('data.cmd==',data.cmd)
+    //console.log('data ==',data)
 
     var PID;
     var title;
@@ -131,41 +131,41 @@ function createNew(event,data,employee,structure_level,position_level,st_create_
     if (data==0){
         PID=0;
         title='Yeni';
-        console.log('Yeni')
+        //console.log('Yeni')
     }else if(data.node.parent.data.id){
         PID=data.node.parent.data.id;
         title=data.node.title;
         company_id=data.node.parent.data.company_id
-        console.log('data.node.parent.data=',data.node.parent.data)
+        //console.log('data.node.parent.data=',data.node.parent.data)
 
     }else if(data.node.parent.children[0].data.pId){
         PID=data.node.parent.children[0].data.pId;
         title=data.node.title;
         company_id= data.node.parent.children[0].data.company_id;
-        console.log('data.node.parent.children[0].data=',data.node.parent.children[0].data)
+        //console.log('data.node.parent.children[0].data=',data.node.parent.children[0].data)
 
     }else if(data.node.title &&(!data.node.parent.children[0].data.pId || !data.node.parent.data.id)  ){
         title=data.node.title;
-        console.log('data.node=',data.node)
+        //console.log('data.node=',data.node)
         PID=0;
     }
 
-    console.log('PID=='+PID);
-    console.log('title=='+title);
-    console.log('structure_level=='+structure_level);
-    console.log('position_level=='+position_level);
-    console.log('company_ids=='+company_ids);
-    console.log('company=='+$('#company').val());
-    console.log('company_id=='+company_id)
-    console.log('$pId=='+PID)
+    //console.log('PID=='+PID);
+    //console.log('title=='+title);
+    //console.log('structure_level=='+structure_level);
+    //console.log('position_level=='+position_level);
+    //console.log('company_ids=='+company_ids);
+    //console.log('company=='+$('#company').val());
+    //console.log('company_id=='+company_id)
+    //console.log('$pId=='+PID)
     $.ajax({
         url: 'structure/st_insert.php',
         type: "POST",
         data: { pId:PID, name:title,icon:icon,emp_id:employee,structure_level:structure_level,position_level:position_level,create_date:st_create_date,end_date:st_end_date,company_id:company_id,company_ids:company_ids,st:"st"},
         success: function (data) {
-            console.log('companycer=='+$('#company').val());
-            console.log('dataaaaaaaaada=' , data);
-            console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+            //console.log('companycer=='+$('#company').val());
+            //console.log('dataaaaaaaaada=' , data);
+            //console.log('dataaaaaaaaaa=' , $.parseJSON(data));
             var tree = $('#tree').fancytree('getTree');
 
             tree.reload($.parseJSON(data));
@@ -208,10 +208,10 @@ function sagClick(number){
     $("#idemp"+number).bind('contextmenu', function (e) {
 
         var id = this.id;
-        console.log('//////////////////////////////////////////'+id)
+        //console.log('//////////////////////////////////////////'+id)
         $("#txt_id").val(id);
         $("#number_id").val(number);
-        console.log('number_id[='+$("#number_id").val())
+        //console.log('number_id[='+$("#number_id").val())
         var top = e.pageY-90;
         var left = e.pageX-215;
 
@@ -220,21 +220,21 @@ function sagClick(number){
             top: top + "px",
             left: left + "px"
         });
-        console.log('companyid[[[[[[[[[[[[='+$(this).closest('tr').attr('data-companyid'))
+        //console.log('companyid[[[[[[[[[[[[='+$(this).closest('tr').attr('data-companyid'))
         var company_id=$(this).closest('tr').attr('data-companyid')
         $.ajax({
             url: 'structure/st_emp_select.php',
             type: "POST",
             data: { company_id:company_id},
             success: function (data) {
-                console.log('st_emp_select data=' + data)
+                //console.log('st_emp_select data=' + data)
                 // var option='<select data-live-search="true" style="display: none;"  name="employee" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 var option  = '<option value="">Seçin..</option>';
 
                 var row = '';
                 // $('#tablePositions').find('tbody').html('');
                 $.each($.parseJSON(data), function(k,v) {
-                    console.log('v=',v)
+                    //console.log('v=',v)
                     option += '<option value="' + v.id + '" >' + v.firstname + ' '+v.lastname + ' '+v.surname + '</option>';
 
                 });
@@ -255,7 +255,7 @@ function sagClick(number){
         var id = this.id;
         $("#txt_id").val(id);
         $("#number_id").val(number);
-        console.log('number_id[='+$("#number_id").val())
+        //console.log('number_id[='+$("#number_id").val())
         var top = e.pageY-90;
         var left = e.pageX-215;
 
@@ -288,7 +288,7 @@ function sagClick(number){
 
         var idCont = $('#txt_id').val();
         if(idCont){
-            console.log('idCont='+idCont)
+            //console.log('idCont='+idCont)
             $('#'+idCont).find('span').css('display','none')
             $('#'+idCont).find('select').css('display','block')
             $('#'+idCont).find('input').css('display','block')
@@ -297,7 +297,7 @@ function sagClick(number){
         }
         $('#'+idCont).off('click')
         $('table').click(function() {
-            console.log('body click'+$(this).attr('class'))
+            //console.log('body click'+$(this).attr('class'))
             $('#'+idCont).find('span').css('display','block')
             $('#'+idCont).find('select').css('display','none')
             $('#'+idCont).find('input').css('display','none')
@@ -312,7 +312,7 @@ function sagClick(number){
 
     $("#idst"+number).find('select').change(function(e){
         // e.stopPropagation();
-        console.log('contentEdit change'+$(this).attr('name'));
+        //console.log('contentEdit change'+$(this).attr('name'));
         if($(this).find('option:selected').val()!='0'){
             $(this).closest('td').find('span').text($(this).find('option:selected').text())
         }else{
@@ -338,7 +338,7 @@ function sagClick(number){
             type: "POST",
             data: { id:number, name:thisVal,change:thisName,company_id:company_id},
             success: function (data) {
-                console.log('st_update dataaaaaaa=' + data)
+                //console.log('st_update dataaaaaaa=' + data)
                 var tree = $('#tree').fancytree('getTree');
                 tree.reload($.parseJSON(data));
 
@@ -348,7 +348,7 @@ function sagClick(number){
 
 
     $("#idemp"+number).find('select').change(function(){
-        console.log('contentEdit change'+$(this).attr('name'));
+        //console.log('contentEdit change'+$(this).attr('name'));
         if($(this).find('option:selected').val()!='0'){
             $(this).closest('td').find('span').text($(this).find('option:selected').text())
         }else{
@@ -366,7 +366,7 @@ function sagClick(number){
             type: "POST",
             data: { id:number, name:thisVal,change:thisName,company_id:company_id},
             success: function (data) {
-                console.log('dataaaaaaaw=' + data)
+                //console.log('dataaaaaaaw=' + data)
                 $("#idemp"+number).find('span').css('display','block')
                 $("#idemp"+number).find('select').css('display','none')
 
@@ -382,8 +382,8 @@ function sagClick(number){
         // $(this).css('display','none');
         var createDate=$(this).closest('td').find("#idcreateInput"+number).val()
         var endDate=$(this).closest('td').find("#idendInput"+number).val()
-        console.log('contentEdit createDate'+createDate);
-        console.log('contentEdit endDate'+endDate);
+        //console.log('contentEdit createDate'+createDate);
+        //console.log('contentEdit endDate'+endDate);
         // var company_id=$('#company_id').val()
         var company_id=$(this).closest('tr').attr('data-companyId')
         // if(validate(createDate)) {
@@ -392,7 +392,7 @@ function sagClick(number){
             type: "POST",
             data: {id: number, createDate: createDate, endDate: endDate,company_id:company_id},
             success: function (data) {
-                console.log('idyearButton dataaaaaaaw=' + $.parseJSON(data))
+                //console.log('idyearButton dataaaaaaaw=' + $.parseJSON(data))
                 $("#idyear" + number).find('span').css('display', 'block')
                 $("#idyear" + number).find('button').css('display', 'block')
                 $("#idcreateInput" + number).css('display', 'none')
@@ -431,7 +431,7 @@ $(document).on('click', '#menyu_delete', function(e) {
 })
 $(document).on('click', '#menyu_add', function(e) {
     addNew=0;
-    console.log('sssss')
+    //console.log('sssss')
     $("#tree").trigger("nodeCommand", { cmd: "addSibling"});
 })
 $(document).on('click', '#menyu_addChild', function(e) {
@@ -441,10 +441,10 @@ $(document).on('click', '#menyu_addChild', function(e) {
 
 function treeClick(trList){
     trList.on('click',function(){
-        console.log('tree event',$(this).attr('data-id'))
+        //console.log('tree event',$(this).attr('data-id'))
         var stId=$(this).attr('data-id')
         var company_id=$(this).closest('tr').attr('data-companyId')
-        console.log('treeClick company_id='+company_id)
+        //console.log('treeClick company_id='+company_id)
         // var company_id=$('#company_id').val()
         $.ajax({
             url: 'structure/st_selectRoles.php',
@@ -452,7 +452,7 @@ function treeClick(trList){
             async:false,
             data: {id: stId},
             success: function (data) {
-                console.log('dataaaaas=' , data);
+                //console.log('dataaaaas=' , data);
                 fillStTable(jQuery.parseJSON(data),stId)
             },
         });
@@ -462,7 +462,7 @@ function treeClick(trList){
             async:false,
             data: {company_id: company_id},
             success: function (data) {
-                console.log('st_selectEmpCompany DATA11=',data)
+                //console.log('st_selectEmpCompany DATA11=',data)
 
                 var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value="0">Seçin..</option>';
@@ -478,9 +478,9 @@ function treeClick(trList){
                 // $('#posList').html(option);
                 $('#structure_roles').find('#posList').html(option);
                 $(".selectpicker").selectpicker();
-                // console.log('posList='+ $('#posList').html())
+                // //console.log('posList='+ $('#posList').html())
                 positionList();
-                // console.log('structure_roles posList='+ $('#structure_roles').find('#posList').html())
+                // //console.log('structure_roles posList='+ $('#structure_roles').find('#posList').html())
 
             }
         })
@@ -490,7 +490,7 @@ function treeClick(trList){
             async:false,
             data: { id:stId},
             success: function (data) {
-                console.log('trList st_selectStPosition data=' + jQuery.parseJSON(data));
+                //console.log('trList st_selectStPosition data=' + jQuery.parseJSON(data));
 
                 fillTreeTable(jQuery.parseJSON(data),stId);
 
@@ -513,8 +513,8 @@ function myTextClick(){
         var start_date = $(this).closest('tr').find('#start_date').text();
         var end_date = $(this).closest('tr').find('#end_date').text();
         var roleid = $(this).closest('tr').attr('data-role');
-        console.log('myText='+start_date+'=en='+end_date);
-        console.log('roleid='+roleid);
+        //console.log('myText='+start_date+'=en='+end_date);
+        //console.log('roleid='+roleid);
         var tb = div.find('input:text');//get textbox, if exist
         if (tb.length) {//text box already exist
             if(tb.val()<=100) {
@@ -532,8 +532,8 @@ function myTextClick(){
                         percent: tb.val()
                     },
                     success: function (data) {
-                        console.log('dataaaaaaapp=', data);
-                        // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                        //console.log('dataaaaaaapp=', data);
+                        // //console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                         // var tree = $('#tree').fancytree('getTree');
                         // tree.reload($.parseJSON(data));
                     },
@@ -544,7 +544,7 @@ function myTextClick(){
             }
         } else {
             thisVal = $(this).text();
-            console.log('thisVal='+thisVal)
+            //console.log('thisVal='+thisVal)
             tb = $('<input>').prop({
                 'type': 'text',
                 'value': div.text()//set text box value from div current text
@@ -560,7 +560,7 @@ function myTextClick(){
 
 function positionList(){
     $("#positionList").change(function(){
-        console.log('positionList change'+$(this).attr('name'));
+        //console.log('positionList change'+$(this).attr('name'));
         if($(this).find('option:selected').val()!='0'){
             var role_createdate=$(this).find('option:selected').attr('data-createdate')
             var role_enddate=$(this).find('option:selected').attr('data-enddate')
@@ -569,7 +569,7 @@ function positionList(){
             $('#role_start_date').val(role_createdate)
             $('#role_end_date').val(role_enddate)
             // $('#fullName').text(fullName)
-            console.log('role_createdate'+role_createdate);
+            //console.log('role_createdate'+role_createdate);
 
 
 
@@ -612,12 +612,12 @@ $(function () {
     });
 
         $('#companyDiv').on( 'change','#company',  function () {
-            console.log("change company="+$(this).val());
+            //console.log("change company="+$(this).val());
             var company_id=$(this).val();
             var company_text=$(this).find('option:selected').text();
             $('#companyId').val(company_id);
-            console.log("company_id="+company_id);
-            console.log("$('#companyId').val()="+$('#companyId').val());
+            //console.log("company_id="+company_id);
+            //console.log("$('#companyId').val()="+$('#companyId').val());
 
             $('#company_id').val(company_id);
 
@@ -629,7 +629,7 @@ $(function () {
                 type: "POST",
                 data: {company_id: company_id,st:"st"},
                 success: function (data) {
-                    // console.log('companyDiv DATA=',data)
+                    // //console.log('companyDiv DATA=',data)
                     var tree = $('#tree').fancytree('getTree');
                     if(data!=''){
                         tree.reload($.parseJSON(data));
@@ -645,7 +645,7 @@ $(function () {
 
 
 $("#confirmRole").click(function() {
-        console.log('confirmRole change');
+        //console.log('confirmRole change');
         var role_id=  $('#roles option:selected').val();
         var posit_code=$('#positionList option:selected').attr('data-positcode');
         var empid=$('#positionList option:selected').attr('data-empid');
@@ -653,20 +653,20 @@ $("#confirmRole").click(function() {
         var company_id=$('#positionList option:selected').attr('data-companyId')
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
-    console.log('role_id='+role_id)
-    console.log('role='+$('#roles option:selected').text())
+    //console.log('role_id='+role_id)
+    //console.log('role='+$('#roles option:selected').text())
     $.ajax({
         url: 'structure/st_selectValidateRole.php',
         type: "POST",
         data: { role_id:role_id,company_id:company_id},
         success: function (data) {
-            console.log('data='+data)
-            console.log('data.length='+jQuery.parseJSON(data).length)
+            //console.log('data='+data)
+            //console.log('data.length='+jQuery.parseJSON(data).length)
             if(jQuery.parseJSON(data).length>0){
                 $('#changeRoleClick').trigger('click');
                 $('#changeItem').on('click',function(){
                     // do your stuffs with id
-                    console.log('datamodal='+data)
+                    //console.log('datamodal='+data)
                     // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
                     $('#changeRole').modal('hide'); // now close modal
                     insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
@@ -675,15 +675,15 @@ $("#confirmRole").click(function() {
                 insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
             }
             function insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date){
-                console.log('company_id=' , company_id);
-                console.log('posit_code=' , posit_code);
-                console.log('stId=' , stId);
+                //console.log('company_id=' , company_id);
+                //console.log('posit_code=' , posit_code);
+                //console.log('stId=' , stId);
                 $.ajax({
                     url: 'structure/st_insertRole.php',
                     type: "POST",
                     data: { company_id:company_id,role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
                     success: function (data) {
-                        console.log('dataaaaas=' , data);
+                        //console.log('dataaaaas=' , data);
                         $('#roles').find('option[value="0"]').prop('selected', true);
                          $('#positionList').find('option[value="0"]').prop('selected', true);
                         $('#role_start_date').val('')
@@ -701,7 +701,7 @@ $("#confirmRole").click(function() {
                             'success'
                         )
                         $(".selectpicker").selectpicker();
-                        // console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                        // //console.log('dataaaaaaaaaa=' , $.parseJSON(data));
                         // var tree = $('#tree').fancytree('getTree');
                         // tree.reload($.parseJSON(data));
                     },
@@ -718,8 +718,8 @@ function fillTreeTable(data,stId){
     $('#tablePositions').find('tbody').html('');
      $.each(data, function(k,v){
          if(v[2].substr(0, 1)=="P"){
-             console.log('trList v=' + v[9]);
-             console.log('trList option=' + v[2]);
+             //console.log('trList v=' + v[9]);
+             //console.log('trList option=' + v[2]);
              var fName='Təyin edilməyib';
              var fRole='Təyin edilməyib';
              var fRole_id=0;
@@ -757,8 +757,8 @@ function fillStTable(data,stId){
     // $('#tablePositions').find('tbody').html('');
     $('#tableStructureRoles').find('tbody').html('');
     $.each(data, function(k,v){
-        console.log('trList v=' + v[9]);
-        console.log('trList option=' + v[2]);
+        //console.log('trList v=' + v[9]);
+        //console.log('trList option=' + v[2]);
         var fName='Təyin edilməyib';
         var fRole='Təyin edilməyib';
         var fPercent=0;
@@ -789,14 +789,14 @@ function fillStTable(data,stId){
     $('#tableStructureRoles').find('tbody').html(row);
 
     $(".deleteStRole").click(function() {
-        console.log("deleteStRole")
+        //console.log("deleteStRole")
         var id= $(this).closest('tr').attr('data-id');
         $.ajax({
             url: 'structure/st_deleteStRole.php',
             type: "POST",
             data: {id:id,stId:stId},
             success: function (data) {
-                console.log('data=' + data);
+                //console.log('data=' + data);
                 // Swal.fire(
                 //     'Silmə əməliyyatı müvəffəqiyyətlə yerine yetirildi!',
                 //     '',
