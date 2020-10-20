@@ -1,1 +1,1 @@
-ALTER TABLE `tbl_employee_category` ADD `service` int (11) NULL AFTER `founder`;
+ALTER TABLE `tbl_employee_company` ADD `service` int (11) NULL AFTER `founder`;
