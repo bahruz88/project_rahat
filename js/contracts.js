@@ -195,7 +195,7 @@ function changeAttr(){
 		contract=$('#myContracts').find('#contracts').find('option:selected').val();
 
 	}
-	////console.log('contract='+contract);
+	 console.log('contract='+contract);
 
 	contractDate=$('#myContracts input[name=contractDate]:checked').val();
 	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
@@ -236,11 +236,11 @@ var commandArray =[];
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
 function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate)
 {
-	////console.log('contractDate='+contractDate)
-	////console.log('command_id='+contract)
-	////console.log('contName='+contName)
-	////console.log('empid='+empid)
-	////console.log('sinceBeginDate='+sinceBeginDate)
+	console.log('contractDate='+contractDate)
+	console.log('command_id='+contract)
+	console.log('contName='+contName)
+	console.log('empid='+empid)
+	console.log('sinceBeginDate='+sinceBeginDate)
 	var url="";
 	if(contName=="contracts"){
 		url="contracts/getEmployeeContractDetail.php"
@@ -268,18 +268,18 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 		function (emp_data, status)
 		{
 			// PARSE json data
-			////console.log('emp_data=',emp_data)
-			// ////console.log('count=',emp_data.length)
+			console.log('emp_data=',emp_data)
+			//console.log('count=',emp_data.length)
 			commandArray = emp_data;
 			var employee = JSON.parse(emp_data);
 			var countEmp=employee.length;
 			var employeeMem=[];
 			////console.log('count=',employee.length)
-			////console.log('employee=',employee)
+			console.log('employee=',employee)
 			var table = '';
 			$.each(employee, function(k,value) {
-				////console.log('value=',value)
-				////console.log('value.command_no=',value.command_no)
+				console.log('value=',value)
+				console.log('value.command_no=',value.command_no)
 				if(k==0){
 					var dis="";
 					if(value.command_no!=''){

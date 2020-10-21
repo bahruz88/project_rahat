@@ -265,10 +265,13 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
 
   <li Class="nav-item"><a href="#militaryInfo" id="militaryInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
     <li Class="nav-item"><a href="#paymentSalary"  id="paymentSalarytab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>
-    <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Struktur </a></li>
+<!--    <li Class="nav-item"><a href="#mysqltab"  style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Struktur </a></li>-->
 
 
     <li Class="nav-item"><a href="#termsEmploymentContract"   id="empContractInfotab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > Əmək müqaviləsinin şərtləri  </a></li>
+    <li Class="nav-item">
+        <a href="#workplaceInformation"  style="border-radius:0px;color:#494e53;"   id="workplaceInformationtab"  class="nav-link" role="tab" data-toggle="tab" > <?php echo $dil["workplace_information"];?> </a></li>
+
     <li class="nav-item dropdown" >
         <a class="nav-link dropdown-toggle" style="border-radius:0px;color:#494e53;" data-toggle="dropdown" href="#"   id="qual2"  ><?php echo $dil["other_informations"];?></a>
         <div class="dropdown-menu dropdown-menu-lg  ">
@@ -277,7 +280,7 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
             <a class="dropdown-item" href="#medicalInfo"   id="medicalInfotab" data-toggle="tab">Tibbi məlumatlar</a>
             <a class="dropdown-item" href="#previousPositions"    id="previousPositionstab" data-toggle="tab">Əvvəlki iş yerləri</a>
             <a class="dropdown-item" href="#workExperience"    id="workExperiencetab" data-toggle="tab"><?php echo $dil["workExperience"];?></a>
-            <a class="dropdown-item" href="#workplaceInformation"    id="workplaceInformationtab" data-toggle="tab"><?php echo $dil["workplace_information"];?></a>
+<!--            <a class="dropdown-item" href="#workplaceInformation"    id="workplaceInformationtab" data-toggle="tab">--><?php //echo $dil["workplace_information"];?><!--</a>-->
         </div>
     </li>
 <!--     <li Class="nav-item"><a href="#workplaceInformation"   id="workplaceInformationtab" style="border-radius:0px;color:#494e53;" class="nav-link" role="tab" data-toggle="tab" > --><?php //echo $dil["workplace_information"];?><!-- </a></li>-->
