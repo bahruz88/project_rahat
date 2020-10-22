@@ -2,9 +2,9 @@
 include('../session.php') ;
 
   //Create variables
-    $schid = $_POST['schid'];
+    $ovrid = $_POST['ovrid'];
  
-    $delete_query = mysqli_query($db,"update  $tbl_schedules set  status=0 where id='$schid'");
+    $delete_query = mysqli_query($db,"update  $tbl_employee_overtimes set  status=0 where id='$ovrid'");
   
     $aff_row_count=mysqli_affected_rows($db) ;
     //Response
@@ -13,7 +13,7 @@ include('../session.php') ;
         echo "success";
     }
     else {
-        echo "error-".$schid."-".$aff_row_count;
+        echo "error-".$ovrid."-".$aff_row_count;
     }
 
     //Close connection
