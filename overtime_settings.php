@@ -206,7 +206,7 @@ $message=$dil["selectone"];
             <div class="modal-footer justify-content-between">
 			  <form id="ovrDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
-			  <input type="hidden" id="schid" name="schid" value="" /> 
+			  <input type="hidden" id="ovrid" name="ovrid" value="" /> 
 			  </form>
 			  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
 			   
@@ -341,7 +341,7 @@ $message=$dil["selectone"];
  
  
    <!--USER EDİT MODAL -->
-  <div class="modal fade" id="schEdit" role="dialog">
+  <div class="modal fade" id="ovrEdit" role="dialog">
     <div class="modal-dialog modal-lg">
     <form id="schUpdate" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
@@ -549,7 +549,7 @@ $message=$dil["selectone"];
         <div class="modal-footer">				 
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_schid" name="update_schid_name" value="" /> 			 
+		<input type="hidden" id="update_ovrid" name="update_ovrid_name" value="" /> 			 
         </div>	
 		</form>
       </div>
@@ -804,21 +804,19 @@ var table = $("#ovr_table").DataTable({
  $( ".dt-buttons" ).prepend( $( "<a class='dt-button buttons-excel buttons-html5' id='add_new_item'  data-toggle='modal' data-target='#ovrModal'><?php echo $dil['addnew'];?> <i class='fa fa-plus'></i></a>" ) );
   
   /*Button  click  on grid */
-	$('#sch_table tbody').on( 'click', '#delete', function () {
+	$('#ovr_table tbody').on( 'click', '#delete', function () {
         var data = table.row( $(this).parents('tr') ).data();
-        document.getElementById("schid").value = data[0];
+        document.getElementById("ovrid").value = data[0];
 		$('#modalDelete').modal('show');
     } );
 	
 
-  $('#sch_table tbody').on( 'click', '#edit', function () {
+  $('#ovr_table tbody').on( 'click', '#edit', function () {
 	  
-
         var data = table.row( $(this).parents('tr') ).data();
-
 	    //console.log(data) ;
-		GetSchDetails(data[0]);
-		document.getElementById("update_schid").value = data[0];
+		GetOvrDetails(data[0]);
+		document.getElementById("update_ovrid").value = data[0];
 		 
     } );
  
@@ -827,7 +825,7 @@ var table = $("#ovr_table").DataTable({
 
  
  	/*USERIN  UPDATE MELUMATLARINI  GETIRIR*/
-	 function GetSchDetails(schid) 
+	 function GetOvrDetails(ovrid) 
 	 {
 			$.post("schedule/getSchDetail.php", 
 				{
@@ -863,7 +861,7 @@ var table = $("#ovr_table").DataTable({
 					$('#update_userlevel').val([1,2,3]).change();*/
 					//$('#update_userlevel').selectpicker('val', [1,2,3]);
 				     
-					$('#schEdit').modal('show');
+					$('#ovrEdit').modal('show');
 					
 				}
 			);
@@ -922,7 +920,7 @@ var table = $("#ovr_table").DataTable({
 		
                     e.preventDefault();
                     $.ajax( {
-                        url: "schedule/schDelete.php",
+                        url: "overtime/OvrDelete.php",
                         method: "post",
                         data: $("form").serialize(),
                         dataType: "text",
