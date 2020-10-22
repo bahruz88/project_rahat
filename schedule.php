@@ -12,8 +12,7 @@ $result_reduce_type = $db->query($sql_reduce_type);
 $sql_reduce_reason="Select   *  from $tbl_sch_reduce_reason where  lang='$site_lang'";
 $result_reduce_reason = $db->query($sql_reduce_reason);  
  
- 
- 
+
  
 $result_lang = $db->query($sql_lang);
 $result_roles = $db->query($sql_roles);		
@@ -236,7 +235,7 @@ $message=$dil["selectone"];
               <p><?php echo $dil["delete_warning_content"];?></p>
             </div>
             <div class="modal-footer justify-content-between">
-			  <form id="userDelete" method="post" class="form-horizontal" action="">
+			  <form id="schDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
 			  <input type="hidden" id="schid" name="schid" value="" /> 
 			  </form>
@@ -487,7 +486,8 @@ $message=$dil["selectone"];
 						 <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
                             <div class="col-sm-6">
-                                <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')" data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                <select  
+								name="update_company_id_name" id='update_company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
                                     <?php
                                     $result_company = $db->query($sql_employee_company);
                                     if ($result_company->num_rows > 0) {
@@ -501,26 +501,26 @@ $message=$dil["selectone"];
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="schname_id" name="schname_name" placeholder="<?php echo $dil["schname"];?>" />
+									<input type="text" class="form-control" id="update_schname_id" name="update_schname_name" placeholder="<?php echo $dil["schname"];?>" />
 								</div>
 							</div>
 							
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="sch_start_date"><?php echo $dil["sch_start_date"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="sch_start_date_id" name="sch_start_date_name" placeholder="<?php echo $dil["sch_start_date"];?>" />
+									<input type="text" class="form-control" id="update_sch_start_date_id" name="update_sch_start_date_name" placeholder="<?php echo $dil["sch_start_date"];?>" />
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="sch_expire_date"><?php echo $dil["sch_expire_date"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="sch_expire_date_id" name="sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
+									<input type="text" class="form-control" id="update_sch_expire_date_id" name="update_sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
 								<div class="col-sm-6">
-						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="tm_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
+						<select   data-live-search="true"  id="update_tm_type_id" name="update_tm_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
 								 	<?php 
 									 $result_tm_type = $db->query($sql_tm_type);
 										if ($result_tm_type->num_rows > 0) {
@@ -536,7 +536,7 @@ $message=$dil["selectone"];
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="sch_type"><?php echo $dil["sch_type"];?></label>
 								<div class="col-sm-6">
-						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="sch_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
+						<select    data-live-search="true" id="update_sch_type_id" name="update_sch_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
 								 	<?php 
 									 $result_sch_type = $db->query($sql_sch_type);
 										if ($result_sch_type->num_rows > 0) {
@@ -553,7 +553,7 @@ $message=$dil["selectone"];
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="reduce_type"><?php echo $dil["reduce_type"];?></label>
 								<div class="col-sm-6">
-						<select    data-live-search="true" name="reduce_type_name" id="reduce_type" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
+						<select    data-live-search="true" name="update_reduce_type_name" id="update_reduce_type_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
 								 	<?php 
 									 $result_reduce_type = $db->query($sql_reduce_type);
 										if ($result_reduce_type->num_rows > 0) {
@@ -571,7 +571,7 @@ $message=$dil["selectone"];
 								<label class="col-sm-3 col-form-label" for="red_working_hours"><?php echo $dil["red_working_hours"];?></label>
 								<div class="col-sm-6">
 								
-								<select    name="red_working_hours_name" id="red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
+								<select    name="update_red_working_hours_name" id="update_red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
 								 
 										<option  value="1" >1</option>
 										<option  value="2" >2</option>
@@ -593,7 +593,7 @@ $message=$dil["selectone"];
 								<label class="col-sm-3 col-form-label" for="reduce_reason"><?php echo $dil["reduce_reason"];?></label>
 								<div class="col-sm-6">
 							
-								<select   data-live-search="true" name="reduce_reason_name" id="reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>" >
+								<select   data-live-search="true" name="update_reduce_reason_name" id="update_reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>" >
 											<?php 
 											 $result_reduce_reason = $db->query($sql_reduce_reason);
 												if ($result_reduce_reason->num_rows > 0) {
@@ -610,7 +610,7 @@ $message=$dil["selectone"];
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="start_time"><?php echo $dil["sch_start_time"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="start_time_id" name="start_time_name" placeholder="<?php echo $dil["sch_start_time"];?>" />
+									<input type="text" class="form-control" id="update_start_time_id" name="update_start_time_name" placeholder="<?php echo $dil["sch_start_time"];?>" />
 								</div>
 							</div>
  
@@ -618,14 +618,14 @@ $message=$dil["selectone"];
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="end_time"><?php echo $dil["sch_end_time"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="end_time_id" name="end_time_name" placeholder="<?php echo $dil["sch_end_time"];?>" />
+									<input type="text" class="form-control" id="update_end_time_id" name="update_end_time_name" placeholder="<?php echo $dil["sch_end_time"];?>" />
 								</div>
 							</div>
 							
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="break_start_time"><?php echo $dil["break_start_time"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="break_start_time_id" name="break_start_time_name" placeholder="<?php echo $dil["break_start_time"];?>" />
+									<input type="text" class="form-control" id="update_break_start_time_id" name="update_break_start_time_name" placeholder="<?php echo $dil["break_start_time"];?>" />
 								</div>
 							</div>
  
@@ -633,14 +633,14 @@ $message=$dil["selectone"];
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="break_end_time"><?php echo $dil["break_end_time"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="break_end_time_id" name="break_end_time_name" placeholder="<?php echo $dil["break_end_time"];?>" />
+									<input type="text" class="form-control" id="update_break_end_time_id" name="update_break_end_time_name" placeholder="<?php echo $dil["break_end_time"];?>" />
 								</div>
 							</div>
 
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="dinner_start_time"><?php echo $dil["dinner_start_time"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="dinner_start_time_id" name="dinner_start_time_name" placeholder="<?php echo $dil["dinner_start_time"];?>" />
+									<input type="text" class="form-control" id="update_dinner_start_time_id" name="update_dinner_start_time_name" placeholder="<?php echo $dil["dinner_start_time"];?>" />
 								</div>
 							</div>
  
@@ -648,14 +648,14 @@ $message=$dil["selectone"];
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="dinner_end_time"><?php echo $dil["dinner_end_time"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="dinner_end_time_id" name="dinner_end_time_name" placeholder="<?php echo $dil["dinner_end_time"];?>" />
+									<input type="text" class="form-control" id="update_dinner_end_time_id" name="update_dinner_end_time_name" placeholder="<?php echo $dil["dinner_end_time"];?>" />
 								</div>
 							</div>
 							
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["sch_night_time"];?></label>
 								<div class="col-sm-6">
-		                        <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true"  name="night_time_name"  id="night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
+		                        <select    data-live-search="true"  name="update_night_time_name"  id="update_night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
                                     <?php
                                     $result_yesno = $db->query($sql_yesno); 
                                     if ($result_yesno->num_rows > 0) {
@@ -674,11 +674,10 @@ $message=$dil["selectone"];
 				</div>
    
 		</div>
-        <div class="modal-footer">
-						 
+        <div class="modal-footer">				 
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_schid" name="update_schid" value="" /> 			 
+		<input type="hidden" id="update_schid" name="update_schid_name" value="" /> 			 
         </div>	
 		</form>
       </div>
@@ -777,128 +776,15 @@ $message=$dil["selectone"];
 <script>
 
   $(function () {
- 
-/*FORM  VALIDATE */	  
- 			$( "#schInsert" ).validate( {
-				rules: {
-					schname_name2: "required",
-					sch_start_date_name: "required",
-					sch_expire_date: "required",
-					schname_name: {
-						required: true,
-						minlength: 5
-					},
-					langinput: "required"
-				},
-				messages: {
-					schname_name2: "<?php echo $dil['empty_firstname'];?>",
-					sch_start_date_name: "<?php echo $dil['empty_sch_start_date_name'];?>",
-					sch_expire_date: "<?php echo $dil['empty_sch_expire_date'];?>",
-					langinput: "<?php echo $dil['wrong_lang'];?>",
-					schname_name: {
-						required: "<?php echo $dil['empty_sch_name'];?>",
-						minlength: "<?php echo $dil['length_input'];?>"
-					}
 
-
-
-				},
-				errorElement: "em",
-				errorPlacement: function ( error, element ) {
-					// Add the `invalid-feedback` class to the error element
-					error.addClass( "invalid-feedback" );
-
-					if ( element.prop( "type" ) === "checkbox" ) {
-						error.insertAfter( element.next( "label" ) );
-					} else {
-						error.insertAfter( element );
-					}
-				},
-				highlight: function ( element, errorClass, validClass ) {
-					$( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
-				},
-				unhighlight: function (element, errorClass, validClass) {
-					$( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
-				}
-			} );
- 
- 
- 
-  			$( "#userUpdate" ).validate( {
-				
-				rules: {
-					update_firstname: "required",
-					update_lastname: "required",
-					update_username: {
-						required: true,
-						minlength: 3
-					},
-					
-					update_email: {
-						required: true,
-						email: true
-					},
-					password: {
-						required: false,
-						minlength: 5
-					},
-					confirm_password: {
-						required: false,
-						minlength: 5,
-						equalTo: "#password"
-					},
-					update_deflang: "required"
-
-				},
-				messages: {
-					update_firstname: "<?php echo $dil['empty_firstname'];?>",
-					update_lastname: "<?php echo $dil['empty_lastname'];?>",
-
-					update_username: {
-						required: "<?php echo $dil['empty_user'];?>",
-						minlength: "<?php echo $dil['length_input'];?>"
-					},
-					password: {
-						required: "Please provide a password",
-						minlength: "<?php echo $dil['length_input'];?>"
-					},
-					confirm_password: {
-						required: "Please provide a password",
-						minlength: "<?php echo $dil['length_input'];?>",
-						equalTo: "Please enter the same password as above"
-					},
-					
-					update_email: "<?php echo $dil['wrong_mail'];?>",
-					update_deflang: "<?php echo $dil['wrong_lang'];?>"
-				},
-				errorElement: "em",
-				errorPlacement: function ( error, element ) {
-					// Add the `invalid-feedback` class to the error element
-					error.addClass( "invalid-feedback" );
-
-					if ( element.prop( "type" ) === "checkbox" ) {
-						error.insertAfter( element.next( "label" ) );
-					} else {
-						error.insertAfter( element );
-					}
-				},
-				highlight: function ( element, errorClass, validClass ) {
-					$( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
-				},
-				unhighlight: function (element, errorClass, validClass) {
-					$( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
-				}
-			} );
-	
-	
 /*LOAD  USER TABLE 
 	$("#sch_table").append(
        $('<filtercol>').append( $("#sch_table thead tr").clone() )
    );*/
 	
 var table = $("#sch_table").DataTable({
-	"scrollX": true,
-  "paging": true,
+       "scrollX": true,
+       "paging": true,
       "lengthChange": false,
       "searching": true,
       "ordering": true,
@@ -989,7 +875,11 @@ var table = $("#sch_table").DataTable({
 	
 
   $('#sch_table tbody').on( 'click', '#edit', function () {
+	  
+
         var data = table.row( $(this).parents('tr') ).data();
+
+	    //console.log(data) ;
 		GetSchDetails(data[0]);
 		document.getElementById("update_schid").value = data[0];
 		 
@@ -1000,7 +890,7 @@ var table = $("#sch_table").DataTable({
 
  
  	/*USERIN  UPDATE MELUMATLARINI  GETIRIR*/
-	 function GetSchDetails(userid) 
+	 function GetSchDetails(schid) 
 	 {
 			$.post("schedule/getSchDetail.php", 
 				{
@@ -1008,18 +898,34 @@ var table = $("#sch_table").DataTable({
 				},
 				function (sch_data, status) 
 				{
-					// PARSE json data
+				
+
+				// PARSE json data
 					var schedule = JSON.parse(sch_data);
 					// Assing existing values to the modal popup fields
-					
-					$("#update_username").val(user.username);
-					$("#update_firstname").val(user.firstname);
-					$("#update_lastname").val(user.lastname);
-					$("#update_email").val(user.reg_mail);
-					$('#update_empno').val(user.empno).change();
-					$('#update_deflang').val(user.def_lang).change();
-					$('#update_userlevel').val([1,2,3]).change();
+					console.log(schedule);
+					/*$("#update_username").val(user.username);
+					$("#update_firstname").val(user.firstname);*/
+					$("#update_sch_start_date_id").val(schedule.start_date);
+					$("#update_sch_expire_date_id").val(schedule.expire_date);
+					$("#update_schname_id").val(schedule.sch_name);
+					$('#update_company_id').val(schedule.compid).change();
+					$('#update_tm_type_id').val(schedule.tm_id).change();
+					$('#update_sch_type_id').val(schedule.sch_type_id).change();
+					$('#update_reduce_type_id').val(schedule.reduce_type).change();
+					$('#update_red_working_hours_id').val(schedule.red_working_hours).change();
+					$('#update_reduce_reason_id').val(schedule.reason_id).change();
+					$("#update_start_time_id").val(schedule.start_time);
+					$("#update_end_time_id").val(schedule.end_time);
+					$("#update_break_start_time_id").val(schedule.break_start_time);
+					$("#update_break_end_time_id").val(schedule.break_end_time);
+					$("#update_dinner_start_time_id").val(schedule.dinner_start_time);
+					$("#update_dinner_end_time_id").val(schedule.dinner_end_time);
+					$('#update_night_time_id').val(schedule.night_time).change();
+					/*
+					$('#update_userlevel').val([1,2,3]).change();*/
 					//$('#update_userlevel').selectpicker('val', [1,2,3]);
+				     
 					$('#schEdit').modal('show');
 					
 				}
@@ -1036,7 +942,7 @@ var table = $("#sch_table").DataTable({
                     $.ajax( {
                         url: "schedule/schInsert.php",
                         method: "post",
-                        data: $("form").serialize(),
+                        data: $("#schInsert").serialize(),
                         dataType: "text",
                         success: function(strMessage)
 						{
@@ -1076,7 +982,7 @@ var table = $("#sch_table").DataTable({
         });
 				
 				
-	$("#userDelete").submit(function(e) {
+	$("#schDelete").submit(function(e) {
 		
                     e.preventDefault();
                     $.ajax( {
@@ -1106,13 +1012,13 @@ var table = $("#sch_table").DataTable({
 				
 				
 				
-	$("#userUpdate").submit(function(e) {
+	$("#schUpdate").submit(function(e) {
                     e.preventDefault();
-			 if($("#userUpdate").valid()){ 
+			 //if($("#schUpdate").valid()){ 
                     $.ajax( {
-                        url: "user/userUpdate.php",
+                        url: "schedule/schUpdate.php",
                         method: "post",
-                        data: $("form").serialize(),
+                        data: $("#schUpdate").serialize(),
                         dataType: "text",
                         success: function(strMessage) 
 						{
@@ -1123,7 +1029,7 @@ var table = $("#sch_table").DataTable({
 							 }
 							 else if (strMessage==='success')
 							 { 
-								 $('#modalEdit').modal('hide');
+								 $('#schEdit').modal('hide');
 								$('#modalUpdateSuccess').modal('show');
 								 table.ajax.reload();
 							 }
@@ -1139,16 +1045,26 @@ var table = $("#sch_table").DataTable({
 						}
                     });
 					 table.ajax.reload();	
-			 }
+			// }
                 });
-	    $("#sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });			
-	    $("#sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
-		$('#end_time_id').datetimepicker({ format: 'HH:mm'   });
-		$('#start_time_id').datetimepicker({ format: 'HH:mm'   });
-		$('#break_end_time_id').datetimepicker({ format: 'HH:mm'   });
-		$('#break_start_time_id').datetimepicker({ format: 'HH:mm'   });
-		$('#dinner_end_time_id').datetimepicker({ format: 'HH:mm'   });
-		$('#dinner_start_time_id').datetimepicker({ format: 'HH:mm'   });
+	  $("#update_sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
+	  $("#update_sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
+	  $('#update_start_time_id').datetimepicker({ format: 'HH:mm'   });
+	  $('#update_end_time_id').datetimepicker({ format: 'HH:mm'   }); 
+	  $('#update_break_start_time_id').datetimepicker({ format: 'HH:mm'   });  
+	  $('#update_break_end_time_id').datetimepicker({ format: 'HH:mm'   });  
+	  $('#update_dinner_start_time_id').datetimepicker({ format: 'HH:mm'   }); 
+	  $('#update_dinner_end_time_id').datetimepicker({ format: 'HH:mm'   }); 
+	  
+	  $("#sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
+	  $("#sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
+	  $('#end_time_id').datetimepicker({ format: 'HH:mm'   });
+	  $('#start_time_id').datetimepicker({ format: 'HH:mm'   });
+	  $('#break_end_time_id').datetimepicker({ format: 'HH:mm'   });
+	  $('#break_start_time_id').datetimepicker({ format: 'HH:mm'   });
+	  $('#dinner_end_time_id').datetimepicker({ format: 'HH:mm'   });
+	  $('#dinner_start_time_id').datetimepicker({ format: 'HH:mm'   });
+	
   });
 </script>
 </body>
