@@ -30,7 +30,7 @@
         </div>
       </div>
     </form>
-  
+
 	       <!-- Languages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -52,7 +52,26 @@
    
         </div>
       </li>	 
-
+	 
+    <li class="nav-item dropdown">
+	        <a class="nav-link" data-toggle="dropdown" href="#">
+			<i class="fas fa-cogs nav-icon  mr-2"></i> <b> İş yerini seçin</b>
+ 
+        </a>
+ 
+        <div class="dropdown-menu dropdown-menu-lg  ">
+             <?php
+                 $result_company = $db->query($sql_employee_company);
+                 if ($result_company->num_rows > 0) {
+                     while($row_company= $result_company->fetch_assoc()) {
+                         ?>
+			<div class="dropdown-divider"></div>
+		  <a href="#" class="dropdown-item ">
+            <i class="flag-icon flag-icon-us mr-2"></i> <?php echo $row_company['company_name'];  ?>
+          </a>
+			<?php } }?>
+        </div>
+      </li>
 	  <!-- User Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
