@@ -6,11 +6,11 @@ $result_tm_type = $db->query($sql_tm_type);
 $sql_sch_type="Select   *  from $tbl_sch_schtype where  lang='$site_lang'";
 $result_sch_type = $db->query($sql_sch_type); 
 
-$sql_reduce_type="Select   *  from $tbl_sch_reduce_from where  lang='$site_lang'";
-$result_reduce_type = $db->query($sql_reduce_type); 
+$sql_periods ="Select   *  from $tbl_periods where  lang='$site_lang'";
+$result_periods  = $db->query($sql_periods); 
  
-$sql_reduce_reason="Select   *  from $tbl_sch_reduce_reason where  lang='$site_lang'";
-$result_reduce_reason = $db->query($sql_reduce_reason);  
+$sql_overtime_calc_status="Select   *  from $tbl_overtime_calc_status where  lang='$site_lang'";
+$result_overtime_calc_status = $db->query($sql_overtime_calc_status);  
  
 
  
@@ -59,38 +59,7 @@ $message=$dil["selectone"];
   <link href="css/google_fonts.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
      
-  <!--  
-  <style>
-        .dataTables_length {
-            margin-bottom: 10px;
-        }
-        
-        .dataTables_length select {
-            border: 1px solid #e4e4e4;
-        }
-        
-        .dt-buttons a {
-            margin-left: 12px;
-            font-size: 12px;
-            padding: 6px;
-            border: 1px solid #e4e4e4;
-            background: #FFF;
-            box-shadow: 0px 0px 14px 0px #ececec;
-        }
-        
-        .dataTables_filter input {
-            border: 1px solid #e4e4e4;
-        }
-        
-        .table-striped tbody tr {
-            line-height: 10px;
-			font-size:12px;
-        }
-		.table-striped thead tr {
-            line-height: 13px;
-			font-size:14px;
-        }
-    </style>-->
+ 
 </head>
  
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -235,7 +204,7 @@ $message=$dil["selectone"];
               <p><?php echo $dil["delete_warning_content"];?></p>
             </div>
             <div class="modal-footer justify-content-between">
-			  <form id="userDelete" method="post" class="form-horizontal" action="">
+			  <form id="ovrDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
 			  <input type="hidden" id="schid" name="schid" value="" /> 
 			  </form>
@@ -268,7 +237,7 @@ $message=$dil["selectone"];
 						 <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
                             <div class="col-sm-6">
-                                <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')" data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                <select   data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
                                     <?php
                                     $result_company = $db->query($sql_employee_company);
                                     if ($result_company->num_rows > 0) {
@@ -281,173 +250,66 @@ $message=$dil["selectone"];
                         </div>
 						
 						    <div class="form-group row">
-                            <label class="col-sm-3 col-form-label"for="employee"><?php echo $dil["employee"];?></label>
+                            <label class="col-sm-3 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
                             <div class="col-sm-6" id="emp_div">
-                                <select data-live-search="true"  name="emplo" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                <select data-live-search="true"  name="employee_id_name" id="employee_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
                                 <option  value="0" > <?php echo $dil["selectone"];?></option>
                                 </select>
                             </div>
                         </div>
 						
-						
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
+							 <div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="ovr_start_date"><?php echo $dil["start_date"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="schname_id" name="schname_name" placeholder="<?php echo $dil["schname"];?>" />
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_start_date"><?php echo $dil["sch_start_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="sch_start_date_id" name="sch_start_date_name" placeholder="<?php echo $dil["sch_start_date"];?>" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_expire_date"><?php echo $dil["sch_expire_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="sch_expire_date_id" name="sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
-								<div class="col-sm-6">
-						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="tm_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
-								 	<?php 
-									 $result_tm_type = $db->query($sql_tm_type);
-										if ($result_tm_type->num_rows > 0) {
-										while($row_tm_type= $result_tm_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_tm_type['tm_id']; ?>" ><?php echo $row_tm_type['tm_descr'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_type"><?php echo $dil["sch_type"];?></label>
-								<div class="col-sm-6">
-						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="sch_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
-								 	<?php 
-									 $result_sch_type = $db->query($sql_sch_type);
-										if ($result_sch_type->num_rows > 0) {
-										while($row_sch_type= $result_sch_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_sch_type['sch_type_id']; ?>" ><?php echo $row_sch_type['sch_type_desc'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="reduce_type"><?php echo $dil["reduce_type"];?></label>
-								<div class="col-sm-6">
-						<select    data-live-search="true" name="reduce_type_name" id="reduce_type" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
-								 	<?php 
-									 $result_reduce_type = $db->query($sql_reduce_type);
-										if ($result_reduce_type->num_rows > 0) {
-										while($row_reduce_type= $result_reduce_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_reduce_type['type_id']; ?>" ><?php echo $row_reduce_type['type_descr'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="red_working_hours"><?php echo $dil["red_working_hours"];?></label>
-								<div class="col-sm-6">
-								
-								<select    name="red_working_hours_name" id="red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
-								 
-										<option  value="1" >1</option>
-										<option  value="2" >2</option>
-										<option  value="3" >3</option>
-										<option  value="4" >4</option>
-										<option  value="5" >5</option>
-										<option  value="6" >6</option>
-										<option  value="7" >7</option>
-										<option  value="8" >8</option>
-										<option  value="9" >9</option>
-										<option  value="10" >10</option>
- 									
-								</select>
- 
-								</div>
-							</div>
+									<input type="text" class="form-control" id="ovr_start_date_id" name="ovr_start_date_name" placeholder="<?php echo $dil["start_date"];?>" />
 
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="reduce_reason"><?php echo $dil["reduce_reason"];?></label>
+								</div>
+							</div>
+						 
+							 <div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="ovr_end_date"><?php echo $dil["end_date"];?></label>
 								<div class="col-sm-6">
+									<input type="text" class="form-control" id="ovr_end_date_id" name="ovr_end_date_name" placeholder="<?php echo $dil["end_date"];?>" />
+								</div>
+							</div>
 							
-								<select   data-live-search="true" name="reduce_reason_name" id="reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>" >
+ 
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["overtime_calc_status"];?></label>
+								<div class="col-sm-6">
+						<select    data-live-search="true" name="calc_status_name" id="calc_status_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_calc_status"];?>" >
+								 	<?php 
+									 $result_overtime_calc_status = $db->query($sql_overtime_calc_status);
+										if ($result_overtime_calc_status->num_rows > 0) {
+										while($row_overtime_calc_status= $result_overtime_calc_status->fetch_assoc()) {
+											
+										?>
+										<option  value="<?php echo $row_overtime_calc_status['status_id']; ?>" ><?php echo $row_overtime_calc_status['status_desc'] ;  ?></option>
+											
+										<?php } }?>
+						</select>
+						</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="overtime_period"><?php echo $dil["overtime_period"];?></label>
+								<div class="col-sm-6">
+								<select    data-live-search="true" name="overtime_period_name" id="overtime_period_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_period"];?>" >
 											<?php 
-											 $result_reduce_reason = $db->query($sql_reduce_reason);
-												if ($result_reduce_reason->num_rows > 0) {
-												while($row_reduce_reason= $result_reduce_reason->fetch_assoc()) {
+											 $result_periods  = $db->query($sql_periods);
+												if ($result_periods ->num_rows > 0) {
+												while($row_periods = $result_periods ->fetch_assoc()) {
 													
 												?>
-												<option  value="<?php echo $row_reduce_reason['reason_id']; ?>" ><?php echo $row_reduce_reason['res_desc'] ;  ?></option>
+												<option  value="<?php echo $row_periods ['period_id']; ?>" ><?php echo $row_periods ['period_desc'] ;  ?></option>
 													
 												<?php } }?>
 								</select>
-							</div>
+						</div>
 							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="start_time"><?php echo $dil["sch_start_time"];?></label>
+							 <div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["overtime_status"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="start_time_id" name="start_time_name" placeholder="<?php echo $dil["sch_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="end_time"><?php echo $dil["sch_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="end_time_id" name="end_time_name" placeholder="<?php echo $dil["sch_end_time"];?>" />
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="break_start_time"><?php echo $dil["break_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="break_start_time_id" name="break_start_time_name" placeholder="<?php echo $dil["break_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="break_end_time"><?php echo $dil["break_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="break_end_time_id" name="break_end_time_name" placeholder="<?php echo $dil["break_end_time"];?>" />
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="dinner_start_time"><?php echo $dil["dinner_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="dinner_start_time_id" name="dinner_start_time_name" placeholder="<?php echo $dil["dinner_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="dinner_end_time"><?php echo $dil["dinner_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="dinner_end_time_id" name="dinner_end_time_name" placeholder="<?php echo $dil["dinner_end_time"];?>" />
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["sch_night_time"];?></label>
-								<div class="col-sm-6">
-		                        <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true"  name="night_time_name"  id="night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
+		                        <select     name="overtime_status_name"  id="overtime_status_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_status"];?>">
                                     <?php
                                     $result_yesno = $db->query($sql_yesno); 
                                     if ($result_yesno->num_rows > 0) {
@@ -460,8 +322,7 @@ $message=$dil["selectone"];
                                 </select>
 								</div>
 							</div>
-				 
- 				
+							
 					</div>
 				</div>
    
@@ -702,28 +563,18 @@ $message=$dil["selectone"];
  
  
  <div id="filtercol"></div>
-		   <table id="sch_table" class="table table-striped  table-bordered table-hover">
+		   <table id="ovr_table" class="table table-striped  table-bordered table-hover">
                 <thead>
                <tr>
                         <th>id</th>
-                        <th><?php echo $dil["schname"];?></th>
-						<th><?php echo $dil["schcode"];?></th>
 						<th><?php echo $dil["company_name"];?></th>
-						<th><?php echo $dil["sch_start_date"];?></th>
-						<th><?php echo $dil["sch_expire_date"];?></th>
-						<th><?php echo $dil["tm_type"];?></th>
-						<th><?php echo $dil["sch_type"];?></th>
-						<th><?php echo $dil["reduce_type"];?></th>
-						<th><?php echo $dil["red_working_hours"];?></th>
-						<th><?php echo $dil["reduce_reason"];?></th>
-						
-						<th><?php echo $dil["sch_start_time"];?></th>
-						<th><?php echo $dil["sch_end_time"];?></th>
-						<th><?php echo $dil["break_start_time"];?></th>
-						<th><?php echo $dil["break_end_time"];?></th>
-						<th><?php echo $dil["dinner_start_time"];?></th>
-						<th><?php echo $dil["dinner_end_time"];?></th>
-						<th><?php echo $dil["sch_night_time"];?></th>
+                        <th><?php echo $dil["fio"];?></th>
+						<th><?php echo $dil["start_date"];?></th>
+						<th><?php echo $dil["end_date"];?></th>
+						<th><?php echo $dil["overtime_status"];?></th>
+						<th><?php echo $dil["overtime_period"];?></th>
+						<th><?php echo $dil["overtime_calc_status"];?></th>
+						 						 
 						<th>Action</th>
                    </tr>
                 </thead>  
@@ -788,7 +639,56 @@ $message=$dil["selectone"];
 
   $(function () {
  
- 
+ function validInsert(){
+		if($('#company_id').val()=='' ){
+			$('#company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		 if($('#employee_id_name').val()=='' ){
+			$('#employee_id_name').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#employee_id_name').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}
+		
+		 if($('#ovr_start_date_id').val()=='' ){
+			$('#ovr_start_date_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#ovr_start_date_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		if($('#ovr_end_date_id').val()=='' ){
+			$('#ovr_end_date_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#ovr_end_date_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		 if($('#calc_status_id').val()=='' ){
+			$('#calc_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#calc_status_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		 if($('#overtime_period_id').val()=='' ){
+			$('#overtime_period_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#overtime_period_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		 if($('#overtime_status_id').val()=='' ){
+			$('#overtime_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#overtime_status_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		} 	
+		return true
+	} 
  
    $("#company_id").change(function(){
         var company_id = $(this).val();
@@ -799,7 +699,7 @@ $message=$dil["selectone"];
             success: function (data) {
                 console.log('data=',data)
                 console.log('$.parseJSON(data)=',$.parseJSON(data))
-                var option='<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                var option='<select data-live-search="true"  name="employee_id_name" id="employee_id"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value=""><?php  echo $dil['selectone'] ;?></option>';
 
                  $.each($.parseJSON(data), function(k,row) {
@@ -813,125 +713,13 @@ $message=$dil["selectone"];
         }) ;
      
     });
-/*FORM  VALIDATE */	  
- 			$( "#schInsert" ).validate( {
-				rules: {
-					schname_name2: "required",
-					sch_start_date_name: "required",
-					sch_expire_date: "required",
-					schname_name: {
-						required: true,
-						minlength: 5
-					},
-					langinput: "required"
-				},
-				messages: {
-					schname_name2: "<?php echo $dil['empty_firstname'];?>",
-					sch_start_date_name: "<?php echo $dil['empty_sch_start_date_name'];?>",
-					sch_expire_date: "<?php echo $dil['empty_sch_expire_date'];?>",
-					langinput: "<?php echo $dil['wrong_lang'];?>",
-					schname_name: {
-						required: "<?php echo $dil['empty_sch_name'];?>",
-						minlength: "<?php echo $dil['length_input'];?>"
-					}
-
-
-
-				},
-				errorElement: "em",
-				errorPlacement: function ( error, element ) {
-					// Add the `invalid-feedback` class to the error element
-					error.addClass( "invalid-feedback" );
-
-					if ( element.prop( "type" ) === "checkbox" ) {
-						error.insertAfter( element.next( "label" ) );
-					} else {
-						error.insertAfter( element );
-					}
-				},
-				highlight: function ( element, errorClass, validClass ) {
-					$( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
-				},
-				unhighlight: function (element, errorClass, validClass) {
-					$( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
-				}
-			} );
  
  
  
-  			$( "#userUpdate" ).validate( {
-				
-				rules: {
-					update_firstname: "required",
-					update_lastname: "required",
-					update_username: {
-						required: true,
-						minlength: 3
-					},
-					
-					update_email: {
-						required: true,
-						email: true
-					},
-					password: {
-						required: false,
-						minlength: 5
-					},
-					confirm_password: {
-						required: false,
-						minlength: 5,
-						equalTo: "#password"
-					},
-					update_deflang: "required"
-
-				},
-				messages: {
-					update_firstname: "<?php echo $dil['empty_firstname'];?>",
-					update_lastname: "<?php echo $dil['empty_lastname'];?>",
-
-					update_username: {
-						required: "<?php echo $dil['empty_user'];?>",
-						minlength: "<?php echo $dil['length_input'];?>"
-					},
-					password: {
-						required: "Please provide a password",
-						minlength: "<?php echo $dil['length_input'];?>"
-					},
-					confirm_password: {
-						required: "Please provide a password",
-						minlength: "<?php echo $dil['length_input'];?>",
-						equalTo: "Please enter the same password as above"
-					},
-					
-					update_email: "<?php echo $dil['wrong_mail'];?>",
-					update_deflang: "<?php echo $dil['wrong_lang'];?>"
-				},
-				errorElement: "em",
-				errorPlacement: function ( error, element ) {
-					// Add the `invalid-feedback` class to the error element
-					error.addClass( "invalid-feedback" );
-
-					if ( element.prop( "type" ) === "checkbox" ) {
-						error.insertAfter( element.next( "label" ) );
-					} else {
-						error.insertAfter( element );
-					}
-				},
-				highlight: function ( element, errorClass, validClass ) {
-					$( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
-				},
-				unhighlight: function (element, errorClass, validClass) {
-					$( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
-				}
-			} );
+ 
+ 
 	
-	
-/*LOAD  USER TABLE 
-	$("#sch_table").append(
-       $('<filtercol>').append( $("#sch_table thead tr").clone() )
-   );*/
-	
-var table = $("#sch_table").DataTable({
+var table = $("#ovr_table").DataTable({
        "scrollX": true,
        "paging": true,
       "lengthChange": false,
@@ -952,7 +740,7 @@ var table = $("#sch_table").DataTable({
     }
         },
 	    "ajax": {
-                url: "schedule/get_sch.php",
+                url: "overtime/get_ovr.php",
                 type: "POST"
             },"columnDefs": [ {
 			"width": "4%",
@@ -990,7 +778,7 @@ var table = $("#sch_table").DataTable({
                 [10, 20, 50, "All"]
             ],
 			   initComplete: function () {
-            this.api().columns(3).every( function () {
+            this.api().columns(1).every( function () {
                 var column = this;
                 var select = $('<a class=" dt-button buttons-excel buttons-html5"><?php echo $dil["filter_by_company"];?> :  <select  id="selectf"><option value=""><?php echo $dil["all_data"];?> </option></select></a>')
                     .appendTo( ".dt-buttons" );
@@ -1083,15 +871,14 @@ var table = $("#sch_table").DataTable({
 }
  
  /*USER MELUMATLARI  DAXIL  EDILIR  */
-		$("#schInsert").submit(function(e)
+		$("#ovrInsert").submit(function(e)
 		{
                     e.preventDefault();
-					if($("#schInsert").valid())
-			{ 
+ if (validInsert()) {
                     $.ajax( {
-                        url: "schedule/schInsert.php",
+                        url: "overtime/ovrInsert.php",
                         method: "post",
-                        data: $("#schInsert").serialize(),
+                        data: $("#ovrInsert").serialize(),
                         dataType: "text",
                         success: function(strMessage)
 						{
@@ -1108,30 +895,30 @@ var table = $("#sch_table").DataTable({
 									 
 									 $("#errorp").text(strMessage);
 									 $("#modalInsertError").modal('show');
-									 $("#schModal").modal('hide');
+									 $("#ovrModal").modal('hide');
 								 }
 								 else if (strMessage==='success')
 								 {
 									 $("#successp").text('Melumat muveffeqiyyetle daxil edildi');
 									 $("#modalInsertSuccess").modal('show');
-									 $("#schModal").modal('hide');
+									 $("#ovrModal").modal('hide');
 									 table.ajax.reload();
 								 }
 								 else  {
 									  $("#errorp").text(strMessage);
 									 $("#modalInsertError").modal('show');
-									 $("#schModal").modal('hide');
+									 $("#ovrModal").modal('hide');
 									 
 								 }
 						}
                     });
 				    table.ajax.reload();
-					$( "#schInsert" ).get(0).reset();
-			}
+					$( "#ovrInsert" ).get(0).reset();
+ }
         });
 				
 				
-	$("#userDelete").submit(function(e) {
+	$("#ovrDelete").submit(function(e) {
 		
                     e.preventDefault();
                     $.ajax( {
@@ -1196,7 +983,7 @@ var table = $("#sch_table").DataTable({
 					 table.ajax.reload();	
 			// }
                 });
-	  $("#update_sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
+	  /*$("#update_sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
 	  $("#update_sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
 	  $('#update_start_time_id').datetimepicker({ format: 'HH:mm'   });
 	  $('#update_end_time_id').datetimepicker({ format: 'HH:mm'   }); 
@@ -1204,15 +991,15 @@ var table = $("#sch_table").DataTable({
 	  $('#update_break_end_time_id').datetimepicker({ format: 'HH:mm'   });  
 	  $('#update_dinner_start_time_id').datetimepicker({ format: 'HH:mm'   }); 
 	  $('#update_dinner_end_time_id').datetimepicker({ format: 'HH:mm'   }); 
-	  
-	  $("#sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
-	  $("#sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
-	  $('#end_time_id').datetimepicker({ format: 'HH:mm'   });
+	  */
+	  $("#ovr_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
+	  $("#ovr_end_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
+	  /*$('#end_time_id').datetimepicker({ format: 'HH:mm'   });
 	  $('#start_time_id').datetimepicker({ format: 'HH:mm'   });
 	  $('#break_end_time_id').datetimepicker({ format: 'HH:mm'   });
 	  $('#break_start_time_id').datetimepicker({ format: 'HH:mm'   });
 	  $('#dinner_end_time_id').datetimepicker({ format: 'HH:mm'   });
-	  $('#dinner_start_time_id').datetimepicker({ format: 'HH:mm'   });
+	  $('#dinner_start_time_id').datetimepicker({ format: 'HH:mm'   });*/
 	
   });
 </script>
