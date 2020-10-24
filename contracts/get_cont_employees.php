@@ -8,7 +8,7 @@ $empid = '';
 $sql= "";
 if($_POST['company_id']!=''){
     $company_id = $_POST['company_id'];
-    $sql.= " te.company_id='$company_id'";
+    $sql.= " tec.company_id='$company_id'";
 }
 if($_POST['code']!=''){
     $code = $_POST['code'];
@@ -29,7 +29,7 @@ if($_POST['empid']!=''){
     if($sql!=""){
         $sql.= " and ";
     }
-    $sql.= " te.emp_id='$empid'";
+    $sql.= " tec.emp_id='$empid'";
 
 }
 

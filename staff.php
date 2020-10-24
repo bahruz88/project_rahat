@@ -560,7 +560,7 @@ $result_employee_category = $db->query($employee_category);
             type: "POST",
             data: { company_id:company_id},
             success: function (data) {
-                console.log('dataaaaaaa parseJSON staff =' + $.parseJSON(data)
+                console.log('dataaaaaaa parseJSON staff =' + $.parseJSON(data))
                 console.log('dataaaaaaa staff =' + data)
                 if(data){
                     var data1=$.parseJSON(data);

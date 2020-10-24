@@ -201,6 +201,7 @@ function changeAttr(){
 	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
 	var sinceBeginDate=$('#myContracts input[name=sinceBeginDate]').val();
 	var sinceEndDate=$('#myContracts input[name=sinceEndDate]').val();
+	var companyId=$('#company option:selected').val();
 	var order='';
 	if(contractDate=='1' || commandDate=='1' ){
 		order="  ORDER BY tc.id ASC LIMIT 1";
@@ -222,25 +223,20 @@ function changeAttr(){
 		order="";
 		contractDate='';
 	}
-	// $('#myContracts').find('#contracts').find('option[value="0"]').prop('selected', true);
-	// $('#myContracts').find('#commands').find('option[value="0"]').prop('selected', true);
-	// $(".selectpicker").selectpicker();
-	// $('#myContracts').find("input[name='contractDate']:checked").prop('checked', false);
-	// $('#myContracts').find("input[name='commandDate']:checked").prop('checked', false);
-	// $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
 
-	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceBeginDate,sinceEndDate);
+	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceBeginDate,sinceEndDate,companyId);
 	document.getElementById("update_empid").value = data[0];
 }
 var commandArray =[];
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
-function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate)
+function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate,companyId)
 {
 	console.log('contractDate='+contractDate)
 	console.log('command_id='+contract)
 	console.log('contName='+contName)
 	console.log('empid='+empid)
 	console.log('sinceBeginDate='+sinceBeginDate)
+	console.log('companyId='+companyId)
 	var url="";
 	if(contName=="contracts"){
 		url="contracts/getEmployeeContractDetail.php"
@@ -262,6 +258,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 			contractDate:contractDate,
 			sinceBeginDate:sinceBeginDate,
 			sinceEndDate:sinceEndDate,
+			companyId:companyId,
 			command_id: contract.substr(1),
 			contractDate:contractDate
 		},
@@ -315,59 +312,56 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 
 }
 
-$('#employees').on( 'change','#company',  function () {
-
-	////console.log('company');
-	// $('#whichContracts').modal('show');
-	// company_id=$(this).find('option:selected').val();
-	// $.ajax({
-	// 	url: "contracts/get_employees.php",
-	// 	type: "POST",
-	// 	data: { company_id:company_id},
-	// 	success: function (data) {
-	// 		////console.log('data=',data)
-	// 		////console.log('$.parseJSON(data)=',$.parseJSON(data))
-	// 		var option='<select data-live-search="true"  name="empid" id="empid"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-	// 		option += '<option value="">Seçin..</option>';
-	//
-	// 		var row = '';
-	// 		// $('#tablePositions').find('tbody').html('');
-	// 		$.each($.parseJSON(data), function(k,v) {
-	// 			////console.log('v=',v[1])
-	// 			option += '<option value="' + v[0] + '" >' + v[1] + ' '+v[2] + ' '+v[3] + '</option>';
-	//
-	// 		});
-	// 		option+=' </select>';
-	// 		////console.log('option='+option)
-	// 		// option += '</select>';
-	// 		$('#contract_emp').html(option);
-	// 		$(".selectpicker").selectpicker();
-	//
-	// 	}
-	// })
-});
 var company_id='';
 var code='';
 var position='';
 var empid='';
  // $('#employees').on( 'click','#searchContract',  function () {
 $('#employees').on( 'change','#company,#code,#empid,#position_level',  function () {
-	// searchPerson();
-	////console.log('company');
-	// $('#whichContracts').modal('show');
+
 	company_id=$('#company').find('option:selected').val();
-	position=$('#position_level').find('option:selected').val();
 	empid=$('#empid').find('option:selected').val();
 	code=$('#code').val();
 	position=$('#position_level').find('option:selected').val();
+	console.log('$(this).attr(\'name\')='+$(this).attr('name'))
+	console.log('empid='+empid)
+	console.log('position='+position)
+	if($(this).attr('name')=="company"){
+		$.ajax({
+			url: "employees/getEmployee.php",
+			type: "POST",
+			data: { company_id:company_id},
+			success: function (data) {
+				console.log('data=',data)
+				////console.log('$.parseJSON(data)=',$.parseJSON(data))
+				var option='<select data-live-search="true"  name="empid" id="empid"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+				option += '<option value="">Seçin..</option>';
+
+				// $('#tablePositions').find('tbody').html('');
+				$.each($.parseJSON(data), function(k,v) {
+					////console.log('v=',v[1])
+					option += '<option value="' + v[0] + '" >' + v[1]  + '</option>';
+
+				});
+				option+=' </select>';
+				////console.log('option='+option)
+				// option += '</select>';
+				$('#contract_emp').html(option);
+				$(".selectpicker").selectpicker();
+
+			}
+		})
+	}
+
+
+
+
 	$.ajax({
 		url: "contracts/get_cont_employees.php",
 		type: "POST",
 		data: { company_id:company_id,code:code,position:position,empid:empid},
 		success: function (data) {
-			////console.log('data=',data)
-			////console.log('dataparseJSON=',$.parseJSON(data))
-
+			 console.log('data222=',data)
 			var table = '';
 			$("table#emp_table tbody").html('');
 			// $('#tablePositions').find('tbody').html('');
@@ -380,7 +374,6 @@ $('#employees').on( 'change','#company,#code,#empid,#position_level',  function 
 				if(value.posit){
 					posit=value.posit;
 				}
-
 				table+='<tr class="typeOfDocument" >' +
 					'<td><a href="#" class="contractShow" data-id="'+value.id+'" data-empid="'+value.emp_id+'">Senede bax</a></td>'+
 					'<td>'+code  +'</td>'+
@@ -388,18 +381,8 @@ $('#employees').on( 'change','#company,#code,#empid,#position_level',  function 
 					'<td>'+value.lastname+'</td>'+
 					'<td>'+value.surname+'</td>'+
 					'<td>'+posit+'</td>';
-
-
-
 			});
 			$("table#emp_table tbody").append(table);
-			// $('#company').find('option[value=""]').prop('selected', true);
-			// $('#position_level').find('option[value=""]').prop('selected', true);
-			// $('#empid').find('option[value=""]').prop('selected', true);
-			// $('#code').val('');
-			// $(".selectpicker").selectpicker();
-
-
 		}
 	})
 });
@@ -564,6 +547,25 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#prize").val(value.prize);
 				$("#wage").val(value.wage);
 				$("#reward_period").val(value.reward_period);
+				$("#bank_name").val(value.bank_name);
+				$("#service").val(value.service);
+				$("#bank_filial").val(value.bank_filial);
+				$("#kod").val(value.kod);
+				$("#cor_account").val(value.cor_account);
+				$("#swift").val(value.swift);
+				$("#bank_voen").val(value.bank_voen);
+				$("#azn_account").val(value.azn_account);
+				$("#usd_account").val(value.usd_account);
+				$("#eur_account").val(value.eur_account);
+				$("#country").val(value.country);
+				$("#city").val(value.city);
+				$("#address").val(value.address);
+				$("#tel").val(value.tel);
+				$("#enterprise_head_fullname").val(value.enterprise_head_fullname);
+				$("#enterprise_head_position").val(value.enterprise_head_position);
+				$("#other_conditions1").val(value.other_conditions1);
+				$("#other_conditions2").val(value.other_conditions2);
+				$("#other_conditions3").val(value.other_conditions3);
 
 			}
 			else{
@@ -584,7 +586,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		}
 	});
 	if(contract=='1'){
-		generate("emek_muqavi")
+		generate("emek_muqavile")
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
 		generate("emekElave")

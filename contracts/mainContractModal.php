@@ -191,6 +191,25 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="prize" name="prize"   />
                         <input type="hidden" class="form-control" id="wage" name="wage"   />
                         <input type="hidden" class="form-control" id="reward_period" name="reward_period"   />
+                        <input type="hidden" class="form-control" id="bank_name" name="bank_name"   />
+                        <input type="hidden" class="form-control" id="service" name="service"   />
+                        <input type="hidden" class="form-control" id="bank_filial" name="bank_filial"   />
+                        <input type="hidden" class="form-control" id="kod" name="kod"   />
+                        <input type="hidden" class="form-control" id="swift" name="swift"   />
+                        <input type="hidden" class="form-control" id="bank_voen" name="bank_voen"   />
+                        <input type="hidden" class="form-control" id="azn_account" name="azn_account"   />
+                        <input type="hidden" class="form-control" id="usd_account" name="usd_account"   />
+                        <input type="hidden" class="form-control" id="eur_account" name="eur_account"   />
+                        <input type="hidden" class="form-control" id="country" name="country"   />
+                        <input type="hidden" class="form-control" id="city" name="city"   />
+                        <input type="hidden" class="form-control" id="address" name="address"   />
+                        <input type="hidden" class="form-control" id="tel" name="tel"   />
+                        <input type="hidden" class="form-control" id="enterprise_head_fullname" name="enterprise_head_fullname"   />
+                        <input type="hidden" class="form-control" id="enterprise_head_position" name="enterprise_head_position"   />
+                        <input type="hidden" class="form-control" id="other_conditions1" name="other_conditions1"   />
+                        <input type="hidden" class="form-control" id="other_conditions2" name="other_conditions2"   />
+                        <input type="hidden" class="form-control" id="other_conditions3" name="other_conditions3"   />
+
 
                         <!--                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />-->
 <!--                        <input type="hidden" class="form-control" id="m_firstname" name="m_firstname"   />-->
@@ -510,6 +529,25 @@ Mandatory in IE 6, 7, 8 and 9.
                 prize: $('#prize').val(),
                 wage: $('#wage').val(),
                 reward_period: $('#reward_period').val(),
+                bank_name: $('#bank_name').val(),
+                service: $('#service').val(),
+                bank_filial: $('#bank_filial').val(),
+                kod: $('#kod').val(),
+                 cor_account: $('#cor_account').val(),
+                swift: $('#swift').val(),
+                bank_voen: $('#bank_voen').val(),
+                azn_account: $('#azn_account').val(),
+                usd_account: $('#usd_account').val(),
+                eur_account: $('#eur_account').val(),
+                country: $('#country').val(),
+                city: $('#city').val(),
+                address: $('#address').val(),
+                tel: $('#tel').val(),
+                enterprise_head_fullname: $('#enterprise_head_fullname').val(),
+                enterprise_head_position: $('#enterprise_head_position').val(),
+                other_conditions1: $('#other_conditions1').val(),
+                other_conditions2: $('#other_conditions2').val(),
+                other_conditions3: $('#other_conditions3').val(),
             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)

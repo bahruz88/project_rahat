@@ -2,6 +2,7 @@
  include('../session.php');
 $site_lang=$_SESSION['dil'] ;
  $empid = $_POST['empid'];
+ $company_id = $_POST['companyId'];
 
 
 $contractDate ='3';
@@ -32,7 +33,9 @@ $structure5_2= '';
 $data = array();
 $data2 = array();
 if($order=="" && $contractDate==''){
-    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+td.title dates, tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
+tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
 LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
@@ -42,10 +45,20 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 LEFT join $tbl_education tes on tes.emp_id=tc.emp_id   
 LEFT join $tbl_qualification_dic tqd on tqd.id=tes.qualification_id    
 LEFT join $tbl_universities tu on tu.id=tes.institution_id    
-  where  tc.emp_id='$empid' ";
+LEFT join $tbl_terms_employment_contract ttec on ttec.emp_id=tc.emp_id
+LEFT join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status
+LEFT join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions
+LEFT join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
+LEFT join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
+LEFT join $tbl_employee_company tco on tco.id=tc.company_id
+LEFT join $tbl_yesno tYN2 on tco.service=tYN.chois_id and tYN.lang='$site_lang'
+
+  where  tc.emp_id='$empid' and tc.company_id='$company_id'";
 }else
 if($order!="" && $contractDate=='1'){
-    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+td.title dates , tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
+tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
 LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
@@ -55,10 +68,18 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 LEFT join $tbl_education tes on tes.emp_id=tc.emp_id
 LEFT join $tbl_qualification_dic tqd on tqd.id=tes.qualification_id    
 LEFT join $tbl_universities tu on tu.id=tes.institution_id       
-  
-  where  tc.emp_id='$empid' $order";
+  LEFT join $tbl_terms_employment_contract ttec on ttec.emp_id=tc.emp_id
+  LEFT join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status
+  LEFT join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions
+  LEFT join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
+  LEFT join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
+  LEFT join $tbl_employee_company tco on tco.id=tc.company_id
+  LEFT join $tbl_yesno tYN2 on tco.service=tYN.chois_id and tYN.lang='$site_lang'
+  where  tc.emp_id='$empid' and tc.company_id='$company_id' $order ";
 }else if($order!="" && $contractDate=='2'){
-    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
+    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+td.title dates , tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
+tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
 LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
@@ -68,8 +89,14 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 LEFT join $tbl_education tes on tes.emp_id=tc.emp_id   
 LEFT join $tbl_qualification_dic tqd on tqd.id=tes.qualification_id    
 LEFT join $tbl_universities tu on tu.id=tes.institution_id 
-
-  where  tc.emp_id='$empid' $order";
+LEFT join $tbl_terms_employment_contract ttec on ttec.emp_id=tc.emp_id
+LEFT join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status
+LEFT join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions
+LEFT join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
+LEFT join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
+LEFT join $tbl_employee_company tco on tco.id=tc.company_id
+LEFT join $tbl_yesno tYN2 on tco.service=tYN.chois_id and tYN.lang='$site_lang'
+  where  tc.emp_id='$empid' and tc.company_id='$company_id' $order";
 
     $result_emp_contracts = $db->query($sql_emp_contracts);
     $row_emp_contracts = $result_emp_contracts->fetch_assoc();
@@ -116,7 +143,9 @@ else{
         }
     }
 if($id1==0 || $id2==0){
-    $sql_emp_contracts ="select tc.*,te.*,tes.*,tqd.qualification,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
+    $sql_emp_contracts ="select tc.*,te.*,tes.*,tqd.qualification,ttec.*,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+td.title dates, tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
+tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
  from $tbl_contracts tc
  LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
@@ -126,9 +155,18 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 LEFT join $tbl_education tes on tes.emp_id=tc.emp_id   
  LEFT join $tbl_qualification_dic tqd on tqd.id=tes.qualification_id    
 LEFT join $tbl_universities tu on tu.id=tes.institution_id 
-  where  tc.emp_id='$empid'";
+LEFT join $tbl_terms_employment_contract ttec on ttec.emp_id=tc.emp_id
+LEFT join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status
+LEFT join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions
+LEFT join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
+LEFT join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
+LEFT join $tbl_employee_company tco on tco.id=tc.company_id
+LEFT join $tbl_yesno tYN2 on tco.service=tYN.chois_id and tYN.lang='$site_lang'
+  where  tc.emp_id='$empid' and tc.company_id='$company_id'";
 }else{
-    $sql_emp_contracts ="select tc.*,te.*,tes.*,tqd.qualification,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
+    $sql_emp_contracts ="select tc.*,te.*,tes.*,ttec.*,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tqd.qualification,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+td.title dates, tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
+ tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
  from $tbl_contracts tc
  LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
@@ -138,11 +176,18 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 LEFT join $tbl_education tes on tes.emp_id=tc.emp_id  
  LEFT join $tbl_qualification_dic tqd on tqd.id=tes.qualification_id    
 LEFT join $tbl_universities tu on tu.id=tes.institution_id  
-  where  tc.emp_id='$empid' and tc.id!='$id1' and tc.id!='$id2'";
+LEFT join $tbl_terms_employment_contract ttec on ttec.emp_id=tc.emp_id
+LEFT join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status
+LEFT join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions
+LEFT join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
+LEFT join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
+LEFT join $tbl_employee_company tco on tco.id=tc.company_id
+LEFT join $tbl_yesno tYN2 on tco.service=tYN.chois_id and tYN.lang='$site_lang'
+  where  tc.emp_id='$empid' and tc.company_id='$company_id' and tc.id!='$id1' and tc.id!='$id2'";
 }
 
 }
-
+//echo $sql_emp_contracts;
 //echo $sql_emp_contracts;
 $result_emp_contracts = $db->query($sql_emp_contracts);
 //eger tbl_contract cedvelinde verilen varsa ordan serte uygun secir
