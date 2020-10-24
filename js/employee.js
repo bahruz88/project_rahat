@@ -1896,6 +1896,7 @@ $(function () {
         military_info_table.ajax.reload();
         $("#militaryInfoInsertForm").get(0).reset();
         /*}*/
+        military_info_table.ajax.reload();
     });
 
 
@@ -4466,7 +4467,28 @@ $(".work_company_id").change(function () {
         }
     });
 });
+$("#employment_contract_indefinite").change(function () {
+    var thisid = $(this).val();
+    console.log("thisid=" + thisid);
+    if(thisid=='1'){
+        $(".reasons").css('display','flex')
+    }else{
+        $(".reasons").css('display','none')
 
+    }
+
+});
+$("#update_employment_contract_indefinite").change(function () {
+    var thisid = $(this).val();
+    console.log("thisid=" + thisid);
+    if(thisid=='1'){
+        $(".reasons").css('display','flex')
+    }else{
+        $(".reasons").css('display','none')
+
+    }
+
+});
 function diff(a1, a2) {
     return a1.concat(a2).filter(function (val, index, arr) {
         return arr.indexOf(val) === arr.lastIndexOf(val);
@@ -4667,3 +4689,44 @@ $("#type_dismissal").change(function () {
 
 });
 
+$('.work_experience_year').on('change', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_year=parseInt($('#work_experience_before_enterprise_year').val())
+    var work_experience_enterprise_year=parseInt($('#work_experience_enterprise_year').val())
+    $('#general_work_experience_year').val(work_experience_before_enterprise_year+work_experience_enterprise_year)
+});
+
+$('.work_experience_month').on('change', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_month=parseInt($('#work_experience_before_enterprise_month').val())
+    var work_experience_enterprise_month=parseInt($('#work_experience_enterprise_month').val())
+    $('#general_work_experience_month').val(work_experience_before_enterprise_month+work_experience_enterprise_month)
+});
+
+$('.work_experience_day').on('change', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_day=parseInt($('#work_experience_before_enterprise_day').val())
+    var work_experience_enterprise_day=parseInt($('#work_experience_enterprise_day').val())
+    $('#general_work_experience_day').val(work_experience_before_enterprise_day+work_experience_enterprise_day)
+});
+
+$('.work_experience_year').on('keyup', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_year=parseInt($('#work_experience_before_enterprise_year').val())
+    var work_experience_enterprise_year=parseInt($('#work_experience_enterprise_year').val())
+    $('#general_work_experience_year').val(work_experience_before_enterprise_year+work_experience_enterprise_year)
+});
+
+$('.work_experience_month').on('keyup', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_month=parseInt($('#work_experience_before_enterprise_month').val())
+    var work_experience_enterprise_month=parseInt($('#work_experience_enterprise_month').val())
+    $('#general_work_experience_month').val(work_experience_before_enterprise_month+work_experience_enterprise_month)
+});
+
+$('.work_experience_day').on('keyup', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_day=parseInt($('#work_experience_before_enterprise_day').val())
+    var work_experience_enterprise_day=parseInt($('#work_experience_enterprise_day').val())
+    $('#general_work_experience_day').val(work_experience_before_enterprise_day+work_experience_enterprise_day)
+});

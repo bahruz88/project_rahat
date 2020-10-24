@@ -452,7 +452,7 @@ $('#command_table').on( 'click','.create_commmand_no',  function () {
 $('#whichDate').on( 'click','#confirmDate',  function () {
 
 	var employee = JSON.parse(commandArray);
-	////console.log('download employee=',employee);
+	console.log('download employee=',employee);
 	$('#member').html('');
 	$.each(employee, function(k,value) {
 		var d = new Date();
@@ -584,7 +584,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		}
 	});
 	if(contract=='1'){
-		generate("emek_muqav")
+		generate("emek_muqavi")
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
 		generate("emekElave")

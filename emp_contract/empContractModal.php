@@ -217,13 +217,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row reasons" style="display: none">
                             <label class="col-sm-6 col-form-label" for="reasons_contract"><?php echo $dil["reasons_contract"];?></label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="reasons_contract" name="reasons_contract" placeholder="<?php echo $dil["reasons_contract"];?>" />
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row reasons" style="display: none">
                             <label class="col-sm-6 col-form-label" for="date_employment_contract"><?php echo $dil["date_employment_contract"];?></label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="date_employment_contract" name="date_employment_contract" placeholder="<?php echo $dil["date_employment_contract"];?>" />
@@ -380,7 +380,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-6 col-form-label" for="update_employment_contract_indefinite"><?php echo $dil["date_employment_contract"];?></label>
+                                <label class="col-sm-6 col-form-label" for="update_employment_contract_indefinite"><?php echo $dil["employment_contract_indefinite"];?></label>
                                 <div class="col-sm-6">
                                     <select data-live-search="true"  name="update_employment_contract_indefinite"  id="update_employment_contract_indefinite" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["date_employment_contract"];?>">
                                         <?php
@@ -395,13 +395,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row reasons" style="display: none">
                                 <label class="col-sm-6 col-form-label" for="update_reasons_contract"><?php echo $dil["reasons_contract"];?></label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" id="update_reasons_contract" name="update_reasons_contract" placeholder="<?php echo $dil["reasons_contract"];?>" />
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row reasons" style="display: none">
                                 <label class="col-sm-6 col-form-label" for="update_date_employment_contract"><?php echo $dil["date_employment_contract"];?></label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" id="update_date_employment_contract" name="update_date_employment_contract" placeholder="<?php echo $dil["date_employment_contract"];?>" />
