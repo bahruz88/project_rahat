@@ -3505,20 +3505,68 @@ $(function () {
 
     });
 
-// /*empContract Info  table delete click*/
-// $('#terms_employment_contract_table').on( 'click', '#migration_empContract_information', function ()
-// {
-//     var data = terms_employment_contract_tab.row( $(this).parents('tr') ).data();
-//     //console.log('data[0]='+data[0])
-//     document.getElementById("empcontractid").value = data[0];
-//     $('#modalempContractDelete').modal('show');
-// } );
+    $("#empContractInsertForm").validate({
+        ignore: ":hidden:not(.selectpicker)",
+        rules: {
+            company_id: "required",
+            emplo: "required",
+            employment_contract_indefinite: "required",
+            probation: "required",
+            dates: "required",
+            trial_expiration_date: "required",
+            employee_start_date: "required",
+            regulation_property_relations: "required",
+            termination_cases: "required",
+            other_conditions_wages: "required",
+            workplace_status: "required",
+            working_conditions: "required",
+            job_descriptions: "required",
+            kvota: "required",
+            // probation: {
+            //     required: true,
+            //     minlength: 3
+            // },
+        },
+        messages: {
+            company_id: "<?php echo $dil['empty_firstname'];?>",
+            emplo: "<?php echo $dil['empty_firstname'];?>",
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            // Add the `invalid-feedback` class to the error element
+            error.addClass("invalid-feedback");
+
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else {
+                error.insertAfter(element);
+            }
+
+        },
+        highlight: function (element, errorClass, validClass) {
+            console.log('salam='+$(element).attr("name"))
+            $(element).addClass("is-invalid").removeClass("is-valid");
+            console.log('type='+$(element).prop("type"))
+            // if ($(element).prop("type") === "select-one") {
+            //
+            //     $(element).closest('div').find('button').addClass("btn-outline-danger").removeClass("btn-light");
+            // }
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            console.log('sag old='+$(element).attr("name"))
+            $(element).addClass("is-valid").removeClass("is-invalid");
+            console.log('type='+$(element).prop("type"))
+            // if ($(element).prop("type") === "select-one") {
+            //     $(element).closest('div').find('button').addClass("btn-outline-success").removeClass("btn-outline-danger");
+            // }
+        }
+    });
 
     $("#empContractInsertForm").submit(function (e) {
         //console.log('salam insert')
         e.preventDefault();
-        /*	if($("#langInsertForm").valid())
-    { */
+       	if($("#empContractInsertForm").valid())
+    {
         $.ajax({
             url: "emp_contract/empContractInsert.php",
             method: "post",
@@ -3549,7 +3597,7 @@ $(function () {
         });
         terms_employment_contract_tab.ajax.reload();
         $("#empContractInsertForm").get(0).reset();
-        /*}*/
+        }
     });
 
 

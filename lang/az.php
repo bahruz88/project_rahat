@@ -378,6 +378,8 @@ $dil = array(
     "main"   =>"Əsas",
     "guarantees_termination_contract"   =>"Əmək müqaviləsinə xitam verilərkən işçilərin təminatları",
     "labor_contract"   =>"Əmək müqaviləsi",
+    "empty_company" 	=>"İş yerini  boş qoymaq olmaz",
+    "empty_emplo" 	=>"İşçini  boş qoymaq olmaz",
 
 
 
