@@ -32,17 +32,21 @@ WHILE ($c > 0){
 $code               = $rs;
 
   //Create variables
-$employee =$_POST['emplo'];
-$company_id =$_POST['company_id'];
-$position=$_POST['position'];
-$work_status=$_POST['status'];
-$position_level=1;
-$create_date='1900-01-01';
-$end_date='9999-12-31';
+if(isset($_POST['emplo'])){
+    $employee =$_POST['emplo'];
+    $company_id =$_POST['company_id'];
+    $position=$_POST['position'];
+    $work_status=$_POST['status'];
+    $position_level=1;
+    $create_date='1900-01-01';
+    $end_date='9999-12-31';
 //$direct_guide=$_POST['direct_guide'];
 //$second_leader=$_POST['second_leader'];
-$icon="images/icons/man2.png";
+    $icon="images/icons/man2.png";
+}
 
+$parent='';
+$position_level='';
 if(isset($_POST['position_level'])){
     if($_POST['position_level']!=''){
         $position_level=$_POST['position_level'];

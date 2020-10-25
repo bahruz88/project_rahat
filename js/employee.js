@@ -3506,7 +3506,6 @@ $(function () {
     });
 
     $("#empContractInsertForm").validate({
-        ignore: ":hidden:not(.selectpicker)",
         rules: {
             company_id: "required",
             emplo: "required",
@@ -3514,6 +3513,7 @@ $(function () {
             probation: "required",
             dates: "required",
             trial_expiration_date: "required",
+            date_conclusion_employment_contract: "required",
             employee_start_date: "required",
             regulation_property_relations: "required",
             termination_cases: "required",
@@ -3530,6 +3530,19 @@ $(function () {
         messages: {
             company_id: "<?php echo $dil['empty_firstname'];?>",
             emplo: "<?php echo $dil['empty_firstname'];?>",
+            employment_contract_indefinite: "<?php echo $dil['empty_employment_contract_indefinite'];?>",
+            probation: "<?php echo $dil['empty_probation'];?>",
+            dates: "<?php echo $dil['empty_dates'];?>",
+            trial_expiration_date: "<?php echo $dil['empty_trial_expiration_date'];?>",
+            employee_start_date: "<?php echo $dil['empty_employee_start_date'];?>",
+            date_conclusion_employment_contract: "<?php echo $dil['empty_date_conclusion_employment_contract'];?>",
+            regulation_property_relations: "<?php echo $dil['empty_regulation_property_relations'];?>",
+            termination_cases: "<?php echo $dil['empty_termination_cases'];?>",
+            other_conditions_wages: "<?php echo $dil['empty_other_conditions_wages'];?>",
+            workplace_status: "<?php echo $dil['empty_workplace_status'];?>",
+            working_conditions: "<?php echo $dil['empty_working_conditions'];?>",
+            job_descriptions: "<?php echo $dil['empty_job_descriptions'];?>",
+            kvota: "<?php echo $dil['empty_kvota'];?>",
         },
         errorElement: "em",
         errorPlacement: function (error, element) {
@@ -4128,11 +4141,55 @@ $(function () {
     });
 
 
+    $("#workplaceInfoInsertForm_m").validate({
+        rules: {
+            company_id: "required",
+            employee: "required",
+            directorate: "required",
+            department: "required",
+            depart: "required",
+            area_section: "required",
+            position: "required",
+            position_level: "required",
+            status: "required",
+
+        },
+        messages: {
+            company_id: "<?php echo $dil['empty_company'];?>",
+            employee: "<?php echo $dil['empty_employee'];?>",
+            directorate: "<?php echo $dil['empty_directorate'];?>",
+            department: "<?php echo $dil['empty_department'];?>",
+            depart: "<?php echo $dil['empty_depart'];?>",
+            area_section: "<?php echo $dil['empty_area_section'];?>",
+            position: "<?php echo $dil['empty_position'];?>",
+            position_level: "<?php echo $dil['empty_position_level'];?>",
+            status: "<?php echo $dil['empty_status'];?>",
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            // Add the `invalid-feedback` class to the error element
+            error.addClass("invalid-feedback");
+
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else {
+                error.insertAfter(element);
+            }
+
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
     $("#workplaceInfoInsertForm_m").submit(function (e) {
         // //console.log('salam insert')
         e.preventDefault();
-        /*	if($("#langInsertForm").valid())
-    { */
+        	if($("#workplaceInfoInsertForm_m").valid())
+    {
         $.ajax({
             url: "workplace_info/workplaceInfoInsert.php",
             method: "post",
@@ -4164,7 +4221,7 @@ $(function () {
         });
         workplace_tab.ajax.reload();
         $("#workplaceInfoInsertForm_m").get(0).reset();
-        /*}*/
+        }
     });
 
 
