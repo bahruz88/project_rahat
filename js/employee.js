@@ -3510,18 +3510,7 @@ $(function () {
             company_id: "required",
             emplo: "required",
             employment_contract_indefinite: "required",
-            probation: "required",
-            dates: "required",
-            trial_expiration_date: "required",
-            date_conclusion_employment_contract: "required",
             employee_start_date: "required",
-            regulation_property_relations: "required",
-            termination_cases: "required",
-            other_conditions_wages: "required",
-            workplace_status: "required",
-            working_conditions: "required",
-            job_descriptions: "required",
-            kvota: "required",
             // probation: {
             //     required: true,
             //     minlength: 3
@@ -4514,14 +4503,14 @@ $(".work_company_id").change(function () {
     var deptid = $(this).val();
     var empArray = [];
     var catArray = [];
-    //console.log("deptid work_company_id=" + deptid);
+     console.log("deptid work_company_id=" + deptid);
     $.ajax({
         url: 'employees/getEmployee.php',
         type: 'post',
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            //console.log('response =', response)
+            console.log('response getEmployee =', response)
             empArray = response;
         }
     });
@@ -4531,7 +4520,7 @@ $(".work_company_id").change(function () {
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            //console.log('response=', response);
+            console.log('response=', response);
             catArray = response;
 
             $.each(response, function (k, v) {
@@ -4564,7 +4553,7 @@ $(".work_company_id").change(function () {
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            //console.log('response insert=', response)
+            console.log('response getStructureInsert=', response)
             if (response) {
                 fillSelect(response.structures, '')
                 // stlevel()
@@ -4575,7 +4564,7 @@ $(".work_company_id").change(function () {
 $("#employment_contract_indefinite").change(function () {
     var thisid = $(this).val();
     console.log("thisid=" + thisid);
-    if(thisid=='1'){
+    if(thisid=='2'){
         $(".reasons").css('display','flex')
     }else{
         $(".reasons").css('display','none')
@@ -4586,7 +4575,7 @@ $("#employment_contract_indefinite").change(function () {
 $("#update_employment_contract_indefinite").change(function () {
     var thisid = $(this).val();
     console.log("thisid=" + thisid);
-    if(thisid=='1'){
+    if(thisid=='2'){
         $(".reasons").css('display','flex')
     }else{
         $(".reasons").css('display','none')
@@ -4626,16 +4615,20 @@ $(".update_company_id").change(function () {
 });
 
 function fillSelect(structures, stLevelid) {
-    //console.log('------------------------ stLevelid=' + stLevelid)
+    console.log('------------------------ structures=' ,structures)
     //console.log('fillSelect structures=', structures)
     var option_directorate = '<option value="">Seçin..</option>';
     var option_department = '<option value="">Seçin..</option>';
     var option_depart = '<option value="">Seçin..</option>';
     var option_area_section = '<option value="">Seçin..</option>';
+    var option_position = '<option value="">Seçin..</option>';
     var option_direct_guide = '<option value="">Seçin..</option>';
     var option_second_leader = '<option value="">Seçin..</option>';
 
     $.each(structures, function (k, v) {
+        if (v.structure_level === '0') {
+            option_position += '<option   value="' + v.id + '" data-stLevel="' + v.position_level + '">' + v.category + '</option>';
+        }
         if (v.structure_level === '2') {
             option_directorate += '<option   value="' + v.id + '" data-stLevel="' + v.structure_level + '">' + v.category + '</option>';
         }
@@ -4664,6 +4657,7 @@ function fillSelect(structures, stLevelid) {
         $('.up_department').find('select').html(option_department);
         $('.up_depart').find('select').html(option_depart);
         $('.up_area_section').find('select').html(option_area_section);
+        $('.up_position').find('select').html(option_position);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
     } else if (stLevelid === '2') {
@@ -4671,17 +4665,26 @@ function fillSelect(structures, stLevelid) {
         $('.up_department').find('select').html(option_department);
         $('.up_depart').find('select').html(option_depart);
         $('.up_area_section').find('select').html(option_area_section);
+        $('.up_position').find('select').html(option_position);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
     } else if (stLevelid === '3') {
         //console.log('stLevelid =3 isledi')
         $('.up_depart').find('select').html(option_depart);
         $('.up_area_section').find('select').html(option_area_section);
+        $('.up_position').find('select').html(option_position);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
     } else if (stLevelid === '4') {
         //console.log('stLevelid =4 isledi')
         $('.up_area_section').find('select').html(option_area_section);
+        $('.up_position').find('select').html(option_position);
+        $('.up_direct_guide').find('select').html(option_direct_guide);
+        $('.up_second_leader').find('select').html(option_second_leader);
+    }else if (stLevelid === '5') {
+        //console.log('stLevelid =4 isledi')
+        // $('.up_area_section').find('select').html(option_area_section);
+        $('.up_position').find('select').html(option_position);
         $('.up_direct_guide').find('select').html(option_direct_guide);
         $('.up_second_leader').find('select').html(option_second_leader);
     } else {
@@ -4707,7 +4710,7 @@ $(".stlevel").change(function () {
             data: {stid: stid},
             dataType: 'json',
             success: function (response) {
-                //console.log('response=', response)
+               console.log('stlevel response=', response)
                 if (response) {
                     // //console.log('fillSelect stlevel optype='+optype)
                     fillSelect(response.structures, stLevelid)

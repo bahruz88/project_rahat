@@ -190,6 +190,7 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="note" name="note"   />
                         <input type="hidden" class="form-control" id="prize" name="prize"   />
                         <input type="hidden" class="form-control" id="wage" name="wage"   />
+                        <input type="hidden" class="form-control" id="totalMonthlySalary" name="totalMonthlySalary"   />
                         <input type="hidden" class="form-control" id="reward_period" name="reward_period"   />
                         <input type="hidden" class="form-control" id="bank_name" name="bank_name"   />
                         <input type="hidden" class="form-control" id="service" name="service"   />
@@ -548,7 +549,10 @@ Mandatory in IE 6, 7, 8 and 9.
                 other_conditions1: $('#other_conditions1').val(),
                 other_conditions2: $('#other_conditions2').val(),
                 other_conditions3: $('#other_conditions3').val(),
-            });
+                job_description: $('#job_description').val(),
+                totalMonthlySalary: $('#totalMonthlySalary').val(),
+                living_address: $('#living_address').val(),
+             });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
                 doc.render();

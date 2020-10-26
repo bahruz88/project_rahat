@@ -13,11 +13,11 @@ $sql_minfo = "SELECT ttec.id,ttec.emp_id,ttec.company_id,ttec.indefinite,ttec.re
   tws.title workplace_status,twc.title working_conditions,  
   tYN.chois_desc indefinite,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name  
  FROM $tbl_terms_employment_contract ttec
-INNER join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status and tws.lang='$site_lang'
-INNER join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions and twc.lang='$site_lang'
-INNER join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
-INNER join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
-INNER join $tbl_employees te on ttec.emp_id=te.id where ttec.status=1 and te.emp_status=1";
+LEFT join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status and tws.lang='$site_lang'
+LEFT join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions and twc.lang='$site_lang'
+LEFT join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
+LEFT join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
+LEFT join $tbl_employees te on ttec.emp_id=te.id where ttec.status=1 and te.emp_status=1";
 
 //  tYN.chois_id, tYN.chois_desc,tYN.lang,
 //INNER join tbl_yesno tYN on tmi.medical_app=tYN.chois_id and tYN.lang='az'

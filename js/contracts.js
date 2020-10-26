@@ -566,6 +566,9 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#other_conditions1").val(value.other_conditions1);
 				$("#other_conditions2").val(value.other_conditions2);
 				$("#other_conditions3").val(value.other_conditions3);
+				$("#job_description").val(value.job_description);
+				$("#totalMonthlySalary").val(value.total_monthly_salary);
+				$("#living_address").val(value.living_address);
 
 			}
 			else{
@@ -586,7 +589,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		}
 	});
 	if(contract=='1'){
-		generate("emek_muqavile")
+		generate("emek_muqavilesi")
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
 		generate("emekElave")

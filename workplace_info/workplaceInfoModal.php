@@ -218,8 +218,10 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label"
                                        for="position"><?php echo $dil["position"]; ?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="position" name="position" placeholder="<?php echo $dil["position"]; ?>"/>
+                                <div class="col-sm-6  up_position">
+                                    <select data-live-search="true" name="position" id="position" title="" class="form-control selectpicker stlevel">
+                                    </select>
+<!--                                    <input type="text" class="form-control" id="position" name="position" placeholder="--><?php //echo $dil["position"]; ?><!--"/>-->
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -372,6 +374,7 @@
                                 <label class="col-sm-6 col-form-label"
                                        for="update_position"><?php echo $dil["position"]; ?></label>
                                 <div class="col-sm-6">
+
                                     <input type="text" class="form-control" id="update_position" name="update_position" placeholder="<?php echo $dil["position"]; ?>"/>
                                     <input type="hidden" class="form-control" id="update_position_old" name="update_position_old" />
                                     <input type="hidden" class="form-control" id="command_code" name="command_code" value="18"/>

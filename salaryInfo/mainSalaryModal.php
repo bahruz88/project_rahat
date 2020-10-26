@@ -93,7 +93,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="wage"><?php echo $dil["wage"];?></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="wage" name="wage"  />
+                                    <input type="text" class="form-control wage" id="wage"  value="0" name="wage"  />
                                 </div>
                                 <div class="col-sm-2">
                                     <select name="wage_currency"  class="form-control selectpicker" id="wage_currency">
@@ -112,7 +112,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="totalMonthlySalary"><?php echo $dil["totalMonthlySalary"];?></label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="totalMonthlySalary" name="totalMonthlySalary"   placeholder="<?php echo $dil["totalMonthlySalary"];?>" />
+                                    <input type="text" class="form-control" id="totalMonthlySalary"  value="0" name="totalMonthlySalary"   placeholder="<?php echo $dil["totalMonthlySalary"];?>" readonly/>
 
 
                                 </div>
@@ -122,7 +122,7 @@
                                 <label class="col-sm-4 col-form-label" for="prizeAmount"><?php echo $dil["prizeAmount"];?></label>
 
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="prizeAmount" name="prizeAmount"  />
+                                    <input type="text" class="form-control prizeAmount" id="prizeAmount" value="0" name="prizeAmount"  />
                                 </div>
                                 <div class="col-sm-2">
                                     <select name="prizeAmount_currency"  class="form-control selectpicker" id="prizeAmount_currency">
@@ -282,7 +282,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="update_wage"><?php echo $dil["wage"];?></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="update_wage" name="update_wage"  />
+                                    <input type="text" class="form-control update_wage" id="update_wage" name="update_wage"  />
                                 </div>
                                 <div class="col-sm-2">
                                     <select name="update_currency"  class="form-control selectpicker" id="update_currency">
@@ -301,7 +301,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="update_totalMonthlySalary"><?php echo $dil["totalMonthlySalary"];?></label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="update_totalMonthlySalary" name="update_totalMonthlySalary"   placeholder="<?php echo $dil["totalMonthlySalary"];?>" />
+                                    <input type="text" readonly class="form-control" id="update_totalMonthlySalary" name="update_totalMonthlySalary"   placeholder="<?php echo $dil["totalMonthlySalary"];?>" />
 
 
                                 </div>
@@ -311,7 +311,7 @@
                                 <label class="col-sm-4 col-form-label" for="update_prizeAmount"><?php echo $dil["prizeAmount"];?></label>
 
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="update_prizeAmount" name="update_prizeAmount"  />
+                                    <input type="text" class="form-control update_prizeAmount" id="update_prizeAmount" name="update_prizeAmount"  />
                                 </div>
                                 <div class="col-sm-2">
                                     <select name="update_prizeCurrency"  class="form-control selectpicker" id="update_prizeCurrency">

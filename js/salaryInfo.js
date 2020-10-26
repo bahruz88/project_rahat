@@ -850,3 +850,49 @@ up_emp=employee.emp_id;
 		$('#view_end_date').datetimepicker({format: 'DD/MM/YYYY'});
 
 	})
+$('.wage').on('change', function() {
+	console.log('change='+$(this).attr('name'));
+	var wage=parseInt($('#wage').val())
+	var prizeAmount=parseInt($('#prizeAmount').val())
+	$('#totalMonthlySalary').val(wage+prizeAmount)
+});
+	$('.prizeAmount').on('change', function() {
+		var wage=parseInt($('#wage').val())
+		var prizeAmount=parseInt($('#prizeAmount').val())
+		$('#totalMonthlySalary').val(wage+prizeAmount)
+	});
+	$('.wage').on('keyup', function() {
+	console.log('change='+$(this).attr('name'));
+	var wage=parseInt($('#wage').val())
+	var prizeAmount=parseInt($('#prizeAmount').val())
+	$('#totalMonthlySalary').val(wage+prizeAmount)
+});
+	$('.prizeAmount').on('keyup', function() {
+		var wage=parseInt($('#wage').val())
+		var prizeAmount=parseInt($('#prizeAmount').val())
+		$('#totalMonthlySalary').val(wage+prizeAmount)
+	});
+
+
+$('.update_wage').on('change', function() {
+	console.log('change='+$(this).attr('name'));
+	var update_wage=parseInt($('#update_wage').val())
+	var update_prizeAmount=parseInt($('#update_prizeAmount').val())
+	$('#update_totalMonthlySalary').val(update_wage+update_prizeAmount)
+});
+	$('.update_prizeAmount').on('change', function() {
+		var update_wage=parseInt($('#update_wage').val())
+		var update_prizeAmount=parseInt($('#update_prizeAmount').val())
+		$('#update_totalMonthlySalary').val(update_wage+update_prizeAmount)
+	});
+$('.update_wage').on('keyup', function() {
+	console.log('change='+$(this).attr('name'));
+	var update_wage=parseInt($('#update_wage').val())
+	var update_prizeAmount=parseInt($('#update_prizeAmount').val())
+	$('#update_totalMonthlySalary').val(update_wage+update_prizeAmount)
+});
+$('.update_prizeAmount').on('keyup', function() {
+	var update_wage=parseInt($('#update_wage').val())
+	var update_prizeAmount=parseInt($('#update_prizeAmount').val())
+	$('#update_totalMonthlySalary').val(update_wage+update_prizeAmount)
+});

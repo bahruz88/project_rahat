@@ -1,6 +1,6 @@
 <?php
 include('../session.php');
-    $company_id =  1;
+    $company_id = $_POST['company_id'];
 
 //$sql_employees = "select  id, concat(lastname,' ', firstname ,' ', surname) full_name ,lastname, firstname ,surname, emp_status,empno,image_name
 //from $tbl_employees  where emp_status=1 and company_id='$company_id'";
@@ -19,14 +19,7 @@ if ($result_employees ->num_rows > 0) {
 }
 $row_count=$result_employees->num_rows ;
 $draw=10;
-/*$_POST['draw']*/
 
-//	 $output = array(
-////    'draw' => intval($draw),
-////    'recordsTotal' =>$row_count,
-////    'recordsFiltered' => $row_count,
-//    'data' => $data
-//);
 
 echo json_encode($data);
 ?>
