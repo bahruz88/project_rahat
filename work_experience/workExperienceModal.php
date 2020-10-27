@@ -285,13 +285,13 @@
                                 <label class="col-sm-6 col-form-label"
                                        for="update_work_experience_before_enterprise"><?php echo $dil["workExperienceBeforeEnterprise"]; ?></label>
                                 <div class="col-sm-6">
-                                    İl <input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit"
+                                    İl <input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit update_work_experience_enterprise_year"
                                               id="update_work_experience_before_enterprise_year"
                                               name="update_work_experience_before_enterprise_year" placeholder="00"/>
-                                    Ay <input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit"
+                                    Ay <input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit update_work_experience_enterprise_month"
                                               id="update_work_experience_before_enterprise_month"
                                               name="update_work_experience_before_enterprise_month" placeholder="00"/>
-                                    Gün<input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit"
+                                    Gün<input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit update_work_experience_enterprise_day"
                                               id="update_work_experience_before_enterprise_day"
                                               name="update_work_experience_before_enterprise_day" placeholder="00"/>
 
@@ -301,13 +301,13 @@
                                 <label class="col-sm-6 col-form-label"
                                        for="update_work_experience_enterprise"><?php echo $dil["workExperienceEnterprise"]; ?></label>
                                 <div class="col-sm-6">
-                                    İl <input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit"
+                                    İl <input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit update_work_experience_enterprise_year"
                                               id="update_work_experience_enterprise_year"
                                               name="update_work_experience_enterprise_year" placeholder="00"/>
-                                    Ay <input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit"
+                                    Ay <input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit update_work_experience_enterprise_month"
                                               id="update_work_experience_enterprise_month"
                                               name="update_work_experience_enterprise_month" placeholder="00"/>
-                                    Gün<input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit"
+                                    Gün<input type="text" style="width: 50px;display: initial;" class="form-control onlyDigit update_work_experience_enterprise_day"
                                               id="update_work_experience_enterprise_day"
                                               name="update_work_experience_enterprise_day" placeholder="00"/>
 
@@ -317,13 +317,13 @@
                                 <label class="col-sm-6 col-form-label"
                                        for="update_general_work_experience"><?php echo $dil["generalWorkExperience"]; ?></label>
                                 <div class="col-sm-6">
-                                    İl <input type="text" style="width: 50px;display: initial;" class="form-control"
+                                    İl <input type="text" style="width: 50px;display: initial;" class="form-control" readonly
                                               id="update_general_work_experience_year"
                                               name="update_general_work_experience_year" placeholder="00"/>
-                                    Ay <input type="text" style="width: 50px;display: initial;" class="form-control"
+                                    Ay <input type="text" style="width: 50px;display: initial;" class="form-control" readonly
                                               id="update_general_work_experience_month"
                                               name="update_general_work_experience_month" placeholder="00"/>
-                                    Gün<input type="text" style="width: 50px;display: initial;" class="form-control"
+                                    Gün<input type="text" style="width: 50px;display: initial;" class="form-control" readonly
                                               id="update_general_work_experience_day"
                                               name="update_general_work_experience_day" placeholder="00"/>
 

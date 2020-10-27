@@ -1,7 +1,13 @@
 <?php
- include('../session.php');  
+ include('../session.php');
+ $status=$_POST['stat'];
+ if($status=='2'){
+     $emp_st='';
+ }else{
+     $emp_st=" where emp_status='$status'";
+ }
 
-$sql_employees = "select  id, firstname, lastname, surname , emp_status,empno,image_name from $tbl_employees  where emp_status=1";
+$sql_employees = "select  id, firstname, lastname, surname , emp_status,empno,image_name from $tbl_employees ".$emp_st;
 
 					$result_employees  = $db->query($sql_employees);
 					$data = array();

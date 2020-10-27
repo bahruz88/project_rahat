@@ -1,0 +1,1 @@
+ALTER TABLE `tbl_employees` CHANGE `citizenship` `citizenship` INT(11) NOT NULL;

@@ -122,6 +122,7 @@ $(function () {
 
 
     /* EMPLOYEE  TABLE LOAD  */
+    var stat=1;
     var table = $("#employee_table").DataTable({
         "scrollX": true,
         "paging": true,
@@ -143,7 +144,8 @@ $(function () {
         },
         "ajax": {
             url: "employees/get_employees.php",
-            type: "POST"
+            type: "POST",
+            data:{stat:function() { return $('#act').find('option:selected').val() }}
         }, "columnDefs": [{
             "width": "8%",
             "targets": -1,
@@ -168,6 +170,19 @@ $(function () {
                 text: 'İşdən çıxart <i class="fa fa-minus"></i>',
                 action: function (e, dt, node, config) {
                     $("#myModalExit").modal();
+                    // addImage();
+                }
+            },
+            {
+                text: '<select id="act">' +
+                    '<option value="1" selected>Activ</option>' +
+                    '<option value="0">Passiv</option>' +
+                    '<option value="2">Hamısı</option>' +
+                    '</select>',
+                action: function (e, dt, node, config) {
+
+
+                    // $("#myModalExit").modal();
                     // addImage();
                 }
             },
@@ -208,7 +223,13 @@ $(function () {
         ]
 
     });
+    $('#act').on('change',function(){
+        console.log('act='+$('#act').find('option:selected').val())
+        stat=$('#act').find('option:selected').val();
+        console.log('stat='+stat)
+        table.ajax.reload();
 
+    })
     /*Button  click  on grid */
     $('#employee_table tbody').on('click', '#delete', function () {
         var data = table.row($(this).parents('tr')).data();
@@ -273,7 +294,7 @@ $(function () {
                     $("#update_marital_status").val(employee.marital_status).change();
                     $("#update_birth_date").val(employee.birth_date_u);
                     $("#update_birth_place").val(employee.birth_place);
-                    $("#update_citizenship").val(employee.citizenship);
+                    $("#update_citizenship").val(employee.citizenship).change();
                     $("#update_pincode").val(employee.pincode);
                     $("#update_pass_seria_num").val(employee.passport_seria_number);
                     $("#update_passport_date").val(employee.passport_date_u);
@@ -4228,7 +4249,8 @@ $(function () {
                 var structure_level = workplaceInfodata.structure_level
                 var position_level = workplaceInfodata.position_level
                 var structures = workplaceInfodata.structures;
-                // //console.log('workplaceInfodata=', workplaceInfodata)
+                console.log('workplaceInfodata=', workplaceInfodata)
+                console.log('workplaceInfodata.emp='+workplaceInfodata.emp)
                 // //console.log('workplaceInfodata.emp_id='+workplaceInfodata.emp_id)
                 // //console.log('structures=', structures);
                 // //console.log('structure_level=', structure_level);
@@ -4265,19 +4287,27 @@ $(function () {
                     $('#modalEditWorkPlaceInfo').modal('show');
                 } else {
                     $("#view_workplaceInfoid").val(workplaceInfodata.id);
-                    $("#view_employe").val(workplaceInfodata.full_name);
-                    $("#view_work_experience_before_enterprise_year").val(result[0]);
-                    $("#view_work_experience_before_enterprise_month").val(result[1])
-                    $("#view_work_experience_before_enterprise_day").val(result[2]);
+                    $("#view_employee_place").val(workplaceInfodata.emp);
+                    $("#view_emplo").val(workplaceInfodata.emp);
+                    if(structure_level){
+                        $("#view_directorate").val(structure_level.category2);
+                        $("#view_department").val(structure_level.category3);
+                        $("#view_depart").val(structure_level.category4);
+                        $("#view_area_section").val(structure_level.category5);
+                    }
+                    $("#view_position").val(workplaceInfodata.category);
+                    $("#view_position_old").val(workplaceInfodata.category);
+                    $("#view_company_Id").val(workplaceInfodata.company_id);
+                    $("#view_status").val(workplaceInfodata.work_status);
+                    if(position_level){
+                        $("#view_direct_guide").val(position_level.position1);
+                        $("#view_second_leader").val(position_level.position2);
+                    }
+                    $("#view_position_level").val(workplaceInfodata.posit_level);
 
-                    $("#view_work_experience_enterprise_year").val(result2[0]);
-                    $("#view_work_experience_enterprise_month").val(result2[1])
-                    $("#view_work_experience_enterprise_day").val(result2[2]);
 
-                    $("#view_general_work_experience_year").val(result3[0]);
-                    $("#view_general_work_experience_month").val(result3[1])
-                    $("#view_general_work_experience_day").val(result3[2]);
-                    $('#modalViewworkplaceInfo').modal('show');
+                    $('.selectpicker').selectpicker('refresh');
+                    $('#modalViewWorkplaceInfo').modal('show');
                 }
             }
         );
@@ -4837,4 +4867,47 @@ $('.work_experience_day').on('keyup', function() {
     var work_experience_before_enterprise_day=parseInt($('#work_experience_before_enterprise_day').val())
     var work_experience_enterprise_day=parseInt($('#work_experience_enterprise_day').val())
     $('#general_work_experience_day').val(work_experience_before_enterprise_day+work_experience_enterprise_day)
+});
+
+
+$('.update_work_experience_enterprise_year').on('change', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_year=parseInt($('#update_work_experience_before_enterprise_year').val())
+    var work_experience_enterprise_year=parseInt($('#update_work_experience_enterprise_year').val())
+    $('#update_general_work_experience_year').val(work_experience_before_enterprise_year+work_experience_enterprise_year)
+});
+
+$('.update_work_experience_enterprise_month').on('change', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_month=parseInt($('#update_work_experience_before_enterprise_month').val())
+    var work_experience_enterprise_month=parseInt($('#update_work_experience_enterprise_month').val())
+    $('#update_general_work_experience_month').val(work_experience_before_enterprise_month+work_experience_enterprise_month)
+});
+
+$('.update_work_experience_enterprise_day').on('change', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_day=parseInt($('#update_work_experience_before_enterprise_day').val())
+    var work_experience_enterprise_day=parseInt($('#update_work_experience_enterprise_day').val())
+    $('#update_general_work_experience_day').val(work_experience_before_enterprise_day+work_experience_enterprise_day)
+});
+
+$('.update_work_experience_before_enterprise_year').on('keyup', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_year=parseInt($('#update_work_experience_before_enterprise_year').val())
+    var work_experience_enterprise_year=parseInt($('#update_work_experience_enterprise_year').val())
+    $('#update_general_work_experience_year').val(work_experience_before_enterprise_year+work_experience_enterprise_year)
+});
+
+$('.update_work_experience_enterprise_month').on('keyup', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_month=parseInt($('#update_work_experience_before_enterprise_month').val())
+    var work_experience_enterprise_month=parseInt($('#update_work_experience_enterprise_month').val())
+    $('#update_general_work_experience_month').val(work_experience_before_enterprise_month+work_experience_enterprise_month)
+});
+
+$('.update_work_experience_enterprise_day').on('keyup', function() {
+    console.log('change='+$(this).attr('name'));
+    var work_experience_before_enterprise_day=parseInt($('#update_work_experience_before_enterprise_day').val())
+    var work_experience_enterprise_day=parseInt($('#update_work_experience_enterprise_day').val())
+    $('#update_general_work_experience_day').val(work_experience_before_enterprise_day+work_experience_enterprise_day)
 });

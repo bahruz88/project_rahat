@@ -130,10 +130,13 @@ $result_employee_category = $db->query($employee_category);
             </fieldset>
         </div>
     </div>
-    <div class="form-group row">
-        <div class="col-sm-11 text-right">
-        <button type="button" class="btn btn-primary" id="staffSearch">Axtar</button>
-    </div>
+    <div class="form-group row text-left">
+
+            <button class="col-sm-1 btn btn-primary" onclick="saveDiv('staff2')" id="download" style="display: none">Yüklə</button>
+            <button class="col-sm-1  btn btn-primary" onclick="printDiv('staff','Title')" id="print" style="display: none">Çap et</button>
+
+            <button type="button" class="col-sm-1  btn btn-primary" id="staffSearch">Axtar</button>
+
     </div>
     <div class="tab-pane active" id="noStaff" style="width:800px;margin:auto;">
     </div>
@@ -143,13 +146,13 @@ $result_employee_category = $db->query($employee_category);
         <div class="container text-center"><span class="company_adress"></span><span class="company_tel"></span></div>
         <br/>
         <div class="row">
-            <div class="col-md-8"><span class="year"></span>-ci ilin <span class="month"></span> ayı üzrə ştat cədvəli</div>
-            <div class="col-md-4">TƏSDİQ EDİRƏM:</div>
+            <div class="col-md-6"><span class="year"></span>-ci ilin <span class="month"></span> ayı üzrə ştat cədvəli</div>
+            <div class="col-md-6">TƏSDİQ EDİRƏM:</div>
         </div>
 
         <br/>
         <div class="row">
-            <div class="col-md-9  text-right">      <span class="enterprise_head_position"></span>   </div>
+            <div class="col-md-8  text-right">      <span class="enterprise_head_position"></span>   </div>
             <div class="col-md-3  text-left">       <span class="enterprise_head_fullname"></span></div>
         </div>
         <div class="row">
@@ -163,7 +166,7 @@ $result_employee_category = $db->query($employee_category);
         </div>
         <div class="row">
             <div class="col-md-4">Aylıq əmək haqqı fondu     </div>
-            <div class="col-md-1">5</div>
+            <div class="col-md-1"><span id="countWage"></span></div>
             <div class="col-md-6">manat</div>
         </div>
         <div class="row">
@@ -218,8 +221,8 @@ $result_employee_category = $db->query($employee_category);
 
 	</div>
         <div class="row staffText2" >
-            <div class="col-md-9  text-right">      <span class="enterprise_head_position"></span>   </div>
-            <div class="col-md-3  text-left">       <span class="enterprise_head_fullname"></span></div>
+            <div class="col-md-7  text-right">      <span class="enterprise_head_position"></span>   </div>
+            <div class="col-md-5  text-left">       <span class="enterprise_head_fullname"></span></div>
         </div>
 
 	</div>
@@ -314,9 +317,7 @@ $result_employee_category = $db->query($employee_category);
         </div>
 
 	</div>
-    <button onclick="saveDiv('staff2')" id="download" style="display: none">Yüklə</button>
-    <button onclick="printDiv('staff','Title')"  id="print" style="display: none">Çap et</button>
-    <div id="previewImage"  style="display: none">
+    <div id="previewImage"  style="display: none;">
 
     </div>
     <input type="hidden" class="form-control" id="tableStaff" name="tableStaff"   />
@@ -418,135 +419,7 @@ $result_employee_category = $db->query($employee_category);
     var arrayData=[];
     var getCanvas;
 
-    // $("#enterprise_name").change(function(){
-    //     console.log('enterprise_name change'+$(this).attr('name'));
-    //     var company_id=$(this).find('option:selected').val();
-    //     $.ajax({
-    //         // url: 'st_selectStaff.php',
-    //         url: 'structure/st_selectWithCompany2.php',
-    //         type: "POST",
-    //         data: { company_id:company_id},
-    //         success: function (data) {
-    //             console.log('dataaaaaaa=' + data)
-    //             var data1=$.parseJSON(data);
-    //             // data1.remove("icon");
-    //
-    //
-    //
-    //             $('#companyDate').text($('#date_completion').val())
-    //             var table='';
-    //             // console.log('day='+$('#date_completion').val().substr(0, 2))
-    //             // console.log('month='+$('#date_completion').val().substr(3, 2))
-    //             var year=$('#date_completion').val().substr(6, 4);
-    //             var month=$('#date_completion').val().substr(3, 2);
-    //             switch ($('#date_completion').val().substr(3, 2)) {
-    //                 case "01":
-    //                     month = "Yanvar";
-    //                     break;
-    //                 case "02":
-    //                     month = "Fevral";
-    //                     break;
-    //                 case "03":
-    //                     month = "Mart";
-    //                     break;
-    //                 case "04":
-    //                     month = "Aprel";
-    //                     break;
-    //                 case "05":
-    //                     month = "May";
-    //                     break;
-    //                 case "06":
-    //                     month = "İyun";
-    //                     break;
-    //                 case "07":
-    //                     month = "İyul";
-    //                     break;
-    //                 case "08":
-    //                     month = "Avqust";
-    //                     break;
-    //                 case "09":
-    //                     month = "Sentyabr";
-    //                     break;
-    //                 case "10":
-    //                     month = "Oktyabr";
-    //                     break;
-    //                 case "11":
-    //                     month = "Noyabr";
-    //                     break;
-    //                 case "12":
-    //                     month = "Dekabr";
-    //                     break;
-    //             }
-    //             var day=$('#date_completion').val().substr(0, 2);
-    //
-    //             $('#year').val(year)
-    //             $('#month').val(month)
-    //             $('#day').val(day)
-    //
-    //             $('.year').text(year)
-    //             $('.month').text(month)
-    //             $('.day').text(day)
-    //             $('.enterprise_head_fullname').text(data1["enterprise_head_fullname"])
-    //             $('.enterprise_head_position').text(data1["enterprise_head_position"])
-    //             $('#companyName').text('"'+data1["company"]+'"')
-    //             $('.company_address').text(data1["company_address"])
-    //             $('.company_tel').text(data1["company_tel"])
-    //
-    //                 $('#enterprise_head_fullname').val(data1["enterprise_head_fullname"])
-    //                 $('#enterprise_head_position').val(data1["enterprise_head_position"])
-    //                 $('#company').val(data1["company"])
-    //                 $('#company_address').val(data1["company_address"])
-    //                 $('#company_tel').val(data1["company_tel"])
-    //
-    //
-    //             // $("table#staff_table tbody").html('');
-    //             console.log('dataaaaaaa111=', data1)
-    //             $.each(data1, function (key, value) {
-    //                 $.each(value, function (k, v) {
-    //                     console.log('key=' + k + ' val=' + v);
-    //
-    //
-    //                 $('#'+k).val(v)
-    //                 $('#'+k).text(v)
-    //                 $('.'+k).text(v)
-    //                 })
-    //                 console.log('dataaaaaaa111 value=' , value)
-    //                 if(key!="company_tel" && key!="company_address" && key!="company" && key!="enterprise_head_fullname"&& key!="enterprise_head_position" )
-    //                 {
-    //                     arrayData2.push({"id":value.id,"category":value.category})
-    //                 }
-    //
-    //             });
-    //             console.log('arrayData2=',JSON.stringify(arrayData2))
-    //             arrayData=JSON.stringify(arrayData2);
-    //
-    //             // $("table#staff_table tbody").append(table);
-    //
-    //             tree = $('#stafftree').fancytree('getTree');
-    //             tree.reload($.parseJSON(data));
-    //
-    //             $("#staff").css("display","block");
-    //             $("#download").css("display","block");
-    //             $("#print").css("display","block");
-    //             // $("#tableStaff").val( $("table#staff_table").html());
-    //             $("#tableStaff").val( $("table#stafftree").html());
-    //             var element = $("#staff"); // global variable
-    //
-    //
-    //             html2canvas(element, {
-    //                 onrendered: function (canvas) {
-    //                     $("#previewImage").append(canvas);
-    //                     getCanvas = canvas;
-    //
-    //                 }
-    //             });
-    //             $(".staffText").css("display","none");
-    //             $(".staffText2").css("display","none");
-    //
-    //
-    //         },
-    //     });
-    // })
+
     $("#staffSearch").click(function(){
         console.log('enterprise_name change'+$('#enterprise_name').attr('name'));
         var company_id=$('#enterprise_name').find('option:selected').val();
@@ -560,7 +433,7 @@ $result_employee_category = $db->query($employee_category);
             type: "POST",
             data: { company_id:company_id},
             success: function (data) {
-                console.log('dataaaaaaa parseJSON staff =' + $.parseJSON(data))
+                console.log('dataaaaaaa parseJSON staff =' , $.parseJSON(data))
                 console.log('dataaaaaaa staff =' + data)
                 if(data){
                     var data1=$.parseJSON(data);
@@ -680,6 +553,7 @@ $result_employee_category = $db->query($employee_category);
 
                     html2canvas(element, {
                         onrendered: function (canvas) {
+                            console.log('element='+element.attr('id'))
                             $("#previewImage").append(canvas);
                             getCanvas = canvas;
 
@@ -764,11 +638,33 @@ $result_employee_category = $db->query($employee_category);
         // generate(divId)
         var imgageData = getCanvas.toDataURL("image/png");
         var doc = new jsPDF('p', 'mm');
-        // var width = doc.internal.pageSize.getWidth();
-        // var height = doc.internal.pageSize.getHeight();
-        // doc.addImage(imgageData, 'PNG', 0, 0, width, height);
+        var staffchoose=$("input[name='staffSelect']:checked").val();
+        if(staffchoose=='1'){
+            $(".staffText").css("display","block");
+            $(".staffText2").css("display","block");
+            $(".stattText").css("display","none");
+            $(".stattText2").css("display","none");
+        }else{
+            $(".staffText").css("display","none");
+            $(".staffText2").css("display","none");
+            $(".stattText").css("display","block");
+            $(".stattText2").css("display","block");
+        }
         doc.addImage(imgageData, 'PNG', 10, 10);
         doc.save('sample-file.pdf');
+        if(staffchoose=='1'){
+            $(".staffText").css("display","none");
+            $(".staffText2").css("display","none");
+            $(".stattText").css("display","block");
+            $(".stattText2").css("display","block");
+        }else{
+            $(".staffText").css("display","block");
+            $(".staffText2").css("display","block");
+            $(".stattText").css("display","none");
+            $(".stattText2").css("display","none");
+
+        }
+
     }
 
 </script>
@@ -792,6 +688,9 @@ $result_employee_category = $db->query($employee_category);
         //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
         var subArray =  [];
         var countStaff=0;
+        var countWage=0;
+        var countWageStat=0;
+        var countStatt=0;
         //idArray =  <?php //echo json_encode($idArray); ?>//;
         idArray =  [];
         console.log('subArray $idArray=',idArray);
@@ -800,6 +699,8 @@ $result_employee_category = $db->query($employee_category);
         pushOldu(subArray)
         function pushOldu(subArray) {
             console.log('subArray=', subArray)
+            countStaff=0
+            countStatt=0
             $("#stafftree")
                 .fancytree({
                     checkbox: true,
@@ -815,6 +716,7 @@ $result_employee_category = $db->query($employee_category);
                     },
 
                     createNode: function(event, data) {
+
                         if(data.node.data.id){
                             $('#butModal').css('display','none');
                             $(document).off('click', '#struktur');
@@ -866,8 +768,7 @@ $result_employee_category = $db->query($employee_category);
                             // $tdList.eq(1).text(node.data.id);
                             $tdList.eq(1).text('');
                         }
-                        countStaff+=parseInt(node.data.countCategory)
-                        $('#countStaff').text(countStaff)
+
 
                         $(node.tr).attr('data-id',node.data.id);
                         $(node.tr).attr('data-companyId',node.data.company_id);
@@ -875,6 +776,27 @@ $result_employee_category = $db->query($employee_category);
                         $tdList
                             .eq(3)
                             .text(node.data.countCategory);
+                        if(node.data.code){
+                            if(node.data.code.substr(0, 1)=="P"){
+                                countStaff+=parseInt(node.data.countCategory)
+                                if(node.data.wageN){
+                                    countWage+=parseInt(node.data.wageN)*parseInt(node.data.countCategory)
+                                    $('#countWage').text(countWage)
+                                }
+
+
+                                console.log('countStaff='+countStaff);
+                                $('#countStaff').text(countStaff)
+
+                            }
+                        }else{
+                            $('#countStaff').text('')
+                            $('#countWage').text('')
+                        }
+
+
+
+
                         //iconu gizledir
                         $tdList
                             .find('.fancytree-icon')
@@ -884,19 +806,32 @@ $result_employee_category = $db->query($employee_category);
                             .find('.fancytree-expander')
                             .css('display','none');
 
-                        $tdList
+                        if(node.data.wage){
+                            $tdList
                                 .eq(4)
                                 .find('span')
-                                .text(node.data.wage)
+                                .text(node.data.wage);
+                            $tdList
+                                .eq(6)
+                                .find('span')
+                                .text(parseInt(node.data.wageN)*parseInt(node.data.countCategory));
+                        }else{
+                            $tdList
+                                .eq(4)
+                                .find('span')
+                                .text('');
+                            $tdList
+                                .eq(6)
+                                .find('span')
+                                .text('');
+
+                        }
                         $tdList
                             .eq(5)
                             .find('span')
                             // .text(node.data.full_name);
                             .text('-');
-                        $tdList
-                            .eq(6)
-                            .find('span')
-                            .text(parseInt(node.data.wageN)*parseInt(node.data.countCategory));
+
                         $tdList
                             .eq(7)
                             .find('span')
@@ -992,8 +927,22 @@ $result_employee_category = $db->query($employee_category);
                             // $tdList.eq(1).text(node.data.id);
                             $tdList.eq(1).text('');
                         }
-                        countStaff+=parseInt(node.data.countCategory)
-                        $('#countStaff').text(countStaff)
+                        if(node.data.code){
+                            if(node.data.code.substr(0, 1)=="P"){
+                                countStatt+=parseInt(node.data.countCategory)
+                                console.log('countStaff='+countStatt);
+                                $('#countStaff').text(countStatt)
+
+                                if(node.data.wageN){
+                                    countWageStat+=parseInt(node.data.wageN)*parseInt(node.data.countCategory)
+                                    $('#countWage').text(countWageStat)
+                                }
+                            }
+                        }else{
+                            $('#countStaff').text('')
+                            $('#countWage').text('')
+                        }
+
 
                         $(node.tr).attr('data-id',node.data.id);
                         $(node.tr).attr('data-companyId',node.data.company_id);
@@ -1009,20 +958,34 @@ $result_employee_category = $db->query($employee_category);
                         $tdList
                             .find('.fancytree-expander')
                             .css('display','none');
+                        if(node.data.wage){
+                            $tdList
+                                .eq(4)
+                                .find('span')
+                                .text(node.data.wage);
+                            $tdList
+                                .eq(6)
+                                .find('span')
+                                .text(parseInt(node.data.wageN)*parseInt(node.data.countCategory));
+                        }else{
+                            $tdList
+                                .eq(4)
+                                .find('span')
+                                .text('');
+                            $tdList
+                                .eq(6)
+                                .find('span')
+                                .text('');
 
-                        $tdList
-                            .eq(4)
-                            .find('span')
-                            .text(node.data.wage);
+                        }
+
                         $tdList
                             .eq(5)
                             .find('span')
                             // .text(node.data.full_name);
                             .text('-');
-                        $tdList
-                            .eq(6)
-                            .find('span')
-                            .text(parseInt(node.data.wageN)*parseInt(node.data.countCategory));
+
+
 
                         $tdList
                             .eq(7)

@@ -300,13 +300,23 @@
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="citizenship"><?php echo $dil["citizenship"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="<?php echo $dil["citizenship"];?>" />
+<!--									<input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="--><?php //echo $dil["citizenship"];?><!--" />-->
+                                    <select data-live-search="true"  name="citizenship" id='citizenship' title="<?php echo $dil["citizenship"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["citizenship"];?>"  >
+                                        <?php
+                                        //                                        echo $sql_type_dismissal;
+                                        $result_country = $db->query($sql_country);
+                                        if ($result_country->num_rows > 0) {
+                                            while($row_country= $result_country->fetch_assoc()) {
+                                                ?>
+                                                <option  value="<?php echo $row_country['level_id']; ?>" ><?php echo $row_country['title'];  ?></option>
+                                            <?php } }?>
+                                    </select>
 								</div>
 							</div>
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="pincode"><?php echo $dil["pincode"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="pincode" name="pincode" placeholder="<?php echo $dil["pincode"];?>" />
+									<input type="text" class="form-control"  maxlength="7" id="pincode" name="pincode" placeholder="<?php echo $dil["pincode"];?>" />
 								</div>
 							</div>
 							<div class="form-group row">
@@ -468,13 +478,23 @@
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_citizenship"><?php echo $dil["citizenship"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_citizenship" name="update_citizenshipn" placeholder="<?php echo $dil["citizenship"];?>" />
+<!--									<input type="text" class="form-control" id="update_citizenship" name="update_citizenshipn" placeholder="--><?php //echo $dil["citizenship"];?><!--" />-->
+                                    <select data-live-search="true"  name="update_citizenshipn" id='update_citizenship' title="<?php echo $dil["citizenship"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["citizenship"];?>"  >
+                                        <?php
+                                        //                                        echo $sql_type_dismissal;
+                                        $result_country = $db->query($sql_country);
+                                        if ($result_country->num_rows > 0) {
+                                            while($row_country= $result_country->fetch_assoc()) {
+                                                ?>
+                                                <option  value="<?php echo $row_country['level_id']; ?>" ><?php echo $row_country['title'];  ?></option>
+                                            <?php } }?>
+                                    </select>
 								</div>
 							</div>
 								<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="update_pincode"><?php echo $dil["pincode"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_pincode" name="update_pincoden" placeholder="<?php echo $dil["pincode"];?>" />
+									<input type="text" class="form-control" id="update_pincode" maxlength="7" name="update_pincoden" placeholder="<?php echo $dil["pincode"];?>" />
 								</div>
 							</div>
 							<div class="form-group row">

@@ -67,6 +67,7 @@ $tbl_periods='tbl_periods';
 $tbl_work_status='tbl_work_status';
 $tbl_month='tbl_month';
 $tbl_type_dismissal='tbl_type_dismissal';
+$tbl_country='tbl_country';
 $tbl_termination_clause='tbl_termination_clause';
 $tbl_notes='tbl_notes';
 $tbl_employee_exit='tbl_employee_exit';
@@ -98,5 +99,6 @@ $sql_termination_clause= "select * from $tbl_termination_clause where  lang='$si
 
 $sql_employees_asc= "select * from $tbl_employees where  emp_status=1 ORDER BY id DESC LIMIT 1";
 
+$sql_country= "select * from $tbl_country where  lang='$site_lang' ";
 
 ?>
