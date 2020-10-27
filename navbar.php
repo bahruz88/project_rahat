@@ -56,18 +56,17 @@
     <li class="nav-item dropdown">
 	        <a class="nav-link" data-toggle="dropdown" href="#">
 			<i class="fas fa-cogs nav-icon  mr-2"></i> <b> İş yerini seçin</b>
+			</a>
  
-        </a>
- 
-        <div class="dropdown-menu dropdown-menu-lg  ">
+        <div class="dropdown-menu dropdown-menu-lg  dropdown-menu-right" >
              <?php
                  $result_company = $db->query($sql_employee_company);
                  if ($result_company->num_rows > 0) {
                      while($row_company= $result_company->fetch_assoc()) {
                          ?>
 			<div class="dropdown-divider"></div>
-		  <a href="#" class="dropdown-item ">
-            <i class="flag-icon flag-icon-us mr-2"></i> <?php echo $row_company['company_name'];  ?>
+		  <a href="#" class="dropdown-item " style="white-space:normal;">
+            <i class="flag-icon flag-icon-us mr-2"></i> <?php echo $row_company['company_name'];  ?> 
           </a>
 			<?php } }?>
         </div>
@@ -79,7 +78,7 @@
 		  <i class="fas"><?php  echo $login_fullname ; ?></i>
  
         </a>
-        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right" >
         
           <div class="card card-primary card-outline">
               <div class="card-body box-profile">

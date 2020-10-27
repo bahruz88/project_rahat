@@ -190,35 +190,35 @@ $message=$dil["selectone"];
         <!-- /.modal-dialog -->
 </div>	  
 	  
-<!-- DELETE  CONTENT MODAL  -->
-<div class="modal fade" id="modalDelete" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content bg-danger">
-            <div class="modal-header">
-              <h4 class="modal-title"><?php echo $dil["delete_warning"];?></h4>
-              <button class="close" aria-label="Close" type="button" data-dismiss="modal">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p><?php echo $dil["delete_warning_content"];?></p>
-            </div>
-            <div class="modal-footer justify-content-between">
-			  <form id="ovrDelete" method="post" class="form-horizontal" action="">
-              <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
-			  <input type="hidden" id="ovrid" name="ovrid" value="" /> 
-			  </form>
-			  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
-			   
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
+	<!-- DELETE  CONTENT MODAL  -->
+		<div class="modal fade" id="modalDelete" aria-hidden="true" style="display: none;">
+			<div class="modal-dialog modal-sm">
+			  <div class="modal-content bg-danger">
+				<div class="modal-header">
+				  <h4 class="modal-title"><?php echo $dil["delete_warning"];?></h4>
+				  <button class="close" aria-label="Close" type="button" data-dismiss="modal">
+					<span aria-hidden="true">×</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+				  <p><?php echo $dil["delete_warning_content"];?></p>
+				</div>
+				<div class="modal-footer justify-content-between">
+				  <form id="ovrDelete" method="post" class="form-horizontal" action="">
+				  <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
+				  <input type="hidden" id="ovrid" name="ovrid" value="" /> 
+				  </form>
+				  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
+				   
+				</div>
+			  </div>
+			  <!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		  </div>
 	  
 	  
-  <!--SCH İNSERT MODAL -->
+  <!--OVERTİME İNSERT MODAL -->
   <div class="modal fade" id="ovrModal" role="dialog">
     <div class="modal-dialog modal-lg">
     <form id="ovrInsert" method="post" class="form-horizontal" action="">
@@ -327,10 +327,10 @@ $message=$dil["selectone"];
 				</div>
    
 		</div>
-        <div class="modal-footer">
-						 
-		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-							 
+		
+		
+        <div class="modal-footer"> 
+		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>		 
         </div>	
 		</form>
       </div>
@@ -350,184 +350,86 @@ $message=$dil["selectone"];
 			<div class="card card-success">
 					<div class="card-header">
 						<h4 class="card-title"><?php echo $dil["sch_input_title"];?></h4>
-			 <span  id="badge_success" class="badge badge-success"></span>
+			<span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
+ 					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 						
 						 <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
+                            <label class="col-sm-3 col-form-label" for="update_company_id"><?php echo $dil["company"];?></label>
                             <div class="col-sm-6">
-                                <select  
-								name="update_company_id_name" id='update_company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                <select   data-live-search="true"  name="update_company_id_name" id='update_company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
                                     <?php
                                     $result_company = $db->query($sql_employee_company);
                                     if ($result_company->num_rows > 0) {
                                         while($row_company= $result_company->fetch_assoc()) {
                                             ?>
                                             <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
-                                        <?php } }?>
+                                    <?php } }?>
                                 </select>
                             </div>
                         </div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
+						
+						<div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="update_employee"><?php echo $dil["employee"];?></label>
+                            <div class="col-sm-6" id="emp_div_update">
+                                <select data-live-search="true"  name="update_employee_id_name" id="update_employee_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+                                <option  value="0" > <?php echo $dil["selectone"];?></option>
+                                </select>
+                            </div>
+                        </div>
+						
+							 <div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="update_ovr_start_date"><?php echo $dil["start_date"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_schname_id" name="update_schname_name" placeholder="<?php echo $dil["schname"];?>" />
+									<input type="text" class="form-control" id="update_ovr_start_date_id" name="update_ovr_start_date_name" placeholder="<?php echo $dil["start_date"];?>" />
+								</div>
+							</div>
+						 
+							 <div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="update_ovr_end_date"><?php echo $dil["end_date"];?></label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="update_ovr_end_date_id" name="update_ovr_end_date_name" placeholder="<?php echo $dil["end_date"];?>" />
 								</div>
 							</div>
 							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_start_date"><?php echo $dil["sch_start_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_sch_start_date_id" name="update_sch_start_date_name" placeholder="<?php echo $dil["sch_start_date"];?>" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_expire_date"><?php echo $dil["sch_expire_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_sch_expire_date_id" name="update_sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
-								<div class="col-sm-6">
-						<select   data-live-search="true"  id="update_tm_type_id" name="update_tm_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
-								 	<?php 
-									 $result_tm_type = $db->query($sql_tm_type);
-										if ($result_tm_type->num_rows > 0) {
-										while($row_tm_type= $result_tm_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_tm_type['tm_id']; ?>" ><?php echo $row_tm_type['tm_descr'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_type"><?php echo $dil["sch_type"];?></label>
-								<div class="col-sm-6">
-						<select    data-live-search="true" id="update_sch_type_id" name="update_sch_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
-								 	<?php 
-									 $result_sch_type = $db->query($sql_sch_type);
-										if ($result_sch_type->num_rows > 0) {
-										while($row_sch_type= $result_sch_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_sch_type['sch_type_id']; ?>" ><?php echo $row_sch_type['sch_type_desc'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="reduce_type"><?php echo $dil["reduce_type"];?></label>
-								<div class="col-sm-6">
-						<select    data-live-search="true" name="update_reduce_type_name" id="update_reduce_type_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
-								 	<?php 
-									 $result_reduce_type = $db->query($sql_reduce_type);
-										if ($result_reduce_type->num_rows > 0) {
-										while($row_reduce_type= $result_reduce_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_reduce_type['type_id']; ?>" ><?php echo $row_reduce_type['type_descr'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="red_working_hours"><?php echo $dil["red_working_hours"];?></label>
-								<div class="col-sm-6">
-								
-								<select    name="update_red_working_hours_name" id="update_red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
-								 
-										<option  value="1" >1</option>
-										<option  value="2" >2</option>
-										<option  value="3" >3</option>
-										<option  value="4" >4</option>
-										<option  value="5" >5</option>
-										<option  value="6" >6</option>
-										<option  value="7" >7</option>
-										<option  value="8" >8</option>
-										<option  value="9" >9</option>
-										<option  value="10" >10</option>
- 									
-								</select>
  
-								</div>
-							</div>
-
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="reduce_reason"><?php echo $dil["reduce_reason"];?></label>
+								<label class="col-sm-3 col-form-label" for="update_calc_status"><?php echo $dil["overtime_calc_status"];?></label>
 								<div class="col-sm-6">
-							
-								<select   data-live-search="true" name="update_reduce_reason_name" id="update_reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>" >
+						<select    data-live-search="true" name="update_calc_status_name" id="update_calc_status_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_calc_status"];?>" >
+								 	<?php 
+									 $result_overtime_calc_status = $db->query($sql_overtime_calc_status);
+										if ($result_overtime_calc_status->num_rows > 0) {
+										while($row_overtime_calc_status= $result_overtime_calc_status->fetch_assoc()) {
+											
+										?>
+										<option  value="<?php echo $row_overtime_calc_status['status_id']; ?>" ><?php echo $row_overtime_calc_status['status_desc'] ;  ?></option>
+											
+										<?php } }?>
+						</select>
+						</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="update_overtime_period"><?php echo $dil["overtime_period"];?></label>
+								<div class="col-sm-6">
+								<select    data-live-search="true" name="update_overtime_period_name" id="update_overtime_period_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_period"];?>" >
 											<?php 
-											 $result_reduce_reason = $db->query($sql_reduce_reason);
-												if ($result_reduce_reason->num_rows > 0) {
-												while($row_reduce_reason= $result_reduce_reason->fetch_assoc()) {
+											 $result_periods  = $db->query($sql_periods);
+												if ($result_periods ->num_rows > 0) {
+												while($row_periods = $result_periods ->fetch_assoc()) {
 													
 												?>
-												<option  value="<?php echo $row_reduce_reason['reason_id']; ?>" ><?php echo $row_reduce_reason['res_desc'] ;  ?></option>
+												<option  value="<?php echo $row_periods ['period_id']; ?>" ><?php echo $row_periods ['period_desc'] ;  ?></option>
 													
 												<?php } }?>
 								</select>
-							</div>
+						</div>
 							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="start_time"><?php echo $dil["sch_start_time"];?></label>
+							 <div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="update_night_time"><?php echo $dil["overtime_status"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_start_time_id" name="update_start_time_name" placeholder="<?php echo $dil["sch_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="end_time"><?php echo $dil["sch_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_end_time_id" name="update_end_time_name" placeholder="<?php echo $dil["sch_end_time"];?>" />
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="break_start_time"><?php echo $dil["break_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_break_start_time_id" name="update_break_start_time_name" placeholder="<?php echo $dil["break_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="break_end_time"><?php echo $dil["break_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_break_end_time_id" name="update_break_end_time_name" placeholder="<?php echo $dil["break_end_time"];?>" />
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="dinner_start_time"><?php echo $dil["dinner_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_dinner_start_time_id" name="update_dinner_start_time_name" placeholder="<?php echo $dil["dinner_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="dinner_end_time"><?php echo $dil["dinner_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_dinner_end_time_id" name="update_dinner_end_time_name" placeholder="<?php echo $dil["dinner_end_time"];?>" />
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["sch_night_time"];?></label>
-								<div class="col-sm-6">
-		                        <select    data-live-search="true"  name="update_night_time_name"  id="update_night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
+		                        <select     name="update_overtime_status_name"  id="update_overtime_status_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_status"];?>">
                                     <?php
                                     $result_yesno = $db->query($sql_yesno); 
                                     if ($result_yesno->num_rows > 0) {
@@ -540,16 +442,17 @@ $message=$dil["selectone"];
                                 </select>
 								</div>
 							</div>
-				 
- 				
+							
 					</div>
 				</div>
    
+	 
 		</div>
         <div class="modal-footer">				 
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-		<input type="hidden" id="update_ovrid" name="update_ovrid_name" value="" /> 			 
+		<input type="hidden" id="update_ovrid" name="update_ovrid_name" value="" /> 	
+<input type="hidden" id="update_empid" name="update_ovrid_name" value="" /> 			
         </div>	
 		</form>
       </div>
@@ -691,6 +594,7 @@ $message=$dil["selectone"];
 	} 
  
    $("#company_id").change(function(){
+	   	  console.log('Basladi2');
         var company_id = $(this).val();
     $.ajax({
             url: "employees/getEmployee.php",
@@ -714,8 +618,7 @@ $message=$dil["selectone"];
      
     });
  
- 
- 
+
  
  
 	
@@ -814,7 +717,7 @@ var table = $("#ovr_table").DataTable({
   $('#ovr_table tbody').on( 'click', '#edit', function () {
 	  
         var data = table.row( $(this).parents('tr') ).data();
-	    //console.log(data) ;
+	    console.log(data) ;
 		GetOvrDetails(data[0]);
 		document.getElementById("update_ovrid").value = data[0];
 		 
@@ -824,27 +727,38 @@ var table = $("#ovr_table").DataTable({
 
 
  
- 	/*USERIN  UPDATE MELUMATLARINI  GETIRIR*/
+ 	/*OVERTİME UPDATE MELUMATLARINI  GETIRIR*/
+	 
 	 function GetOvrDetails(ovrid) 
 	 {
-			$.post("schedule/getSchDetail.php", 
+			$.post("overtime/getOvrDetail.php", 
 				{
-					schid: schid
+					ovrid: ovrid
 				},
-				function (sch_data, status) 
+				function (ovr_data, status) 
 				{
 				
 
-				// PARSE json data
-					var schedule = JSON.parse(sch_data);
+				    // PARSE json data
+					var overtime = JSON.parse(ovr_data);
 					// Assing existing values to the modal popup fields
-					console.log(schedule);
-					/*$("#update_username").val(user.username);
-					$("#update_firstname").val(user.firstname);*/
-					$("#update_sch_start_date_id").val(schedule.start_date);
-					$("#update_sch_expire_date_id").val(schedule.expire_date);
-					$("#update_schname_id").val(schedule.sch_name);
-					$('#update_company_id').val(schedule.compid).change();
+					console.log(overtime);
+					
+			         
+					  $('#update_empid').val(overtime.empid);
+					 $('#update_company_id').val(overtime.compid).change();
+					 
+					 
+					 
+					 //$('#update_employee_id').val(overtime.empid).change();
+					 $("#update_ovr_start_date_id").val(overtime.start_date);
+					 $("#update_ovr_end_date_id").val(overtime.expire_date);
+					 $('#update_calc_status_id').val(overtime.status_id).change();
+					 $('#update_overtime_period_id').val(overtime.period_id).change();
+					 $('#update_overtime_status_id').val(overtime.chois_id).change();
+					 
+					 
+					/*$("#update_schname_id").val(schedule.sch_name);
 					$('#update_tm_type_id').val(schedule.tm_id).change();
 					$('#update_sch_type_id').val(schedule.sch_type_id).change();
 					$('#update_reduce_type_id').val(schedule.reduce_type).change();
@@ -856,7 +770,7 @@ var table = $("#ovr_table").DataTable({
 					$("#update_break_end_time_id").val(schedule.break_end_time);
 					$("#update_dinner_start_time_id").val(schedule.dinner_start_time);
 					$("#update_dinner_end_time_id").val(schedule.dinner_end_time);
-					$('#update_night_time_id').val(schedule.night_time).change();
+					$('#update_night_time_id').val(schedule.night_time).change();*/
 					/*
 					$('#update_userlevel').val([1,2,3]).change();*/
 					//$('#update_userlevel').selectpicker('val', [1,2,3]);
@@ -867,6 +781,36 @@ var table = $("#ovr_table").DataTable({
 			);
 
 }
+   $("#update_company_id").change(function(){
+	  console.log('Basladi');
+        var company_id = $("#update_company_id").val();
+		var upd_emp_id = $("#update_empid").val();
+		console.log(company_id) ;
+    $.ajax({
+            url: "employees/getEmployee.php",
+            type: "POST",
+            data: { company_id:company_id},
+			dataType: 'json',
+            success: function (response) {
+                console.log('data=',response)
+				$("#employee_id").empty();
+                var option='<select data-live-search="true"  name="update_employee_id_name" id="update_employee_id"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                option += '<option value=""><?php  echo $dil['selectone'] ;?></option>';
+
+                $.each(response, function (k, v) {
+                //console.log('v=', v[1])
+                option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
+            });
+            option += '</select>';
+             $('#emp_div_update').html(option);
+            $("#update_employee_id").selectpicker();
+
+                $('#update_employee_id').val(upd_emp_id).change();
+
+            }
+        }) ;
+     
+    });
  
  /*USER MELUMATLARI  DAXIL  EDILIR  */
 		$("#ovrInsert").submit(function(e)
