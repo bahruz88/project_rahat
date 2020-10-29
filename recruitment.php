@@ -1,93 +1,7 @@
 <?php
 include('session.php');
 $site_lang=$_SESSION['dil'] ;
-function generateRandomString($length = 2) {
-    return substr(str_shuffle(str_repeat($x='ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
-}
-if(isset($_POST["import"]))
-{
 
-    echo $filename=$_FILES["excel"]["tmp_name"];
-    if($_FILES["excel"]["size"] > 0)
-    {
-        $file = fopen($filename, "r");
-//$sql_data = "SELECT * FROM prod_list_1 ";
-
-        $count = 0;                                         // add this line
-        while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
-        {
-            print_r($emapData);
-            $firstname=$emapData[0];
-            $lastname=$emapData[1];
-            $surname = $emapData[2];
-            $sex = $emapData[3];
-            $marital_status = $emapData[4];
-            $birth_date = $emapData[5];
-            $birth_place = $emapData[6];
-            $citizenship = $emapData[7];
-            $pincode = $emapData[8];
-            $pass_seria_num = $emapData[9];
-            $passport_date = $emapData[10];
-            $passport_end_date = $emapData[11];
-            $pass_given_authority = $emapData[12];
-            $living_address = $emapData[13];
-            $reg_address = $emapData[14];
-            $mob_tel = $emapData[15];
-            $home_tel = $emapData[16];
-            $email = $emapData[17];
-            $emr_contact = $emapData[18];
-//            if(isset($emapData['imgName'])){
-//                $imgName = $_POST['imgName'];
-//            }else{
-//                $imgName = "images/users/def.png";
-//            }
-
-//            $company_id = $emapData['company_id'];
-//	echo 'company_id='.$company_id;
-            //$empno_num='00000000' ;
-
-            $empno=generateRandomString();
-            $empno=$empno.mt_rand(10000000,99999999);
-
-
-            $passport_date = strtr($passport_date, '/', '-');
-            $passport_date= date('Y-m-d', strtotime($passport_date));
-
-            $passport_end_date = strtr($passport_end_date, '/', '-');
-            $passport_end_date= date('Y-m-d', strtotime($passport_end_date));
-
-            $birth_date = strtr($birth_date, '/', '-');
-            $birth_date= date('Y-m-d', strtotime($birth_date));
-
-            $birth_date = strtr($birth_date, '/', '-');
-            $birth_date= date('Y-m-d', strtotime($birth_date));
-
-//-$passport_date=date('Y-m-d',strtotime($passport_date));
-
-
-
-            $count++;                                      // add this line
-
-            if($count>1){                                  // add this line
-//                $sql = "INSERT into tbl_excel(excel_name,excel_email) values ('$emapData[0]','$emapData[1]')";
-                $sql = "INSERT INTO $tbl_employees (id, firstname, lastname, surname, sex, marital_status, birth_date,
- birth_place,citizenship, pincode, passport_seria_number, passport_date, passport_end_date, pass_given_authority, 
- living_address, reg_address, home_tel, mob_tel, email, emr_contact,empno) 
- VALUES ('Null','$firstname','$lastname','$surname','$sex', '$marital_status','$birth_date','$birth_place','$citizenship','$pincode','$pass_seria_num','$passport_date','$passport_end_date',
- '$pass_given_authority','$living_address','$reg_address','$mob_tel','$home_tel','$email','$emr_contact','$empno')";
-
-                $db->query($sql);
-            }                                              // add this line
-        }
-
-
-        fclose($file);
-        echo 'CSV File has been successfully Imported';
-//        header('Location: index.php');
-    }
-    else
-        echo 'Invalid File:Please Upload CSV File';
-}
 
 ?>
 <!DOCTYPE html>
@@ -130,17 +44,6 @@ if(isset($_POST["import"]))
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arimo" />
 
 
-
-    <style>
-        .staffText,.staffText2{
-            font-weight: 700;
-            margin-top:20px;
-            margin-bottom:20px;
-        }
-        /*table.fancytree-ext-table tbody tr td{*/
-        /*    border: #c7c2c2 !important;*/
-        /*}*/
-    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -177,17 +80,49 @@ if(isset($_POST["import"]))
         <button type="button" class="btn btn-info" onclick="downloadCSV(dd)">Şablonu yükləyin</button>
          <br />
         <br />
-        <form method="post" enctype="multipart/form-data" style="display:none;">
+        <form method="post" enctype="multipart/form-data" style="display:none;" id="target">
             <label>Doldurduğunuz şablonu seçin</label>
 <!--            <input type="file" name="excel" value="Seçin"/>-->
             <div>
-                <label for="files" class="btn btn-info">Seçin</label><br />
-                <input id="files" style="visibility:hidden;"  name="excel" type="file">
+                <label for="files" class="btn btn-info">Əlavə edin</label><br />
+                <input id="files" style="display: none;"  name="excel" type="file">
             </div>
 
             <br />
-            <input type="submit" name="import" class="btn btn-info" value="Əlavə edin" />
+            <input type="submit" name="import" style="display: none;" id="import" class="btn btn-info" value="Əlavə edin" />
         </form>
+        <div id="success"></div>
+
+        <div id="employee_tab" style="display:none;overflow-x: auto;">
+            <table id="employee_table" class="table table-striped  table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Adı</th>
+                    <th>Soyadı</th>
+                    <th>Ataadı</th>
+                    <th>Cinsi</th>
+                    <th>Ailə vəziyyəti</th>
+                    <th>Doğum tarixi</th>
+                    <th>Doğum yeri</th>
+                    <th>Vətəndaşlığı</th>
+                    <th>FİN</th>
+                    <th>Vəsiqənin seriya və nömrəsi</th>
+                    <th>Vəsiqənin verilmə tarixi</th>
+                    <th>Etibarlılıq müddəti</th>
+                    <th>Vəsiqəni verən orqanın adı</th>
+                    <th>Yaşadığı ünvan</th>
+                    <th>Qeydiyyat ünvan</th>
+                    <th>Mobil telefonu</th>
+                    <th>Ev telefonu</th>
+                    <th>Email</th>
+                    <th>Təcili vəziyyətdə əlaqə</th>
+
+                </tr>
+                </thead>
+            </table>
+
+        </div>
     </div>
 </div>
 		  
@@ -284,4 +219,66 @@ if(isset($_POST["import"]))
         hiddenElement.download = 'output.csv';
         hiddenElement.click();
     }
+    $('#target').submit(function(event){
+        console.log('imppp')
+        event.preventDefault();
+       var file_data = $('#files').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('excel', file_data);
+        console.log(form_data);
+        $.ajax({
+            url: 'recruitmentAj.php', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(data){
+                console.log('data',data); // display response from the PHP script, if any
+                console.log('data',$.parseJSON(data)); // display response from the PHP script, if any
+                $('#employee_tab').css('display','block');
+                var table='';
+                table+='<tbody>';
+                $.each($.parseJSON(data), function(k,value) {
+                    console.log('value=',value)
+                        table+=' <tr class="typeOfDocument" >' +
+                            '<td>'+parseInt(k+1)+'</td>'+
+                            '<td>'+value[0]+'</td>'+
+                            '<td>'+value[1]+'</td>'+
+                            '<td>'+value[2]+'</td>'+
+                            '<td>'+value[3]+'</td>'+
+                            '<td>'+value[4]+'</td>'+
+                            '<td>'+value[5]+'</td>'+
+                            '<td>'+value[6]+'</td>'+
+                            '<td>'+value[7]+'</td>'+
+                            '<td>'+value[8]+'</td>'+
+                            '<td>'+value[9]+'</td>'+
+                            '<td>'+value[10]+'</td>'+
+                            '<td>'+value[11]+'</td>'+
+                            '<td>'+value[12]+'</td>'+
+                            '<td>'+value[13]+'</td>'+
+                            '<td>'+value[14]+'</td>'+
+                            '<td>'+value[15]+'</td>'+
+                            '<td>'+value[16]+'</td>'+
+                            '<td>'+value[17]+'</td>'+
+                            '<td>'+value[18]+'</td></tr>';
+
+                });
+                table+='</tbody>';
+                $('#success').text('İşçilər toplusu işə qəbul edildi')
+
+                $("table#employee_table").append(table);
+            }
+        });
+
+
+    })
+    $(document).on('change', '#files', function () {
+
+        // $("#uploadForm").submit();
+        $("#target").submit();
+       // var idArray =  <?php //echo json_encode($data); ?>//;
+       //console.log('on change=',idArray);
+    })
 </script>
