@@ -401,6 +401,9 @@ $dil = array(
     "empty_job_descriptions" 	=>"Vəzifə təlimatıni  boş qoymaq olmaz",
     "empty_kvota" 	=>"İşçini  boş qoymaq olmaz",
 
+    "bulk_operation" 	=>"Toplu əməliyyatlar",
+    "recruitment" 	=>"İşə qəbul",
+
 
 
 );

@@ -83,7 +83,8 @@
 <!--              </li>-->
             </ul>
           </li>
-		  
+
+
 			 <li class="nav-item has-treeview <?php if (isset($_GET["module"])) { if ($_GET["module"]=='time_management') { ?> menu-open <?php }} ?>">
 			 <a href="#" class="nav-link">
             <i class="nav-icon far fa-calendar-alt"></i>
@@ -249,6 +250,26 @@
                 </a>
               </li>
               <li class="nav-item">        
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+<!--              <i class="fas fa-sitemap"></i>-->
+<!--                <i class="fas fa-users-class"></i>-->
+                <i class="fas fa-users-cog"></i>
+              <p>
+                  <?php echo $dil["bulk_operation"];?>
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="recruitment.php" class="nav-link">
+
+                  <p><?php echo $dil["recruitment"];?></p>
+                </a>
+              </li>
+
             </ul>
           </li>
             <li class="nav-item has-treeview">
