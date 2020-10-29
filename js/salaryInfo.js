@@ -382,8 +382,15 @@ up_emp=employee.emp_id;
 					}
 				}
 			});
+			$( "#salaryInsert")[0].reset();
+			$( "#salaryInsert").get(0).reset();
+			$(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+			$(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+			$(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+			$(".selectpicker").selectpicker();
 			table.ajax.reload();
-			//	$( "#salaryInsert" ).get(0).reset();
+
 		}
 		table.ajax.reload();
 	});
@@ -774,6 +781,11 @@ up_emp=employee.emp_id;
 						}
 					}
 				});
+				$(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+				$(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+				$(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+				$(".selectpicker").selectpicker();
 				addition_table.ajax.reload();
 				//	$( "#additionInsert" ).get(0).reset();
 			}

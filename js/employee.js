@@ -352,6 +352,7 @@ $(function () {
             table.ajax.reload();
             //	$( "#employeeInsert" ).get(0).reset();
         }
+
         table.ajax.reload();
     });
     /*ISCHI ISDEN CIXARILIR  */
@@ -1914,6 +1915,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         military_info_table.ajax.reload();
         $("#militaryInfoInsertForm").get(0).reset();
         /*}*/
@@ -2254,6 +2260,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         driver_license_table.ajax.reload();
         $("#drivingLicenseInfoInsertForm").get(0).reset();
         driver_license_table.ajax.reload();
@@ -2516,6 +2527,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         medical_info_table.ajax.reload();
         $("#medicalInfoInsertForm").get(0).reset();
         /*}*/
@@ -2782,6 +2798,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         previous_positions_table.ajax.reload();
         $("#previousPositionsInsertForm").get(0).reset();
         /*}*/
@@ -3029,6 +3050,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         migration_info_table.ajax.reload();
         $("#migrationInfoInsertForm").get(0).reset();
         /*}*/
@@ -3359,6 +3385,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         terms_employment_contract_tab.ajax.reload();
         $("#empContractInsertForm").get(0).reset();
         }
@@ -3651,6 +3682,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         work_experiencetab_tab.ajax.reload();
         $("#workExperienceInsertForm").get(0).reset();
         /*}*/
@@ -3975,6 +4011,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         workplace_tab.ajax.reload();
         $("#workplaceInfoInsertForm_m").get(0).reset();
         }
