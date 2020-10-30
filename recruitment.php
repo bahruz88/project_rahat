@@ -97,7 +97,7 @@ $site_lang=$_SESSION['dil'] ;
             <table id="employee_table" class="table table-striped  table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>id</th>
+                    <th>No</th>
                     <th>Adı</th>
                     <th>Soyadı</th>
                     <th>Ataadı</th>
@@ -266,7 +266,7 @@ $site_lang=$_SESSION['dil'] ;
 
                 });
                 table+='</tbody>';
-                $('#success').text('İşçilər toplusu işə qəbul edildi')
+                $('#success').text('İşçilər  işə qəbul edildi')
 
                 $("table#employee_table").append(table);
             }
