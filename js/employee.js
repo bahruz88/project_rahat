@@ -3937,11 +3937,11 @@ $(function () {
         rules: {
             company_id: "required",
             employee: "required",
-            directorate: "required",
-            department: "required",
-            depart: "required",
-            area_section: "required",
-            position: "required",
+            // directorate: "required",
+            // department: "required",
+            // depart: "required",
+            // area_section: "required",
+            // position: "required",
             position_level: "required",
             status: "required",
 
@@ -3949,11 +3949,11 @@ $(function () {
         messages: {
             company_id: "<?php echo $dil['empty_company'];?>",
             employee: "<?php echo $dil['empty_employee'];?>",
-            directorate: "<?php echo $dil['empty_directorate'];?>",
-            department: "<?php echo $dil['empty_department'];?>",
-            depart: "<?php echo $dil['empty_depart'];?>",
-            area_section: "<?php echo $dil['empty_area_section'];?>",
-            position: "<?php echo $dil['empty_position'];?>",
+            // directorate: "<?php echo $dil['empty_directorate'];?>",
+            // department: "<?php echo $dil['empty_department'];?>",
+            // depart: "<?php echo $dil['empty_depart'];?>",
+            // area_section: "<?php echo $dil['empty_area_section'];?>",
+            // position: "<?php echo $dil['empty_position'];?>",
             position_level: "<?php echo $dil['empty_position_level'];?>",
             status: "<?php echo $dil['empty_status'];?>",
         },
@@ -3978,7 +3978,7 @@ $(function () {
     });
 
     $("#workplaceInfoInsertForm_m").submit(function (e) {
-        // //console.log('salam insert')
+        // console.log('salam insert='+$("#workplaceInfoInsertForm_m").serialize())
         e.preventDefault();
         	if($("#workplaceInfoInsertForm_m").valid())
     {
@@ -4444,7 +4444,7 @@ function fillSelect(structures, stLevelid) {
 
     $.each(structures, function (k, v) {
         if (v.structure_level === '0') {
-            option_position += '<option   value="' + v.id + '" data-stLevel="' + v.position_level + '">' + v.category + '</option>';
+            option_position += '<option   value="' + v.category + '" data-stLevel="5">' + v.category + '</option>';
         }
         if (v.structure_level === '2') {
             option_directorate += '<option   value="' + v.id + '" data-stLevel="' + v.structure_level + '">' + v.category + '</option>';
@@ -4518,8 +4518,8 @@ $(".stlevel").change(function () {
 
     var stid = $(this).val();
     var stLevelid = $(this).find('option:selected').attr('data-stLevel');
-    //console.log("stid=" + $(this).html() + "=" + stid);
-    if (stid != '') {
+    console.log("stid=" + $(this).html() + "=" + stid);
+    if (stid != '' && stLevelid != '5') {
         $.ajax({
             url: 'workplace_info/getStructure.php',
             type: 'post',
