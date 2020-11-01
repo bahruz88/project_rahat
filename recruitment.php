@@ -80,7 +80,7 @@ $site_lang=$_SESSION['dil'] ;
         <button type="button" class="btn btn-info" onclick="downloadCSV(dd)">Şablonu yükləyin</button>
          <br />
         <br />
-        <form method="post" enctype="multipart/form-data" style="display:none;" id="target">
+        <form method="post" enctype="multipart/form-data"   id="target">
             <label>Doldurduğunuz şablonu seçin</label>
 <!--            <input type="file" name="excel" value="Seçin"/>-->
             <div>
@@ -92,6 +92,7 @@ $site_lang=$_SESSION['dil'] ;
             <input type="submit" name="import" style="display: none;" id="import" class="btn btn-info" value="Əlavə edin" />
         </form>
         <div id="success"></div>
+        <button type="button" class="btn btn-info"  id="importTab" >İşə qəbul edin</button>
 
         <div id="employee_tab" style="display:none;overflow-x: auto;">
             <table id="employee_table" class="table table-striped  table-bordered table-hover">
@@ -201,7 +202,7 @@ $site_lang=$_SESSION['dil'] ;
         "Ailə vəziyyəti","Doğum tarixi","Doğum yeri",
         "Vətəndaşlığı","FİN","Vəsiqənin seriya və nömrəsi","Vəsiqənin verilmə tarixi",
         "Etibarlılıq müddəti","Vəsiqəni verən orqanın adı","Yaşadığı ünvan","Qeydiyyat ünvanı",
-        "Mobil telefonu","Vəsiqəni verən orqanın adı","Ev telefonu","Email","Təcili vəziyyətdə əlaqə"
+        "Mobil telefonu","Ev telefonu","Email","Təcili vəziyyətdə əlaqə"
     ]
 
     function JsonToCSV(){
@@ -228,6 +229,60 @@ $site_lang=$_SESSION['dil'] ;
         console.log(form_data);
         $.ajax({
             url: 'recruitmentAj.php', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(data){
+                console.log('data',data); // display response from the PHP script, if any
+                console.log('data',$.parseJSON(data)); // display response from the PHP script, if any
+                $('#employee_tab').css('display','block');
+                var table='';
+                table+='<tbody>';
+                $.each($.parseJSON(data), function(k,value) {
+                    console.log('value=',value)
+                        table+=' <tr class="typeOfDocument" >' +
+                            '<td>'+parseInt(k+1)+'</td>'+
+                            '<td>'+value[0]+'</td>'+
+                            '<td>'+value[1]+'</td>'+
+                            '<td>'+value[2]+'</td>'+
+                            '<td>'+value[3]+'</td>'+
+                            '<td>'+value[4]+'</td>'+
+                            '<td>'+value[5]+'</td>'+
+                            '<td>'+value[6]+'</td>'+
+                            '<td>'+value[7]+'</td>'+
+                            '<td>'+value[8]+'</td>'+
+                            '<td>'+value[9]+'</td>'+
+                            '<td>'+value[10]+'</td>'+
+                            '<td>'+value[11]+'</td>'+
+                            '<td>'+value[12]+'</td>'+
+                            '<td>'+value[13]+'</td>'+
+                            '<td>'+value[14]+'</td>'+
+                            '<td>'+value[15]+'</td>'+
+                            '<td>'+value[16]+'</td>'+
+                            '<td>'+value[17]+'</td>'+
+                            '<td>'+value[18]+'</td></tr>';
+
+                });
+                table+='</tbody>';
+                // $('#success').text('İşçilər  işə qəbul edildi')
+
+                $("table#employee_table").append(table);
+            }
+        });
+
+
+    })
+    $('#importTab').on('click',function(event){
+        console.log('imppp')
+       var file_data = $('#files').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('excel', file_data);
+        console.log(form_data);
+        $.ajax({
+            url: 'recruitmentAjInsert.php', // point to server-side PHP script
             dataType: 'text',  // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,

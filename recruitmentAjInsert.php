@@ -1,6 +1,6 @@
 <?php
 include('session.php');
-$site_lang=$_SESSION['dil'] ;
+ $site_lang=$_SESSION['dil'] ;
 $data=array();
 $data2=array();
 function generateRandomString($length = 2) {
@@ -83,11 +83,23 @@ else {
             $birth_date = strtr($birth_date, '/', '-');
             $birth_date= date('Y-m-d', strtotime($birth_date));
 
+                                           // add this line
+//                $sql = "INSERT into tbl_excel(excel_name,excel_email) values ('$emapData[0]','$emapData[1]')";
+                $sql = "INSERT INTO $tbl_employees (id, firstname, lastname, surname, sex, marital_status, birth_date,
+ birth_place,citizenship, pincode, passport_seria_number, passport_date, passport_end_date, pass_given_authority,
+ living_address, reg_address, home_tel, mob_tel, email, emr_contact,empno)
+ VALUES ('Null','$firstname','$lastname','$surname','$sex', '$marital_status','$birth_date','$birth_place','$citizenship','$pincode','$pass_seria_num','$passport_date','$passport_end_date',
+ '$pass_given_authority','$living_address','$reg_address','$mob_tel','$home_tel','$email','$emr_contact','$empno')";
 
+                $db->query($sql);
             }
-
+            // add this line
         }
         fclose($file);
+//        echo "success";
         echo json_encode($data2);
+//        $success= 'İşçilər toplusu işə qəbul edildi';
+
+//        $success= 'İşçilər toplusu işə qəbul edilə bilmədi';
 }
 }
