@@ -1,6 +1,7 @@
 <?php
 include('session.php');
  $site_lang=$_SESSION['dil'] ;
+ //Insert
 $data=array();
 $data2=array();
 function generateRandomString($length = 2) {
