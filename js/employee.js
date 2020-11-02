@@ -349,6 +349,11 @@ $(function () {
                     }
                 }
             });
+            $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+            $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+            $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+            $(".selectpicker").selectpicker();
             table.ajax.reload();
             //	$( "#employeeInsert" ).get(0).reset();
         }
@@ -387,6 +392,11 @@ $(function () {
                     }
                 }
             });
+             $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+             $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+             $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+             $(".selectpicker").selectpicker();
             table.ajax.reload();
             //	$( "#employeeInsert" ).get(0).reset();
         }
@@ -446,6 +456,11 @@ $(function () {
                     }
                 }
             });
+            $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+            $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+            $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+            $(".selectpicker").selectpicker();
             table.ajax.reload();
         } else {
             alert('Form not valid');
@@ -607,6 +622,11 @@ $(function () {
                     }
                 }
             });
+            $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+            $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+            $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+            $(".selectpicker").selectpicker();
             eduinfo_table.ajax.reload();
             $("#educationInsertForm").get(0).reset();
         }
@@ -911,6 +931,11 @@ $(function () {
                     }
                 }
             });
+            $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+            $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+            $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+            $(".selectpicker").selectpicker();
             cert_table.ajax.reload();
             $("#educationInsertForm").get(0).reset();
         }
@@ -1005,6 +1030,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         cert_table.ajax.reload();
         /*}
 		else {
@@ -1138,6 +1168,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         skills_table.ajax.reload();
         $("#skillsInsertForm").get(0).reset();
         /*}*/
@@ -1194,6 +1229,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         skills_table.ajax.reload();
         /*}
 		else {
@@ -1404,6 +1444,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         lang_knowledge_table.ajax.reload();
         $("#langInsertForm").get(0).reset();
         /*}*/
@@ -1469,6 +1514,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         lang_knowledge_table.ajax.reload();
         /*}
 		else {
@@ -1621,6 +1671,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         faminfo_table.ajax.reload();
         $("#familyInsertForm").get(0).reset();
         /*}*/
@@ -1681,6 +1736,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         faminfo_table.ajax.reload();
         /*}
 		else {
@@ -2021,6 +2081,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         military_info_table.ajax.reload();
         /*}
         else {
@@ -2338,6 +2403,11 @@ $(function () {
                 }
             }
         });
+        $(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+        $(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
+        $(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
+        $(".selectpicker").selectpicker();
         driver_license_table.ajax.reload();
         /*}
         else {
@@ -4441,11 +4511,16 @@ function fillSelect(structures, stLevelid) {
     var option_position = '<option value="">Seçin..</option>';
     var option_direct_guide = '<option value="">Seçin..</option>';
     var option_second_leader = '<option value="">Seçin..</option>';
-
+    var posArray=[]
     $.each(structures, function (k, v) {
         if (v.structure_level === '0') {
-            option_position += '<option   value="' + v.category + '" data-stLevel="5">' + v.category + '</option>';
+            if(jQuery.inArray( v.category, posArray)==-1){
+                option_position += '<option   value="' + v.category + '" data-stLevel="5">' + v.category + '</option>';
+                posArray.push(v.category);
+            }
+            console.log('posArray=',posArray)
         }
+
         if (v.structure_level === '2') {
             option_directorate += '<option   value="' + v.id + '" data-stLevel="' + v.structure_level + '">' + v.category + '</option>';
         }
@@ -4625,14 +4700,62 @@ $('.work_experience_month').on('change', function() {
     console.log('change='+$(this).attr('name'));
     var work_experience_before_enterprise_month=parseInt($('#work_experience_before_enterprise_month').val())
     var work_experience_enterprise_month=parseInt($('#work_experience_enterprise_month').val())
-    $('#general_work_experience_month').val(work_experience_before_enterprise_month+work_experience_enterprise_month)
+
+    var work_experience_before_enterprise_day=parseInt($('#work_experience_before_enterprise_day').val())
+    var work_experience_enterprise_day=parseInt($('#work_experience_enterprise_day').val())
+    var general_work_experience_day=work_experience_before_enterprise_day+work_experience_enterprise_day
+    var  divisor = Math.floor(general_work_experience_day / 31);
+    var general_work_experience_month=divisor+work_experience_before_enterprise_month+work_experience_enterprise_month
+
+    // $('#general_work_experience_month').val(general_work_experience_month)
+    var work_experience_before_enterprise_year=parseInt($('#work_experience_before_enterprise_year').val())
+    var work_experience_enterprise_year=parseInt($('#work_experience_enterprise_year').val())
+    var  divisorMonth = Math.floor(general_work_experience_month / 12);
+    var  remainderMonth =general_work_experience_day % 12;
+    if(divisorMonth>=1){
+        var month =(divisorMonth*general_work_experience_month) % 12;
+        console.log('month='+month)
+        $('#general_work_experience_year').val(divisorMonth+work_experience_before_enterprise_year+work_experience_enterprise_year);
+        $('#general_work_experience_month').val(month)
+    }else{
+        $('#general_work_experience_month').val(remainderMonth)
+    }
+
 });
+function divDay(work_experience_before_enterprise_day,work_experience_enterprise_day){
+    var general_work_experience_day=work_experience_before_enterprise_day+work_experience_enterprise_day
+
+    var  divisor = Math.floor(general_work_experience_day / 31);
+    var  remainder =general_work_experience_day % 31;
+    if(divisor>=1) {
+        var day = (divisor * general_work_experience_day) % 31;
+    }else{
+        var day =remainder;
+    }
+}
 
 $('.work_experience_day').on('change', function() {
+    var work_experience_before_enterprise_month=parseInt($('#work_experience_before_enterprise_month').val())
+    var work_experience_enterprise_month=parseInt($('#work_experience_enterprise_month').val())
+
     console.log('change='+$(this).attr('name'));
     var work_experience_before_enterprise_day=parseInt($('#work_experience_before_enterprise_day').val())
     var work_experience_enterprise_day=parseInt($('#work_experience_enterprise_day').val())
-    $('#general_work_experience_day').val(work_experience_before_enterprise_day+work_experience_enterprise_day)
+
+    var general_work_experience_day=work_experience_before_enterprise_day+work_experience_enterprise_day
+    var  divisor = Math.floor(general_work_experience_day / 31);
+    var  remainder =general_work_experience_day % 31;
+   console.log('divisor='+divisor)
+    console.log('remainder='+remainder)
+    if(divisor>=1){
+        var day =(divisor*general_work_experience_day) % 31;
+        console.log('day='+day)
+        $('#general_work_experience_month').val(divisor+work_experience_before_enterprise_month+work_experience_enterprise_month);
+        $('#general_work_experience_day').val(day)
+    }else{
+        $('#general_work_experience_day').val(remainder)
+    }
+
 });
 
 $('.work_experience_year').on('keyup', function() {
