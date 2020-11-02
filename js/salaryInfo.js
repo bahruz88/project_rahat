@@ -280,20 +280,20 @@ up_emp=employee.emp_id;
 			$('#employee').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
 		}
-		if( $('#tariffRate').val()=='' || $('#tariffRate').val()=='0'){
-			$('#tariffRate').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#tariffRate').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
-		if(  $('#positionStatus').val()==''){
-			$('#positionStatus').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#positionStatus').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
+		// if( $('#tariffRate').val()=='' || $('#tariffRate').val()=='0'){
+		// 	$('#tariffRate').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+		// 	return false
+		// }else{
+		// 	$('#tariffRate').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		//
+		// }
+		// if(  $('#positionStatus').val()==''){
+		// 	$('#positionStatus').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+		// 	return false
+		// }else{
+		// 	$('#positionStatus').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		//
+		// }
 		if(   $('#wage').val()==''){
 			$('#wage').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
@@ -308,48 +308,48 @@ up_emp=employee.emp_id;
 			$('#wage_currency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
 		}
-		if($('#reasonChange').val()==''){
-			$('#reasonChange').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#reasonChange').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
-		if($('#totalMonthlySalary').val()==''){
-			$('#totalMonthlySalary').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#totalMonthlySalary').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
-		if( $('#prizeAmount').val()==''){
-			$('#prizeAmount').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#prizeAmount').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
-		if(  $('#prizeAmount_currency').val()==''  ||$('#prizeAmount_currency').val()=='0' ){
-			$('#prizeAmount_currency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#prizeAmount_currency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
-		if($('#rewardPeriod').val()==''){
-			$('#rewardPeriod').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#rewardPeriod').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
-		if($('#placeExpenditure').val()==''){
-			$('#placeExpenditure').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#placeExpenditure').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
+		// if($('#reasonChange').val()==''){
+		// 	$('#reasonChange').addClass( "is-invalid" ).removeClass( "is-valid" );
+		// 	return false
+		// }else{
+		// 	$('#reasonChange').addClass( "is-valid" ).removeClass( "is-invalid" );
+		//
+		// }
+		// if($('#totalMonthlySalary').val()==''){
+		// 	$('#totalMonthlySalary').addClass( "is-invalid" ).removeClass( "is-valid" );
+		// 	return false
+		// }else{
+		// 	$('#totalMonthlySalary').addClass( "is-valid" ).removeClass( "is-invalid" );
+		//
+		// }
+		// if( $('#prizeAmount').val()==''){
+		// 	$('#prizeAmount').addClass( "is-invalid" ).removeClass( "is-valid" );
+		// 	return false
+		// }else{
+		// 	$('#prizeAmount').addClass( "is-valid" ).removeClass( "is-invalid" );
+		//
+		// }
+		// if(  $('#prizeAmount_currency').val()==''  ||$('#prizeAmount_currency').val()=='0' ){
+		// 	$('#prizeAmount_currency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+		// 	return false
+		// }else{
+		// 	$('#prizeAmount_currency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		//
+		// }
+		// if($('#rewardPeriod').val()==''){
+		// 	$('#rewardPeriod').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+		// 	return false
+		// }else{
+		// 	$('#rewardPeriod').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		//
+		// }
+		// if($('#placeExpenditure').val()==''){
+		// 	$('#placeExpenditure').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+		// 	return false
+		// }else{
+		// 	$('#placeExpenditure').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		//
+		// }
 		return true
 	}
 	/*ISCHI MELUMATLARI  DAXIL  EDILIR  */

@@ -50,6 +50,7 @@ $position_level='';
 if(isset($_POST['position_level'])){
     if($_POST['position_level']!=''){
         $position_level=$_POST['position_level'];
+        $st_level=0;
     }
 }
 if($position_level==2){
@@ -79,8 +80,8 @@ if(isset($_POST['area_section'])){
 $insert_date= date("Y-m-d h:i:sa") ;
 
     $sql = "INSERT INTO $tbl_employee_category(
-	 id, emp_id,code,icon, category, company_id,position_level, parent, work_status,create_date,end_date, insert_date)
-	 VALUES (NULL, '$employee','$code','$icon','$position','$company_id','$position_level','$parent','$work_status','$create_date','$end_date','$insert_date')";
+	 id, emp_id,code,icon, category, company_id,position_level,structure_level, parent, work_status,create_date,end_date, insert_date)
+	 VALUES (NULL, '$employee','$code','$icon','$position','$company_id','$position_level','$st_level','$parent','$work_status','$create_date','$end_date','$insert_date')";
 
   if(!mysqli_query($db, $sql)) {
         echo "error=".$parent.' = ' .mysqli_error($db);

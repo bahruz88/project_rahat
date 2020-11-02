@@ -77,7 +77,7 @@ $data3 = array();
 
                     $sql_posparents = "select tec.*,tec.id,tec.category,tec.parent,tec.structure_level,tec.position_level, tsl.title position from $tbl_employee_category  tec
                     LEFT join $tbl_position_level tsl on tsl.posit_id=tec.position_level
-                     WHERE tec.parent = '$parent'";
+                     WHERE tec.parent = '$parent' ";
 //                  echo $sql_parents;
                     $result_posparents = $db->query($sql_posparents);
                     if ($result_posparents) {

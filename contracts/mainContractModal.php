@@ -20,6 +20,14 @@ Mandatory in IE 6, 7, 8 and 9.
         pointer-events: none;
         cursor: default;
     }
+    div.dropdown-menu.open{
+        max-height: 314px !important;
+        overflow: hidden;
+    }
+    ul.dropdown-menu.inner{
+        max-height: 260px !important;
+        overflow-y: auto;
+    }
 </style>
 <!--[if IE]>
 <script type="text/javascript" src="https://unpkg.com/pizzip@3.0.6/dist/pizzip-utils-ie.js"></script>
@@ -57,7 +65,7 @@ Mandatory in IE 6, 7, 8 and 9.
                                     </select>
                                 </div>
 
-                                <div  id="commandsDiv" style="display: none;">
+                                <div  id="commandsDiv" style="display: none; ">
                                     <select data-live-search="true"  name="commands" style="display: none;" id="commands"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["commands"];?>" >
                                         <option  value="0" >Seçin...</option>
                                         <?php
