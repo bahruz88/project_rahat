@@ -179,12 +179,12 @@ $('#myContracts').on( 'change', '#contracts', function () {
 
 
 $('input:radio[name=commandDate],input:radio[name=contractDate],#confirmContract, #sinceBeginDate, #sinceEndDate, #commands').on('change', function() {
-	////console.log('change'+$(this).attr('name'))
+	console.log('change name='+$(this).attr('name'))
+	console.log('change id='+$(this).attr('id'))
 	changeAttr()
 
 });
 function changeAttr(){
-	var contractDate='';
 	$("table#command_table tbody").html('');
 	contract='';
 	if($('#myContracts').find('#commands').find('option:selected').val()!="0"){
@@ -195,13 +195,25 @@ function changeAttr(){
 		contract=$('#myContracts').find('#contracts').find('option:selected').val();
 
 	}
-	 console.log('contract='+contract);
 
-	contractDate=$('#myContracts input[name=contractDate]:checked').val();
-	var commandDate=$('#myContracts input[name=commandDate]:checked').val();
+	var contractDate='';
+	var commandDate=''
+	if($('#myContracts input[name=contractDate]:checked').val()){
+		contractDate=$('#myContracts input[name=contractDate]:checked').val();
+	}
+	if($('#myContracts input[name=commandDate]:checked').val()){
+		commandDate=$('#myContracts input[name=commandDate]:checked').val();
+	}
+
 	var sinceBeginDate=$('#myContracts input[name=sinceBeginDate]').val();
 	var sinceEndDate=$('#myContracts input[name=sinceEndDate]').val();
 	var companyId=$('#company option:selected').val();
+	console.log('contract='+contract);
+	console.log('contractDate='+contractDate);
+	console.log('commandDate='+commandDate);
+	console.log('sinceBeginDate='+sinceBeginDate);
+	console.log('sinceEndDate='+sinceEndDate);
+	console.log('companyId='+companyId);
 	var order='';
 	if(contractDate=='1' || commandDate=='1' ){
 		order="  ORDER BY tc.id ASC LIMIT 1";
@@ -219,7 +231,7 @@ function changeAttr(){
 		order="";
 		contractDate='3';
 	}
-	if(contractDate==''){
+	if(contractDate=='' || commandDate==''){
 		order="";
 		contractDate='';
 	}
@@ -247,8 +259,9 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 		sinceBeginDate = '1900-01-01';
 	}
 	if(sinceEndDate==''){
-		var d = new Date();
-		sinceEndDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+		// var d = new Date();
+		// sinceEndDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+		sinceEndDate = '9999-12-31';
 	}
 	////console.log(	"command_id:=="+ contract.substr(1))
 	$.post(url,

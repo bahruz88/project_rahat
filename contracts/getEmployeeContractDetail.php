@@ -188,14 +188,11 @@ LEFT join $tbl_yesno tYN2 on tco.service=tYN.chois_id and tYN.lang='$site_lang'
 
 }
 //echo $sql_emp_contracts;
-//echo $sql_emp_contracts;
 $result_emp_contracts = $db->query($sql_emp_contracts);
 //eger tbl_contract cedvelinde verilen varsa ordan serte uygun secir
 if ($result_emp_contracts->num_rows > 0 && $contractDate!='2')
 {
     while ($row_emp_contracts = $result_emp_contracts->fetch_assoc()) {
-
-
         $emp_id=$row_emp_contracts['emp_id'];
         $company_id=$row_emp_contracts['company_id'];
 

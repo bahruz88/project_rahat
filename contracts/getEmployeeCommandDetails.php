@@ -5,7 +5,7 @@ $site_lang=$_SESSION['dil'] ;
 $order = $_POST['order'];
 
 //$contractDate = $_POST['contractDate'];
-$contractDate ='3';
+$contractDate ='';
 if (isset($_POST['contractDate']))
 {
     $contractDate = $_POST['contractDate'];
@@ -64,7 +64,7 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
 
 
 }
-else if( $contractDate=='3'){
+else if( $contractDate=='3'||  $contractDate==''){
     $sql_emp_contracts ="select tc.*,te.*,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize, tc.insert_date create_date,tc.id id,tee.exit_date exit_date,tee.main main,tee.guarantees_termination_contract guarantees_termination_contract,ttd.title type_dismissal,ttc.title termination_clause,tn.title note,tc.structure1 pos,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id
  from $tbl_employee_commands tc
  LEFT join $tbl_employee_exit tee on tee.emp_id=tc.emp_id
@@ -78,7 +78,7 @@ LEFT join $tbl_employees te on te.id=tc.emp_id
    where  tc.emp_id='$empid' and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_id='$command_id' ";
 //    echo $sql_emp_contracts;
 }
-//echo $sql_emp_contracts;
+ //echo $sql_emp_contracts;
 $parent ='';
 $result_emp_contracts = $db->query($sql_emp_contracts);
 //eger tbl_contract cedvelinde verilen varsa ordan serte uygun secir
