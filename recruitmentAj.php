@@ -7,19 +7,7 @@ header('Content-Type: text/html; charset=UTF-8');
 function generateRandomString($length = 2) {
     return substr(str_shuffle(str_repeat($x='ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
 }
-function autoUTF($s)
-{
-    // detect UTF-8
-    if (preg_match('#[\x80-\x{1FF}\x{2000}-\x{3FFF}]#u', $s))
-        return $s;
 
-    // detect WINDOWS-1250
-    if (preg_match('#[\x7F-\x9F\xBC]#', $s))
-        return iconv('WINDOWS-1250', 'UTF-8', $s);
-
-    // assume ISO-8859-2
-    return iconv('ISO-8859-2', 'UTF-8', $s);
-}
 if ( 0 < $_FILES['excel']['error'] ) {
     echo 'Error: ' . $_FILES['excel']['error'] . '<br>';
 }
@@ -38,8 +26,7 @@ else {
         while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
         {
             $count++;                                      // add this line
-//            $emapData = array_map("utf8_encode", $emapData);
-            $emapData = autoUTF($emapData);
+            $emapData = array_map("utf8_encode", $emapData);
             if($count>1 && $emapData[0]!='' && $emapData[1]!=''  && $emapData[2]!=''){
                 $data=array();
             $data[]= $firstname=($emapData[0]);
