@@ -361,7 +361,7 @@ $('#employees').on( 'change','#company,#code,#empid,#position_level',  function 
 	console.log('position='+position)
 	if($(this).attr('name')=="company"){
 		$.ajax({
-			url: "employees/getEmployee.php",
+			url: "contracts/getEmployee.php",
 			type: "POST",
 			data: { company_id:company_id},
 			success: function (data) {
@@ -607,6 +607,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#living_address").val(value.living_address);
 				$("#living_address").val(value.living_address);
 				$("#additions_salary").val(value.additions_salary);
+				$("#date_conclusion_employment_contract").val(value.date_conclusion_employment_contract);
 
 			}
 			else{
@@ -628,7 +629,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	});
 	console.log('employeeName=='+employeeName)
 	if(contract=='1'){
-		generate("emek_muqavilesi",employeeName)
+		generate("emek_muqavil",employeeName)
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
 		generate("emekElave",employeeName)

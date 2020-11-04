@@ -190,9 +190,9 @@ $result_commands = $db->query($commands);
 
                             </div>
 
-                            <button id="searchTabel">Axtar</button>
+                            <button id="searchTabel"  class=" btn btn-primary">Axtar</button>
                             <!--                            <button  class="exportToExcel">Exel</button>-->
-                            <button id="exportToExcel"> EXCEL</button>
+                            <button id="exportToExcel"  class=" btn btn-primary"> EXCEL</button>
                         </div>
 
 
@@ -329,7 +329,10 @@ $result_commands = $db->query($commands);
         var months = daysInMonth(month, year)
         var company_id = $('#company').find('option:selected').val();
         var company_name = $('#company').find('option:selected').text();
-        console.log('months=' + months)
+        console.log('months=' + months);
+        for (var i = 1; i <= months; i++) {
+            $('#employee').off( 'click','#emp_table .dates' + i);
+        }
         $.ajax({
             url: "tab/get_tab_months.php",
             type: "POST",
@@ -395,7 +398,8 @@ $result_commands = $db->query($commands);
                     '                                </tr>'
                 $("table#emp_table thead").html(row);
                 $("#employee").css('display', 'block');
-                $('.head_name').text('')
+                $('.head_name').text('');
+                $("table#emp_table tbody").html('')
                 $.each($.parseJSON(data), function (k, value) {
                     var cat = '';
                     if (value.category) {

@@ -219,6 +219,7 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="other_conditions2" name="other_conditions2"   />
                         <input type="hidden" class="form-control" id="other_conditions3" name="other_conditions3"   />
                         <input type="hidden" class="form-control" id="additions_salary" name="additions_salary"   />
+                        <input type="hidden" class="form-control" id="date_conclusion_employment_contract" name="date_conclusion_employment_contract"   />
 
 
                         <!--                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />-->
@@ -589,6 +590,7 @@ Mandatory in IE 6, 7, 8 and 9.
                 totalMonthlySalary: $('#totalMonthlySalary').val(),
                 living_address: $('#living_address').val(),
                 additions_salary: $('#additions_salary').val(),
+                date_conclusion_employment_contract: $('#date_conclusion_employment_contract').val(),
              });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
