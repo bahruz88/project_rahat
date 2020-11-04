@@ -16,10 +16,10 @@ $sql_employees = "select  id, firstname, lastname, surname , emp_status,empno,im
 					while($row_employees  = $result_employees ->fetch_assoc()) {
 						if  ($row_employees ['emp_status']==1 )
 						{
-							$row_employees ['emp_status']='active'	;
+							$row_employees ['emp_status']='aktiv'	;
 						}
 						else {
-							$row_employees ['emp_status']='deactive';
+							$row_employees ['emp_status']='passiv';
 							
 						}
 						   $sub_array   = array();

@@ -181,10 +181,23 @@ $('#myContracts').on( 'change', '#contracts', function () {
 $('input:radio[name=commandDate],input:radio[name=contractDate],#confirmContract, #sinceBeginDate, #sinceEndDate, #commands').on('change', function() {
 	console.log('change name='+$(this).attr('name'))
 	console.log('change id='+$(this).attr('id'))
-	changeAttr()
+	console.log('change val='+$(this).val())
+	if($(this).val()=='3' && $(this).attr('name')=='contractDate'){
+		$('#whichDateContract').modal('show');
+	}else{
+		changeAttr('')
+	}
+
 
 });
-function changeAttr(){
+$('#whichDateContract').on( 'click','#confirmDateContract',  function () {
+	var confirmDateContract=$('#selectDateContract').val()
+	changeAttr(confirmDateContract);
+	$('#selectDateContract').val('')
+	$('#whichDateContract').modal('hide');
+})
+function changeAttr(confirmDateContract){
+	console.log('changeAttr confirmDateContract='+confirmDateContract)
 	$("table#command_table tbody").html('');
 	contract='';
 	if($('#myContracts').find('#commands').find('option:selected').val()!="0"){
@@ -196,9 +209,9 @@ function changeAttr(){
 
 	}
 
-	var contractDate='';
+	 var contractDate='';
 	var commandDate=''
-	if($('#myContracts input[name=contractDate]:checked').val()){
+	if($('#myContracts input[name=contractDate]:checked').val() && contractDate==''){
 		contractDate=$('#myContracts input[name=contractDate]:checked').val();
 	}
 	if($('#myContracts input[name=commandDate]:checked').val()){
@@ -214,34 +227,39 @@ function changeAttr(){
 	console.log('sinceBeginDate='+sinceBeginDate);
 	console.log('sinceEndDate='+sinceEndDate);
 	console.log('companyId='+companyId);
+	console.log('confirmDateContract='+confirmDateContract);
 	var order='';
-	if(contractDate=='1' || commandDate=='1' ){
+	if(confirmDateContract!=''){
+		order="confirmDateContract";
+		contractDate='';
+	}
+	if((contractDate=='1' || commandDate=='1') && confirmDateContract=='' ){
 		order="  ORDER BY tc.id ASC LIMIT 1";
 		contractDate='1';
 	}
-	if(contractDate=='2'|| commandDate=='2'){
+	if((contractDate=='2'|| commandDate=='2')&& confirmDateContract==''){
 		order="  ORDER BY tc.id DESC LIMIT 1";
 		contractDate='2';
 	}
-	if(contractDate=='3'){
+	if(contractDate=='3' && confirmDateContract=='' && confirmDateContract==''){
 		order="";
 		contractDate='3';
 	}
-	if(commandDate=='3'){
+	if(commandDate=='3' && confirmDateContract=='' && confirmDateContract==''){
 		order="";
 		contractDate='3';
 	}
-	if(contractDate=='' || commandDate==''){
+	if((contractDate=='' || commandDate=='') && confirmDateContract==''){
 		order="";
 		contractDate='';
 	}
 
-	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceBeginDate,sinceEndDate,companyId);
+	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceBeginDate,sinceEndDate,companyId,confirmDateContract);
 	document.getElementById("update_empid").value = data[0];
 }
 var commandArray =[];
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
-function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate,companyId)
+function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate,companyId,confirmDateContract)
 {
 	console.log('contractDate='+contractDate)
 	console.log('command_id='+contract)
@@ -249,6 +267,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 	console.log('empid='+empid)
 	console.log('sinceBeginDate='+sinceBeginDate)
 	console.log('companyId='+companyId)
+	console.log('confirmDateContract='+confirmDateContract)
 	var url="";
 	if(contName=="contracts"){
 		url="contracts/getEmployeeContractDetail.php"
@@ -272,20 +291,21 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 			sinceBeginDate:sinceBeginDate,
 			sinceEndDate:sinceEndDate,
 			companyId:companyId,
+			confirmDateContract:confirmDateContract,
 			command_id: contract.substr(1),
 			contractDate:contractDate
 		},
 		function (emp_data, status)
 		{
 			// PARSE json data
-			console.log('emp_data=',emp_data)
+			 console.log('emp_data=',emp_data)
 			//console.log('count=',emp_data.length)
 			commandArray = emp_data;
 			var employee = JSON.parse(emp_data);
 			var countEmp=employee.length;
 			var employeeMem=[];
 			////console.log('count=',employee.length)
-			console.log('employee=',employee)
+			console.log(url+'=url employee=',employee)
 			var table = '';
 			$.each(employee, function(k,value) {
 				console.log('value=',value)
@@ -345,8 +365,8 @@ $('#employees').on( 'change','#company,#code,#empid,#position_level',  function 
 			type: "POST",
 			data: { company_id:company_id},
 			success: function (data) {
-				console.log('data=',data)
-				////console.log('$.parseJSON(data)=',$.parseJSON(data))
+				console.log('data getEmployee=',data)
+				console.log('$.parseJSON(data) getEmployee=',$.parseJSON(data))
 				var option='<select data-live-search="true"  name="empid" id="empid"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
 				option += '<option value="">Seçin..</option>';
 
@@ -448,6 +468,7 @@ $('#command_table').on( 'click','.create_commmand_no',  function () {
 $('#whichDate').on( 'click','#confirmDate',  function () {
 
 	var employee = JSON.parse(commandArray);
+	var employeeName = '';
 	console.log('download employee=',employee);
 	$('#member').html('');
 	$.each(employee, function(k,value) {
@@ -491,6 +512,8 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#currentDate").val($('#selectDate').val())
 				$("#command_no").val(value.command_no)
 				$("#full_name").val(value.full_name)
+				employeeName=value.full_name;
+				console.log('employeeName='+employeeName)
 				// $("#uid").val(empid)
 				$("#citizenship").val(value.citizenship);
 				$("#passport_seria_number").val(value.passport_seria_number);
@@ -543,7 +566,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#working_conditions").val(value.working_conditions);
 				$("#job_description").val(value.job_description);
 				$("#kvota").val(value.kvota);
-				$("#insert_date").val(value.insert_date);
+				$("#insert_date").val(value.insert_date.substr(0,10));
 
 				$("#vezife").val(value.pos);
 				$("#directorate").val(value.directorate);
@@ -582,6 +605,8 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#job_description").val(value.job_description);
 				$("#totalMonthlySalary").val(value.total_monthly_salary);
 				$("#living_address").val(value.living_address);
+				$("#living_address").val(value.living_address);
+				$("#additions_salary").val(value.additions_salary);
 
 			}
 			else{
@@ -601,59 +626,67 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 
 		}
 	});
+	console.log('employeeName=='+employeeName)
 	if(contract=='1'){
-		generate("emek_muqavilesi")
+		generate("emek_muqavilesi",employeeName)
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
-		generate("emekElave")
+		generate("emekElave",employeeName)
 	}else if(contract=='3'){
-		generate("herbi2")
+		generate("herbi2",employeeName)
 	}else if(contract=='c1'){
-		generate("avans_emr")
+		generate("avans_emri",employeeName)
 	}else if(contract=='c2'){
 		generate("evezgun_verilmesi_hq_emr")
 	}else if(contract=='c3'){
-		generate("ezamiyyet_emri")
+		generate("ezamiyyet_emri",employeeName)
 	}else if(contract=='c4'){
-		generate("is_vaxtindan_artiq_is_emri")
+		generate("is_vaxtindan_artiq_is_emri",employeeName)
 	}else if(contract=='c5'){
-		generate("ishe_qebul_emr")
+		generate("ishe_qebul_emr",employeeName)
 	}else if(contract=='c6'){
-		generate("maash_deyisikliyi_emri_")
+		generate("maash_deyisikliyi_emri_",employeeName)
 	}else if(contract=='c7'){
-		generate("mezuniyyet_qismen_odenisli")
+		generate("mezuniyyet_qismen_odenisli",employeeName)
 	}else if(contract=='c8'){
-		generate("mezuniyyet_emri_odenissiz")
+		generate("mezuniyyet_emri_odenissiz",employeeName)
 	}else if(contract=='c9'){
-		generate("mezuniyyet_emri_emek")
+		generate("mezuniyyet_emri_emek",employeeName)
 	}else if(contract=='c10'){
-		generate("mezuniyyetden_geri_cagrilma_emri")
+		generate("mezuniyyetden_geri_cagrilma_emri",employeeName)
 	}else if(contract=='c11'){
-		generate("mukafat_emri_")
+		generate("mukafat_emri_",employeeName)
 	}else if(contract=='c12'){
-		generate("qisaldilmis_is_vaxti_emri")
+		generate("qisaldilmis_is_vaxti_emri",employeeName)
 	}else if(contract=='c13'){
-		generate("qrafik_deyisikliyi_emri")
+		generate("qrafik_deyisikliyi_emri",employeeName)
 	}else if(contract=='c14'){
-		generate("sosial_mezuniyyet_emri")
+		generate("sosial_mezuniyyet_emri",employeeName)
 	}else if(contract=='c15'){
-		generate("stat_emri_elave")
+		generate("stat_emri_elave",employeeName)
 	}else if(contract=='c16'){
-		generate("stat_emri_legv")
+		generate("stat_emri_legv",employeeName)
 	}else if(contract=='c17'){
-		generate("stat_emri_stat_cedvelinin_tesdiqi")
+		generate("stat_emri_stat_cedvelinin_tesdiqi",employeeName)
 	}else if(contract=='c18'){
-		generate("vezife_deyishikliyi")
+		generate("vezife_deyishikliyi",employeeName)
 	}else if(contract=='c19'){
-		generate("xitam_emri")
+		generate("xitam_emri",employeeName)
 	}
 
 	$('#whichDate').modal('hide');
 	$('#selectDate').val('')
 })
 
+
 $(function () {
 	$('#selectDate').datepicker({
+		todayHighlight: true,
+		format: 'dd/mm/yyyy',
+		autoclose: true
+		// startDate: new Date()
+	});
+	$('#selectDateContract').datepicker({
 		todayHighlight: true,
 		format: 'dd/mm/yyyy',
 		autoclose: true

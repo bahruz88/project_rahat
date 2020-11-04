@@ -153,7 +153,7 @@ $result_commands = $db->query($commands);
 
 
                     <?php
-                    include('contracts/mainContractModal.php');
+//                    include('contracts/mainContractModal.php');
                     ?>
 
                     <!-- Tab panes -->

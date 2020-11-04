@@ -23,11 +23,11 @@ $sql_medical = "SELECT ttec.id,ttec.emp_id,ttec.company_id,ttec.indefinite,ttec.
   tws.title workplace_status,tws.work_status_id work_status_id,twc.title working_conditions,  twc.cond_id working_cond_id,  
   tYN.chois_desc indefinite,tYN.chois_id,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name  
  FROM $tbl_terms_employment_contract ttec
-INNER join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status and tws.lang='$site_lang'
-INNER join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions and twc.lang='$site_lang'
-INNER join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
-INNER join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
-INNER join $tbl_employees te on ttec.emp_id=te.id where ttec.status=1 and te.emp_status=1 and ttec.id='$empcontractid'";
+LEFT join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status and tws.lang='$site_lang'
+LEFT join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions and twc.lang='$site_lang'
+LEFT join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
+LEFT join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
+LEFT join $tbl_employees te on ttec.emp_id=te.id where ttec.status=1 and te.emp_status=1 and ttec.id='$empcontractid'";
 
 
 $result_lang = $db->query($sql_medical);

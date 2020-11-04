@@ -385,6 +385,8 @@ up_emp=employee.emp_id;
 			$( "#salaryInsert")[0].reset();
 			$( "#salaryInsert").get(0).reset();
 			$(this).closest('form').find("input[type=text],input[type=number], textarea,select").val("")
+ 				$('#wage').val("0")
+				$('#prizeAmount').val("0")
 
 			$(this).closest('form').find("select option[value='0']").prop('selected', 'selected').change();
 			$(this).closest('form').find("select option[value='']").prop('selected', 'selected').change();
@@ -449,6 +451,7 @@ up_emp=employee.emp_id;
 					}
 				}
 			});
+
 			table.ajax.reload();
 		} else {
 			alert('Form not valid');

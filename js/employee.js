@@ -175,7 +175,7 @@ $(function () {
             },
             {
                 text: '<select id="act">' +
-                    '<option value="1" selected>Activ</option>' +
+                    '<option value="1" selected>Aktiv</option>' +
                     '<option value="0">Passiv</option>' +
                     '<option value="2">Hamısı</option>' +
                     '</select>',
@@ -3490,7 +3490,7 @@ $(function () {
                 empcontractid: empcontractid
             },
             function (empcontract_data, status) {
-                //console.log('empcontractdata1=', empcontract_data)
+                console.log('empcontractdata1=', empcontract_data)
                 // PARSE json data
                 var empcontractdata = JSON.parse(empcontract_data);
                 //console.log('empcontractdata=', empcontractdata)

@@ -3,8 +3,22 @@ include('session.php');
 $site_lang=$_SESSION['dil'] ;
 $data=array();
 $data2=array();
+header('Content-Type: text/html; charset=UTF-8');
 function generateRandomString($length = 2) {
     return substr(str_shuffle(str_repeat($x='ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+}
+function autoUTF($s)
+{
+    // detect UTF-8
+    if (preg_match('#[\x80-\x{1FF}\x{2000}-\x{3FFF}]#u', $s))
+        return $s;
+
+    // detect WINDOWS-1250
+    if (preg_match('#[\x7F-\x9F\xBC]#', $s))
+        return iconv('WINDOWS-1250', 'UTF-8', $s);
+
+    // assume ISO-8859-2
+    return iconv('ISO-8859-2', 'UTF-8', $s);
 }
 if ( 0 < $_FILES['excel']['error'] ) {
     echo 'Error: ' . $_FILES['excel']['error'] . '<br>';
@@ -17,30 +31,32 @@ else {
     if($_FILES["excel"]["size"] > 0)
     {
         $file = fopen($filename, "r");
+
 //$sql_data = "SELECT * FROM prod_list_1 ";
 
         $count = 0;                                         // add this line
         while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
         {
             $count++;                                      // add this line
-
+//            $emapData = array_map("utf8_encode", $emapData);
+            $emapData = autoUTF($emapData);
             if($count>1 && $emapData[0]!='' && $emapData[1]!=''  && $emapData[2]!=''){
                 $data=array();
-            $data[]= $firstname=utf8_encode($emapData[0]);
-            $data[]=$lastname=utf8_encode($emapData[1]);
-            $data[]=$surname = utf8_encode($emapData[2]);
+            $data[]= $firstname=($emapData[0]);
+            $data[]=$lastname=($emapData[1]);
+            $data[]=$surname = ($emapData[2]);
             $data[]=$sex = $emapData[3];
             $data[]=$marital_status = $emapData[4];
             $data[]=$birth_date = $emapData[5];
             $data[]=$birth_place = $emapData[6];
-            $data[]=$citizenship = utf8_encode($emapData[7]);
+            $data[]=$citizenship = ($emapData[7]);
             $data[]=$pincode = $emapData[8];
             $data[]=$pass_seria_num = $emapData[9];
             $data[]=$passport_date = $emapData[10];
             $data[]=$passport_end_date = $emapData[11];
-            $data[]=$pass_given_authority = utf8_encode($emapData[12]);
-            $data[]=$living_address = utf8_encode($emapData[13]);
-            $data[]=$reg_address = utf8_encode($emapData[14]);
+            $data[]=$pass_given_authority = ($emapData[12]);
+            $data[]=$living_address = ($emapData[13]);
+            $data[]=$reg_address = ($emapData[14]);
             $data[]=$mob_tel = $emapData[15];
             $data[]=$home_tel = $emapData[16];
             $data[]=$email = $emapData[17];

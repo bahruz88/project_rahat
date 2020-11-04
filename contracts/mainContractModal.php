@@ -218,6 +218,7 @@ Mandatory in IE 6, 7, 8 and 9.
                         <input type="hidden" class="form-control" id="other_conditions1" name="other_conditions1"   />
                         <input type="hidden" class="form-control" id="other_conditions2" name="other_conditions2"   />
                         <input type="hidden" class="form-control" id="other_conditions3" name="other_conditions3"   />
+                        <input type="hidden" class="form-control" id="additions_salary" name="additions_salary"   />
 
 
                         <!--                        <input type="hidden" class="form-control" id="memberType" name="memberType"   />-->
@@ -294,6 +295,32 @@ Mandatory in IE 6, 7, 8 and 9.
         </div>
     </div>
 </div>
+<div class="modal fade" id="whichDateContract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <!--                    <label class="col-sm-4 col-form-label" for="contracts">--><?php //echo $dil["contracts"];?><!--</label>-->
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label" for="selectDateContract">Zəhmət olmasa tarix seçin</label>
+                        <input type="text" style="width:120px;" class="form-control" id="selectDateContract" name="selectDateContract" placeholder="0000-00-00" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-primary" id="confirmDateContract">Təsdiq</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!--word to html-->
@@ -338,7 +365,8 @@ Mandatory in IE 6, 7, 8 and 9.
     function loadFile(url,callback){
         PizZipUtils.getBinaryContent(url,callback);
     }
-    function generate(name) {
+    function generate(name,employeeName) {
+        var outputDocName=name;
         loadFile("senedler/"+name+".docx",function(error,content){
             if (error) { throw error };
 
@@ -560,6 +588,7 @@ Mandatory in IE 6, 7, 8 and 9.
                 job_description: $('#job_description').val(),
                 totalMonthlySalary: $('#totalMonthlySalary').val(),
                 living_address: $('#living_address').val(),
+                additions_salary: $('#additions_salary').val(),
              });
             try {
                 // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
@@ -575,7 +604,7 @@ Mandatory in IE 6, 7, 8 and 9.
                 type:"blob",
                 mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             }) //Output the document using Data-URI
-            saveAs(out,"output.docx")
+            saveAs(out,outputDocName+'_'+employeeName+".docx")
         })
     }
 </script>

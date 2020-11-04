@@ -121,6 +121,7 @@ $site_lang=$_SESSION['dil'] ;
 
                 </tr>
                 </thead>
+                <tbody></tbody>
             </table>
 
         </div>
@@ -220,6 +221,15 @@ $site_lang=$_SESSION['dil'] ;
         hiddenElement.download = 'output.csv';
         hiddenElement.click();
     }
+    function convert(str)
+    {
+        str = str.replace(/&/g, "&amp;");
+        str = str.replace(/>/g, "&gt;");
+        str = str.replace(/</g, "&lt;");
+        str = str.replace(/"/g, "&quot;");
+        str = str.replace(/'/g, "&#039;");
+        return str;
+    }
     $('#target').submit(function(event){
         console.log('imppp')
         event.preventDefault();
@@ -239,15 +249,15 @@ $site_lang=$_SESSION['dil'] ;
                 console.log('data',data); // display response from the PHP script, if any
                 console.log('data',$.parseJSON(data)); // display response from the PHP script, if any
                 $('#employee_tab').css('display','block');
+                $("table#employee_table tbody").html('')
                 var table='';
-                table+='<tbody>';
                 $.each($.parseJSON(data), function(k,value) {
                     console.log('value=',value)
                         table+=' <tr class="typeOfDocument" >' +
                             '<td>'+parseInt(k+1)+'</td>'+
                             '<td>'+value[0]+'</td>'+
                             '<td>'+value[1]+'</td>'+
-                            '<td>'+value[2]+'</td>'+
+                            '<td>'+convert(value[2])+'</td>'+
                             '<td>'+value[3]+'</td>'+
                             '<td>'+value[4]+'</td>'+
                             '<td>'+value[5]+'</td>'+
@@ -266,10 +276,9 @@ $site_lang=$_SESSION['dil'] ;
                             '<td>'+value[18]+'</td></tr>';
 
                 });
-                table+='</tbody>';
                 // $('#success').text('İşçilər  işə qəbul edildi')
 
-                $("table#employee_table").append(table);
+                $("table#employee_table tbody").append(table);
             }
         });
 
@@ -293,8 +302,8 @@ $site_lang=$_SESSION['dil'] ;
                 console.log('data',data); // display response from the PHP script, if any
                 console.log('data',$.parseJSON(data)); // display response from the PHP script, if any
                 $('#employee_tab').css('display','block');
+                $("table#employee_table tbody").html('')
                 var table='';
-                table+='<tbody>';
                 $.each($.parseJSON(data), function(k,value) {
                     console.log('value=',value)
                         table+=' <tr class="typeOfDocument" >' +
@@ -320,10 +329,9 @@ $site_lang=$_SESSION['dil'] ;
                             '<td>'+value[18]+'</td></tr>';
 
                 });
-                table+='</tbody>';
                 $('#success').text('İşçilər  işə qəbul edildi')
 
-                $("table#employee_table").append(table);
+                $("table#employee_table tbody").append(table);
             }
         });
 

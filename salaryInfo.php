@@ -397,6 +397,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
             data: {company_id:deptid},
             dataType: 'json',
             success: function (data) {
+                console.log('update_company_id bitdi'+data)
                 var option='<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value="">Seçin..</option>';
                 $.each(data, function(k,v) {
@@ -405,7 +406,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
                 option+=' </select>';
                 $('#update_emp').html(option);
                 $(".selectpicker").selectpicker();
-                console.log('update_company_id bitdi')
+
                 if(up_emp!=''){
                     $("#update_employee").val(up_emp).change();
                 }
@@ -414,20 +415,61 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
     });
     $(".company_id").change(function(){
         var deptid = $(this).val();
-        console.log("deptid="+deptid) ;
+        var thisName = $(this).attr('name');
+
+        console.log("deptid company_id="+deptid) ;
+        console.log("deptid thisName="+thisName) ;
+        var empAr=[];
+        if(thisName=="company_id"){
+            $.ajax({
+                url: 'salaryInfo/get_salaryEmp.php',
+                type: 'post',
+                data: {company_id:deptid},
+                async:false,
+                success:function(response){
+                    console.log('response get_salaryEmp=',response)
+                    $.each(JSON.parse(response), function(k,v) {
+                        empAr.push(v.emp_id)
+                    });
+
+
+                }
+            });
+        }
+        // if(thisName=="company_id_add"){
+        //     $.ajax({
+        //         url: 'additionSalary/get_additionEmp.php',
+        //         type: 'post',
+        //         data: {company_id:deptid},
+        //         async:false,
+        //         success:function(response){
+        //             console.log('response get_salaryEmp=',response)
+        //             $.each(JSON.parse(response), function(k,v) {
+        //                 empAr.push(v.emp_id)
+        //             });
+        //
+        //
+        //         }
+        //     });
+        // }
+
         $.ajax({
             url: 'employees/getEmployee.php',
             type: 'post',
             data: {company_id:deptid},
             dataType: 'json',
             success:function(response){
-                console.log('response=',response)
+                console.log('response=',response);
+                console.log('empAr=',empAr);
                 $("#employee").empty();
                 var option='<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value="">Seçin..</option>';
                 $.each(response, function(k,v) {
-                    console.log('v=',v[1]);
-                    option += '<option value="' + v[0] + '" >' + v[1] +'</option>';
+                    if(jQuery.inArray( v[0], empAr)==-1){
+                        console.log('v=',v[1]);
+                        option += '<option value="' + v[0] + '" >' + v[1] +'</option>';
+                    }
+
                 });
                 option += '</select>';
                 console.log('emp='+option)

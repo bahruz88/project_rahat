@@ -4,7 +4,7 @@ include('session.php');
 if(isset($_GET['empid'])){
     $emp_id=$_GET['empid'];
 }
-$sql_employees= "select * from $tbl_employees where  emp_status=1  and  id=$emp_id ";
+$sql_employees= "select * from $tbl_employees where    id=$emp_id ";
 $u_photo = '';
 $result_emp = $db->query($sql_employees);
 if($result_emp){
@@ -54,8 +54,8 @@ if($login_fullname3==''){
  $sql_education = "Select  ee.*,u.uni_name,qd.qualification  from
 $tbl_education  ee left  join
 $tbl_universities u on ee.institution_id=u.id left  join
-$tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
-$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
+$tbl_qualification_dic qd on ee.qualification_id=qd.id left  join
+$tbl_employees e on e.id=ee.emp_id  where    e.id=$emp_id";
 $result_education = $db->query($sql_education);
 $uni_id='';
 $uni_name='';
@@ -79,7 +79,7 @@ if($result_education){
 $sql_skill = "
 SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname
 FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id
-where tes.skill_status =1 and  te.emp_status=1 and  te.id=$emp_id";
+where  te.id=$emp_id";
 $result_skill = $db->query($sql_skill);
 $skill_name=[];
 $skill_descr=[];
@@ -105,7 +105,7 @@ if($company_id!=''){
     $sql_users.=" inner  join  $tbl_companies tc  on tc.id=$company_id ";
 
 }
-$sql_users.=" where  te.emp_status=1   and  te.id=$emp_id ";
+$sql_users.=" where   te.id=$emp_id ";
 $id = '';
 $firstname = '';
 $lastname = '';
@@ -140,7 +140,7 @@ if($result_users){
 $sql_certification= "select * 
 from $tbl_certification 
 
-where  cert_status =1   and  emp_id=$id ";
+where   emp_id=$id ";
 
 $result_certification = $db->query($sql_certification);
 $training_center_name = [];
@@ -167,7 +167,7 @@ inner  join  $tbl_lang_level tll  on tll.level_id=tlk.lang_speaking
 inner  join  $tbl_lang_level tllr  on tllr.level_id=tlk.lang_reading
 inner  join  $tbl_lang_level tllw  on tllw.level_id=tlk.lang_writing
 inner  join  $tbl_lang_level tllu  on tllu.level_id=tlk.lang_understanding
-where  tlk.lang_status =1   and  tlk.emp_id=$id and tll.lang_short_name='az' and tllr.lang_short_name='az' and tllw.lang_short_name='az' and tllu.lang_short_name='az' ";
+where    tlk.emp_id=$id and tll.lang_short_name='az' and tllr.lang_short_name='az' and tllw.lang_short_name='az' and tllu.lang_short_name='az' ";
 
 $result_lang = $db->query($sql_langKnow);
 $lang_name = [];
@@ -192,7 +192,7 @@ $sql_family= "select tef.*,tf.type_desc member,ts.descr gender
 from $tbl_employee_family_info tef
 inner  join  $tbl_family_member_types tf  on tef.member_type=tf.id
 inner  join  $tbl_sex ts  on tef.gender=ts.id
-where  tef.status =1   and  tef.emp_id=$id ";
+where    tef.emp_id=$id ";
 
 $result_family = $db->query($sql_family);
 $m_firstname = [];
@@ -223,7 +223,7 @@ $sql_militaryInfo= "select tmi.*,tmr.rank_desc,tms.staff_desc
 from $tbl_military_information tmi
 inner  join  $tbl_military_rank tmr  on tmr.rank_id=tmi.military_rank
 inner  join  $tbl_military_staff tms  on tms.staff_id=tmi.military_staff
- where  tmi.status =1   and  tmi.emp_id=$id ";
+ where    tmi.emp_id=$id ";
 
 $result_military = $db->query($sql_militaryInfo);
 $military_reg_group1 = [];
@@ -275,7 +275,7 @@ if($result_military){
 $sql_drivers= "select td.*,tc.cat_desc ,tc.lang
 from $tbl_employye_driver_license td
 inner  join  $tbl_driver_lic_cat tc  on tc.cat_id=td.category
-where  td.status=1   and  td.emp_id=$id ";
+where    td.emp_id=$id ";
 $lic_seria_number = '';
 $cat_desc = '';
 $lic_issuer = '';
@@ -300,7 +300,7 @@ $sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.trp_seria_number,tmi.trp_permit_reaso
  tmi.trp_issuer,tmi.prp_seria_number,DATE_FORMAT(tmi.prp_permit_date,'%d/%m/%Y') prp_permit_date,DATE_FORMAT(tmi.prp_valid_date,'%d/%m/%Y') prp_valid_date,
  tmi.prp_issuer,tmi.wp_seria_number,DATE_FORMAT(tmi.wp_permit_date,'%d/%m/%Y') wp_permit_date,DATE_FORMAT(tmi.wp_valid_date,'%d/%m/%Y') wp_valid_date,
  tmi.insert_date,tmi.insert_user,tmi.update_user,tmi.update_date,tmi.status 
-FROM tbl_migration_info tmi  where tmi.status=1 and tmi.emp_id=$id";
+FROM tbl_migration_info tmi  where  tmi.emp_id=$id";
  $trp_seria_number = '';
 $trp_permit_reason = '';
 $trp_permit_date = '';
@@ -342,7 +342,7 @@ $sql_miginfo = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
 FROM tbl_employee_medical_information tmi
 INNER join tbl_exist_not_exist tEN on tmi.medical_app=tEN.exist_id and tEN.lang='az'
 INNER join tbl_yesno tYN on tmi.physical_deficiency=tYN.chois_id and tYN.lang='az'
- where tmi.status=1   and tmi.emp_id=$id";
+ where tmi.emp_id=$id";
 
 $medical_app = '';
 $renew_interval = '';
@@ -367,7 +367,7 @@ $sql_positions = "SELECT tepp.id,tepp.emp_id,tepp.prev_employer, DATE_FORMAT(tep
 DATE_FORMAT(tepp.end_date,'%d/%m/%Y') end_date,
 tepp.leave_reason,tepp.sector,tepp.status,tepp.insert_date
 FROM tbl_employee_prev_positions tepp 
- where tepp.status=1 and  tepp.emp_id=$id";
+ where  tepp.emp_id=$id";
 
 $prev_employer = '';
 $start_date = '';
