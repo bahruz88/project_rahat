@@ -654,6 +654,7 @@ $("#confirmRole").click(function() {
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
     console.log('stId='+stId)
+    console.log('company_id='+company_id)
     //console.log('role='+$('#roles option:selected').text())
     $.ajax({
         url: 'structure/st_selectValidateRole.php',
