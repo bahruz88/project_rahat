@@ -645,7 +645,7 @@ $(function () {
 
 
 $("#confirmRole").click(function() {
-        //console.log('confirmRole change');
+       console.log('confirmRole change');
         var role_id=  $('#roles option:selected').val();
         var posit_code=$('#positionList option:selected').attr('data-positcode');
         var empid=$('#positionList option:selected').attr('data-empid');
@@ -653,15 +653,15 @@ $("#confirmRole").click(function() {
         var company_id=$('#positionList option:selected').attr('data-companyId')
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
-    //console.log('role_id='+role_id)
+    console.log('stId='+stId)
     //console.log('role='+$('#roles option:selected').text())
     $.ajax({
         url: 'structure/st_selectValidateRole.php',
         type: "POST",
         data: { role_id:role_id,company_id:company_id},
         success: function (data) {
-            //console.log('data='+data)
-            //console.log('data.length='+jQuery.parseJSON(data).length)
+            console.log('data='+data)
+            console.log('data='+jQuery.parseJSON(data))
             if(jQuery.parseJSON(data).length>0){
                 $('#changeRoleClick').trigger('click');
                 $('#changeItem').on('click',function(){
@@ -683,7 +683,7 @@ $("#confirmRole").click(function() {
                     type: "POST",
                     data: { company_id:company_id,role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
                     success: function (data) {
-                        //console.log('dataaaaas=' , data);
+                        console.log('dataaaaas=' , data);
                         $('#roles').find('option[value="0"]').prop('selected', true);
                          $('#positionList').find('option[value="0"]').prop('selected', true);
                         $('#role_start_date').val('')

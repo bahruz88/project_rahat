@@ -65,5 +65,7 @@ else {
 //Close connection
 //mysqli_close($db);
 //
-include('st_selectRoleAfterInsert.php');
+//include('st_selectRoleAfterInsert.php');
+include('st_selectRole.php');
+
 ?>
