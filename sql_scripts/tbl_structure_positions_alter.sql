@@ -1,0 +1,1 @@
+ALTER TABLE `tbl_structure_positions` ADD `company_id` int (11) NULL AFTER `emp_id`;

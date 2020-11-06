@@ -1,1 +1,0 @@
-ALTER TABLE `tbl_category` ADD `work_status` int (11) NULL AFTER `position_level`;
