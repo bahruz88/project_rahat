@@ -647,7 +647,7 @@ $result_employee_category = $db->query($employee_category);
         var PDF_Width = HTML_Width+(top_left_margin*2);
         var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
         var canvas_image_width = HTML_Width;
-        var canvas_image_height = HTML_Height;
+        var canvas_image_height = HTML_Height+100;
 
         var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
         var staffchoose=$("input[name='staffSelect']:checked").val();
