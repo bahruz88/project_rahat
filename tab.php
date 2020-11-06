@@ -103,6 +103,12 @@ $result_commands = $db->query($commands);
         th {
             background: #eee;
         }
+        .showNumber{
+            display:block;
+        }
+        .hideNumber{
+            display:none;
+        }
 
     </style>
 </head>
@@ -440,14 +446,28 @@ $result_commands = $db->query($commands);
                     }
                 });
                 $("table#emp_table tbody").append(table);
+var oldcount=0;
                 for (var i = 1; i <= months; i++) {
                     $('#employee').on(
                         'click',
                         '#emp_table .dates' + i, function () {
                             var countt = $(this).attr("class").substring(5);
                             console.log('countt=' + countt)
+                            var oldc=parseInt(oldcount)+1;
+                            console.log('oldcount=' + oldc+'='+$(".dates" + oldc).css('display'))
+//&& oldcount>countt
+                            if($(".dates" + oldc).css('display') == 'none'  && oldcount!=countt && oldcount!=countt ){
+                                console.log('none=')
+                                for (var j = parseInt(countt) + 1; j <= oldc; j++) {
+                                    $(".dates" + j).css('display','none')
+                                    // oldcount=countt;
+                                }
+                            }
+
+
                             for (var j = parseInt(countt) + 1; j <= months; j++) {
                                 $(".dates" + j).toggle();
+                                oldcount=countt;
                             }
                         });
                 }
