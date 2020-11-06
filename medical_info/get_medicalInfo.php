@@ -8,9 +8,9 @@ $sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
   tEN.exist_id, tEN.exist_desc,tEN.lang,
   tYN.chois_id, tYN.chois_desc,tYN.lang
 FROM tbl_employee_medical_information tmi
-INNER join tbl_exist_not_exist tEN on tmi.medical_app=tEN.exist_id and tEN.lang='az'
-INNER join tbl_yesno tYN on tmi.physical_deficiency=tYN.chois_id and tYN.lang='az'
-INNER join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1";
+LEFT join tbl_exist_not_exist tEN on tmi.medical_app=tEN.exist_id and tEN.lang='az'
+LEFT join tbl_yesno tYN on tmi.physical_deficiency=tYN.chois_id and tYN.lang='az'
+LEFT join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1";
 
 //  tYN.chois_id, tYN.chois_desc,tYN.lang,
 //INNER join tbl_yesno tYN on tmi.medical_app=tYN.chois_id and tYN.lang='az'
