@@ -566,7 +566,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#working_conditions").val(value.working_conditions);
 				$("#job_description").val(value.job_description);
 				$("#kvota").val(value.kvota);
-				$("#insert_date").val(value.insert_date.substr(0,10));
+				$("#insert_date").val(value.insert_date ? value.insert_date.substr(0,10) :'');
 
 				$("#vezife").val(value.pos);
 				$("#directorate").val(value.directorate);
