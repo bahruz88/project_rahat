@@ -653,64 +653,68 @@ $("#confirmRole").click(function() {
         var company_id=$('#positionList option:selected').attr('data-companyId')
         var start_date= $('#role_start_date').val()
         var end_date= $('#role_end_date').val()
+    console.log('role_id='+role_id)
     console.log('stId='+stId)
     console.log('company_id='+company_id)
     //console.log('role='+$('#roles option:selected').text())
-    $.ajax({
-        url: 'structure/st_selectValidateRole.php',
-        type: "POST",
-        data: { role_id:role_id,company_id:company_id},
-        success: function (data) {
-            console.log('data='+data)
-            console.log('data='+jQuery.parseJSON(data))
-            if(jQuery.parseJSON(data).length>0){
-                $('#changeRoleClick').trigger('click');
-                $('#changeItem').on('click',function(){
-                    // do your stuffs with id
-                    //console.log('datamodal='+data)
-                    // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
-                    $('#changeRole').modal('hide'); // now close modal
+    if(role_id && company_id){
+        $.ajax({
+            url: 'structure/st_selectValidateRole.php',
+            type: "POST",
+            data: { role_id:role_id,company_id:company_id},
+            success: function (data) {
+                console.log('data='+data)
+                console.log('data='+jQuery.parseJSON(data))
+                if(jQuery.parseJSON(data).length>0){
+                    $('#changeRoleClick').trigger('click');
+                    $('#changeItem').on('click',function(){
+                        // do your stuffs with id
+                        //console.log('datamodal='+data)
+                        // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
+                        $('#changeRole').modal('hide'); // now close modal
+                        insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
+                    })
+                }else{
                     insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
-                })
-            }else{
-                insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
-            }
-            function insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date){
-                //console.log('company_id=' , company_id);
-                //console.log('posit_code=' , posit_code);
-                //console.log('stId=' , stId);
-                $.ajax({
-                    url: 'structure/st_insertRole.php',
-                    type: "POST",
-                    data: { company_id:company_id,role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
-                    success: function (data) {
-                        console.log('dataaaaas=' , data);
-                        $('#roles').find('option[value="0"]').prop('selected', true);
-                         $('#positionList').find('option[value="0"]').prop('selected', true);
-                        $('#role_start_date').val('')
-                        $('#role_end_date').val('')
-                        $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
-                        // $('#tablePositions').find('tbody').html('');
-                        // $('#tableStructureRoles').find('tbody').html('');
+                }
+                function insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date){
+                    //console.log('company_id=' , company_id);
+                    //console.log('posit_code=' , posit_code);
+                    //console.log('stId=' , stId);
+                    $.ajax({
+                        url: 'structure/st_insertRole.php',
+                        type: "POST",
+                        data: { company_id:company_id,role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
+                        success: function (data) {
+                            console.log('dataaaaas=' , data);
+                            $('#roles').find('option[value="0"]').prop('selected', true);
+                            $('#positionList').find('option[value="0"]').prop('selected', true);
+                            $('#role_start_date').val('')
+                            $('#role_end_date').val('')
+                            $('.bootstrap-select .filter-option-inner-inner').text('Seçin...');
+                            // $('#tablePositions').find('tbody').html('');
+                            // $('#tableStructureRoles').find('tbody').html('');
 
-                         fillStTable(jQuery.parseJSON(data),stId)
-                        //fillTreeTable(jQuery.parseJSON(data),stId)
+                            fillStTable(jQuery.parseJSON(data),stId)
+                            //fillTreeTable(jQuery.parseJSON(data),stId)
 
-                        Swal.fire(
-                            'Əməliyyat müvəffəqiyyətlə yerine yetirildi!',
-                            '',
-                            'success'
-                        )
-                        $(".selectpicker").selectpicker();
-                        // //console.log('dataaaaaaaaaa=' , $.parseJSON(data));
-                        // var tree = $('#tree').fancytree('getTree');
-                        // tree.reload($.parseJSON(data));
-                    },
-                });
-            }
+                            Swal.fire(
+                                'Əməliyyat müvəffəqiyyətlə yerine yetirildi!',
+                                '',
+                                'success'
+                            )
+                            $(".selectpicker").selectpicker();
+                            // //console.log('dataaaaaaaaaa=' , $.parseJSON(data));
+                            // var tree = $('#tree').fancytree('getTree');
+                            // tree.reload($.parseJSON(data));
+                        },
+                    });
+                }
 
             }
         });
+    }
+
 
     })
 });
