@@ -42,7 +42,7 @@ td.title dates, tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,
 tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
 LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
-LEFT join $tbl_additions_deductions_salary tads on tads.emp_id=tc.emp_id
+LEFT join $tbl_additions_deductions_salary tads on tads.emp_id=tc.emp_id and tads.add_salary_id='4008'
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
 LEFT join $tbl_currency tcu2 on tcu2.id=tsi.prize_amount_currency
 LEFT join $tbl_reward_period trp on trp.reward_id=tsi.reward_period
@@ -66,7 +66,7 @@ td.title dates , tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift
 tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
 LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
-LEFT join $tbl_additions_deductions_salary tads on tads.emp_id=tc.emp_id
+LEFT join $tbl_additions_deductions_salary tads on tads.emp_id=tc.emp_id and tads.add_salary_id='4008'
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
 LEFT join $tbl_currency tcu2 on tcu2.id=tsi.prize_amount_currency
 LEFT join $tbl_reward_period trp on trp.reward_id=tsi.reward_period
@@ -91,7 +91,7 @@ td.title dates , tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift
 tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
 LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
-LEFT join $tbl_additions_deductions_salary tads on tads.emp_id=tc.emp_id
+LEFT join $tbl_additions_deductions_salary tads on tads.emp_id=tc.emp_id and tads.add_salary_id='4008'
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
 LEFT join $tbl_currency tcu2 on tcu2.id=tsi.prize_amount_currency
 LEFT join $tbl_reward_period trp on trp.reward_id=tsi.reward_period
@@ -113,7 +113,7 @@ td.title dates , tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift
 tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
 LEFT join $tbl_salary_info tsi on tsi.emp_id=tc.emp_id
-LEFT join $tbl_additions_deductions_salary tads on tads.emp_id=tc.emp_id
+LEFT join $tbl_additions_deductions_salary tads on tads.emp_id=tc.emp_id and tads.add_salary_id='4008'
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
 LEFT join $tbl_currency tcu2 on tcu2.id=tsi.prize_amount_currency
 LEFT join $tbl_reward_period trp on trp.reward_id=tsi.reward_period
