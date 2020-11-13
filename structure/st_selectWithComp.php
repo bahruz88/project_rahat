@@ -45,6 +45,11 @@ LEFT join $tbl_employee_company teco on tec.company_id=teco.id
 LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level and tsl.lang='$site_lang'
 LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lang='$site_lang'
 where $company_idWhere ORDER BY  tec.position_level DESC ";
+ //sil bunu
+//echo "company_id==".$company_id;
+ if($_POST['company_id']=="0,8"){
+     echo $users;
+ }
 //echo $users;
 $result_users = $db->query($users);
 $data=array();

@@ -49,23 +49,13 @@ $result_employee_category = $db->query($employee_category);
 <!--    <link rel="stylesheet" type="text/css" href="dist/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arimo" />
 
-<!--    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>-->
-<!--    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>-->
 
-    <style>
-        .staffText,.staffText2{
-            font-weight: 700;
-            margin-top:20px;
-            margin-bottom:20px;
-        }
-        /*table.fancytree-ext-table tbody tr td{*/
-        /*    border: #c7c2c2 !important;*/
-        /*}*/
-    </style>
+
+    <link rel="stylesheet" href="css/staff.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+<div class="modal"><!-- Place at bottom of page --></div>
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -87,6 +77,7 @@ $result_employee_category = $db->query($employee_category);
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
+
   <div class="content-wrapper">
 	<br>
 <div class="col-12 col-sm-6 col-lg-12">
@@ -151,7 +142,7 @@ $result_employee_category = $db->query($employee_category);
     </div>
     <div class="tab-pane active" id="noStaff" style="width:800px;margin:auto;">
     </div>
-    <div class="tab-pane active canvas_div_pdf" id="staff" style="display: none;width:800px;margin:auto;">
+    <div class="container tab-pane active" id="staff" style="display: none;margin:auto;">
         <div class="staffText">
         <div class="container text-center"><span class="company"></span></div>
         <div class="container text-center"><span class="company_adress"></span><span class="company_tel"></span></div>
@@ -163,12 +154,12 @@ $result_employee_category = $db->query($employee_category);
 
         <br/>
         <div class="row">
-            <div class="col-md-8  text-right">      <span class="enterprise_head_position"></span>   </div>
-            <div class="col-md-3  text-left">       <span class="enterprise_head_fullname"></span></div>
+            <div class="col-md-6  text-right">      <span class="enterprise_head_position"></span>   </div>
+            <div class="col-md-6  text-left">       <span class="enterprise_head_fullname"></span></div>
         </div>
         <div class="row">
-            <div class="col-md-8">&nbsp;</div>
-            <div class="col-md-4"><span class="day"></span> <span class="month"></span> <span class="year"></span>-ci il</div>
+            <div class="col-md-7">&nbsp;</div>
+            <div class="col-md-5  text-right"><span class="day"></span> <span class="month"></span> <span class="year"></span>-ci il</div>
         </div>
         <div class="row">
             <div class="col-md-4">Ştat vahidi     </div>
@@ -230,14 +221,17 @@ $result_employee_category = $db->query($employee_category);
                 </tbody>
             </table>
 
-	</div>
-        <div class="row staffText2" >
-            <div class="col-md-6  text-right">      <span class="enterprise_head_position"></span>   </div>
-            <div class="col-md-6  text-left">       <span class="enterprise_head_fullname"></span></div>
-        </div>
+	    </div>
+
+            <div class="row staffText2" >
+                <div class="col-md-4  text-right">      <span class="enterprise_head_position"></span>   </div>
+                <div class="col-md-8  text-left">       <span class="enterprise_head_fullname"></span></div>
+            </div>
+
+
 
 	</div>
-	<div class="tab-pane active" id="statt" style="display: none;width:800px;margin:auto;">
+	<div class="container  tab-pane active" id="statt" style="display: none;margin:auto;">
         <div class="stattText">
         <div class="container text-center"><strong><span class="company"></span></strong></div>
         <div class="container text-center"><strong><span class="company_adress"></span><span class="company_tel"></span></strong></div>
@@ -255,31 +249,31 @@ $result_employee_category = $db->query($employee_category);
         </div>
 
         </div>
-        <div id="stattTab" style="margin-top:20px;" >
+        <div id="stattTab" style="font-weight: bold;margin-top:40px;" >
             <table id="statttree">
 
                 <thead>
                 <tr class="text-center" style="font-size:12px;">
                     <th style="width:15px;" rowspan="2"></th>
                     <th style="width:15px;border:1px solid grey;" rowspan="2">No</th>
-                    <th style="width:100px;border:1px solid grey;" rowspan="2">Struktur bölmələrin adı və vəzifələr</th>
-                    <th style="width:80px;border:1px solid grey;" colspan="4"  >Mövcud vəziyyət</th>
-                    <th style="width:80px;border:1px solid grey;" colspan="4"  >Yeni vəziyyət</th>
+                    <th style="width:80px;border:1px solid grey;" rowspan="2">Struktur bölmələrin adı və vəzifələr</th>
+                    <th style="width:200px;border:1px solid grey;" colspan="4"  >Mövcud vəziyyət</th>
+                    <th style="width:200px;border:1px solid grey;" colspan="4"  >Yeni vəziyyət</th>
 
 
 
                 </tr>
                 <tr  style="font-size:12px;">
 
-                    <td style="width:50px;border:1px solid grey;">Ştat sayı (vahid)</td>
-                    <td style="width:80px;border:1px solid grey;">Vəzifə  maaşı (manatla)</td>
-                    <td style="width:80px;border:1px solid grey;">Vəzifə maaşına əlavə</td>
-                    <td style="width:80px;border:1px solid grey;"> Aylıq əmək haqqı fondu</td>
+                    <td style="width:40px;border:1px solid grey;">Ştat sayı (vahid)</td>
+                    <td style="width:40px;border:1px solid grey;">Vəzifə  maaşı (manatla)</td>
+                    <td style="width:40px;border:1px solid grey;">Vəzifə maaşına əlavə</td>
+                    <td style="width:40px;border:1px solid grey;"> Aylıq əmək haqqı fondu</td>
 
-                    <td style="width:50px;border:1px solid grey;">Ştat sayı (vahid)</td>
-                    <td style="width:80px;border:1px solid grey;">Vəzifə  maaşı (manatla)</td>
-                    <td style="width:80px;border:1px solid grey;">Vəzifə maaşına əlavə</td>
-                    <td style="width:80px;border:1px solid grey;"> Aylıq əmək haqqı fondu</td>
+                    <td style="width:40px;border:1px solid grey;">Ştat sayı (vahid)</td>
+                    <td style="width:40px;border:1px solid grey;">Vəzifə  maaşı (manatla)</td>
+                    <td style="width:40px;border:1px solid grey;">Vəzifə maaşına əlavə</td>
+                    <td style="width:40px;border:1px solid grey;"> Aylıq əmək haqqı fondu</td>
 
 
                 </tr>
@@ -321,11 +315,11 @@ $result_employee_category = $db->query($employee_category);
 
 	</div>
         <div class="row stattText2" >
-            <div class="col-md-12  text-center">   Cəmiyyətin müvafiq strukturları əmrin icrasından irəli gələn digər məsələləri həll etsinlər.</div>
+            <div class="col-md-11  text-center">   Cəmiyyətin müvafiq strukturları əmrin icrasından irəli gələn digər məsələləri həll etsinlər.</div>
         </div>
-        <div class="row stattText2" >
-            <div class="col-md-7  text-right">      <span class="enterprise_head_position"></span>   </div>
-            <div class="col-md-5  text-left">       <span class="enterprise_head_fullname"></span></div>
+        <div class="row stattText2" style="font-weight: bold;" >
+            <div class="col-md-4  text-right">      <span class="enterprise_head_position"></span>   </div>
+            <div class="col-md-8  text-left">       <span class="enterprise_head_fullname"></span></div>
         </div>
 
 	</div>
@@ -425,13 +419,20 @@ $result_employee_category = $db->query($employee_category);
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 <script  charset="UTF-8">
+    $body = $("body");
+
+    // $(document).on({
+    //     ajaxStart: function() { $body.addClass("loading");    },
+    //     ajaxStop: function() { $body.removeClass("loading"); }
+    // });
     var arrayData2=[];
     var arrayData=[];
     var getCanvas;
 
 
     $("#staffSearch").click(function(){
-         countStaff=0;
+        $body.addClass("loading");
+          countStaff=0;
          countWage=0;
          countWageStat=0;
          countStatt=0;
@@ -439,12 +440,19 @@ $result_employee_category = $db->query($employee_category);
         var company_id=$('#enterprise_name').find('option:selected').val();
         // var staffSelect=$('#staffSelect').val();
         var staffSelect=$("input[name='staffSelect']:checked").val();
-        console.log('staffSelect='+staffSelect);
+
+            $("#staff").css("display","none");
+            $("#statt").css("display","none");
+        $("#download").css("display","none");
+        $("#print").css("display","none");
+
+        console.log('staffSearch staffSelect='+staffSelect);
 
         $.ajax({
             // url: 'st_selectStaff.php',
             url: 'structure/st_selectWithCompanyPage.php',
             type: "POST",
+            async:false,
             data: { company_id:company_id},
             success: function (data) {
                 console.log('dataaaaaaa parseJSON staff =' , $.parseJSON(data))
@@ -453,9 +461,7 @@ $result_employee_category = $db->query($employee_category);
                     var data1=$.parseJSON(data);
                     // data1.remove("icon");
                     $('#companyDate').text($('#date_completion').val())
-                    var table='';
-                    // console.log('day='+$('#date_completion').val().substr(0, 2))
-                    // console.log('month='+$('#date_completion').val().substr(3, 2))
+
                     var year=$('#date_completion').val().substr(6, 4);
                     var month=$('#date_completion').val().substr(3, 2);
                     switch ($('#date_completion').val().substr(3, 2)) {
@@ -551,28 +557,32 @@ $result_employee_category = $db->query($employee_category);
                         $("#staff").css("display","block");
                         $("#statt").css("display","none");
                         var element = $("#staff");
-                    }else{
+                    }else  if(staffSelect=='2'){
                         $("#staff").css("display","none");
                         $("#statt").css("display","block");
                         var element = $("#statt");
                     }
 
-                    $("#download").css("display","block");
-                    $("#print").css("display","block");
+
                     // $("#tableStaff").val( $("table#staff_table").html());
                     $("#tableStaff").val( $("table#stafftree").html());
 
-
-                    html2canvas(element, {allowTaint:true}).then(function(canvas){
-                        canvas.getContext('2d');
+                    html2canvas(element,  { quality: 0,
+                        scale: 105,dpi: 1000 }).then(function (canvas) {
+                            canvas.getContext('2d');
                             getCanvas = canvas;
+                            console.log(" canvas deyisdi="+element.attr('id'))
 
+                        $body.removeClass("loading");
+                        $("#download").css("display","block");
+                        $("#print").css("display","block");
 
                     });
                     $("#noStaff").css("display","none");
                 }else{
                     $("#noStaff").html("<h3>Heç bir məlumat tapılmadı</h3>")
-                    // $(".staffTab").html("Heç bir məlumat tapılmadı")
+
+                    $body.removeClass("loading");
                 }
                 $(".staffText").css("display","none");
                 $(".stattText").css("display","none");
@@ -614,9 +624,10 @@ $result_employee_category = $db->query($employee_category);
             ' <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">'+
             ' <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">'+
             '<link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">'+
-        '<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">'+
-        '<link rel="stylesheet" type="text/css" href="css/datatables.min.css" />'+
-        '<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">');
+            '<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">'+
+            '<link rel="stylesheet" type="text/css" href="css/datatables.min.css" />'+
+            '<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">'+
+            '<link rel="stylesheet" href="css/staff.css">');
 
         mywindow.document.write('</head><body >');
         mywindow.document.write(document.getElementById(divId).innerHTML);
@@ -641,22 +652,32 @@ $result_employee_category = $db->query($employee_category);
      // global variable
     function saveDiv(divId) {
         // generate(divId)
-        var HTML_Width = $(".canvas_div_pdf").width();
-        var HTML_Height = $(".canvas_div_pdf").height();
-        var top_left_margin = 15;
+        var staffchoose=$("input[name='staffSelect']:checked").val();
+        console.log('staffchoose='+staffchoose)
+        if(staffchoose=='1') {
+            var HTML_Width = $("#staff").width();
+            var HTML_Height =$("#staff").height();
+        }else{
+            var HTML_Width = $("#statt").width();
+            var HTML_Height =$("#statt").height();
+        }
+        console.log('HTML_Width='+HTML_Width)
+        var top_left_margin = 10;
         var PDF_Width = HTML_Width+(top_left_margin*2);
         var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
         var canvas_image_width = HTML_Width;
         var canvas_image_height = HTML_Height+100;
 
         var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
-        var staffchoose=$("input[name='staffSelect']:checked").val();
+
         if(staffchoose=='1'){
+            console.log('staffchoose1111='+staffchoose)
             $(".staffText").css("display","block");
             $(".staffText2").css("display","block");
             $(".stattText").css("display","none");
             $(".stattText2").css("display","none");
-        }else{
+        }else if(staffchoose=='2'){
+            console.log('staffchoose22222='+staffchoose)
             $(".staffText").css("display","none");
             $(".staffText2").css("display","none");
             $(".stattText").css("display","block");
@@ -664,7 +685,7 @@ $result_employee_category = $db->query($employee_category);
         }
         var imgData = getCanvas.toDataURL("image/png", 1.0);
         var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
-        pdf.addImage(imgData, 'PNG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+        pdf.addImage(imgData, 'PNG', 0, 0,canvas_image_width,canvas_image_height);
 
 
         for (var i = 1; i <= totalPDFPages; i++) {
@@ -675,11 +696,13 @@ $result_employee_category = $db->query($employee_category);
         pdf.save("staff.pdf");
 
         if(staffchoose=='1'){
+            console.log('staffchoose1111nn='+staffchoose)
             $(".staffText").css("display","none");
             $(".staffText2").css("display","none");
             $(".stattText").css("display","block");
             $(".stattText2").css("display","block");
-        }else{
+        }else if(staffchoose=='2'){
+            console.log('staffchoose222nnn='+staffchoose)
             $(".staffText").css("display","block");
             $(".staffText2").css("display","block");
             $(".stattText").css("display","none");

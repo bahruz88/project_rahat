@@ -612,11 +612,11 @@ $(function () {
     });
 
         $('#companyDiv').on( 'change','#company',  function () {
-            //console.log("change company="+$(this).val());
+           console.log("change company="+$(this).val());
             var company_id=$(this).val();
             var company_text=$(this).find('option:selected').text();
             $('#companyId').val(company_id);
-            //console.log("company_id="+company_id);
+           console.log("company_id="+company_id);
             //console.log("$('#companyId').val()="+$('#companyId').val());
 
             $('#company_id').val(company_id);
@@ -629,7 +629,7 @@ $(function () {
                 type: "POST",
                 data: {company_id: company_id,st:"st"},
                 success: function (data) {
-                    // //console.log('companyDiv DATA=',data)
+                    console.log('companyDiv DATA=',data)
                     var tree = $('#tree').fancytree('getTree');
                     if(data!=''){
                         tree.reload($.parseJSON(data));
