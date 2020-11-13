@@ -32,7 +32,7 @@ body.loading .modal {
     display: block;
 }
 .container{
-    max-width: 1000px !important;
+    max-width: 950px !important;
 }
 @media print {
 

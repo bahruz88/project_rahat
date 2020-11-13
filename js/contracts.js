@@ -629,7 +629,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	});
 	console.log('employeeName=='+employeeName)
 	if(contract=='1'){
-		generate("emek_muqavil",employeeName)
+		generate("emek_muqavilesi",employeeName)
 		//$('#emek').modal('show');
 	}else if(contract=='2'){
 		generate("emekElave",employeeName)

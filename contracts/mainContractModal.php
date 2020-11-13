@@ -367,6 +367,7 @@ Mandatory in IE 6, 7, 8 and 9.
         PizZipUtils.getBinaryContent(url,callback);
     }
     function generate(name,employeeName) {
+        console.log('name='+name)
         var outputDocName=name;
         loadFile("senedler/"+name+".docx",function(error,content){
             if (error) { throw error };
