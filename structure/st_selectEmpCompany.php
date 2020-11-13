@@ -6,7 +6,7 @@ $data=array();
 
 $structure_employees= "select tec.*,te.id emp_id,te.firstname firstname,te.lastname lastname,te.surname surname
 from $tbl_employee_category tec
-LEFT join $tbl_employees te on te.id=tec.emp_id
+INNER join $tbl_employees te on te.id=tec.emp_id
 WHERE tec.company_id = '$company_id'";
 
 $result_employees = $db->query($structure_employees);

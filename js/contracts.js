@@ -552,11 +552,14 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 				$("#military_additional_information").val(value.military_additional_information);
 				$("#military_date_completion").val(value.military_date_completion);
 				$("#indefinite").val(value.indefinite);
-				$("#reasons_temporary_closure").val(value.reasons_temporary_closure);
-				$("#date_contract").val(value.date_contract);
+				if(value.indefiniteId==2){
+					$("#trial_expiration_date").val(value.trial_expiration_date);
+					$("#reasons_temporary_closure").val(value.reasons_temporary_closure);
+					$("#date_contract").val(value.date_contract);
+
+				}
 				$("#probation").val(value.probation);
 				$("#dates").val(value.dates);
-				$("#trial_expiration_date").val(value.trial_expiration_date);
 				$("#employee_start_date").val(value.employee_start_date);
 				$("#date_conclusion_contract").val(value.date_conclusion_contract);
 				$("#regulation_property_relations").val(value.regulation_property_relations);

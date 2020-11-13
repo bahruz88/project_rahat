@@ -37,7 +37,7 @@ $structure5_2= '';
 $data = array();
 $data2 = array();
 if($order=="" && $contractDate==''){
-    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*,tads.salary additions_salary,tc.id id,tc.insert_date insert_date,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,tsi.total_monthly_salary,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*, ttec.indefinite indefiniteId,tads.salary additions_salary,tc.id id,tc.insert_date insert_date,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,tsi.total_monthly_salary,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
 td.title dates, tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
 tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
@@ -61,7 +61,7 @@ LEFT join $tbl_yesno tYN2 on tco.service=tYN.chois_id and tYN.lang='$site_lang'
   where  tc.emp_id='$empid' and tc.company_id='$company_id'";
 }else
 if($order!="" && $contractDate=='1'){
-    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*,tads.salary additions_salary,tc.id id,tc.insert_date insert_date,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,tsi.total_monthly_salary,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*, ttec.indefinite indefiniteId,tads.salary additions_salary,tc.id id,tc.insert_date insert_date,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,tsi.total_monthly_salary,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
 td.title dates , tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
 tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
@@ -86,7 +86,7 @@ LEFT join $tbl_universities tu on tu.id=tes.institution_id
 if($order!="" && $confirmDateContract!=''){
     $confirmDateContract = strtr($confirmDateContract, '/', '-');
     $confirmDateContract= date('Y-m-d', strtotime($confirmDateContract));
-    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*,tads.salary additions_salary,tc.id id,tc.insert_date insert_date,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,tsi.total_monthly_salary,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*, ttec.indefinite indefiniteId,tads.salary additions_salary,tc.id id,tc.insert_date insert_date,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,tsi.total_monthly_salary,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
 td.title dates , tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
 tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
@@ -108,7 +108,7 @@ LEFT join $tbl_universities tu on tu.id=tes.institution_id
   LEFT join $tbl_yesno tYN2 on tco.service=tYN.chois_id and tYN.lang='$site_lang'
   where  tc.emp_id='$empid' and tc.company_id='$company_id' and tc.insert_date='$confirmDateContract'";
 }else if($order!="" && $contractDate=='2'){
-    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*,tads.salary additions_salary,tc.id id,tc.insert_date insert_date,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,tsi.total_monthly_salary,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
+    $sql_emp_contracts = "select tc.*,te.*,tes.*,tqd.qualification,ttec.*, ttec.indefinite indefiniteId,tads.salary additions_salary,tc.id id,tc.insert_date insert_date,tYN.chois_desc indefinite,tws.title workplace_status,twc.title working_conditions,tu.uni_name,trp.title reward_period,concat(tsi.wage,' ', tcu.title) wage,concat(tsi.prize_amount,' ', tcu2.title) prize,tsi.total_monthly_salary,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id,
 td.title dates , tco.bank_name,tco.bank_filial,tco.kod,tco.cor_account,tco.swift,tco.bank_voen,tco.azn_account,tco.usd_account,tco.eur_account,tco.country,tco.city,tco.address,tco.tel,tco.enterprise_head_fullname,tco.enterprise_head_position, tYN2.chois_desc service,
 tsi.other_conditions1,tsi.other_conditions2,tsi.other_conditions3
 from $tbl_contracts tc
