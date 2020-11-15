@@ -237,6 +237,32 @@
     </div>
   </div>
 
+<!-- DELETE  CONTENT MODAL  -->
+<div class="modal fade" id="modalAdditionDelete" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content bg-danger">
+            <div class="modal-header">
+                <h4 class="modal-title"><?php echo $dil["delete_warning"];?></h4>
+                <button class="close" aria-label="Close" type="button" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><?php echo $dil["delete_warning_content"];?></p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <form id="additionDelete" method="post" class="form-horizontal" action="">
+                    <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
+                    <input type="hidden" id="additionid" name="additionid" value="" />
+                </form>
+                <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 <!--EMPLOYEE VIEw MODAL -->
 <div class="modal fade" id="modalViewAddition" role="dialog">

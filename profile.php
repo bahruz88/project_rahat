@@ -136,11 +136,7 @@ if($result_users){
     }
 }
 
-
-$sql_certification= "select * 
-from $tbl_certification 
-
-where   emp_id=$id ";
+$sql_certification= "select * from $tbl_certification where   emp_id=$id ";
 
 $result_certification = $db->query($sql_certification);
 $training_center_name = [];
@@ -387,6 +383,37 @@ if($result_positions){
     }
 }
 
+
+
+//$sql_workPlace = "select tec.*, concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name, tc.enterprise_head_fullname,tws.title work_status
+//from  $tbl_employee_category tec
+//LEFT join $tbl_employees te on tec.emp_id=te.id
+//LEFT join $tbl_employee_company tc on tec.company_id=tc.id
+//LEFT join $tbl_work_status tws on tws.level_id=tec.work_status and tws.lang='$site_lang'
+// WHERE tec.emp_id != 0 and tec.emp_id=$id";
+//
+//$director = '';
+//$department = '';
+//$depart = '';
+//$area_section = '';
+//$position = '';
+//$status = '';
+//$direct_guide = '';
+//$second_leader = '';
+//$result_workPlace = $db->query($sql_workPlace);
+//if($result_workPlace){
+//    if ($result_workPlace->num_rows > 0) {
+//        while($row= $result_workPlace->fetch_assoc()) {
+//            $prev_employer = $row['prev_employer'];
+//            $start_date = $row['start_date'];
+//            $end_date = $row['end_date'];
+//            $leave_reason =$row['leave_reason'];
+//            $sector = $row['sector'];
+//        }
+//    }
+//}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -547,7 +574,7 @@ if($result_positions){
                                     <li Class="nav-item"><a href="#militaryInfo" id="militaryInfotab"   class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
                                     <li Class="nav-item"><a href="#paymentSalary"  id="paymentSalarytab"   class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>
                                     <li Class="nav-item"><a href="#mysqltab"    class="nav-link" role="tab" data-toggle="tab" > Struktur </a></li>
-                                    <li Class="nav-item"><a href="#mysqltab"    class="nav-link" role="tab" data-toggle="tab" > Iş yeri barədə </a></li>
+                                    <li Class="nav-item"><a href="#workPlace"   id="workPlacetab"   class="nav-link" role="tab" data-toggle="tab" > Iş yeri barədə </a></li>
 
                                     <li class="nav-item dropdown" >
                                         <a class="nav-link dropdown-toggle"   data-toggle="dropdown" href="#"   id="qual2"  ><?php echo $dil["other_informations"];?></a>
@@ -1067,7 +1094,9 @@ if($result_positions){
 
 
                                         </div>
-                                        <div class="tab-pane" id="previousPositions">
+                                        <div class="tab-pane" id="
+
+">
                                             <?php if($prev_employer!=''){?>
                                             <div class="col-md-6">
                                                 <label class="col-sm-8 col-form-label" for="prev_employer"><?php echo $dil["prev_employer"];?></label>
@@ -1095,6 +1124,61 @@ if($result_positions){
                                                     <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
                                                 </div>
                                             <?php  }?>
+                                        </div>
+
+                                        <div class="tab-pane" id="workPlace">
+                                            <?php if($id!=''){?>
+                                                <div class="form-group  row">
+
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-4 col-form-label" for="directorate"><?php echo $dil["directorate"];?></label>
+                                                        <input type="text" class="form-control" id="directorate" value="" name="directorate" placeholder="<?php echo $dil["directorate"];?>" readonly />
+                                                        <input type="hidden" class="form-control" id="emp_id" value="<?php echo $emp_id; ?>" name="emp_id" readonly />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-4 col-form-label" for="department"><?php echo $dil["department"];?></label>
+                                                        <input type="text" class="form-control" id="department" name="department" value=""  placeholder="<?php echo $dil["department"];?>" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group  row">
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-4 col-form-label" for="depart"><?php echo $dil["depart"];?></label>
+                                                        <input type="text" class="form-control" id="depart" value="" name="depart" placeholder="<?php echo $dil["depart"];?>" readonly />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-4 col-form-label" for="area_section"><?php echo $dil["area_section"];?></label>
+                                                        <input type="text" class="form-control" id="area_section" name="area_section" value=""  placeholder="<?php echo $dil["area_section"];?>" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group  row">
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-4 col-form-label" for="position"><?php echo $dil["position"];?></label>
+                                                        <input type="text" class="form-control" id="position" value="" name="position" placeholder="<?php echo $dil["position"];?>" readonly />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-4 col-form-label" for="status"><?php echo $dil["status"];?></label>
+                                                        <input type="text" class="form-control" id="status" name="status" value=""  placeholder="<?php echo $dil["status"];?>" readonly />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group  row">
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-4 col-form-label" for="direct_guide"><?php echo $dil["direct_guide"];?></label>
+                                                        <input type="email" class="form-control" id="direct_guide"  value="" name="direct_guide" placeholder="<?php echo $dil["direct_guide"];?>" readonly />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="col-sm-4 col-form-label" for="second_leader"><?php echo $dil["second_leader"];?></label>
+                                                        <input type="text" class="form-control" id="second_leader"  value="" name="second_leader" placeholder="<?php echo $dil["second_leader"];?>" readonly />
+                                                    </div>
+                                                </div>
+                                            <?php } else{?>
+                                                <div class="col-md-12">
+                                                    <h5><strong>Heç bir məlumat tapılmadı</strong></h5>
+                                                </div>
+                                            <?php  }?>
+
+
+
                                         </div>
 
                                           </div>
@@ -1341,7 +1425,7 @@ if($result_positions){
 
     $(document).ready(function (e) {
         $(document).on('change', '#files', function () {
-            console.log('on change')
+            console.log('on change addImage')
             $("#uploadForm").submit();
         })
 
@@ -1357,6 +1441,7 @@ if($result_positions){
                 processData:false,
                 success: function(data)
                 {
+                    console.log('data=',data)
                     $('#default').css('display','none')
                     $("#targetLayer").html(data);
 
@@ -1400,3 +1485,31 @@ if($result_positions){
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 </body>
 </html>
+<script>
+
+    $('#workPlacetab').click(function () {
+
+        var emp_id=$('#emp_id').val();
+        console.log('workPlacetab='+emp_id)
+        $.ajax({
+            url: "workplace_info/getWorkplaceInfoDetailProfil.php",
+            method: "post",
+            data: {emp_id:emp_id},
+            dataType: "json",
+            success: function (data) {
+                 console.log('data==',data);
+                var workplaceInfodata = data;
+                var structure_level = workplaceInfodata.structure_level
+                 console.log('structure_level==',structure_level);
+                if(structure_level){
+                    console.log('structure_level.category2==',structure_level.category2);
+                    $("#directorate").val(structure_level.category2);
+                    $("#department").val(structure_level.category3);
+                    $("#depart").val(structure_level.category4);
+                    $("#area_section").val(structure_level.category5);
+                }
+            }
+        });
+
+    })
+</script>

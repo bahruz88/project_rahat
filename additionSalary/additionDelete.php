@@ -2,7 +2,7 @@
 include('../session.php') ;
 
   //Create variables
-    $id = $_POST['id'];
+    $id = $_POST['additionid'];
  
     $delete_query = mysqli_query($db,"update  $tbl_additions_deductions_salary set  status=0 where id='$id'");
   

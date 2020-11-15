@@ -37,19 +37,18 @@ $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 a
        }
    }
 
-   
-   if  (isset($_GET["dil"])){	   
+
+   if  (isset($_GET["dil"])){
 	$dil=strip_tags($_GET["dil"]);	
 	/*Eger basqa dil  secilirse*/
 	$sql_def_lang = mysqli_query($db,"select * from $tbl_lang where short_name = '$dil' ");
 	$row_def_lang = mysqli_fetch_array($sql_def_lang,MYSQLI_ASSOC);
 
-	
+
 
 	if ($dil =="az" || $dil == "eng" || $dil =="tr" || $dil == "rus"){
 	$_SESSION["dil"] = $dil;
 	}
-	
 	else {$dil ="az";}
 	if (!isset($_SESSION["dil"])){
 	require("lang/az.php");
@@ -60,7 +59,7 @@ $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 a
 	   /* Login olduqda secilen  dil */
    $sql_def_lang = mysqli_query($db,"select * from $tbl_lang where short_name = '$login_lang' ");
    $row_def_lang = mysqli_fetch_array($sql_def_lang,MYSQLI_ASSOC);
-   
+
 	 $_SESSION["dil"]=$row_def_lang['short_name'];
 	 require("lang/".$_SESSION["dil"].".php");
    }

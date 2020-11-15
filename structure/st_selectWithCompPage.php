@@ -40,14 +40,20 @@ $needle = ',';
 $users= "select tec.*,COUNT(tec.category) countCategory,concat(tsi.wage,' ', tcu.title) wage,tsi.wage wageN, concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,teco.company_name company,teco.enterprise_head_fullname,teco.enterprise_head_position,teco.address company_address,teco.tel company_tel,tsl.title struc,tsl.struc_id struc_id,tpl.posit_id posit_id,tpl.title posit,tpl.posit_icon 
 from $tbl_employee_category tec 
 LEFT join $tbl_employees te on te.id=tec.emp_id 
-LEFT join $tbl_salary_info tsi on tsi.emp_id=tec.emp_id and tsi.company_id=tec.company_id
+ LEFT JOIN $tbl_salary_info tsi ON tsi.id = (
+    SELECT id
+    FROM $tbl_salary_info fa 
+    WHERE fa.emp_id = tec.emp_id and fa.company_id=tec.company_id
+     ORDER BY fa.insert_date DESC
+    LIMIT 1
+)
 LEFT join $tbl_currency tcu on tcu.id=tsi.wage_currency
 LEFT join $tbl_employee_company teco on tec.company_id=teco.id
 LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level and tsl.lang='$site_lang'
 LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lang='$site_lang'
 where $company_idWhere GROUP BY
  category,parent,company_id,wage,wageN,
-  full_name,company,enterprise_head_fullname,
+  company,enterprise_head_fullname,
   enterprise_head_position,company_address,
   company_tel,struc,struc_id,posit_id,posit,posit_icon 
   ORDER BY tec.id DESC";

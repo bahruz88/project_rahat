@@ -49,7 +49,7 @@ LEFT join $tbl_type_dismissal ttd on ttd.level_id=tee.type_dismissal_id
 LEFT join $tbl_termination_clause ttc on ttc.level_id=tee.termination_clause_id
 LEFT join $tbl_notes tn on tn.level_id=tee.note_id
 LEFT join $tbl_employees te on te.id=tc.emp_id       
-   where  tc.emp_id='$empid' and tc.command_id='$command_id'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_no!=''";
+   where  tc.emp_id='$empid' and tc.command_id='$command_id'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_no!='' ORDER BY tc.insert_date DESC";
 }else if( $contractDate=='2'){
     $sql_emp_contracts = "select tc.*,te.*,concat(tsi.wage,' ', tcu.title) wage,tads.salary additions_salary,concat(tsi.prize_amount,' ', tcu2.title) prize,tc.insert_date create_date,tc.id id,tee.exit_date exit_date,tee.main main,tee.guarantees_termination_contract guarantees_termination_contract,ttd.title type_dismissal,ttc.title termination_clause,tn.title note,tc.structure1 pos,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,te.id emp_id 
 from $tbl_employee_commands tc
@@ -63,7 +63,7 @@ LEFT join $tbl_type_dismissal ttd on ttd.level_id=tee.type_dismissal_id
 LEFT join $tbl_termination_clause ttc on ttc.level_id=tee.termination_clause_id
 LEFT join $tbl_notes tn on tn.level_id=tee.note_id
 LEFT join $tbl_employees te on te.id=tc.emp_id  
-   where  tc.emp_id='$empid' and tc.command_id='$command_id'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate'  and tc.command_no=''";
+   where  tc.emp_id='$empid' and tc.command_id='$command_id'and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate'  and tc.command_no='' ORDER BY tc.insert_date DESC";
 
 
 }
@@ -80,7 +80,7 @@ LEFT join $tbl_type_dismissal ttd on ttd.level_id=tee.type_dismissal_id
 LEFT join $tbl_termination_clause ttc on ttc.level_id=tee.termination_clause_id
 LEFT join $tbl_notes tn on tn.level_id=tee.note_id
 LEFT join $tbl_employees te on te.id=tc.emp_id  
-   where  tc.emp_id='$empid' and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_id='$command_id' ";
+   where  tc.emp_id='$empid' and tc.insert_date>='$sinceBeginDate' and tc.insert_date<='$sinceEndDate' and tc.command_id='$command_id'  ORDER BY tc.insert_date DESC";
 //    echo $sql_emp_contracts;
 }
  //echo $sql_emp_contracts;

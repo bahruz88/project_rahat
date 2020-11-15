@@ -15,15 +15,8 @@ if(is_array($_FILES)) {
                 $empno=$row['empno'];
             }
         }
-//        echo 'empno='.$empno;
         /**/
         $fileData = pathinfo(basename($_FILES["userImage"]["name"]));
-
-
-
-        // $targetPath = "images/users/".$_FILES['userImage']['name'];
-
-//        $sql = "INSERT INTO tbl_users(u_photo) VALUES ('$targetPath')";
         if($empno!=''){
             $fileName ='S' . $empno . '.' . $fileData['extension'];
             $targetPath = "images/users/".$fileName;
@@ -32,6 +25,15 @@ if(is_array($_FILES)) {
 		WHERE id= '$uid' ";
 
             if(!mysqli_query($db, $sql)) {
+                echo "error" .mysqli_error($db);
+            }
+            else {
+//            echo "success=".$uid ;
+            }
+
+            $sqlemp = "UPDATE  $tbl_employees SET image_name  = '$targetPath' WHERE id= '$emp_id' ";
+
+            if(!mysqli_query($db, $sqlemp)) {
                 echo "error" .mysqli_error($db);
             }
             else {
@@ -50,9 +52,16 @@ if(is_array($_FILES)) {
             else {
 //            echo "success=".$uid ;
             }
+            $sqlemp = "UPDATE  $tbl_employees SET image_name  = '$targetPath' WHERE id= '$emp_id' ";
+
+            if(!mysqli_query($db, $sqlemp)) {
+                echo "error" .mysqli_error($db);
+            }
+            else {
+//            echo "success=".$uid ;
+            }
             mysqli_close($db);
         }
-
 
         //Close connection
 

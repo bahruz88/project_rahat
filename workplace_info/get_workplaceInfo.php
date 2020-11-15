@@ -5,9 +5,9 @@ $par='';
 
     $sql_parent="select tec.*, concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name, tc.enterprise_head_fullname,tws.title work_status
 from  $tbl_employee_category tec
-INNER join $tbl_employees te on tec.emp_id=te.id
-INNER join $tbl_employee_company tc on tec.company_id=tc.id
-INNER join $tbl_work_status tws on tws.level_id=tec.work_status and tws.lang='$site_lang'
+LEFT join $tbl_employees te on tec.emp_id=te.id
+LEFT join $tbl_employee_company tc on tec.company_id=tc.id
+LEFT join $tbl_work_status tws on tws.level_id=tec.work_status and tws.lang='$site_lang'
  WHERE tec.emp_id != 0";
 $data2 = array();
 $data3 = array();
@@ -101,9 +101,6 @@ $data3 = array();
 
                                     $p++;
                                 }
-//                                $sub_array['position_level'] = $data3;
-
-//                          $data[] =$row_parents["structure_level"];
                             }
                         }
 

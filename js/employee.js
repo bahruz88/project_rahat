@@ -4364,6 +4364,7 @@ $(document).ready(function (e) {
 
 function addImage() {
     $("#addImage").on('click', (function (e) {
+        console.log('addImage')
 
         //console.log('on submit')
         var formData = new FormData($('#uploadForm')[0]);

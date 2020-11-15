@@ -554,7 +554,7 @@ up_emp=employee.emp_id;
 		/*Button  click  on grid */
 		$('#addition_table tbody').on('click', '#delete', function () {
 			var data = addition_table.row($(this).parents('tr')).data();
-			document.getElementById("id").value = data[0];
+			document.getElementById("additionid").value = data[0];
 			$('#modalAdditionDelete').modal('show');
 		});
 
@@ -805,8 +805,9 @@ up_emp=employee.emp_id;
 				data: $("form").serialize(),
 				dataType: "text",
 				success: function (strMessage) {
+					console.log(strMessage);
 					if (strMessage.substr(1, 4) === 'error') {
-						//console.log(strMessage);
+						// console.log(strMessage);
 					} else if (strMessage === 'success') {
 						$('#modalAdditionDelete').modal('hide');
 						$('#modalDeleteSuccess').modal('show');
