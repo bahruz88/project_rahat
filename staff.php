@@ -528,14 +528,14 @@ $result_employee_category = $db->query($employee_category);
                     console.log('dataaaaaaa111=', data1)
                     $.each(data1, function (key, value) {
                         $.each(value, function (k, v) {
-                            console.log('key=' + k + ' val=' + v);
+                            // console.log('key=' + k + ' val=' + v);
 
 
                             $('#'+k).val(v)
                             $('#'+k).text(v)
                             $('.'+k).text(v)
                         })
-                        console.log('dataaaaaaa111 value=' , value)
+                        // console.log('dataaaaaaa111 value=' , value)
                         if(key!="company_tel" && key!="company_address" && key!="company" && key!="enterprise_head_fullname"&& key!="enterprise_head_position" )
                         {
                             arrayData2.push({"id":value.id,"category":value.category})
@@ -798,8 +798,8 @@ $result_employee_category = $db->query($employee_category);
                         var node = data.node,
                             $tdList = $(node.tr).find(">td");
                         trList = $(node.tr);
-                        console.log('renderColumns node.data=',data.node);
-                        console.log('renderColumns node.data[1]=',node.data[1]);
+                        // console.log('renderColumns node.data=',data.node);
+                        // console.log('renderColumns node.data[1]=',node.data[1]);
                         var staffCount=1;
 
 
@@ -807,7 +807,7 @@ $result_employee_category = $db->query($employee_category);
                         $tdList.eq(0).text('');
                         if (node.isFolder()==false) {
                             count_pozisya++;
-                            console.log('count_pozisya='+count_pozisya)
+                            // console.log('count_pozisya='+count_pozisya)
                             $tdList.eq(1).text(count_pozisya);
                         }else{
                             count_pozisya=0;
@@ -831,7 +831,7 @@ $result_employee_category = $db->query($employee_category);
                                 }
 
 
-                                console.log('countStaff='+countStaff);
+                                // console.log('countStaff='+countStaff);
                                 $('#countStaff').text(countStaff)
 
                             }
@@ -957,8 +957,8 @@ $result_employee_category = $db->query($employee_category);
                         var node = data.node,
                             $tdList = $(node.tr).find(">td");
                         trList = $(node.tr);
-                        console.log('renderColumns node.data=',data.node);
-                        console.log('renderColumns node.data[1]=',node.data[1]);
+                        // console.log('renderColumns node.data=',data.node);
+                        // console.log('renderColumns node.data[1]=',node.data[1]);
                         var staffCount=1;
 
 
@@ -966,7 +966,7 @@ $result_employee_category = $db->query($employee_category);
                         $tdList.eq(0).text('');
                         if (node.isFolder()==false) {
                             count_pozisya++;
-                            console.log('count_pozisya='+count_pozisya)
+                            // console.log('count_pozisya='+count_pozisya)
                             $tdList.eq(1).text(count_pozisya);
                         }else{
                             count_pozisya=0;
@@ -976,7 +976,7 @@ $result_employee_category = $db->query($employee_category);
                         if(node.data.code){
                             if(node.data.code.substr(0, 1)=="P"){
                                 countStatt+=parseInt(node.data.countCategory)
-                                console.log('countStaff='+countStatt);
+                                // console.log('countStaff='+countStatt);
                                 $('#countStaff').text(countStatt)
 
                                 if(node.data.wageN){

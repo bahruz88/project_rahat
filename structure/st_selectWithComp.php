@@ -47,9 +47,9 @@ LEFT join $tbl_position_level tpl on tpl.posit_id=tec.position_level and tpl.lan
 where $company_idWhere ORDER BY  tec.position_level DESC ";
  //sil bunu
 //echo "company_id==".$company_id;
- if($_POST['company_id']=="0,8"){
-     echo $users;
- }
+// if($_POST['company_id']=="0,8"){
+//     echo $users;
+// }
 //echo $users;
 $result_users = $db->query($users);
 $data=array();
