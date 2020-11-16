@@ -11,7 +11,7 @@ $tbl_employees emp on eo.emp_id=emp.id inner join
 $tbl_overtime_calc_status ocs  on eo.calc_status=ocs.status_id and ocs.lang='az' inner join 
 $tbl_yesno  yn  on  eo.overtime_status=yn.chois_id and  yn.lang='az' inner join
 $tbl_periods p  on  eo.overtime_period=p.period_id and  p.lang='az'  inner join
-$tbl_companies com  on emp.company_id=com.id 
+$tbl_employee_company com  on emp.company_id=com.id 
   where eo.id='$ovrid'";
   $result_ovr= $db->query($sql_ovr);
  $data = array();
