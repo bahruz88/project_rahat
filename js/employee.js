@@ -3263,6 +3263,48 @@ $(function () {
 
     var terms_employment_contract_tab;
     $('#empContractInfotab').click(function () {
+            $.ajax({
+                url: "emp_contract/get_empContractInfoExcel.php",
+                method: "post",
+                dataType: "text",
+                success: function (data) {
+                    console.log('data',jQuery.parseJSON(data).data)
+                    var table='';
+                     // table+= $('#terms_employment_contract_table').html();
+                     // console.log('ggg=0'+$('#terms_employment_contract_table').html())
+                    table+='<tbody>';
+                    $.each(jQuery.parseJSON(data).data, function(k,v){
+                        table+='<tr>' +
+                            '<td>'+v[0]+'</td>'+
+                            '<td>'+v[1]+'</td>'+
+                            '<td>'+v[2]+'</td>'+
+                            '<td>'+v[3]+'</td>'+
+                            '<td>'+v[4]+'</td>'+
+                            '<td>'+v[5]+'</td>' +
+                            '<td>'+v[6]+'</td>' +
+                            '<td>'+v[7]+'</td>' +
+                            '<td>'+v[8]+'</td>' +
+                            '<td>'+v[9]+'</td>' +
+                            '<td>'+v[10]+'</td>' +
+                            '<td>'+v[11]+'</td>' +
+                            '<td>'+v[12]+'</td>' +
+                            '<td>'+v[13]+'</td>' +
+                            '<td>'+v[14]+'</td>' +
+                            '<td>'+v[15]+'</td>' +
+                            '</tr>';
+                    });
+                    table+='</tbody>';
+                    console.log('table='+table)
+
+                    $('#terms_empl').append(table);
+                    // var ColumnHead = "Column Header Text";
+                    // var Messages = "\n message1.\n message2.\n message2.\n message2.\n message2.\n message2.";
+                    // window.open('data:application/vnd.ms-excel,' + Messages);
+                    // // e.preventDefault();
+
+
+                }
+            });
         //console.log('Tab clikc empContractInfotab');
         // $('#qual2').text( tabtext2+' / '+$('#empContractInfotab').text());
 
@@ -3309,11 +3351,29 @@ $(function () {
                         $("#empContractInsertModal").modal();
                     }
                 },
+                // {
+                //     extend: 'excelHtml5',
+                //     exportOptions: {
+                //         columns: ':visible'
+                //     }
+                //  },
                 {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: ':visible'
+                    text: 'Excel',
+                    action: function (e, dt, node, config) {
+                        // $("#myModalExit").modal();
+                        // addImage();
+                        var table = $('#example').DataTable();
+
+                            table.page.len( -1 ).draw();
+                            window.open('data:application/vnd.ms-excel,' +
+                                encodeURIComponent($('#exam').html()));
+                            setTimeout(function(){
+                                table.page.len(10).draw();
+                            }, 1000)
+
+
                     }
+
                 },
                 {
                     extend: 'csvHtml5',

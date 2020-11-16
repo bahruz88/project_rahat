@@ -268,7 +268,7 @@ $sql_position= "select * from $tbl_employee_category";
             <div class="card">
                 <div class="card-body">
                     <div class="treeStruk">
-                        <h2>STRUKTUR</h2>
+                        <h2>&nbsp;STRUKTUR</h2>
                         <div class='context-menu text-left'>
                             <ul>
                                 <li id="contentEdit"> &nbsp;<span> Redaktə et</span></li>

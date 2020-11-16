@@ -11,6 +11,7 @@ $tbl_users='tbl_users' ;
 $tbl_contracts='tbl_contracts' ;
 $tbl_employee_commands='tbl_employee_commands' ;
 $tbl_commands='tbl_commands' ;
+//$tbl_employee_category='tbl_category2';
 $tbl_employee_category='tbl_category';
 $tbl_structure_positions='tbl_structure_positions';
 $tbl_position_level='tbl_position_level';

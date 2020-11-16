@@ -69,7 +69,7 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
-     
+
 </head>
  
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -247,7 +247,7 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
   ?>
   
   
-  
+
 <ul class="nav nav-tabs"  id="navtabs" role="tablist">
   <li Class="nav-item"><a href="#employees"  style="border-radius:0px;color:#494e53;" class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["employees"];?></a></li>
   <li class="nav-item dropdown" >
@@ -510,6 +510,31 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
     </table>
 </div>
 <div class="tab-pane" id="termsEmploymentContract">
+    <div id="exam" style="display: none">
+        <table id="terms_empl" class="table table-striped  table-bordered table-hover">
+            <thead>
+            <tr>
+                <th style="width:15px;">id</th>
+                <th><?php echo $dil["fio"];?></th>
+                <th><?php echo $dil["employment_contract_indefinite"];?></th>
+                <th><?php echo $dil["reasons_contract"];?></th>
+                <th><?php echo $dil["date_employment_contract"];?></th>
+                <th><?php echo $dil["probation"];?></th>
+                <th><?php echo $dil["trial_expiration_date"];?></th>
+                <th><?php echo $dil["employee_start_date"];?></th>
+                <th><?php echo $dil["date_conclusion_employment_contract"];?></th>
+                <th><?php echo $dil["regulation_property_relations"];?></th>
+                <th><?php echo $dil["termination_cases"];?></th>
+                <th><?php echo $dil["other_conditions_wages"];?></th>
+                <th><?php echo $dil["workplace_status"];?></th>
+                <th><?php echo $dil["working_conditions"];?></th>
+                <th><?php echo $dil["job_descriptions"];?></th>
+                <th><?php echo $dil["kvota"];?></th>
+                <th><?php echo $dil["operation"];?></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
     <table id="terms_employment_contract_table" class="table table-striped  table-bordered table-hover">
         <thead>
         <tr>
