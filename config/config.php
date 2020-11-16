@@ -71,6 +71,8 @@ $tbl_country='tbl_country';
 $tbl_termination_clause='tbl_termination_clause';
 $tbl_notes='tbl_notes';
 $tbl_employee_exit='tbl_employee_exit';
+$tbl_schedules_additional='tbl_schedules_additional';
+
 $sql_lang  = "select * from $tbl_lang where status=1 order  by position";
 $sql_roles = "select * from $tbl_roles where status=1 order  by position";
 $sql_qua_dic = "select * from $tbl_qualification_dic ";
