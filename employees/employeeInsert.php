@@ -59,7 +59,7 @@ $birth_date= date('Y-m-d', strtotime($birth_date));
  birth_place,citizenship, pincode, passport_seria_number, passport_date, passport_end_date, pass_given_authority, 
  living_address, reg_address, home_tel, mob_tel, email, emr_contact,empno,image_name) 
  VALUES ('Null','$company_id','$firstname','$lastname','$surname','$sex', '$marital_status','$birth_date','$birth_place','$citizenship','$pincode','$pass_seria_num','$passport_date','$passport_end_date',
- '$pass_given_authority','$living_address','$reg_address','$mob_tel','$home_tel','$email','$emr_contact','$empno','$imgName')";
+ '$pass_given_authority','$living_address','$reg_address','$home_tel','$mob_tel','$email','$emr_contact','$empno','$imgName')";
   
 
   if(!mysqli_query($db, $sql)) {
