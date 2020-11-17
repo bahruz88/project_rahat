@@ -177,13 +177,13 @@ function unflattenArray($flatArray)
     while (count($flatArray) > 0) {
         for ($i = count($flatArray) - 1; $i >= 0; $i--) {
             if(in_array($flatArray[$i][2],$arrrId)){
-                if ($flatArray[$i][2] == NULL) {
+                if ($flatArray[$i][2] == NULL || $flatArray[$i][2] == 0) {
                     //root element: set in result and ref!
                     $result[$flatArray[$i][0]] = $flatArray[$i];
                     $refs[$flatArray[$i][0]] = &$result[$flatArray[$i][0]];
                     unset($flatArray[$i]);
                     $flatArray = array_values($flatArray);
-                } else if ($flatArray[$i][2] != NULL) {
+                } else if ($flatArray[$i][2] != NULL && $flatArray[$i][2] != 0) {
                     //no root element. Push to the referenced parent, and add to references as well.
                     if (array_key_exists($flatArray[$i][2], $refs)) {
                         //parent found
