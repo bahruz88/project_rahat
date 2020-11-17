@@ -12,6 +12,7 @@ $allowedFileType = [
     'application/vnd.ms-excel',
     'text/xls',
     'text/xlsx',
+    'text/csv',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 ];
 

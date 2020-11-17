@@ -77,7 +77,7 @@ $site_lang=$_SESSION['dil'] ;
     <div class="container box text-center">
         <h3 align="center">İşçilərin toplu şəkildə işə qəbulu</h3><br />
 
-        <button type="button" class="btn btn-info" onclick="downloadCSV()">Şablonu yükləyin</button>
+        <button type="button" class="btn btn-info" onclick="downloadCSV(dd)">Şablonu yükləyin</button>
          <br />
         <br />
         <form method="post" enctype="multipart/form-data"   id="target">
@@ -179,7 +179,7 @@ $site_lang=$_SESSION['dil'] ;
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
-<script src="js/jquery.table2excel.js"></script>
+
 
 </body>
 </html>
@@ -199,29 +199,37 @@ $site_lang=$_SESSION['dil'] ;
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 <script>
+    JsonFields = ["Ad","Soyad","Ata adı","Cinsi",
+        "Ailə vəziyyəti","Doğum tarixi","Doğum yeri",
+        "Vətəndaşlığı","FİN","Vəsiqənin seriya və nömrəsi","Vəsiqənin verilmə tarixi",
+        "Etibarlılıq müddəti","Vəsiqəni verən orqanın adı","Yaşadığı ünvan","Qeydiyyat ünvanı",
+        "Mobil telefonu","Ev telefonu","Email","Təcili vəziyyətdə əlaqə"
+    ]
 
-    function downloadCSV() {
-        console.log('ddd')
-        $('form').css('display','block');
-        var table = $('#employee_tab');
-        if(table && table.length){
-            var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
-            
-            $(table).table2excel({
-                exclude: ".noExl",
-                name: "Excel Document Name",
-                // filename: new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
-                filename: "imp.xlsx",
-                fileext: ".xlsx",
-                fileType: "Xlsx",
-                exclude_img: true,
-                exclude_links: true,
-                exclude_inputs: true,
-                preserveColors: preserveColors
-            });
-        }
+    function JsonToCSV(){
+        var csvStr = JsonFields.join(",") + "\n";
+        return csvStr;
     }
+    var dd=JsonToCSV()
+    // downloadCSV(dd);
+    function downloadCSV(csvStr) {
+        $('form').css('display','block')
 
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvStr);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'output.csv';
+        hiddenElement.click();
+    }
+    function convert(str)
+    {
+        str = str.replace(/&/g, "&amp;");
+        str = str.replace(/>/g, "&gt;");
+        str = str.replace(/</g, "&lt;");
+        str = str.replace(/"/g, "&quot;");
+        str = str.replace(/'/g, "&#039;");
+        return str;
+    }
     $('#target').submit(function(event){
         console.log('imppp')
         event.preventDefault();
@@ -230,7 +238,7 @@ $site_lang=$_SESSION['dil'] ;
         form_data.append('excel', file_data);
         console.log(form_data);
         $.ajax({
-            url: 'import-excel/recruitmentAj.php', // point to server-side PHP script
+            url: 'recruitmentAj.php', // point to server-side PHP script
             dataType: 'text',  // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,
@@ -247,25 +255,25 @@ $site_lang=$_SESSION['dil'] ;
                     console.log('value=',value)
                         table+=' <tr class="typeOfDocument" >' +
                             '<td>'+parseInt(k+1)+'</td>'+
-                            '<td>'+value.firstname+'</td>'+
-                            '<td>'+value.lastname+'</td>'+
-                            '<td>'+value.surname+'</td>'+
-                            '<td>'+value.sex+'</td>'+
-                            '<td>'+value.marital_status+'</td>'+
-                            '<td>'+value.birth_date+'</td>'+
-                            '<td>'+value.birth_place+'</td>'+
-                            '<td>'+value.citizenship+'</td>'+
-                            '<td>'+value.pincode+'</td>'+
-                            '<td>'+value.pass_seria_num+'</td>'+
-                            '<td>'+value.passport_date+'</td>'+
-                            '<td>'+value.passport_end_date+'</td>'+
-                            '<td>'+value.pass_given_authority+'</td>'+
-                            '<td>'+value.living_address+'</td>'+
-                            '<td>'+value.reg_address+'</td>'+
-                            '<td>'+value.mob_tel+'</td>'+
-                            '<td>'+value.home_tel+'</td>'+
-                            '<td>'+value.email+'</td>'+
-                            '<td>'+value.emr_contact+'</td></tr>';
+                            '<td>'+value[0]+'</td>'+
+                            '<td>'+value[1]+'</td>'+
+                            '<td>'+convert(value[2])+'</td>'+
+                            '<td>'+value[3]+'</td>'+
+                            '<td>'+value[4]+'</td>'+
+                            '<td>'+value[5]+'</td>'+
+                            '<td>'+value[6]+'</td>'+
+                            '<td>'+value[7]+'</td>'+
+                            '<td>'+value[8]+'</td>'+
+                            '<td>'+value[9]+'</td>'+
+                            '<td>'+value[10]+'</td>'+
+                            '<td>'+value[11]+'</td>'+
+                            '<td>'+value[12]+'</td>'+
+                            '<td>'+value[13]+'</td>'+
+                            '<td>'+value[14]+'</td>'+
+                            '<td>'+value[15]+'</td>'+
+                            '<td>'+value[16]+'</td>'+
+                            '<td>'+value[17]+'</td>'+
+                            '<td>'+value[18]+'</td></tr>';
 
                 });
                 // $('#success').text('İşçilər  işə qəbul edildi')
@@ -283,7 +291,7 @@ $site_lang=$_SESSION['dil'] ;
         form_data.append('excel', file_data);
         console.log(form_data);
         $.ajax({
-            url: 'import-excel/recruitmentAjInsert.php', // point to server-side PHP script
+            url: 'recruitmentAjInsert.php', // point to server-side PHP script
             dataType: 'text',  // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,
@@ -298,27 +306,27 @@ $site_lang=$_SESSION['dil'] ;
                 var table='';
                 $.each($.parseJSON(data), function(k,value) {
                     console.log('value=',value)
-                    table+=' <tr class="typeOfDocument" >' +
-                        '<td>'+parseInt(k+1)+'</td>'+
-                        '<td>'+value.firstname+'</td>'+
-                        '<td>'+value.lastname+'</td>'+
-                        '<td>'+value.surname+'</td>'+
-                        '<td>'+value.sex+'</td>'+
-                        '<td>'+value.marital_status+'</td>'+
-                        '<td>'+value.birth_date+'</td>'+
-                        '<td>'+value.birth_place+'</td>'+
-                        '<td>'+value.citizenship+'</td>'+
-                        '<td>'+value.pincode+'</td>'+
-                        '<td>'+value.pass_seria_num+'</td>'+
-                        '<td>'+value.passport_date+'</td>'+
-                        '<td>'+value.passport_end_date+'</td>'+
-                        '<td>'+value.pass_given_authority+'</td>'+
-                        '<td>'+value.living_address+'</td>'+
-                        '<td>'+value.reg_address+'</td>'+
-                        '<td>'+value.mob_tel+'</td>'+
-                        '<td>'+value.home_tel+'</td>'+
-                        '<td>'+value.email+'</td>'+
-                        '<td>'+value.emr_contact+'</td></tr>';
+                        table+=' <tr class="typeOfDocument" >' +
+                            '<td>'+parseInt(k+1)+'</td>'+
+                            '<td>'+value[0]+'</td>'+
+                            '<td>'+value[1]+'</td>'+
+                            '<td>'+value[2]+'</td>'+
+                            '<td>'+value[3]+'</td>'+
+                            '<td>'+value[4]+'</td>'+
+                            '<td>'+value[5]+'</td>'+
+                            '<td>'+value[6]+'</td>'+
+                            '<td>'+value[7]+'</td>'+
+                            '<td>'+value[8]+'</td>'+
+                            '<td>'+value[9]+'</td>'+
+                            '<td>'+value[10]+'</td>'+
+                            '<td>'+value[11]+'</td>'+
+                            '<td>'+value[12]+'</td>'+
+                            '<td>'+value[13]+'</td>'+
+                            '<td>'+value[14]+'</td>'+
+                            '<td>'+value[15]+'</td>'+
+                            '<td>'+value[16]+'</td>'+
+                            '<td>'+value[17]+'</td>'+
+                            '<td>'+value[18]+'</td></tr>';
 
                 });
                 $('#success').text('İşçilər  işə qəbul edildi')
