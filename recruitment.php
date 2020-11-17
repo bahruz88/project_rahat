@@ -209,8 +209,10 @@ $site_lang=$_SESSION['dil'] ;
             $(table).table2excel({
                 exclude: ".noExl",
                 name: "Excel Document Name",
-                filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xlsx",
+                // filename: new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+                filename: "imp.xlsx",
                 fileext: ".xlsx",
+                fileType: "xlsx",
                 exclude_img: true,
                 exclude_links: true,
                 exclude_inputs: true,

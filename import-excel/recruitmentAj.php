@@ -19,11 +19,17 @@ $data=array();
 $data2=array();
 //$filename=$_FILES["excel"]["tmp_name"];
 
+
+
 if (in_array($_FILES["excel"]["type"], $allowedFileType)) {
 
     $targetPath = 'uploads/' . $_FILES['excel']['name'];
     move_uploaded_file($_FILES['excel']['tmp_name'], $targetPath);
 
+
+
+
+//    $fp = fopen($targetPath, "wb");
     $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 
     $spreadSheet = $Reader->load($targetPath);
