@@ -6,8 +6,11 @@ require_once ('vendor/autoload.php');
 function generateRandomString($length = 2) {
     return substr(str_shuffle(str_repeat($x='ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
 }
+$firstname ='';
 
-$site_lang=$_SESSION['dil'] ;
+$lastname = $surname = $sex = $marital_status = $birth_date = $birth_place = $citizenship = $pincode = '';
+$pass_seria_num = $passport_date = $passport_end_date = $pass_given_authority = $living_address =$reg_address =$mob_tel =$home_tel =$email = $emr_contact='';
+$site_lang=$_SESSION['dil'];
 $allowedFileType = [
     'application/vnd.ms-excel',
     'text/xls',
@@ -19,61 +22,56 @@ $data=array();
 $data2=array();
 //$filename=$_FILES["excel"]["tmp_name"];
 
-if (in_array($_FILES["excel"]["type"], $allowedFileType)) {
 
-    $targetPath = 'uploads/' . $_FILES['excel']['name'];
-    move_uploaded_file($_FILES['excel']['tmp_name'], $targetPath);
-
-    $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-
-    $spreadSheet = $Reader->load($targetPath);
-    $excelSheet = $spreadSheet->getActiveSheet();
-    $spreadSheetAry = $excelSheet->toArray();
-    $sheetCount = count($spreadSheetAry);
-//    echo $sheetCount;
-
-    for ($i = 1; $i < $sheetCount; $i ++) {
-
-        $name = "";
-        if (isset($spreadSheetAry[$i][1])) {
-            $firstname = mysqli_real_escape_string($db, $spreadSheetAry[$i][1]);
-        }
-        $description = "";
-        if (isset($spreadSheetAry[$i][2])) {
-            $lastname = mysqli_real_escape_string($db, $spreadSheetAry[$i][2]);
-            $surname = mysqli_real_escape_string($db, $spreadSheetAry[$i][3]);
-            $sex = mysqli_real_escape_string($db, $spreadSheetAry[$i][4]);
-            $marital_status = mysqli_real_escape_string($db, $spreadSheetAry[$i][5]);
-            $birth_date = mysqli_real_escape_string($db, $spreadSheetAry[$i][6]);
-            $birth_place = mysqli_real_escape_string($db, $spreadSheetAry[$i][7]);
-            $citizenship = mysqli_real_escape_string($db, $spreadSheetAry[$i][8]);
-            $pincode = mysqli_real_escape_string($db, $spreadSheetAry[$i][9]);
-            $pass_seria_num = mysqli_real_escape_string($db, $spreadSheetAry[$i][10]);
-            $passport_date = mysqli_real_escape_string($db, $spreadSheetAry[$i][11]);
-            $passport_end_date = mysqli_real_escape_string($db, $spreadSheetAry[$i][12]);
-            $pass_given_authority = mysqli_real_escape_string($db, $spreadSheetAry[$i][13]);
-            $living_address = mysqli_real_escape_string($db, $spreadSheetAry[$i][14]);
-            $reg_address = mysqli_real_escape_string($db, $spreadSheetAry[$i][15]);
-            $mob_tel = mysqli_real_escape_string($db, $spreadSheetAry[$i][16]);
-            $home_tel = mysqli_real_escape_string($db, $spreadSheetAry[$i][17]);
-            $email = mysqli_real_escape_string($db, $spreadSheetAry[$i][18]);
-            $emr_contact = mysqli_real_escape_string($db, $spreadSheetAry[$i][19]);
-        }
-
-        if (! empty($firstname) || ! empty($lastname)) {
-//            $query = "insert into tbl_info(name,description) values(?,?)";
-//            $paramType = "ss";
-//            $paramArray = array(
-//                $name,
-//                $description
-//            );
-//            $insertId = $db->insert($query, $paramType, $paramArray);
-            $data=array();
+if($_FILES["excel"]["name"] != '')
+{
+    $allowed_extension = array('xls', 'csv', 'xlsx');
+    $file_array = explode(".", $_FILES["excel"]["name"]);
+    $file_extension = end($file_array);
+    if(in_array($file_extension, $allowed_extension))
+    {
+        $file_name = time() . '.' . $file_extension;
+        move_uploaded_file($_FILES['excel']['tmp_name'], $file_name);
+        $file_type = \PhpOffice\PhpSpreadsheet\IOFactory::identify($file_name);
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($file_type);
+        $spreadsheet = $reader->load($file_name);
+        unlink($file_name);
+        $data = $spreadsheet->getActiveSheet()->toArray();
+        $count = 0;
+        foreach($data as $row)
+        {
+            $count++;
+            $insert_data = array(
+                ':test1'          =>  $row[0],
+                ':test2'          =>  $row[1],
+                ':test3'          =>  $row[2],
+                ':test4'          =>  $row[3]
+            );
+            $firstname = $row[1];
+         
+            $lastname = $row[2];
+            $surname = $row[3];
+            $sex = $row[4];
+            $marital_status = $row[5];
+            $birth_date = $row[6];
+            $birth_place = $row[7];
+            $citizenship = $row[8];
+            $pincode = $row[9];
+            $pass_seria_num = $row[10];
+            $passport_date = $row[11];
+            $passport_end_date = $row[12];
+            $pass_given_authority = $row[13];
+            $living_address = $row[14];
+            $reg_address = $row[15];
+            $mob_tel = $row[16];
+            $home_tel = $row[17];
+            $email = $row[18];
+            $emr_contact = $row[19];
             $data['firstname']= $firstname;
             $data['lastname']=$lastname;
             $data['surname']=$surname;
             $data['sex']=$sex;
-           $data['marital_status']=$marital_status;
+            $data['marital_status']=$marital_status;
             $data['birth_date']=$birth_date;
             $data['birth_place']=$birth_place;
             $data['citizenship']=$citizenship;
@@ -125,29 +123,28 @@ if (in_array($_FILES["excel"]["type"], $allowedFileType)) {
 
             $birth_date = strtr($birth_date, '/', '-');
             $birth_date= date('Y-m-d', strtotime($birth_date));
-
-            $sql = "INSERT INTO $tbl_employees (id, firstname, lastname, surname, sex, marital_status, birth_date,
+if($count>1){
+    $sql = "INSERT INTO $tbl_employees (id, firstname, lastname, surname, sex, marital_status, birth_date,
  birth_place,citizenship, pincode, passport_seria_number, passport_date, passport_end_date, pass_given_authority,
  living_address, reg_address, home_tel, mob_tel, email, emr_contact,empno)
  VALUES ('Null','$firstname','$lastname','$surname','$sex', '$marital_status','$birth_date','$birth_place','$citizenship','$pincode','$pass_seria_num','$passport_date','$passport_end_date',
  '$pass_given_authority','$living_address','$reg_address','$mob_tel','$home_tel','$email','$emr_contact','$empno')";
 
-            $db->query($sql);
+    $db->query($sql);
+}
 
-            // $query = "insert into tbl_info(name,description) values('" . $name . "','" . $description . "')";
-            // $result = mysqli_query($conn, $query);
-
-//            if (! empty($insertId)) {
-//                $type = "success";
-//                $message = "Excel Data Imported into the Database";
-//            } else {
-//                $type = "error";
-//                $message = "Problem in Importing Excel Data";
-//            }
-        }
+        };
+//        $query = "
+//                    INSERT INTO post
+//                    (  test1, test2, test3, test4)
+//                    VALUES
+//                    ( :test1, :test2, :test3, :test4)
+//                ";
+//        $statement = $connect->prepare($query);
+//        $statement->execute($insert_data);
     }
-} else {
-    $type = "error";
-    $message = "Invalid File Type. Upload Excel File.";
+//    echo "succes";
+}else{
+    echo "only xls,csv,xlsx are allowed";
 }
 echo json_encode($data2);

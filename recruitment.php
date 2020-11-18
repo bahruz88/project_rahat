@@ -91,6 +91,7 @@ $site_lang=$_SESSION['dil'] ;
             <br />
             <input type="submit" name="import" style="display: none;" id="import" class="btn btn-info" value="Əlavə edin" />
         </form>
+        <a onclick="exportAsExcel()">Export to excel</a>
         <div id="success"></div>
         <button type="button" class="btn btn-info"  id="importTab" >İşə qəbul edin</button>
 
@@ -200,27 +201,25 @@ $site_lang=$_SESSION['dil'] ;
 
 <script>
 
+    $('#employee_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excel',              // Extend the excel button
+                excelStyles: {                // Add an excelStyles definition
+                    template: 'blue_medium',  // Apply the 'blue_medium' template
+                },
+            },
+        ],
+    });
     function downloadCSV() {
         console.log('ddd')
         $('form').css('display','block');
-        var table = $('#employee_tab');
-        if(table && table.length){
-            var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
-            
-            $(table).table2excel({
-                exclude: ".noExl",
-                name: "Excel Document Name",
-                // filename: new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
-                filename: "imp.xlsx",
-                fileext: ".xlsx",
-                fileType: "Xlsx",
-                exclude_img: true,
-                exclude_links: true,
-                exclude_inputs: true,
-                preserveColors: preserveColors
-            });
-        }
-    }
+        var table = $('#employee_table').DataTable();
+
+        table.buttons('.buttons-excel').trigger();
+
+     }
 
     $('#target').submit(function(event){
         console.log('imppp')
@@ -245,6 +244,7 @@ $site_lang=$_SESSION['dil'] ;
                 var table='';
                 $.each($.parseJSON(data), function(k,value) {
                     console.log('value=',value)
+                    if(k!=0){
                         table+=' <tr class="typeOfDocument" >' +
                             '<td>'+parseInt(k+1)+'</td>'+
                             '<td>'+value.firstname+'</td>'+
@@ -266,7 +266,7 @@ $site_lang=$_SESSION['dil'] ;
                             '<td>'+value.home_tel+'</td>'+
                             '<td>'+value.email+'</td>'+
                             '<td>'+value.emr_contact+'</td></tr>';
-
+                    }
                 });
                 // $('#success').text('İşçilər  işə qəbul edildi')
 
@@ -298,27 +298,29 @@ $site_lang=$_SESSION['dil'] ;
                 var table='';
                 $.each($.parseJSON(data), function(k,value) {
                     console.log('value=',value)
-                    table+=' <tr class="typeOfDocument" >' +
-                        '<td>'+parseInt(k+1)+'</td>'+
-                        '<td>'+value.firstname+'</td>'+
-                        '<td>'+value.lastname+'</td>'+
-                        '<td>'+value.surname+'</td>'+
-                        '<td>'+value.sex+'</td>'+
-                        '<td>'+value.marital_status+'</td>'+
-                        '<td>'+value.birth_date+'</td>'+
-                        '<td>'+value.birth_place+'</td>'+
-                        '<td>'+value.citizenship+'</td>'+
-                        '<td>'+value.pincode+'</td>'+
-                        '<td>'+value.pass_seria_num+'</td>'+
-                        '<td>'+value.passport_date+'</td>'+
-                        '<td>'+value.passport_end_date+'</td>'+
-                        '<td>'+value.pass_given_authority+'</td>'+
-                        '<td>'+value.living_address+'</td>'+
-                        '<td>'+value.reg_address+'</td>'+
-                        '<td>'+value.mob_tel+'</td>'+
-                        '<td>'+value.home_tel+'</td>'+
-                        '<td>'+value.email+'</td>'+
-                        '<td>'+value.emr_contact+'</td></tr>';
+                    if(k!=0) {
+                        table += ' <tr class="typeOfDocument" >' +
+                            '<td>' + parseInt(k + 1) + '</td>' +
+                            '<td>' + value.firstname + '</td>' +
+                            '<td>' + value.lastname + '</td>' +
+                            '<td>' + value.surname + '</td>' +
+                            '<td>' + value.sex + '</td>' +
+                            '<td>' + value.marital_status + '</td>' +
+                            '<td>' + value.birth_date + '</td>' +
+                            '<td>' + value.birth_place + '</td>' +
+                            '<td>' + value.citizenship + '</td>' +
+                            '<td>' + value.pincode + '</td>' +
+                            '<td>' + value.pass_seria_num + '</td>' +
+                            '<td>' + value.passport_date + '</td>' +
+                            '<td>' + value.passport_end_date + '</td>' +
+                            '<td>' + value.pass_given_authority + '</td>' +
+                            '<td>' + value.living_address + '</td>' +
+                            '<td>' + value.reg_address + '</td>' +
+                            '<td>' + value.mob_tel + '</td>' +
+                            '<td>' + value.home_tel + '</td>' +
+                            '<td>' + value.email + '</td>' +
+                            '<td>' + value.emr_contact + '</td></tr>';
+                    }
 
                 });
                 $('#success').text('İşçilər  işə qəbul edildi')
