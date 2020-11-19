@@ -201,11 +201,17 @@ $site_lang=$_SESSION['dil'] ;
 
 <script>
 
-    $('#employee_table').DataTable({
+    var employee_table = $('#employee_table').DataTable({
         dom: 'Bfrtip',
+        "scrollX": true,
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": false,
         buttons: [
             {
-                extend: 'excel',              // Extend the excel button
+                extend: 'excel',
                 excelStyles: {                // Add an excelStyles definition
                     template: 'blue_medium',  // Apply the 'blue_medium' template
                 },
@@ -218,6 +224,7 @@ $site_lang=$_SESSION['dil'] ;
         var table = $('#employee_table').DataTable();
 
         table.buttons('.buttons-excel').trigger();
+
 
      }
 function notNull(element){
@@ -234,6 +241,7 @@ function notNull(element){
         var form_data = new FormData();
         form_data.append('excel', file_data);
         console.log(form_data);
+
         $.ajax({
             url: 'import-excel/recruitmentAj.php', // point to server-side PHP script
             dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -246,6 +254,8 @@ function notNull(element){
                 console.log('data',data); // display response from the PHP script, if any
                 console.log('data',$.parseJSON(data)); // display response from the PHP script, if any
                 $('#employee_tab').css('display','block');
+                employee_table.buttons('.buttons-excel').nodes().css("display", "none");
+
                 $("table#employee_table tbody").html('')
                 var table='';
                 $.each($.parseJSON(data), function(k,value) {
@@ -305,27 +315,27 @@ function notNull(element){
                 $.each($.parseJSON(data), function(k,value) {
                     console.log('value=',value)
                     if(k!=0) {
-                        table += ' <tr class="typeOfDocument" >' +
-                            '<td>' + parseInt(k + 1) + '</td>' +
-                            '<td>' + value.firstname + '</td>' +
-                            '<td>' + value.lastname + '</td>' +
-                            '<td>' + value.surname + '</td>' +
-                            '<td>' + value.sex + '</td>' +
-                            '<td>' + value.marital_status + '</td>' +
-                            '<td>' + value.birth_date + '</td>' +
-                            '<td>' + value.birth_place + '</td>' +
-                            '<td>' + value.citizenship + '</td>' +
-                            '<td>' + value.pincode + '</td>' +
-                            '<td>' + value.pass_seria_num + '</td>' +
-                            '<td>' + value.passport_date + '</td>' +
-                            '<td>' + value.passport_end_date + '</td>' +
-                            '<td>' + value.pass_given_authority + '</td>' +
-                            '<td>' + value.living_address + '</td>' +
-                            '<td>' + value.reg_address + '</td>' +
-                            '<td>' + value.mob_tel + '</td>' +
-                            '<td>' + value.home_tel + '</td>' +
-                            '<td>' + value.email + '</td>' +
-                            '<td>' + value.emr_contact + '</td></tr>';
+                        table+=' <tr class="typeOfDocument" >' +
+                            '<td>'+parseInt(k+1)+'</td>'+
+                            '<td>'+notNull(value.firstname)+'</td>'+
+                            '<td>'+notNull(value.lastname)+'</td>'+
+                            '<td>'+notNull(value.surname)+'</td>'+
+                            '<td>'+notNull(value.sex)+'</td>'+
+                            '<td>'+notNull(value.marital_status)+'</td>'+
+                            '<td>'+notNull(value.birth_date)+'</td>'+
+                            '<td>'+notNull(value.birth_place)+'</td>'+
+                            '<td>'+notNull(value.citizenship)+'</td>'+
+                            '<td>'+notNull(value.pincode)+'</td>'+
+                            '<td>'+notNull(value.pass_seria_num)+'</td>'+
+                            '<td>'+notNull(value.passport_date)+'</td>'+
+                            '<td>'+notNull(value.passport_end_date)+'</td>'+
+                            '<td>'+notNull(value.pass_given_authority)+'</td>'+
+                            '<td>'+notNull(value.living_address)+'</td>'+
+                            '<td>'+notNull(value.reg_address)+'</td>'+
+                            '<td>'+notNull(value.mob_tel)+'</td>'+
+                            '<td>'+notNull(value.home_tel)+'</td>'+
+                            '<td>'+notNull(value.email)+'</td>'+
+                            '<td>'+notNull(value.emr_contact)+'</td></tr>';
                     }
 
                 });
