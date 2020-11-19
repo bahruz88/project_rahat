@@ -220,7 +220,13 @@ $site_lang=$_SESSION['dil'] ;
         table.buttons('.buttons-excel').trigger();
 
      }
-
+function notNull(element){
+        if (element){
+            return element;
+        }else {
+            return "";
+        }
+}
     $('#target').submit(function(event){
         console.log('imppp')
         event.preventDefault();
@@ -247,25 +253,25 @@ $site_lang=$_SESSION['dil'] ;
                     if(k!=0){
                         table+=' <tr class="typeOfDocument" >' +
                             '<td>'+parseInt(k+1)+'</td>'+
-                            '<td>'+value.firstname+'</td>'+
-                            '<td>'+value.lastname+'</td>'+
-                            '<td>'+value.surname+'</td>'+
-                            '<td>'+value.sex+'</td>'+
-                            '<td>'+value.marital_status+'</td>'+
-                            '<td>'+value.birth_date+'</td>'+
-                            '<td>'+value.birth_place+'</td>'+
-                            '<td>'+value.citizenship+'</td>'+
-                            '<td>'+value.pincode+'</td>'+
-                            '<td>'+value.pass_seria_num+'</td>'+
-                            '<td>'+value.passport_date+'</td>'+
-                            '<td>'+value.passport_end_date+'</td>'+
-                            '<td>'+value.pass_given_authority+'</td>'+
-                            '<td>'+value.living_address+'</td>'+
-                            '<td>'+value.reg_address+'</td>'+
-                            '<td>'+value.mob_tel+'</td>'+
-                            '<td>'+value.home_tel+'</td>'+
-                            '<td>'+value.email+'</td>'+
-                            '<td>'+value.emr_contact+'</td></tr>';
+                            '<td>'+notNull(value.firstname)+'</td>'+
+                            '<td>'+notNull(value.lastname)+'</td>'+
+                            '<td>'+notNull(value.surname)+'</td>'+
+                            '<td>'+notNull(value.sex)+'</td>'+
+                            '<td>'+notNull(value.marital_status)+'</td>'+
+                            '<td>'+notNull(value.birth_date)+'</td>'+
+                            '<td>'+notNull(value.birth_place)+'</td>'+
+                            '<td>'+notNull(value.citizenship)+'</td>'+
+                            '<td>'+notNull(value.pincode)+'</td>'+
+                            '<td>'+notNull(value.pass_seria_num)+'</td>'+
+                            '<td>'+notNull(value.passport_date)+'</td>'+
+                            '<td>'+notNull(value.passport_end_date)+'</td>'+
+                            '<td>'+notNull(value.pass_given_authority)+'</td>'+
+                            '<td>'+notNull(value.living_address)+'</td>'+
+                            '<td>'+notNull(value.reg_address)+'</td>'+
+                            '<td>'+notNull(value.mob_tel)+'</td>'+
+                            '<td>'+notNull(value.home_tel)+'</td>'+
+                            '<td>'+notNull(value.email)+'</td>'+
+                            '<td>'+notNull(value.emr_contact)+'</td></tr>';
                     }
                 });
                 // $('#success').text('İşçilər  işə qəbul edildi')
