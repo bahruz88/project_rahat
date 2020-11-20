@@ -780,6 +780,8 @@ $sql_position= "select * from $tbl_employee_category";
     $(function() {
         //var subArray =  <?php //echo json_encode(unflattenArray($flatArray)); ?>//;
         var subArray =  [];
+        var oldTitle='';
+        var newTitle='';
         //idArray =  <?php //echo json_encode($idArray); ?>//;
         idArray =  [];
         console.log('subArray $idArray=',idArray);
@@ -1126,17 +1128,20 @@ $sql_position= "select * from $tbl_employee_category";
                             console.log('ID=='+ID);
                             console.log('title=='+title);
                             console.log('company_id=='+company_id);
+                            newTitle=title;
+                            if(oldTitle!=newTitle){
+                                $.ajax({
+                                    url: 'structure/st_update.php',
+                                    type: "POST",
+                                    data: { id:ID, name:title,change:'category',command_code:command_code,company_id:company_id,emp_id:emp_id},
+                                    success: function (data) {
+                                        console.log('data=' + data)
+                                        // members=$.parseJSON(data)
 
-                            $.ajax({
-                                url: 'structure/st_update.php',
-                                type: "POST",
-                                data: { id:ID, name:title,change:'category',command_code:command_code,company_id:company_id,emp_id:emp_id},
-                                success: function (data) {
-                                    console.log('data=' + data)
-                                    // members=$.parseJSON(data)
+                                    },
+                                });
+                            }
 
-                                },
-                            });
                         }
                         if(data.operation=='remove' && addNew==1){
                             console.log('rename sil',data)
@@ -1205,6 +1210,8 @@ $sql_position= "select * from $tbl_employee_category";
                             event_t=data.cmd;
                             console.log('-----------------= html=',silArray)
                             console.log('-----------------= node=',node)
+                            console.log('-----------------= node.title=',node.title);
+                            oldTitle=node.title;
                             if(data.cmd=="rename"){
                                command_code=18;//vezife desyisikliyi emrinin kodu
                             }
