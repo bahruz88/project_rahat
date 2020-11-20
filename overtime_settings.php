@@ -343,7 +343,7 @@ $message=$dil["selectone"];
    <!--USER EDİT MODAL -->
   <div class="modal fade" id="ovrEdit" role="dialog">
     <div class="modal-dialog modal-lg">
-    <form id="ovrUpdate" method="post" class="form-horizontal" action="">
+    <form id="schUpdate" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
       <div class="modal-content">
           <div class="modal-body">
@@ -452,7 +452,7 @@ $message=$dil["selectone"];
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
 		<input type="hidden" id="update_ovrid" name="update_ovrid_name" value="" /> 	
-<input type="hidden" id="update_empid" name="update_emp_name" value="" /> 			
+<input type="hidden" id="update_empid" name="update_ovrid_name" value="" /> 			
         </div>	
 		</form>
       </div>
@@ -540,7 +540,6 @@ $message=$dil["selectone"];
   
 <script>
 
-
   $(function () {
  
  function validInsert(){
@@ -551,26 +550,26 @@ $message=$dil["selectone"];
 			$('#company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
 		}
-		 if($('#employee_id').val()=='' ){
-			$('#employee_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+		 if($('#employee_id_name').val()=='' ){
+			$('#employee_id_name').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#employee_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+			$('#employee_id_name').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
 		}
 		
 		 if($('#ovr_start_date_id').val()=='' ){
-			$('#ovr_start_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			$('#ovr_start_date_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#ovr_start_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+			$('#ovr_start_date_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 		}
 		
 		if($('#ovr_end_date_id').val()=='' ){
-			$('#ovr_end_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			$('#ovr_end_date_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#ovr_end_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+			$('#ovr_end_date_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 		}
 		 if($('#calc_status_id').val()=='' ){
 			$('#calc_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
@@ -594,64 +593,11 @@ $message=$dil["selectone"];
 		return true
 	} 
  
-
-  function validUpdate(){
-		if($('#update_company_id').val()=='' ){
-			$('#update_company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#update_company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
-		
-		 if($('#update_employee_id').val()=='' ){
-			$('#update_employee_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#update_employee_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
-		
-		 if($('#update_ovr_start_date_id').val()=='' ){
-			$('#update_ovr_start_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#update_ovr_start_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
-		}
-		
-		if($('#update_ovr_end_date_id').val()=='' ){
-			$('#update_ovr_end_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#update_ovr_end_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
-		}
-		 if($('#update_calc_status_id').val()=='' ){
-			$('#update_calc_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#update_calc_status_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-		}
-		
-		 if($('#update_overtime_period_id').val()=='' ){
-			$('#update_overtime_period_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#update_overtime_period_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-		}
-		
-		 if($('#update_overtime_status_id').val()=='' ){
-			$('#update_overtime_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#update_overtime_status_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-		} 	
-		return true
-	} 
    $("#company_id").change(function(){
 	   	  console.log('Basladi2');
         var company_id = $(this).val();
     $.ajax({
-            url: "employees/getEmployeeOvertime.php",
+            url: "employees/getEmployee.php",
             type: "POST",
             data: { company_id:company_id},
             success: function (data) {
@@ -772,9 +718,8 @@ var table = $("#ovr_table").DataTable({
 	  
         var data = table.row( $(this).parents('tr') ).data();
 	    console.log(data) ;
-		document.getElementById("update_ovrid").value = data[0];
 		GetOvrDetails(data[0]);
-		
+		document.getElementById("update_ovrid").value = data[0];
 		 
     } );
  
@@ -800,14 +745,36 @@ var table = $("#ovr_table").DataTable({
 					console.log(overtime);
 					
 			         
-					 $('#update_empid').val(overtime.empid);
+					  $('#update_empid').val(overtime.empid);
 					 $('#update_company_id').val(overtime.compid).change();
+					 
+					 
+					 
+					 //$('#update_employee_id').val(overtime.empid).change();
 					 $("#update_ovr_start_date_id").val(overtime.start_date);
 					 $("#update_ovr_end_date_id").val(overtime.expire_date);
 					 $('#update_calc_status_id').val(overtime.status_id).change();
 					 $('#update_overtime_period_id').val(overtime.period_id).change();
 					 $('#update_overtime_status_id').val(overtime.chois_id).change();
-
+					 
+					 
+					/*$("#update_schname_id").val(schedule.sch_name);
+					$('#update_tm_type_id').val(schedule.tm_id).change();
+					$('#update_sch_type_id').val(schedule.sch_type_id).change();
+					$('#update_reduce_type_id').val(schedule.reduce_type).change();
+					$('#update_red_working_hours_id').val(schedule.red_working_hours).change();
+					$('#update_reduce_reason_id').val(schedule.reason_id).change();
+					$("#update_start_time_id").val(schedule.start_time);
+					$("#update_end_time_id").val(schedule.end_time);
+					$("#update_break_start_time_id").val(schedule.break_start_time);
+					$("#update_break_end_time_id").val(schedule.break_end_time);
+					$("#update_dinner_start_time_id").val(schedule.dinner_start_time);
+					$("#update_dinner_end_time_id").val(schedule.dinner_end_time);
+					$('#update_night_time_id').val(schedule.night_time).change();*/
+					/*
+					$('#update_userlevel').val([1,2,3]).change();*/
+					//$('#update_userlevel').selectpicker('val', [1,2,3]);
+				     
 					$('#ovrEdit').modal('show');
 					
 				}
@@ -820,7 +787,7 @@ var table = $("#ovr_table").DataTable({
 		var upd_emp_id = $("#update_empid").val();
 		console.log(company_id) ;
     $.ajax({
-            url: "employees/getEmployeeOvertime.php",
+            url: "employees/getEmployee.php",
             type: "POST",
             data: { company_id:company_id},
 			dataType: 'json',
@@ -861,9 +828,8 @@ var table = $("#ovr_table").DataTable({
 								$("#badge_danger").text('');
 								 if ( strMessage==='duplicate' )
 								 {					 
-									 $("#errorp").text('Bu isci ucun  elave is vaxti artiq sazlanib');
-									 $("#modalInsertError").modal('show');
-									 $("#ovrModal").modal('hide');
+									 $("#badge_success").text('');
+									 $("#badge_danger").text("<?php echo $dil['duplicate_username']?>");
 								 }
 								 else if (strMessage.substr(1, 4)==='error')
 								 {
@@ -898,7 +864,7 @@ var table = $("#ovr_table").DataTable({
 		
                     e.preventDefault();
                     $.ajax( {
-                        url: "overtime/ovrDelete.php",
+                        url: "overtime/OvrDelete.php",
                         method: "post",
                         data: $("form").serialize(),
                         dataType: "text",
@@ -924,13 +890,13 @@ var table = $("#ovr_table").DataTable({
 				
 				
 				
-	$("#ovrUpdate").submit(function(e) {
+	$("#schUpdate").submit(function(e) {
                     e.preventDefault();
-			  if (validUpdate()) {
+			 //if($("#schUpdate").valid()){ 
                     $.ajax( {
-                        url: "overtime/ovrUpdate.php",
+                        url: "schedule/schUpdate.php",
                         method: "post",
-                        data: $("#ovrUpdate").serialize(),
+                        data: $("#schUpdate").serialize(),
                         dataType: "text",
                         success: function(strMessage) 
 						{
@@ -941,7 +907,7 @@ var table = $("#ovr_table").DataTable({
 							 }
 							 else if (strMessage==='success')
 							 { 
-								 $('#ovrEdit').modal('hide');
+								 $('#schEdit').modal('hide');
 								$('#modalUpdateSuccess').modal('show');
 								 table.ajax.reload();
 							 }
@@ -957,7 +923,7 @@ var table = $("#ovr_table").DataTable({
 						}
                     });
 					 table.ajax.reload();	
-			}
+			// }
                 });
 	  /*$("#update_sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
 	  $("#update_sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
