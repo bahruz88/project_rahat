@@ -340,10 +340,9 @@ $message=$dil["selectone"];
  
  
  
-   <!--USER EDİT MODAL -->
-  <div class="modal fade" id="ovrEdit" role="dialog">
+     <div class="modal fade" id="ovrEdit" role="dialog">
     <div class="modal-dialog modal-lg">
-    <form id="schUpdate" method="post" class="form-horizontal" action="">
+    <form id="ovrUpdate" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
       <div class="modal-content">
           <div class="modal-body">
@@ -452,7 +451,7 @@ $message=$dil["selectone"];
 		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="UPDATE"><?php echo $dil["save"];?></button>
 		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
 		<input type="hidden" id="update_ovrid" name="update_ovrid_name" value="" /> 	
-<input type="hidden" id="update_empid" name="update_ovrid_name" value="" /> 			
+		<input type="hidden" id="update_empid" name="update_emp_name" value="" /> 			
         </div>	
 		</form>
       </div>
@@ -542,7 +541,33 @@ $message=$dil["selectone"];
 
   $(function () {
  
- function validInsert(){
+    $("#company_id").change(function(){
+	   	  console.log('Basladi2');
+        var company_id = $(this).val();
+    $.ajax({
+            url: "employees/getEmployeeOvertime.php",
+            type: "POST",
+            data: { company_id:company_id},
+            success: function (data) {
+                console.log('data=',data)
+                console.log('$.parseJSON(data)=',$.parseJSON(data))
+                var option='<select data-live-search="true"  name="employee_id_name" id="employee_id"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+                option += '<option value=""><?php  echo $dil['selectone'] ;?></option>';
+
+                 $.each($.parseJSON(data), function(k,row) {
+                    option += '<option value="' + row[0] + '" >' + row[1] + '  </option>';
+                });
+                option+=' </select>';
+                $('#emp_div').html(option);
+                $(".selectpicker").selectpicker();
+
+            }
+        }) ;
+     
+    });
+ 
+ 
+  function validInsert(){
 		if($('#company_id').val()=='' ){
 			$('#company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
@@ -550,26 +575,26 @@ $message=$dil["selectone"];
 			$('#company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
 		}
-		 if($('#employee_id_name').val()=='' ){
-			$('#employee_id_name').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+		 if($('#employee_id').val()=='' ){
+			$('#employee_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#employee_id_name').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+			$('#employee_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
 		}
 		
 		 if($('#ovr_start_date_id').val()=='' ){
-			$('#ovr_start_date_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			$('#ovr_start_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#ovr_start_date_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+			$('#ovr_start_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
 		}
 		
 		if($('#ovr_end_date_id').val()=='' ){
-			$('#ovr_end_date_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			$('#ovr_end_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#ovr_end_date_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+			$('#ovr_end_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
 		}
 		 if($('#calc_status_id').val()=='' ){
 			$('#calc_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
@@ -593,30 +618,61 @@ $message=$dil["selectone"];
 		return true
 	} 
  
-   $("#company_id").change(function(){
-	   	  console.log('Basladi2');
-        var company_id = $(this).val();
-    $.ajax({
-            url: "employees/getEmployee.php",
-            type: "POST",
-            data: { company_id:company_id},
-            success: function (data) {
-                console.log('data=',data)
-                console.log('$.parseJSON(data)=',$.parseJSON(data))
-                var option='<select data-live-search="true"  name="employee_id_name" id="employee_id"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-                option += '<option value=""><?php  echo $dil['selectone'] ;?></option>';
+ 
+ 
+  function validUpdate(){
+		if($('#update_company_id').val()=='' ){
+			$('#update_company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
-                 $.each($.parseJSON(data), function(k,row) {
-                    option += '<option value="' + row[0] + '" >' + row[1] + '  </option>';
-                });
-                option+=' </select>';
-                $('#emp_div').html(option);
-                $(".selectpicker").selectpicker();
+		}
+		
+		 if($('#update_employee_id').val()=='' ){
+			$('#update_employee_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_employee_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
-            }
-        }) ;
-     
-    });
+		}
+		
+		 if($('#update_ovr_start_date_id').val()=='' ){
+			$('#update_ovr_start_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_ovr_start_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		if($('#update_ovr_end_date_id').val()=='' ){
+			$('#update_ovr_end_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_ovr_end_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		 if($('#update_calc_status_id').val()=='' ){
+			$('#update_calc_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_calc_status_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		 if($('#update_overtime_period_id').val()=='' ){
+			$('#update_overtime_period_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_overtime_period_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		 if($('#update_overtime_status_id').val()=='' ){
+			$('#update_overtime_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_overtime_status_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		} 	
+		return true
+	} 
+
  
 
  
@@ -804,8 +860,7 @@ var table = $("#ovr_table").DataTable({
             option += '</select>';
              $('#emp_div_update').html(option);
             $("#update_employee_id").selectpicker();
-
-                $('#update_employee_id').val(upd_emp_id).change();
+            $('#update_employee_id').val(upd_emp_id).change();
 
             }
         }) ;
@@ -828,8 +883,9 @@ var table = $("#ovr_table").DataTable({
 								$("#badge_danger").text('');
 								 if ( strMessage==='duplicate' )
 								 {					 
-									 $("#badge_success").text('');
-									 $("#badge_danger").text("<?php echo $dil['duplicate_username']?>");
+									 $("#errorp").text('Bu isci ucun  elave is vaxti artiq sazlanib');
+									 $("#modalInsertError").modal('show');
+									  $("#ovrModal").modal('hide');
 								 }
 								 else if (strMessage.substr(1, 4)==='error')
 								 {
@@ -890,13 +946,13 @@ var table = $("#ovr_table").DataTable({
 				
 				
 				
-	$("#schUpdate").submit(function(e) {
+ 	$("#ovrUpdate").submit(function(e) {
                     e.preventDefault();
-			 //if($("#schUpdate").valid()){ 
+			  if (validUpdate()) {
                     $.ajax( {
-                        url: "schedule/schUpdate.php",
+                        url: "overtime/ovrUpdate.php",
                         method: "post",
-                        data: $("#schUpdate").serialize(),
+                        data: $("#ovrUpdate").serialize(),
                         dataType: "text",
                         success: function(strMessage) 
 						{
@@ -907,7 +963,7 @@ var table = $("#ovr_table").DataTable({
 							 }
 							 else if (strMessage==='success')
 							 { 
-								 $('#schEdit').modal('hide');
+								 $('#ovrEdit').modal('hide');
 								$('#modalUpdateSuccess').modal('show');
 								 table.ajax.reload();
 							 }
@@ -923,7 +979,7 @@ var table = $("#ovr_table").DataTable({
 						}
                     });
 					 table.ajax.reload();	
-			// }
+			}
                 });
 	  /*$("#update_sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
 	  $("#update_sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
