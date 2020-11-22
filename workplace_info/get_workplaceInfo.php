@@ -11,7 +11,7 @@ LEFT join $tbl_work_status tws on tws.level_id=tec.work_status and tws.lang='$si
  WHERE tec.emp_id != 0";
 $data2 = array();
 $data3 = array();
-//   echo $sql_parents;
+//    echo $sql_parent;
     $result_parent = $db->query($sql_parent);
     if($result_parent){
         if ($result_parent->num_rows > 0) {
@@ -31,7 +31,7 @@ $data3 = array();
                 $sub_array[7] = $row_parent['work_status'];
                 $sub_array[8] = '';
                 $sub_array[9] = '';
-                while($parent!='' && $parent!=null){
+                while($parent!='' && $parent!=null && $parent!=0){
                     $sql_parents="select tec.id,tec.category,tec.parent,tec.structure_level, tsl.title structure 
                     from $tbl_employee_category  tec
                     LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level

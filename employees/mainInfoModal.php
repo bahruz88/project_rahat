@@ -684,8 +684,8 @@
                 while($row_employees= $result_employees_asc->fetch_assoc()) {
 
                     ?>
-                    <input name="uid" id="uid" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']; ?>"/>
-                    <input name="emp_id" id="emp_id" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']; ?>"/>
+                    <input name="uid" id="uid" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']+1; ?>"/>
+                    <input name="emp_id" id="emp_id" type="hidden" class="inputFile"  value="<?php echo $row_employees['id']+1; ?>"/>
 
                     <!--                                                    <option  value="--><?php //echo $row_employees['id']; ?><!--" >--><?php //echo $row_employees['firstname']." " .$row_employees['lastname'];  ?><!--</option>-->
 

@@ -337,7 +337,7 @@ $(function () {
                         $("#modalInsertError").modal('show');
                         $("#myModal").modal('hide');
                     } else if (strMessage === 'success') {
-                        $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                        $("#successp").text('Melumatlar daxil edildi ');
                         $("#modalInsertSuccess").modal('show');
                         $("#myModal").modal('hide');
 
@@ -373,20 +373,17 @@ $(function () {
                     $("#badge_success").text('');
                     $("#badge_danger").text('');
                     if (strMessage.substr(1, 4) === 'error') {
-
-
                         $("#errorp").text(strMessage);
-
                         $("#modalInsertError").modal('show');
                         $("#myModalExit").modal('hide');
                     } else if (strMessage === 'success') {
-                        $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
-                        $("#modalInsertSuccess").modal('show');
+                        $("#successExit").text('İşçi müvəffəqiyyətlə işdən azad edildi');
+                        $("#modalExitSuccess").modal('show');
                         $("#myModalExit").modal('hide');
 
                     } else {
                         $("#errorp").text(strMessage);
-                        $("#modalInsertError").modal('show');
+                        $("#modalExitSuccess").modal('show');
                         $("#myModalExit").modal('hide');
 
                     }
@@ -610,7 +607,7 @@ $(function () {
                         $("#modalInsertError").modal('show');
                         $("#educationInsert").modal('hide');
                     } else if (strMessage === 'success') {
-                        $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                        $("#successp").text('Melumatlar daxil edildi ');
                         $("#modalInsertSuccess").modal('show');
                         $("#educationInsert").modal('hide');
 
@@ -919,7 +916,7 @@ $(function () {
                         $("#modalInsertError").modal('show');
                         $("#certificationModalInsert").modal('hide');
                     } else if (strMessage === 'success') {
-                        $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                        $("#successp").text('Melumatlar daxil edildi ');
                         $("#modalInsertSuccess").modal('show');
                         $("#certificationModalInsert").modal('hide');
 
@@ -1156,7 +1153,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#skillsInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#skillsInsertModal").modal('hide');
 
@@ -1432,7 +1429,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#langInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#langInsertModal").modal('hide');
 
@@ -1659,7 +1656,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#famInfoInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi');
                     $("#modalInsertSuccess").modal('show');
                     $("#famInfoInsertModal").modal('hide');
 
@@ -1868,6 +1865,9 @@ $(function () {
                     extend: 'excelHtml5',
                     exportOptions: {
                         columns: ':visible'
+                    },
+                    "excelStyles": {
+                        "template": "blue_medium"
                     }
                 },
                 {
@@ -1963,7 +1963,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#militaryInfoInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#militaryInfoInsertModal").modal('hide');
 
@@ -2313,7 +2313,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#drivingLicenseInfoInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#drivingLicenseInfoInsertModal").modal('hide');
 
@@ -2585,7 +2585,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#medicalInfoInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#medicalInfoInsertModal").modal('hide');
 
@@ -2861,7 +2861,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#previousPositionsInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#previousPositionsInsertModal").modal('hide');
 
@@ -3119,7 +3119,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#migrationInfoInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#migrationInfoInsertModal").modal('hide');
 
@@ -3519,7 +3519,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#empContractInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#empContractInsertModal").modal('hide');
 
@@ -3821,7 +3821,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#workExperienceInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#workExperienceInsertModal").modal('hide');
 
@@ -4155,7 +4155,7 @@ $(function () {
                     $("#modalInsertError").modal('show');
                     $("#workplaceInfoInsertModal").modal('hide');
                 } else if (strMessage === 'success') {
-                    $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
+                    $("#successp").text('Melumatlar daxil edildi ');
                     $("#modalInsertSuccess").modal('show');
                     $("#workplaceInfoInsertModal").modal('hide');
 
@@ -4433,6 +4433,9 @@ function addImage() {
         formData.append('uid', $('input[name=uid]').val());
         formData.append('empno', $('input[name=empno]').val());
         // formData.append('uid', $('input[id=uid]').val());
+        console.log('uid='+$('input[name=uid]').val())
+        console.log('emp_id='+$('input[name=emp_id]').val())
+        console.log('formData=',formData)
         e.preventDefault();
         $.ajax({
             url: "upload.php",
@@ -4446,7 +4449,6 @@ function addImage() {
             success: function (data) {
                 $('#default').css('display', 'none')
                 $("#targetLayer").html(data);
-
             },
             error: function () {
             }

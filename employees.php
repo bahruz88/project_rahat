@@ -138,7 +138,28 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-</div>	
+</div>
+
+    <!-- SUCCCES MODAL EXİT -->
+<div class="modal fade" id="modalExitSuccess">
+        <div class="modal-dialog  modal-sm">
+          <div class="modal-content bg-success">
+            <div class="modal-header">
+              <h5 class="modal-title"><?php echo  $dil["user_input_title_exit"];?></h5>
+              <button class="close" aria-label="Close" type="button" data-dismiss="modal">
+                <span aria-hidden="true">X</span></button>
+            </div>
+            <div class="modal-body">
+              <p id="successExit"> </p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button class="btn btn-outline-light" type="button" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+</div>
 
 <!-- ERROR  MODAL INSERT -->
 <div class="modal fade" id="modalInsertError">
@@ -290,7 +311,7 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
 
 
 <!-- Tab panes -->
-<div class="tab-content" style=" box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
+<div class="tab-content" style="box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
 	<div class="tab-pane active" id="employees">   
 		<table id="employee_table" class="table table-striped  table-bordered table-hover">
             <thead>

@@ -371,7 +371,7 @@ up_emp=employee.emp_id;
 						$("#modalInsertError").modal('show');
 						$("#myModal").modal('hide');
 					} else if (strMessage === 'success') {
-						$("#successp").text('Melumat muveffeqiyyetle daxil edildi');
+						$("#successp").text('Melumatlar daxil edildi ');
 						$("#modalInsertSuccess").modal('show');
 						$("#myModal").modal('hide');
 					} else {
@@ -773,7 +773,7 @@ up_emp=employee.emp_id;
 							$("#modalInsertError").modal('show');
 							$("#myAdditionModal").modal('hide');
 						} else if (strMessage === 'success') {
-							$("#successp").text('Melumat muveffeqiyyetle daxil edildi');
+							$("#successp").text('Melumatlar daxil edildi ');
 							$("#modalInsertSuccess").modal('show');
 							$("#myAdditionModal").modal('hide');
 						} else {
