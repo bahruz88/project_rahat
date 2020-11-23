@@ -160,16 +160,30 @@ $(function () {
             {
                 text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                 action: function (e, dt, node, config) {
+
+
                     $("#myModal").modal();
                     $('#imgAdd').html($('#uploadDiv').html())
-                    $('#imgUpdate').html('')
+                    $('#imgUpdate').html('');
+                    $("#myModal").find('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+                    $("#myModal").find('form').find("select option[value='0']").prop('selected', 'selected').change();
+                    $("#myModal").find('form').find("select option[value='']").prop('selected', 'selected').change();
+                    $(".selectpicker").selectpicker();
                     addImage();
                 }
             },
             {
                 text: 'İşdən çıxart <i class="fa fa-minus"></i>',
                 action: function (e, dt, node, config) {
+
                     $("#myModalExit").modal();
+                    $("#myModalExit").find('form').find("input[type=text],input[type=number], textarea,select").val("")
+
+                    $("#myModalExit").find('form').find("select option[value='0']").prop('selected', 'selected').change();
+                    $("#myModalExit").find('form').find("select option[value='']").prop('selected', 'selected').change();
+                    $(".selectpicker").selectpicker();
+
                     // addImage();
                 }
             },
@@ -1816,6 +1830,7 @@ $(function () {
 **********************************************************************************************************************
 */
     var military_info_table;
+    
     $('#militaryInfotab').click(function () {
         //console.log('Tab clikc militaryInfotab');
         $('#military_info_table').DataTable().clear().destroy();

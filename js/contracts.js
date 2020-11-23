@@ -308,9 +308,10 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 			console.log(url+'=url employee=',employee)
 			var table = '';
 			$.each(employee, function(k,value) {
-				console.log('value=',value)
+
 				console.log('value.command_no=',value.command_no)
-				if(k==0){
+				if(value.firstname){
+					console.log('k='+k+' value=',value)
 					var dis="";
 					if(value.command_no!=''){
 						dis="disabled";
@@ -480,7 +481,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 		////console.log('idDownload='+idDownload)
 
 		if(value.emp_id==idDownload){
-			if(k==0){
+			if(value.firstname){
 				////console.log('value.pos='+value.pos)
 				$("#structure1").val(value.structure1);
 				$("#structure2").val(value.structure2);

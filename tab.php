@@ -356,6 +356,7 @@ $result_commands = $db->query($commands);
             type: "POST",
             data: {company_id: company_id},
             success: function (data) {
+                console.log('data',$.parseJSON(data))
                 var d = new Date();
                 var currentDate = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
 
@@ -416,7 +417,7 @@ $result_commands = $db->query($commands);
                         $('.head_name').text(value);
                     } else if (k !== 'head_name') {
                         table += '<tr class="typeOfDocument" >' +
-                            '<td>' + (k + 1) + '</td>' +
+                            '<td>' + value.emp_id + '</td>' +
                             '<td  class="fix">' + value.lastname + ' ' + value.firstname + ' ' + value.surname + '</td>' +
                             '<td>' + cat + '</td>' +
                             '<td></td>';

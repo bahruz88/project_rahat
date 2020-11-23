@@ -19,16 +19,16 @@ $result_employee_category = $db->query($employee_category);
   <title>RahatHR</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"   media='screen,print'>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css"   media='screen,print'>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
-  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"   media='screen,print'>
   <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css"   media='screen,print'>
   <!-- JQVMap -->
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
@@ -143,38 +143,52 @@ $result_employee_category = $db->query($employee_category);
     <div class="tab-pane active" id="noStaff" style="width:800px;margin:auto;">
     </div>
     <div class="container tab-pane active" id="staff" style="display: none;margin:auto;">
-        <div class="staffText">
-        <div class="container text-center"><span class="company"></span></div>
-        <div class="container text-center"><span class="company_adress"></span><span class="company_tel"></span></div>
-        <br/>
-        <div class="row">
-            <div class="col-md-6"><span class="year"></span>-ci ilin <span class="month"></span> ayı üzrə ştat cədvəli</div>
-            <div class="col-md-6">TƏSDİQ EDİRƏM:</div>
-        </div>
 
-        <br/>
-        <div class="row">
-            <div class="col-md-6  text-right">      <span class="enterprise_head_position"></span>   </div>
-            <div class="col-md-6  text-left">       <span class="enterprise_head_fullname"></span></div>
-        </div>
-        <div class="row">
-            <div class="col-md-7">&nbsp;</div>
-            <div class="col-md-5  text-right"><span class="day"></span> <span class="month"></span> <span class="year"></span>-ci il</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">Ştat vahidi     </div>
-            <div class="col-md-1"><span id="countStaff"></span></div>
-            <div class="col-md-6">nefer</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">Aylıq əmək haqqı fondu     </div>
-            <div class="col-md-1"><span id="countWage"></span></div>
-            <div class="col-md-6">manat</div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"><span class="day"></span> <span class="month"></span> <span class="year"></span>     </div>
-            <div class="col-md-10">-ci il tarixindən qüvvəyə minir</div>
-        </div>
+        <div class="staffText">
+            <div style="width:100%;text-align: center;"><span class="company"></span></div>
+            <div style="width:100%;text-align: center;"><span class="company_adress"></span><span class="company_tel"></span></div>
+            <br/>
+            <table style="width:100%;border:0;">
+                <tr>
+                    <td style="width:50%"><span class="year"></span>-ci ilin <span class="month"></span> ayı üzrə ştat cədvəli</td>
+                    <td>TƏSDİQ EDİRƏM:</td>
+                </tr>
+                <tr style="height:20px"></tr>
+                <tr>
+                    <td  style="text-align: right;"> <span class="enterprise_head_position"></span></td>
+                    <td  style="text-align: left;"><span class="enterprise_head_fullname"></span></td>
+                </tr>
+                <tr style="height:20px"></tr>
+                <tr>
+                    <td>  </td>
+                    <td><span class="day"></span> <span class="month"></span> <span class="year"></span>-ci il </td>
+                </tr>
+                <tr style="height:20px"></tr>
+
+                <tr>
+                    <td colspan="2">
+                        <table  style="width:100%;text-align: center;">
+                            <tr>
+                                <td style="width:30%;text-align: left;">Ştat vahidi</td>
+                                <td style="width:5%;text-align: center;"><span id="countStaff"></span></td>
+                                <td style="width:65%;text-align: left;">nəfər</td>
+                            </tr>
+                            <tr>
+                                <td style="width:30%;text-align: left;">Aylıq əmək haqqı fondu</td>
+                                <td style="width:5%;text-align: center;"><span id="countWage"></span></td>
+                                <td style="width:65%;text-align: left;">manat</td>
+                            </tr>
+                            <tr style="height:20px"></tr>
+                            <tr>
+                                <td style="width:30%;text-align: left;"><span class="day"></span> <span class="month"></span> <span class="year"></span></td>
+                                <td colspan="2" style="width:70%;text-align: left;">-ci il tarixindən qüvvəyə minir</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+
+            </table>
         </div>
         <div id="staffTab" >
             <table id="stafftree">
@@ -223,9 +237,15 @@ $result_employee_category = $db->query($employee_category);
 
 	    </div>
 
+
             <div class="row staffText2" >
-                <div class="col-md-4  text-right">      <span class="enterprise_head_position"></span>   </div>
-                <div class="col-md-8  text-left">       <span class="enterprise_head_fullname"></span></div>
+                <table style="width:100%;text-align: center;">
+                    <tr style="height:20px;"></tr>
+                    <tr>
+                        <td><span class="enterprise_head_position"></span></td>
+                        <td> <span class="enterprise_head_fullname"></span></td>
+                    </tr>
+                </table>
             </div>
 
 
@@ -233,20 +253,24 @@ $result_employee_category = $db->query($employee_category);
 	</div>
 	<div class="container  tab-pane active" id="statt" style="display: none;margin:auto;">
         <div class="stattText">
-        <div class="container text-center"><strong><span class="company"></span></strong></div>
-        <div class="container text-center"><strong><span class="company_adress"></span><span class="company_tel"></span></strong></div>
+        <div style="width:100%;text-align: center;"><strong><span class="company"></span></strong></div>
+        <div style="width:100%;text-align: center;"><strong><span class="company_adress"></span><span class="company_tel"></span></strong></div>
         <br/>
-        <div class="row">
+            <table  style="width:100%;text-align: center;">
+                <tr style="height:20px;"></tr>
+                <tr>
+                    <td colspan="2"  style="width:80%;">Cəmiyyətin ştat cədvəlində aşağıdaki dəyişiklik edilmişdir.</td>
+                    <td><span class="day"></span> <span class="month"></span> <span class="year"></span></td>
+                </tr>
+                <tr style="height:20px;"></tr>
+                <tr>
+                    <td  style="width:30%;"> Dəyişiklik tarixi:</td>
+                    <td style="width:30%;"> </td>
+                    <td  style="width:40%;"></td>
+                </tr>
+                <tr style="height:20px;"></tr>
+            </table>
 
-            <div class="col-md-8">Cəmiyyətin ştat cədvəlində aşağıdaki dəyişiklik edilmişdir.</div>
-            <div class="col-md-4"><span class="day"></span> <span class="month"></span> <span class="year"></span></div>
-        </div>
-
-        <br/>
-        <div class="row">
-            <div class="col-md-3  text-left">      Dəyişiklik tarixi:   </div>
-            <div class="col-md-9  text-left">       <span class="update_date"></span></div>
-        </div>
 
         </div>
         <div id="stattTab" style="font-weight: bold;margin-top:40px;" >
@@ -315,12 +339,19 @@ $result_employee_category = $db->query($employee_category);
 
 	</div>
         <div class="row stattText2" >
-            <div class="col-md-11  text-center">   Cəmiyyətin müvafiq strukturları əmrin icrasından irəli gələn digər məsələləri həll etsinlər.</div>
-        </div>
-        <div class="row stattText2" style="font-weight: bold;" >
-            <div class="col-md-4  text-right">      <span class="enterprise_head_position"></span>   </div>
-            <div class="col-md-8  text-left">       <span class="enterprise_head_fullname"></span></div>
-        </div>
+            <table>
+                <tr>
+                    <td colspan="2">
+                    Cəmiyyətin müvafiq strukturları əmrin icrasından irəli gələn digər məsələləri həll etsinlər.
+                    </td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td style="width:40%;text-align: right;"> <span class="enterprise_head_position"></span></td>
+                    <td style="width:60%;text-align: left;"><span class="enterprise_head_fullname"></span></td>
+
+                </tr>
+            </table>
+         </div>
 
 	</div>
 
@@ -571,7 +602,7 @@ $result_employee_category = $db->query($employee_category);
                         scale: 105,dpi: 1000 }).then(function (canvas) {
                             canvas.getContext('2d');
                             getCanvas = canvas;
-                            console.log(" canvas deyisdi="+element.attr('id'))
+                            console.log(" canvas deyisdi="+element.attr('id'));
 
                         $body.removeClass("loading");
                         $("#download").css("display","block");
@@ -593,6 +624,7 @@ $result_employee_category = $db->query($employee_category);
     })
     function printDiv(divId,
                       title) {
+
         var staffchoose=$("input[name='staffSelect']:checked").val();
         if(staffchoose=='1'){
             divId="staff";
@@ -613,20 +645,14 @@ $result_employee_category = $db->query($employee_category);
 
         mywindow.document.write(`<html><head><title>${title}</title>`);
 
-        mywindow.document.write('<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >'+
-            '<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">'+
-            '<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">'+
-            '<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">'+
-            '<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">'+
-            '<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">'+
-            ' <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">'+
-            '<link rel="stylesheet" href="dist/css/adminlte.min.css">'+
-            ' <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">'+
-            ' <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">'+
-            '<link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">'+
-            '<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">'+
-            '<link rel="stylesheet" type="text/css" href="css/datatables.min.css" />'+
-            '<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">'+
+        mywindow.document.write('<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="screen,print">'+
+
+            '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="print">'+
+            '<style>@media print {\n' +
+            '  [class*="col-sm-"] {\n' +
+            '    float: left;\n' +
+            '  }\n' +
+            '}</style>'+
             '<link rel="stylesheet" href="css/staff.css">');
 
         mywindow.document.write('</head><body >');
@@ -634,6 +660,8 @@ $result_employee_category = $db->query($employee_category);
         mywindow.document.write('</body></html>');
 
         mywindow.document.close(); // necessary for IE >= 10
+        console.log('mywindow=', mywindow.document)
+
         mywindow.focus(); // necessary for IE >= 10*/
 
         mywindow.print();
@@ -671,17 +699,21 @@ $result_employee_category = $db->query($employee_category);
         var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
 
         if(staffchoose=='1'){
-            console.log('staffchoose1111='+staffchoose)
+
             $(".staffText").css("display","block");
             $(".staffText2").css("display","block");
+            console.log('staffText='+$("#staff").html())
+            console.log('staffchoose1111='+staffchoose)
             $(".stattText").css("display","none");
             $(".stattText2").css("display","none");
         }else if(staffchoose=='2'){
-            console.log('staffchoose22222='+staffchoose)
+
             $(".staffText").css("display","none");
             $(".staffText2").css("display","none");
             $(".stattText").css("display","block");
             $(".stattText2").css("display","block");
+            console.log('staffchoose22222='+staffchoose)
+            console.log('stattText='+$("#statt").html())
         }
         var imgData = getCanvas.toDataURL("image/png", 1.0);
         var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
@@ -694,6 +726,7 @@ $result_employee_category = $db->query($employee_category);
         }
 
         pdf.save("staff.pdf");
+
 
         if(staffchoose=='1'){
             console.log('staffchoose1111nn='+staffchoose)
@@ -1076,3 +1109,4 @@ $result_employee_category = $db->query($employee_category);
     });
   });
 </script>
+<div id="pp"></div>
