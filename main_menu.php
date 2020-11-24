@@ -102,6 +102,12 @@
                   <p><?php echo $dil["schedule_list"];?></p>
                 </a>
               </li>
+			  <li class="nav-item">
+                <a href="employee_schedules.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=employee_schedules" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="employee_schedules") { ?>active<?php }}?>" class="nav-link">
+                  
+                  <p><?php echo $dil["employee_schedules"];?></p>
+                </a>
+              </li>			  
                <li class="nav-item">
                 <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=overtime" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="overtime") { ?>active<?php }}?>" class="nav-link">
                   
@@ -115,7 +121,8 @@
                   <p><?php echo $dil["overtime_list"];?></p>
                 </a>
               </li>
-			  <li class="nav-item">
+
+			  			  <li class="nav-item">
                 <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=permit_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="permit_list") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["permits"];?></p>
