@@ -32,7 +32,7 @@ $message=$dil["selectone"];
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
    
- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
 <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
 
     <!-- Font Awesome -->
@@ -41,6 +41,7 @@ $message=$dil["selectone"];
   <link rel="stylesheet" href="css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck --> <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
@@ -617,45 +618,38 @@ $message=$dil["selectone"];
 </div>
 <!-- ./wrapper -->
  <!-- jQuery -->
- <script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
  
  
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
+ 
 <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="plugins/moment/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
 <!-- Summernote -->
 <script src="plugins/summernote/summernote-bs4.min.js"></script>
+ 
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
-
-
 <script type="text/javascript" src="js/datatables.min.js"></script>
-<script type="text/javascript" src="dist/js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-select.min.js"></script>	
 <script type="text/javascript" src="js/popper.min.js" ></script>
 <script type="text/javascript" src="js/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
-  
+<script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+ 
 <script>
  function validInsert(){
 	 
