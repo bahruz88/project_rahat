@@ -838,13 +838,15 @@ var table = $("#sch_table").DataTable({
                 url: "schedule/get_sch.php",
                 type: "POST"
             },"columnDefs": [ {
-			"width": "8%",
+			"width": "10%",
             "targets": -1,
             "data": null,
             "defaultContent": 
 			"<img  id='delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
 			"<img id='edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "+
+			"<img id='schset' style='cursor:pointer' src='dist/img/icons/calendar2.png' width='35' height='30'> "+
 			"<img id='timeset' style='cursor:pointer' src='dist/img/icons/time-set.png' width='22' height='22'> "
+			
         } ],
 	   dom: 'lBfrtip',
         
