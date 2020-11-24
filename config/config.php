@@ -7,6 +7,8 @@ define('DB_DATABASE', 'rhr');
 $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 
 $db->set_charset('utf8');
+
+$company_name="HRM" ;
 $tbl_users='tbl_users' ;
 $tbl_contracts='tbl_contracts' ;
 $tbl_employee_commands='tbl_employee_commands' ;
