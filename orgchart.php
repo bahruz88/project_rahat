@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>RahatHR</title>
+  <title><?php echo $company_name ; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
@@ -86,7 +86,7 @@
     <a href="index3.html" class="brand-link">
       <img src="dist/img/rhr.png" alt="RahatHR Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">RahatHR</span>
+      <span class="brand-text font-weight-light"><?php echo $company_name ; ?></span>
     </a>
 
     <!-- Sidebar -->
