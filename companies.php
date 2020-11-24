@@ -91,7 +91,7 @@ $result_roles_view = $db->query($sql_roles);
     <a href="index3.html" class="brand-link">
       <img src="dist/img/rhr.png" alt="RahatHR Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">RahatHR</span>
+      <span class="brand-text font-weight-light"><?php echo $company_name ; ?></span>
     </a>
 
     <!-- Sidebar -->
