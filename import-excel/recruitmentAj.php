@@ -1,7 +1,7 @@
  <?php
 use Phppot\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-include('../session.php');
+//include('../session.php');
 require_once ('vendor/autoload.php');
 function generateRandomString($length = 2) {
     return substr(str_shuffle(str_repeat($x='ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
