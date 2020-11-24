@@ -801,7 +801,7 @@ var table = $("#ovr_table").DataTable({
 					console.log(overtime);
 					
 			         
-					  $('#update_empid').val(overtime.empid);
+					 $('#update_empid').val(overtime.empid);
 					 $('#update_company_id').val(overtime.compid).change();
 					 
 					 
@@ -843,7 +843,7 @@ var table = $("#ovr_table").DataTable({
 		var upd_emp_id = $("#update_empid").val();
 		console.log(company_id) ;
     $.ajax({
-            url: "employees/getEmployee.php",
+            url: "employees/getEmployeeOvertime.php",
             type: "POST",
             data: { company_id:company_id},
 			dataType: 'json',

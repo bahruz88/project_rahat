@@ -32,7 +32,7 @@ $message=$dil["selectone"];
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
    
- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
 <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
 
     <!-- Font Awesome -->
@@ -41,6 +41,7 @@ $message=$dil["selectone"];
   <link rel="stylesheet" href="css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck --> <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
@@ -617,7 +618,7 @@ $message=$dil["selectone"];
 </div>
 <!-- ./wrapper -->
  <!-- jQuery -->
- <script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
