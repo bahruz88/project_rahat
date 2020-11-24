@@ -100,7 +100,7 @@ $message=$dil["selectone"];
     <a href="index3.html" class="brand-link">
       <img src="dist/img/rhr.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">RahatHR</span>
+      <span class="brand-text font-weight-light"><?php echo $company_name ; ?></span>
     </a>
 
     <!-- Sidebar -->
@@ -945,13 +945,12 @@ var table = $("#sch_table").DataTable({
                 url: "schedule/get_sch.php",
                 type: "POST"
             },"columnDefs": [ {
-			"width": "10%",
+			"width": "6%",
             "targets": -1,
             "data": null,
             "defaultContent": 
 			"<img  id='delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
 			"<img id='edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "+
-			"<img id='schset' style='cursor:pointer' src='dist/img/icons/calendar2.png' width='35' height='30'> "+
 			"<img id='timeset' style='cursor:pointer' src='dist/img/icons/time-set.png' width='22' height='22'> "
 			
         } ],
@@ -1005,14 +1004,7 @@ var table = $("#sch_table").DataTable({
 		GetSchTimes(data[0]) ;
     } );
 	
-  /*Button  click  on grid */
-	$('#sch_table tbody').on( 'click', '#schset', function () {
-        var data = table.row( $(this).parents('tr') ).data();
-        document.getElementById("timeschid").value = data[0];	
-				
-		$('#schAddModal').modal('show');
-		//GetSchTimes(data[0]) ;
-    } );
+ 
 
   $('#sch_table tbody').on( 'click', '#edit', function () {
 	  
