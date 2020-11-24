@@ -32,7 +32,7 @@ $message=$dil["selectone"];
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
    
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
+ <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
 <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
 
     <!-- Font Awesome -->
@@ -59,38 +59,12 @@ $message=$dil["selectone"];
   <link href="css/google_fonts.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
      
-  <!--  
+  
   <style>
-        .dataTables_length {
-            margin-bottom: 10px;
-        }
-        
-        .dataTables_length select {
-            border: 1px solid #e4e4e4;
-        }
-        
-        .dt-buttons a {
-            margin-left: 12px;
-            font-size: 12px;
-            padding: 6px;
-            border: 1px solid #e4e4e4;
-            background: #FFF;
-            box-shadow: 0px 0px 14px 0px #ececec;
-        }
-        
-        .dataTables_filter input {
-            border: 1px solid #e4e4e4;
-        }
-        
-        .table-striped tbody tr {
-            line-height: 10px;
-			font-size:12px;
-        }
-		.table-striped thead tr {
-            line-height: 13px;
-			font-size:14px;
-        }
-    </style>-->
+       .schgrid {
+	   font-size:14px; width:80px;
+	   }
+    </style> 
 </head>
  
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -185,7 +159,7 @@ $message=$dil["selectone"];
         <div class="modal-dialog  modal-sm">
           <div class="modal-content bg-success">
             <div class="modal-header">
-              <h5 class="modal-title"><?php echo  $dil["user_input_title"];?></h5>
+              <h5 class="modal-title"><?php echo  $dil["input_error_title"];?></h5>
               <button class="close" aria-label="Close" type="button" data-dismiss="modal">
                 <span aria-hidden="true">X</span></button>
             </div>
@@ -248,7 +222,6 @@ $message=$dil["selectone"];
         <!-- /.modal-dialog -->
       </div>
 	  
-	  
   <!--SCH İNSERT MODAL -->
   <div class="modal fade" id="schModal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -263,12 +236,12 @@ $message=$dil["selectone"];
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
+					<div class="card-body" >
 						
 						 <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
                             <div class="col-sm-6">
-                                <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')" data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                <select  data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
                                     <?php
                                     $result_company = $db->query($sql_employee_company);
                                     if ($result_company->num_rows > 0) {
@@ -282,7 +255,7 @@ $message=$dil["selectone"];
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="schname_id" name="schname_name" placeholder="<?php echo $dil["schname"];?>" />
+									<input type="text" class="form-control" id="schname_id" name="schname_name" placeholder="<?php echo $dil["schname"];?>"  />
 								</div>
 							</div>
 							
@@ -298,26 +271,12 @@ $message=$dil["selectone"];
 									<input type="text" class="form-control" id="sch_expire_date_id" name="sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
 								</div>
 							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
-								<div class="col-sm-6">
-						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="tm_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
-								 	<?php 
-									 $result_tm_type = $db->query($sql_tm_type);
-										if ($result_tm_type->num_rows > 0) {
-										while($row_tm_type= $result_tm_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_tm_type['tm_id']; ?>" ><?php echo $row_tm_type['tm_descr'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>
+							
+						
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="sch_type"><?php echo $dil["sch_type"];?></label>
 								<div class="col-sm-6">
-						<select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true" name="sch_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
+						<select   data-live-search="true" name="sch_type_name" id="sch_type_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
 								 	<?php 
 									 $result_sch_type = $db->query($sql_sch_type);
 										if ($result_sch_type->num_rows > 0) {
@@ -331,112 +290,12 @@ $message=$dil["selectone"];
 						</div>
 							</div>	
 							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="reduce_type"><?php echo $dil["reduce_type"];?></label>
-								<div class="col-sm-6">
-						<select    data-live-search="true" name="reduce_type_name" id="reduce_type" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
-								 	<?php 
-									 $result_reduce_type = $db->query($sql_reduce_type);
-										if ($result_reduce_type->num_rows > 0) {
-										while($row_reduce_type= $result_reduce_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_reduce_type['type_id']; ?>" ><?php echo $row_reduce_type['type_descr'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>	
 							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="red_working_hours"><?php echo $dil["red_working_hours"];?></label>
-								<div class="col-sm-6">
-								
-								<select    name="red_working_hours_name" id="red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
-								 
-										<option  value="1" >1</option>
-										<option  value="2" >2</option>
-										<option  value="3" >3</option>
-										<option  value="4" >4</option>
-										<option  value="5" >5</option>
-										<option  value="6" >6</option>
-										<option  value="7" >7</option>
-										<option  value="8" >8</option>
-										<option  value="9" >9</option>
-										<option  value="10" >10</option>
- 									
-								</select>
- 
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="reduce_reason"><?php echo $dil["reduce_reason"];?></label>
-								<div class="col-sm-6">
-							
-								<select   data-live-search="true" name="reduce_reason_name" id="reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>" >
-											<?php 
-											 $result_reduce_reason = $db->query($sql_reduce_reason);
-												if ($result_reduce_reason->num_rows > 0) {
-												while($row_reduce_reason= $result_reduce_reason->fetch_assoc()) {
-													
-												?>
-												<option  value="<?php echo $row_reduce_reason['reason_id']; ?>" ><?php echo $row_reduce_reason['res_desc'] ;  ?></option>
-													
-												<?php } }?>
-								</select>
-							</div>
-							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="start_time"><?php echo $dil["sch_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="start_time_id" name="start_time_name" placeholder="<?php echo $dil["sch_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="end_time"><?php echo $dil["sch_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="end_time_id" name="end_time_name" placeholder="<?php echo $dil["sch_end_time"];?>" />
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="break_start_time"><?php echo $dil["break_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="break_start_time_id" name="break_start_time_name" placeholder="<?php echo $dil["break_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="break_end_time"><?php echo $dil["break_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="break_end_time_id" name="break_end_time_name" placeholder="<?php echo $dil["break_end_time"];?>" />
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="dinner_start_time"><?php echo $dil["dinner_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="dinner_start_time_id" name="dinner_start_time_name" placeholder="<?php echo $dil["dinner_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="dinner_end_time"><?php echo $dil["dinner_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="dinner_end_time_id" name="dinner_end_time_name" placeholder="<?php echo $dil["dinner_end_time"];?>" />
-								</div>
-							</div>
 							
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["sch_night_time"];?></label>
 								<div class="col-sm-6">
-		                        <select required oninvalid="this.setCustomValidity('<?php echo  $message; ?>')"  data-live-search="true"  name="night_time_name"  id="night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
+		                        <select   data-live-search="true"  name="night_time_name"  id="night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
                                     <?php
                                     $result_yesno = $db->query($sql_yesno); 
                                     if ($result_yesno->num_rows > 0) {
@@ -465,6 +324,144 @@ $message=$dil["selectone"];
       
     </div>
   </div>
+   <!--SCH  TIMES  MODAL -->
+  <div class="modal fade" id="schTimeModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    <form id="schTimeInsert" method="post" class="form-horizontal" action="">
+      <!-- Modal content-->
+      <div class="modal-content">
+      
+        <div class="modal-body"  >
+		 
+		 
+                <table class="table table-condensed table-bordered" style="width:100% ;">
+                  <thead>
+                    <tr>
+                      <th  style="width:10px;"></th>
+                      <th  style="text-align:center; width:30px;" colspan="2">Qrafik üzrə iş</th>
+					  <th  style="text-align:center; width:30px;" colspan="2">Fasilə </th>
+					  <th  style="text-align:center; width:30px;" colspan="2">Nahar fasiləsi</th>
+                      <th style="width:80px;"> Statusu </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><b>B.E</b></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="start_time_id_1"        name="name_start_time_1" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="end_time_id_1"          name="name_end_time_1" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_start_time_id_1" name="name_breake_start_time_1" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_end_time_id_1"   name="name_breake_end_time_1" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_start_time_id_1" name="name_dinner_start_time_1" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_end_time_id_1"   name="name_dinner_end_time_1" placeholder="Bitmə" /></td>
+					
+ 				<td>
+				 <input type="checkbox" name="name_status_id_1" data-bootstrap-switch id="status_id_1"  checked=""   data-off-color="danger" data-on-color="success" >
+				</td>
+                       
+                    </tr>
+                    <tr>
+                      <td><b>Ç.A</b></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="start_time_id_2"         name="name_start_time_2" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="end_time_id_2"           name="name_end_time_2" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_start_time_id_2"  name="name_breake_start_time_2" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_end_time_id_2"    name="name_breake_end_time_2" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_start_time_id_2"  name="name_dinner_start_time_2" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_end_time_id_2"    name="name_dinner_end_time_2" placeholder="Bitmə" /></td>
+					
+						<td>
+						 <input type="checkbox" name="name_status_id_2" data-bootstrap-switch id="status_id_2" checked=""  data-off-color="danger" data-on-color="success">
+						</td>
+                      
+                    </tr>
+				    <tr>
+                      <td><b>Ç</b></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="start_time_id_3"        name="name_start_time_3" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="end_time_id_3"          name="name_end_time_3" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_start_time_id_3" name="name_breake_start_time_3" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_end_time_id_3"   name="name_breake_end_time_3" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_start_time_id_3" name="name_dinner_start_time_3" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_end_time_id_3"   name="name_dinner_end_time_3" placeholder="Bitmə" /></td>
+					
+						<td>
+						 <input type="checkbox" name="name_status_id_3" data-bootstrap-switch checked="" id ="status_id_3"  data-off-color="danger" data-on-color="success">
+						</td> 
+                    </tr>
+					
+                    <tr>
+                      <td><b>C.A</b></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="start_time_id_4"        name="name_start_time_4" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="end_time_id_4"   		  name="name_end_time_4" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_start_time_id_4" name="name_breake_start_time_4" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_end_time_id_4"   name="name_breake_end_time_4" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_start_time_id_4" name="name_dinner_start_time_4" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_end_time_id_4"   name="name_dinner_end_time_4" placeholder="Bitmə" /></td>
+					
+				 				<td>
+				 <input type="checkbox" name="name_status_id_4" data-bootstrap-switch checked="" id ="status_id_4"  data-off-color="danger" data-on-color="success">
+				</td>
+                      
+                    </tr>
+                    <tr>
+                      <td><b>C</b></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="start_time_id_5"        name="name_start_time_5" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="end_time_id_5"          name="name_end_time_5" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_start_time_id_5" name="name_breake_start_time_5" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_end_time_id_5"   name="name_breake_end_time_5" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_start_time_id_5" name="name_dinner_start_time_5" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_end_time_id_5"   name="name_dinner_end_time_5" placeholder="Bitmə" /></td>
+					
+				<td>
+			<div>
+				 <input type="checkbox" name="name_status_id_5" data-bootstrap-switch checked="" id ="status_id_5"   data-off-color="danger" data-on-color="success">
+            </div>
+				</td>
+                      
+                    </tr>
+                    <tr>
+                      <td><b>Ş</b></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="start_time_id_6"        name="name_start_time_6" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="end_time_id_6"          name="name_end_time_6" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_start_time_id_6" name="name_breake_start_time_6" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_end_time_id_6"   name="name_breake_end_time_6" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_start_time_id_6" name="name_dinner_start_time_6" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_end_time_id_6"   name="name_dinner_end_time_6" placeholder="Bitmə" /></td>
+ 				<td>
+				 <input type="checkbox" name="name_status_id_6" data-bootstrap-switch checked="" id ="status_id_6"    data-off-color="danger" data-on-color="success" >
+				</td>
+                      
+                    </tr>
+                    <tr>
+                      <td><b>B</b></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="start_time_id_7"        name="name_start_time_7" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="end_time_id_7"          name="name_end_time_7" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_start_time_id_7" name="name_breake_start_time_7" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="breake_end_time_id_7"   name="name_breake_end_time_7" placeholder="Bitmə" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_start_time_id_7" name="name_dinner_start_time_7" placeholder="Başlama" /></td>
+                      <td style="width:30px;"><input type="text" class="form-control schgrid" id="dinner_end_time_id_7"   name="name_dinner_end_time_7" placeholder="Bitmə" /></td>
+					
+ 				<td>
+				 <input type="checkbox" name="name_status_id_7" data-bootstrap-switch  checked=""  id ="status_id_7"    data-off-color="danger" data-on-color="success" >
+				</td>
+                      
+                    </tr>					
+                  </tbody>
+                </table>
+            
+	 
+			 
+   
+		</div>
+        <div class="modal-footer">
+						 
+		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button>
+		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
+		<input type="hidden" id="timeschid" name="timeschid_name" value="" /> 	
+        </div>	
+		</form>
+      </div>
+      
+    </div>
+  </div>
  
  
  
@@ -481,7 +478,7 @@ $message=$dil["selectone"];
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
+					<div class="card-body"  >
 						
 						 <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
@@ -517,22 +514,8 @@ $message=$dil["selectone"];
 									<input type="text" class="form-control" id="update_sch_expire_date_id" name="update_sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
 								</div>
 							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
-								<div class="col-sm-6">
-						<select   data-live-search="true"  id="update_tm_type_id" name="update_tm_type_name" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
-								 	<?php 
-									 $result_tm_type = $db->query($sql_tm_type);
-										if ($result_tm_type->num_rows > 0) {
-										while($row_tm_type= $result_tm_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_tm_type['tm_id']; ?>" ><?php echo $row_tm_type['tm_descr'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>
+ 
+							
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="sch_type"><?php echo $dil["sch_type"];?></label>
 								<div class="col-sm-6">
@@ -549,109 +532,7 @@ $message=$dil["selectone"];
 						</select>
 						</div>
 							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="reduce_type"><?php echo $dil["reduce_type"];?></label>
-								<div class="col-sm-6">
-						<select    data-live-search="true" name="update_reduce_type_name" id="update_reduce_type_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
-								 	<?php 
-									 $result_reduce_type = $db->query($sql_reduce_type);
-										if ($result_reduce_type->num_rows > 0) {
-										while($row_reduce_type= $result_reduce_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_reduce_type['type_id']; ?>" ><?php echo $row_reduce_type['type_descr'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="red_working_hours"><?php echo $dil["red_working_hours"];?></label>
-								<div class="col-sm-6">
-								
-								<select    name="update_red_working_hours_name" id="update_red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
-								 
-										<option  value="1" >1</option>
-										<option  value="2" >2</option>
-										<option  value="3" >3</option>
-										<option  value="4" >4</option>
-										<option  value="5" >5</option>
-										<option  value="6" >6</option>
-										<option  value="7" >7</option>
-										<option  value="8" >8</option>
-										<option  value="9" >9</option>
-										<option  value="10" >10</option>
- 									
-								</select>
- 
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="reduce_reason"><?php echo $dil["reduce_reason"];?></label>
-								<div class="col-sm-6">
-							
-								<select   data-live-search="true" name="update_reduce_reason_name" id="update_reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>" >
-											<?php 
-											 $result_reduce_reason = $db->query($sql_reduce_reason);
-												if ($result_reduce_reason->num_rows > 0) {
-												while($row_reduce_reason= $result_reduce_reason->fetch_assoc()) {
-													
-												?>
-												<option  value="<?php echo $row_reduce_reason['reason_id']; ?>" ><?php echo $row_reduce_reason['res_desc'] ;  ?></option>
-													
-												<?php } }?>
-								</select>
-							</div>
-							</div>	
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="start_time"><?php echo $dil["sch_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_start_time_id" name="update_start_time_name" placeholder="<?php echo $dil["sch_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="end_time"><?php echo $dil["sch_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_end_time_id" name="update_end_time_name" placeholder="<?php echo $dil["sch_end_time"];?>" />
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="break_start_time"><?php echo $dil["break_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_break_start_time_id" name="update_break_start_time_name" placeholder="<?php echo $dil["break_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="break_end_time"><?php echo $dil["break_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_break_end_time_id" name="update_break_end_time_name" placeholder="<?php echo $dil["break_end_time"];?>" />
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="dinner_start_time"><?php echo $dil["dinner_start_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_dinner_start_time_id" name="update_dinner_start_time_name" placeholder="<?php echo $dil["dinner_start_time"];?>" />
-								</div>
-							</div>
- 
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="dinner_end_time"><?php echo $dil["dinner_end_time"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="update_dinner_end_time_id" name="update_dinner_end_time_name" placeholder="<?php echo $dil["dinner_end_time"];?>" />
-								</div>
-							</div>
-							
+ 							
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["sch_night_time"];?></label>
 								<div class="col-sm-6">
@@ -691,6 +572,7 @@ $message=$dil["selectone"];
  
  
  <div id="filtercol"></div>
+                  
 		   <table id="sch_table" class="table table-striped  table-bordered table-hover">
                 <thead>
                <tr>
@@ -700,8 +582,9 @@ $message=$dil["selectone"];
 						<th><?php echo $dil["company_name"];?></th>
 						<th><?php echo $dil["sch_start_date"];?></th>
 						<th><?php echo $dil["sch_expire_date"];?></th>
-						<th><?php echo $dil["tm_type"];?></th>
 						<th><?php echo $dil["sch_type"];?></th>
+						<!--<th><?php echo $dil["tm_type"];?></th>
+						
 						<th><?php echo $dil["reduce_type"];?></th>
 						<th><?php echo $dil["red_working_hours"];?></th>
 						<th><?php echo $dil["reduce_reason"];?></th>
@@ -711,7 +594,7 @@ $message=$dil["selectone"];
 						<th><?php echo $dil["break_start_time"];?></th>
 						<th><?php echo $dil["break_end_time"];?></th>
 						<th><?php echo $dil["dinner_start_time"];?></th>
-						<th><?php echo $dil["dinner_end_time"];?></th>
+						<th><?php echo $dil["dinner_end_time"];?></th>-->
 						<th><?php echo $dil["sch_night_time"];?></th>
 						<th>Action</th>
                    </tr>
@@ -734,7 +617,7 @@ $message=$dil["selectone"];
 </div>
 <!-- ./wrapper -->
  <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+ <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -774,8 +657,130 @@ $message=$dil["selectone"];
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
   
 <script>
+ function validInsert(){
+	 
+		if($('#company_id').val()=='' ){
+			$('#company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{ 
+			$('#company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		 
+		
+		
+		if($('#schname_id').val()=='' ){
+			$('#schname_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#schname_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
 
+		 		
+		
+		
+		if($('#sch_start_date_id').val()=='' ){
+			$('#sch_start_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#sch_start_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}	
+
+		 	
+		
+
+		if($('#sch_expire_date_id').val()=='' ){
+			$('#sch_expire_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#sch_expire_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		 
+
+		if($('#sch_type_id').val()=='' ){
+			$('#sch_type_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#sch_type_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+
+		 		
+		
+		
+		if($('#night_time_id').val()=='' ){
+			$('#night_time_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#night_time_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		 
+		
+		return true
+
+	} 
+	
+	 function validUpdate(){
+	 
+		if($('#update_company_id').val()=='' ){
+			$('#update_company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{ 
+			$('#update_company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+ 
+		if($('#update_schname_id').val()=='' ){
+			$('#update_schname_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_schname_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}		
+
+		if($('#update_sch_start_date_id').val()=='' ){
+			$('#update_sch_start_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_sch_start_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}	
+		
+		if($('#update_sch_expire_date_id').val()=='' ){
+			$('#update_sch_expire_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_sch_expire_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+
+		if($('#update_sch_type_id').val()=='' ){
+			$('#update_sch_type_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_sch_type_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}		
+		
+		if($('#update_night_time_id').val()=='' ){
+			$('#update_night_time_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#update_night_time_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+		}
+		
+		return true
+
+	} 
+	
   $(function () {
+	  
+	  
+	  
+	  
+	  
+/*on  off load  script 	  */
+	  $("#schTimeModal").on("shown.bs.modal",function(){
+		  $("input[data-bootstrap-switch]").each(function(){
+		  $(this).bootstrapSwitch('state', $(this).prop('checked'));
+			});
+        });
 
 /*LOAD  USER TABLE 
 	$("#sch_table").append(
@@ -806,12 +811,13 @@ var table = $("#sch_table").DataTable({
                 url: "schedule/get_sch.php",
                 type: "POST"
             },"columnDefs": [ {
-			"width": "4%",
+			"width": "8%",
             "targets": -1,
             "data": null,
             "defaultContent": 
 			"<img  id='delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>"+
-			"<img id='edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+			"<img id='edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "+
+			"<img id='timeset' style='cursor:pointer' src='dist/img/icons/time-set.png' width='22' height='22'> "
         } ],
 	   dom: 'lBfrtip',
         
@@ -839,28 +845,7 @@ var table = $("#sch_table").DataTable({
 			 "lengthMenu": [
                 [10, 20, 50, -1],
                 [10, 20, 50, "All"]
-            ],
-			   initComplete: function () {
-            this.api().columns(3).every( function () {
-                var column = this;
-                var select = $('<a class=" dt-button buttons-excel buttons-html5"><?php echo $dil["filter_by_company"];?> :  <select  id="selectf"><option value=""><?php echo $dil["all_data"];?> </option></select></a>')
-                    .appendTo( ".dt-buttons" );
-                    $( "#selectf" ).on( 'change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
- 
-                        column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                    } );
- 
-                column.data().unique().sort().each( function ( d, j ) {
-                    $("#selectf").append( '<option value="'+d+'">'+d+'</option>' )
-                } );
-            } );
-        }//initComplete
-
+            ] 
         });
 		
 		
@@ -870,9 +855,20 @@ var table = $("#sch_table").DataTable({
 	$('#sch_table tbody').on( 'click', '#delete', function () {
         var data = table.row( $(this).parents('tr') ).data();
         document.getElementById("schid").value = data[0];
+		console.log(document.getElementById("schid").value );
+		
 		$('#modalDelete').modal('show');
     } );
-	
+
+  /*Button  click  on grid */
+	$('#sch_table tbody').on( 'click', '#timeset', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        document.getElementById("timeschid").value = data[0];	
+				
+		$('#schTimeModal').modal('show');
+		GetSchTimes(data[0]) ;
+    } );
+
 
   $('#sch_table tbody').on( 'click', '#edit', function () {
 	  
@@ -904,41 +900,192 @@ var table = $("#sch_table").DataTable({
 					var schedule = JSON.parse(sch_data);
 					// Assing existing values to the modal popup fields
 					console.log(schedule);
-					/*$("#update_username").val(user.username);
-					$("#update_firstname").val(user.firstname);*/
+				 
 					$("#update_sch_start_date_id").val(schedule.start_date);
 					$("#update_sch_expire_date_id").val(schedule.expire_date);
 					$("#update_schname_id").val(schedule.sch_name);
 					$('#update_company_id').val(schedule.compid).change();
-					$('#update_tm_type_id').val(schedule.tm_id).change();
 					$('#update_sch_type_id').val(schedule.sch_type_id).change();
-					$('#update_reduce_type_id').val(schedule.reduce_type).change();
-					$('#update_red_working_hours_id').val(schedule.red_working_hours).change();
-					$('#update_reduce_reason_id').val(schedule.reason_id).change();
-					$("#update_start_time_id").val(schedule.start_time);
-					$("#update_end_time_id").val(schedule.end_time);
-					$("#update_break_start_time_id").val(schedule.break_start_time);
-					$("#update_break_end_time_id").val(schedule.break_end_time);
-					$("#update_dinner_start_time_id").val(schedule.dinner_start_time);
-					$("#update_dinner_end_time_id").val(schedule.dinner_end_time);
 					$('#update_night_time_id').val(schedule.night_time).change();
-					/*
-					$('#update_userlevel').val([1,2,3]).change();*/
-					//$('#update_userlevel').selectpicker('val', [1,2,3]);
-				     
 					$('#schEdit').modal('show');
 					
 				}
 			);
 
 }
+
+
+	 function GetSchTimes(schid) 
+	 {
+			$.post("schedule/getTimeSchDetail.php", 
+				{
+					schid: schid
+				},
+				function (sch_data, status) 
+				{
+				
+
+				// PARSE json data
+					var schedule = JSON.parse(sch_data);
+					// Assing existing values to the modal popup fields
+					console.log(schedule.work_day_status_1
+					+'-'+schedule.work_day_status_2
+					+'-'+schedule.work_day_status_3
+					+'-'+schedule.work_day_status_4
+					+'-'+schedule.work_day_status_5
+					+'-'+schedule.work_day_status_6
+					+'-'+schedule.work_day_status_7
+					);
  
+					 
+					if (schedule.work_day_status_1 == 1  ){
+					$("#status_id_1").bootstrapSwitch('state', true,false);
+					}else{
+						$("#status_id_1").bootstrapSwitch('state', false,false);
+					}
+					
+					if (schedule.work_day_status_2 == 1  ){
+					$("#status_id_2").bootstrapSwitch('state', true,false);
+					}else{
+						$("#status_id_2").bootstrapSwitch('state', false,false);
+					}
+					
+					if (schedule.work_day_status_3 == 1  ){
+					$("#status_id_3").bootstrapSwitch('state', true,false);
+					}else{
+						$("#status_id_3").bootstrapSwitch('state', false,false);
+					}
+					
+					if (schedule.work_day_status_4 == 1  ){
+					$("#status_id_4").bootstrapSwitch('state', true,false);
+					}else{
+						$("#status_id_4").bootstrapSwitch('state', false,false);
+					}
+										
+					if (schedule.work_day_status_5 == 1  ){
+					$("#status_id_5").bootstrapSwitch('state', true,false);
+					}else{
+						$("#status_id_5").bootstrapSwitch('state', false,false);
+					}
+					
+					if (schedule.work_day_status_6 == 1  ){
+					$("#status_id_6").bootstrapSwitch('state', true,false);
+					}else{
+						$("#status_id_6").bootstrapSwitch('state', false,false);
+					}
+					
+					if (schedule.work_day_status_7 == 1  ){
+					$("#status_id_7").bootstrapSwitch('state', true,false);
+					}else{
+						$("#status_id_7").bootstrapSwitch('state', false,false);
+					}
+					
+ 
+					$("#start_time_id_1").val(schedule.start_time_1);
+					$("#start_time_id_2").val(schedule.start_time_2);
+					$("#start_time_id_3").val(schedule.start_time_3);
+					$("#start_time_id_4").val(schedule.start_time_4);
+					$("#start_time_id_5").val(schedule.start_time_5);
+					$("#start_time_id_6").val(schedule.start_time_6);
+					$("#start_time_id_7").val(schedule.start_time_7);
+
+ 					$("#end_time_id_1").val(schedule.end_time_1);
+					$("#end_time_id_2").val(schedule.end_time_2);
+					$("#end_time_id_3").val(schedule.end_time_3);
+					$("#end_time_id_4").val(schedule.end_time_4);
+					$("#end_time_id_5").val(schedule.end_time_5);
+					$("#end_time_id_6").val(schedule.end_time_6);
+					$("#end_time_id_7").val(schedule.end_time_7);					 
+					
+					$("#breake_start_time_id_1").val(schedule.breake_start_time_1);
+					$("#breake_start_time_id_2").val(schedule.breake_start_time_2);
+					$("#breake_start_time_id_3").val(schedule.breake_start_time_3);
+					$("#breake_start_time_id_4").val(schedule.breake_start_time_4);
+					$("#breake_start_time_id_5").val(schedule.breake_start_time_5);
+					$("#breake_start_time_id_6").val(schedule.breake_start_time_6);
+					$("#breake_start_time_id_7").val(schedule.breake_start_time_7);	
+
+					$("#breake_end_time_id_1").val(schedule.breake_end_time_1);
+					$("#breake_end_time_id_2").val(schedule.breake_end_time_2);
+					$("#breake_end_time_id_3").val(schedule.breake_end_time_3);
+					$("#breake_end_time_id_4").val(schedule.breake_end_time_4);
+					$("#breake_end_time_id_5").val(schedule.breake_end_time_5);
+					$("#breake_end_time_id_6").val(schedule.breake_end_time_6);
+					$("#breake_end_time_id_7").val(schedule.breake_end_time_7);					   
+
+					$("#dinner_start_time_id_1").val(schedule.dinner_start_time_1);
+					$("#dinner_start_time_id_2").val(schedule.dinner_start_time_2);
+					$("#dinner_start_time_id_3").val(schedule.dinner_start_time_3);
+					$("#dinner_start_time_id_4").val(schedule.dinner_start_time_4);
+					$("#dinner_start_time_id_5").val(schedule.dinner_start_time_5);
+					$("#dinner_start_time_id_6").val(schedule.dinner_start_time_6);
+					$("#dinner_start_time_id_7").val(schedule.dinner_start_time_7);
+
+					$("#dinner_end_time_id_1").val(schedule.dinner_end_time_1);
+					$("#dinner_end_time_id_2").val(schedule.dinner_end_time_2);
+					$("#dinner_end_time_id_3").val(schedule.dinner_end_time_3);
+					$("#dinner_end_time_id_4").val(schedule.dinner_end_time_4);
+					$("#dinner_end_time_id_5").val(schedule.dinner_end_time_5);
+					$("#dinner_end_time_id_6").val(schedule.dinner_end_time_6);
+					$("#dinner_end_time_id_7").val(schedule.dinner_end_time_7);						
+				}
+			);
+
+}
+  /*USER MELUMATLARI  DAXIL  EDILIR  */
+		$("#schTimeInsert").submit(function(e)
+		{
+			console.log(document.getElementById("status_id_6").value );
+                    e.preventDefault();
+					// if (validInsert()) {
+			 
+                    $.ajax( {
+                        url: "schedule/schTimeUpdate.php",
+                        method: "post",
+                        data: $("#schTimeInsert").serialize(),
+                        dataType: "text",
+                        success: function(strMessage)
+						{
+								$("#badge_success").text('');
+								$("#badge_danger").text('');
+								 if ( strMessage==='duplicate' )
+								 {					 
+									 $("#badge_success").text('');
+									 $("#badge_danger").text("<?php echo $dil['duplicate_username']?>");
+								 }
+								 else if (strMessage.substr(1, 4)==='error')
+								 {
+									  
+									 
+									 $("#errorp").text(strMessage);
+									 $("#modalInsertError").modal('show');
+									 $("#schTimeModal").modal('hide');
+								 }
+								 else if (strMessage==='success')
+								 {
+									 $("#successp").text('Məlumatlar müvəffəqiyyətlə yadda saxlanıldı .');
+									 $("#modalInsertSuccess").modal('show');
+									 $("#schTimeModal").modal('hide');
+									 table.ajax.reload();
+								 }
+								 else  {
+									  $("#errorp").text(strMessage);
+									 $("#modalInsertError").modal('show');
+									 $("#schTimeModal").modal('hide');
+									 
+								 }
+						}
+                    });
+				     
+					$( "#schTimeInsert" ).get(0).reset();
+			//}
+        });
  /*USER MELUMATLARI  DAXIL  EDILIR  */
 		$("#schInsert").submit(function(e)
 		{
                     e.preventDefault();
-					if($("#schInsert").valid())
-			{ 
+					 if (validInsert()) {
+			 
                     $.ajax( {
                         url: "schedule/schInsert.php",
                         method: "post",
@@ -1014,7 +1161,7 @@ var table = $("#sch_table").DataTable({
 				
 	$("#schUpdate").submit(function(e) {
                     e.preventDefault();
-			 //if($("#schUpdate").valid()){ 
+			  if (validUpdate()) {
                     $.ajax( {
                         url: "schedule/schUpdate.php",
                         method: "post",
@@ -1045,8 +1192,9 @@ var table = $("#sch_table").DataTable({
 						}
                     });
 					 table.ajax.reload();	
-			// }
+			 }
                 });
+
 	  $("#update_sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
 	  $("#update_sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });	
 	  $('#update_start_time_id').datetimepicker({ format: 'HH:mm'   });
@@ -1058,13 +1206,54 @@ var table = $("#sch_table").DataTable({
 	  
 	  $("#sch_start_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
 	  $("#sch_expire_date_id").datetimepicker({ format: 'DD/MM/YYYY'  });
-	  $('#end_time_id').datetimepicker({ format: 'HH:mm'   });
-	  $('#start_time_id').datetimepicker({ format: 'HH:mm'   });
-	  $('#break_end_time_id').datetimepicker({ format: 'HH:mm'   });
-	  $('#break_start_time_id').datetimepicker({ format: 'HH:mm'   });
-	  $('#dinner_end_time_id').datetimepicker({ format: 'HH:mm'   });
-	  $('#dinner_start_time_id').datetimepicker({ format: 'HH:mm'   });
-	
+	  
+	  $('#start_time_id_1').datetimepicker({ format: 'HH:mm'   });
+      $('#start_time_id_2').datetimepicker({ format: 'HH:mm'   });
+      $('#start_time_id_3').datetimepicker({ format: 'HH:mm'   });
+      $('#start_time_id_4').datetimepicker({ format: 'HH:mm'   });
+      $('#start_time_id_5').datetimepicker({ format: 'HH:mm'   });
+      $('#start_time_id_6').datetimepicker({ format: 'HH:mm'   });
+      $('#start_time_id_7').datetimepicker({ format: 'HH:mm'   });
+	  
+	  $('#end_time_id_1').datetimepicker({ format: 'HH:mm'   });
+	  $('#end_time_id_2').datetimepicker({ format: 'HH:mm'   });
+	  $('#end_time_id_3').datetimepicker({ format: 'HH:mm'   });
+	  $('#end_time_id_4').datetimepicker({ format: 'HH:mm'   });
+	  $('#end_time_id_5').datetimepicker({ format: 'HH:mm'   });
+	  $('#end_time_id_6').datetimepicker({ format: 'HH:mm'   });
+	  $('#end_time_id_7').datetimepicker({ format: 'HH:mm'   });	  
+	  
+      $('#breake_start_time_id_1').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_start_time_id_2').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_start_time_id_3').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_start_time_id_4').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_start_time_id_5').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_start_time_id_6').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_start_time_id_7').datetimepicker({ format: 'HH:mm'   });
+	  
+      $('#breake_end_time_id_1').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_end_time_id_2').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_end_time_id_3').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_end_time_id_4').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_end_time_id_5').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_end_time_id_6').datetimepicker({ format: 'HH:mm'   });
+      $('#breake_end_time_id_7').datetimepicker({ format: 'HH:mm'   });
+	  
+      $('#dinner_start_time_id_1').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_start_time_id_2').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_start_time_id_3').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_start_time_id_4').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_start_time_id_5').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_start_time_id_6').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_start_time_id_7').datetimepicker({ format: 'HH:mm'   });
+      
+	  $('#dinner_end_time_id_1').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_end_time_id_2').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_end_time_id_3').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_end_time_id_4').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_end_time_id_5').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_end_time_id_6').datetimepicker({ format: 'HH:mm'   });
+      $('#dinner_end_time_id_7').datetimepicker({ format: 'HH:mm'   });
   });
 </script>
 </body>
