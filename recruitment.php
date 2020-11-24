@@ -42,7 +42,29 @@ $site_lang=$_SESSION['dil'] ;
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
 <!--    <link rel="stylesheet" type="text/css" href="dist/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arimo" />
-
+    <style>
+        table th{
+            width:100px;
+        }
+        table td{
+            width:100px;
+        }
+        .dataTable  thead tr{
+            height:100px !important;
+        }
+        .dataTable  thead {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .dataTable  thead th div{
+            height:50px !important;
+            overflow: visible !important;
+        }
+        .table thead th {
+            vertical-align: middle;
+        }
+    </style>
 
 </head>
 
@@ -91,12 +113,12 @@ $site_lang=$_SESSION['dil'] ;
             <br />
             <input type="submit" name="import" style="display: none;" id="import" class="btn btn-info" value="Əlavə edin" />
         </form>
-        <a onclick="exportAsExcel()">Export to excel</a>
+
         <div id="success"></div>
         <button type="button" class="btn btn-info"  id="importTab" >İşə qəbul edin</button>
 
-        <div id="employee_tab" style="display:none;overflow-x: auto;">
-            <table id="employee_table" class="table table-striped  table-bordered table-hover">
+        <div id="employee_tab" style="display:none;width:100%;height:300px;overflow-x: auto;overflow-y: auto;">
+            <table id="employee_table" class="table table-bordered ">
                 <thead>
                 <tr>
                     <th>No</th>
@@ -202,13 +224,14 @@ $site_lang=$_SESSION['dil'] ;
 <script>
 
     var employee_table = $('#employee_table').DataTable({
-        dom: 'Bfrtip',
+        dom: 'lBfrtip',
         "scrollX": true,
         "paging": false,
         "lengthChange": false,
         "searching": false,
         "ordering": false,
         "info": false,
+        "autoWidth": true,
         buttons: [
             {
                 extend: 'excel',
@@ -218,6 +241,7 @@ $site_lang=$_SESSION['dil'] ;
             },
         ],
     });
+    var empArray=[];
     function downloadCSV() {
         console.log('ddd')
         $('form').css('display','block');
@@ -257,32 +281,40 @@ function notNull(element){
                 employee_table.buttons('.buttons-excel').nodes().css("display", "none");
 
                 $("table#employee_table tbody").html('')
+                $(".dataTables_scrollHead").css('display','none')
                 var table='';
-                $.each($.parseJSON(data), function(k,value) {
-                    console.log('value=',value)
+                $.each($.parseJSON(data), function(key,val) {
+                    empArray=val;
+                    $.each(val, function(k,value) {
+                    // console.log('value=',value)
                     if(k!=0){
+                        // console.log('value=',value)
+                        // console.log('value.firstname='+value[1])
                         table+=' <tr class="typeOfDocument" >' +
                             '<td>'+parseInt(k+1)+'</td>'+
-                            '<td>'+notNull(value.firstname)+'</td>'+
-                            '<td>'+notNull(value.lastname)+'</td>'+
-                            '<td>'+notNull(value.surname)+'</td>'+
-                            '<td>'+notNull(value.sex)+'</td>'+
-                            '<td>'+notNull(value.marital_status)+'</td>'+
-                            '<td>'+notNull(value.birth_date)+'</td>'+
-                            '<td>'+notNull(value.birth_place)+'</td>'+
-                            '<td>'+notNull(value.citizenship)+'</td>'+
-                            '<td>'+notNull(value.pincode)+'</td>'+
-                            '<td>'+notNull(value.pass_seria_num)+'</td>'+
-                            '<td>'+notNull(value.passport_date)+'</td>'+
-                            '<td>'+notNull(value.passport_end_date)+'</td>'+
-                            '<td>'+notNull(value.pass_given_authority)+'</td>'+
-                            '<td>'+notNull(value.living_address)+'</td>'+
-                            '<td>'+notNull(value.reg_address)+'</td>'+
-                            '<td>'+notNull(value.mob_tel)+'</td>'+
-                            '<td>'+notNull(value.home_tel)+'</td>'+
-                            '<td>'+notNull(value.email)+'</td>'+
-                            '<td>'+notNull(value.emr_contact)+'</td></tr>';
+                            '<td>'+notNull(value[1])+'</td>'+
+                            '<td>'+notNull(value[2])+'</td>'+
+                            '<td>'+notNull(value[3])+'</td>'+
+                            '<td>'+notNull(value[4])+'</td>'+
+                            '<td>'+notNull(value[5])+'</td>'+
+                            '<td>'+notNull(value[6])+'</td>'+
+                            '<td>'+notNull(value[7])+'</td>'+
+                            '<td>'+notNull(value[8])+'</td>'+
+                            '<td>'+notNull(value[9])+'</td>'+
+                            '<td>'+notNull(value[10])+'</td>'+
+                            '<td>'+notNull(value[11])+'</td>'+
+                            '<td>'+notNull(value[12])+'</td>'+
+                            '<td>'+notNull(value[13])+'</td>'+
+                            '<td>'+notNull(value[14])+'</td>'+
+                            '<td>'+notNull(value[15])+'</td>'+
+                            '<td>'+notNull(value[16])+'</td>'+
+                            '<td>'+notNull(value[17])+'</td>'+
+                            '<td>'+notNull(value[18])+'</td>'+
+                            '<td>'+notNull(value[19])+'</td></tr>';
+                        // console.log('table='+table)
                     }
+                });
+
                 });
                 // $('#success').text('İşçilər  işə qəbul edildi')
 
@@ -294,55 +326,27 @@ function notNull(element){
     })
     $('#importTab').on('click',function(event){
         console.log('imppp')
-       var file_data = $('#files').prop('files')[0];
-        var form_data = new FormData();
-        form_data.append('excel', file_data);
-        console.log(form_data);
+        var jsonString = JSON.stringify(empArray);
         $.ajax({
             url: 'import-excel/recruitmentAjInsert.php', // point to server-side PHP script
-            dataType: 'text',  // what to expect back from the PHP script, if anything
+            // dataType: 'text',  // what to expect back from the PHP script, if anything
+            // cache: false,
+            // contentType: false,
+            // processData: false,
+            data: {data : empArray},
             cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
             type: 'post',
             success: function(data){
-                console.log('data',data); // display response from the PHP script, if any
-                console.log('data',$.parseJSON(data)); // display response from the PHP script, if any
-                $('#employee_tab').css('display','block');
-                $("table#employee_table tbody").html('')
-                var table='';
-                $.each($.parseJSON(data), function(k,value) {
-                    console.log('value=',value)
-                    if(k!=0) {
-                        table+=' <tr class="typeOfDocument" >' +
-                            '<td>'+parseInt(k+1)+'</td>'+
-                            '<td>'+notNull(value.firstname)+'</td>'+
-                            '<td>'+notNull(value.lastname)+'</td>'+
-                            '<td>'+notNull(value.surname)+'</td>'+
-                            '<td>'+notNull(value.sex)+'</td>'+
-                            '<td>'+notNull(value.marital_status)+'</td>'+
-                            '<td>'+notNull(value.birth_date)+'</td>'+
-                            '<td>'+notNull(value.birth_place)+'</td>'+
-                            '<td>'+notNull(value.citizenship)+'</td>'+
-                            '<td>'+notNull(value.pincode)+'</td>'+
-                            '<td>'+notNull(value.pass_seria_num)+'</td>'+
-                            '<td>'+notNull(value.passport_date)+'</td>'+
-                            '<td>'+notNull(value.passport_end_date)+'</td>'+
-                            '<td>'+notNull(value.pass_given_authority)+'</td>'+
-                            '<td>'+notNull(value.living_address)+'</td>'+
-                            '<td>'+notNull(value.reg_address)+'</td>'+
-                            '<td>'+notNull(value.mob_tel)+'</td>'+
-                            '<td>'+notNull(value.home_tel)+'</td>'+
-                            '<td>'+notNull(value.email)+'</td>'+
-                            '<td>'+notNull(value.emr_contact)+'</td></tr>';
-                    }
+                console.log('data==='+data); // display response from the PHP script, if any
 
-                });
-                $('#success').text('İşçilər  işə qəbul edildi')
+                 // if(data===""){
+                 //     console.log('dataaa==='+data);
+                     $('#success').text('İşçilər  işə qəbul edildi')
+                 // }
 
-                $("table#employee_table tbody").append(table);
-            }
+
+
+             }
         });
 
 
