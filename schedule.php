@@ -65,6 +65,25 @@ $message=$dil["selectone"];
        .schgrid {
 	   font-size:14px; width:80px;
 	   }
+	   @keyframes spinner {
+  to {transform: rotate(360deg);}
+	}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #333;
+  animation: spinner .6s linear infinite;
+}
     </style> 
 </head>
  
@@ -656,7 +675,10 @@ $message=$dil["selectone"];
 <script type="text/javascript" src="js/popper.min.js" ></script>
 <script type="text/javascript" src="js/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
-  
+<script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+ 
 <script>
  function validInsert(){
 	 
@@ -796,8 +818,12 @@ var table = $("#sch_table").DataTable({
       "ordering": true,
       "info": true,
       "autoWidth": true,
+	  "serverSide": true,
+	  "processing": true,
 
 	    "language": {
+			"loadingRecords": "&nbsp;",
+            "processing": "<div class='spinner'></div>",
             "lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
             "zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
             "info": "Showing page _PAGE_ of _PAGES_",
