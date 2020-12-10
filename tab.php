@@ -421,9 +421,9 @@ $result_commands = $db->query($commands);
                             '<td  class="fix">' + value.lastname + ' ' + value.firstname + ' ' + value.surname + '</td>' +
                             '<td>' + cat + '</td>' +
                             '<td></td>';
-                        table += '<td class="dates1">8.0</th>';
+                        table += '<td>8.0</th>';
                         for (var i = 2; i <= months; i++) {
-                            table += '<td class="dates' + i + '">8.0</th>';
+                            table += '<td>8.0</th>';
                         }
 
                         table += '<td></td>' +

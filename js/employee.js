@@ -621,8 +621,8 @@ $(function () {
                         $("#modalInsertError").modal('show');
                         $("#educationInsert").modal('hide');
                     } else if (strMessage === 'success') {
-                        $("#successp").text('Melumatlar daxil edildi ');
-                        $("#modalInsertSuccess").modal('show');
+                        $("#successedu").text('Melumatlar daxil edildi ');
+                        $("#modalInsertEduSuccess").modal('show');
                         $("#educationInsert").modal('hide');
 
                     } else {
@@ -3405,7 +3405,7 @@ $(function () {
                     }
                 },
                 {
-                    text: 'Custom PDF',
+                    // text: 'Custom PDF',
                     extend: 'pdfHtml5',
                     filename: 'dt_custom_pdf',
                     orientation: 'landscape', //portrait

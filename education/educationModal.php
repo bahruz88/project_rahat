@@ -325,4 +325,23 @@
       
     </div>
   </div>
- 
+<!-- SUCCCES MODAL INSERT -->
+<div class="modal fade" id="modalInsertEduSuccess">
+    <div class="modal-dialog  modal-sm">
+        <div class="modal-content bg-success">
+            <div class="modal-header">
+                <h5 class="modal-title"><?php echo  $dil["edu_input_title"];?></h5>
+                <button class="close" aria-label="Close" type="button" data-dismiss="modal">
+                    <span aria-hidden="true">X</span></button>
+            </div>
+            <div class="modal-body">
+                <p id="successedu"> </p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button class="btn btn-outline-light" type="button" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
