@@ -1864,7 +1864,7 @@ $(function () {
                     "<img  id='militaryInfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>" +
                     "<img  id='militaryInfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
             }],
-            dom: 'lBfrtip',
+
 
             buttons: [
                 {
@@ -3405,10 +3405,16 @@ $(function () {
                     }
                 },
                 {
+                    text: 'Custom PDF',
                     extend: 'pdfHtml5',
+                    filename: 'dt_custom_pdf',
+                    orientation: 'landscape', //portrait
+                    pageSize: 'legal', //A3 , A5 , A6 , legal , letter
                     exportOptions: {
-                        columns: ':visible'
-                    }
+                        columns: ':visible',
+                        search: 'applied',
+                        order: 'applied'
+                    },
                 },
                 {
                     extend: 'copy',
