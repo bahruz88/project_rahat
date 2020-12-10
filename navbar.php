@@ -1,5 +1,8 @@
  <?php  			
  $result_lang_nav = $db->query($sql_lang);
+ $nav_companyid=$_SESSION["CompanyId"];
+   $sql_def_company = mysqli_query($db,"select * from $tbl_employee_company where id = '$nav_companyid' ");
+   $row_def_company = mysqli_fetch_array($sql_def_company,MYSQLI_ASSOC);
 ?>
  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -54,21 +57,55 @@
       </li>	 
 	 
     <li class="nav-item dropdown">
-	        <a class="nav-link" data-toggle="dropdown" href="#">
-			<i class="fas fa-cogs nav-icon  mr-2"></i> <b> İş yerini seçin</b>
+	        <a class="nav-link "   data-toggle="dropdown" href="#">
+			<i class="fas  fa-sitemap nav-icon mr-1"></i> <b> <?php  echo $row_def_company['company_name']; ?></b>
 			</a>
- 
+  
         <div class="dropdown-menu dropdown-menu-lg  dropdown-menu-right" >
              <?php
+			 
+			 
+			 if(empty($_GET["company_id"])){
+			 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') 
+				$link = "https"; 
+				else  	$link = "http"; 
+				$link .= "://"; 
+				$link .= $_SERVER['HTTP_HOST']; 
+				$link .= $_SERVER['REQUEST_URI']; 
+			  $symb_cnt=strpos($link,"?");
+			  }
+			  else {
+				   if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') 
+				$link = "https"; 
+				else  	$link = "http"; 
+				$link .= "://"; 
+				$link .= $_SERVER['HTTP_HOST']; 
+				$link .= $_SERVER['REQUEST_URI']; 
+				
+				 $link = substr($link,0,strpos($link,"&company_id="));
+				  
+				  $symb_cnt=strpos($link,"?");
+			  }
                  $result_company = $db->query($sql_employee_company);
                  if ($result_company->num_rows > 0) {
                      while($row_company= $result_company->fetch_assoc()) {
                          ?>
 			<div class="dropdown-divider"></div>
-		  <a href="#" class="dropdown-item " style="white-space:normal;">
-            <i class="flag-icon flag-icon-us mr-2"></i> <?php echo $row_company['company_name'];  ?> 
+			<?php
+			 if ($symb_cnt>0){
+			
+			?>
+		  <a href="<?php echo $link ; ?>&company_id=<?php echo  $row_company["id"]  ; ?>" class="dropdown-item " style="white-space:normal;">
+            <i class="flag-icon flag-icon-us mr-2"></i> <?php echo  $row_company['company_name'];  ?> 
           </a>
-			<?php } }?>
+			 <?php } else{?>
+             
+		  <a href="<?php echo $link ; ?>?company_id=<?php echo  $row_company["id"]  ; ?>" class="dropdown-item " style="white-space:normal;">
+            <i class="flag-icon flag-icon-us mr-2"></i> <?php echo  $row_company['company_name'];  ?> 
+          </a>
+			 
+			 <?php
+					 }} }?>
         </div>
       </li>
 	  <!-- User Dropdown Menu -->

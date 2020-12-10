@@ -1,7 +1,6 @@
 <?php    
   include('session.php');  
 
-
 ?>
 <!-- Tell the browser to be responsive to screen width -->
 
@@ -37,6 +36,8 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+
+
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -47,7 +48,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/rhr.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="dist/img/rhr.png" alt="" class="brand-image  elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light"><?php echo $company_name ; ?></span>
     </a>
@@ -229,7 +230,18 @@
 
 <script>
   $(function () {
- 
+	  
+    
+	
+	var sessCompany = '<?php echo $_SESSION['CompanyId']?>';
+	
+		if   (sessCompany=='NOCOMPANY'){
+		 $('#modalCompanySelect').modal({
+		  backdrop: 'static',
+		  keyboard: false
+		});
+
+		}
 	  $.ajax({
     url : "chart_data/get_employee_sex_count.php",
     type : "GET",

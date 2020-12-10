@@ -405,6 +405,7 @@ $dil = array(
     "bulk_operation" 	=>"Toplu əməliyyatlar",
     "recruitment" 	=>"İşə qəbul",
 	"employee_schedules" 	=>"İşçilərin  qrafikləri",
+	"schedules" 	=>"Qrafiklər",
 
 
 );
