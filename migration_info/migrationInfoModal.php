@@ -14,7 +14,7 @@
             <div class="modal-footer justify-content-between">
 			  <form id="migrationInfoDelete" method="post" class="form-horizontal" action="">
               <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
-			  <input type="hidden" id="medicalinfoid" name="medicalinfoid" value="" />
+			  <input type="hidden" id="migrationinfoid" name="migrationinfoid" value="" />
 			  </form>
 			  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
 			   

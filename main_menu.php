@@ -1,3 +1,4 @@
+
  <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -149,16 +150,11 @@
                       <p><?php echo $dil["tab"];?></p>
                   </a>
               </li>
-                <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
 
-                  <p>Bacarıqlar</p>
-                </a>
-              </li>
             </ul>
           </li>
 
-
+<!--   
 		  
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -193,7 +189,7 @@
                   <p>Bank məlumatları</p></a></li>
             </ul>
           </li>
-		  
+		  -->
 		  
 		  
 		  
@@ -302,19 +298,7 @@
                             <p>Əmək haqqı cədvəli</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-
-                        <a href="staff.php" class="nav-link">
-
-                            <p>Ştat cədvəli</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pages/charts/flot.html" class="nav-link">
-
-                            <p>İş yeri barədə</p>
-                        </a>
-                    </li>
+             
                     <li class="nav-item">
                 </ul>
             </li>
@@ -330,30 +314,16 @@
               <li class="nav-item">
                 <a href="contracts.php" class="nav-link">
                   
-                  <p>Müqavilələr</p>
+                  <p>Müqavilələr və Əmrlər</p>
                 </a>
               </li>
-                <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-
-                  <p>General Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  
-                  <p>Advanced Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  
-                  <p>Editors</p>
-                </a>
-              </li>
+            
+        
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          
+		  <!--   
+		  <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
@@ -382,6 +352,9 @@
               </li>
             </ul>
           </li>
+		  
+		  -->
+		  
           <li class="nav-header">Əlavələr</li>
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
@@ -391,35 +364,7 @@
             </a>
           </li>
         
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Mailbox
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                  
-                  <p>Inbox</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
-                  
-                  <p>Compose</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/read-mail.html" class="nav-link">
-                  
-                  <p>Read</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+
           <li class="nav-item has-treeview">
  
             <ul class="nav nav-treeview">
@@ -473,96 +418,15 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-plus-square"></i>
-              <p>
-                Digər
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/examples/login.html" class="nav-link">
-                  
-                  <p>Login</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/register.html" class="nav-link">
-                  
-                  <p>Register</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/forgot-password.html" class="nav-link">
-                  
-                  <p>Forgot Password</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/recover-password.html" class="nav-link">
-                  
-                  <p>Recover Password</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/lockscreen.html" class="nav-link">
-                  
-                  <p>Lockscreen</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                  
-                  <p>Legacy User Menu</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/language-menu.html" class="nav-link">
-                  
-                  <p>Language Menu</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/404.html" class="nav-link">
-                  
-                  <p>Error 404</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/500.html" class="nav-link">
-                  
-                  <p>Error 500</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/pace.html" class="nav-link">
-                  
-                  <p>Pace</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/blank.html" class="nav-link">
-                  
-                  <p>Blank Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="starter.html" class="nav-link">
-                  
-                  <p>Starter Page</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+    <!--
           <li class="nav-header">Sistem Məlmatları</li>
           <li class="nav-item">
             <a href="https://adminlte.io/docs/3.0" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>Sənədləşmə</p>
             </a>
-          </li>
+          </li>-->
+		  
           </li>
         </ul>
       </nav>

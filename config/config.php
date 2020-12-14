@@ -52,6 +52,7 @@ $tbl_sch_schtype='tbl_sch_schtype';
 $tbl_sch_reduce_from='tbl_sch_reduce_from';
 $tbl_sch_reduce_reason='tbl_sch_reduce_reason';
 $tbl_schedules='tbl_schedules';
+$tbl_employee_schedules='tbl_employee_schedules';
 $tbl_position_status='tbl_position_status';
 $tbl_additions_salary='tbl_additions_salary';
 $tbl_place_expenditure='tbl_place_expenditure';

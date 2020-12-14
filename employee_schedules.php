@@ -1,18 +1,21 @@
 <?php    
  include('session.php'); 
 $sql_tm_type="Select   *  from $tbl_sch_time_managment_type where  lang='$site_lang'";
-$result_tm_type = $db->query($sql_tm_type); 
  
-$sql_sch_type="Select   *  from $tbl_sch_schtype where  lang='$site_lang'";
-$result_sch_type = $db->query($sql_sch_type); 
-
+ $company_id=$_SESSION["CompanyId"] ;
+ 
 $sql_periods ="Select   *  from $tbl_periods where  lang='$site_lang'";
 $result_periods  = $db->query($sql_periods); 
  
 $sql_overtime_calc_status="Select   *  from $tbl_overtime_calc_status where  lang='$site_lang'";
 $result_overtime_calc_status = $db->query($sql_overtime_calc_status);  
  
+$sql_employees_sch = "select  id, concat(concat(sch_name,' / '),sch_code) sch_name
+from $tbl_schedules  where status=1 and company_id='$company_id' "; 
 
+$sql_employees = "select  id, concat(lastname,' ', firstname ,' ', surname) full_name ,lastname, firstname ,surname, emp_status,empno,image_name
+from $tbl_employees  where emp_status=1 and company_id='$company_id'
+and id not in (Select emp_id from  $tbl_employee_schedules where status=1) ";
  
 $result_lang = $db->query($sql_lang);
 $result_roles = $db->query($sql_roles);		
@@ -219,7 +222,7 @@ $message=$dil["selectone"];
 	  
 	  
   <!--OVERTİME İNSERT MODAL -->
-  <div class="modal fade" id="ovrModal" role="dialog">
+  <div class="modal fade" id="empschModal" role="dialog">
     <div class="modal-dialog modal-lg">
     <form id="ovrInsert" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
@@ -235,25 +238,31 @@ $message=$dil["selectone"];
 					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
 						
 						 <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
+                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["employee"];?></label>
                             <div class="col-sm-6">
-                                <select   data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+                                <select   data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  >
                                     <?php
-                                    $result_company = $db->query($sql_employee_company);
-                                    if ($result_company->num_rows > 0) {
-                                        while($row_company= $result_company->fetch_assoc()) {
+                                    $result_employees = $db->query($sql_employees);
+                                    if ($result_employees->num_rows > 0) {
+                                        while($row_employees= $result_employees->fetch_assoc()) {
                                             ?>
-                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                            <option  value="<?php echo $row_employees['id']; ?>" ><?php echo $row_employees['full_name'];  ?></option>
                                         <?php } }?>
                                 </select>
                             </div>
                         </div>
-						
+ 
 						    <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-6" id="emp_div">
-                                <select data-live-search="true"  name="employee_id_name" id="employee_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-                                <option  value="0" > <?php echo $dil["selectone"];?></option>
+                            <label class="col-sm-3 col-form-label" for="schedules"><?php echo $dil["schedules"];?></label>
+                            <div class="col-sm-6" id="sch_div">
+                                <select data-live-search="true"  name="employee_id_name" id="employee_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["schedules"];?>" >
+                                                                     <?php
+                                    $result_employees_sch = $db->query($sql_employees_sch);
+                                    if ($result_employees_sch->num_rows > 0) {
+                                        while($row_employees_sch= $result_employees_sch->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_employees_sch['id']; ?>" ><?php echo $row_employees_sch['sch_name'];  ?></option>
+                                        <?php } }?>
                                 </select>
                             </div>
                         </div>
@@ -275,16 +284,16 @@ $message=$dil["selectone"];
 							
  
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["overtime_calc_status"];?></label>
+								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
 								<div class="col-sm-6">
-						<select    data-live-search="true" name="calc_status_name" id="calc_status_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_calc_status"];?>" >
+						<select    data-live-search="true" name="calc_status_name" id="calc_status_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
 								 	<?php 
-									 $result_overtime_calc_status = $db->query($sql_overtime_calc_status);
-										if ($result_overtime_calc_status->num_rows > 0) {
-										while($row_overtime_calc_status= $result_overtime_calc_status->fetch_assoc()) {
+									 $result_tm_type = $db->query($sql_tm_type);
+										if ($result_tm_type->num_rows > 0) {
+										while($row_tm_type= $result_tm_type->fetch_assoc()) {
 											
 										?>
-										<option  value="<?php echo $row_overtime_calc_status['status_id']; ?>" ><?php echo $row_overtime_calc_status['status_desc'] ;  ?></option>
+										<option  value="<?php echo $row_tm_type['tm_id']; ?>" ><?php echo $row_tm_type['tm_descr'] ;  ?></option>
 											
 										<?php } }?>
 						</select>
@@ -368,12 +377,18 @@ $message=$dil["selectone"];
                                 </select>
                             </div>
                         </div>
-						
+	
 						<div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="update_employee"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-6" id="emp_div_update">
+                            <div class="col-sm-6" id="sch_div_update">
                                 <select data-live-search="true"  name="update_employee_id_name" id="update_employee_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
-                                <option  value="0" > <?php echo $dil["selectone"];?></option>
+                                                                     <?php
+                                    $result_company = $db->query($sql_employee_company);
+                                    if ($result_company->num_rows > 0) {
+                                        while($row_company= $result_company->fetch_assoc()) {
+                                            ?>
+                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
+                                    <?php } }?>
                                 </select>
                             </div>
                         </div>
@@ -465,7 +480,7 @@ $message=$dil["selectone"];
  
  
  <div id="filtercol"></div>
-		   <table id="ovr_table" class="table table-striped  table-bordered table-hover">
+		   <table id="empsch_table" class="table table-striped  table-bordered table-hover">
                 <thead>
                <tr>
                         <th>id</th>
@@ -540,41 +555,32 @@ $message=$dil["selectone"];
 <script>
 
   $(function () {
+	  
+	  	 $("#company_select_id").change(function(){
+	     $("#companyselect").submit();
  
-    $("#company_id").change(function(){
-	   	  console.log('Basladi2');
-        var company_id = $(this).val();
-    $.ajax({
-            url: "employees/getEmployeeOvertime.php",
-            type: "POST",
-            data: { company_id:company_id},
-            success: function (data) {
-                console.log('data=',data)
-                console.log('$.parseJSON(data)=',$.parseJSON(data))
-                var option='<select data-live-search="true"  name="employee_id_name" id="employee_id"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-                option += '<option value=""><?php  echo $dil['selectone'] ;?></option>';
+        }) ;	  
+	
+	var sessCompany = '<?php echo $_SESSION['CompanyId']?>';
+	
+		if   (sessCompany=='NOCOMPANY'){
+		 $('#modalCompanySelect').modal({
+		  backdrop: 'static',
+		  keyboard: false
+		});
 
-                 $.each($.parseJSON(data), function(k,row) {
-                    option += '<option value="' + row[0] + '" >' + row[1] + '  </option>';
-                });
-                option+=' </select>';
-                $('#emp_div').html(option);
-                $(".selectpicker").selectpicker();
-
-            }
-        }) ;
-     
-    });
+		}
+ 
+    /*$("#company_id").change(function(){*/
+	   	  
+ 
+	 
+	 
+   /* });*/
  
  
   function validInsert(){
-		if($('#company_id').val()=='' ){
-			$('#company_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#company_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-
-		}
+ 
 		 if($('#employee_id').val()=='' ){
 			$('#employee_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
@@ -678,7 +684,7 @@ $message=$dil["selectone"];
  
  
 	
-var table = $("#ovr_table").DataTable({
+var table = $("#empsch_table").DataTable({
        "scrollX": true,
        "paging": true,
       "lengthChange": false,
@@ -760,17 +766,17 @@ var table = $("#ovr_table").DataTable({
         });
 		
 		
- $( ".dt-buttons" ).prepend( $( "<a class='dt-button buttons-excel buttons-html5' id='add_new_item'  data-toggle='modal' data-target='#ovrModal'><?php echo $dil['addnew'];?> <i class='fa fa-plus'></i></a>" ) );
+ $( ".dt-buttons" ).prepend( $( "<a class='dt-button buttons-excel buttons-html5' id='add_new_item'  data-toggle='modal' data-target='#empschModal'><?php echo $dil['addnew'];?> <i class='fa fa-plus'></i></a>" ) );
   
   /*Button  click  on grid */
-	$('#ovr_table tbody').on( 'click', '#delete', function () {
+	$('#empsch_table tbody').on( 'click', '#delete', function () {
         var data = table.row( $(this).parents('tr') ).data();
         document.getElementById("ovrid").value = data[0];
 		$('#modalDelete').modal('show');
     } );
 	
 
-  $('#ovr_table tbody').on( 'click', '#edit', function () {
+  $('#empsch_table tbody').on( 'click', '#edit', function () {
 	  
         var data = table.row( $(this).parents('tr') ).data();
 	    console.log(data) ;
@@ -843,7 +849,7 @@ var table = $("#ovr_table").DataTable({
 		var upd_emp_id = $("#update_empid").val();
 		console.log(company_id) ;
     $.ajax({
-            url: "employees/getEmployeeOvertime.php",
+            url: "schedule/getCompanySchedules.php",
             type: "POST",
             data: { company_id:company_id},
 			dataType: 'json',
@@ -858,7 +864,7 @@ var table = $("#ovr_table").DataTable({
                 option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
             });
             option += '</select>';
-             $('#emp_div_update').html(option);
+             $('#sch_div_update').html(option);
             $("#update_employee_id").selectpicker();
             $('#update_employee_id').val(upd_emp_id).change();
 
@@ -885,7 +891,7 @@ var table = $("#ovr_table").DataTable({
 								 {					 
 									 $("#errorp").text('Bu isci ucun  elave is vaxti artiq sazlanib');
 									 $("#modalInsertError").modal('show');
-									  $("#ovrModal").modal('hide');
+									  $("#empschModal").modal('hide');
 								 }
 								 else if (strMessage.substr(1, 4)==='error')
 								 {
@@ -893,19 +899,19 @@ var table = $("#ovr_table").DataTable({
 									 
 									 $("#errorp").text(strMessage);
 									 $("#modalInsertError").modal('show');
-									 $("#ovrModal").modal('hide');
+									 $("#empschModal").modal('hide');
 								 }
 								 else if (strMessage==='success')
 								 {
 									 $("#successp").text('Melumat muveffeqiyyetle daxil edildi');
 									 $("#modalInsertSuccess").modal('show');
-									 $("#ovrModal").modal('hide');
+									 $("#empschModal").modal('hide');
 									 table.ajax.reload();
 								 }
 								 else  {
 									  $("#errorp").text(strMessage);
 									 $("#modalInsertError").modal('show');
-									 $("#ovrModal").modal('hide');
+									 $("#empschModal").modal('hide');
 									 
 								 }
 						}

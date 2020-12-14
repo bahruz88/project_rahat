@@ -33,7 +33,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>RAHAT HR</title>
+	<title>DEP HR</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -59,7 +59,7 @@
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url(dist/img/bg-011.jpg);">
 					<span class="login100-form-title-1">
-						<img src="dist/img/rhr.png"   alt="User Image"> RAHAT HR  
+						<img src="dist/img/rhrj.jpeg"   alt="User Image">   
 					</span>
 				</div>
 

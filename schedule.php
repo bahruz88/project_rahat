@@ -1,7 +1,5 @@
 <?php    
  include('session.php'); 
-$sql_tm_type="Select   *  from $tbl_sch_time_managment_type where  lang='$site_lang'";
-$result_tm_type = $db->query($sql_tm_type); 
  
 $sql_sch_type="Select   *  from $tbl_sch_schtype where  lang='$site_lang'";
 $result_sch_type = $db->query($sql_sch_type); 
