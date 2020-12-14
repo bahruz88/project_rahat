@@ -452,7 +452,7 @@ function treeClick(trList){
             async:false,
             data: {id: stId},
             success: function (data) {
-                //console.log('dataaaaas=' , data);
+               console.log('st_selectRoles dataaaaas=' , jQuery.parseJSON(data));
                 fillStTable(jQuery.parseJSON(data),stId)
             },
         });
@@ -462,7 +462,7 @@ function treeClick(trList){
             async:false,
             data: {company_id: company_id},
             success: function (data) {
-                //console.log('st_selectEmpCompany DATA11=',data)
+               console.log('st_selectEmpCompany DATA11=',jQuery.parseJSON(data))
 
                 var option='<select data-live-search="true"  name="positionList" id="positionList"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value="0">Seçin..</option>';
@@ -629,7 +629,7 @@ $(function () {
                 type: "POST",
                 data: {company_id: company_id,st:"st"},
                 success: function (data) {
-                    console.log('companyDiv DATA=',data)
+                    // console.log('companyDiv DATA=',data)
                     var tree = $('#tree').fancytree('getTree');
                     if(data!=''){
                         tree.reload($.parseJSON(data));
@@ -663,13 +663,13 @@ $("#confirmRole").click(function() {
             type: "POST",
             data: { role_id:role_id,company_id:company_id},
             success: function (data) {
-                console.log('data='+data)
-                console.log('data='+jQuery.parseJSON(data))
+                console.log('st_selectValidateRole data='+data)
+                console.log('st_selectValidateRole data=',jQuery.parseJSON(data))
                 if(jQuery.parseJSON(data).length>0){
                     $('#changeRoleClick').trigger('click');
                     $('#changeItem').on('click',function(){
                         // do your stuffs with id
-                        //console.log('datamodal='+data)
+                        console.log('datamodal='+data)
                         // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
                         $('#changeRole').modal('hide'); // now close modal
                         insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
@@ -678,15 +678,16 @@ $("#confirmRole").click(function() {
                     insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
                 }
                 function insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date){
-                    //console.log('company_id=' , company_id);
+                    console.log('company_id=' , company_id);
                     //console.log('posit_code=' , posit_code);
-                    //console.log('stId=' , stId);
+                    console.log('role_id=' , role_id);
+                    console.log('insertRole stId=' , stId);
                     $.ajax({
                         url: 'structure/st_insertRole.php',
                         type: "POST",
                         data: { company_id:company_id,role_id:role_id,stId:stId,emp_id:empid, posit_code:posit_code, role_start_date:start_date, role_end_date:end_date},
                         success: function (data) {
-                            console.log('dataaaaas=' , data);
+                            console.log('st_insertRole dataaaaas=' , data);
                             $('#roles').find('option[value="0"]').prop('selected', true);
                             $('#positionList').find('option[value="0"]').prop('selected', true);
                             $('#role_start_date').val('')
@@ -768,24 +769,24 @@ function fillStTable(data,stId){
         var fRole='Təyin edilməyib';
         var fPercent=0;
 
-        if(v[8]){
-            fName=v[8];
+        if(v[6]){
+            fName=v[6];
         }
-        if(v[9]){
-            fRole=v[9];
+        if(v[10]){
+            fRole=v[10];
         }
-        if(v[7]){
-            fPercent=v[7];
+        if(v[5]){
+            fPercent=v[5];
         }
 
         row +='<tr data-id="'+v[11]+'" data-positcode="'+v[2]+'" data-empid="'+v[10]+'"> '  +
             // ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
             ' <td>'+fRole+'</td>  '  +
-            ' <td>'+v[2]+'</td>  '  +
+            ' <td>'+v[1]+'</td>  '  +
             ' <td>'+fName+'</td>  '  +
             ' <td class="myText" data-val="percent">'+fPercent+'</td>  '  +
-            ' <td  id="start_date">'+v[4]+'</td>  '  +
-            ' <td id="end_date">'+v[5]+'</td>  '  +
+            ' <td  id="start_date">'+v[2]+'</td>  '  +
+            ' <td id="end_date">'+v[3]+'</td>  '  +
             ' <td><button type="button" class="btn btn-danger deleteStRole"  >Sil</button></td>  '  +
             '</tr>  ';
     });

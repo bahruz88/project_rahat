@@ -71,7 +71,7 @@ if ($result_parent) {
                         }
                     }
                 }
-                $sql_posparents = "select tec.*, tsl.title position from $tbl_employee_category  tec
+                $sql_posparents = "select tec.*, tsl.title posit from $tbl_employee_category  tec
                     LEFT join $tbl_position_level tsl on tsl.posit_id=tec.position_level
                      WHERE tec.parent = '$parent'";
 //                  echo $sql_parents;

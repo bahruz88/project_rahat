@@ -238,6 +238,11 @@ $sql_position= "select * from $tbl_employee_category";
             height:40px !important;
         }
         .treeStruk .navbar  { position: sticky; top: 0;z-index: 100; }
+        #posList .bootstrap-select div.inner {
+            max-height: 181.392px !important;
+            overflow-y: auto !important;
+            min-height: 95px !important;
+        }
     </style>
 </head>
 
@@ -1135,7 +1140,7 @@ $sql_position= "select * from $tbl_employee_category";
                                     type: "POST",
                                     data: { id:ID, name:title,change:'category',command_code:command_code,company_id:company_id,emp_id:emp_id},
                                     success: function (data) {
-                                        console.log('data=' + data)
+                                        console.log('st_update data=' + data)
                                         // members=$.parseJSON(data)
 
                                     },

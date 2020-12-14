@@ -34,6 +34,7 @@ include('../session.php');
              $home_tel = $row[17];
              $email = $row[18];
              $emr_contact = $row[19];
+             $company_id = $row[20];
              if(strtoupper($sex)=="QADIN"){
                  $sex=2;
              }else{
@@ -73,9 +74,9 @@ include('../session.php');
 
                  $sql = "INSERT INTO $tbl_employees (id, firstname, lastname, surname, sex, marital_status, birth_date,
  birth_place,citizenship, pincode, passport_seria_number, passport_date, passport_end_date, pass_given_authority,
- living_address, reg_address, home_tel, mob_tel, email, emr_contact,empno)
+ living_address, reg_address, home_tel, mob_tel, email, emr_contact,empno,company_id)
  VALUES ('Null','$firstname','$lastname','$surname','$sex', '$marital_status','$birth_date','$birth_place','$citizenship','$pincode','$pass_seria_num','$passport_date','$passport_end_date',
- '$pass_given_authority','$living_address','$reg_address','$mob_tel','$home_tel','$email','$emr_contact','$empno')";
+ '$pass_given_authority','$living_address','$reg_address','$mob_tel','$home_tel','$email','$emr_contact','$empno','$company_id')";
 
              if(!mysqli_query($db, $sql)) {
                  echo "error" .mysqli_error($db);

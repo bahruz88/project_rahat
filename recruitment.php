@@ -141,6 +141,7 @@ $site_lang=$_SESSION['dil'] ;
                     <th>Ev telefonu</th>
                     <th>Email</th>
                     <th>Təcili vəziyyətdə əlaqə</th>
+                    <th>İş yeri</th>
 
                 </tr>
                 </thead>
@@ -310,7 +311,8 @@ function notNull(element){
                             '<td>'+notNull(value[16])+'</td>'+
                             '<td>'+notNull(value[17])+'</td>'+
                             '<td>'+notNull(value[18])+'</td>'+
-                            '<td>'+notNull(value[19])+'</td></tr>';
+                            '<td>'+notNull(value[19])+'</td>'+
+                            '<td>'+notNull(value[20])+'</td></tr>';
                         // console.log('table='+table)
                     }
                 });
