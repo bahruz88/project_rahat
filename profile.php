@@ -1501,7 +1501,6 @@ if($result_positions){
                 var workplaceInfodata = data;
                 var structure_level = workplaceInfodata.structure_level
                  console.log('structure_level==',structure_level);
-                 console.log('deyisdim==',structure_level);
                 if(structure_level){
                     console.log('structure_level.category2==',structure_level.category2);
                     $("#directorate").val(structure_level.category2);
