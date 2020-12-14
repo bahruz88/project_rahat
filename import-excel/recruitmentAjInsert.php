@@ -83,9 +83,66 @@ include('../session.php');
              }
              else {
                  echo "";
+                 //$emp_id = "SELECT id FROM $tbl_employees ORDER BY id DESC LIMIT 1";
+                 $sql_emp_id = "SELECT * FROM $tbl_employees ORDER BY id DESC LIMIT 1";
+                 $result_emp_id  = $db->query($sql_emp_id);
+                 $data = array();
+                 if ($result_emp_id ->num_rows > 0) {
+                     while($row_emp_id  = $result_emp_id ->fetch_assoc()) {
+                         $emp_id=$row_emp_id["id"];
+                     }
+                 }
+                 $sql_company = "SELECT * FROM $tbl_employee_company Where id='$company_id'";
+                 $result_company  = $db->query($sql_company);
+                 $data = array();
+                 if ($result_company ->num_rows > 0) {
+                     while($row_company  = $result_company ->fetch_assoc()) {
+                         $enterprise_head_position=$row_company["enterprise_head_position"];
+                         $company_name=$row_company["company_name"];
+                         $company_address=$row_company["address"];
+                         $company_tel=$row_company["tel"];
+                         $voen=$row_company["bank_voen"];
+                         $sun=$row_company["sun"];
+                         $enterprise_head_fullname=$row_company["enterprise_head_fullname"];
+                     }
+                 }
+
+                 //insert Command table
+
+                 $sqlCommand = "INSERT INTO $tbl_employee_commands (id,command_id, emp_id,  company_id, enterprise_head_position, company_name, company_address, company_tel, voen, sun, enterprise_head_fullname) 
+ VALUES ('Null','5','$emp_id','$company_id','$enterprise_head_position','$company_name','$company_address','$company_tel','$voen','$sun','$enterprise_head_fullname')";
+
+                 //echo $sqlCommand;
+                 if(!mysqli_query($db, $sqlCommand)) {
+                     echo "Error=".$sqlCommand.'='.$emp_id.'=' .mysqli_error($db);
+                 }
+                 else {
+//    echo "success";
+                 }
+                 //insert Contract table
+                 $sqlContract = "INSERT INTO $tbl_contracts (id, emp_id,  company_id, enterprise_head_position, company_name, company_address, company_tel, voen, sun, enterprise_head_fullname) 
+ VALUES ('Null','$emp_id','$company_id','$enterprise_head_position','$company_name','$company_address','$company_tel','$voen','$sun','$enterprise_head_fullname')";
+
+                 //echo $sqlContract;
+                 if(!mysqli_query($db, $sqlContract)) {
+                     echo "Error=".$sqlContract.'='.$emp_id.'=' .mysqli_error($db);
+                 }
+                 else {
+//    echo "success";
+                 }
+                 //Close connection
+                 mysqli_close($db);
              }
+
+
+
+
+
 
          }
 
 //     }
  }
+
+
+

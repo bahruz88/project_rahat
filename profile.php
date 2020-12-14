@@ -102,7 +102,7 @@ if($company_id!=''){
 }
 $sql_users .=" from $tbl_employees te ";
 if($company_id!=''){
-    $sql_users.=" inner  join  $tbl_companies tc  on tc.id=$company_id ";
+    $sql_users.=" inner  join  $tbl_employee_company tc  on tc.id=$company_id ";
 
 }
 $sql_users.=" where   te.id=$emp_id ";
