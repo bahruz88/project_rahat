@@ -69,7 +69,7 @@ $directorate='';
 $department='';
 $depart='';
 $area_section='';
-while ($parent != '' && $parent != null) {
+while ($parent != '' && $parent != null && $parent != 0) {
     $sql_parents = "select tec.*, tsl.title structure from $tbl_employee_category  tec
                     LEFT join $tbl_structure_level tsl on tsl.struc_id=tec.structure_level
                      WHERE tec.id = '$parent'";
