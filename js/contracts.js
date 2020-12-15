@@ -299,6 +299,7 @@ function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract
 		{
 			// PARSE json data
 			 console.log('emp_data=',emp_data)
+			 console.log('JSON.parse(emp_data)=',JSON.parse(emp_data))
 			//console.log('count=',emp_data.length)
 			commandArray = emp_data;
 			var employee = JSON.parse(emp_data);
@@ -395,7 +396,7 @@ $('#employees').on( 'change','#company,#code,#empid,#position_level',  function 
 		type: "POST",
 		data: { company_id:company_id,code:code,position:position,empid:empid},
 		success: function (data) {
-			 console.log('data222=',data)
+			 // console.log('data222=',data)
 			var table = '';
 			$("table#emp_table tbody").html('');
 			// $('#tablePositions').find('tbody').html('');
