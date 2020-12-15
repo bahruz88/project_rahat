@@ -389,6 +389,7 @@ $result_employee_category = $db->query($employee_category);
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+<script src="js/html2canvas.min.js"></script>
 
 
 <!-- ChartJS -->
@@ -598,7 +599,7 @@ $result_employee_category = $db->query($employee_category);
                     // $("#tableStaff").val( $("table#staff_table").html());
                     $("#tableStaff").val( $("table#stafftree").html());
 
-                    html2canvas(element,  { quality: 0,
+                    html2canvas(element, {quality: 0,
                         scale: 105,dpi: 1000 }).then(function (canvas) {
                             canvas.getContext('2d');
                             getCanvas = canvas;
@@ -609,6 +610,7 @@ $result_employee_category = $db->query($employee_category);
                         $("#print").css("display","block");
 
                     });
+
                     $("#noStaff").css("display","none");
                 }else{
                     $("#noStaff").html("<h3>Heç bir məlumat tapılmadı</h3>")
