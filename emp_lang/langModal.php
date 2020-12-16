@@ -113,7 +113,7 @@
 					
  						 		<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-								<div class="col-sm-6">
+								<div class="col-sm-6 emp" id="emp">
 									<select data-live-search="true"  name="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
 								 	<?php 
 									 $result_employees_view = $db->query($sql_employees);

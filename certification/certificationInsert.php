@@ -5,7 +5,7 @@ include('../session.php') ;
  
   //Create variables
 
-	$employee=$_POST['certempid'];
+	$employee=$_POST['emplo'];
 	$training_center_name=$_POST['training_center_name'];
 	$training_name=$_POST['training_name'];
 	

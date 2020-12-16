@@ -44,8 +44,8 @@
 						 
 						 		<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="eduempid"><?php echo $dil["employee"];?></label>
-								<div class="col-sm-6">
-									<select data-live-search="true"  name="eduempid"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+								<div class="col-sm-6 emp" id="emp">
+									<select data-live-search="true"  name="eduempid" id=""  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
 								 	<?php 
 									 $result_employees_view = $db->query($sql_employees);
 										if ($result_employees_view->num_rows > 0) {

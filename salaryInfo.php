@@ -248,6 +248,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
             </thead>
         </table>
 	</div>
+    <input type="hidden" class="form-control" value="<?php echo $_SESSION['CompanyId']?>"  name="company_id" id='company_ids' placeholder="salam" />
 
    <div class="tab-pane" id="additionsDeductions">
        <table id="addition_table" class="table table-striped  table-bordered table-hover" >
@@ -413,9 +414,9 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
             }
         })
     });
-    $(".company_id").change(function(){
-        var deptid = $(this).val();
-        var thisName = $(this).attr('name');
+    $(function () {
+        var deptid =$('#company_ids').val();
+        var thisName = $('#company_ids').attr('name');
 
         console.log("deptid company_id="+deptid) ;
         console.log("deptid thisName="+thisName) ;
@@ -436,22 +437,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
                 }
             });
         }
-        // if(thisName=="company_id_add"){
-        //     $.ajax({
-        //         url: 'additionSalary/get_additionEmp.php',
-        //         type: 'post',
-        //         data: {company_id:deptid},
-        //         async:false,
-        //         success:function(response){
-        //             console.log('response get_salaryEmp=',response)
-        //             $.each(JSON.parse(response), function(k,v) {
-        //                 empAr.push(v.emp_id)
-        //             });
-        //
-        //
-        //         }
-        //     });
-        // }
+
 
         $.ajax({
             url: 'employees/getEmployee.php',
@@ -476,7 +462,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
                 $(".emp").html(option);
 
                 $(".selectpicker").selectpicker();
-                console.log('emp hrml='+$("#emp").html())
+                console.log('emp html='+$("#emp").html())
 
             }
         });

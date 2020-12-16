@@ -5,7 +5,7 @@ include('../session.php') ;
  
   //Create variables
 
-$employee                 =$_POST['employee'];
+$employee                 =$_POST['emplo'];
 $drivinglic_seria_number  = $_POST['drivinglic_seria_number'];
 $drivintcatId             = $_POST['drivintcatId'];
 $drivinglic_issuer        = $_POST['drivinglic_issuer'];

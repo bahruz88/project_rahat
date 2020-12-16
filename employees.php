@@ -124,7 +124,7 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
         <div class="modal-dialog  modal-sm">
           <div class="modal-content bg-success">
             <div class="modal-header">
-              <h5 class="modal-title"><?php echo  $dil["user_input_title"];?></h5>
+              <h5 class="modal-title"><?php echo  $dil["input_title"];?></h5>
               <button class="close" aria-label="Close" type="button" data-dismiss="modal">
                 <span aria-hidden="true">X</span></button>
             </div>
@@ -615,7 +615,9 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
         </thead>
 
     </table>
-</div>
+        <input type="hidden" class="form-control" value="<?php echo $_SESSION['CompanyId']?>"  name="company_id" id='company_ids' placeholder="salam" />
+
+    </div>
 
   <div class="tab-pane" id="bootstab">Bootstrap Content here
   <ul>

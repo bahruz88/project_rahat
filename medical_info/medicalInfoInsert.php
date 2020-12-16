@@ -5,7 +5,7 @@ include('../session.php') ;
  
   //Create variables
 
-$employee                       =$_POST['employee'];
+$employee                       =$_POST['emplo'];
 $medical_app                    = $_POST['medical_app'];
 $medical_renew_interval        = $_POST['medical_renew_interval'];
 $medical_last_renew_date       = $_POST['medical_last_renew_date'];

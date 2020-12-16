@@ -889,8 +889,8 @@ $(function () {
 
     /* CERTIFICATION  İNSERT FORM  VALIDATE */
     $("#certificationInsertForm").validate({
-        rules: {certempid: "required"},
-        messages: {certempid: "İşçini mütləq seçməlisiniz! "},
+        rules: {employee: "required"},
+        messages: {employee: "İşçini mütləq seçməlisiniz! "},
         errorElement: "em",
         errorPlacement: function (error, element) {
             // Add the `invalid-feedback` class to the error element
@@ -1841,6 +1841,7 @@ $(function () {
             "searching": true,
             "ordering": true,
             "info": true,
+
             "autoWidth": true,
             "language": {
                 "lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
@@ -1860,11 +1861,11 @@ $(function () {
                 "width": "8%",
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<img  id='militaryInfo_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>" +
-                    "<img  id='militaryInfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>" +
-                    "<img  id='militaryInfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+                "defaultContent": " <img  id='lang_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>" +
+                    "<img  id='lang_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>" +
+                    "<img id='lang_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
             }],
-
+            dom: 'lBfrtip',
 
             buttons: [
                 {
@@ -4484,10 +4485,10 @@ function addImage() {
         });
     }));
 }
-
-$(".company_id").change(function () {
-    var deptid = $(this).val();
-    //console.log("deptid=" + deptid);
+$(function () {
+// $(".company_id").change(function () {
+    var deptid = $('#company_ids').val();
+    console.log("deptid=" + deptid);
     $.ajax({
         url: 'employees/getEmployee.php',
         type: 'post',
@@ -4495,6 +4496,8 @@ $(".company_id").change(function () {
         dataType: 'json',
         success: function (response) {
             //console.log('response=', response)
+            empArray = response;
+
             $("#employee").empty();
             var option = '<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
             option += '<option value="">Seçin..</option>';
@@ -4505,25 +4508,22 @@ $(".company_id").change(function () {
             option += '</select>';
             $(".emp").html(option);
             $(".selectpicker").selectpicker();
+
+            //update
+
+            var option = '<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+            option += '<option value="">Seçin..</option>';
+            $.each(response, function (k, v) {
+                //console.log('v=', v[1])
+                option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
+            });
+            option += '</select>';
+            $(".update_emp").html(option);
+            $(".selectpicker").selectpicker();
+
         }
     });
 
-});
-$(".work_company_id").change(function () {
-    var deptid = $(this).val();
-    var empArray = [];
-    var catArray = [];
-     console.log("deptid work_company_id=" + deptid);
-    $.ajax({
-        url: 'employees/getEmployee.php',
-        type: 'post',
-        data: {company_id: deptid},
-        dataType: 'json',
-        success: function (response) {
-            console.log('response getEmployee =', response)
-            empArray = response;
-        }
-    });
     $.ajax({
         url: 'workplace_info/get_employeesWork.php',
         type: 'post',
@@ -4570,7 +4570,70 @@ $(".work_company_id").change(function () {
             }
         }
     });
+
 });
+// $(".work_company_id").change(function () {
+//     var deptid = $(this).val();
+//     var empArray = [];
+//     var catArray = [];
+//      console.log("deptid work_company_id=" + deptid);
+//     $.ajax({
+//         url: 'employees/getEmployee.php',
+//         type: 'post',
+//         data: {company_id: deptid},
+//         dataType: 'json',
+//         success: function (response) {
+//             console.log('response getEmployee =', response)
+//             empArray = response;
+//         }
+//     });
+//     $.ajax({
+//         url: 'workplace_info/get_employeesWork.php',
+//         type: 'post',
+//         data: {company_id: deptid},
+//         dataType: 'json',
+//         success: function (response) {
+//             console.log('response=', response);
+//             catArray = response;
+//
+//             $.each(response, function (k, v) {
+//                 empArray = jQuery.grep(empArray, function (value) {
+//                     return value[0] != v;
+//                 });
+//                 //console.log('empArray=', empArray)
+//
+//             })
+//
+//             $("#employee").empty();
+//             var option = '<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+//             option += '<option value="">Seçin..</option>';
+//             $.each(empArray, function (k, v) {
+//                 //console.log('v=', v[1]);
+//                 option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
+//             });
+//             option += '</select>';
+//             $(".emp").html(option);
+//             $(".selectpicker").selectpicker();
+//             //console.log('difff', diff(empArray, catArray))
+//         }
+//     });
+//
+//
+//     $.ajax({
+//         url: 'workplace_info/getStructureInsert.php',
+//         type: 'post',
+//         async: false,
+//         data: {company_id: deptid},
+//         dataType: 'json',
+//         success: function (response) {
+//             console.log('response getStructureInsert=', response)
+//             if (response) {
+//                 fillSelect(response.structures, '')
+//                 // stlevel()
+//             }
+//         }
+//     });
+// });
 $("#employment_contract_indefinite").change(function () {
     var thisid = $(this).val();
     console.log("thisid=" + thisid);
@@ -4599,30 +4662,30 @@ function diff(a1, a2) {
     });
 }
 
-$(".update_company_id").change(function () {
-    var deptid = $(this).val();
-    //console.log("deptid=" + deptid);
-    $.ajax({
-        url: 'employees/getEmployee.php',
-        type: 'post',
-        data: {company_id: deptid},
-        dataType: 'json',
-        success: function (response) {
-            //console.log('response=', response)
-            $("#employee").empty();
-            var option = '<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-            option += '<option value="">Seçin..</option>';
-            $.each(response, function (k, v) {
-                //console.log('v=', v[1])
-                option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
-            });
-            option += '</select>';
-            $(".update_emp").html(option);
-            $(".selectpicker").selectpicker();
-
-        }
-    });
-});
+// $(".update_company_id").change(function () {
+//     var deptid = $(this).val();
+//     //console.log("deptid=" + deptid);
+//     $.ajax({
+//         url: 'employees/getEmployee.php',
+//         type: 'post',
+//         data: {company_id: deptid},
+//         dataType: 'json',
+//         success: function (response) {
+//             //console.log('response=', response)
+//             $("#employee").empty();
+//             var option = '<select data-live-search="true"  name="update_emplo" id="update_employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+//             option += '<option value="">Seçin..</option>';
+//             $.each(response, function (k, v) {
+//                 //console.log('v=', v[1])
+//                 option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
+//             });
+//             option += '</select>';
+//             $(".update_emp").html(option);
+//             $(".selectpicker").selectpicker();
+//
+//         }
+//     });
+// });
 
 function fillSelect(structures, stLevelid) {
     console.log('------------------------ structures=' ,structures)

@@ -25,23 +25,23 @@
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
-                        <div class="form-group row">
-                            <label class="col-sm-6 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
-                            <div class="col-sm-6">
-                                <select data-live-search="true"  name="company_id_add" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker company_id"  placeholder="<?php echo $dil["company"];?>"  >
-                                    <?php
-                                    $result_company = $db->query($sql_employee_company);
-                                    if ($result_company->num_rows > 0) {
-                                        while($row_company= $result_company->fetch_assoc()) {
-                                            ?>
-                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
-                                        <?php } }?>
-                                </select>
-                            </div>
-                        </div>
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-6 col-form-label" for="company_id">--><?php //echo $dil["company"];?><!--</label>-->
+<!--                            <div class="col-sm-6">-->
+<!--                                <select data-live-search="true"  name="company_id_add" id='company_id' title="--><?php //echo $dil["selectone"];?><!--" class="form-control selectpicker company_id"  placeholder="--><?php //echo $dil["company"];?><!--"  >-->
+<!--                                    --><?php
+//                                    $result_company = $db->query($sql_employee_company);
+//                                    if ($result_company->num_rows > 0) {
+//                                        while($row_company= $result_company->fetch_assoc()) {
+//                                            ?>
+<!--                                            <option  value="--><?php //echo $row_company['id']; ?><!--" >--><?php //echo $row_company['company_name'];  ?><!--</option>-->
+<!--                                        --><?php //} }?>
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label" for="employee"><?php echo $dil["employee"];?></label>
-                            <div class="col-sm-6 emp">
+                            <div class="col-sm-6  emp" id="emp">
                                 <select data-live-search="true"  name="emplo" id="employee"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
 <!--                                    --><?php
 //                                    $result_employees_view = $db->query($sql_employees);
