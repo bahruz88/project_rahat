@@ -5,7 +5,7 @@ include('../session.php') ;
  
   //Create variables
 
-$employee                  =$_POST['employee'];
+$employee                  =$_POST['emplo'];
  $trp_seria_number         = $_POST['trp_seria_number'];
 $trp_permit_reason        = $_POST['trp_permit_reason'];
 $trp_permit_date          = $_POST['trp_permit_date'];

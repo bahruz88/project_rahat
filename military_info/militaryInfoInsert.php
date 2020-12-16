@@ -5,7 +5,7 @@ include('../session.php') ;
  
   //Create variables
 
-$employee                       =$_POST['employee'];
+$employee                       =$_POST['emplo'];
 $military_reg_group             = $_POST['military_reg_group'];
 $military_reg_category          = $_POST['military_reg_category'];
 $military_staff                 = $_POST['military_staff'];

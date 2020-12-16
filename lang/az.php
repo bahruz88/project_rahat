@@ -92,6 +92,7 @@ $dil = array(
 	"empty_pass" 		=>"Şifrəni boş qoymaq olmaz",
 	"length_input" 		=>"Minimum 5 simvol olmalidir ",
 	"user_input_title"  =>"Yeni istifadəçinin daxil edilməsi ",
+	"input_title"  =>"Yeni məlumatın daxil edilməsi ",
 	"edu_input_title"  =>"Yeni təhsil məlumatlarının daxil edilməsi ",
 	"user_input_title_exit"  =>"İstifadəçinin işdən azad edilməsi ",
 	"input_error_title" =>"Məlumatların yadda saxlanması",

@@ -5,7 +5,7 @@ include('../session.php') ;
  
   //Create variables
 
-	$employee=$_POST['employee'];
+	$employee=$_POST['emplo'];
 	$family_member_type=$_POST['family_member_type'];
 	$firstname=$_POST['firstname'];
 	$lastname=$_POST['lastname'];
