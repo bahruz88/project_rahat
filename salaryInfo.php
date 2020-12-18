@@ -451,10 +451,10 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
                 var option='<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
                 option += '<option value="">Seçin..</option>';
                 $.each(response, function(k,v) {
-                    if(jQuery.inArray( v[0], empAr)==-1){
+                    // if(jQuery.inArray( v[0], empAr)==-1){
                         console.log('v=',v[1]);
                         option += '<option value="' + v[0] + '" >' + v[1] +'</option>';
-                    }
+                    // }
 
                 });
                 option += '</select>';

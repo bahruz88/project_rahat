@@ -4495,7 +4495,7 @@ $(function () {
         data: {company_id: deptid},
         dataType: 'json',
         success: function (response) {
-            //console.log('response=', response)
+            console.log('company_ids response=', response)
             empArray = response;
 
             $("#employee").empty();
@@ -4524,36 +4524,36 @@ $(function () {
         }
     });
 
-    $.ajax({
-        url: 'workplace_info/get_employeesWork.php',
-        type: 'post',
-        data: {company_id: deptid},
-        dataType: 'json',
-        success: function (response) {
-            console.log('response=', response);
-            catArray = response;
-
-            $.each(response, function (k, v) {
-                empArray = jQuery.grep(empArray, function (value) {
-                    return value[0] != v;
-                });
-                //console.log('empArray=', empArray)
-
-            })
-
-            $("#employee").empty();
-            var option = '<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
-            option += '<option value="">Seçin..</option>';
-            $.each(empArray, function (k, v) {
-                //console.log('v=', v[1]);
-                option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
-            });
-            option += '</select>';
-            $(".emp").html(option);
-            $(".selectpicker").selectpicker();
-            //console.log('difff', diff(empArray, catArray))
-        }
-    });
+    // $.ajax({
+    //     url: 'workplace_info/get_employeesWork.php',
+    //     type: 'post',
+    //     data: {company_id: deptid},
+    //     dataType: 'json',
+    //     success: function (response) {
+    //         console.log('response=', response);
+    //         catArray = response;
+    //
+    //         $.each(response, function (k, v) {
+    //             empArray = jQuery.grep(empArray, function (value) {
+    //                 return value[0] != v;
+    //             });
+    //             //console.log('empArray=', empArray)
+    //
+    //         })
+    //
+    //         $("#employee").empty();
+    //         var option = '<select data-live-search="true"  name="emplo" id="employee"  title="Birini seçin" class="form-control selectpicker"  placeholder="" >\n';
+    //         option += '<option value="">Seçin..</option>';
+    //         $.each(empArray, function (k, v) {
+    //             //console.log('v=', v[1]);
+    //             option += '<option value="' + v[0] + '" >' + v[1] + '</option>';
+    //         });
+    //         option += '</select>';
+    //         $(".emp").html(option);
+    //         $(".selectpicker").selectpicker();
+    //         //console.log('difff', diff(empArray, catArray))
+    //     }
+    // });
 
 
     $.ajax({

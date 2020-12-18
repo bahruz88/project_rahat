@@ -444,13 +444,13 @@ function treeClick(trList){
         //console.log('tree event',$(this).attr('data-id'))
         var stId=$(this).attr('data-id')
         var company_id=$(this).closest('tr').attr('data-companyId')
-        //console.log('treeClick company_id='+company_id)
+       console.log('treeClick company_id='+company_id)
         // var company_id=$('#company_id').val()
         $.ajax({
             url: 'structure/st_selectRoles.php',
             type: "POST",
             async:false,
-            data: {id: stId},
+            data: {id: stId,company_id:company_id},
             success: function (data) {
                console.log('st_selectRoles dataaaaas=' , jQuery.parseJSON(data));
                 fillStTable(jQuery.parseJSON(data),stId)
