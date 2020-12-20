@@ -292,7 +292,7 @@ function notNull(element){
                         // console.log('value=',value)
                         // console.log('value.firstname='+value[1])
                         table+=' <tr class="typeOfDocument" >' +
-                            '<td>'+parseInt(k+1)+'</td>'+
+                            '<td>'+parseInt(k)+'</td>'+
                             '<td>'+notNull(value[1])+'</td>'+
                             '<td>'+notNull(value[2])+'</td>'+
                             '<td>'+notNull(value[3])+'</td>'+
@@ -339,7 +339,7 @@ function notNull(element){
             cache: false,
             type: 'post',
             success: function(data){
-                console.log('data==='+data); // display response from the PHP script, if any
+                console.log('data insert==='+data); // display response from the PHP script, if any
 
                  // if(data===""){
                  //     console.log('dataaa==='+data);

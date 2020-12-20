@@ -82,7 +82,7 @@ include('../session.php');
                  echo "error" .mysqli_error($db);
              }
              else {
-                 echo "";
+                 echo "ss";
                  //$emp_id = "SELECT id FROM $tbl_employees ORDER BY id DESC LIMIT 1";
                  $sql_emp_id = "SELECT * FROM $tbl_employees ORDER BY id DESC LIMIT 1";
                  $result_emp_id  = $db->query($sql_emp_id);
@@ -131,7 +131,7 @@ include('../session.php');
 //    echo "success";
                  }
                  //Close connection
-                 mysqli_close($db);
+//                 mysqli_close($db);
              }
 
 
