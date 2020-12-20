@@ -6,11 +6,13 @@ if(isset($_GET['empid'])){
 }
 $sql_employees= "select * from $tbl_employees where    id=$emp_id ";
 $u_photo = '';
+$company_id = '';
 $result_emp = $db->query($sql_employees);
 if($result_emp){
     if ($result_emp->num_rows > 0) {
         while($row_users = $result_emp->fetch_assoc()) {
             $u_photo2 = $row_users['image_name'];
+            $company_id=$row_users['company_id'];
 
                 $login_fullname2= $row_users['firstname'].' '.$row_users['lastname'];
 
@@ -23,7 +25,7 @@ if($result_emp){
 $result_users = $db->query($ses_users);
 $login_session = '';
 
-$company_id = '';
+
 $login_fullname3= '';
 $login_lang = '';
 if($result_users){
@@ -36,7 +38,10 @@ if($result_users){
             }else{
                 $u_photo=$u_photo2;
             }
-            $company_id = $row_users['company_id'];
+            if($company_id==''){
+                $company_id = $row_users['company_id'];
+            }
+
             $login_fullname3= $row_users['firstname'].' '.$row['lastname'];
             $login_lang = $row_users['def_lang'];
 

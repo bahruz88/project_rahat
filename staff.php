@@ -1,5 +1,5 @@
-<?php    
- include('session.php');  
+<?php
+ include('session.php');
  $site_lang=$_SESSION['dil'] ;
 
 
@@ -15,7 +15,7 @@ $result_employee_category = $db->query($employee_category);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
+
   <title><?php echo $company_name ; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -371,7 +371,7 @@ $result_employee_category = $db->query($employee_category);
 <!--    <button onclick="printDiv('staff','Title')">Print</button>-->
 </div>
 </div>
-		  
+
 
 </div>
 </div>
@@ -388,8 +388,8 @@ $result_employee_category = $db->query($employee_category);
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
-<script src="js/html2canvas.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>-->
+<script src="js/html2canvas.js"></script>
 
 
 <!-- ChartJS -->
@@ -420,7 +420,7 @@ $result_employee_category = $db->query($employee_category);
 <script type="text/javascript" src="js/datatables.min.js"></script>
 <script type="text/javascript" src="dist/js/jquery.validate.js"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-select.min.js"></script>	
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"  ></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js"></script>
@@ -594,22 +594,37 @@ $result_employee_category = $db->query($employee_category);
                         $("#statt").css("display","block");
                         var element = $("#statt");
                     }
-
+console.log('staffSelect==='+staffSelect)
 
                     // $("#tableStaff").val( $("table#staff_table").html());
                     $("#tableStaff").val( $("table#stafftree").html());
+                    element.css({
+                        'transform': 'scale(1)',
+                        '-ms-transform': 'scale(1)',
+                        '-webkit-transform': 'scale(1)' });
 
-                    html2canvas(element, {quality: 0,
-                        scale: 105,dpi: 1000 }).then(function (canvas) {
+                    html2canvas(element, {
+                        onrendered: function(canvas) {
                             canvas.getContext('2d');
                             getCanvas = canvas;
                             console.log(" canvas deyisdi="+element.attr('id'));
 
-                        $body.removeClass("loading");
-                        $("#download").css("display","block");
-                        $("#print").css("display","block");
-
+                            $body.removeClass("loading");
+                            $("#download").css("display","block");
+                            $("#print").css("display","block");
+                        }
                     });
+                    // html2canvas(element, {quality: 0,
+                    //     scale: 105,dpi: 1000 }).then(function (canvas) {
+                    //         canvas.getContext('2d');
+                    //         getCanvas = canvas;
+                    //         console.log(" canvas deyisdi="+element.attr('id'));
+                    //
+                    //     $body.removeClass("loading");
+                    //     $("#download").css("display","block");
+                    //     $("#print").css("display","block");
+                    //
+                    // });
 
                     $("#noStaff").css("display","none");
                 }else{
@@ -617,10 +632,13 @@ $result_employee_category = $db->query($employee_category);
 
                     $body.removeClass("loading");
                 }
-                $(".staffText").css("display","none");
-                $(".stattText").css("display","none");
-                $(".stattText2").css("display","none");
-                $(".staffText2").css("display","none");
+                setTimeout(function () {
+                    $(".staffText").css("display","none");
+                    $(".stattText").css("display","none");
+                    $(".stattText2").css("display","none");
+                    $(".staffText2").css("display","none");
+                }, 350);
+
             },
         });
     })
@@ -681,9 +699,13 @@ $result_employee_category = $db->query($employee_category);
 
      // global variable
     function saveDiv(divId) {
+        $(".staffText").css("display","block");
+        $(".stattText").css("display","block");
+        $(".stattText2").css("display","block");
+        $(".staffText2").css("display","block");
         // generate(divId)
         var staffchoose=$("input[name='staffSelect']:checked").val();
-        console.log('staffchoose='+staffchoose)
+        console.log('staff html='+ $("#staff").html())
         if(staffchoose=='1') {
             var HTML_Width = $("#staff").width();
             var HTML_Height =$("#staff").height();
@@ -702,20 +724,21 @@ $result_employee_category = $db->query($employee_category);
 
         if(staffchoose=='1'){
 
-            $(".staffText").css("display","block");
-            $(".staffText2").css("display","block");
-            console.log('staffText='+$("#staff").html())
+
+            // $(".staffText").css("display","block");
+            // $(".staffText2").css("display","block");
+            // console.log('staffText='+$("#staff").html())
             console.log('staffchoose1111='+staffchoose)
-            $(".stattText").css("display","none");
-            $(".stattText2").css("display","none");
+            // $(".stattText").css("display","none");
+            // $(".stattText2").css("display","none");
         }else if(staffchoose=='2'){
 
-            $(".staffText").css("display","none");
-            $(".staffText2").css("display","none");
-            $(".stattText").css("display","block");
-            $(".stattText2").css("display","block");
+            // $(".staffText").css("display","none");
+            // $(".staffText2").css("display","none");
+            // $(".stattText").css("display","block");
+            // $(".stattText2").css("display","block");
             console.log('staffchoose22222='+staffchoose)
-            console.log('stattText='+$("#statt").html())
+            // console.log('stattText='+$("#statt").html())
         }
         var imgData = getCanvas.toDataURL("image/png", 1.0);
         var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
@@ -729,21 +752,24 @@ $result_employee_category = $db->query($employee_category);
 
         pdf.save("staff.pdf");
 
-
-        if(staffchoose=='1'){
-            console.log('staffchoose1111nn='+staffchoose)
-            $(".staffText").css("display","none");
-            $(".staffText2").css("display","none");
-            $(".stattText").css("display","block");
-            $(".stattText2").css("display","block");
-        }else if(staffchoose=='2'){
-            console.log('staffchoose222nnn='+staffchoose)
-            $(".staffText").css("display","block");
-            $(".staffText2").css("display","block");
-            $(".stattText").css("display","none");
-            $(".stattText2").css("display","none");
-
-        }
+        $(".staffText").css("display","none");
+        $(".stattText").css("display","none");
+        $(".stattText2").css("display","none");
+        $(".staffText2").css("display","none");
+        // if(staffchoose=='1'){
+        //     console.log('staffchoose1111nn='+staffchoose)
+        //     $(".staffText").css("display","none");
+        //     $(".staffText2").css("display","none");
+        //     $(".stattText").css("display","block");
+        //     $(".stattText2").css("display","block");
+        // }else if(staffchoose=='2'){
+        //     console.log('staffchoose222nnn='+staffchoose)
+        //     $(".staffText").css("display","block");
+        //     $(".staffText2").css("display","block");
+        //     $(".stattText").css("display","none");
+        //     $(".stattText2").css("display","none");
+        //
+        // }
 
     }
 

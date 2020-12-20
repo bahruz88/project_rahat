@@ -246,12 +246,12 @@
                   <p>Ştat cədvəli</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  
-                  <p>İş yeri barədə</p>
-                </a>
-              </li>
+<!--              <li class="nav-item">-->
+<!--                <a href="pages/charts/flot.html" class="nav-link">-->
+<!--                  -->
+<!--                  <p>İş yeri barədə</p>-->
+<!--                </a>-->
+<!--              </li>-->
               <li class="nav-item">        
             </ul>
           </li>
