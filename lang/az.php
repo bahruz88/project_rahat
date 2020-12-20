@@ -234,6 +234,7 @@ $dil = array(
 	"time_management"   =>"İş vaxtının uçotu",
 	"schedule_list"   =>"Qrafiklər",
 	"overtime_settings"   =>"Əlavə  iş vaxtı sazlama ",
+	"overtime_settings_update"   =>"Əlavə  iş vaxtı sazlamasının dəyişdirilməsi",
 	"overtime_list"   =>"Əlavə  iş vaxtı siyahı",
 	"about_me"   =>"Mənim haqqımda",
     "exceptions"   =>"Güzəştlər",
@@ -407,6 +408,7 @@ $dil = array(
     "bulk_operation" 	=>"Toplu əməliyyatlar",
     "recruitment" 	=>"İşə qəbul",
 	"employee_schedules" 	=>"İşçilərin  qrafikləri",
+	"add_schedules_to_employee" 	=>"İşçilərin  qrafikə əlavə  edilməsi",
 	"schedules" 	=>"Qrafiklər",
 
 
