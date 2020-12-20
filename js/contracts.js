@@ -222,8 +222,8 @@ function changeAttr(confirmDateContract){
 	var sinceEndDate=$('#myContracts input[name=sinceEndDate]').val();
 	var companyId=$('#company option:selected').val();
 	console.log('contract='+contract);
-	console.log('contractDate='+contractDate);
-	console.log('commandDate='+commandDate);
+	console.log('contractDate1='+contractDate);
+	console.log('commandDate1='+commandDate);
 	console.log('sinceBeginDate='+sinceBeginDate);
 	console.log('sinceEndDate='+sinceEndDate);
 	console.log('companyId='+companyId);
@@ -232,28 +232,34 @@ function changeAttr(confirmDateContract){
 	if(confirmDateContract!=''){
 		order="confirmDateContract";
 		contractDate='';
+		console.log(' contractDate2='+contractDate)
 	}
 	if((contractDate=='1' || commandDate=='1') && confirmDateContract=='' ){
 		order="  ORDER BY tc.id ASC LIMIT 1";
 		contractDate='1';
+		console.log(' contractDate3='+contractDate)
 	}
 	if((contractDate=='2'|| commandDate=='2')&& confirmDateContract==''){
 		order="  ORDER BY tc.id DESC LIMIT 1";
 		contractDate='2';
+		console.log(' contractDate4='+contractDate)
 	}
 	if(contractDate=='3' && confirmDateContract=='' && confirmDateContract==''){
 		order="";
 		contractDate='3';
+		console.log(' contractDate5='+contractDate)
 	}
 	if(commandDate=='3' && confirmDateContract=='' && confirmDateContract==''){
 		order="";
 		contractDate='3';
+		console.log(' contractDate6='+contractDate)
 	}
-	if((contractDate=='' || commandDate=='') && confirmDateContract==''){
+	if((contractDate==''  && commandDate=='') && confirmDateContract==''){
 		order="";
 		contractDate='';
+		console.log(' contractDate7='+contractDate)
 	}
-
+	// console.log(' contractDate2='+contractDate)
 	GetEmpContractDetails(data,'update',order,contractDate,contName,contract,sinceBeginDate,sinceEndDate,companyId,confirmDateContract);
 	document.getElementById("update_empid").value = data[0];
 }
@@ -261,7 +267,7 @@ var commandArray =[];
 /*İSCHİNİN UPDATE VE YA VİEW MELUMATLARINI  GETIRIR*/
 function GetEmpContractDetails(empid,optype,order,contractDate,contName,contract,sinceBeginDate,sinceEndDate,companyId,confirmDateContract)
 {
-	console.log('contractDate='+contractDate)
+	console.log('GetEmpContractDetails contractDate='+contractDate)
 	console.log('command_id='+contract)
 	console.log('contName='+contName)
 	console.log('empid='+empid)
