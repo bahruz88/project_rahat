@@ -1,5 +1,6 @@
 <?php    
  include('session.php'); 
+ 
 $sql_tm_type="Select   *  from $tbl_sch_time_managment_type where  lang='$site_lang'";
  
  $company_id=$_SESSION["CompanyId"] ;
@@ -15,7 +16,14 @@ from $tbl_schedules  where status=1 and company_id='$company_id' ";
 
 $sql_employees = "select  id, concat(lastname,' ', firstname ,' ', surname) full_name ,lastname, firstname ,surname, emp_status,empno,image_name
 from $tbl_employees  where emp_status=1 and company_id='$company_id'
-and id not in (Select emp_id from  $tbl_employee_schedules where status=1) ";
+/*and id not in (Select emp_id from  $tbl_employee_schedules where status=1) */";
+ 
+$sql_reduce_type="Select   *  from $tbl_sch_reduce_from where  lang='$site_lang'";
+$result_reduce_type = $db->query($sql_reduce_type);  
+
+$sql_reduce_reason="Select   *  from $tbl_sch_reduce_reason where  lang='$site_lang'";
+$result_reduce_reason = $db->query($sql_reduce_reason);  
+ 
  
 $result_lang = $db->query($sql_lang);
 $result_roles = $db->query($sql_roles);		
@@ -207,9 +215,9 @@ $message=$dil["selectone"];
 				  <p><?php echo $dil["delete_warning_content"];?></p>
 				</div>
 				<div class="modal-footer justify-content-between">
-				  <form id="ovrDelete" method="post" class="form-horizontal" action="">
+				  <form id="empschDelete" method="post" class="form-horizontal" action="">
 				  <button class="btn btn-outline-light" id="itemDelete" type="submit"><?php echo $dil["yes"];?></button>
-				  <input type="hidden" id="ovrid" name="ovrid" value="" /> 
+				  <input type="hidden" id="empschid" name="empschid_name" value="" /> 
 				  </form>
 				  <button class="btn btn-outline-light" type="button" data-dismiss="modal"><?php echo $dil["no"];?></button>
 				   
@@ -221,26 +229,26 @@ $message=$dil["selectone"];
 		  </div>
 	  
 	  
-  <!--OVERTİME İNSERT MODAL -->
+  <!--EMPSCH İNSERT MODAL -->
   <div class="modal fade" id="empschModal" role="dialog">
     <div class="modal-dialog modal-lg">
-    <form id="ovrInsert" method="post" class="form-horizontal" action="">
+    <form id="empschInsert" method="post" class="form-horizontal" action="">
       <!-- Modal content-->
       <div class="modal-content">
       
         <div class="modal-body">
 			<div class="card card-success">
 					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["ovr_input_title"];?></h4>
+						<h4 class="card-title"><?php echo $dil["add_schedules_to_employee"];?></h4>
 			 <span  id="badge_success" class="badge badge-success"></span>
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
-					<div class="card-body" style="position: relative; overflow: auto; height: 500px;overflow-y: scroll; ">
+					<div class="card-body" >
 						
 						 <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["employee"];?></label>
+                            <label class="col-sm-3 col-form-label" for="employee_id"><?php echo $dil["employee"];?></label>
                             <div class="col-sm-6">
-                                <select   data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  >
+                                <select   data-live-search="true"   name="employee_id_name" id="employee_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>"  >
                                     <?php
                                     $result_employees = $db->query($sql_employees);
                                     if ($result_employees->num_rows > 0) {
@@ -252,10 +260,10 @@ $message=$dil["selectone"];
                             </div>
                         </div>
  
-						    <div class="form-group row">
+						<div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="schedules"><?php echo $dil["schedules"];?></label>
                             <div class="col-sm-6" id="sch_div">
-                                <select data-live-search="true"  name="employee_id_name" id="employee_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["schedules"];?>" >
+                                <select data-live-search="true"  name="sch_id_name" id="sch_id"  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["schedules"];?>" >
                                                                      <?php
                                     $result_employees_sch = $db->query($sql_employees_sch);
                                     if ($result_employees_sch->num_rows > 0) {
@@ -267,26 +275,10 @@ $message=$dil["selectone"];
                             </div>
                         </div>
 						
-							 <div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="ovr_start_date"><?php echo $dil["start_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="ovr_start_date_id" name="ovr_start_date_name" placeholder="<?php echo $dil["start_date"];?>" />
-
-								</div>
-							</div>
-						 
-							 <div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="ovr_end_date"><?php echo $dil["end_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="ovr_end_date_id" name="ovr_end_date_name" placeholder="<?php echo $dil["end_date"];?>" />
-								</div>
-							</div>
-							
- 
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="tm_type"><?php echo $dil["tm_type"];?></label>
 								<div class="col-sm-6">
-						<select    data-live-search="true" name="calc_status_name" id="calc_status_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
+						<select    data-live-search="true" name="tm_type_name" id="tm_type_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["tm_type"];?>" >
 								 	<?php 
 									 $result_tm_type = $db->query($sql_tm_type);
 										if ($result_tm_type->num_rows > 0) {
@@ -300,35 +292,56 @@ $message=$dil["selectone"];
 						</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="overtime_period"><?php echo $dil["overtime_period"];?></label>
+								<label class="col-sm-3 col-form-label" for="reduce_type"><?php echo $dil["reduce_type"];?></label>
 								<div class="col-sm-6">
-								<select    data-live-search="true" name="overtime_period_name" id="overtime_period_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_period"];?>" >
+								<select    data-live-search="true" name="reduce_type_name" id="reduce_type_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_type"];?>" >
 											<?php 
-											 $result_periods  = $db->query($sql_periods);
-												if ($result_periods ->num_rows > 0) {
-												while($row_periods = $result_periods ->fetch_assoc()) {
+											 $result_reduce_type  = $db->query($sql_reduce_type);
+												if ($result_reduce_type ->num_rows > 0) {
+												while($row_reduce_type = $result_reduce_type ->fetch_assoc()) {
 													
 												?>
-												<option  value="<?php echo $row_periods ['period_id']; ?>" ><?php echo $row_periods ['period_desc'] ;  ?></option>
+												<option  value="<?php echo $row_reduce_type ['type_id']; ?>" ><?php echo $row_reduce_type ['type_descr'] ;  ?></option>
 													
 												<?php } }?>
 								</select>
 						</div>
 							</div>	
 							 <div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["overtime_status"];?></label>
+								<label class="col-sm-3 col-form-label" for="reduce_reason"><?php echo $dil["reduce_reason"];?></label>
 								<div class="col-sm-6">
-		                        <select     name="overtime_status_name"  id="overtime_status_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["overtime_status"];?>">
+		                        <select     name="reduce_reason_name"  id="reduce_reason_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["reduce_reason"];?>">
                                     <?php
-                                    $result_yesno = $db->query($sql_yesno); 
-                                    if ($result_yesno->num_rows > 0) {
-                                        while($row_yesno= $result_yesno->fetch_assoc()) {
+                                    $result_reduce_reason = $db->query($sql_reduce_reason); 
+                                    if ($result_reduce_reason->num_rows > 0) {
+                                        while($row_reduce_reason= $result_reduce_reason->fetch_assoc()) {
 
                                             ?>
-                                            <option  value="<?php echo $row_yesno['chois_id']; ?>" ><?php echo $row_yesno['chois_desc'];  ?></option>
+                                            <option  value="<?php echo $row_reduce_reason['reason_id']; ?>" ><?php echo $row_reduce_reason['res_desc'];  ?></option>
 
                                         <?php } }?>
                                 </select>
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="red_working_hours"><?php echo $dil["red_working_hours"];?></label>
+								<div class="col-sm-6">
+								
+								<select    name="red_working_hours_name" id="red_working_hours_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["red_working_hours"];?>" >
+								 
+										<option  value="1" >1</option>
+										<option  value="2" >2</option>
+										<option  value="3" >3</option>
+										<option  value="4" >4</option>
+										<option  value="5" >5</option>
+										<option  value="6" >6</option>
+										<option  value="7" >7</option>
+										<option  value="8" >8</option>
+										<option  value="9" >9</option>
+										<option  value="10" >10</option>		
+								</select>
+ 
 								</div>
 							</div>
 							
@@ -339,7 +352,8 @@ $message=$dil["selectone"];
 		
 		
         <div class="modal-footer"> 
-		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>		 
+		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button>
+		<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>		 
         </div>	
 		</form>
       </div>
@@ -484,14 +498,12 @@ $message=$dil["selectone"];
                 <thead>
                <tr>
                         <th>id</th>
-						<th><?php echo $dil["company_name"];?></th>
-                        <th><?php echo $dil["fio"];?></th>
-						<th><?php echo $dil["start_date"];?></th>
-						<th><?php echo $dil["end_date"];?></th>
-						<th><?php echo $dil["overtime_status"];?></th>
-						<th><?php echo $dil["overtime_period"];?></th>
-						<th><?php echo $dil["overtime_calc_status"];?></th>
-						 						 
+						<th><?php echo $dil["schname"];?></th>
+                        <th><?php echo $dil["schcode"];?></th>
+						<th><?php echo $dil["fio"];?></th>
+						<th><?php echo $dil["reduce_type"];?></th>
+						<th><?php echo $dil["red_working_hours"];?></th>
+						<th><?php echo $dil["reduce_reason"];?></th>				 
 						<th>Action</th>
                    </tr>
                 </thead>  
@@ -589,38 +601,47 @@ $message=$dil["selectone"];
 
 		}
 		
-		 if($('#ovr_start_date_id').val()=='' ){
-			$('#ovr_start_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+		 if($('#sch_id').val()=='' ){
+			$('#sch_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#ovr_start_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
-		}
+			$('#sch_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}		
 		
-		if($('#ovr_end_date_id').val()=='' ){
-			$('#ovr_end_date_id').addClass( "is-invalid" ).removeClass( "is-valid" );
+		if($('#tm_type_id').val()=='' ){
+			$('#tm_type_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#ovr_end_date_id').addClass( "is-valid" ).removeClass( "is-invalid" );
-		}
-		 if($('#calc_status_id').val()=='' ){
-			$('#calc_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-			return false
-		}else{
-			$('#calc_status_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-		}
+			$('#tm_type_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}		
 		
-		 if($('#overtime_period_id').val()=='' ){
-			$('#overtime_period_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+		if($('#reduce_type_id').val()=='' ){
+			$('#reduce_type_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#overtime_period_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+			$('#reduce_type_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}	
+		
+		if($('#reduce_reason_id').val()=='' ){
+			$('#reduce_reason_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+			return false
+		}else{
+			$('#reduce_reason_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
 		}
-		 if($('#overtime_status_id').val()=='' ){
-			$('#overtime_status_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
+
+		if($('#red_working_hours_id').val()=='' ){
+			$('#red_working_hours_id').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
 			return false
 		}else{
-			$('#overtime_status_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-		} 	
+			$('#red_working_hours_id').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
+
+		}		
+		
+		  	
 		return true
 	} 
  
@@ -705,7 +726,7 @@ var table = $("#empsch_table").DataTable({
     }
         },
 	    "ajax": {
-                url: "overtime/get_ovr.php",
+                url: "employee_schedule/get_empsch.php",
                 type: "POST"
             },"columnDefs": [ {
 			"width": "4%",
@@ -771,7 +792,7 @@ var table = $("#empsch_table").DataTable({
   /*Button  click  on grid */
 	$('#empsch_table tbody').on( 'click', '#delete', function () {
         var data = table.row( $(this).parents('tr') ).data();
-        document.getElementById("ovrid").value = data[0];
+        document.getElementById("empschid").value = data[0];
 		$('#modalDelete').modal('show');
     } );
 	
@@ -819,24 +840,6 @@ var table = $("#empsch_table").DataTable({
 					 $('#update_overtime_period_id').val(overtime.period_id).change();
 					 $('#update_overtime_status_id').val(overtime.chois_id).change();
 					 
-					 
-					/*$("#update_schname_id").val(schedule.sch_name);
-					$('#update_tm_type_id').val(schedule.tm_id).change();
-					$('#update_sch_type_id').val(schedule.sch_type_id).change();
-					$('#update_reduce_type_id').val(schedule.reduce_type).change();
-					$('#update_red_working_hours_id').val(schedule.red_working_hours).change();
-					$('#update_reduce_reason_id').val(schedule.reason_id).change();
-					$("#update_start_time_id").val(schedule.start_time);
-					$("#update_end_time_id").val(schedule.end_time);
-					$("#update_break_start_time_id").val(schedule.break_start_time);
-					$("#update_break_end_time_id").val(schedule.break_end_time);
-					$("#update_dinner_start_time_id").val(schedule.dinner_start_time);
-					$("#update_dinner_end_time_id").val(schedule.dinner_end_time);
-					$('#update_night_time_id').val(schedule.night_time).change();*/
-					/*
-					$('#update_userlevel').val([1,2,3]).change();*/
-					//$('#update_userlevel').selectpicker('val', [1,2,3]);
-				     
 					$('#ovrEdit').modal('show');
 					
 				}
@@ -874,14 +877,14 @@ var table = $("#empsch_table").DataTable({
     });
  
  /*USER MELUMATLARI  DAXIL  EDILIR  */
-		$("#ovrInsert").submit(function(e)
+		$("#empschInsert").submit(function(e)
 		{
                     e.preventDefault();
- if (validInsert()) {
+		if (validInsert()) {
                     $.ajax( {
-                        url: "overtime/ovrInsert.php",
+                        url: "employee_schedule/empSchInsert.php",
                         method: "post",
-                        data: $("#ovrInsert").serialize(),
+                        data: $("#empschInsert").serialize(),
                         dataType: "text",
                         success: function(strMessage)
 						{
@@ -903,7 +906,7 @@ var table = $("#empsch_table").DataTable({
 								 }
 								 else if (strMessage==='success')
 								 {
-									 $("#successp").text('Melumat muveffeqiyyetle daxil edildi');
+									 $("#successp").text('Məlumat müvəffəqiyyətlə daxil edildi');
 									 $("#modalInsertSuccess").modal('show');
 									 $("#empschModal").modal('hide');
 									 table.ajax.reload();
@@ -917,18 +920,18 @@ var table = $("#empsch_table").DataTable({
 						}
                     });
 				    table.ajax.reload();
-					$( "#ovrInsert" ).get(0).reset();
+					$( "#empschInsert" ).get(0).reset();
  }
         });
 				
 				
-	$("#ovrDelete").submit(function(e) {
+	$("#empschDelete").submit(function(e) {
 		
                     e.preventDefault();
                     $.ajax( {
-                        url: "overtime/OvrDelete.php",
+                        url: "employee_schedule/empSchDelete.php",
                         method: "post",
-                        data: $("form").serialize(),
+                        data: $("#empschDelete").serialize(),
                         dataType: "text",
                         success: function(strMessage) 
 						{

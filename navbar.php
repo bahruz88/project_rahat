@@ -47,7 +47,7 @@
 						
 					?>						
           <div class="dropdown-divider"></div>
-          <a href="./?dil=<?php echo $row_lang_nav['short_name']; ?>" class="dropdown-item">
+          <a href="./?dil=<?php echo $_SESSION["CompanyId"]. $row_lang_nav['short_name']; ?>" class="dropdown-item">
             <i class="fas  mr-2"><img src="<?php echo $row_lang_nav['image_path']; ?>" width ="25px" height="25px" class="img-circle elevation-2" ></i><?php echo $dil[$row_lang_nav['lang_code']];?>
           </a>
 		  <?php } }?>
@@ -65,7 +65,7 @@
              <?php
 			 
 			 
-			 if(empty($_GET["company_id"])){
+			 if(empty($_GET["company_id_main"])){
 			 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') 
 				$link = "https"; 
 				else  	$link = "http"; 
@@ -82,7 +82,7 @@
 				$link .= $_SERVER['HTTP_HOST']; 
 				$link .= $_SERVER['REQUEST_URI']; 
 				
-				 $link = substr($link,0,strpos($link,"&company_id="));
+				 $link = substr($link,0,strpos($link,"&company_id_main="));
 				  
 				  $symb_cnt=strpos($link,"?");
 			  }
@@ -95,7 +95,7 @@
 			 if ($symb_cnt>0){
 			
 			?>
-		  <a href="<?php echo $link ; ?>&company_id=<?php echo  $row_company["id"]  ; ?>" class="dropdown-item " style="white-space:normal;">
+		  <a href="<?php echo $link ; ?>&company_id_main=<?php echo  $row_company["id"]  ; ?>" class="dropdown-item " style="white-space:normal;">
             <i class="flag-icon flag-icon-us mr-2"></i> <?php echo  $row_company['company_name'];  ?> 
           </a>
 			 <?php } else{?>

@@ -1,6 +1,6 @@
 <?php
  include('../session.php');
-$company_id = $_POST['company_id'];
+$company_id = $_SESSION["CompanyId"];
 
 $sql_employees = "select  id, concat(lastname,' ', firstname ,' ', surname) full_name ,lastname, firstname ,surname, emp_status,empno,image_name
 from $tbl_employees  where emp_status=1 and company_id='$company_id'";

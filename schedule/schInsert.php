@@ -23,7 +23,7 @@ function generateRandomString($length = 2) {
 	$dinner_start_time_name = $_POST['dinner_start_time_name'];
 	$dinner_end_time_name = $_POST['dinner_end_time_name'];*/
 	$night_time_name = $_POST['night_time_name'];
-	$company_id_name = $_POST['company_id_name']; 
+	$company_id_name =  $_SESSION["CompanyId"];
 	
 	/**schcode  generate*/
 	$schcode =generateRandomString();

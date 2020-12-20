@@ -28,7 +28,7 @@
 
 
 		   <li class="nav-item">
-                <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=users" class="nav-link <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="users") { ?>active <?php }}?>">
+                <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=users&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="users") { ?>active <?php }}?>">
                  
                   <p>  <?php echo $dil["users"];?></p>
                 </a>
@@ -37,13 +37,13 @@
 			  
 			  
               <li class="nav-item " >
-                <a href="companies.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=companies" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="companies") { ?>active<?php }}?>">
+                <a href="companies.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=companies&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="companies") { ?>active<?php }}?>">
                  
                   <p>  <?php echo $dil["companies"];?></p>
                 </a>
               </li>
 			  <li class="nav-item " >
-                <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=modules" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="modules") { ?>active<?php }}?>">
+                <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=modules&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="modules") { ?>active<?php }}?>">
                  
                   <p>  <?php echo $dil["modules"];?></p>
                 </a>
@@ -65,7 +65,7 @@
          
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="employees.php?dil=<?php echo $_SESSION["dil"]; ?>&module=employees&submodule=employee_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="employee_list") { ?>active<?php }}?>" class="nav-link">
+                <a href="employees.php?dil=<?php echo $_SESSION["dil"]; ?>&module=employees&submodule=employee_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="employee_list") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["employee_list"];?></p>
                 </a>
@@ -98,47 +98,47 @@
          
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="schedule.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=schedule_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="schedule_list") { ?>active<?php }}?>" class="nav-link">
+                <a href="schedule.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=schedule_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="schedule_list") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["schedule_list"];?></p>
                 </a>
               </li>
 			  <li class="nav-item">
-                <a href="employee_schedules.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=employee_schedules" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="employee_schedules") { ?>active<?php }}?>" class="nav-link">
+                <a href="employee_schedules.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=employee_schedules&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="employee_schedules") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["employee_schedules"];?></p>
                 </a>
               </li>			  
                <li class="nav-item">
-                <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=overtime" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="overtime") { ?>active<?php }}?>" class="nav-link">
+                <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=overtime&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="overtime") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["overtime_settings"];?></p>
                 </a>
               </li>
               
 			  <li class="nav-item">
-                <a href="overtime_list.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=overtime_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="overtime_list") { ?>active<?php }}?>" class="nav-link">
+                <a href="overtime_list.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=overtime_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="overtime_list") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["overtime_list"];?></p>
                 </a>
               </li>
 
 			  			  <li class="nav-item">
-                <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=permit_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="permit_list") { ?>active<?php }}?>" class="nav-link">
+                <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=permit_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="permit_list") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["permits"];?></p>
                 </a>
               </li>
 			  
 			  <li class="nav-item">
-                <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=exceptions" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="exceptions") { ?>active<?php }}?>" class="nav-link">
+                <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=exceptions&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="exceptions") { ?>active<?php }}?>" class="nav-link">
                   
                   <p><?php echo $dil["exceptions"];?></p>
                 </a>
               </li>
               
 			  <li class="nav-item">
-                <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=inout_list" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="inout_list") { ?>active<?php }}?>" class="nav-link">                  
+                <a href="overtime_settings.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=inout_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="inout_list") { ?>active<?php }}?>" class="nav-link">                  
                   <p><?php echo $dil["inouttime"];?></p>
                 </a>
               </li>  

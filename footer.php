@@ -18,7 +18,7 @@
 		 
 		 <h5 style  ="color:black ;">Davam  etmək  üçün  bir  şirkət  seçin</h5>
 		 	<form id="companyselect" method="post" class="form-horizontal" action="">
- 			 <select  onchange="this.form.submit()" name="company_id_name" id='company_select_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
+ 			 <select  onchange="this.form.submit()" name="company_id_name_main" id='company_select_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
 			   <option value="9999"><?php echo $dil["selectone"];?></option>
 			  <?php
                    $result_company = $db->query($sql_employee_company);

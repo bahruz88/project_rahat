@@ -9,15 +9,13 @@ include('../session.php') ;
     $sch_expire_date_name = $_POST['update_sch_expire_date_name'];
 	$sch_type_name = $_POST['update_sch_type_name'];
 	$night_time_name = $_POST['update_night_time_name'];
-	$company_id_name = $_POST['update_company_id_name']; 
+	$company_id_name = $_SESSION["CompanyId"];
 	
-  
+	$sch_start_date_name = strtr($sch_start_date_name, '/', '-');
+	$sch_start_date_name= date('Y-m-d', strtotime($sch_start_date_name));
 
-$sch_start_date_name = strtr($sch_start_date_name, '/', '-');
-$sch_start_date_name= date('Y-m-d', strtotime($sch_start_date_name));
-
-$sch_expire_date_name = strtr($sch_expire_date_name, '/', '-');
-$sch_expire_date_name= date('Y-m-d', strtotime($sch_expire_date_name));
+	$sch_expire_date_name = strtr($sch_expire_date_name, '/', '-');
+	$sch_expire_date_name= date('Y-m-d', strtotime($sch_expire_date_name));
 
 
 

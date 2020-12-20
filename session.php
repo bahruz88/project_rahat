@@ -65,19 +65,22 @@ $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 a
    }
    
    	$lang_image=$row_def_lang['image_path'];
-  if  (isset($_POST["company_id_name"]) && empty($_GET["company_id"])  ){ 
-   $_SESSION["CompanyId"]=$_POST["company_id_name"];
+	
+  if  (isset($_POST["company_id_name_main"]) && empty($_GET["company_id_main"])  ){ 
+   $_SESSION["CompanyId"]=$_POST["company_id_name_main"];
+   
   } 
 
-  if (isset($_GET["company_id"]) && empty($_POST["company_id_name"]) ){
+  if (isset($_GET["company_id_main"]) && empty($_POST["company_id_name_main"]) ){
 	   
-	     $_SESSION["CompanyId"]=$_GET["company_id"] ;
+	     $_SESSION["CompanyId"]=$_GET["company_id_main"] ;
+ 
    }
   
    if  (empty( $_SESSION["CompanyId"])){
 	  
 	     $_SESSION["CompanyId"]='NOCOMPANY' ;
-	  
+	   
   }
  
 ?>

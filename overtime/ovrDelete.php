@@ -1,6 +1,6 @@
 <?php 
 include('../session.php') ;
-
+$company_id = $_SESSION["CompanyId"];
   //Create variables
     $ovrid = $_POST['ovrid'];
  

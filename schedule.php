@@ -256,21 +256,8 @@ $message=$dil["selectone"];
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body" >
+					
 						
-						 <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
-                            <div class="col-sm-6">
-                                <select  data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
-                                    <?php
-                                    $result_company = $db->query($sql_employee_company);
-                                    if ($result_company->num_rows > 0) {
-                                        while($row_company= $result_company->fetch_assoc()) {
-                                            ?>
-                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
-                                        <?php } }?>
-                                </select>
-                            </div>
-                        </div>
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
 								<div class="col-sm-6">
@@ -346,109 +333,12 @@ $message=$dil["selectone"];
   
   
   
+ 
   
-   <!--SCH İNSERT MODAL -->
-  <div class="modal fade" id="schAddModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-    <form id="schInsert" method="post" class="form-horizontal" action="">
-      <!-- Modal content-->
-      <div class="modal-content">
-      
-        <div class="modal-body">
-			<div class="card card-success">
-					<div class="card-header">
-						<h4 class="card-title"><?php echo $dil["sch_input_title"];?></h4>
-			 <span  id="badge_success" class="badge badge-success"></span>
-            <span  id="badge_danger" class="badge badge-danger"></span>
-					</div>
-					<div class="card-body" >
-						
-						 <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
-                            <div class="col-sm-6">
-                                <select  data-live-search="true"  name="company_id_name" id='company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
-                                    <?php
-                                    $result_company = $db->query($sql_employee_company);
-                                    if ($result_company->num_rows > 0) {
-                                        while($row_company= $result_company->fetch_assoc()) {
-                                            ?>
-                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
-                                        <?php } }?>
-                                </select>
-                            </div>
-                        </div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="schname_id" name="schname_name" placeholder="<?php echo $dil["schname"];?>"  />
-								</div>
-							</div>
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_start_date"><?php echo $dil["sch_start_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="sch_start_date_id" name="sch_start_date_name" placeholder="<?php echo $dil["sch_start_date"];?>" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_expire_date"><?php echo $dil["sch_expire_date"];?></label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="sch_expire_date_id" name="sch_expire_date_name" placeholder="<?php echo $dil["sch_expire_date"];?>" />
-								</div>
-							</div>
-							
-						
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="sch_type"><?php echo $dil["sch_type"];?></label>
-								<div class="col-sm-6">
-						<select   data-live-search="true" name="sch_type_name" id="sch_type_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_type"];?>" >
-								 	<?php 
-									 $result_sch_type = $db->query($sql_sch_type);
-										if ($result_sch_type->num_rows > 0) {
-										while($row_sch_type= $result_sch_type->fetch_assoc()) {
-											
-										?>
-										<option  value="<?php echo $row_sch_type['sch_type_id']; ?>" ><?php echo $row_sch_type['sch_type_desc'] ;  ?></option>
-											
-										<?php } }?>
-						</select>
-						</div>
-							</div>	
-							
-							
-							
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="night_time"><?php echo $dil["sch_night_time"];?></label>
-								<div class="col-sm-6">
-		                        <select   data-live-search="true"  name="night_time_name"  id="night_time_id" title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["sch_night_time"];?>">
-                                    <?php
-                                    $result_yesno = $db->query($sql_yesno); 
-                                    if ($result_yesno->num_rows > 0) {
-                                        while($row_yesno= $result_yesno->fetch_assoc()) {
-
-                                            ?>
-                                            <option  value="<?php echo $row_yesno['chois_id']; ?>" ><?php echo $row_yesno['chois_desc'];  ?></option>
-
-                                        <?php } }?>
-                                </select>
-								</div>
-							</div>
-				 
- 				
-					</div>
-				</div>
-   
-		</div>
-        <div class="modal-footer">
-						 
-		<button  id ="add_new_item2" type="submit" class="btn btn-primary" name="signup" value="Sign up"><?php echo $dil["save"];?></button><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $dil["close"];?></button>
-							 
-        </div>	
-		</form>
-      </div>
-      
-    </div>
-  </div>
+  
+  
+  
+  
    <!--SCH  TIMES  MODAL -->
   <div class="modal fade" id="schTimeModal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -605,21 +495,7 @@ $message=$dil["selectone"];
 					</div>
 					<div class="card-body"  >
 						
-						 <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="company_id"><?php echo $dil["company"];?></label>
-                            <div class="col-sm-6">
-                                <select  
-								name="update_company_id_name" id='update_company_id' title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["company"];?>"  >
-                                    <?php
-                                    $result_company = $db->query($sql_employee_company);
-                                    if ($result_company->num_rows > 0) {
-                                        while($row_company= $result_company->fetch_assoc()) {
-                                            ?>
-                                            <option  value="<?php echo $row_company['id']; ?>" ><?php echo $row_company['company_name'];  ?></option>
-                                        <?php } }?>
-                                </select>
-                            </div>
-                        </div>
+
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="schname"><?php echo $dil["schname"];?></label>
 								<div class="col-sm-6">
@@ -916,19 +792,16 @@ $message=$dil["selectone"];
    );*/
 	
 var table = $("#sch_table").DataTable({
-       "scrollX": true,
+    "scrollX": true,
        "paging": true,
       "lengthChange": false,
       "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": true,
-	  "serverSide": true,
-	  "processing": true,
 
 	    "language": {
-			"loadingRecords": "&nbsp;",
-            "processing": "<div class='spinner'></div>",
+  
             "lengthMenu": "<?php echo $dil['display'] ; ?> _MENU_ records per page",
             "zeroRecords": "<?php echo $dil['datanotfound'] ; ?>",
             "info": "Showing page _PAGE_ of _PAGES_",
