@@ -1,12 +1,13 @@
 <?php
  include('../session.php');  
 
+$company_id = $_SESSION["CompanyId"];
 $sql_sch = "SELECT sch.id,sch.sch_name,sch.sch_code,sch.start_date,sch.expire_date,scht.sch_type_desc,yn.chois_desc night_time ,com.company_name
 FROM 
 tbl_schedules  sch left  join 
 tbl_sch_schtype scht on sch.sch_type=scht.sch_type_id  and  scht.lang='$site_lang' left join  
 tbl_employee_company com  on sch.company_id=com.id left  join 
-tbl_yesno yn  on  yn.chois_id = sch.night_time and  yn.lang='$site_lang' where sch.status=1";
+tbl_yesno yn  on  yn.chois_id = sch.night_time and  yn.lang='$site_lang' where sch.status=1 and sch.company_id='$company_id' ";
 
 					$result_sch  = $db->query($sql_sch);
 					$data = array();

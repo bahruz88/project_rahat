@@ -8,7 +8,7 @@ function generateRandomString($length = 2) {
 }
 
   //Create variables
-
+	$company_id = $_SESSION["CompanyId"];
 	$firstname=$_POST['firstname_name'];
 	$lastname=$_POST['lastname_name'];
     $surname = $_POST['surname_name'];
@@ -34,8 +34,9 @@ function generateRandomString($length = 2) {
         $imgName = "images/users/def.png";
     }
 
-	$company_id = $_POST['company_id'];
-//	echo 'company_id='.$company_id;
+	
+	
+	//	echo 'company_id='.$company_id;
 	//$empno_num='00000000' ;
 	
 	$empno=generateRandomString();

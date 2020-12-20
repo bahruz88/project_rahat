@@ -11,72 +11,7 @@
 
 </style>
 <style>
-    /*the container must be positioned relative:*/
-    /*.custom-select {*/
-    /*    position: relative;*/
-    /*    font-family: Arial;*/
-    /*}*/
-    /*.custom-select select {*/
-    /*    display: none; !*hide original SELECT element:*!*/
-
-    /*}*/
-    /*.select-selected {*/
-    /*    !*background-color: #fff;*!*/
-
-
-    /*}*/
-    /*!*style the arrow inside the select element:*!*/
-    /*.select-selected:after {*/
-    /*    position: absolute;*/
-    /*    content: "";*/
-    /*    top: 14px;*/
-    /*    right: 10px;*/
-    /*    width: 0;*/
-    /*    height: 0;*/
-    /*    border: 6px solid transparent;*/
-    /*    border-color: #fff transparent transparent transparent;*/
-    /*}*/
-    /*!*point the arrow upwards when the select box is open (active):*!*/
-    /*.select-selected.select-arrow-active:after {*/
-    /*    border-color: transparent transparent #000 transparent;*/
-    /*    top: 7px;*/
-
-    /*    !*color: #1f2d3d94;*!*/
-    /*    color: #999;*/
-    /*    font-size: 14px;*/
-    /*}*/
-    /*!*style the items (options), including the selected item:*!*/
-    /*.select-items div,.select-selected {*/
-    /*    padding: 2px 6px;*/
-    /*    !*border: 1px solid transparent;*!*/
-    /*    !*border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;*!*/
-    /*    cursor: pointer;*/
-    /*    user-select: none;*/
-    /*    font-size: 14px;*/
-    /*}*/
-    /*!*style items (options):*!*/
-    /*.select-items {*/
-    /*    !*color: #1f2d3d94;*!*/
-    /*    position: absolute;*/
-    /*    background-color: #fff;*/
-    /*    top: 100%;*/
-    /*    left: 0;*/
-    /*    right: 0;*/
-    /*    z-index: 99;*/
-    /*    height:200px;*/
-    /*    overflow-y: auto;*/
-    /*    !*border:1px solid grey;*!*/
-    /*    border: 1px solid transparent;*/
-    /*    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;*/
-    /*}*/
-    /*!*hide the items when the select box is closed:*!*/
-    /*.select-hide {*/
-    /*    display: none;*/
-    /*}*/
-    /*.select-items div:hover, .same-as-selected {*/
-    /*    background-color: rgba(0, 0, 0, 0.1);*/
-    /*    color: #212529;*/
-    /*}*/
+ 
     div.dropdown-menu.open { width: 100%; } ul.dropdown-menu.inner>li>a { white-space: initial; }
 </style>
 
