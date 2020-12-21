@@ -82,7 +82,7 @@ include('../session.php');
                  echo "error" .mysqli_error($db);
              }
              else {
-                 echo "ss";
+                 echo "ss tbl_employees";
                  //$emp_id = "SELECT id FROM $tbl_employees ORDER BY id DESC LIMIT 1";
                  $sql_emp_id = "SELECT * FROM $tbl_employees ORDER BY id DESC LIMIT 1";
                  $result_emp_id  = $db->query($sql_emp_id);
@@ -118,6 +118,7 @@ include('../session.php');
                  }
                  else {
 //    echo "success";
+ echo ",ss is yeri=".$company_name." tbl_employee_commands";
                  }
                  //insert Contract table
                  $sqlContract = "INSERT INTO $tbl_contracts (id, emp_id,  company_id, enterprise_head_position, company_name, company_address, company_tel, voen, sun, enterprise_head_fullname) 
@@ -128,6 +129,7 @@ include('../session.php');
                      echo "Error=".$sqlContract.'='.$emp_id.'=' .mysqli_error($db);
                  }
                  else {
+                     echo ",ss tbl_contracts";
 //    echo "success";
                  }
                  //Close connection
