@@ -9,6 +9,13 @@ include('../session.php');
      return substr(str_shuffle(str_repeat($x='ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
  }
  echo "recruitmentAjInsert ";
+ $enterprise_head_position='';
+ $company_name='';
+ $company_address='';
+ $company_tel='';
+ $voen='';
+ $sun='';
+ $enterprise_head_fullname='';
 //
 // // here i would like use foreach:
 //
