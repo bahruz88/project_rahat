@@ -8,6 +8,7 @@ include('../session.php');
  function generateRandomString($length = 2) {
      return substr(str_shuffle(str_repeat($x='ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
  }
+ echo "recruitmentAjInsert ";
 //
 // // here i would like use foreach:
 //
