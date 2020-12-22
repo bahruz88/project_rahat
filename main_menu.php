@@ -145,7 +145,7 @@
 			  
 			  
 			  <li class="nav-item">
-                  <a href="tab.php" class="nav-link">
+                  <a href="tab.php?dil=<?php echo $_SESSION["dil"]; ?>&module=tab&submodule=tab_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link">
 
                       <p><?php echo $dil["tab"];?></p>
                   </a>
@@ -227,21 +227,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="struktur.php" class="nav-link">
+                <a href="struktur.php?dil=<?php echo $_SESSION["dil"]; ?>&module=structure&submodule=structure_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link">
                   
                   <p>Struktur</p>
                 </a>
               </li>
                 <li class="nav-item">
  
-                <a href="orgchart.php" class="nav-link">
+                <a href="orgchart.php?dil=<?php echo $_SESSION["dil"]; ?>&module=orgchart&submodule=orgchart_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link">
 
                   <p>Struktur menu</p>
                 </a>
               </li>
                 <li class="nav-item">
 
-                <a href="staff.php" class="nav-link">
+                <a href="staff.php?dil=<?php echo $_SESSION["dil"]; ?>&module=staff&submodule=staff_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link">
 
                   <p>Ştat cədvəli</p>
                 </a>
@@ -267,7 +267,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="recruitment.php" class="nav-link">
+                <a href="recruitment.php?dil=<?php echo $_SESSION["dil"]; ?>&module=recruitment&submodule=recruitment_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link">
 
                   <p><?php echo $dil["recruitment"];?></p>
                 </a>
@@ -286,7 +286,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="salaryInfo.php" class="nav-link">
+                        <a href="salaryInfo.php?dil=<?php echo $_SESSION["dil"]; ?>&module=salaryInfo&submodule=salaryInfo_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link">
 
                             <p>Əmək Haqqı məlumatları</p>
                         </a>
@@ -312,7 +312,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="contracts.php" class="nav-link">
+                <a href="contracts.php?dil=<?php echo $_SESSION["dil"]; ?>&module=contracts&submodule=contracts_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link">
                   
                   <p>Müqavilələr və Əmrlər</p>
                 </a>

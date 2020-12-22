@@ -577,7 +577,7 @@ if($result_positions){
                                             <?php echo $dil["family_information"];?> </a></li>
 
                                     <li Class="nav-item"><a href="#militaryInfo" id="militaryInfotab"   class="nav-link" role="tab" data-toggle="tab" >Hərbi məlumatlar</a></li>
-                                    <li Class="nav-item"><a href="#paymentSalary"  id="paymentSalarytab"   class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>
+<!--                                    <li Class="nav-item"><a href="#paymentSalary"  id="paymentSalarytab"   class="nav-link" role="tab" data-toggle="tab" > Ödəmə/maaş  </a></li>-->
                                     <li Class="nav-item"><a href="#mysqltab"    class="nav-link" role="tab" data-toggle="tab" > Struktur </a></li>
                                     <li Class="nav-item"><a href="#workPlace"   id="workPlacetab"   class="nav-link" role="tab" data-toggle="tab" > Iş yeri barədə </a></li>
 
