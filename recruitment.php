@@ -340,6 +340,7 @@ function notNull(element){
             type: 'post',
             success: function(data){
                 console.log('data insert==='+data); // display response from the PHP script, if any
+                console.log('Bura log elave etdim'); // display response from the PHP script, if any
 
                  // if(data===""){
                  //     console.log('dataaa==='+data);
