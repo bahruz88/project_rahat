@@ -5,7 +5,9 @@ if(isset($_POST['company_ids'])){
 }else{
     $company_id=$_POST['company_id'];
 }
-
+$datee = $_POST['datee'];
+$datee = strtr( $datee , '/', '-');
+$datee= date('Y-m-d', strtotime($datee));
 //echo $company_id;
 $haystack = $company_id;
 $needle = ',';
@@ -57,7 +59,9 @@ where $company_idWhere GROUP BY
   enterprise_head_position,company_address,
   company_tel,struc,struc_id,posit_id,posit,posit_icon 
   ORDER BY tec.id DESC";
-// echo $users;
+//and te.emp_status=1
+// echo $users;LEFT join $tbl_employee_commands tecom on tecom.command_id=19 and tecom.emp_id=tec.emp_id and tecom.insert_date>='$datee'
+//LEFT join $tbl_employee_exit tee on tee.emp_id=tec.emp_id and tee.insert_date>='$datee'
 $result_users = $db->query($users);
 $data=array();
 if($result_users){
@@ -66,39 +70,48 @@ if($result_users){
 //            $zNodeArray["user"]=$row_users['user'];
 //            $zNodeArray.array_push({"id":userIdArray[j], "pId":parentArray[j],"name":userArray[j],"open":open});
 
-            $sub_array   = array();
-            $sub_array[] = $row_users['id'];
-            $sub_array[] = ($row_users['category']);
-            $sub_array[] = $row_users['parent'];
-            $sub_array[] = $row_users['create_date'];
-            $sub_array[] = $row_users['end_date'];
+
+            $emp_id=$row_users['emp_id'];
+            //isden cixanlari yoxlayir
+            $users_exit= "select * from $tbl_employee_exit  where emp_id='$emp_id' and insert_date>='$datee'";
+            $result_users_exit = $db->query($users_exit);
+            if($result_users_exit){
+                if ($result_users_exit->num_rows == 0) {
+                    $sub_array = array();
+                    $sub_array[] = $row_users['id'];
+                    $sub_array[] = ($row_users['category']);
+                    $sub_array[] = $row_users['parent'];
+                    $sub_array[] = $row_users['create_date'];
+                    $sub_array[] = $row_users['end_date'];
 
 
-            $sub_array[] = [];//children
-            $sub_array[] = ($row_users['code']);
-            $sub_array[] = ($row_users['full_name']);
-            $sub_array[] = ($row_users['company']);
-            $sub_array[] = ($row_users['struc']);
-            $sub_array[] = ($row_users['posit']);
-            $sub_array[] = ($row_users['struc_id']);
-            $sub_array[] = ($row_users['posit_id']);
-            $sub_array[] = ($row_users['emp_id']);
-            $sub_array[] = $row_users['icon'];
-            $sub_array[] = $row_users['posit_icon'];
-            $sub_array[] = $row_users['company_id'];
-            if (strpos($haystack,$needle) !== false) {
-                $sub_array[] = substr($haystack, 2);
-            }else{
-                $sub_array[] = $haystack;
+                    $sub_array[] = [];//children
+                    $sub_array[] = ($row_users['code']);
+                    $sub_array[] = ($row_users['full_name']);
+                    $sub_array[] = ($row_users['company']);
+                    $sub_array[] = ($row_users['struc']);
+                    $sub_array[] = ($row_users['posit']);
+                    $sub_array[] = ($row_users['struc_id']);
+                    $sub_array[] = ($row_users['posit_id']);
+                    $sub_array[] = ($row_users['emp_id']);
+                    $sub_array[] = $row_users['icon'];
+                    $sub_array[] = $row_users['posit_icon'];
+                    $sub_array[] = $row_users['company_id'];
+                    if (strpos($haystack, $needle) !== false) {
+                        $sub_array[] = substr($haystack, 2);
+                    } else {
+                        $sub_array[] = $haystack;
+                    }
+                    $sub_array[] = $row_users['enterprise_head_fullname'];
+                    $sub_array[] = $row_users['enterprise_head_position'];
+                    $sub_array[] = $row_users['company_address'];
+                    $sub_array[] = $row_users['company_tel'];
+                    $sub_array[] = $row_users['countCategory'];
+                    $sub_array[] = $row_users['wage'];
+                    $sub_array[] = $row_users['wageN'];
+                    $data[] = $sub_array;
+                }
             }
-            $sub_array[] = $row_users['enterprise_head_fullname'];
-            $sub_array[] = $row_users['enterprise_head_position'];
-            $sub_array[] = $row_users['company_address'];
-            $sub_array[] = $row_users['company_tel'];
-            $sub_array[] = $row_users['countCategory'];
-            $sub_array[] = $row_users['wage'];
-            $sub_array[] = $row_users['wageN'];
-            $data[]     = $sub_array;
         }
     }
 }

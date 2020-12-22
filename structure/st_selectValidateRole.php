@@ -2,12 +2,13 @@
 include('../session.php');
  $role_id                 =$_POST['role_id'];
  $company_id              =$_POST['company_id'];
+ $stId              =$_POST['stId'];
 $data=array();
 
 
 
 $structure_positions= "select  *   from $tbl_structure_positions  
-  WHERE role_id = '$role_id' and company_id = '$company_id'";
+  WHERE role_id = '$role_id' and company_id = '$company_id'and struc_id = '$stId'";
 //         echo $structure_positions;
             $result_structure_positions = $db->query($structure_positions);
             if($result_structure_positions->num_rows > 0) {

@@ -661,7 +661,7 @@ $("#confirmRole").click(function() {
         $.ajax({
             url: 'structure/st_selectValidateRole.php',
             type: "POST",
-            data: { role_id:role_id,company_id:company_id},
+            data: { role_id:role_id,company_id:company_id,stId:stId},
             success: function (data) {
                 console.log('st_selectValidateRole data='+data)
                 console.log('st_selectValidateRole data=',jQuery.parseJSON(data))
@@ -790,7 +790,6 @@ function fillStTable(data,stId){
             ' <td><button type="button" class="btn btn-danger deleteStRole"  >Sil</button></td>  '  +
             '</tr>  ';
     });
-
     // $('#tablePositions').find('tbody').html(row);
     $('#tableStructureRoles').find('tbody').html(row);
 

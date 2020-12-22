@@ -6,7 +6,7 @@ $command_code='';
 
 
   //Create variables
-    $company_id = $_POST['company_id_add'];
+    $company_id = $_POST['company_id'];
     $emp_id = $_POST['emplo'];
 	$add_salary_id=$_POST['additionsDeductionsSalary'];
 	$salary=$_POST['additions_salary'];

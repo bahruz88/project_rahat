@@ -647,7 +647,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	}else if(contract=='3'){
 		generate("herbi2",employeeName)
 	}else if(contract=='c1'){
-		generate("avans_emri",employeeName)
+		generate("avans_emri_",employeeName)
 	}else if(contract=='c2'){
 		generate("evezgun_verilmesi_hq_emr")
 	}else if(contract=='c3'){
@@ -683,7 +683,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	}else if(contract=='c18'){
 		generate("vezife_deyishikliyi",employeeName)
 	}else if(contract=='c19'){
-		generate("xitam_emri",employeeName)
+		generate("xitam_emri_",employeeName)
 	}
 
 	$('#whichDate').modal('hide');

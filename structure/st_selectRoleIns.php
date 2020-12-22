@@ -5,23 +5,24 @@ $data=array();
 //$sql_positions="select id, category,code,create_date,end_date, parent,icon,emp_id
 // from (select * from $tbl_employee_category  order by parent, id) folders_sorted,
 //  (select @pv := $id) initialisation where find_in_set(parent, @pv) > 0 and @pv := concat(@pv, ',', id)";
-//
-////echo $sql_positions;
+////
+//// echo $sql_positions;
 //$result_position = $db->query($sql_positions);
 //if($result_position){
 //    if ($result_position->num_rows > 0) {
 //        while($row_users = $result_position->fetch_assoc()) {
-//
+////
 //            $code=$row_users["code"];
 //            $emp_id=$row_users["emp_id"];
+//            $struc_id=$row_users["struc_id"];
 //            $code= $posit_code;
 //            $emp_id=$emp_id;
 
             $structure_positions= "select tsp.*,tsr.role  
             from $tbl_structure_positions tsp
              LEFT join $tbl_structure_roles tsr on tsr.id=tsp.role_id and tsr.lang='$site_lang'
-              WHERE tsp.company_id = '$company_id'";
-//         echo $structure_positions;
+              WHERE tsp.company_id = '$company_id' and tsp.struc_id='$id'";
+//       echo $structure_positions;
             $result_structure_positions = $db->query($structure_positions);
             if($result_structure_positions->num_rows > 0) {
                 while($row_structure_positions = $result_structure_positions->fetch_assoc()) {

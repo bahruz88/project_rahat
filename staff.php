@@ -479,17 +479,19 @@ $result_employee_category = $db->query($employee_category);
         $("#print").css("display","none");
 
         console.log('staffSearch staffSelect='+staffSelect);
-
+var datee=$('#date_completion').val();
         $.ajax({
             // url: 'st_selectStaff.php',
             url: 'structure/st_selectWithCompanyPage.php',
             type: "POST",
             async:false,
-            data: { company_id:company_id},
+            data: { company_id:company_id,datee:datee},
             success: function (data) {
-                console.log('dataaaaaaa parseJSON staff =' , $.parseJSON(data))
-                console.log('dataaaaaaa staff =' + data)
+
+
+             console.log('dataaaaaaa staff =' )
                 if(data){
+                    console.log('dataaaaaaa parseJSON staff====*** =' , $.parseJSON(data))
                     var data1=$.parseJSON(data);
                     // data1.remove("icon");
                     $('#companyDate').text($('#date_completion').val())
@@ -560,7 +562,7 @@ $result_employee_category = $db->query($employee_category);
                     console.log('dataaaaaaa111=', data1)
                     $.each(data1, function (key, value) {
                         $.each(value, function (k, v) {
-                            // console.log('key=' + k + ' val=' + v);
+                             // console.log('key=' + k + ' val=' + v);
 
 
                             $('#'+k).val(v)

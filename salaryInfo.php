@@ -103,7 +103,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
         <div class="modal-dialog  modal-sm">
           <div class="modal-content bg-success">
             <div class="modal-header">
-              <h5 class="modal-title"><?php echo  $dil["user_input_title"];?></h5>
+              <h5 class="modal-title"><?php echo  $dil["input_title"];?></h5>
               <button class="close" aria-label="Close" type="button" data-dismiss="modal">
                 <span aria-hidden="true">X</span></button>
             </div>
@@ -429,6 +429,7 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
                 async:false,
                 success:function(response){
                     console.log('response get_salaryEmp=',response)
+                    console.log('response JSON.parse(response)=',JSON.parse(response))
                     $.each(JSON.parse(response), function(k,v) {
                         empAr.push(v.emp_id)
                     });

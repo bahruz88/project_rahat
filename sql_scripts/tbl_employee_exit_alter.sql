@@ -1,0 +1,1 @@
+ALTER TABLE `tbl_employee_exit` ADD `insert_date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `guarantees_termination_contract`;

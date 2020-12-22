@@ -47,7 +47,21 @@ $(function () {
 			{
 				text: 'Yenisini yarat <i class="fa fa-plus"></i>',
 				action: function (e, dt, node, config) {
+
 					$("#myModal").modal();
+					$('#company_id').closest('div').removeClass( "is-valid" );
+					$('#company_id').closest('div').removeClass( "is-invalid" );
+					$('#employee').closest('div').removeClass( "is-valid" );
+					$('#employee').closest('div').removeClass( "is-invalid" );
+
+					$('#wage').removeClass( "is-valid" );
+					$('#wage').removeClass( "is-invalid" );
+					$('#wage_currency').closest('div').removeClass( "is-valid" );
+					$('#wage_currency').closest('div').removeClass( "is-invalid" );
+
+
+
+
 
 				}
 			},
@@ -308,48 +322,7 @@ up_emp=employee.emp_id;
 			$('#wage_currency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
 
 		}
-		// if($('#reasonChange').val()==''){
-		// 	$('#reasonChange').addClass( "is-invalid" ).removeClass( "is-valid" );
-		// 	return false
-		// }else{
-		// 	$('#reasonChange').addClass( "is-valid" ).removeClass( "is-invalid" );
-		//
-		// }
-		// if($('#totalMonthlySalary').val()==''){
-		// 	$('#totalMonthlySalary').addClass( "is-invalid" ).removeClass( "is-valid" );
-		// 	return false
-		// }else{
-		// 	$('#totalMonthlySalary').addClass( "is-valid" ).removeClass( "is-invalid" );
-		//
-		// }
-		// if( $('#prizeAmount').val()==''){
-		// 	$('#prizeAmount').addClass( "is-invalid" ).removeClass( "is-valid" );
-		// 	return false
-		// }else{
-		// 	$('#prizeAmount').addClass( "is-valid" ).removeClass( "is-invalid" );
-		//
-		// }
-		// if(  $('#prizeAmount_currency').val()==''  ||$('#prizeAmount_currency').val()=='0' ){
-		// 	$('#prizeAmount_currency').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-		// 	return false
-		// }else{
-		// 	$('#prizeAmount_currency').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-		//
-		// }
-		// if($('#rewardPeriod').val()==''){
-		// 	$('#rewardPeriod').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-		// 	return false
-		// }else{
-		// 	$('#rewardPeriod').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-		//
-		// }
-		// if($('#placeExpenditure').val()==''){
-		// 	$('#placeExpenditure').closest('div').addClass( "is-invalid" ).removeClass( "is-valid" );
-		// 	return false
-		// }else{
-		// 	$('#placeExpenditure').closest('div').addClass( "is-valid" ).removeClass( "is-invalid" );
-		//
-		// }
+
 		return true
 	}
 	/*ISCHI MELUMATLARI  DAXIL  EDILIR  */
@@ -371,7 +344,7 @@ up_emp=employee.emp_id;
 						$("#modalInsertError").modal('show');
 						$("#myModal").modal('hide');
 					} else if (strMessage === 'success') {
-						$("#successp").text('Melumatlar daxil edildi ');
+						$("#successp").text('Məlumat daxil edildi ');
 						$("#modalInsertSuccess").modal('show');
 						$("#myModal").modal('hide');
 					} else {
@@ -510,6 +483,26 @@ up_emp=employee.emp_id;
 					action: function (e, dt, node, config) {
 						$("#myAdditionModal").modal();
 						//console.log('myAdditionModal')
+						$('#myAdditionModal #company_id').closest('div').removeClass( "is-valid" );
+						$('#myAdditionModal #company_id').closest('div').removeClass( "is-invalid" );
+						$('#myAdditionModal #employee').closest('div').removeClass( "is-valid" );
+						$('#myAdditionModal #employee').closest('div').removeClass( "is-invalid" );
+
+						$('#myAdditionModal #additionsDeductionsSalary').closest('div').removeClass( "is-valid" );
+						$('#myAdditionModal #additionsDeductionsSalary').closest('div').removeClass( "is-invalid" );
+						$('#myAdditionModal #additions_salary').removeClass( "is-valid" );
+						$('#myAdditionModal #additions_salary').removeClass( "is-invalid" );
+
+						$('#myAdditionModal #additions_currency').closest('div').removeClass( "is-valid" );
+						$('#myAdditionModal #additions_currency').closest('div').removeClass( "is-invalid" );
+						$('#myAdditionModal #begin_date').removeClass( "is-valid" );
+						$('#myAdditionModal #begin_date').removeClass( "is-invalid" );
+
+						$('#myAdditionModal #end_date').removeClass( "is-valid" );
+						$('#myAdditionModal #end_date').removeClass( "is-invalid" );
+
+
+
 
 					}
 				},
@@ -773,7 +766,7 @@ up_emp=employee.emp_id;
 							$("#modalInsertError").modal('show');
 							$("#myAdditionModal").modal('hide');
 						} else if (strMessage === 'success') {
-							$("#successp").text('Melumatlar daxil edildi ');
+							$("#successp").text('Məlumat daxil edildi ');
 							$("#modalInsertSuccess").modal('show');
 							$("#myAdditionModal").modal('hide');
 						} else {

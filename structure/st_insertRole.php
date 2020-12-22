@@ -26,7 +26,7 @@ $end_date = strtr( $end_date , '/', '-');
 $end_date= date('Y-m-d', strtotime($end_date));
 
 //$users= "select * from $tbl_structure_positions WHERE posit_code = '$posit_code'";
-$users= "select * from $tbl_structure_positions WHERE role_id = '$role_id' and company_id = '$company_id'";
+$users= "select * from $tbl_structure_positions WHERE role_id = '$role_id' and company_id = '$company_id'and struc_id = '$id'";
 //    echo $users;
 $result_users = $db->query($users);
 if($result_users->num_rows > 0) {
@@ -46,8 +46,8 @@ if($result_users->num_rows > 0) {
 }
 else{
     $sql = "INSERT INTO $tbl_structure_positions( 
-	 id,company_id, role_id, posit_code,start_date,end_date,emp_id,percent) 
-	 VALUES (NULL, '$company_id', '$role_id','$posit_code','$start_date','$end_date','$emp_id','$percent')";
+	 id,company_id, role_id, posit_code,start_date,end_date,emp_id,percent,struc_id) 
+	 VALUES (NULL, '$company_id', '$role_id','$posit_code','$start_date','$end_date','$emp_id','$percent','$id')";
 }
 
 
@@ -59,7 +59,7 @@ if(!mysqli_query($db, $sql)) {
     echo "error=".$sql.'=' .mysqli_error($db);
 }
 else {
-//  echo "success".$sql ;
+// echo "success".$sql ;
 }
 
 //Close connection

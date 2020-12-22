@@ -41,11 +41,14 @@
             <span  id="badge_danger" class="badge badge-danger"></span>
 					</div>
 					<div class="card-body" >
-						 
-						 		<div class="form-group row">
+                        <input type="hidden" class="form-control" value="<?php echo $_SESSION['CompanyId']?>"  name="company_id" id='company_ids' placeholder="salam" />
+
+
+                        <div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="eduempid"><?php echo $dil["employee"];?></label>
 								<div class="col-sm-6 emp" id="emp">
-									<select data-live-search="true"  name="eduempid" id=""  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
+
+                                    <select data-live-search="true"  name="emplo" id=""  title="<?php echo $dil["selectone"];?>" class="form-control selectpicker"  placeholder="<?php echo $dil["employee"];?>" >
 								 	<?php 
 									 $result_employees_view = $db->query($sql_employees);
 										if ($result_employees_view->num_rows > 0) {

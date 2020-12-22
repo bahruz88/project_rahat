@@ -26,7 +26,7 @@ include('../session.php') ;
 	diplom_issue_date, insert_date, update_date, insert_user, update_user) 
 	VALUES ('Null','$employee','$qualification','$institution_id','$faculty','$profession','$uni_end_date','$diplom_seria_num','$diplom_issue_date','$insert_date','$insert_date','$employee','$employee')";
   
-
+//echo $sql;
   if(!mysqli_query($db, $sql)) {
         echo "error" .mysqli_error($db);
     }

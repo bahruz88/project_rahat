@@ -602,16 +602,16 @@ $(function () {
     /********************* TEHSİL  İNSERT ***************************/
 
     $("#educationInsertForm").submit(function (e) {
-        //console.log('AAAAAA');
+        console.log('AAAAAA educationInsertForm='+$("#educationInsertForm").serialize());
         e.preventDefault();
         if ($("#educationInsertForm").valid()) {
             $.ajax({
                 url: "education/educationInsert.php",
                 method: "post",
-                data: $("form").serialize(),
+                data: $("#educationInsertForm").serialize(),
                 dataType: "text",
                 success: function (strMessage) {
-                    //console.log(strMessage);
+                    console.log(strMessage);
                     $("#badge_success").text('');
                     $("#badge_danger").text('');
                     if (strMessage.substr(1, 4) === 'error') {

@@ -1,0 +1,1 @@
+ALTER TABLE `tbl_structure_positions` ADD `struc_id` VARCHAR(11) NOT NULL AFTER `company_id`;
