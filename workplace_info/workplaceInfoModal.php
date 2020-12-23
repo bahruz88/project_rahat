@@ -140,7 +140,9 @@
                             <span id="badge_danger" class="badge badge-danger"></span>
                         </div>
                         <div class="card-body">
-<!--                            <div class="form-group row">-->
+                            <input type="hidden" class="form-control" value="<?php echo $_SESSION['CompanyId']?>"  name="company_id" id='company_ids' placeholder="salam" />
+
+                            <!--                            <div class="form-group row">-->
 <!--                                <label class="col-sm-6 col-form-label"-->
 <!--                                       for="work_company_id">--><?php //echo $dil["company"]; ?><!--</label>-->
 <!--                                <div class="col-sm-6">-->
