@@ -1,5 +1,6 @@
- <?php
-include('../session.php');
+<?php 
+include('../session.php') ;
+
 
 // $data = json_decode(($_POST['data']));
 // $data = explode(",", $_POST['data']);
@@ -154,5 +155,5 @@ include('../session.php');
 //     }
  }
 
-
+?>
 
