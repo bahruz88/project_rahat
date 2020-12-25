@@ -647,7 +647,7 @@ $('#whichDate').on( 'click','#confirmDate',  function () {
 	}else if(contract=='3'){
 		generate("herbi2",employeeName)
 	}else if(contract=='c1'){
-		generate("avans_emri_",employeeName)
+		generate("avans_emri",employeeName)
 	}else if(contract=='c2'){
 		generate("evezgun_verilmesi_hq_emr")
 	}else if(contract=='c3'){

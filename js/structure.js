@@ -656,6 +656,7 @@ $("#confirmRole").click(function() {
     console.log('role_id='+role_id)
     console.log('stId='+stId)
     console.log('company_id='+company_id)
+    console.log('empid='+empid)
     //console.log('role='+$('#roles option:selected').text())
     if(role_id && company_id){
         $.ajax({
@@ -669,7 +670,7 @@ $("#confirmRole").click(function() {
                     $('#changeRoleClick').trigger('click');
                     $('#changeItem').on('click',function(){
                         // do your stuffs with id
-                        console.log('datamodal='+data)
+                        console.log('datamodal ch='+data)
                         // $("#successMessage").html("Record With id "+id+" Deleted successfully!");
                         $('#changeRole').modal('hide'); // now close modal
                         insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date)
@@ -679,7 +680,7 @@ $("#confirmRole").click(function() {
                 }
                 function insertRole(company_id,role_id,stId,empid,posit_code,start_date,end_date){
                     console.log('company_id=' , company_id);
-                    //console.log('posit_code=' , posit_code);
+                     console.log('empid=' , empid);
                     console.log('role_id=' , role_id);
                     console.log('insertRole stId=' , stId);
                     $.ajax({
@@ -779,7 +780,7 @@ function fillStTable(data,stId){
             fPercent=v[5];
         }
 
-        row +='<tr data-id="'+v[11]+'" data-positcode="'+v[2]+'" data-empid="'+v[10]+'"> '  +
+        row +='<tr data-id="'+v[0]+'" data-positcode="'+v[1]+'" data-empid="'+v[8]+'"> '  +
             // ' <td><img src="'+v[6]+'" alt="" style="width:20px;height:20px;"></td>  '  +
             ' <td>'+fRole+'</td>  '  +
             ' <td>'+v[1]+'</td>  '  +
@@ -794,14 +795,16 @@ function fillStTable(data,stId){
     $('#tableStructureRoles').find('tbody').html(row);
 
     $(".deleteStRole").click(function() {
-        //console.log("deleteStRole")
+
         var id= $(this).closest('tr').attr('data-id');
+        var company_id= $('#company_id').val();
+        console.log("deleteStRole id="+id+"=company_id="+company_id)
         $.ajax({
             url: 'structure/st_deleteStRole.php',
             type: "POST",
-            data: {id:id,stId:stId},
+            data: {id:id,stId:stId,company_id:company_id},
             success: function (data) {
-                //console.log('data=' + data);
+                console.log('data=' + data);
                 // Swal.fire(
                 //     'Silmə əməliyyatı müvəffəqiyyətlə yerine yetirildi!',
                 //     '',

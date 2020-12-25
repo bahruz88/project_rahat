@@ -292,10 +292,10 @@ $sql_position= "select * from $tbl_employee_category";
                                         <a class="nav-link" href="#" id="menyu_delete">Sil  </a>
                                     </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="#" id="menyu_add">New sibling</a>
+                                        <a class="nav-link" href="#" id="menyu_add">Yeni struktur</a>
                                     </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="#" id="menyu_addChild"> New child</a>
+                                        <a class="nav-link" href="#" id="menyu_addChild"> Yeni alt ağac</a>
                                     </li>
                                     <li class="nav-item "></li>
                                 </ul>
@@ -1364,12 +1364,12 @@ $sql_position= "select * from $tbl_employee_category";
                     },
                     { title: "----" },
                     {
-                        title: "New sibling <kbd>[Ctrl+N]</kbd>",
+                        title: "Yeni struktur <kbd>[Ctrl+N]</kbd>",
                         cmd: "addSibling",
                         uiIcon: "ui-icon-plus",
                     },
                     {
-                        title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
+                        title: " Yeni alt ağac <kbd>[Ctrl+Shift+N]</kbd>",
                         cmd: "addChild",
                         uiIcon: "ui-icon-arrowreturn-1-e",
                     },
