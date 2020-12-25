@@ -209,9 +209,9 @@ input {
 </style>
 <body>
 	<div class="navbar">
-  <a href="login.php">ANA SƏHİFƏ</a>
-  <a href="contact.php">ƏLAQƏ</a>
- 
+  <a href="http://hr.dep.az/">ANA SƏHİFƏ</a>
+  <a href="http://hrm.sfa.az/">DEMO</a>
+  <a href="http://hrm.sfa.az/contact.php">ƏLAQƏ</a>
 </div>
 	<div class="container" id="container">
  
