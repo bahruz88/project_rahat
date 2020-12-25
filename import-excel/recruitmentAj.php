@@ -21,13 +21,21 @@ $data2=array();
  $data = [];
  require_once('PHPExcel.php');
 
+function date_($val){
+     $excel_date = $val; //here is that value 41621 or 41631
 
+                    $unix_date = ($excel_date - 25569) * 86400;
+                    $excel_date = 25569 + ($unix_date / 86400);
+                    $unix_date = ($excel_date - 25569) * 86400;
+                    return gmdate("Y-m-d", $unix_date);
+}
  function setTimeout($fn, $timeout){
      // sleep for $timeout milliseconds.
      sleep(($timeout/1000));
      $fn();
  }
-
+ $dat=array();
+ $dat2=array();
 if (in_array($_FILES["excel"]["type"], $allowedFileType)) {
 
     $filename = 'uploads/' . $_FILES['excel']['name'];
@@ -42,9 +50,59 @@ if (in_array($_FILES["excel"]["type"], $allowedFileType)) {
         $objPHPExcel = $objReader->load($filename);
 
         foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
+
             $data[$worksheet->getTitle()] = $worksheet->toArray();
+            $excel_date = 43010; //here is that value 41621 or 41631
+            $unix_date = ($excel_date - 25569) * 86400;
+            $excel_date = 25569 + ($unix_date / 86400);
+            $unix_date = ($excel_date - 25569) * 86400;
+//            print_r($data);
+
+                foreach ($data as $key =>$data1) {
+//                print_r($data1);
+//                if($key!=0){
+                    foreach ($data1 as $k =>$data2) {
+//                        echo $k;
+                        if($k!=0){
+//                        print_r($data2);
+                        $dat=array();
+                        $dat[]=$data2[0];
+                        $dat[]=$data2[1];
+                        $dat[]=$data2[2];
+                        $dat[]=$data2[3];
+                        $dat[]=$data2[4];
+                        $dat[]=$data2[5];
+                        $dat[]=date_($data2[6]);
+                        $dat[]=$data2[7];
+                        $dat[]=$data2[8];
+                        $dat[]=$data2[9];
+                        $dat[]=$data2[10];
+                        $dat[]=date_($data2[11]);
+                        $dat[]=date_($data2[12]);
+                        $dat[]=$data2[13];
+                        $dat[]=$data2[14];
+                        $dat[]=$data2[15];
+                        $dat[]=$data2[16];
+                        $dat[]=$data2[17];
+                        $dat[]=$data2[18];
+                        $dat[]=$data2[19];
+                        $dat[]=$data2[20];
+                        $dat2[]     = $dat;
+
+//                        print_r($dat2);
+
+
+                    }
+
+                }
+            }
+
+
+//            echo $unix_date.'==';
+//            echo gmdate("Y-m-d", $unix_date);
+//            print_r($worksheet->toArray());
         }
-        echo json_encode($data);
+        echo json_encode($dat2);
     }, 1000);
 
 }

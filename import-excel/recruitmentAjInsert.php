@@ -23,7 +23,7 @@ include('../session.php') ;
 // foreach($data as $d){
      foreach($data as $key=>$row){
 //         print_r($row) ;
-         if($key!=0){
+//         if($key!=0){
              $firstname = $row[1];
              $lastname = $row[2];
              $surname = $row[3];
@@ -143,7 +143,7 @@ include('../session.php') ;
                  }
                  //Close connection
 //                 mysqli_close($db);
-             }
+//             }
 
 
 

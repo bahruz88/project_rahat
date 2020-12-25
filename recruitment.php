@@ -284,15 +284,16 @@ function notNull(element){
                 $("table#employee_table tbody").html('')
                 $(".dataTables_scrollHead").css('display','none')
                 var table='';
-                $.each($.parseJSON(data), function(key,val) {
-                    empArray=val;
-                    $.each(val, function(k,value) {
-                    // console.log('value=',value)
-                    if(k!=0){
+                empArray=$.parseJSON(data);
+                $.each($.parseJSON(data), function(k,value) {
+
+                    // $.each(val, function(k,value) {
+                     console.log('value=',value)
+                    // if(k!=0){
                         // console.log('value=',value)
                         // console.log('value.firstname='+value[1])
                         table+=' <tr class="typeOfDocument" >' +
-                            '<td>'+parseInt(k)+'</td>'+
+                            '<td>'+parseInt(k+1)+'</td>'+
                             '<td>'+notNull(value[1])+'</td>'+
                             '<td>'+notNull(value[2])+'</td>'+
                             '<td>'+notNull(value[3])+'</td>'+
@@ -314,8 +315,8 @@ function notNull(element){
                             '<td>'+notNull(value[19])+'</td>'+
                             '<td>'+notNull(value[20])+'</td></tr>';
                         // console.log('table='+table)
-                    }
-                });
+                    // }
+                // });
 
                 });
                 // $('#success').text('İşçilər  işə qəbul edildi')
