@@ -212,10 +212,11 @@ $sql_reward_period= "select * from $tbl_reward_period where lang='$site_lang'";
  include  ('additionSalary/mainAdditionModal.php');
 //  include  ('payment_salary/paymentSalaryModal.php');
             ?>
-  
-  
-  
-<ul class="nav nav-tabs"  id="navtabs" role="tablist">
+
+    <input type="hidden" class="form-control" value="<?php echo $_SESSION['CompanyId']?>"  name="company_id" id='company_ids' placeholder="salam" />
+
+
+    <ul class="nav nav-tabs"  id="navtabs" role="tablist">
   <li Class="nav-item"><a href="#payrollInfo"  style="border-radius:0px;color:#494e53;" class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["payrollInfo"];?></a></li>
 
 

@@ -1,6 +1,7 @@
 <?php
  include('../session.php');
 $site_lang=$_SESSION['dil'] ;
+$company_id=$_POST['company_id'];
 
 $sql_salary_info = "select  tads.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,tas.title add_salary,tc.title additions_currency,tec.company_name
  from $tbl_additions_deductions_salary tads
@@ -8,7 +9,7 @@ INNER join $tbl_employees te on te.id=tads.emp_id
 INNER join $tbl_employee_company tec on tec.id=tads.company_id
 LEFT join $tbl_additions_salary tas on tas.code=tads.add_salary_id and tas.lang='$site_lang'
 LEFT join $tbl_currency tc on tc.id=tads.additions_currency 
-where tads.status='1'
+where tads.status='1' and te.company_id='$company_id'
 ";
 //echo $sql_salary_info;
 

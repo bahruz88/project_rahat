@@ -1,5 +1,6 @@
 <?php
- include('../session.php');  
+ include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_salary_info = "select  tsi.*,concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name,tpe.title place_expenditure,tps.title position_status,trp.title reward_period,tc.title wage_currency,tc2.title prize_amount_currency
  from $tbl_salary_info tsi
@@ -9,7 +10,7 @@ LEFT join $tbl_position_status tps on tps.id=tsi.position_status_id and tps.lang
 LEFT join $tbl_reward_period trp on trp.id=tsi.reward_period and trp.lang='$site_lang'
 LEFT join $tbl_currency tc on tc.id=tsi.wage_currency
 LEFT join $tbl_currency tc2 on tc2.id=tsi.prize_amount_currency 
-where tsi.status='1'
+where tsi.status='1' and te.company_id='$company_id'
 ";
 
 					$result_salary_info  = $db->query($sql_salary_info);

@@ -1,11 +1,12 @@
 <?php
- include('../session.php');  
+ include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_education = "Select  ee.id ,e.lastname,e.firstname,e.surname, qd.qualification ,u.uni_name, ee.faculty,ee.profession, ee.end_date ,ee.diplom_seria_num ,ee.diplom_issue_date  from 
 $tbl_education  ee left  join 
 $tbl_universities u on ee.institution_id=u.id left  join  
 $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join  
-$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1";
+$tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1  and e.company_id='$company_id'";
 
 					
 					$result_education  = $db->query($sql_education );

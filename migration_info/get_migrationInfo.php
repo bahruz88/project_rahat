@@ -1,5 +1,7 @@
 <?php
 include('../session.php');
+$company_id=$_POST['company_id'];
+
 $sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.trp_seria_number,tmi.trp_permit_reason,
  DATE_FORMAT(tmi.trp_permit_date,'%d/%m/%Y') trp_permit_date,DATE_FORMAT(tmi.trp_valid_date,'%d/%m/%Y') trp_valid_date,
  tmi.trp_issuer,tmi.prp_seria_number,DATE_FORMAT(tmi.prp_permit_date,'%d/%m/%Y') prp_permit_date,DATE_FORMAT(tmi.prp_valid_date,'%d/%m/%Y') prp_valid_date,
@@ -7,7 +9,7 @@ $sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.trp_seria_number,tmi.trp_permit_reaso
  tmi.insert_date,tmi.insert_user,tmi.update_user,tmi.update_date,tmi.status,
  te.emp_status,te.lastname,te.firstname,te.surname,te.id teId
 FROM tbl_migration_info tmi
-INNER join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1";
+INNER join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1 and te.company_id='$company_id'";
 
 //  tYN.chois_id, tYN.chois_desc,tYN.lang,
 //INNER join tbl_yesno tYN on tmi.medical_app=tYN.chois_id and tYN.lang='az'

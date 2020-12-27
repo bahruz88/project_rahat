@@ -1,6 +1,8 @@
 <?php
 include('../session.php');
 $site_lang=$_SESSION['dil'] ;
+$company_id=$_POST['company_id'];
+
 $sql_minfo = "SELECT ttec.id,ttec.emp_id,ttec.company_id,ttec.indefinite,ttec.reasons_temporary_closure,
  DATE_FORMAT(ttec.date_contract,'%d/%m/%Y') date_contract,ttec.probation,
  DATE_FORMAT(ttec.trial_expiration_date,'%d/%m/%Y') trial_expiration_date,
@@ -17,7 +19,7 @@ LEFT join $tbl_workplace_status tws on tws.work_status_id=ttec.workplace_status 
 LEFT join $tbl_working_conditions twc on twc.cond_id=ttec.working_conditions and twc.lang='$site_lang'
 LEFT join $tbl_yesno tYN on ttec.indefinite=tYN.chois_id and tYN.lang='$site_lang'
 LEFT join $tbl_dates td on ttec.probation_dates=td.level_id and td.lang='$site_lang'
-LEFT join $tbl_employees te on ttec.emp_id=te.id where ttec.status=1 and te.emp_status=1";
+LEFT join $tbl_employees te on ttec.emp_id=te.id where ttec.status=1 and te.emp_status=1 and te.company_id='$company_id'";
 
 //  tYN.chois_id, tYN.chois_desc,tYN.lang,
 //INNER join tbl_yesno tYN on tmi.medical_app=tYN.chois_id and tYN.lang='az'

@@ -1,12 +1,13 @@
 <?php
 include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_minfo = "SELECT tepp.id,tepp.emp_id,tepp.prev_employer, DATE_FORMAT(tepp.start_date,'%d/%m/%Y') start_date,
 DATE_FORMAT(tepp.end_date,'%d/%m/%Y') end_date,
 tepp.leave_reason,tepp.sector,tepp.status,tepp.insert_date,
 te.firstname,te.lastname,te.surname,te.emp_status
 FROM tbl_employee_prev_positions tepp
-INNER join tbl_employees te on te.id=tepp.emp_id where tepp.status=1 and te.emp_status=1";
+INNER join tbl_employees te on te.id=tepp.emp_id where tepp.status=1 and te.emp_status=1 and te.company_id='$company_id'";
 
 
 $result_minfo  = $db->query($sql_minfo);

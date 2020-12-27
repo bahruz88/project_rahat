@@ -32,7 +32,8 @@ $(function () {
 		},
 		"ajax": {
 			url: "salaryInfo/get_salary.php",
-			type: "POST"
+			type: "POST",
+			data:{company_id:$('#company_ids').val()}
 		}, "columnDefs": [{
 			"width": "8%",
 			"targets": -1,
@@ -466,7 +467,8 @@ up_emp=employee.emp_id;
 			},
 			"ajax": {
 				url: "additionSalary/get_addition.php",
-				type: "POST"
+				type: "POST",
+				data:{company_id:$('#company_ids').val()}
 			}, "columnDefs": [{
 				"width": "8%",
 				"targets": -1,

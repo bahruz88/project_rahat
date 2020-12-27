@@ -1,10 +1,11 @@
 <?php
 include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.status,tmi.military_reg_group, tmi.military_reg_category,tmi.military_staff,tmi.military_rank, tmi.military_specialty_acc,tmi.military_fitness_service,tmi.military_registration_service, DATE_FORMAT(tmi.military_registration_date,'%d/%m/%Y') military_registr_date, tmi.military_general,tmi.military_special,tmi.military_no_official, tmi.military_additional_information,DATE_FORMAT(tmi.military_date_completion,'%d/%m/%Y') military_date_comp, tmi.insert_date,tmi.insert_user,tmi.update_user,tmi.update_date, tms.staff_id, tms.staff_desc,tmr.rank_id,tmr.rank_desc, te.firstname,te.lastname,te.surname,te.emp_status,tms.staff_desc FROM tbl_military_information tmi 
 LEFT join tbl_military_rank tmr on tmi.military_rank=tmr.rank_id and tmr.lang='az' 
 LEFT join tbl_military_staff tms on tmi.military_staff=tms.staff_id and tms.lang='az' 
-LEFT join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1";
+LEFT join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1 and te.company_id='$company_id'";
 
 
 $result_minfo  = $db->query($sql_minfo);

@@ -1,11 +1,12 @@
 <?php
- include('../session.php');  
+ include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_finfo = " SELECT efi.id, te.firstname,te.lastname,te.surname , efi.m_firstname ,efi.m_lastname , efi.m_surname,fmt.type_desc ,efi.contact_number,efi.adress 
 FROM $tbl_employee_family_info efi  
 left join $tbl_employees  te on efi.emp_id=te.id
 left join $tbl_sex ts  on ts.id=efi.gender 
-left join $tbl_family_member_types fmt  on efi.member_type=fmt.type_id and  fmt.lang='az' where  efi.status=1";
+left join $tbl_family_member_types fmt  on efi.member_type=fmt.type_id and  fmt.lang='az' where  efi.status=1 and te.company_id='$company_id'";
 
 					
 					$result_finfo  = $db->query($sql_finfo );

@@ -1,12 +1,13 @@
 <?php
 include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_minfo = "SELECT tedl.id,tedl.emp_id,tedl.lic_seria_number,tedl.category, tedl.lic_issuer, DATE_FORMAT(tedl.lic_issue_date,'%d/%m/%Y') lic_issue_date,DATE_FORMAT(tedl.expire_date,'%d/%m/%Y') expire_date, tedl.insert_user,tedl.update_user,DATE_FORMAT(tedl.insert_date,'%d/%m/%Y') insert_date,
  te.firstname,te.lastname,te.surname,te.emp_status,
  tdlc.cat_id,tdlc.cat_desc,tdlc.lang
  FROM tbl_employye_driver_license tedl
  INNER join tbl_driver_lic_cat tdlc on tdlc.cat_id=tedl.category and tdlc.lang='az'
-  INNER join tbl_employees te on te.id=tedl.emp_id where tedl.status=1 and te.emp_status=1";
+  INNER join tbl_employees te on te.id=tedl.emp_id where tedl.status=1 and te.emp_status=1 and te.company_id='$company_id'";
 
 $result_minfo  = $db-> query($sql_minfo);
 $data = array();

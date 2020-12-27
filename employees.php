@@ -266,8 +266,9 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
   include  ('work_experience/workExperienceModal.php');
   include  ('workplace_info/workplaceInfoModal.php');
   ?>
-  
-  
+
+
+    <input type="hidden" class="form-control" value="<?php echo $_SESSION['CompanyId']?>"  name="company_id" id='company_ids' placeholder="salam" />
 
 <ul class="nav nav-tabs"  id="navtabs" role="tablist">
   <li Class="nav-item"><a href="#employees"  style="border-radius:0px;color:#494e53;" class="nav-link active" role="tab" data-toggle="tab"    ><?php echo $dil["employees"];?></a></li>

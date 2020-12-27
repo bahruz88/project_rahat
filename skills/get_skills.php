@@ -1,10 +1,11 @@
 <?php
- include('../session.php');  
+ include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_skill = " 
 SELECT  tes.id,tes.skill_name,tes.skill_descr,te.lastname,te.firstname,te.surname 
 FROM $tbl_employee_skills tes  inner  join  $tbl_employees te  on tes.emp_id=te.id  
- where tes.skill_status =1 and  te.emp_status=1";
+ where tes.skill_status =1 and  te.emp_status=1 and te.company_id='$company_id'";
 
 					
 					$result_skill  = $db->query($sql_skill );

@@ -1,5 +1,6 @@
 <?php
- include('../session.php');  
+ include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_lang = " 
  SELECT tlk.*,tllr.level_name reading,tlls.level_name speaking,tllw.level_name writting ,tllu.level_name understanding ,
@@ -11,7 +12,7 @@ left join $tbl_lang_level tllr on tlk.lang_reading=tllr.level_id  and tllr.lang_
 left join $tbl_lang_level tlls on tlk.lang_speaking=tlls.level_id and tlls.lang_short_name='$site_lang'
 left join $tbl_lang_level tllw on tlk.lang_writing=tllw.level_id and tllw.lang_short_name='$site_lang'
 left join $tbl_lang_level tllu on tlk.lang_understanding=tllu.level_id and tllu.lang_short_name='$site_lang'
-where tlk.lang_status=1 and  te.emp_status=1";
+where tlk.lang_status=1 and  te.emp_status=1 and te.company_id='$company_id'";
 
 					
 					$result_lang  = $db->query($sql_lang );

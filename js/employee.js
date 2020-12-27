@@ -145,7 +145,7 @@ $(function () {
         "ajax": {
             url: "employees/get_employees.php",
             type: "POST",
-            data:{stat:function() { return $('#act').find('option:selected').val() }}
+            data:{stat:function() { return $('#act').find('option:selected').val() },company_id:$('#company_ids').val()}
         }, "columnDefs": [{
             "width": "8%",
             "targets": -1,
@@ -160,6 +160,7 @@ $(function () {
             {
                 text: 'Yenisini yarat <i class="fa fa-plus"></i>',
                 action: function (e, dt, node, config) {
+                    console.log('yeniii='+$('#company_ids').val())
 
 
                     $("#myModal").modal();
@@ -514,7 +515,9 @@ $(function () {
             },
             "ajax": {
                 url: "education/get_education.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
+
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -801,7 +804,8 @@ $(function () {
             },
             "ajax": {
                 url: "certification/get_certification.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -1085,7 +1089,8 @@ $(function () {
             },
             "ajax": {
                 url: "skills/get_skills.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -1335,7 +1340,8 @@ $(function () {
             },
             "ajax": {
                 url: "emp_lang/get_lang.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -1590,7 +1596,8 @@ $(function () {
             },
             "ajax": {
                 url: "family_info/get_familyInfo.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -1856,7 +1863,8 @@ $(function () {
             },
             "ajax": {
                 url: "military_info/get_militaryInfo.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -2174,7 +2182,8 @@ $(function () {
             },
             "ajax": {
                 url: "driver_license/get_drivingLicenseInfo.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -2488,7 +2497,8 @@ $(function () {
             },
             "ajax": {
                 url: "medical_info/get_medicalInfo.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -2766,7 +2776,8 @@ $(function () {
             },
             "ajax": {
                 url: "previous_positions/get_previousPositions.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -3030,7 +3041,8 @@ $(function () {
             },
             "ajax": {
                 url: "migration_info/get_migrationInfo.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -3354,7 +3366,8 @@ $(function () {
             },
             "ajax": {
                 url: "emp_contract/get_empContractInfo.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -3731,7 +3744,8 @@ $(function () {
             },
             "ajax": {
                 url: "work_experience/get_workExperience.php",
-                type: "POST"
+                type: "POST",
+                data:{company_id:$('#company_ids').val()}
             }, "columnDefs": [{
                 "width": "8%",
                 "targets": -1,
@@ -4025,6 +4039,7 @@ $(function () {
             "ajax": {
                 url: "workplace_info/get_workplaceInfo.php",
                 type: "POST",
+                data:{company_id:$('#company_ids').val()}
 
 
 

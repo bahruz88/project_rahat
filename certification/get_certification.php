@@ -1,8 +1,9 @@
 <?php
- include('../session.php');  
+ include('../session.php');
+$company_id=$_POST['company_id'];
 
 $sql_certification = " SELECT emp.firstname,emp.lastname,emp.surname,emp.id empid ,cert.* FROM  $tbl_employees emp  inner join  $tbl_certification cert  on emp.id=cert.emp_id
- where cert.cert_status =1 and  emp.emp_status=1";
+ where cert.cert_status =1 and  emp.emp_status=1 and emp.company_id='$company_id'";
 
 					
 					$result_certification  = $db->query($sql_certification );
