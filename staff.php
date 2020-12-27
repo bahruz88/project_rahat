@@ -477,9 +477,14 @@ $result_employee_category = $db->query($employee_category);
             $("#statt").css("display","none");
         $("#download").css("display","none");
         $("#print").css("display","none");
+        $(".staffText").css("display","block");
+        $(".stattText").css("display","block");
+        $(".stattText2").css("display","block");
+        $(".staffText2").css("display","block");
 
         console.log('staffSearch staffSelect='+staffSelect);
-var datee=$('#date_completion').val();
+        console.log('staffSearch company_id='+company_id);
+        var datee=$('#date_completion').val();
         $.ajax({
             // url: 'st_selectStaff.php',
             url: 'structure/st_selectWithCompanyPage.php',
@@ -487,9 +492,6 @@ var datee=$('#date_completion').val();
             async:false,
             data: { company_id:company_id,datee:datee},
             success: function (data) {
-
-
-             console.log('dataaaaaaa staff =' )
                 if(data){
                     console.log('dataaaaaaa parseJSON staff====*** =' , $.parseJSON(data))
                     var data1=$.parseJSON(data);
@@ -707,8 +709,7 @@ console.log('staffSelect==='+staffSelect)
         $(".staffText2").css("display","block");
         // generate(divId)
         var staffchoose=$("input[name='staffSelect']:checked").val();
-        console.log('staff html='+ $("#staff").html())
-        if(staffchoose=='1') {
+         if(staffchoose=='1') {
             var HTML_Width = $("#staff").width();
             var HTML_Height =$("#staff").height();
         }else{
@@ -724,24 +725,7 @@ console.log('staffSelect==='+staffSelect)
 
         var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
 
-        if(staffchoose=='1'){
 
-
-            // $(".staffText").css("display","block");
-            // $(".staffText2").css("display","block");
-            // console.log('staffText='+$("#staff").html())
-            console.log('staffchoose1111='+staffchoose)
-            // $(".stattText").css("display","none");
-            // $(".stattText2").css("display","none");
-        }else if(staffchoose=='2'){
-
-            // $(".staffText").css("display","none");
-            // $(".staffText2").css("display","none");
-            // $(".stattText").css("display","block");
-            // $(".stattText2").css("display","block");
-            console.log('staffchoose22222='+staffchoose)
-            // console.log('stattText='+$("#statt").html())
-        }
         var imgData = getCanvas.toDataURL("image/png", 1.0);
         var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
         pdf.addImage(imgData, 'PNG', 0, 0,canvas_image_width,canvas_image_height);
@@ -758,20 +742,7 @@ console.log('staffSelect==='+staffSelect)
         $(".stattText").css("display","none");
         $(".stattText2").css("display","none");
         $(".staffText2").css("display","none");
-        // if(staffchoose=='1'){
-        //     console.log('staffchoose1111nn='+staffchoose)
-        //     $(".staffText").css("display","none");
-        //     $(".staffText2").css("display","none");
-        //     $(".stattText").css("display","block");
-        //     $(".stattText2").css("display","block");
-        // }else if(staffchoose=='2'){
-        //     console.log('staffchoose222nnn='+staffchoose)
-        //     $(".staffText").css("display","block");
-        //     $(".staffText2").css("display","block");
-        //     $(".stattText").css("display","none");
-        //     $(".stattText2").css("display","none");
-        //
-        // }
+
 
     }
 
