@@ -38,8 +38,11 @@ WHILE ($c > 0){
 
 $pId                = $_POST['pId'];
 $name               = $_POST['name'];
-$emp_id             = $_POST['emp_id'];
-$structure_level    = $_POST['structure_level'];
+$emp_id             =0;
+if(isset($_POST['emp_id'])){
+    $emp_id             = $_POST['emp_id'];
+}
+ $structure_level    = $_POST['structure_level'];
 $position_level     = $_POST['position_level'];
 $create_date        = $_POST['create_date'];
 $end_date           = $_POST['end_date'];

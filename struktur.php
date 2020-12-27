@@ -1215,8 +1215,11 @@ $sql_position= "select * from $tbl_employee_category";
                             event_t=data.cmd;
                             console.log('-----------------= html=',silArray)
                             console.log('-----------------= node=',node)
-                            console.log('-----------------= node.title=',node.title);
-                            oldTitle=node.title;
+                            if(node){
+                                console.log('-----------------= node.title=',node.title);
+                                oldTitle=node.title;
+                            }
+
                             if(data.cmd=="rename"){
                                command_code=18;//vezife desyisikliyi emrinin kodu
                             }
