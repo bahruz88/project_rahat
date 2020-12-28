@@ -328,7 +328,7 @@ function notNull(element){
 
     })
     $('#importTab').on('click',function(event){
-        console.log('imppp')
+        // console.log('imppp='+empArray)
         var jsonString = JSON.stringify(empArray);
         $.ajax({
             url: 'import-excel/recruitmentAjInsert.php', // point to server-side PHP script
@@ -336,7 +336,9 @@ function notNull(element){
             // cache: false,
             // contentType: false,
             // processData: false,
-            data: {data : empArray},
+            // data: {data : empArray},
+            // dataType: "json",
+            data: { data: JSON.stringify(empArray) },
             cache: false,
             type: 'post',
             success: function(data){

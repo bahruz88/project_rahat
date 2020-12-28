@@ -1,10 +1,11 @@
 <?php 
 include('../session.php') ;
+//include('recruitmentAj.php') ;
 
 
 // $data = json_decode(($_POST['data']));
 // $data = explode(",", $_POST['data']);
-// print_r($_POST['data']);
+print_r(json_decode($_POST['data']));
  $data =$_POST['data'];
  function generateRandomString($length = 2) {
      return substr(str_shuffle(str_repeat($x='ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
@@ -17,11 +18,18 @@ include('../session.php') ;
  $voen='';
  $sun='';
  $enterprise_head_fullname='';
+$living_address = '';
+$reg_address ='';
+$mob_tel = '';
+$home_tel = '';
+$email = '';
+$emr_contact = '';
+$company_id ='';
 //
 // // here i would like use foreach:
 //
 // foreach($data as $d){
-     foreach($data as $key=>$row){
+     foreach(json_decode($data) as $key=>$row){
 //         print_r($row) ;
 //         if($key!=0){
              $firstname = $row[1];
@@ -37,13 +45,13 @@ include('../session.php') ;
              $passport_date = $row[11];
              $passport_end_date = $row[12];
              $pass_given_authority = $row[13];
-             $living_address = $row[14];
-             $reg_address = $row[15];
-             $mob_tel = $row[16];
-             $home_tel = $row[17];
-             $email = $row[18];
-             $emr_contact = $row[19];
-             $company_id = $row[20];
+//             $living_address = $row[14];
+//             $reg_address = $row[15];
+//             $mob_tel = $row[16];
+//             $home_tel = $row[17];
+//             $email = $row[18];
+//             $emr_contact = $row[19];
+//             $company_id = $row[20];
              if(strtoupper($sex)=="QADIN"){
                  $sex=2;
              }else{
@@ -91,7 +99,7 @@ include('../session.php') ;
                  echo "error" .mysqli_error($db);
              }
              else {
-                 echo "insert oldu  tbl_employees";
+                 echo "insert oldu  tbl_employees ".$firstname.' '.$living_address;
                  //$emp_id = "SELECT id FROM $tbl_employees ORDER BY id DESC LIMIT 1";
                  $sql_emp_id = "SELECT * FROM $tbl_employees ORDER BY id DESC LIMIT 1";
                  $result_emp_id  = $db->query($sql_emp_id);

@@ -28,6 +28,7 @@ function date_($val){
                     $excel_date = 25569 + ($unix_date / 86400);
                     $unix_date = ($excel_date - 25569) * 86400;
                     return gmdate("Y-m-d", $unix_date);
+//                    return $val;
 }
  function setTimeout($fn, $timeout){
      // sleep for $timeout milliseconds.
