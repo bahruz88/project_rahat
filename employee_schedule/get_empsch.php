@@ -28,18 +28,6 @@ $tbl_sch_reduce_from rf on esch.reduce_type=rf.type_id and rf.lang='$site_lang' 
 						   $sub_array[] = $row_sch['type_descr'];
 						   $sub_array[] = $row_sch['reduce_hours'];
 						   $sub_array[] = $row_sch['res_desc'];
-						   /*
-						   $sub_array[] = $row_sch['tm_descr'];
-						   $sub_array[] = $row_sch['type_descr'];
-						   $sub_array[] = $row_sch['red_working_hours'];
-						   $sub_array[] = $row_sch['res_desc'];
-						   $sub_array[] = $row_sch['start_time'];
-						   $sub_array[] = $row_sch['end_time'];
-						   $sub_array[] = $row_sch['break_start_time'];
-						   $sub_array[] = $row_sch['break_end_time'];
-						   $sub_array[] = $row_sch['dinner_start_time'];
-						   $sub_array[] = $row_sch['dinner_end_time'];
-						   $sub_array[] = $row_sch['night_time'];*/
 						   $data[]     = $sub_array ;
 					}
 					}

@@ -146,7 +146,18 @@ $(function () {
             url: "employees/get_employees.php",
             type: "POST",
             data:{stat:function() { return $('#act').find('option:selected').val() },company_id:$('#company_ids').val()}
-        }, "columnDefs": [{
+			  
+        },
+        "initComplete":function( settings, json){
+            console.log(json);
+            // call your function here
+        }, "columnDefs": [
+		{ targets: 1,
+      render: function(json) {
+        return '<img alt="User" id="default" style="border-radius: 0;" width="40px" height="40px" class="img-circle elevation-2" src="'+json+'">'
+      }
+    }   ,
+		{
             "width": "8%",
             "targets": -1,
             "data": null,
@@ -1869,9 +1880,9 @@ $(function () {
                 "width": "8%",
                 "targets": -1,
                 "data": null,
-                "defaultContent": " <img  id='lang_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>" +
-                    "<img  id='lang_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>" +
-                    "<img id='lang_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
+                "defaultContent": " <img  id='militaryInfo_view' style='cursor:pointer' src='dist/img/icons/view-file.png' width='22' height='22'>" +
+                    "<img  id='militaryInfo_delete' style='cursor:pointer' src='dist/img/icons/delete-file.png' width='22' height='22'>" +
+                    "<img id='militaryInfo_edit' style='cursor:pointer' src='dist/img/icons/edit-file.png' width='22' height='22'> "
             }],
             dom: 'lBfrtip',
 
@@ -1940,7 +1951,7 @@ $(function () {
 
     /*Herbi MELUMATALRİ SİLİNİR */
     $("#militaryInfoDelete").submit(function (e) {
-
+console.log('militarydelete');
         e.preventDefault();
         $.ajax({
             url: "military_info/militaryInfoDelete.php",
@@ -2089,6 +2100,7 @@ $(function () {
 
     /*Military Update */
     $("#militaryInfoUpdate").submit(function (e) {
+		console.log('militaryupdate');
         e.preventDefault();
         /*if($("#educationUpdate").valid())
         { */
@@ -5022,3 +5034,6 @@ $('.update_work_experience_enterprise_day').on('keyup', function() {
     var work_experience_enterprise_day=parseInt($('#update_work_experience_enterprise_day').val())
     $('#update_general_work_experience_day').val(work_experience_before_enterprise_day+work_experience_enterprise_day)
 });
+
+
+

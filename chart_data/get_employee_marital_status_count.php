@@ -3,8 +3,7 @@
 
 $company_id = $_SESSION["CompanyId"];
 
-$sql_employees_count= "select count(*) say ,sex.descr from $tbl_employees emp inner join 
-$tbl_sex sex on emp.sex=sex.id where emp.company_id='$company_id' GROUP by sex.descr ,sex.id";
+$sql_employees_count= "select count(*) say ,ms.descr from tbl_employees emp inner join tbl_marital_status ms on emp.marital_status=ms.id where emp.company_id='$company_id' GROUP by ms.descr ,ms.id   ";
  
 					$result_employees  = $db->query($sql_employees_count);
 		     
@@ -13,7 +12,7 @@ $tbl_sex sex on emp.sex=sex.id where emp.company_id='$company_id' GROUP by sex.d
 						while($row_employees  = $result_employees ->fetch_assoc()) {
 								
 								
-								$result_array[] = ['name'=>$row_employees['descr'], 'mark'=>$row_employees['say'] , 'reng'=>  '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6) ];
+								$result_array[] = ['name'=>$row_employees['descr'], 'mark'=>$row_employees['say']];
 	                           
 						}
 					}

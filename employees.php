@@ -312,6 +312,7 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
 
 
 <!-- Tab panes -->
+ 
 <div class="tab-content" style="box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)">
 	<div class="tab-pane active" id="employees">   
 		<table id="employee_table" class="table table-striped  table-bordered table-hover">
@@ -329,7 +330,7 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
             </thead>  
         </table>
 	</div>
-  <div class="tab-pane" id="javatab">The Java is an object-oriented programming language that was developed by James Gosling from the Sun Microsystems in 1995.</div>
+ 
   <div class="tab-pane" id="main_information"> main_information  </div>
   <div class="tab-pane" id="eduinfo">
  
@@ -620,15 +621,7 @@ $sql_position_level= "select * from $tbl_position_level where lang='$site_lang'"
 
     </div>
 
-  <div class="tab-pane" id="bootstab">Bootstrap Content here
-  <ul>
-  <li>Bootstrap forms</li>
-  <li>Bootstrap buttons</li>
-  <li>Bootstrap navbar</li>
-  <li>Bootstrap footer</li>
-  </ul>
-  </div>
-  <div class="tab-pane" id="htmltab">Hypertext Markup Language</div>  
+  
  </div>
 </div>
 		  
