@@ -47,7 +47,7 @@
 						
 					?>						
           <div class="dropdown-divider"></div>
-          <a href="./?dil=<?php echo $_SESSION["CompanyId"]. $row_lang_nav['short_name']; ?>" class="dropdown-item">
+          <a href="./?dil=<?php echo $row_lang_nav['short_name']; ?>" class="dropdown-item">
             <i class="fas  mr-2"><img src="<?php echo $row_lang_nav['image_path']; ?>" width ="25px" height="25px" class="img-circle elevation-2" ></i><?php echo $dil[$row_lang_nav['lang_code']];?>
           </a>
 		  <?php } }?>
@@ -120,7 +120,7 @@
           <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" alt="User profile picture" src="<?php echo $u_photo_user; ?>">
+                  <img class="profile-user-img img-fluid img-circle" alt="User profile picture" src="<?php if ($u_photo_user!='') { echo $u_photo_user ;}else { echo 'images/users/def.png' ;} ?>">
                 </div>
 
                 <h3 class="profile-username text-center"><?php  echo $login_fullname ; ?></h3>
