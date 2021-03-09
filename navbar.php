@@ -58,7 +58,7 @@
 	 
     <li class="nav-item dropdown">
 	        <a class="nav-link "   data-toggle="dropdown" href="#">
-			<i class="fas  fa-sitemap nav-icon mr-1"></i> <b> <?php  echo $row_def_company['company_name']; ?></b>
+			<i class="fas  fa-sitemap nav-icon mr-1"></i> <b> <?php  if  (isset($row_def_company['company_name'])) {echo $row_def_company['company_name'];} ?></b>
 			</a>
   
         <div class="dropdown-menu dropdown-menu-lg  dropdown-menu-right" >

@@ -47,10 +47,10 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="index.php" class="brand-link">
       <img src="dist/img/rhr.png" alt="" class="brand-image  elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light"><?php echo $company_name ; ?></span>
+      <span class="brand-text font-weight-light">&ensp; </span>
     </a>
 
     <!-- Sidebar -->
@@ -99,15 +99,7 @@
                 <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
               </div>
 			  
-			  <div class="col">
-			  <div class="chartjs-size-monitor">
-			  <div class="chartjs-size-monitor-expand">
-			  <div class=""></div>
-			  </div>
-			  <div class="chartjs-size-monitor-shrink">
-			  <div class=""></div>
-			  </div>
-			  </div>
+			  <div class="col"> <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                 <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
               </div>
 		
@@ -118,12 +110,13 @@
 			
  
             <!-- PIE CHART -->
-            <div class="card card-danger">
+            <div class="card card-success">
  
               <div class="card-body">
-			  			   			  <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
-
+                <div class="chart">
+				<div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -140,7 +133,8 @@
             <div class="card card-success">
  
               <div class="card-body">
-                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <div class="chart">
+				<div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                   <canvas id="stackedBarChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
                 </div>
               </div>
@@ -152,7 +146,7 @@
  
               <div class="card-body">
                 <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                  <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
+                  <canvas id="pieEdu" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
                 </div>
               </div>
               <!-- /.card-body -->
@@ -302,7 +296,7 @@
  
  // Bar chart
 new Chart(document.getElementById("stackedBarChart2"), {
-    type: 'horizontalBar',
+    type: 'bar',
     data: {
       labels: name,
       datasets: [
@@ -419,6 +413,54 @@ new Chart(document.getElementById("pieChart"), {
       options: donutOptions2      
     })
 
+ 
+
+ 
+	  }}) ;  
+  
+ 
+	  $.ajax({
+    url : "chart_data/get_company_education_level_count.php",
+    type : "GET",
+    success : function(data){
+    console.log(data );
+	var data = JSON.parse(data);
+    var name = [];
+    var mark = [];
+	var reng = [];
+	   for(var i in data) {
+		name.push(data[i].name);
+		mark.push(data[i].mark);
+		reng.push(data[i].reng);
+	   }
+
+ 
+
+new Chart(document.getElementById("pieEdu"), {
+    type: 'pie',
+    data: {
+	labels: name ,
+      datasets: [{
+        label: "Təhsil  səviyyələri üzrə qrafik",
+        backgroundColor: [ "#3cba9f","#8e5ea2","#c45850"],
+        data: mark
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Təhsil  səviyyələri üzrə qrafik'
+      },
+	    plugins: {
+          labels: {
+            render: ['value','percentage'],
+            fontColor: ['white', 'white', 'white', 'white', 'white'],
+            
+ 
+          }
+        },
+    }
+});
 
  
 	  }}) ;  

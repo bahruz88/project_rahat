@@ -8,6 +8,8 @@
 $_SESSION['msg1']='';
    $ses_sql = mysqli_query($db,"select * from $tbl_users where username = '$user_check' ");
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
+   $count = mysqli_num_rows($ses_sql);
+   if ($count>0){
    $login_session = $row['username'];
    $u_photo_user = $row['u_photo'];
    $emp_id = $row['emp_id'];
@@ -65,7 +67,7 @@ $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 a
    }
    
    	$lang_image=$row_def_lang['image_path'];
-	
+   }
   if  (isset($_POST["company_id_name_main"]) && empty($_GET["company_id_main"])  ){ 
    $_SESSION["CompanyId"]=$_POST["company_id_name_main"];
    
