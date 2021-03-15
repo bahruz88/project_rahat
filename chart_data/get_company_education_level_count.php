@@ -5,7 +5,7 @@ $company_id = $_SESSION["CompanyId"];
 
 $sql_employees_count= "SELECT count(*) say ,qd.qualification title  FROM tbl_employee_education ee inner  join  tbl_qualification_dic  qd on ee.qualification_id=qd.id
 inner join  tbl_employees  te  on  ee.emp_id=te.id  
-where  te.company_id='$company_id'
+where  te.company_id='$company_id' and emp_status=1 and edu_status=1
 group  by  qd.qualification   ";
  
 					$result_employees  = $db->query($sql_employees_count);

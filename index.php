@@ -1,6 +1,5 @@
 <?php    
   include('session.php');  
-
 ?>
 <!-- Tell the browser to be responsive to screen width -->
 
@@ -342,11 +341,11 @@ new Chart(document.getElementById("pieChart"), {
         {
           label: "Kişi",
           backgroundColor: "#3e95cd",
-          data: [133,221,783,2478]
+          data: [1,5,3,4]
         }, {
           label: "Qadın",
           backgroundColor: "#8e5ea2",
-          data: [408,547,675,734]
+          data: [2,3,4,5]
         }
       ]
     },

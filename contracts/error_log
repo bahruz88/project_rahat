@@ -1,0 +1,2 @@
+[19-Oct-2020 02:18:11 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home4/bahruz/hrm.sfa.az/contracts/getEmployeeContractDetail.php on line 91
+[19-Oct-2020 11:50:56 America/Chicago] PHP Fatal error:  Call to a member function fetch_assoc() on boolean in /home4/bahruz/hrm.sfa.az/contracts/getEmployeeContractDetail.php on line 91

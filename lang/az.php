@@ -410,7 +410,7 @@ $dil = array(
 	"employee_schedules" 	=>"İşçilərin  qrafikləri",
 	"add_schedules_to_employee" 	=>"İşçilərin  qrafikə əlavə  edilməsi",
 	"schedules" 	=>"Qrafiklər",
-    "update_schedules_to_employee" 	=>"İşçi  qrafikinin redaktəsi ",
+
 
 );
 ?>

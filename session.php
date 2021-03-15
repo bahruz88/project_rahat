@@ -9,7 +9,7 @@ $_SESSION['msg1']='';
    $ses_sql = mysqli_query($db,"select * from $tbl_users where username = '$user_check' ");
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    $count = mysqli_num_rows($ses_sql);
-
+  
    $login_session = $row['username'];
    $u_photo_user = $row['u_photo'];
    $emp_id = $row['emp_id'];
@@ -17,7 +17,7 @@ $_SESSION['msg1']='';
    $id_user = $row['id'];
    $login_fullname= $row['firstname'].' '.$row['lastname'];
    $login_lang = $row['def_lang'];
-   if(!isset($_SESSION['login_user']) && $count<1){
+   if(!isset($_SESSION['login_user'])){
       header("location:login.php");
       die();
    }
