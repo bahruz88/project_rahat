@@ -17,6 +17,7 @@ $_SESSION['msg1']='';
    $id_user = $row['id'];
    $login_fullname= $row['firstname'].' '.$row['lastname'];
    $login_lang = $row['def_lang'];
+   $profession_user='';
    if(!isset($_SESSION['login_user'])){
       header("location:login.php");
       die();
@@ -29,7 +30,7 @@ $tbl_qualification_dic qd on ee.qualification_id=qd.id inner  join
 $tbl_employees e on e.id=ee.emp_id  where ee.edu_status =1 and  e.emp_status=1 and  e.id=$emp_id";
        $result_education = $db->query($sql_education);
 
-       $profession_user=''; ;
+        
        if($result_education){
            if ($result_education->num_rows > 0) {
                while($row_edu = $result_education->fetch_assoc()) {

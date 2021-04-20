@@ -1,6 +1,7 @@
 <?php    
   include('session.php');  
 ?>
+<!-- Tell the browser to be responsive to screen width -->
 
 <!DOCTYPE html>
 <html>
@@ -33,17 +34,15 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
+
+
 <div class="wrapper">
+
   <!-- Navbar -->
-     <!-- Navbar -->
  <?php  include ("navbar.php")?>
   <!-- /.navbar -->
-    <!-- Left navbar links -->
-  
-  <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -60,52 +59,63 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
+   <!-- Content Header (Page header) -->
+    <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
+      
           <div class="col-sm-6">
-            
-          </div>
-          <div class="col-sm-6">
-   
-          </div>
-        </div>
+         
+          </div><!-- /.col -->
+        </div><!-- /.row -->
       </div><!-- /.container-fluid -->
-    </section>
+    </div>
+    <!-- /.content-header -->
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
+     <div class="container-fluid">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 col-2">
             <!-- AREA CHART -->
-            <div class="card card-primary">
-         
-              <div class="card-body">
-                <div class="chart">
-                  <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
+           
             <!-- /.card -->
 
             <!-- DONUT CHART -->
             <div class="card card-danger">
-     
-              <div class="card-body">
-                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+ 
+              <div class="card-body ">
+			    <div class="row">
+			  <div class="col">
+			  <div class="chartjs-size-monitor">
+			  <div class="chartjs-size-monitor-expand">
+			  <div class=""></div>
+			  </div>
+			  <div class="chartjs-size-monitor-shrink">
+			  <div class=""></div>
+			  </div>
+			  </div>
+                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
               </div>
+			  
+			  <div class="col"> <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
+              </div>
+		
+			  </div>
+			  </div>
               <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
+			
+ 
             <!-- PIE CHART -->
-            <div class="card card-danger">
-     
+            <div class="card card-success">
+ 
               <div class="card-body">
-                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <div class="chart">
+				<div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -114,58 +124,52 @@
           </div>
           <!-- /.col (LEFT) -->
           <div class="col-md-6">
-            <!-- LINE CHART -->
-            <div class="card card-info">
-   
-              <div class="card-body">
-                <div class="chart">
-                  <canvas id="donutChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-            <!-- BAR CHART -->
-            <div class="card card-success">
-     
-              <div class="card-body">
-                <div class="chart">
-                  <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
+		       <!-- BAR CHART -->
+       
             <!-- /.card -->
 
             <!-- STACKED BAR CHART -->
             <div class="card card-success">
-          
+ 
               <div class="card-body">
                 <div class="chart">
-                  <canvas id="pieEdu" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+				<div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas id="stackedBarChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
                 </div>
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            <!-- LINE CHART -->
+            <div class="card card-info">
+ 
+              <div class="card-body">
+                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas id="pieEdu" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 765px;" width="765" height="250" class="chartjs-render-monitor"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+       
 
           </div>
           <!-- /.col (RIGHT) -->
         </div>
         <!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
- <?php  include ("footer.php"); ?>
+<?php  include ("footer.php"); ?>
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Add Content Here -->
-  </aside>
-  <!-- /.control-sidebar -->
+ <!--   <aside class="control-sidebar control-sidebar-dark">
+   Control sidebar content goes here -->
+  <!--  </aside>
+ /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -200,8 +204,8 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<!-- page script -->
- <script>
+
+<script>
   $(function () {
 	  
     
@@ -290,7 +294,7 @@
 	   }
  
  // Bar chart
-new Chart(document.getElementById("areaChart"), {
+new Chart(document.getElementById("stackedBarChart2"), {
     type: 'bar',
     data: {
       labels: name,
@@ -329,50 +333,6 @@ new Chart(document.getElementById("areaChart"), {
 	
 	
 });
-
- 
- new Chart(document.getElementById("stackedBarChart"), {
-  type: 'line',
-  data: {
-    labels: [2000,2002,2004,2006,2008,2010,2012,2014,2016,2018,2020,2022],
-    datasets: [{ 
-        data: [86,114,106,106,107,111,133,221,783,2478,111],
-        label: "Departament",
-        borderColor: "#3e95cd",
-        fill: false
-      }, { 
-        data: [282,350,411,502,635,809,947,1402,3700,5267,411],
-        label: "Sahə",
-        borderColor: "#8e5ea2",
-        fill: false
-      }, { 
-        data: [168,170,178,190,203,276,408,547,675,734,190],
-        label: "Bölmə",
-        borderColor: "#3cba9f",
-        fill: false
-      }, { 
-        data: [40,20,10,16,24,38,74,167,508,784,24],
-        label: "Şöbə",
-        borderColor: "#e8c3b9",
-        fill: false
-      }, { 
-        data: [6,3,2,2,7,1,2,1,2,3,2],
-        label: "Direktorluq",
-        borderColor: "#c45850",
-        fill: false
-      }
-    ]
-  },
-  options: {
-    title: {
-      display: true,
-      text: 'İllər üzrə isçi artış qrafiki '
-    }
-  }
-});
-
-
-
 new Chart(document.getElementById("pieChart"), {
     type: 'bar',
     data: {
@@ -500,9 +460,6 @@ new Chart(document.getElementById("pieEdu"), {
         },
     }
 });
-
-
-
 
  
 	  }}) ;  

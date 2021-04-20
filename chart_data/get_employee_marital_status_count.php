@@ -3,7 +3,7 @@
 
 $company_id = $_SESSION["CompanyId"];
 
-$sql_employees_count= "select count(*) say ,ms.descr from tbl_employees emp inner join tbl_marital_status ms on emp.marital_status=ms.id where emp.company_id='$company_id' and emp_status=1 GROUP by ms.descr ,ms.id   ";
+$sql_employees_count= "select count(*) say ,ms.descr from tbl_employees emp inner join tbl_marital_status ms on emp.marital_status=ms.id where emp.company_id='$company_id' GROUP by ms.descr ,ms.id   ";
  
 					$result_employees  = $db->query($sql_employees_count);
 		     
