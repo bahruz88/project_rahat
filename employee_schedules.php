@@ -2,8 +2,7 @@
  include('session.php'); 
  
 $sql_tm_type="Select   *  from $tbl_sch_time_managment_type where  lang='$site_lang'";
- 
- $company_id=$_SESSION["CompanyId"] ;
+$company_id=$_SESSION["CompanyId"] ;
  
 $sql_periods ="Select   *  from $tbl_periods where  lang='$site_lang'";
 $result_periods  = $db->query($sql_periods); 

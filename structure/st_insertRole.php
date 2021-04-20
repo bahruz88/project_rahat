@@ -36,8 +36,7 @@ if($result_users->num_rows > 0) {
 		role_id  = '$role_id',
 		posit_code  = '$posit_code',
 		company_id  = '$company_id',
-		start_date  = '$start_date',
-		emp_id  = '$emp_id',";
+		start_date  = '$start_date',";
     if($percent!=''){
         $sql.=" percent  = '$percent', ";
     }
@@ -54,7 +53,7 @@ else{
 
 
 
-//echo  $sql ;
+
 
 if(!mysqli_query($db, $sql)) {
     echo "error=".$sql.'=' .mysqli_error($db);

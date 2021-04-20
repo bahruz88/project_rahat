@@ -1,10 +1,9 @@
 <?php
 include('../session.php');
-$company_id=$_POST['company_id'];
 
 $sql_minfo = "SELECT twe.*, concat(te.lastname,' ', te.firstname ,' ', te.surname) full_name
   FROM $tbl_work_experience twe
- LEFT join $tbl_employees te on twe.emp_id=te.id where twe.status=1 and te.emp_status=1 and te.company_id='$company_id'";
+ LEFT join $tbl_employees te on twe.emp_id=te.id where twe.status=1 and te.emp_status=1";
 
 
 

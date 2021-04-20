@@ -1,7 +1,7 @@
 
  <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <?php   if   ($uid!=71){?> <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
@@ -9,11 +9,12 @@
           <a href="#" class="d-block">Qasimov  Bəhruz</a>
         </div>
       </div>
-
+	  <?php }?>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
  
+
 
           <li class="nav-item has-treeview <?php if (isset($_GET["module"])) { if ($_GET["module"]=='admin') { ?> menu-open <?php }} ?>">
 		  <a href="#" class="nav-link <?php /*if (isset($_GET["module"])) { if ($_GET["module"]=='admin') { ?> active <?php }}*/ ?>">
@@ -26,14 +27,14 @@
             <ul class="nav nav-treeview nav-item ">
            
 
-
+ <?php   if   ($uid!=71){?>
 		   <li class="nav-item">
                 <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=users&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="users") { ?>active <?php }}?>">
                  
                   <p>  <?php echo $dil["users"];?></p>
                 </a>
               </li>
-			  
+		 <?php  }?>	  
 			  
 			  
               <li class="nav-item " >
@@ -42,17 +43,18 @@
                   <p>  <?php echo $dil["companies"];?></p>
                 </a>
               </li>
+			   <?php   if   ($uid!=71){?>
 			  <li class="nav-item " >
                 <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=modules&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="modules") { ?>active<?php }}?>">
                  
                   <p>  <?php echo $dil["modules"];?></p>
                 </a>
               </li>
-     
+      <?php  }?>
      
             </ul>
           </li>
-         
+
 			 <li class="nav-item has-treeview <?php if (isset($_GET["module"])) { if ($_GET["module"]=='employees') { ?> menu-open <?php }} ?>">
 			 <a href="#" class="nav-link">
             <i class="nav-icon fas fa-user-friends"></i>
@@ -115,7 +117,7 @@
                   <p><?php echo $dil["overtime_settings"];?></p>
                 </a>
               </li>
-              
+           <?php   if   ($uid!=71){?>
 			  <li class="nav-item">
                 <a href="overtime_list.php?dil=<?php echo $_SESSION["dil"]; ?>&module=time_management&submodule=overtime_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="overtime_list") { ?>active<?php }}?>" class="nav-link">
                   
@@ -143,80 +145,18 @@
                 </a>
               </li>  
 			  
-			  
+			   <?php  }?>
 			  <li class="nav-item">
                   <a href="tab.php?dil=<?php echo $_SESSION["dil"]; ?>&module=tab&submodule=tab_list&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link">
 
                       <p><?php echo $dil["tab"];?></p>
                   </a>
               </li>
-
+		  
             </ul>
           </li>
 
-<!--   
-		  
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-money-check-alt"></i>
-              <p>
-                Ödəmə məlumatları
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/UI/general.html" class="nav-link">
-                  
-                  <p>Əsas ödənişlər</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/icons.html" class="nav-link">
-                  
-                  <p>Əlavə ödəmə/kəsintilər</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/buttons.html" class="nav-link">
-                  
-                  <p>Məsrəf dağıtımı</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/sliders.html" class="nav-link">
-                  
-                  <p>Bank məlumatları</p></a></li>
-            </ul>
-          </li>
-		  -->
-		  
-		  
-		  
-<!--          <li class="nav-item has-treeview">-->
-<!--            <a href="#" class="nav-link">-->
-<!--              <i class="nav-icon fas fa-edit"></i>-->
-<!--              <p>-->
-<!--			   Digər məlumatlar-->
-<!--                <i class="right fas fa-angle-left"></i>-->
-<!--              </p>-->
-<!--            </a>-->
-<!--            <ul class="nav nav-treeview">-->
-<!--              <li class="nav-item">-->
-<!--                <a href="pages/charts/chartjs.html" class="nav-link">-->
-<!--                  -->
-<!--                  <p>Sürücülük vəsiqəsi</p>-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li class="nav-item">-->
-<!--                <a href="pages/charts/flot.html" class="nav-link">-->
-<!--                  -->
-<!--                  <p>Miqrasiya Məlumatları</p>-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li class="nav-item">        -->
-<!--            </ul>-->
-<!--          </li>-->
+ 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="fas fa-sitemap"></i>
@@ -322,39 +262,8 @@
             </ul>
           </li>
           
-		  <!--   
-		  <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Şirkət Məlumatları
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  
-                  <p>Simple Tables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  
-                  <p>jsGrid</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-		  
-		  -->
-		  
+ 
+		   <?php   if   ($uid!=71){?>
           <li class="nav-header">Əlavələr</li>
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
@@ -363,61 +272,9 @@
                 Calendar</p>
             </a>
           </li>
-        
+         <?php  }?>
 
-          <li class="nav-item has-treeview">
  
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/examples/invoice.html" class="nav-link">
-                  
-                  <p>Invoice</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/profile.html" class="nav-link">
-                  
-                  <p>Profile</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/e_commerce.html" class="nav-link">
-                  
-                  <p>E-commerce</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/projects.html" class="nav-link">
-                  
-                  <p>Projects</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/project_add.html" class="nav-link">
-                  
-                  <p>Project Add</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/project_edit.html" class="nav-link">
-                  
-                  <p>Project Edit</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/project_detail.html" class="nav-link">
-                  
-                  <p>Project Detail</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/contacts.html" class="nav-link">
-                  
-                  <p>Contacts</p>
-                </a>
-              </li>
-            </ul>
-          </li>
     <!--
           <li class="nav-header">Sistem Məlmatları</li>
           <li class="nav-item">

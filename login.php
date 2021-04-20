@@ -11,14 +11,13 @@
       $sql = "SELECT * FROM $tbl_users WHERE username = '$myusername' and upass = '$mypassword'";
       $result = mysqli_query($db,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-
+      $uid = $row['id'];
       
       $count = mysqli_num_rows($result);
       
       // If result matched $myusername and $mypassword, table row must be 1 row
 		
       if($count == 1) {
-		  $uid = $row['id'];
 		  $_SESSION['username']=$myusername ;
 		  $_SESSION['uid']=$uid ;
       //   session_register("myusername");

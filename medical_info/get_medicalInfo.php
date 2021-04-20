@@ -1,6 +1,5 @@
 <?php
 include('../session.php');
-$company_id=$_POST['company_id'];
 
 $sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
  DATE_FORMAT(tmi.last_renew_date,'%d/%m/%Y') last_renew_date,tmi.physical_deficiency,tmi.deficiency_desc,
@@ -11,7 +10,7 @@ $sql_minfo = "SELECT tmi.id,tmi.emp_id,tmi.medical_app,tmi.renew_interval,
 FROM tbl_employee_medical_information tmi
 LEFT join tbl_exist_not_exist tEN on tmi.medical_app=tEN.exist_id and tEN.lang='az'
 LEFT join tbl_yesno tYN on tmi.physical_deficiency=tYN.chois_id and tYN.lang='az'
-LEFT join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1 and te.company_id='$company_id'";
+LEFT join tbl_employees te on tmi.emp_id=te.id where tmi.status=1 and te.emp_status=1";
 
 //  tYN.chois_id, tYN.chois_desc,tYN.lang,
 //INNER join tbl_yesno tYN on tmi.medical_app=tYN.chois_id and tYN.lang='az'

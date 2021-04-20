@@ -67,6 +67,7 @@ $result_commands = $db->query($commands);
            style="opacity: .8">
       <span class="brand-text font-weight-light">&ensp; </span>
     </a>
+
         <!-- Sidebar -->
         <?php  include("main_menu.php") ?>
         <!-- /.sidebar -->

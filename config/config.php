@@ -1,19 +1,17 @@
 <?php
+
+  define('DB_SERVER', 'localhost');
+  define('DB_USERNAME', 'bahruz_root');
+  define('DB_PASSWORD', 'beyaz853');
+  define('DB_DATABASE', 'hrm');
  
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'root');
-define('DB_DATABASE', 'rhr');
-$db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-
-$db->set_charset('utf8');
-
+  $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+  mysqli_set_charset($db,"utf8");
 $company_name="HRM" ;
 $tbl_users='tbl_users' ;
 $tbl_contracts='tbl_contracts' ;
 $tbl_employee_commands='tbl_employee_commands' ;
 $tbl_commands='tbl_commands' ;
-//$tbl_employee_category='tbl_category2';
 $tbl_employee_category='tbl_category';
 $tbl_structure_positions='tbl_structure_positions';
 $tbl_position_level='tbl_position_level';
@@ -52,7 +50,7 @@ $tbl_sch_schtype='tbl_sch_schtype';
 $tbl_sch_reduce_from='tbl_sch_reduce_from';
 $tbl_sch_reduce_reason='tbl_sch_reduce_reason';
 $tbl_schedules='tbl_schedules';
-$tbl_employee_schedules='tbl_employee_schedules';
+$tbl_employee_schedules='tbl_employee_schedules';												 
 $tbl_position_status='tbl_position_status';
 $tbl_additions_salary='tbl_additions_salary';
 $tbl_place_expenditure='tbl_place_expenditure';
@@ -82,7 +80,6 @@ $sql_roles = "select * from $tbl_roles where status=1 order  by position";
 $sql_qua_dic = "select * from $tbl_qualification_dic ";
 $sql_university= "select * from $tbl_universities where status=1 ";
 $sql_emp_lang= "select * from $tbl_emp_lang ";
-
 if(!isset($_SESSION['login_user'])){
     $site_lang='az' ;
 }else
@@ -98,13 +95,10 @@ $sql_working_conditions= "select * from $tbl_working_conditions where lang='$sit
 $sql_exist_not_exist= "select * from $tbl_exist_not_exist where lang='$site_lang'";
 
 $sql_employees= "select * from $tbl_employees where  emp_status=1 ";
-
 $sql_employee_company= "select * from $tbl_employee_company where  status=1 ";
+$sql_employees_asc= "select * from $tbl_employees where  emp_status=1 ORDER BY id DESC LIMIT 1";
 $sql_type_dismissal= "select * from $tbl_type_dismissal where  lang='$site_lang' ";
 $sql_termination_clause= "select * from $tbl_termination_clause where  lang='$site_lang' ";
-
-$sql_employees_asc= "select * from $tbl_employees where  emp_status=1 ORDER BY id DESC LIMIT 1";
-
 $sql_country= "select * from $tbl_country where  lang='$site_lang' ";
 
 ?>
