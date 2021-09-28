@@ -1,7 +1,7 @@
 <?php
 
   define('DB_SERVER', 'localhost');
-  define('DB_USERNAME', 'bahruz_root');
+  define('DB_USERNAME', 'root');
   define('DB_PASSWORD', 'beyaz853');
   define('DB_DATABASE', 'hrm');
  
