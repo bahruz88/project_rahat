@@ -1,9 +1,9 @@
 <?php
 
   define('DB_SERVER', 'localhost');
-  define('DB_USERNAME', 'root');
+  define('DB_USERNAME', 'dep72435_root');
   define('DB_PASSWORD', 'beyaz853');
-  define('DB_DATABASE', 'hrm'); 
+  define('DB_DATABASE', 'dep72435_hrm');
  
   $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
   mysqli_set_charset($db,"utf8");
