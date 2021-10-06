@@ -43,7 +43,7 @@
                   <p>  <?php echo $dil["companies"];?></p>
                 </a>
               </li>
-			   <?php   if   ($uid!=71){?>
+	  <?php   if   ($uid!=71){?>
 			  <li class="nav-item " >
                 <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=modules&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="modules") { ?>active<?php }}?>">
                  
@@ -51,7 +51,25 @@
                 </a>
               </li>
       <?php  }?>
+	  
+	   <?php   if   ($uid!=71){?>
+			  <li class="nav-item " >
+                <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=groups&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="groups") { ?>active<?php }}?>">
+                 
+                  <p>  <?php echo $dil["groups"];?></p>
+                </a>
+              </li>
+      <?php  }?>
      
+	   <?php   if   ($uid!=71){?>
+			  <li class="nav-item " >
+                <a href="users.php?dil=<?php echo $_SESSION["dil"]; ?>&module=admin&submodule=roles&company_id_main=<?php echo $_SESSION["CompanyId"]; ?>" class="nav-link  <?php  if (isset($_GET["submodule"])) { if ($_GET["submodule"]=="roles") { ?>active<?php }}?>">
+                 
+                  <p>  <?php echo $dil["roles"];?></p>
+                </a>
+              </li>
+      <?php  }?>
+
             </ul>
           </li>
 
